@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { getCurrentUser } from "@/lib/session";
+import { useUser } from "@/contexts/UserContext";
 
 const links = [
   { href: "/quizzes", label: "שאלונים" },
@@ -9,8 +11,8 @@ const links = [
   { href: "/map", label: "מפה" },
 ];
 
-export async function Navbar() {
-  const user = await getCurrentUser();
+export function Navbar() {
+  const { user, ready } = useUser();
 
   return (
     <header className="border-b border-neutral-200 bg-white">
@@ -33,7 +35,7 @@ export async function Navbar() {
         </ul>
 
         <div className="text-sm">
-          {user ? (
+          {ready && user ? (
             <Link
               href="/me"
               className="font-medium text-neutral-900 hover:underline"

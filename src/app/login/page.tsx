@@ -1,18 +1,37 @@
-import { login } from "@/app/actions/auth";
+"use client";
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
-  const { error } = await searchParams;
+import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/contexts/UserContext";
+
+export default function LoginPage() {
+  const router = useRouter();
+  const { login } = useUser();
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = String(form.get("name") ?? "").trim();
+    const email = String(form.get("email") ?? "")
+      .trim()
+      .toLowerCase();
+
+    if (!name || !email) {
+      setError(true);
+      return;
+    }
+
+    login({ name, email });
+    router.push("/me");
+  };
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4">
       <h1 className="mb-2 text-2xl font-bold">כניסה למערכת</h1>
       <p className="mb-6 text-sm text-neutral-600">
-        הזינו שם ומייל כדי להיכנס. אין צורך בסיסמה — המערכת תזהה אתכם לפי
-        המייל בכניסות הבאות.
+        הזינו שם ומייל כדי להיכנס. אין צורך בסיסמה — הפרטים נשמרים בדפדפן הזה
+        בלבד ומשמשים לזיהוי שלכם ולמעקב אחרי ההתקדמות במכשיר הזה.
       </p>
 
       {error && (
@@ -21,7 +40,7 @@ export default async function LoginPage({
         </p>
       )}
 
-      <form action={login} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1 text-sm font-medium">
           שם מלא
           <input
