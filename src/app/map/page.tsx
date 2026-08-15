@@ -1,21 +1,20 @@
 import { embedUrl } from "@/lib/basePath";
 
+/*
+ * The heritage map is a self-contained MapLibre application (vector tiles,
+ * offline service worker, ~90MB of map data). It runs in an iframe rather than
+ * being rewritten as React components: it keeps its own map engine and caching
+ * intact while staying inside the site shell, so the user never leaves.
+ */
 export default function MapPage() {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="mb-2 text-2xl font-bold">מפה אינטראקטיבית</h1>
-      <p className="mb-6 text-neutral-600">
-        מפת מורשת ישראל — מפה וקטורית עצמאית בחלוקה לשכבות (אזורים, גיאולוגיה,
-        ציר זמן היסטורי, אתרי דת, שמורות וגנים, חי וצומח), עם בניית מסלול
-        סיור וחיפוש. עובדת גם אופליין לאחר טעינה ראשונה.
-      </p>
-
-      <a
-        href={embedUrl("map/")}
-        className="inline-block rounded-md bg-neutral-900 px-5 py-2.5 font-medium text-white transition hover:bg-neutral-700"
-      >
-        פתיחת המפה
-      </a>
+    <div className="flex h-[calc(100vh-3.6rem)] flex-col">
+      <iframe
+        src={embedUrl("map/")}
+        title="מפת מורשת ישראל"
+        className="h-full w-full border-0"
+        allow="geolocation"
+      />
     </div>
   );
 }

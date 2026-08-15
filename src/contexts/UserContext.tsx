@@ -1,45 +1,39 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { clearUser, readUser, writeUser, type LocalUser } from "@/lib/localAuth";
+import type { ReactNode } from "react";
+import { clearUser, writeUser, USER_KEY, USER_EVENT, parseUser, type LocalUser } from "@/lib/localAuth";
+import { makeStore, useHydrated } from "@/lib/clientStore";
 
-type UserContextValue = {
-  user: LocalUser | null;
-  ready: boolean;
-  login: (user: LocalUser) => void;
-  logout: () => void;
-};
+const store = makeStore<LocalUser | null>({
+  key: USER_KEY,
+  empty: null,
+  parse: parseUser,
+  events: [USER_EVENT],
+});
 
-const UserContext = createContext<UserContextValue | null>(null);
-
+/**
+ * Kept as a provider for call-site ergonomics, but the state itself lives in
+ * localStorage and is read through useSyncExternalStore — so every consumer
+ * stays in sync without prop drilling or a mount effect.
+ */
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<LocalUser | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setUser(readUser());
-    setReady(true);
-  }, []);
-
-  const login = (nextUser: LocalUser) => {
-    writeUser(nextUser);
-    setUser(nextUser);
-  };
-
-  const logout = () => {
-    clearUser();
-    setUser(null);
-  };
-
-  return (
-    <UserContext.Provider value={{ user, ready, login, logout }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <>{children}</>;
 }
 
 export function useUser() {
-  const ctx = useContext(UserContext);
-  if (!ctx) throw new Error("useUser must be used within UserProvider");
-  return ctx;
+  const user = store.use();
+  const ready = useHydrated();
+
+  return {
+    user,
+    ready,
+    login: (next: LocalUser) => {
+      writeUser(next);
+      store.notify();
+    },
+    logout: () => {
+      clearUser();
+      store.notify();
+    },
+  };
 }

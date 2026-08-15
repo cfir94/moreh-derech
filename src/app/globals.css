@@ -1,24 +1,137 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens — a warm "field guide" palette: limestone/sand grounds with a
+ * deep teal accent picked up from the heritage map, so the whole system reads
+ * as one product. Light is the primary mode; dark is a full re-map, not a filter.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --bg: #faf7f2;
+  --bg-raised: #ffffff;
+  --bg-sunken: #f2ede4;
+  --border: #e4dccf;
+  --border-strong: #cdc0ab;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-rubik);
+  --fg: #241f18;
+  --fg-muted: #6b6153;
+  --fg-subtle: #938876;
+
+  --accent: #0e7c72;
+  --accent-hover: #0b635b;
+  --accent-soft: #d9ede9;
+  --accent-fg: #ffffff;
+
+  --gold: #b0812f;
+  --gold-soft: #f7edd8;
+
+  --success: #2f7d4f;
+  --success-soft: #dff0e4;
+  --danger: #b03a34;
+  --danger-soft: #fae3e1;
+
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 2px rgb(36 31 24 / 0.06), 0 1px 3px rgb(36 31 24 / 0.04);
+  --shadow-md: 0 2px 6px rgb(36 31 24 / 0.07), 0 8px 24px rgb(36 31 24 / 0.06);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #16130f;
+    --bg-raised: #211c17;
+    --bg-sunken: #100e0b;
+    --border: #362f26;
+    --border-strong: #4b4136;
+
+    --fg: #f4efe7;
+    --fg-muted: #b3a898;
+    --fg-subtle: #8a7f6f;
+
+    --accent: #3fb5a6;
+    --accent-hover: #58c8ba;
+    --accent-soft: #14312e;
+    --accent-fg: #08211e;
+
+    --gold: #d9ab52;
+    --gold-soft: #302512;
+
+    --success: #6dc389;
+    --success-soft: #16301f;
+    --danger: #e0776f;
+    --danger-soft: #351a18;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 2px 6px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #16130f;
+  --bg-raised: #211c17;
+  --bg-sunken: #100e0b;
+  --border: #362f26;
+  --border-strong: #4b4136;
+
+  --fg: #f4efe7;
+  --fg-muted: #b3a898;
+  --fg-subtle: #8a7f6f;
+
+  --accent: #3fb5a6;
+  --accent-hover: #58c8ba;
+  --accent-soft: #14312e;
+  --accent-fg: #08211e;
+
+  --gold: #d9ab52;
+  --gold-soft: #302512;
+
+  --success: #6dc389;
+  --success-soft: #16301f;
+  --danger: #e0776f;
+  --danger-soft: #351a18;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 2px 6px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-border-base: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-rubik);
+  --radius-card: var(--radius);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* A faint topographic wash so large empty areas still feel designed. */
+.topo-bg {
+  background-image:
+    radial-gradient(circle at 15% 20%, color-mix(in oklab, var(--accent) 7%, transparent) 0%, transparent 42%),
+    radial-gradient(circle at 85% 8%, color-mix(in oklab, var(--gold) 8%, transparent) 0%, transparent 38%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

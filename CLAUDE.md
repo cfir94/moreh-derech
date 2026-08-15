@@ -4,127 +4,116 @@
 
 אתר/מערכת אחת שמרכזת את כל מה שתלמיד בקורס מורי דרך צריך:
 
-- **מאגר שאלונים** — שאלונים אמריקאיים (רב-ברירה) לפי קטגוריות מהחומר הנבחן.
-- **דוחות הדרכה** — לפי הפורמט שדורש משרד התיירות (עדיין placeholder, אין
-  חומר מקור).
-- **סרטונים מומלצים** — קישורים לסרטוני יוטיוב (עדיין placeholder, אין חומר
-  מקור).
-- **צירי זמן** — לפי נושאים היסטוריים.
-- **מפה אינטראקטיבית** — מפת ישראל עם נקודות ציון והסברים למורה דרך.
-- **התחברות ומעקב אישי** — כניסה עם שם+מייל בלבד (ללא סיסמה), ומעקב אחרי מה
-  כל משתמש תרגל, מה טעה בו, ומה צריך לחזור עליו.
+- **מאגר שאלונים** — 609 שאלות רב-ברירה בארבעה שאלונים, לפי נושאים.
+- **צירי זמן** — צירי זמן אינטראקטיביים לפי נושא היסטורי.
+- **מפה אינטראקטיבית** — מפת מורשת ישראל בשכבות.
+- **מעקב אישי** — כניסה עם שם+מייל (ללא סיסמה), ומעקב ברמת השאלה הבודדת:
+  מה נענה, במה טעו, ומה עוד ממתין לחזרה.
+- **דוחות הדרכה** ו**סרטונים** — עדיין placeholder, ממתינים לחומר מקור.
 
-## סטאק טכני וארכיטקטורה — חשוב לקרוא לפני שינויים
+## אילוץ מרכזי: אתר סטטי ללא שרת
 
-**האתר מתארח כ-static site ב-GitHub Pages** (`https://cfir94.github.io/moreh-derech/`),
-**ללא שרת וללא DB בצד שרת**. זו אילוץ מכריע שקבע את כל הארכיטקטורה:
+האתר מתארח ב-GitHub Pages (`https://cfir94.github.io/moreh-derech/`) —
+**אין שרת ואין DB**. זה קבע את הארכיטקטורה:
 
-- Next.js 16 (App Router) + TypeScript + Tailwind v4, עם
-  `output: "export"` ו-`basePath: "/moreh-derech"` ב-`next.config.ts`
-  (הבנייה מייצרת `out/` ולא שרת).
-- **אין Prisma / DB / server actions.** הוסרו במעבר ל-static export. אימות
-  ומעקב התקדמות מבוססים כולם על `localStorage` בדפדפן של המשתמש (ראו
-  `src/lib/localAuth.ts`, `src/contexts/UserContext.tsx`, `src/lib/progress.ts`).
-  המשמעות: הנתונים נשמרים **פר-מכשיר/דפדפן בלבד**, ללא סנכרון בין מכשירים.
-  זהו trade-off מודע (תועד בשיחה עם הבעלים) — שדרוג עתידי לחשבון אמיתי עם DB
-  ידרוש מעבר לפלטפורמת אחסון עם שרת (Vercel/Netlify וכו').
+- Next.js 16 (App Router) + TypeScript + Tailwind v4, עם `output: "export"`
+  ו-`basePath: "/moreh-derech"` (`next.config.ts`). הבנייה מייצרת `out/`.
+- אימות ומעקב מבוססים כולם `localStorage` — ראו `src/lib/localAuth.ts`,
+  `src/contexts/UserContext.tsx`, `src/lib/progress.ts`.
+- **הנתונים נשמרים פר-דפדפן/מכשיר, ללא סנכרון.** זה trade-off מודע שאושר
+  ע"י הבעלים. מעבר לחשבון אמיתי מסונכרן ידרוש פלטפורמה עם שרת (Vercel וכו').
 
-### תבנית ה"embeds" — איך שולבו האפליקציות החיצוניות
+## איך התוכן הגיע לכאן — חשוב לפני עריכת תוכן
 
-לבעל הפרויקט כבר היו כמה אפליקציות שאלונים/צירי-זמן/מפה עצמאיות (חלקן
-ריפואי GitHub, חלקן ZIP שהועלו) — כל אחת בנויה כאפליקציית Vite+React נפרדת
-(חלקן נבנו בעבר בכלי AI בשם "Manus"). **לא בוצע port מלא שלהן ל-React
-components בתוך Next** — זה היה סיכון גבוה מדי לביצוע בלילה אחד. במקום זה:
+לבעלים היו כמה אפליקציות Vite/React עצמאיות (שאלונים, צירי זמן, מפה), חלקן
+ריפואי GitHub וחלקן ZIP. **הנתונים מהן עברו פורט מלא לתוך האתר** — הם אינם
+אפליקציות נפרדות יותר:
 
-1. כל אפליקציה כזו נבנתה (`vite build`) כ-bundle סטטי עצמאי, עם `base` ב-
-   `vite.config.ts` מוגדר לתת-הנתיב המדויק שבו היא תוגש (למשל
-   `/moreh-derech/embeds/quizzes/geology/`).
-2. תוצר הבנייה הועתק ל-`public/embeds/<category>/<slug>/` בפרויקט הזה —
-   כלומר הוא חלק מ-`out/` הסופי של Next (Next מעתיק את כל `public/` כמו
-   שהוא ב-static export).
-3. עמודי הסקציות (`/quizzes`, `/timelines`, `/map`) הם עמודי Next רגילים
-   עם כרטיסיות שמקשרות (`<a href>` רגיל, לא `<Link>`) לכל embed — ניווט
-   מלא-עמוד, לא iframe.
-4. **מעקב התקדמות חוצה-אפליקציות**: `public/shared/progress-tracker.js`
-   נטען על ידי כל אפליקציית שאלון מוטמעת (`<script src="/moreh-derech/shared/progress-tracker.js">`
-   ב-`client/index.html` שלה), וחושף `window.MDProgress.record({...})`.
-   כל אפליקציית שאלון תוקנה כך שב-`finishQuiz` (ב-`Home.tsx` שלה) היא קוראת
-   ל-`MDProgress.record({quiz, quizLabel, category, correct, total, wrongQuestions})`.
-   זה עובד כי כל ה-embeds וה-hub הם **אותו origin** (אותו דומיין ב-GitHub
-   Pages) — כולם כותבים לאותו מפתח `localStorage` (`md_quiz_progress_v1`),
-   וה-hub קורא אותו ב-`src/lib/progress.ts` / `/me`. **נבדק ועובד קצה-לקצה**
-   (ניווט hub→embed, קריאה ל-MDProgress.record, וקריאה חזרה ב-/me — נבדק
-   עם Playwright).
+- `src/data/quizzes/*.ts` — נוצרו אוטומטית מ-`quizData.ts` של ארבעת
+  פרויקטי השאלונים (`/workspace/cfir94/{geology,history,iron-age}-quiz`,
+  `/workspace/sources/tourguidequiz`). קבצים אלה **generated — לא לערוך ידנית**.
+- `src/data/timelines/*.ts` — נוצרו מ-`biblicaltimelines` ומ-
+  `egyptcanaantimeline`.
+- תמונות השאלונים הועתקו ל-`public/quiz-images/<quiz>/`.
 
-תיקיות המקור המקוריות (לפני build) נמצאות תחת `/workspace/cfir94/*` (ריפואי
-GitHub: `geology-quiz`, `history-quiz`, `iron-age-quiz`, `israel-heritage-map`)
-ו-`/workspace/sources/*` (ZIP: `biblicaltimelines`, `egyptcanaantimeline`,
-`tourguidequiz`) — **לא הועתקו לתוך ריפו זה**, רק תוצרי הבנייה שלהן. אם צריך
-לעדכן תוכן של embed בעתיד, יש לחזור למקור, לערוך שם, לבנות מחדש ולהעתיק
-לתוך `public/embeds/...`.
+ה-UI נכתב מחדש מקומית (`src/components/quiz/QuizRunner.tsx`,
+`src/components/timeline/TimelineViewer.tsx`) בעיצוב של האתר, כדי שהחוויה
+תהיה אחידה ולא "קפיצה" לממשק זר.
 
-`israel-heritage-map` הוא היוצא מן הכלל — אתר סטטי טהור (HTML/CSS/JS, בלי
-build step), עם נתיבים יחסיים בלבד, כך שהועתק ישירות ללא שינוי.
+**היוצא מן הכלל — המפה**: `israel-heritage-map` היא אפליקציית MapLibre שלמה
+(vector tiles, service worker, ~90MB נתונים). היא נשארה כפי שהיא תחת
+`public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map` — כך המשתמש נשאר בתוך
+האתר עם הניווט שלו, בלי לשכתב מנוע מפות שלם.
 
-## מבנה תיקיות
+## מערכת המעקב (`src/lib/progress.ts`)
+
+מפתח `md_progress_v2` ב-localStorage, שני חלקים:
+
+- `attempts[]` — שורה לכל סבב תרגול שהושלם (לסטטיסטיקה והיסטוריה).
+- `questions{}` — מצב לכל שאלה, במפתח `"<quizSlug>:<questionId>"`, כולל
+  `seen` / `wrong` / `lastCorrectAt` / `lastWrongAt`.
+
+**הלוגיקה המרכזית**: שאלה נחשבת "ממתינה לחזרה" כל עוד התשובה **האחרונה**
+עליה הייתה שגויה (`needsReview()`). לכן מענה נכון מאוחר יותר מוציא אותה
+מהתור — אבל היסטוריית הטעויות (`wrong`) נשמרת.
+
+מכאן `/quizzes/review` — מסך שמתרגל בדיוק את השאלות האלה, חוצה-שאלונים.
+שים לב ל-`sourceQuiz` על `Question`: במצב חזרה השאלות מגיעות מכמה שאלונים,
+והשדה הזה מבטיח שהתוצאה נזקפת לשאלון המקורי ולא ל"review" — בלי זה מענה
+נכון בחזרה לא היה מנקה את השאלה (באג שנתפס ותוקן).
+
+## מבנה
 
 ```
 src/
   app/
-    page.tsx              דף בית עם קישורים לכל הסקציות
-    login/                עמוד כניסה (שם + מייל) — client component
-    me/                   אזור אישי, מציג סיכום התקדמות מ-localStorage
-    quizzes/               כרטיסיות שמקשרות ל-embeds/quizzes/*
-    timelines/              כרטיסיות שמקשרות ל-embeds/timelines/*
-    map/                    קישור ל-embeds/map
-    guide-reports/          placeholder (אין חומר מקור עדיין)
-    videos/                 placeholder (אין חומר מקור עדיין)
+    page.tsx                 דף בית
+    login/  me/               כניסה ואזור אישי (מעקב מלא)
+    quizzes/                  אינדקס שאלונים
+      [slug]/                 שאלון בודד (generateStaticParams)
+      review/                 תרגול טעויות חוצה-שאלונים
+    timelines/                אינדקס + biblical/ + egypt-canaan/
+    map/                      iframe של מפת המורשת
+    guide-reports/  videos/    placeholders
   components/
-    Navbar.tsx               ניווט ראשי, client component עם useUser()
-    PlaceholderSection.tsx    קומפוננטת placeholder
-  contexts/
-    UserContext.tsx           React context ל-localStorage auth
-  lib/
-    localAuth.ts               קריאה/כתיבה/מחיקה של משתמש ב-localStorage
-    progress.ts                 קריאה וסיכום של md_quiz_progress_v1
-    basePath.ts                  קבוע BASE_PATH + embedUrl() helper
+    quiz/QuizRunner.tsx        מנוע השאלונים (setup → שאלות → תוצאות)
+    timeline/TimelineViewer.tsx צירי זמן אינטראקטיביים
+    Navbar.tsx  HomeProgress.tsx  PlaceholderSection.tsx
+  contexts/UserContext.tsx
+  hooks/useProgress.ts         קריאת המעקב בצד לקוח בלבד
+  lib/  progress.ts  localAuth.ts  basePath.ts
+  data/ quizzes/  timelines/     נתונים generated
 public/
-  embeds/
-    quizzes/{general,geology,history,iron-age}/  תוצרי vite build
-    timelines/{biblical,egypt-canaan}/             תוצרי vite build
-    map/                                            israel-heritage-map כפי שהוא
-  shared/
-    progress-tracker.js       נטען על ידי כל embed שאלון, כותב ל-localStorage
+  quiz-images/<quiz>/           תמונות השאלות
+  embeds/map/                    אפליקציית המפה כפי שהיא
 ```
 
 ## מוסכמות
 
-- כל ה-UI בעברית, `dir="rtl"` על ה-`<html>` (מוגדר ב-`src/app/layout.tsx`).
-- פונט Rubik (תומך עברית) דרך `next/font/google`.
-- קישורים ל-embeds חייבים לעבור דרך `embedUrl()` מ-`src/lib/basePath.ts`
-  (לא `<Link>` של Next — אלה קבצים סטטיים חיצוניים ל-router של Next).
-- `src/contexts/UserContext.tsx` נטען אך ורק ב-`useEffect` (client-only) כדי
-  להימנע מ-hydration mismatch מול ה-HTML הסטטי שנוצר ב-build.
+- UI בעברית, `dir="rtl"`, פונט Rubik.
+- עיצוב דרך design tokens ב-`globals.css` (`--accent`, `--fg-muted` וכו'),
+  שנחשפים כ-Tailwind utilities (`text-fg-muted`, `bg-bg-raised`). **לא**
+  להשתמש בצבעי Tailwind גולמיים כמו `text-neutral-600` — זה שובר dark mode.
+- מצב כהה נתמך מלא (media query + `[data-theme]`), לא פילטר.
+- קריאה ל-localStorage תמיד ב-`useEffect` (דרך `useProgress`/`UserContext`),
+  אחרת יש hydration mismatch מול ה-HTML הסטטי.
+- נתיבי assets ידניים חייבים `withBasePath()` מ-`src/lib/basePath.ts`.
 
 ## רודמאפ פתוח
 
-1. **דוחות הדרכה** ו**סרטונים** — עדיין placeholder, ממתינים לחומר מקור
-   מהבעלים.
-2. תמונות שאלון "general" (tourguidequiz) חסרות — כ-70 שאלות הצביעו במקור
-   על שרת אחסון תמונות של Manus (`/manus-storage/...`) שלא קיים יותר; קבצי
-   התמונות המקוריים לא היו בתוך ה-ZIP. השאלון עובד תקין, רק בלי תמונות
-   (נכשל בחן, לא קורס). אם יימצאו קבצי התמונות המקוריים — להעתיק ל-
-   `public/embeds/quizzes/general/` ולעדכן את הנתיבים.
-3. שדרוג עתידי אפשרי: מעבר מ-localStorage ל-DB אמיתי (Vercel/Postgres) לצורך
-   סנכרון בין מכשירים — ידרוש לוותר על GitHub Pages כפלטפורמת אחסון.
+1. **דוחות הדרכה** ו**סרטונים** — ממתינים לחומר מקור.
+2. תמונות שאלון "החי והצומח" — 79 שאלות הצביעו על שרת אחסון של Manus שאינו
+   קיים; הקבצים לא היו ב-ZIP. השאלון עובד, רק בלי תמונות. אם יימצאו הקבצים,
+   להעתיק ל-`public/quiz-images/flora-fauna/` ולעדכן את הנתיבים בסקריפט
+   החילוץ.
+3. סנכרון בין מכשירים — ידרוש מעבר מ-GitHub Pages לפלטפורמה עם שרת.
 
-## פקודות שימושיות
+## פקודות
 
 ```bash
-npm run dev              # שרת פיתוח (ללא basePath - ראו הערה למטה)
-npm run build             # next build --  static export ל-out/
-npx serve out              # תצוגה מקדימה של תוצר הבנייה
+npm run dev     # פיתוח — לגשת ל-http://localhost:3000/moreh-derech/
+npm run build    # static export ל-out/
 ```
 
-הערה: ב-`next dev` (פיתוח מקומי) ה-`basePath` עדיין חל, כך שיש לגשת ל-
-`http://localhost:3000/moreh-derech/` ולא ל-`http://localhost:3000/`.
+פריסה: GitHub Actions (`.github/workflows/deploy.yml`) בונה ודוחף ל-
+`gh-pages` בכל push ל-main.

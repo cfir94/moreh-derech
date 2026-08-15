@@ -1,112 +1,204 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
-import { readProgress, summarizeProgress, type ProgressSummary } from "@/lib/progress";
+import { useProgress } from "@/hooks/useProgress";
+import { needsReview, resetProgress, summarize } from "@/lib/progress";
+
+function formatDate(ts: number) {
+  return new Date(ts).toLocaleDateString("he-IL", {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 export default function MePage() {
   const router = useRouter();
   const { user, ready, logout } = useUser();
-  const [summary, setSummary] = useState<ProgressSummary | null>(null);
+  const { state, ready: progressReady } = useProgress();
 
   useEffect(() => {
-    if (ready && !user) {
-      router.replace("/login");
-    }
+    if (ready && !user) router.replace("/login");
   }, [ready, user, router]);
 
-  useEffect(() => {
-    if (user) {
-      setSummary(summarizeProgress(readProgress()));
-    }
-  }, [user]);
+  if (!ready || !user || !progressReady) return null;
 
-  if (!ready || !user) {
-    return null;
-  }
+  const s = summarize(state);
+  const review = needsReview(state);
+  const hasData = s.totalAttempts > 0;
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="mb-1 text-2xl font-bold">שלום, {user.name}</h1>
-      <p className="mb-8 text-sm text-neutral-600">{user.email}</p>
+    <div className="mx-auto max-w-4xl px-4 py-10">
+      <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">שלום, {user.name}</h1>
+          <p className="text-sm text-fg-muted">{user.email}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            logout();
+            router.push("/login");
+          }}
+          className="rounded-card border border-border-strong px-4 py-2 text-sm transition hover:bg-bg-sunken"
+        >
+          יציאה
+        </button>
+      </header>
 
-      <div className="mb-6 rounded-lg border border-neutral-200 p-6">
-        <h2 className="mb-4 text-lg font-semibold">מעקב התקדמות</h2>
-
-        {!summary || summary.totalAttempts === 0 ? (
-          <p className="text-neutral-600">
-            עדיין לא תרגלתם אף שאלון במכשיר הזה. אחרי שתסיימו שאלון, התוצאות
-            יופיעו כאן אוטומטית.
+      {!hasData ? (
+        <div className="rounded-card border border-dashed border-border-strong p-10 text-center">
+          <h2 className="mb-2 text-lg font-semibold">עוד לא התחלתם לתרגל</h2>
+          <p className="mb-6 text-fg-muted">
+            אחרי הסבב הראשון יופיעו כאן אחוזי ההצלחה, הפילוח לפי נושא, ורשימת
+            השאלות שכדאי לחזור עליהן.
           </p>
-        ) : (
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-wrap gap-6 text-sm">
-              <div>
-                <div className="text-2xl font-bold">{summary.totalAttempts}</div>
-                <div className="text-neutral-600">שאלונים שהושלמו</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{summary.accuracyPct}%</div>
-                <div className="text-neutral-600">אחוז הצלחה כולל</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold">
-                  {summary.totalCorrect}/{summary.totalQuestions}
+          <Link
+            href="/quizzes"
+            className="rounded-card bg-accent px-5 py-2.5 font-medium text-accent-fg transition hover:bg-accent-hover"
+          >
+            לשאלונים
+          </Link>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-8">
+          <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {[
+              { label: "סבבי תרגול", value: s.totalAttempts },
+              { label: "אחוז הצלחה", value: `${s.accuracyPct}%`, accent: true },
+              { label: "שאלות שנענו", value: s.totalAnswered },
+              { label: "ממתינות לחזרה", value: s.reviewCount },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-card border border-border-base bg-bg-raised p-5"
+              >
+                <div
+                  className={`text-3xl font-bold ${stat.accent ? "text-accent" : ""}`}
+                >
+                  {stat.value}
                 </div>
-                <div className="text-neutral-600">תשובות נכונות</div>
+                <div className="mt-1 text-xs text-fg-muted">{stat.label}</div>
               </div>
-            </div>
+            ))}
+          </section>
 
-            <div>
-              <h3 className="mb-2 font-medium">לפי שאלון</h3>
-              <ul className="flex flex-col gap-2">
-                {summary.byQuiz.map((q) => (
-                  <li
-                    key={q.quiz}
-                    className="flex items-center justify-between rounded-md border border-neutral-200 px-3 py-2 text-sm"
-                  >
-                    <span>{q.quizLabel}</span>
-                    <span className="text-neutral-600">
-                      {q.attempts} ניסיונות · {q.accuracyPct}% הצלחה
+          {s.reviewCount > 0 && (
+            <Link
+              href="/quizzes/review"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-card border border-gold bg-gold-soft p-5 transition hover:shadow-[var(--shadow-sm)]"
+            >
+              <div>
+                <h2 className="font-semibold">תרגול טעויות</h2>
+                <p className="text-sm text-fg-muted">
+                  {s.reviewCount} שאלות שטעיתם בהן ועדיין לא עניתם עליהן נכון.
+                </p>
+              </div>
+              <span className="rounded-card bg-gold px-4 py-2 text-sm font-semibold text-white">
+                לתרגל עכשיו
+              </span>
+            </Link>
+          )}
+
+          <section>
+            <h2 className="mb-3 text-lg font-semibold">לפי שאלון</h2>
+            <ul className="flex flex-col gap-3">
+              {s.byQuiz.map((q) => (
+                <li
+                  key={q.quiz}
+                  className="rounded-card border border-border-base bg-bg-raised p-5"
+                >
+                  <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="font-medium">{q.quizLabel}</h3>
+                    <span className="text-sm text-fg-muted">
+                      {q.attempts} סבבים · {q.correct}/{q.total} נכונות
                     </span>
+                  </div>
+                  <div className="mb-2 h-2 overflow-hidden rounded-full bg-bg-sunken">
+                    <div
+                      className="h-full rounded-full bg-accent"
+                      style={{ width: `${q.accuracyPct}%` }}
+                    />
+                  </div>
+                  <div className="flex flex-wrap gap-x-4 text-xs text-fg-subtle">
+                    <span>{q.accuracyPct}% הצלחה</span>
+                    {q.reviewCount > 0 && (
+                      <span className="text-gold">
+                        {q.reviewCount} שאלות לחזרה
+                      </span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {review.length > 0 && (
+            <section>
+              <h2 className="mb-3 text-lg font-semibold">
+                שאלות שכדאי לחזור עליהן
+              </h2>
+              <ul className="flex flex-col gap-2">
+                {review.slice(0, 20).map((q) => (
+                  <li
+                    key={`${q.quiz}:${q.questionId}`}
+                    className="rounded-card border border-border-base bg-bg-raised px-4 py-3"
+                  >
+                    <p className="mb-1 text-sm leading-relaxed">{q.question}</p>
+                    <p className="text-xs text-fg-subtle">
+                      {q.category} · טעיתם {q.wrong}{" "}
+                      {q.wrong === 1 ? "פעם" : "פעמים"} מתוך {q.seen}
+                    </p>
                   </li>
                 ))}
               </ul>
-            </div>
+              {review.length > 20 && (
+                <p className="mt-3 text-sm text-fg-subtle">
+                  ועוד {review.length - 20} שאלות…
+                </p>
+              )}
+            </section>
+          )}
 
-            {summary.frequentMistakes.length > 0 && (
-              <div>
-                <h3 className="mb-2 font-medium">שאלות שכדאי לחזור עליהן</h3>
-                <ul className="flex flex-col gap-2">
-                  {summary.frequentMistakes.map((m) => (
-                    <li
-                      key={m.question}
-                      className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-900"
-                    >
-                      {m.question}{" "}
-                      <span className="text-red-600">
-                        (טעיתם {m.count} {m.count === 1 ? "פעם" : "פעמים"})
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+          <section>
+            <h2 className="mb-3 text-lg font-semibold">סבבים אחרונים</h2>
+            <ul className="flex flex-col gap-2">
+              {s.recent.map((a) => (
+                <li
+                  key={a.ts}
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-card border border-border-base bg-bg-raised px-4 py-3 text-sm"
+                >
+                  <span>
+                    {a.quizLabel}
+                    <span className="text-fg-subtle"> · {a.category}</span>
+                  </span>
+                  <span className="text-fg-muted">
+                    {a.correct}/{a.total} · {formatDate(a.ts)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-      <button
-        type="button"
-        onClick={() => {
-          logout();
-          router.push("/login");
-        }}
-        className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium transition hover:bg-neutral-100"
-      >
-        יציאה
-      </button>
+          <section className="border-t border-border-base pt-6">
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm("לאפס את כל נתוני ההתקדמות? הפעולה אינה הפיכה.")) {
+                  resetProgress();
+                }
+              }}
+              className="text-sm text-danger hover:underline"
+            >
+              איפוס נתוני ההתקדמות
+            </button>
+          </section>
+        </div>
+      )}
     </div>
   );
 }

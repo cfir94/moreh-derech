@@ -1,39 +1,57 @@
-import { embedUrl } from "@/lib/basePath";
+import Link from "next/link";
+import biblical from "@/data/timelines/biblical";
+import egyptCanaan from "@/data/timelines/egypt-canaan";
 
-const timelines = [
+const sets = [
   {
     slug: "biblical",
-    title: "צירי זמן מהברית החדשה",
+    title: "חמשת צירי הזמן — הברית החדשה",
     description:
-      "חמישה צירי זמן מאוירים: ילדות ישוע, שליחותו, השבוע הקדוש, לאחר התחייה ומעשי השליחים.",
+      "ילדות ישוע, שליחותו, השבוע הקדוש, לאחר התחייה ומעשי השליחים — עם המקורות המלאים לכל אירוע.",
+    timelines: biblical,
   },
   {
     slug: "egypt-canaan",
-    title: "מצרים וכנען בתקופת הברונזה",
+    title: "מצרים, כנען וראשית ישראל",
     description:
-      "ציר זמן של יחסי מצרים וכנען: ממגידו ועד מכתבי אל-עמארנה ותקופת רעמסס.",
+      "מקרב מגידו ומכתבי אל-עמארנה ועד ראשית תקופת הברזל ומצבת מרנפתח.",
+    timelines: egyptCanaan,
   },
 ];
 
 export default function TimelinesPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
-      <h1 className="mb-2 text-2xl font-bold">צירי זמן</h1>
-      <p className="mb-8 text-neutral-600">
-        צירי זמן ויזואליים לפי נושאים היסטוריים מרכזיים בחומר הקורס.
-      </p>
+    <div className="mx-auto max-w-5xl px-4 py-10">
+      <header className="mb-8">
+        <h1 className="mb-2 text-3xl font-bold tracking-tight">צירי זמן</h1>
+        <p className="max-w-2xl text-fg-muted">
+          צירי זמן אינטראקטיביים לפי נושא. לחיצה על אירוע פותחת את ההסבר המלא
+          ואת המקורות.
+        </p>
+      </header>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {timelines.map((t) => (
-          <a
-            key={t.slug}
-            href={embedUrl(`timelines/${t.slug}/`)}
-            className="rounded-lg border border-neutral-200 p-5 transition hover:border-neutral-400 hover:shadow-sm"
-          >
-            <h2 className="mb-1 font-semibold">{t.title}</h2>
-            <p className="text-sm text-neutral-600">{t.description}</p>
-          </a>
-        ))}
+        {sets.map((s) => {
+          const events = s.timelines.reduce((n, t) => n + t.events.length, 0);
+          return (
+            <Link
+              key={s.slug}
+              href={`/timelines/${s.slug}`}
+              className="group rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)] transition hover:border-accent hover:shadow-[var(--shadow-md)]"
+            >
+              <h2 className="mb-1.5 text-lg font-semibold transition group-hover:text-accent">
+                {s.title}
+              </h2>
+              <p className="mb-4 text-sm leading-relaxed text-fg-muted">
+                {s.description}
+              </p>
+              <div className="flex gap-4 text-xs text-fg-subtle">
+                <span>{events} אירועים</span>
+                {s.timelines.length > 1 && <span>{s.timelines.length} צירים</span>}
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
