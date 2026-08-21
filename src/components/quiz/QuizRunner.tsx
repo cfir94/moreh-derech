@@ -42,6 +42,8 @@ export function QuizRunner({
   const [picked, setPicked] = useState<string | null>(null);
   const [answers, setAnswers] = useState<RecordedAnswer[]>([]);
 
+  const noun = quiz.categoryNoun ?? { one: "נושא", many: "נושאים" };
+
   const pool = useMemo(
     () =>
       category === "הכל"
@@ -127,13 +129,15 @@ export function QuizRunner({
 
         <h1 className="mb-2 text-3xl font-bold tracking-tight">{quiz.label}</h1>
         <p className="mb-8 text-fg-muted">
-          {quiz.questions.length} שאלות · {quiz.categories.length} נושאים.
-          בחרו נושא והיקף תרגול, והתוצאות יישמרו אוטומטית באזור האישי.
+          {quiz.questions.length} שאלות · {quiz.categories.length} {noun.many}.
+          בחרו {noun.one} והיקף תרגול, והתוצאות יישמרו אוטומטית באזור האישי.
         </p>
 
         <div className="flex flex-col gap-7 rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)]">
           <section>
-            <h2 className="mb-3 text-sm font-semibold text-fg-muted">נושא</h2>
+            <h2 className="mb-3 text-sm font-semibold text-fg-muted">
+              {noun.one}
+            </h2>
             <div className="flex flex-wrap gap-2">
               {["הכל", ...quiz.categories].map((c) => {
                 const count =

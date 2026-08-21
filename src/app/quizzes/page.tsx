@@ -24,15 +24,25 @@ export default function QuizzesPage() {
             href={`/quizzes/${quiz.slug}`}
             className="group rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)] transition hover:border-accent hover:shadow-[var(--shadow-md)]"
           >
-            <h2 className="mb-1.5 text-lg font-semibold transition group-hover:text-accent">
-              {quiz.label}
-            </h2>
+            <div className="mb-1.5 flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-semibold transition group-hover:text-accent">
+                {quiz.label}
+              </h2>
+              {quiz.slug === "past-exams" && (
+                <span className="rounded-full bg-gold-soft px-2.5 py-0.5 text-xs font-medium text-gold">
+                  מבחנים רשמיים
+                </span>
+              )}
+            </div>
             <p className="mb-4 text-sm leading-relaxed text-fg-muted">
               {QUIZ_DESCRIPTIONS[quiz.slug]}
             </p>
             <div className="flex gap-4 text-xs text-fg-subtle">
               <span>{quiz.questions.length} שאלות</span>
-              <span>{quiz.categories.length} נושאים</span>
+              <span>
+                {quiz.categories.length}{" "}
+                {(quiz.categoryNoun ?? { many: "נושאים" }).many}
+              </span>
             </div>
           </Link>
         ))}

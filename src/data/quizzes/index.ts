@@ -3,10 +3,13 @@ import floraFauna from "@/data/quizzes/flora-fauna";
 import geology from "@/data/quizzes/geology";
 import history from "@/data/quizzes/history";
 import ironAge from "@/data/quizzes/iron-age";
+import pastExams from "@/data/quizzes/past-exams";
 
-export const QUIZZES: Quiz[] = [floraFauna, geology, history, ironAge];
+export const QUIZZES: Quiz[] = [pastExams, floraFauna, geology, history, ironAge];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  "past-exams":
+    "שאלות אמיתיות ממבחני הרישוי של משרד התיירות, 2021–2025, עם התשובות הרשמיות.",
   "flora-fauna":
     "צמחייה, ציפורים, יונקים, זוחלים, נדידה ובתי גידול — הטבע של ארץ ישראל.",
   geology:

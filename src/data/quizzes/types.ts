@@ -27,4 +27,9 @@ export type Quiz = {
   label: string;
   categories: string[];
   questions: Question[];
+  /**
+   * What a category means in this quiz — subject areas in most, but exam
+   * sittings in the past-exams quiz. Singular then plural.
+   */
+  categoryNoun?: { one: string; many: string };
 };
