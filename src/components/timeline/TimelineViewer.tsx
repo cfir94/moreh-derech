@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 import type { Timeline, TimelineEvent } from "@/data/timelines/types";
+import { domainStyle } from "@/lib/domains";
 
 export function TimelineViewer({
   timelines,
   title,
   intro,
+  slug,
 }: {
   timelines: Timeline[];
   title: string;
   intro: string;
+  slug: string;
 }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [selected, setSelected] = useState<TimelineEvent | null>(null);
@@ -28,10 +31,10 @@ export function TimelineViewer({
   }, [selected]);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
+    <div className="screen-in mx-auto max-w-3xl px-4 py-10" style={domainStyle(slug)}>
       <header className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">{title}</h1>
-        <p className="max-w-2xl text-fg-muted">{intro}</p>
+        <h1 className="grad-text mb-2 text-3xl">{title}</h1>
+        <p className="max-w-2xl text-txt-dim">{intro}</p>
       </header>
 
       {timelines.length > 1 && (
@@ -41,11 +44,16 @@ export function TimelineViewer({
               key={t.id}
               type="button"
               onClick={() => setActiveIdx(i)}
-              className={`rounded-full border px-4 py-2 text-sm transition ${
+              className={`rounded-full border px-4 py-2.5 text-sm font-bold transition active:scale-95 ${
                 i === activeIdx
-                  ? "border-accent bg-accent text-accent-fg"
-                  : "border-border-base bg-bg-raised hover:border-border-strong"
+                  ? "border-transparent text-on-accent"
+                  : "border-line bg-card-2 text-txt hover:bg-card"
               }`}
+              style={
+                i === activeIdx
+                  ? { background: "linear-gradient(135deg, var(--teal), var(--blue))" }
+                  : undefined
+              }
             >
               {t.shortTitle ?? t.title}
             </button>
@@ -54,16 +62,16 @@ export function TimelineViewer({
       )}
 
       <div className="mb-6">
-        <h2 className="text-xl font-semibold">{active.title}</h2>
-        <p className="text-fg-muted">{active.subtitle}</p>
+        <h2 className="text-xl">{active.title}</h2>
+        <p className="text-txt-dim">{active.subtitle}</p>
       </div>
 
       {/* The rail sits on the right in RTL; events hang off it in order. */}
-      <ol className="relative border-r-2 border-border-base pr-6">
+      <ol className="relative border-r-2 border-line pr-6">
         {active.events.map((event, i) => (
           <li key={event.id} className="relative mb-4 last:mb-0">
             <span
-              className="absolute -right-[1.9rem] top-5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-accent bg-bg text-[0.6rem] font-bold text-accent"
+              className="num absolute -right-[1.95rem] top-5 grid h-6 w-6 place-items-center rounded-full border-2 border-mc bg-bg text-[0.65rem] font-extrabold text-mc"
               aria-hidden
             >
               {i + 1}
@@ -72,18 +80,18 @@ export function TimelineViewer({
             <button
               type="button"
               onClick={() => setSelected(event)}
-              className="w-full rounded-card border border-border-base bg-bg-raised p-5 text-right transition hover:border-accent hover:shadow-[var(--shadow-sm)]"
+              className="w-full rounded-md border border-line bg-card p-4 text-right transition hover:bg-card-2 active:scale-[0.985]"
             >
               <div className="mb-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <h3 className="font-semibold">{event.title}</h3>
-                <span className="text-xs text-fg-subtle">{event.reference}</span>
+                <h3 className="text-base">{event.title}</h3>
+                <span className="text-xs text-txt-dim">{event.reference}</span>
                 {event.disputed && (
-                  <span className="rounded-full bg-gold-soft px-2 py-0.5 text-xs text-gold">
+                  <span className="rounded-full border border-line px-2 py-0.5 text-xs font-bold text-gold">
                     מחלוקת מחקרית
                   </span>
                 )}
               </div>
-              <p className="line-clamp-2 text-sm leading-relaxed text-fg-muted">
+              <p className="line-clamp-2 text-[12.5px] leading-relaxed text-txt-dim">
                 {event.body}
               </p>
             </button>
@@ -98,7 +106,7 @@ export function TimelineViewer({
           role="presentation"
         >
           <div
-            className="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl bg-bg-raised p-6 shadow-[var(--shadow-md)] sm:rounded-card"
+            className="screen-in max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-t-lg border border-line bg-sheet p-6 shadow-[var(--shadow)] sm:rounded-lg"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
@@ -106,13 +114,13 @@ export function TimelineViewer({
           >
             <div className="mb-4 flex items-start justify-between gap-4">
               <div>
-                <h3 className="text-xl font-bold">{selected.title}</h3>
-                <p className="text-sm text-fg-subtle">{selected.reference}</p>
+                <h3 className="text-2xl">{selected.title}</h3>
+                <p className="text-sm text-txt-dim">{selected.reference}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="shrink-0 rounded-card border border-border-base px-3 py-1.5 text-sm transition hover:bg-bg-sunken"
+                className="shrink-0 rounded-full border border-line bg-card-2 px-4 py-2 text-sm font-bold transition active:scale-90"
               >
                 סגירה
               </button>
@@ -121,7 +129,7 @@ export function TimelineViewer({
             <p className="mb-4 leading-relaxed">{selected.body}</p>
 
             {selected.takeaway && (
-              <p className="mb-4 rounded-card border-r-4 border-accent bg-accent-soft p-3 text-sm">
+              <p className="mb-4 rounded-sm border-r-4 border-mc bg-card p-3.5 text-sm">
                 <strong>לזכור בהדרכה: </strong>
                 {selected.takeaway}
               </p>
@@ -131,10 +139,10 @@ export function TimelineViewer({
               <div className="flex flex-col gap-4">
                 {selected.sections.map((s, i) => (
                   <div key={i}>
-                    <h4 className="mb-1 text-sm font-semibold text-fg-muted">
+                    <h4 className="mb-1 text-sm font-bold text-txt-dim">
                       {s.reference}
                     </h4>
-                    <p className="whitespace-pre-line rounded-card bg-bg-sunken p-4 leading-loose">
+                    <p className="whitespace-pre-line rounded-sm bg-card p-4 leading-loose">
                       {s.quote}
                     </p>
                   </div>
@@ -142,7 +150,7 @@ export function TimelineViewer({
               </div>
             ) : (
               selected.quote && (
-                <p className="whitespace-pre-line rounded-card bg-bg-sunken p-4 leading-loose">
+                <p className="whitespace-pre-line rounded-sm bg-card p-4 leading-loose">
                   {selected.quote}
                 </p>
               )

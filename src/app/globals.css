@@ -1,130 +1,236 @@
 @import "tailwindcss";
 
 /*
- * Design tokens — a warm "field guide" palette: limestone/sand grounds with a
- * deep teal accent picked up from the heritage map, so the whole system reads
- * as one product. Light is the primary mode; dark is a full re-map, not a filter.
+ * Design tokens adapted from "אבן דרך" (cfir94/israel-geo-game) — the quiz-game
+ * project this site shares an audience with. The look is a game, not a
+ * document: a cool blue-grey ground washed with teal and blue light,
+ * translucent cards over it rather than solid white ones, vibrant accents, and
+ * a first-class dark theme in deep navy.
  */
 :root {
-  --bg: #faf7f2;
-  --bg-raised: #ffffff;
-  --bg-sunken: #f2ede4;
-  --border: #e4dccf;
-  --border-strong: #cdc0ab;
+  color-scheme: light;
 
-  --fg: #241f18;
-  --fg-muted: #6b6153;
-  --fg-subtle: #938876;
+  --bg: #eef2f7;
+  --bg-base: #f6f8fb;
+  --bg-grad-1: rgba(13, 148, 136, 0.1);
+  --bg-grad-2: rgba(37, 99, 235, 0.08);
 
-  --accent: #0e7c72;
-  --accent-hover: #0b635b;
-  --accent-soft: #d9ede9;
-  --accent-fg: #ffffff;
+  /* Cards are a tint of the ink over whatever is behind them, so they layer
+     onto the gradient instead of punching holes in it. */
+  --card: rgba(11, 32, 50, 0.045);
+  --card-2: rgba(11, 32, 50, 0.08);
+  --line: rgba(11, 32, 50, 0.14);
+  --sheet: #ffffff;
+  --track: rgba(11, 32, 50, 0.1);
 
-  --gold: #b0812f;
-  --gold-soft: #f7edd8;
+  --txt: #0d1f2d;
+  --txt-dim: #55697a;
+  --title-1: #0b2233;
+  --title-2: #0d9488;
 
-  --success: #2f7d4f;
-  --success-soft: #dff0e4;
-  --danger: #b03a34;
-  --danger-soft: #fae3e1;
+  --teal: #0d9488;
+  --teal-2: #0f766e;
+  --blue: #2563eb;
+  --violet: #7c3aed;
+  --rose: #e11d48;
+  --green: #059669;
+  --red: #dc2626;
+  --gold: #a86a06;
+  --star: #eab308;
+  --ok: #059669;
+  --on-accent: #ffffff;
 
-  --radius: 0.75rem;
-  --shadow-sm: 0 1px 2px rgb(36 31 24 / 0.06), 0 1px 3px rgb(36 31 24 / 0.04);
-  --shadow-md: 0 2px 6px rgb(36 31 24 / 0.07), 0 8px 24px rgb(36 31 24 / 0.06);
+  --r-lg: 26px;
+  --r-md: 18px;
+  --r-sm: 12px;
+
+  --shadow: 0 10px 26px -12px rgba(11, 32, 50, 0.4);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #16130f;
-    --bg-raised: #211c17;
-    --bg-sunken: #100e0b;
-    --border: #362f26;
-    --border-strong: #4b4136;
+    color-scheme: dark;
 
-    --fg: #f4efe7;
-    --fg-muted: #b3a898;
-    --fg-subtle: #8a7f6f;
+    --bg: #070f18;
+    --bg-base: #08131e;
+    --bg-grad-1: rgba(22, 48, 74, 0.9);
+    --bg-grad-2: rgba(18, 58, 53, 0.9);
 
-    --accent: #3fb5a6;
-    --accent-hover: #58c8ba;
-    --accent-soft: #14312e;
-    --accent-fg: #08211e;
+    --card: rgba(255, 255, 255, 0.055);
+    --card-2: rgba(255, 255, 255, 0.09);
+    --line: rgba(255, 255, 255, 0.11);
+    --sheet: #12222f;
+    --track: rgba(255, 255, 255, 0.1);
 
-    --gold: #d9ab52;
-    --gold-soft: #302512;
+    --txt: #eaf2f8;
+    --txt-dim: #93a7b8;
+    --title-1: #ffffff;
+    --title-2: #9fe8dd;
 
-    --success: #6dc389;
-    --success-soft: #16301f;
-    --danger: #e0776f;
-    --danger-soft: #351a18;
+    --teal: #2ee6c5;
+    --teal-2: #12b3a0;
+    --blue: #4aa8ff;
+    --violet: #a78bfa;
+    --rose: #ff6b81;
+    --green: #46e08a;
+    --red: #ff5d6c;
+    --gold: #ffce4d;
+    --star: #ffce4d;
+    --ok: #34d399;
+    --on-accent: #06121a;
 
-    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-    --shadow-md: 0 2px 6px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+    --shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.7);
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #16130f;
-  --bg-raised: #211c17;
-  --bg-sunken: #100e0b;
-  --border: #362f26;
-  --border-strong: #4b4136;
+  color-scheme: dark;
 
-  --fg: #f4efe7;
-  --fg-muted: #b3a898;
-  --fg-subtle: #8a7f6f;
+  --bg: #070f18;
+  --bg-base: #08131e;
+  --bg-grad-1: rgba(22, 48, 74, 0.9);
+  --bg-grad-2: rgba(18, 58, 53, 0.9);
 
-  --accent: #3fb5a6;
-  --accent-hover: #58c8ba;
-  --accent-soft: #14312e;
-  --accent-fg: #08211e;
+  --card: rgba(255, 255, 255, 0.055);
+  --card-2: rgba(255, 255, 255, 0.09);
+  --line: rgba(255, 255, 255, 0.11);
+  --sheet: #12222f;
+  --track: rgba(255, 255, 255, 0.1);
 
-  --gold: #d9ab52;
-  --gold-soft: #302512;
+  --txt: #eaf2f8;
+  --txt-dim: #93a7b8;
+  --title-1: #ffffff;
+  --title-2: #9fe8dd;
 
-  --success: #6dc389;
-  --success-soft: #16301f;
-  --danger: #e0776f;
-  --danger-soft: #351a18;
+  --teal: #2ee6c5;
+  --teal-2: #12b3a0;
+  --blue: #4aa8ff;
+  --violet: #a78bfa;
+  --rose: #ff6b81;
+  --green: #46e08a;
+  --red: #ff5d6c;
+  --gold: #ffce4d;
+  --star: #ffce4d;
+  --ok: #34d399;
+  --on-accent: #06121a;
 
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-md: 0 2px 6px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.7);
 }
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-bg-raised: var(--bg-raised);
-  --color-bg-sunken: var(--bg-sunken);
-  --color-border-base: var(--border);
-  --color-border-strong: var(--border-strong);
-  --color-fg: var(--fg);
-  --color-fg-muted: var(--fg-muted);
-  --color-fg-subtle: var(--fg-subtle);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-soft: var(--accent-soft);
-  --color-accent-fg: var(--accent-fg);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-line: var(--line);
+  --color-sheet: var(--sheet);
+  --color-track: var(--track);
+
+  --color-txt: var(--txt);
+  --color-txt-dim: var(--txt-dim);
+
+  --color-teal: var(--teal);
+  --color-teal-2: var(--teal-2);
+  --color-blue: var(--blue);
+  --color-violet: var(--violet);
+  --color-rose: var(--rose);
+  --color-green: var(--green);
+  --color-red: var(--red);
   --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
-  --color-success: var(--success);
-  --color-success-soft: var(--success-soft);
-  --color-danger: var(--danger);
-  --color-danger-soft: var(--danger-soft);
-  --font-sans: var(--font-rubik);
-  --radius-card: var(--radius);
+  --color-star: var(--star);
+  --color-ok: var(--ok);
+  --color-on-accent: var(--on-accent);
+  --color-mc: var(--mc, var(--teal));
+
+  --font-sans: var(--font-heebo);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  color: var(--txt);
+  /* Ambient light from two corners over a vertical base — the ground is lit,
+     not flat, and every translucent card above it picks the wash up. */
+  background:
+    radial-gradient(120% 60% at 85% -5%, var(--bg-grad-1) 0%, transparent 60%),
+    radial-gradient(90% 50% at 5% 105%, var(--bg-grad-2) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-base) 0%, var(--bg) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* A faint topographic wash so large empty areas still feel designed. */
-.topo-bg {
-  background-image:
-    radial-gradient(circle at 15% 20%, color-mix(in oklab, var(--accent) 7%, transparent) 0%, transparent 42%),
-    radial-gradient(circle at 85% 8%, color-mix(in oklab, var(--gold) 8%, transparent) 0%, transparent 38%);
+h1,
+h2,
+h3 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* The wordmark reads as one gradient sweep, as it does in the game. */
+.grad-text {
+  background: linear-gradient(100deg, var(--title-1), var(--title-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+:where(button, a, input, [tabindex]):focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* Numbers stay LTR inside RTL text so "12/25" never flips. */
+.num {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Screens and cards arrive with a small lift, never a hard cut. */
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+}
+
+.screen-in {
+  animation: screen-in 0.34s var(--ease-out);
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-7px);
+  }
+  50% {
+    transform: translateX(7px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+.pop-in {
+  animation: pop-in 0.45s var(--ease-spring) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -132,6 +238,7 @@ body {
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }

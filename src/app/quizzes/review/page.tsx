@@ -33,14 +33,19 @@ export default function ReviewPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-16 text-center">
-        <h1 className="mb-3 text-2xl font-bold">אין טעויות לתרגול</h1>
-        <p className="mb-6 text-fg-muted">
+      <div className="screen-in mx-auto max-w-2xl px-4 py-16 text-center">
+        <div aria-hidden className="mb-4 text-[46px]">🎉</div>
+        <h1 className="mb-3 text-2xl">אין טעויות לתרגול</h1>
+        <p className="mb-6 text-txt-dim">
           כל השאלות שטעיתם בהן כבר נענו נכון מאז. כל הכבוד!
         </p>
         <Link
           href="/quizzes"
-          className="rounded-card bg-accent px-5 py-2.5 font-medium text-accent-fg transition hover:bg-accent-hover"
+          className="inline-block rounded-full px-7 py-3.5 font-extrabold text-on-accent transition active:scale-95"
+          style={{
+            background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+            boxShadow: "0 10px 26px -10px var(--teal)",
+          }}
         >
           לשאלונים
         </Link>

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
+import { SectionCard } from "@/components/SectionCard";
 
 const sets = [
   {
@@ -22,36 +22,26 @@ const sets = [
 export default function TimelinesPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <header className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">צירי זמן</h1>
-        <p className="max-w-2xl text-fg-muted">
+      <header className="screen-in mb-7">
+        <h1 className="grad-text mb-2 text-3xl">צירי זמן</h1>
+        <p className="max-w-2xl text-txt-dim">
           צירי זמן אינטראקטיביים לפי נושא. לחיצה על אירוע פותחת את ההסבר המלא
           ואת המקורות.
         </p>
       </header>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {sets.map((s) => {
-          const events = s.timelines.reduce((n, t) => n + t.events.length, 0);
-          return (
-            <Link
-              key={s.slug}
-              href={`/timelines/${s.slug}`}
-              className="group rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)] transition hover:border-accent hover:shadow-[var(--shadow-md)]"
-            >
-              <h2 className="mb-1.5 text-lg font-semibold transition group-hover:text-accent">
-                {s.title}
-              </h2>
-              <p className="mb-4 text-sm leading-relaxed text-fg-muted">
-                {s.description}
-              </p>
-              <div className="flex gap-4 text-xs text-fg-subtle">
-                <span>{events} אירועים</span>
-                {s.timelines.length > 1 && <span>{s.timelines.length} צירים</span>}
-              </div>
-            </Link>
-          );
-        })}
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        {sets.map((s, i) => (
+          <SectionCard
+            key={s.slug}
+            index={i}
+            slug={s.slug}
+            href={`/timelines/${s.slug}`}
+            title={s.title}
+            description={s.description}
+            meta={`${s.timelines.reduce((n, t) => n + t.events.length, 0)} אירועים`}
+          />
+        ))}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/hooks/useProgress";
 import { needsReview, resetProgress, summarize } from "@/lib/progress";
+import { domainStyle } from "@/lib/domains";
 
 function formatDate(ts: number) {
   return new Date(ts).toLocaleDateString("he-IL", {
@@ -32,11 +33,11 @@ export default function MePage() {
   const hasData = s.totalAttempts > 0;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
+    <div className="screen-in mx-auto max-w-3xl px-4 py-10">
       <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">שלום, {user.name}</h1>
-          <p className="text-sm text-fg-muted">{user.email}</p>
+          <h1 className="grad-text text-3xl">שלום, {user.name}</h1>
+          <p className="text-sm text-txt-dim">{user.email}</p>
         </div>
         <button
           type="button"
@@ -44,22 +45,27 @@ export default function MePage() {
             logout();
             router.push("/login");
           }}
-          className="rounded-card border border-border-strong px-4 py-2 text-sm transition hover:bg-bg-sunken"
+          className="rounded-full border border-line bg-card-2 px-4 py-2.5 text-sm font-bold transition active:scale-95"
         >
           יציאה
         </button>
       </header>
 
       {!hasData ? (
-        <div className="rounded-card border border-dashed border-border-strong p-10 text-center">
-          <h2 className="mb-2 text-lg font-semibold">עוד לא התחלתם לתרגל</h2>
-          <p className="mb-6 text-fg-muted">
+        <div className="rounded-lg border border-dashed border-line bg-card p-10 text-center">
+          <div aria-hidden className="mb-3 text-[40px]">🎯</div>
+          <h2 className="mb-2 text-xl">עוד לא התחלתם לתרגל</h2>
+          <p className="mb-6 text-txt-dim">
             אחרי הסבב הראשון יופיעו כאן אחוזי ההצלחה, הפילוח לפי נושא, ורשימת
             השאלות שכדאי לחזור עליהן.
           </p>
           <Link
             href="/quizzes"
-            className="rounded-card bg-accent px-5 py-2.5 font-medium text-accent-fg transition hover:bg-accent-hover"
+            className="inline-block rounded-full px-7 py-3.5 font-extrabold text-on-accent transition active:scale-95"
+            style={{
+              background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+              boxShadow: "0 10px 26px -10px var(--teal)",
+            }}
           >
             לשאלונים
           </Link>
@@ -68,21 +74,22 @@ export default function MePage() {
         <div className="flex flex-col gap-8">
           <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              { label: "סבבי תרגול", value: s.totalAttempts },
-              { label: "אחוז הצלחה", value: `${s.accuracyPct}%`, accent: true },
-              { label: "שאלות שנענו", value: s.totalAnswered },
-              { label: "ממתינות לחזרה", value: s.reviewCount },
+              { label: "סבבי תרגול", value: s.totalAttempts, icon: "🎮" },
+              { label: "אחוז הצלחה", value: `${s.accuracyPct}%`, icon: "🎯" },
+              { label: "שאלות שנענו", value: s.totalAnswered, icon: "📝" },
+              { label: "ממתינות לחזרה", value: s.reviewCount, icon: "🔁" },
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-card border border-border-base bg-bg-raised p-5"
+                className="rounded-md border border-line bg-card p-4"
               >
-                <div
-                  className={`text-3xl font-bold ${stat.accent ? "text-accent" : ""}`}
-                >
+                <div aria-hidden className="mb-1 text-lg">
+                  {stat.icon}
+                </div>
+                <div className="num text-[22px] font-black text-gold">
                   {stat.value}
                 </div>
-                <div className="mt-1 text-xs text-fg-muted">{stat.label}</div>
+                <div className="mt-0.5 text-[11px] text-txt-dim">{stat.label}</div>
               </div>
             ))}
           </section>
@@ -90,41 +97,42 @@ export default function MePage() {
           {s.reviewCount > 0 && (
             <Link
               href="/quizzes/review"
-              className="flex flex-wrap items-center justify-between gap-3 rounded-card border border-gold bg-gold-soft p-5 transition hover:shadow-[var(--shadow-sm)]"
+              className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-card p-5 transition active:scale-[0.98]"
             >
               <div>
-                <h2 className="font-semibold">תרגול טעויות</h2>
-                <p className="text-sm text-fg-muted">
+                <h2 className="text-lg text-gold">🔁 תרגול טעויות</h2>
+                <p className="text-sm text-txt-dim">
                   {s.reviewCount} שאלות שטעיתם בהן ועדיין לא עניתם עליהן נכון.
                 </p>
               </div>
-              <span className="rounded-card bg-gold px-4 py-2 text-sm font-semibold text-white">
+              <span className="rounded-full bg-gold px-5 py-2.5 text-sm font-extrabold text-on-accent">
                 לתרגל עכשיו
               </span>
             </Link>
           )}
 
           <section>
-            <h2 className="mb-3 text-lg font-semibold">לפי שאלון</h2>
+            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">לפי שאלון</h2>
             <ul className="flex flex-col gap-3">
               {s.byQuiz.map((q) => (
                 <li
                   key={q.quiz}
-                  className="rounded-card border border-border-base bg-bg-raised p-5"
+                  className="rounded-md border border-line bg-card p-4"
+                  style={domainStyle(q.quiz)}
                 >
                   <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-medium">{q.quizLabel}</h3>
-                    <span className="text-sm text-fg-muted">
+                    <h3 className="text-base">{q.quizLabel}</h3>
+                    <span className="num text-[12.5px] text-txt-dim">
                       {q.attempts} סבבים · {q.correct}/{q.total} נכונות
                     </span>
                   </div>
-                  <div className="mb-2 h-2 overflow-hidden rounded-full bg-bg-sunken">
+                  <div className="mb-2 h-[6px] overflow-hidden rounded-full bg-track">
                     <div
-                      className="h-full rounded-full bg-accent"
+                      className="h-full rounded-full bg-mc"
                       style={{ width: `${q.accuracyPct}%` }}
                     />
                   </div>
-                  <div className="flex flex-wrap gap-x-4 text-xs text-fg-subtle">
+                  <div className="flex flex-wrap gap-x-4 text-[11px] font-bold text-txt-dim">
                     <span>{q.accuracyPct}% הצלחה</span>
                     {q.reviewCount > 0 && (
                       <span className="text-gold">
@@ -139,17 +147,15 @@ export default function MePage() {
 
           {review.length > 0 && (
             <section>
-              <h2 className="mb-3 text-lg font-semibold">
-                שאלות שכדאי לחזור עליהן
-              </h2>
+              <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">שאלות שכדאי לחזור עליהן</h2>
               <ul className="flex flex-col gap-2">
                 {review.slice(0, 20).map((q) => (
                   <li
                     key={`${q.quiz}:${q.questionId}`}
-                    className="rounded-card border border-border-base bg-bg-raised px-4 py-3"
+                    className="rounded-sm border border-line bg-card px-4 py-3"
                   >
-                    <p className="mb-1 text-sm leading-relaxed">{q.question}</p>
-                    <p className="text-xs text-fg-subtle">
+                    <p className="mb-1 text-[13px] font-bold leading-relaxed">{q.question}</p>
+                    <p className="text-[11px] text-txt-dim">
                       {q.category} · טעיתם {q.wrong}{" "}
                       {q.wrong === 1 ? "פעם" : "פעמים"} מתוך {q.seen}
                     </p>
@@ -157,7 +163,7 @@ export default function MePage() {
                 ))}
               </ul>
               {review.length > 20 && (
-                <p className="mt-3 text-sm text-fg-subtle">
+                <p className="mt-3 text-sm text-txt-dim">
                   ועוד {review.length - 20} שאלות…
                 </p>
               )}
@@ -165,18 +171,18 @@ export default function MePage() {
           )}
 
           <section>
-            <h2 className="mb-3 text-lg font-semibold">סבבים אחרונים</h2>
+            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">סבבים אחרונים</h2>
             <ul className="flex flex-col gap-2">
               {s.recent.map((a) => (
                 <li
                   key={a.ts}
-                  className="flex flex-wrap items-center justify-between gap-2 rounded-card border border-border-base bg-bg-raised px-4 py-3 text-sm"
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-sm border border-line bg-card px-4 py-3 text-[13px] font-bold"
                 >
                   <span>
                     {a.quizLabel}
-                    <span className="text-fg-subtle"> · {a.category}</span>
+                    <span className="font-normal text-txt-dim"> · {a.category}</span>
                   </span>
-                  <span className="text-fg-muted">
+                  <span className="num font-normal text-txt-dim">
                     {a.correct}/{a.total} · {formatDate(a.ts)}
                   </span>
                 </li>
@@ -184,7 +190,7 @@ export default function MePage() {
             </ul>
           </section>
 
-          <section className="border-t border-border-base pt-6">
+          <section className="border-t border-line pt-6">
             <button
               type="button"
               onClick={() => {
@@ -192,7 +198,7 @@ export default function MePage() {
                   resetProgress();
                 }
               }}
-              className="text-sm text-danger hover:underline"
+              className="text-sm font-bold text-red hover:underline"
             >
               איפוס נתוני ההתקדמות
             </button>

@@ -3,77 +3,104 @@ import { QUIZZES } from "@/data/quizzes";
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { HomeProgress } from "@/components/HomeProgress";
+import { SectionCard } from "@/components/SectionCard";
 
 export default function Home() {
   const questionCount = QUIZZES.reduce((s, q) => s + q.questions.length, 0);
+  const examCount =
+    QUIZZES.find((q) => q.slug === "past-exams")?.questions.length ?? 0;
   const eventCount =
     biblical.reduce((s, t) => s + t.events.length, 0) +
     egyptCanaan.reduce((s, t) => s + t.events.length, 0);
 
   const sections = [
     {
+      slug: "quizzes",
       href: "/quizzes",
       title: "מאגר שאלונים",
-      description: "שאלות אמריקאיות לפי נושא, עם מעקב אחרי טעויות וחזרה ממוקדת.",
+      description:
+        "שאלות אמריקאיות לפי נושא, כולל שאלות אמיתיות ממבחני הרישוי.",
       meta: `${questionCount} שאלות`,
     },
     {
+      slug: "timelines",
       href: "/timelines",
       title: "צירי זמן",
-      description: "צירי זמן אינטראקטיביים עם הסברים ומקורות לכל אירוע.",
+      description: "צירי זמן אינטראקטיביים עם הסבר ומקורות לכל אירוע.",
       meta: `${eventCount} אירועים`,
     },
     {
+      slug: "map",
       href: "/map",
       title: "מפה אינטראקטיבית",
       description:
-        "מפת מורשת ישראל בשכבות: אזורים, גיאולוגיה, אתרי דת, שמורות וחי וצומח.",
-      meta: "עובדת גם אופליין",
+        "מפת מורשת ישראל בשכבות: אזורים, גיאולוגיה, אתרי דת ושמורות.",
+      meta: "עובדת אופליין",
     },
     {
+      slug: "me",
       href: "/me",
       title: "אזור אישי",
       description: "ההתקדמות שלכם, אחוזי הצלחה, ומה שנשאר לחזור עליו.",
       meta: "מעקב אישי",
     },
     {
+      slug: "guide-reports",
       href: "/guide-reports",
       title: "דוחות הדרכה",
       description: "פורמט משרד התיירות וסימולציית בניית מסלול.",
       meta: "בבנייה",
     },
     {
+      slug: "videos",
       href: "/videos",
       title: "סרטונים מומלצים",
-      description: "קישורים לסרטונים לפי נושא.",
+      description: "ספריית סרטונים לצפייה, לפי נושאי הקורס.",
       meta: "בבנייה",
     },
   ];
 
   return (
-    <div>
-      <section className="topo-bg border-b border-border-base">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <p className="mb-3 text-sm font-medium tracking-wide text-accent">
-            הכל לקורס מורי דרך במקום אחד
+    <div className="mx-auto max-w-5xl px-4 py-10">
+      <section className="screen-in relative mb-9">
+        {/* The teal glow behind the title, straight from the game's home. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -right-16 h-80 w-80 blur-[10px]"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in srgb, var(--teal) 28%, transparent), transparent 65%)",
+          }}
+        />
+
+        <div className="relative">
+          <p className="mb-3 text-[12.5px] font-semibold tracking-[0.04em] text-txt-dim">
+            ידיעת הארץ · קורס מורי דרך
           </p>
-          <h1 className="mb-4 max-w-2xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="grad-text mb-4 max-w-2xl text-4xl leading-[1.25] sm:text-5xl">
             להתכונן לבחינת מורי הדרך — בלי לחפש בעשרה מקומות
           </h1>
-          <p className="mb-8 max-w-xl text-lg leading-relaxed text-fg-muted">
-            {questionCount} שאלות תרגול, צירי זמן אינטראקטיביים ומפת מורשת
-            מלאה — עם מערכת שזוכרת מה עשיתם, במה טעיתם ועל מה כדאי לחזור.
+          <p className="mb-7 max-w-xl leading-relaxed text-txt-dim">
+            <span className="num">{examCount}</span> שאלות מתוך מבחני הרישוי
+            הרשמיים, <span className="num">{questionCount}</span> שאלות תרגול
+            בסך הכל, צירי זמן ומפת מורשת מלאה — עם מערכת שזוכרת במה טעיתם ועל
+            מה כדאי לחזור.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/quizzes"
-              className="rounded-card bg-accent px-6 py-3 font-semibold text-accent-fg transition hover:bg-accent-hover"
+              href="/quizzes/past-exams"
+              className="rounded-full px-7 py-4 font-extrabold text-on-accent transition active:scale-95"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+                boxShadow: "0 10px 26px -10px var(--teal)",
+              }}
             >
-              להתחיל לתרגל
+              לתרגל מבחני רישוי
             </Link>
             <Link
               href="/map"
-              className="rounded-card border border-border-strong bg-bg-raised px-6 py-3 font-semibold transition hover:bg-bg-sunken"
+              className="rounded-full border border-line bg-card-2 px-7 py-4 font-extrabold transition active:scale-95"
             >
               לפתוח את המפה
             </Link>
@@ -81,28 +108,15 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <HomeProgress />
+      <HomeProgress />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sections.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className="group rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)] transition hover:border-accent hover:shadow-[var(--shadow-md)]"
-            >
-              <div className="mb-2 flex items-baseline justify-between gap-3">
-                <h2 className="text-lg font-semibold transition group-hover:text-accent">
-                  {s.title}
-                </h2>
-                <span className="shrink-0 text-xs text-fg-subtle">{s.meta}</span>
-              </div>
-              <p className="text-sm leading-relaxed text-fg-muted">
-                {s.description}
-              </p>
-            </Link>
-          ))}
-        </div>
+      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
+        מה יש כאן
+      </h2>
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        {sections.map((s, i) => (
+          <SectionCard key={s.href} index={i} {...s} />
+        ))}
       </div>
     </div>
   );

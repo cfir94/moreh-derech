@@ -15,15 +15,26 @@ export function ReviewCallout() {
   return (
     <Link
       href="/quizzes/review"
-      className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-card border border-gold bg-gold-soft p-5 transition hover:shadow-[var(--shadow-sm)]"
+      className="screen-in mb-5 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-card p-5 transition active:scale-[0.98]"
+      style={{ "--mc": "var(--gold)" } as React.CSSProperties}
     >
-      <div>
-        <h2 className="font-semibold">תרגול טעויות</h2>
-        <p className="text-sm text-fg-muted">
-          {count} שאלות שטעיתם בהן ועדיין לא עניתם עליהן נכון.
-        </p>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute h-24 w-24 rounded-full bg-mc opacity-20 blur-[6px]"
+      />
+      <div className="relative flex items-center gap-3">
+        <span aria-hidden className="text-[26px]">
+          🔁
+        </span>
+        <div>
+          <h2 className="text-base">תרגול טעויות</h2>
+          <p className="text-[12.5px] text-txt-dim">
+            <span className="num">{count}</span> שאלות שטעיתם בהן ועדיין לא
+            עניתם עליהן נכון.
+          </p>
+        </div>
       </div>
-      <span className="rounded-card bg-gold px-4 py-2 text-sm font-semibold text-white">
+      <span className="relative rounded-full bg-gold px-5 py-2.5 text-sm font-extrabold text-on-accent">
         לתרגל עכשיו
       </span>
     </Link>

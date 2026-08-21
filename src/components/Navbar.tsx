@@ -22,27 +22,33 @@ export function Navbar() {
     pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border-base bg-bg-raised/90 backdrop-blur">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
-        <Link href="/" className="flex items-center gap-2 font-bold">
+    <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
+      <nav className="mx-auto flex min-h-[60px] max-w-5xl items-center gap-2 px-4">
+        <Link href="/" className="flex items-center gap-2.5">
           <span
             aria-hidden
-            className="flex h-7 w-7 items-center justify-center rounded-md bg-accent text-sm text-accent-fg"
+            className="grid h-11 w-11 place-items-center rounded-[15px] border text-[22px]"
+            style={{
+              background:
+                "linear-gradient(140deg, color-mix(in srgb, var(--teal) 26%, transparent), color-mix(in srgb, var(--blue) 20%, transparent))",
+              borderColor: "color-mix(in srgb, var(--teal) 35%, transparent)",
+              boxShadow: "0 12px 30px -14px var(--teal)",
+            }}
           >
-            מ
+            🧭
           </span>
-          מורי דרך
+          <span className="grad-text text-lg font-black">מורי דרך</span>
         </Link>
 
-        <ul className="mr-2 hidden flex-1 items-center gap-1 md:flex">
+        <ul className="mr-3 hidden flex-1 items-center gap-1 md:flex">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`rounded-md px-3 py-1.5 text-sm transition ${
+                className={`rounded-full px-3.5 py-2 text-sm font-bold transition ${
                   isActive(link.href)
-                    ? "bg-accent-soft font-medium text-accent"
-                    : "text-fg-muted hover:bg-bg-sunken hover:text-fg"
+                    ? "border border-line bg-card-2 text-txt"
+                    : "text-txt-dim hover:bg-card hover:text-txt"
                 }`}
               >
                 {link.label}
@@ -55,10 +61,10 @@ export function Navbar() {
           {ready && user ? (
             <Link
               href="/me"
-              className={`rounded-md px-3 py-1.5 text-sm transition ${
+              className={`rounded-full px-3.5 py-2 text-sm font-bold transition ${
                 isActive("/me")
-                  ? "bg-accent-soft font-medium text-accent"
-                  : "text-fg-muted hover:bg-bg-sunken hover:text-fg"
+                  ? "border border-line bg-card-2 text-txt"
+                  : "text-txt-dim hover:bg-card hover:text-txt"
               }`}
             >
               {user.name}
@@ -66,7 +72,12 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="rounded-md bg-accent px-3.5 py-1.5 text-sm font-medium text-accent-fg transition hover:bg-accent-hover"
+              className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent transition active:scale-95"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+                boxShadow: "0 10px 26px -10px var(--teal)",
+              }}
             >
               כניסה
             </Link>
@@ -77,7 +88,7 @@ export function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label="תפריט"
             aria-expanded={open}
-            className="rounded-md border border-border-base px-2.5 py-1.5 text-sm md:hidden"
+            className="grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90 md:hidden"
           >
             ☰
           </button>
@@ -85,16 +96,16 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <ul className="border-t border-border-base bg-bg-raised px-4 pb-3 md:hidden">
+        <ul className="border-t border-line bg-sheet px-4 pb-3 md:hidden">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`block rounded-md px-3 py-2.5 text-sm transition ${
+                className={`block rounded-[14px] px-3 py-3 text-sm font-bold transition ${
                   isActive(link.href)
-                    ? "bg-accent-soft font-medium text-accent"
-                    : "text-fg-muted hover:bg-bg-sunken"
+                    ? "bg-card-2 text-txt"
+                    : "text-txt-dim hover:bg-card"
                 }`}
               >
                 {link.label}

@@ -4,6 +4,7 @@ import { TimelineViewer } from "@/components/timeline/TimelineViewer";
 export default function EgyptCanaanTimelinePage() {
   return (
     <TimelineViewer
+      slug="egypt-canaan"
       timelines={timelines}
       title="מצרים, כנען וראשית ישראל"
       intro="ציר זמן של השליטה המצרית בכנען ושל ראשית ישראל — מקרב מגידו ועד מצבת מרנפתח."

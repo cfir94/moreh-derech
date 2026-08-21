@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import { Heebo } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
 
-const rubik = Rubik({
-  variable: "--font-rubik",
+// Heebo across the board, as the geo-game uses it — its 900 weight is what
+// makes the headings read as a game rather than a document.
+const heebo = Heebo({
+  variable: "--font-heebo",
   subsets: ["hebrew", "latin"],
 });
 
@@ -19,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="he"
       dir="rtl"
-      className={`${rubik.variable} h-full antialiased`}
+      className={`${heebo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
         <UserProvider>

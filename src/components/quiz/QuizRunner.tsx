@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Question, Quiz } from "@/data/quizzes/types";
 import { recordAttempt, type RecordedAnswer } from "@/lib/progress";
 import { withBasePath } from "@/lib/basePath";
+import { domainOf, domainStyle } from "@/lib/domains";
 
 type Phase = "setup" | "running" | "results";
 type Order = "sequential" | "shuffled";
@@ -118,24 +119,42 @@ export function QuizRunner({
   /* ---------------------------------------------------------------- setup */
 
   if (phase === "setup") {
+    const { icon } = domainOf(quiz.slug);
+
     return (
-      <div className="mx-auto max-w-3xl px-4 py-10">
+      <div
+        className="screen-in mx-auto max-w-2xl px-4 py-10"
+        style={domainStyle(quiz.slug)}
+      >
         <Link
           href="/quizzes"
-          className="mb-6 inline-block text-sm text-fg-muted hover:text-fg"
+          className="mb-5 inline-block text-sm font-bold text-txt-dim transition hover:text-txt"
         >
           ← כל השאלונים
         </Link>
 
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">{quiz.label}</h1>
-        <p className="mb-8 text-fg-muted">
-          {quiz.questions.length} שאלות · {quiz.categories.length} {noun.many}.
-          בחרו {noun.one} והיקף תרגול, והתוצאות יישמרו אוטומטית באזור האישי.
-        </p>
+        <div className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-6">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-mc opacity-20 blur-[8px]"
+          />
+          <div className="relative flex items-start gap-3">
+            <span aria-hidden className="text-[34px] leading-none">
+              {icon}
+            </span>
+            <div>
+              <h1 className="mb-1 text-2xl">{quiz.label}</h1>
+              <p className="text-[13px] text-txt-dim">
+                <span className="num">{quiz.questions.length}</span> שאלות ·{" "}
+                <span className="num">{quiz.categories.length}</span> {noun.many}
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <div className="flex flex-col gap-7 rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)]">
+        <div className="flex flex-col gap-6 rounded-lg border border-line bg-card p-5">
           <section>
-            <h2 className="mb-3 text-sm font-semibold text-fg-muted">
+            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
               {noun.one}
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -150,15 +169,22 @@ export function QuizRunner({
                     key={c}
                     type="button"
                     onClick={() => setCategory(c)}
-                    className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
+                    className={`rounded-full border px-4 py-2.5 text-sm font-bold transition active:scale-95 ${
                       active
-                        ? "border-accent bg-accent text-accent-fg"
-                        : "border-border-base bg-bg hover:border-border-strong"
+                        ? "border-transparent text-on-accent"
+                        : "border-line bg-card-2 text-txt hover:bg-card"
                     }`}
+                    style={
+                      active
+                        ? {
+                            background:
+                              "linear-gradient(135deg, var(--teal), var(--blue))",
+                          }
+                        : undefined
+                    }
                   >
-                    {c}
-                    <span className={active ? "opacity-70" : "text-fg-subtle"}>
-                      {" "}
+                    {c}{" "}
+                    <span className={`num ${active ? "opacity-70" : "text-txt-dim"}`}>
                       {count}
                     </span>
                   </button>
@@ -168,8 +194,10 @@ export function QuizRunner({
           </section>
 
           <section>
-            <h2 className="mb-3 text-sm font-semibold text-fg-muted">סדר השאלות</h2>
-            <div className="flex flex-wrap gap-2">
+            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+              סדר השאלות
+            </h2>
+            <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
               {(
                 [
                   ["shuffled", "מעורבב"],
@@ -180,10 +208,10 @@ export function QuizRunner({
                   key={value}
                   type="button"
                   onClick={() => setOrder(value)}
-                  className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
+                  className={`flex-1 rounded-full px-4 py-2.5 text-sm font-bold transition ${
                     order === value
-                      ? "border-accent bg-accent text-accent-fg"
-                      : "border-border-base bg-bg hover:border-border-strong"
+                      ? "bg-sheet text-txt shadow-[var(--shadow)]"
+                      : "text-txt-dim hover:text-txt"
                   }`}
                 >
                   {label}
@@ -193,35 +221,32 @@ export function QuizRunner({
           </section>
 
           <section>
-            <h2 className="mb-3 text-sm font-semibold text-fg-muted">
+            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
               כמה שאלות
             </h2>
-            <div className="flex flex-wrap gap-2">
-              {LENGTHS.filter((n) => n < pool.length).map((n) => (
-                <button
-                  key={n}
-                  type="button"
-                  onClick={() => setLength(n)}
-                  className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
-                    length === n
-                      ? "border-accent bg-accent text-accent-fg"
-                      : "border-border-base bg-bg hover:border-border-strong"
-                  }`}
-                >
-                  {n}
-                </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => setLength("all")}
-                className={`rounded-full border px-3.5 py-1.5 text-sm transition ${
-                  length === "all"
-                    ? "border-accent bg-accent text-accent-fg"
-                    : "border-border-base bg-bg hover:border-border-strong"
-                }`}
-              >
-                הכל ({pool.length})
-              </button>
+            <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
+              {[...LENGTHS.filter((n) => n < pool.length), "all" as const].map(
+                (n) => (
+                  <button
+                    key={String(n)}
+                    type="button"
+                    onClick={() => setLength(n)}
+                    className={`flex-1 rounded-full px-4 py-2.5 text-sm font-bold transition ${
+                      length === n
+                        ? "bg-sheet text-txt shadow-[var(--shadow)]"
+                        : "text-txt-dim hover:text-txt"
+                    }`}
+                  >
+                    {n === "all" ? (
+                      <>
+                        הכל <span className="num">({pool.length})</span>
+                      </>
+                    ) : (
+                      <span className="num">{n}</span>
+                    )}
+                  </button>
+                ),
+              )}
             </div>
           </section>
 
@@ -229,7 +254,11 @@ export function QuizRunner({
             type="button"
             onClick={start}
             disabled={pool.length === 0}
-            className="rounded-card bg-accent px-6 py-3 text-base font-semibold text-accent-fg transition hover:bg-accent-hover disabled:opacity-50"
+            className="rounded-full px-7 py-4 text-base font-extrabold text-on-accent transition active:scale-95 disabled:opacity-50"
+            style={{
+              background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+              boxShadow: "0 10px 26px -10px var(--teal)",
+            }}
           >
             להתחיל לתרגל
           </button>
@@ -244,23 +273,63 @@ export function QuizRunner({
     const correct = answers.filter((a) => a.correct).length;
     const pct = answers.length ? Math.round((correct / answers.length) * 100) : 0;
     const wrong = answers.filter((a) => !a.correct);
+    // Three stars at 60 / 80 / 95 percent, as the game scores a level.
+    const stars = [60, 80, 95].map((t) => pct >= t);
 
     return (
-      <div className="mx-auto max-w-3xl px-4 py-10">
-        <div className="mb-8 rounded-card border border-border-base bg-bg-raised p-8 text-center shadow-[var(--shadow-sm)]">
-          <p className="mb-1 text-sm text-fg-muted">{title ?? quiz.label}</p>
-          <div className="mb-2 text-6xl font-bold tracking-tight text-accent">
-            {pct}%
+      <div
+        className="screen-in mx-auto max-w-2xl px-4 py-10"
+        style={domainStyle(quiz.slug)}
+      >
+        <div className="mb-7 text-center">
+          <div className="mb-4 flex justify-center gap-2.5">
+            {stars.map((on, i) => (
+              <span
+                key={i}
+                className="pop-in text-[46px] leading-none transition-colors"
+                style={{
+                  animationDelay: `${0.1 + i * 0.12}s`,
+                  color: on ? "var(--star)" : "var(--track)",
+                  textShadow: on
+                    ? "0 0 26px color-mix(in srgb, var(--star) 60%, transparent)"
+                    : "none",
+                }}
+                aria-hidden
+              >
+                ★
+              </span>
+            ))}
           </div>
-          <p className="text-fg-muted">
-            {correct} מתוך {answers.length} תשובות נכונות
+
+          <h1 className="mb-1.5 text-3xl">
+            <span className="num">{pct}%</span>
+          </h1>
+          <p className="mb-6 text-sm text-txt-dim">
+            {title ?? quiz.label} · <span className="num">{correct}</span> מתוך{" "}
+            <span className="num">{answers.length}</span> נכונות
           </p>
+
+          <div className="mb-5 flex gap-2.5">
+            {[
+              { v: correct, l: "נכונות" },
+              { v: wrong.length, l: "טעויות" },
+              { v: `${pct}%`, l: "דיוק" },
+            ].map((st) => (
+              <div
+                key={st.l}
+                className="flex-1 rounded-md border border-line bg-card px-2 py-3.5"
+              >
+                <b className="num block text-[22px] text-gold">{st.v}</b>
+                <span className="text-[11px] text-txt-dim">{st.l}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {wrong.length > 0 && (
-          <div className="mb-8">
-            <h2 className="mb-3 font-semibold">
-              שאלות שטעיתם בהן ({wrong.length})
+          <div className="mb-7">
+            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+              שאלות שטעיתם בהן
             </h2>
             <ul className="flex flex-col gap-2">
               {wrong.map((a) => {
@@ -268,12 +337,17 @@ export function QuizRunner({
                 return (
                   <li
                     key={a.questionId}
-                    className="rounded-card border border-border-base bg-bg-raised p-4"
+                    className="flex gap-2.5 rounded-sm border border-line bg-card p-3"
                   >
-                    <p className="mb-2 font-medium">{a.question}</p>
-                    <p className="text-sm text-success">
-                      התשובה הנכונה: {q?.answers.find((x) => x.correct)?.text}
-                    </p>
+                    <span aria-hidden className="text-sm">
+                      ✗
+                    </span>
+                    <div className="text-[12.5px] leading-relaxed">
+                      <b className="mb-0.5 block text-[13px]">{a.question}</b>
+                      <p className="text-ok">
+                        {q?.answers.find((x) => x.correct)?.text}
+                      </p>
+                    </div>
                   </li>
                 );
               })}
@@ -281,12 +355,17 @@ export function QuizRunner({
           </div>
         )}
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2.5">
           {wrong.length > 0 && (
             <button
               type="button"
               onClick={retryWrong}
-              className="rounded-card bg-accent px-5 py-2.5 font-medium text-accent-fg transition hover:bg-accent-hover"
+              className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+                boxShadow: "0 10px 26px -10px var(--teal)",
+              }}
             >
               לתרגל רק את הטעויות
             </button>
@@ -294,13 +373,13 @@ export function QuizRunner({
           <button
             type="button"
             onClick={restart}
-            className="rounded-card border border-border-strong px-5 py-2.5 font-medium transition hover:bg-bg-sunken"
+            className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95"
           >
             סבב נוסף
           </button>
           <Link
             href="/me"
-            className="rounded-card border border-border-strong px-5 py-2.5 font-medium transition hover:bg-bg-sunken"
+            className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95"
           >
             לאזור האישי
           </Link>
@@ -313,9 +392,9 @@ export function QuizRunner({
 
   if (!current) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-16 text-center text-fg-muted">
+      <div className="mx-auto max-w-2xl px-4 py-16 text-center text-txt-dim">
         <p className="mb-4">אין שאלות לתרגול כרגע.</p>
-        <Link href="/quizzes" className="text-accent hover:underline">
+        <Link href="/quizzes" className="font-bold text-teal hover:underline">
           חזרה לשאלונים
         </Link>
       </div>
@@ -326,30 +405,34 @@ export function QuizRunner({
   const progress = ((index + (answered ? 1 : 0)) / questions.length) * 100;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
-      <div className="mb-6">
-        <div className="mb-2 flex items-center justify-between text-sm text-fg-muted">
-          <span>
-            שאלה {index + 1} מתוך {questions.length}
+    <div
+      className="mx-auto max-w-2xl px-4 py-8"
+      style={domainStyle(quiz.slug)}
+    >
+      <div className="mb-5">
+        <div className="mb-2 flex items-center justify-between text-[12px] font-bold text-txt-dim">
+          <span className="num">
+            {index + 1} / {questions.length}
           </span>
           <span>{current.category}</span>
         </div>
-        <div className="h-1.5 overflow-hidden rounded-full bg-bg-sunken">
-          <div
-            className="h-full rounded-full bg-accent transition-[width] duration-300"
-            style={{ width: `${progress}%` }}
+        <div className="h-2 overflow-hidden rounded-full bg-track">
+          <i
+            className="block h-full rounded-full transition-[width] duration-300"
+            style={{
+              width: `${progress}%`,
+              background: "linear-gradient(90deg, var(--teal), var(--gold))",
+            }}
           />
         </div>
       </div>
 
-      <div className="rounded-card border border-border-base bg-bg-raised p-6 shadow-[var(--shadow-sm)]">
-        <h1 className="mb-5 text-xl font-semibold leading-relaxed">
-          {current.question}
-        </h1>
+      <div key={current.id} className="screen-in">
+        <h1 className="mb-4 text-xl leading-relaxed">{current.question}</h1>
 
         {current.image && (
-          <div className="mb-5 overflow-hidden rounded-card border border-border-base bg-bg-sunken">
-            {/* Static export: plain <img> avoids the Image optimizer entirely. */}
+          <div className="mb-4 overflow-hidden rounded-md border border-line bg-card">
+            {/* Static export: a plain <img> avoids the Image optimizer. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={withBasePath(current.image.url)}
@@ -360,26 +443,39 @@ export function QuizRunner({
               loading="lazy"
             />
             {current.image.credit && (
-              <p className="px-3 py-1.5 text-xs text-fg-subtle">
+              <p className="px-3 py-1.5 text-[11px] text-txt-dim">
                 {current.image.credit}
               </p>
             )}
           </div>
         )}
 
-        <ul className="flex flex-col gap-2.5">
+        <ul className="grid gap-2.5">
           {current.answers.map((a, i) => {
             const isPicked = picked === a.text;
             const isCorrect = a.text === correctText;
 
-            let cls =
-              "border-border-base bg-bg hover:border-accent hover:bg-accent-soft";
+            let cls = "border-line bg-card hover:bg-card-2";
+            let style: React.CSSProperties | undefined;
+            let extra = "";
+
             if (answered && isCorrect) {
-              cls = "border-success bg-success-soft";
+              cls = "";
+              style = {
+                background:
+                  "linear-gradient(120deg, color-mix(in srgb, var(--ok) 26%, transparent), color-mix(in srgb, var(--ok) 9%, transparent))",
+                borderColor: "var(--ok)",
+              };
             } else if (answered && isPicked) {
-              cls = "border-danger bg-danger-soft";
+              cls = "";
+              extra = "shake";
+              style = {
+                background:
+                  "linear-gradient(120deg, color-mix(in srgb, var(--red) 22%, transparent), color-mix(in srgb, var(--red) 8%, transparent))",
+                borderColor: "var(--red)",
+              };
             } else if (answered) {
-              cls = "border-border-base bg-bg opacity-60";
+              cls = "border-line bg-card opacity-[0.28]";
             }
 
             return (
@@ -388,11 +484,12 @@ export function QuizRunner({
                   type="button"
                   onClick={() => pick(a.text)}
                   disabled={answered}
-                  className={`flex w-full items-start gap-3 rounded-card border p-4 text-right transition ${cls} ${
-                    answered ? "cursor-default" : "cursor-pointer"
+                  style={style}
+                  className={`flex w-full items-start gap-3 rounded-md border p-4 text-right text-[15.5px] font-bold transition-transform duration-150 ${cls} ${extra} ${
+                    answered ? "cursor-default" : "cursor-pointer active:scale-[0.975]"
                   }`}
                 >
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border-strong text-xs font-semibold">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-line text-[11px] font-extrabold">
                     {OPTION_LETTERS[i]}
                   </span>
                   <span className="leading-relaxed">{a.text}</span>
@@ -405,18 +502,24 @@ export function QuizRunner({
         {answered && (
           <div className="mt-5 flex items-center justify-between gap-4">
             <p
-              className={`font-medium ${
-                picked === correctText ? "text-success" : "text-danger"
-              }`}
+              className="text-[15px] font-extrabold"
+              style={{
+                color: picked === correctText ? "var(--ok)" : "var(--red)",
+              }}
             >
-              {picked === correctText ? "נכון!" : "לא מדויק — נשמר לחזרה"}
+              {picked === correctText ? "נכון! ✓" : "נשמר לחזרה"}
             </p>
             <button
               type="button"
               onClick={next}
-              className="rounded-card bg-accent px-6 py-2.5 font-semibold text-accent-fg transition hover:bg-accent-hover"
+              className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+                boxShadow: "0 10px 26px -10px var(--teal)",
+              }}
             >
-              {index + 1 < questions.length ? "השאלה הבאה" : "לסיום ולתוצאות"}
+              {index + 1 < questions.length ? "הבאה" : "לתוצאות"}
             </button>
           </div>
         )}
