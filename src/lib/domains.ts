@@ -17,6 +17,7 @@ export const DOMAINS: Record<string, Domain> = {
   "iron-age": { color: "var(--blue)", icon: "⚱️" },
 
   quizzes: { color: "var(--teal)", icon: "📚" },
+  exams: { color: "var(--gold)", icon: "🖊️" },
   timelines: { color: "var(--violet)", icon: "🕰️" },
   biblical: { color: "var(--violet)", icon: "✝️" },
   "egypt-canaan": { color: "var(--blue)", icon: "🏺" },

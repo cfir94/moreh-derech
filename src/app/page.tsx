@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { QUIZZES } from "@/data/quizzes";
+import { EXAMS } from "@/data/exams";
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { HomeProgress } from "@/components/HomeProgress";
@@ -29,6 +30,14 @@ export default function Home() {
       description:
         "שאלות אמריקאיות לפי נושא, כולל שאלות אמיתיות ממבחני הרישוי.",
       meta: `${questionCount} שאלות`,
+    },
+    {
+      slug: "exams",
+      href: "/exams",
+      title: "מבחני רישוי מלאים",
+      description:
+        "מועדי מבחן שלמים בתנאי אמת — בלי חשיפת תשובות, עם הגשה וציון בסוף.",
+      meta: `${EXAMS.length} מועדים`,
     },
     {
       slug: "timelines",
@@ -96,7 +105,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/quizzes/past-exams"
+              href="/exams"
               className="rounded-full px-7 py-4 font-extrabold text-on-accent transition active:scale-95"
               style={{
                 background:
@@ -104,7 +113,7 @@ export default function Home() {
                 boxShadow: "0 10px 26px -10px var(--teal)",
               }}
             >
-              לתרגל מבחני רישוי
+              לעשות מבחן רישוי מלא
             </Link>
             <Link
               href="/map"
