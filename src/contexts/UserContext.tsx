@@ -1,39 +1,84 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { clearUser, writeUser, USER_KEY, USER_EVENT, parseUser, type LocalUser } from "@/lib/localAuth";
-import { makeStore, useHydrated } from "@/lib/clientStore";
+import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+import {
+  AUTH_EVENT,
+  SESSION_KEY,
+  parseSession,
+  quickAuth,
+  readSession,
+  refreshProfile,
+  signIn,
+  signOut,
+  userFromSession,
+  type SharedUser,
+} from "@/lib/cloudAuth";
+import { useHydrated } from "@/lib/clientStore";
+import { readUser } from "@/lib/localAuth";
+import { migrateGuestProgressToUser } from "@/lib/progress";
 
-const store = makeStore<LocalUser | null>({
-  key: USER_KEY,
-  empty: null,
-  parse: parseUser,
-  events: [USER_EVENT],
-});
+let cachedRaw: string | null | undefined;
+let cachedUser: SharedUser | null = null;
 
-/**
- * Kept as a provider for call-site ergonomics, but the state itself lives in
- * localStorage and is read through useSyncExternalStore — so every consumer
- * stays in sync without prop drilling or a mount effect.
- */
+function getUserSnapshot() {
+  const raw = window.localStorage.getItem(SESSION_KEY);
+  if (raw !== cachedRaw) {
+    cachedRaw = raw;
+    cachedUser = userFromSession(parseSession(raw));
+  }
+  return cachedUser;
+}
+
+function subscribe(onChange: () => void) {
+  window.addEventListener(AUTH_EVENT, onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    window.removeEventListener(AUTH_EVENT, onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
+function migrateMatchingProgress(userId: string, email: string) {
+  const legacyUser = readUser();
+  if (
+    !legacyUser ||
+    legacyUser.email.trim().toLowerCase() === email.trim().toLowerCase()
+  ) {
+    migrateGuestProgressToUser(userId);
+  }
+}
+
+/** Refreshes an existing game session and imports pre-account site progress. */
 export function UserProvider({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    const session = readSession();
+    if (!session) return;
+    migrateMatchingProgress(session.user_id, session.email);
+    void refreshProfile().catch(() => {
+      // Offline or a sleeping Supabase project must not block the static site.
+    });
+  }, []);
+
   return <>{children}</>;
 }
 
 export function useUser() {
-  const user = store.use();
+  const user = useSyncExternalStore(subscribe, getUserSnapshot, () => null);
   const ready = useHydrated();
 
   return {
     user,
     ready,
-    login: (next: LocalUser) => {
-      writeUser(next);
-      store.notify();
+    login: async (name: string, email: string, classCode = "") => {
+      const session = await quickAuth(email, name, classCode);
+      migrateMatchingProgress(session.user_id, session.email);
+      return userFromSession(session)!;
     },
-    logout: () => {
-      clearUser();
-      store.notify();
+    loginWithPassword: async (email: string, password: string) => {
+      const session = await signIn(email.trim().toLowerCase(), password);
+      migrateMatchingProgress(session.user_id, session.email);
+      return userFromSession(session)!;
     },
+    logout: signOut,
   };
 }

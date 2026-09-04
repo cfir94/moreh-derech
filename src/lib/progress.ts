@@ -1,3 +1,5 @@
+import { readSession } from "@/lib/cloudAuth";
+
 /*
  * Progress store (v2).
  *
@@ -62,41 +64,44 @@ export function parseProgress(raw: string | null): ProgressState {
   }
 }
 
+function parseLegacyProgress(raw: string | null): ProgressState {
+  if (!raw) return emptyProgress;
+  try {
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return emptyProgress;
+    return {
+      attempts: list.map((entry) => ({
+        ts: entry.ts ?? Date.now(),
+        quiz: entry.quiz ?? "unknown",
+        quizLabel: entry.quizLabel ?? entry.quiz ?? "שאלון",
+        category: entry.category ?? "הכל",
+        correct: entry.correct ?? 0,
+        total: entry.total ?? 0,
+      })),
+      questions: {},
+    };
+  } catch {
+    return emptyProgress;
+  }
+}
+
 export function readProgress(): ProgressState {
   if (typeof window === "undefined") return emptyProgress;
 
-  const raw = window.localStorage.getItem(PROGRESS_KEY);
+  const raw = window.localStorage.getItem(progressStorageKey());
   if (raw) return parseProgress(raw);
 
+  // Signed-in accounts never inherit another browser user's guest data.
+  if (readSession()) return emptyProgress;
+
   // Carry over attempt history written by the previous embed-based version.
-  try {
-    const legacy = window.localStorage.getItem(LEGACY_KEY);
-    if (legacy) {
-      const list = JSON.parse(legacy);
-      if (Array.isArray(list)) {
-        return {
-          attempts: list.map((e) => ({
-            ts: e.ts ?? Date.now(),
-            quiz: e.quiz ?? "unknown",
-            quizLabel: e.quizLabel ?? e.quiz ?? "שאלון",
-            category: e.category ?? "הכל",
-            correct: e.correct ?? 0,
-            total: e.total ?? 0,
-          })),
-          questions: {},
-        };
-      }
-    }
-  } catch {
-    /* ignore unreadable legacy data */
-  }
-  return emptyProgress;
+  return parseLegacyProgress(window.localStorage.getItem(LEGACY_KEY));
 }
 
 function write(state: ProgressState) {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(state));
+    window.localStorage.setItem(progressStorageKey(), JSON.stringify(state));
     window.dispatchEvent(new Event(PROGRESS_EVENT));
   } catch {
     /* quota or private mode — tracking is best-effort, never fatal */
@@ -118,7 +123,12 @@ export function recordAttempt(args: {
   category: string;
   answers: RecordedAnswer[];
 }) {
-  const state = readProgress();
+  const currentState = readProgress();
+  // Never mutate the shared empty snapshot used during SSR/hydration.
+  const state: ProgressState = {
+    attempts: [...currentState.attempts],
+    questions: { ...currentState.questions },
+  };
   const now = Date.now();
   const correct = args.answers.filter((a) => a.correct).length;
 
@@ -162,6 +172,62 @@ export function recordAttempt(args: {
 
 export function resetProgress() {
   if (typeof window === "undefined") return;
+  window.localStorage.removeItem(progressStorageKey());
+  if (!readSession()) window.localStorage.removeItem(LEGACY_KEY);
+  window.dispatchEvent(new Event(PROGRESS_EVENT));
+}
+
+/** Each signed-in user gets a separate local mirror; guests keep the old key. */
+export function progressStorageKey(userId = readSession()?.user_id) {
+  return userId ? `${PROGRESS_KEY}:${userId}` : PROGRESS_KEY;
+}
+
+function mergeProgress(a: ProgressState, b: ProgressState): ProgressState {
+  const attempts = [...a.attempts];
+  const seenAttempts = new Set(
+    attempts.map((item) =>
+      [item.ts, item.quiz, item.category, item.correct, item.total].join("|"),
+    ),
+  );
+  for (const item of b.attempts) {
+    const key = [item.ts, item.quiz, item.category, item.correct, item.total].join("|");
+    if (!seenAttempts.has(key)) {
+      attempts.push(item);
+      seenAttempts.add(key);
+    }
+  }
+
+  const questions = { ...a.questions };
+  for (const [key, incoming] of Object.entries(b.questions)) {
+    const current = questions[key];
+    if (!current) {
+      questions[key] = incoming;
+      continue;
+    }
+    questions[key] = {
+      ...current,
+      question: incoming.question || current.question,
+      category: incoming.category || current.category,
+      seen: current.seen + incoming.seen,
+      wrong: current.wrong + incoming.wrong,
+      lastCorrectAt: Math.max(current.lastCorrectAt ?? 0, incoming.lastCorrectAt ?? 0) || null,
+      lastWrongAt: Math.max(current.lastWrongAt ?? 0, incoming.lastWrongAt ?? 0) || null,
+    };
+  }
+  return { attempts, questions };
+}
+
+/** One-time migration from the site's former browser-wide store. */
+export function migrateGuestProgressToUser(userId: string) {
+  if (typeof window === "undefined") return;
+  const guestRaw = window.localStorage.getItem(PROGRESS_KEY);
+  const legacyRaw = window.localStorage.getItem(LEGACY_KEY);
+  if (!guestRaw && !legacyRaw) return;
+  const userKey = progressStorageKey(userId);
+  let merged = parseProgress(window.localStorage.getItem(userKey));
+  if (guestRaw) merged = mergeProgress(merged, parseProgress(guestRaw));
+  if (legacyRaw) merged = mergeProgress(merged, parseLegacyProgress(legacyRaw));
+  window.localStorage.setItem(userKey, JSON.stringify(merged));
   window.localStorage.removeItem(PROGRESS_KEY);
   window.localStorage.removeItem(LEGACY_KEY);
   window.dispatchEvent(new Event(PROGRESS_EVENT));
