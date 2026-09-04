@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ציר הזמן ההיסטורי | אבן דרך למורי דרך",
+  title: "ציר הזמן ההיסטורי | אֶבֶן דֶּרֶךְ למורי דרך",
   description: "ציר זמן אינטראקטיבי לתיארוך אירועים, דמויות ותקופות",
 };
 

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "המשחק | אבן דרך למורי דרך",
-  description: "משחק אבן דרך בתוך מערכת הלמידה למורי דרך",
+  title: "המשחק | אֶבֶן דֶּרֶךְ למורי דרך",
+  description: "משחק אֶבֶן דֶּרֶךְ בתוך מערכת הלמידה למורי דרך",
 };
 
 /**

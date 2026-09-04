@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "מצרים, כנען וראשית ישראל | אבן דרך למורי דרך",
+  title: "מצרים, כנען וראשית ישראל | אֶבֶן דֶּרֶךְ למורי דרך",
   description: "ציר הזמן המקורי של מצרים, כנען וראשית ישראל",
 };
 

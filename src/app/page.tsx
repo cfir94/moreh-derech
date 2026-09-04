@@ -18,7 +18,7 @@ export default function Home() {
     {
       slug: "game",
       href: "/game",
-      title: "משחק אבן דרך",
+      title: "משחק אֶבֶן דֶּרֶךְ",
       description:
         "משחק אינטראקטיבי לתרגול ידיעת הארץ: אתרים, אזורים, גיאולוגיה, נחלים ועוד.",
       meta: "החשבון שלכם מחובר",
@@ -92,7 +92,7 @@ export default function Home() {
 
         <div className="relative">
           <p className="mb-3 text-[12.5px] font-semibold tracking-[0.04em] text-txt-dim">
-            אבן דרך למורי דרך · כל חומרי התרגול במקום אחד
+            אֶבֶן דֶּרֶךְ למורי דרך · כל חומרי התרגול במקום אחד
           </p>
           <h1 className="grad-text mb-4 max-w-2xl text-4xl leading-[1.25] sm:text-5xl">
             להתכונן לבחינת מורי הדרך — בלי לחפש בעשרה מקומות

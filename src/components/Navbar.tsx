@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/contexts/UserContext";
+import brandIcon from "@/assets/brand-icon.png";
 
 const links = [
   { href: "/game", label: "המשחק" },
@@ -27,19 +29,15 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
       <nav className="mx-auto flex min-h-[60px] max-w-5xl items-center gap-2 px-4">
         <Link href="/" className="flex items-center gap-2.5">
-          <span
-            aria-hidden
-            className="grid h-11 w-11 place-items-center rounded-[15px] border text-[22px]"
-            style={{
-              background:
-                "linear-gradient(140deg, color-mix(in srgb, var(--teal) 26%, transparent), color-mix(in srgb, var(--blue) 20%, transparent))",
-              borderColor: "color-mix(in srgb, var(--teal) 35%, transparent)",
-              boxShadow: "0 12px 30px -14px var(--teal)",
-            }}
-          >
-            🧭
+          <Image
+            src={brandIcon}
+            alt=""
+            priority
+            className="h-11 w-11 rounded-[15px] shadow-[0_12px_30px_-14px_var(--teal)]"
+          />
+          <span className="grad-text text-lg font-black">
+            אֶבֶן דֶּרֶךְ למורי דרך
           </span>
-          <span className="grad-text text-lg font-black">אבן דרך למורי דרך</span>
         </Link>
 
         <ul className="mr-3 hidden flex-1 items-center gap-1 md:flex">

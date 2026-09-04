@@ -176,6 +176,9 @@ public/
   embeds/map/                    אפליקציית המפה כפי שהיא
 ```
 
+הלוגו בסרגל וה-favicon מבוססים על `assets/icon.png` של `israel-geo-game`.
+עותק הלוגו של הסרגל נשמר ב-`src/assets/brand-icon.png`.
+
 ## מוסכמות ועיצוב
 
 - UI בעברית, `dir="rtl"`, פונט **Heebo**.

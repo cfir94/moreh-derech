@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "צירי הזמן של הברית החדשה | אבן דרך למורי דרך",
+  title: "צירי הזמן של הברית החדשה | אֶבֶן דֶּרֶךְ למורי דרך",
   description: "חמשת צירי הזמן המקוריים של הברית החדשה",
 };
 
