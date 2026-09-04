@@ -17,7 +17,7 @@ function readSavedTheme() {
   } catch (e) {
     // A storage restriction should never prevent the map from loading.
   }
-  return 'light';
+  return 'dark';
 }
 
 let activeTheme = readSavedTheme();
