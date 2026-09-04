@@ -29,8 +29,8 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
-      <nav className="mx-auto flex min-h-[60px] max-w-5xl items-center gap-2 px-4">
-        <Link href="/" className="flex items-center gap-2.5">
+      <nav className="mx-auto flex min-h-[60px] max-w-6xl items-center gap-1.5 px-4">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
             src={brandIcon}
             alt=""
@@ -42,12 +42,12 @@ export function Navbar() {
           </span>
         </Link>
 
-        <ul className="mr-3 hidden flex-1 items-center gap-1 md:flex">
+        <ul className="mr-2 hidden min-w-0 flex-1 items-center gap-0.5 md:flex">
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`rounded-full px-3.5 py-2 text-sm font-bold transition ${
+                className={`whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-bold transition ${
                   isActive(link.href)
                     ? "border border-line bg-card-2 text-txt"
                     : "text-txt-dim hover:bg-card hover:text-txt"
@@ -64,7 +64,7 @@ export function Navbar() {
           {ready && user ? (
             <Link
               href="/me"
-              className={`rounded-full px-3.5 py-2 text-sm font-bold transition ${
+              className={`whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-bold transition ${
                 isActive("/me")
                   ? "border border-line bg-card-2 text-txt"
                   : "text-txt-dim hover:bg-card hover:text-txt"

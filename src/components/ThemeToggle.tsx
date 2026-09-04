@@ -21,8 +21,8 @@ function setDocumentTheme(theme: Theme) {
 }
 
 function getThemeSnapshot(): Theme {
-  if (typeof document === "undefined") return "light";
-  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  if (typeof document === "undefined") return "dark";
+  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
 }
 
 function subscribeToTheme(onStoreChange: () => void) {
@@ -31,7 +31,7 @@ function subscribeToTheme(onStoreChange: () => void) {
 }
 
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => "light");
+  const theme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => "dark");
 
   const isDark = theme === "dark";
   const nextLabel = isDark ? "מצב בהיר" : "מצב כהה";
@@ -49,7 +49,7 @@ export function ThemeToggle() {
       aria-label={`מעבר ל${nextLabel}`}
       aria-pressed={isDark}
       title={`מעבר ל${nextLabel}`}
-      className="inline-flex h-[42px] shrink-0 items-center justify-center gap-2 rounded-[14px] border border-line bg-card px-3 text-sm font-extrabold text-txt shadow-[0_9px_24px_-18px_var(--teal)] transition hover:border-teal/45 hover:bg-card-2 active:scale-95"
+      className="inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[14px] border border-line bg-card p-0 text-txt shadow-[0_9px_24px_-18px_var(--teal)] transition hover:border-teal/45 hover:bg-card-2 active:scale-95"
     >
       {isDark ? (
         <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
@@ -61,7 +61,7 @@ export function ThemeToggle() {
           <path d="M20.5 14.5A8.2 8.2 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />
         </svg>
       )}
-      <span>{nextLabel}</span>
+      <span className="sr-only">{nextLabel}</span>
     </button>
   );
 }
