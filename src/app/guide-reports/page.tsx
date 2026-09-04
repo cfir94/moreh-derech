@@ -21,6 +21,33 @@ const LEARN_CARDS = [
   },
 ];
 
+const PRACTICE_CARDS = [
+  {
+    slug: "guide-reports",
+    href: "/guide-reports/practice/day",
+    title: "סימולטור יום סיור",
+    description:
+      "בחרו קבוצה עם אילוצים (כמו חלק ב׳ במבחן) ובנו לוח זמנים מלא עם מנהלות.",
+    meta: "חלק ב׳ · לוח זמנים",
+  },
+  {
+    slug: "guide-reports",
+    href: "/guide-reports/practice/unit",
+    title: "תרגול יחידת הדרכה",
+    description:
+      "כתבו יחידה קצרה וקבלו משוב אוטומטי על חמש המ״מים — מי, מה, מתי, מאיפה, מדוע.",
+    meta: "חלק II · מ״מים",
+  },
+  {
+    slug: "guide-reports",
+    href: "/guide-reports/drafts",
+    title: "טיוטות שמורות",
+    description:
+      "הטיוטות שלכם נשמרות במכשיר, מופרדות לפי חשבון אם התחברתם.",
+    meta: "localStorage",
+  },
+];
+
 export default function GuideReportsPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
@@ -32,6 +59,15 @@ export default function GuideReportsPage() {
           דו״ח כזה.
         </p>
       </header>
+
+      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
+        תרגול
+      </h2>
+      <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {PRACTICE_CARDS.map((c, i) => (
+          <SectionCard key={c.href} index={i} {...c} />
+        ))}
+      </div>
 
       <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
         לימוד ודוגמאות
@@ -59,36 +95,28 @@ export default function GuideReportsPage() {
         ))}
       </div>
 
-      <div className="rounded-lg border border-dashed border-line bg-card p-5 text-[13px] leading-relaxed text-txt-dim">
-        <p className="mb-2 font-extrabold text-txt">בקרוב בסקציה</p>
-        <ul className="flex flex-col gap-1.5">
-          <li className="flex gap-2">
-            <span aria-hidden className="text-teal">
-              ◆
-            </span>
-            סימולטור בניית יום סיור בסגנון מבחן הרישוי (חלק ב׳)
-          </li>
-          <li className="flex gap-2">
-            <span aria-hidden className="text-teal">
-              ◆
-            </span>
-            תרגול כתיבת יחידת הדרכה עם משוב לפי חמש המ״מים
-          </li>
-          <li className="flex gap-2">
-            <span aria-hidden className="text-teal">
-              ◆
-            </span>
-            שמירת טיוטות דוחות באזור האישי
-          </li>
-        </ul>
-        <p className="mt-3">
-          החומר מבוסס על תבנית ודוגמת הרכז של הקורס.{" "}
+      <div className="rounded-lg border border-line bg-card p-5 text-[13px] leading-relaxed text-txt-dim">
+        <p className="mb-2 font-extrabold text-txt">איך להתחיל</p>
+        <p className="mb-2">
+          מומלץ קודם{" "}
           <Link
             href="/guide-reports/how-to"
             className="font-bold text-teal hover:underline"
           >
-            להתחיל בלימוד ←
+            לקרוא את מדריך המבנה
           </Link>
+          , אחר כך{" "}
+          <Link
+            href="/guide-reports/example/dead-sea-sodom"
+            className="font-bold text-teal hover:underline"
+          >
+            לראות דוגמה מלאה
+          </Link>
+          , ואז לעבור לסימולטור וליחידות.
+        </p>
+        <p>
+          החומר מבוסס על תבנית ודוגמת הרכז של הקורס, עם התאמה לחלק ב׳ של מבחן
+          הרישוי (תכנון מסלול לפי קבוצה).
         </p>
       </div>
     </div>
