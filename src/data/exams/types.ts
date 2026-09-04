@@ -26,6 +26,8 @@ export type Exam = {
   slug: string;
   label: Localized;
   date: string;
+  /** Editions whose text came out of the PDFs complete and clean. */
+  languages: ExamLang[];
   questions: ExamQuestion[];
 };
 

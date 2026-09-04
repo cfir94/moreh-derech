@@ -51,3 +51,6 @@ next-env.d.ts
 /.claude/
 /.windsurf/
 /skills-lock.json
+
+# Python bytecode from tools/
+__pycache__/

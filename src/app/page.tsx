@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { QUIZZES } from "@/data/quizzes";
+import { EXAMS } from "@/data/exams";
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { HomeProgress } from "@/components/HomeProgress";
@@ -25,10 +26,10 @@ export default function Home() {
     {
       slug: "exams",
       href: "/exams",
-      title: "מבחן רישוי מלא",
+      title: "מבחני רישוי מלאים",
       description:
-        "מבחן שלם בתנאי אמת — בלי חשיפת תשובות, עם ניווט חופשי והגשה בסוף.",
-      meta: "עברית · English · العربية",
+        "מועדי מבחן שלמים בתנאי אמת — בלי חשיפת תשובות, עם הגשה וציון בסוף.",
+      meta: `${EXAMS.length} מועדים`,
     },
     {
       slug: "timelines",
@@ -96,7 +97,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/exams/july-2024"
+              href="/exams"
               className="rounded-full px-7 py-4 font-extrabold text-on-accent transition active:scale-95"
               style={{
                 background:

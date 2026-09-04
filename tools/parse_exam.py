@@ -28,12 +28,24 @@ import pdfplumber
 
 YELLOW = (1.0, 1.0, 0.0)
 
+HE_LABELS = ["א", "ב", "ג", "ד"]
+AR_LABELS = ["أ", "ب", "ج", "د"]
+DIGITS = ["1", "2", "3", "4"]
+
+# A language's own labels are tried first, then everyone else's: some editions
+# keep the Hebrew א-ד even when the text is English or Arabic.
 LANGS = {
-    "he": {"rtl": True, "sets": [["א", "ב", "ג", "ד"], ["1", "2", "3", "4"]]},
-    "ar": {"rtl": True, "sets": [["أ", "ب", "ج", "د"], ["1", "2", "3", "4"]]},
+    "he": {"rtl": True, "sets": [HE_LABELS, DIGITS, AR_LABELS]},
+    "ar": {"rtl": True, "sets": [AR_LABELS, HE_LABELS, DIGITS]},
     "en": {
         "rtl": False,
-        "sets": [["A", "B", "C", "D"], ["a", "b", "c", "d"], ["1", "2", "3", "4"]],
+        "sets": [
+            ["A", "B", "C", "D"],
+            ["a", "b", "c", "d"],
+            HE_LABELS,
+            DIGITS,
+            AR_LABELS,
+        ],
     },
 }
 
@@ -186,11 +198,16 @@ def read_lines(pdf, lang):
             x0 = min(w["x0"] for w in words)
             x1 = max(w["x1"] for w in words)
             # A bold marking must cover most of this line, not merely share its
-            # band with a bold heading elsewhere on the page.
+            # band with a bold heading elsewhere on the page. The glyph has to
+            # sit in this line by more than half its height: a looser window
+            # lets a bolded answer mark the option printed above or below it,
+            # which in the 2022 key marked two answers on most questions.
             line_bold = [
                 c
                 for c in bolds
-                if top - 1 <= c["top"] <= bottom + 1 and x0 - 1 <= c["x0"] <= x1 + 1
+                if min(c["bottom"], bottom) - max(c["top"], top)
+                > 0.5 * (c["bottom"] - c["top"])
+                and x0 - 1 <= c["x0"] <= x1 + 1
             ]
             marked = any(
                 r["top"] - 3 <= cy <= r["bottom"] + 3 for r in yellows
@@ -204,6 +221,14 @@ def option_re_for(labels):
     return re.compile(rf"^\s*({escaped})\s*[.)]\s*(.*)$")
 
 
+ALL_SETS = [HE_LABELS, AR_LABELS, DIGITS, ["A", "B", "C", "D"], ["a", "b", "c", "d"]]
+# Which labels may open the k-th option, in any of the alphabets used: one item
+# in the January 2025 Arabic edition runs "א ב ג د", mixing two of them.
+POSITION_LABELS = [{s[k] for s in ALL_SETS} for k in range(4)]
+ANY_LABEL = {l for s in ALL_SETS for l in s}
+ANY_OPTION_RE = option_re_for(sorted(ANY_LABEL))
+
+
 def split_items(lines, lang, expected_count):
     """
     Slice the stream at lines that open the next numbered item.
@@ -212,7 +237,7 @@ def split_items(lines, lang, expected_count):
     looks exactly like the start of item 4. An item therefore cannot begin
     until the current one has collected its four options.
     """
-    any_opt = option_re_for([l for s in LANGS[lang]["sets"] for l in s])
+    any_opt = ANY_OPTION_RE
 
     starts, want, opts_seen = [], 1, 0
     for i, line in enumerate(lines):
@@ -247,16 +272,27 @@ def split_items(lines, lang, expected_count):
     ]
 
 
-def parse_item(block, labels):
-    """One numbered item -> fill-in half + four-option half."""
-    opt_re = option_re_for(labels)
+def parse_item(block, lenient=False):
+    """
+    One numbered item -> fill-in half + four-option half.
 
-    # Locate the option lines, tolerating a label alone on its own line.
+    Labels are matched by position rather than by a single alphabet, so an item
+    that mixes them still reads cleanly. `lenient` additionally accepts a label
+    out of position, which recovers items whose printed labels repeat ("أ ب ب
+    د" in one January 2025 question); it is a fallback, tried only after the
+    ordered pass fails, and still has to yield exactly four options.
+    """
+    opt_re = ANY_OPTION_RE
+
+    # Locate the option lines, tolerating a label alone on its own line. The
+    # scan starts past the block's first line, which carries the item's own
+    # number and would otherwise read as an option in a digit-labelled item.
     opts, first_opt_idx = [], None
-    i = 0
+    i = 1
     while i < len(block):
         m = opt_re.match(block[i]["text"])
-        if m and len(opts) < 4 and m.group(1) == labels[len(opts)]:
+        allowed = ANY_LABEL if lenient else POSITION_LABELS[min(len(opts), 3)]
+        if m and len(opts) < 4 and m.group(1) in allowed:
             text, marked = m.group(2).strip(), block[i]["marked"]
             if not text and i + 1 < len(block):
                 # Highlighted answers sometimes push their text to the next line.
@@ -288,7 +324,11 @@ def parse_item(block, labels):
         tail = [l for l in after if len(l["text"]) > 2]
         if len(tail) == 1:
             opts.append(
-                {"label": labels[3], "text": tail[0]["text"], "marked": tail[0]["marked"]}
+                {
+                    "label": "?",
+                    "text": tail[0]["text"],
+                    "marked": tail[0]["marked"],
+                }
             )
 
     if len(opts) != 4 or first_opt_idx is None:
@@ -321,11 +361,19 @@ def parse_item(block, labels):
             break
 
     if stem_idx is None or stem_idx >= len(head):
-        # No blank found (or nothing after it): fall back to the last question.
-        stem_idx = next(
+        # No blank found (or nothing after it): the question is the last line
+        # ending in "?" together with the lines it wrapped from — walk back
+        # while the line before does not close a sentence of its own.
+        last_q = next(
             (j for j in range(len(head) - 1, -1, -1) if head[j].rstrip().endswith("?")),
-            len(head) - 1,
+            None,
         )
+        if last_q is None:
+            stem_idx = len(head) - 1
+        else:
+            stem_idx = last_q
+            while stem_idx > 0 and not re.search(r"[.?!\]\)_]\s*$", head[stem_idx - 1]):
+                stem_idx -= 1
 
     statement_lines = head[:stem_idx]
     stem_lines = head[stem_idx:]
@@ -355,16 +403,13 @@ def parse(path, lang, expected_count=33):
     items, problems = [], []
 
     for n, block in enumerate(blocks, 1):
-        parsed = None
-        for labels in LANGS[lang]["sets"]:
-            parsed = parse_item(block, labels)
-            if parsed:
-                break
+        parsed = parse_item(block) or parse_item(block, lenient=True)
 
         if not parsed:
             problems.append((n, "no clean 4-option set"))
             continue
-        if not parsed["question"] or any(len(a["text"]) < 2 for a in parsed["answers"]):
+        # A one-character answer is legitimate ("א. 2" on the elections item).
+        if not parsed["question"] or any(not a["text"] for a in parsed["answers"]):
             problems.append((n, "empty question or option"))
             continue
 

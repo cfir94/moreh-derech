@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  EXAM_LANGS,
   LANG_META,
   type Exam,
   type ExamLang,
@@ -42,7 +41,7 @@ const ACCENT_BG =
 
 export function ExamRunner({ exam }: { exam: Exam }) {
   const [phase, setPhase] = useState<"intro" | "running" | "results">("intro");
-  const [lang, setLang] = useState<ExamLang>("he");
+  const [lang, setLang] = useState<ExamLang>(exam.languages[0] ?? "he");
   const [picks, setPicks] = useState<Record<number, number>>({});
   const [page, setPage] = useState(0);
   const [confirming, setConfirming] = useState(false);
@@ -127,7 +126,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
               שפת המבחן
             </h2>
             <div className="flex flex-wrap gap-2">
-              {EXAM_LANGS.map((code) => {
+              {exam.languages.map((code) => {
                 const active = lang === code;
                 return (
                   <button
