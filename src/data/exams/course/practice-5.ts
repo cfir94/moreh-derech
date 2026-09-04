@@ -15,6 +15,8 @@ const exam: Exam = {
     "he"
   ],
   "keySource": "course",
+  "family": "מבחן תרגול",
+  "subjects": "חי, צומח, גיאולוגיה, פרהיסטוריה, מבוא לארכיאולוגיה וברונזה",
   "questions": [
     {
       "number": 1,

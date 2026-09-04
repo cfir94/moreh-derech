@@ -15,6 +15,8 @@ const exam: Exam = {
     "he"
   ],
   "keySource": "course",
+  "family": "מבחן נושאי",
+  "subjects": "יהדות, נצרות, ברזל וגבולות",
   "questions": [
     {
       "number": 1,

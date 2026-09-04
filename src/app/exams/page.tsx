@@ -2,11 +2,22 @@ import Link from "next/link";
 import { EXAMS } from "@/data/exams";
 import { LANG_META } from "@/data/exams/types";
 import { SectionCard } from "@/components/SectionCard";
+import { ExamGroup } from "@/components/ExamGroup";
+
+/** The blocks the course examined separately; see tools/import_course_exams.py. */
+const FIRST_BLOCK = "חי, צומח, גיאולוגיה, פרהיסטוריה, מבוא לארכיאולוגיה וברונזה";
+
+function fills(exam: { questions: { kind?: string }[] }) {
+  const n = exam.questions.filter((q) => q.kind === "fill").length;
+  return n ? `${n} שאלות השלמה · הסבר לכל תשובה` : "הסבר לכל תשובה";
+}
 
 export default function ExamsPage() {
   const official = EXAMS.filter((e) => e.keySource === "official");
   const derived = EXAMS.filter((e) => e.keySource === "derived");
   const course = EXAMS.filter((e) => e.keySource === "course");
+  const firstBlock = course.filter((e) => e.subjects === FIRST_BLOCK);
+  const secondBlock = course.filter((e) => e.subjects !== FIRST_BLOCK);
   const total = EXAMS.reduce((s, e) => s + e.questions.length, 0);
 
   return (
@@ -23,10 +34,11 @@ export default function ExamsPage() {
         </p>
       </header>
 
-      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        עם מפתח תשובות רשמי
-      </h2>
-      <div className="mb-9 grid grid-cols-2 gap-3 lg:grid-cols-3">
+      <ExamGroup
+        title="משרד התיירות — עם מפתח תשובות רשמי"
+        count={official.length}
+        open
+      >
         {official.map((exam, i) => (
           <SectionCard
             key={exam.slug}
@@ -40,17 +52,16 @@ export default function ExamsPage() {
             meta={`${exam.questions.length} שאלות`}
           />
         ))}
-      </div>
+      </ExamGroup>
 
-      <h2 className="mb-1.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        בלי מפתח רשמי — תשובות שנקבעו על ידי המערכת
-      </h2>
-      <p className="mb-3 max-w-2xl text-[12.5px] leading-relaxed text-txt-dim">
-        למועדים האלה משרד התיירות מעולם לא פרסם פתרון. השאלות מקוריות, אבל
-        התשובות המסומנות בהם נקבעו על ידי המערכת — ייתכנו טעויות, ובמסך התוצאות
-        מסומנות התשובות שפחות ודאיות. שווה לתרגל, לא שווה לשנן בעיניים עצומות.
-      </p>
-      <div className="mb-9 grid grid-cols-2 gap-3 lg:grid-cols-3">
+      <ExamGroup
+        title="משרד התיירות — בלי מפתח רשמי"
+        count={derived.length}
+        note="למועדים האלה משרד התיירות מעולם לא פרסם פתרון. השאלות מקוריות, אבל
+          התשובות המסומנות בהם נקבעו על ידי המערכת — ייתכנו טעויות, ובמסך
+          התוצאות מסומנות התשובות שפחות ודאיות. שווה לתרגל, לא שווה לשנן
+          בעיניים עצומות."
+      >
         {derived.map((exam, i) => (
           <SectionCard
             key={exam.slug}
@@ -63,31 +74,48 @@ export default function ExamsPage() {
             meta={`${exam.questions.length} שאלות`}
           />
         ))}
-      </div>
+      </ExamGroup>
 
-      <h2 className="mb-1.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        מבחני תרגול של הקורס
-      </h2>
-      <p className="mb-3 max-w-2xl text-[12.5px] leading-relaxed text-txt-dim">
-        לא מבחני משרד התיירות, אלא מבחני תרגול שנכתבו לקורס — עם שאלות השלמה
-        לצד שאלות אמריקאיות, ועם <b>הסבר לכל תשובה</b>. שאלות ההשלמה נבדקות
-        בהתאמה גמישה, ואפשר לסמן ידנית תשובה כנכונה אם ניסחתם אותה אחרת.
-      </p>
-      <div className="mb-9 grid grid-cols-2 gap-3 lg:grid-cols-3">
-        {course.map((exam, i) => (
+      <ExamGroup
+        title={`מבחני הקורס — ${FIRST_BLOCK}`}
+        count={firstBlock.length}
+        note="מבחני התרגול של הבלוק הראשון: שאלות אמריקאיות לצד שאלות השלמה,
+          עם הסבר לכל תשובה. שאלות ההשלמה נבדקות בהתאמה גמישה, ואפשר לסמן
+          ידנית תשובה כנכונה אם ניסחתם אותה אחרת."
+      >
+        {firstBlock.map((exam, i) => (
           <SectionCard
             key={exam.slug}
             index={i}
             href={`/exams/${exam.slug}`}
             slug="quizzes"
             title={exam.label.he}
-            description={`${exam.questions.filter((q) => q.kind === "fill").length} שאלות השלמה · הסבר לכל תשובה`}
+            description={fills(exam)}
             meta={`${exam.questions.length} שאלות`}
           />
         ))}
-      </div>
+      </ExamGroup>
 
-      <div className="rounded-md border border-line bg-card p-4 text-[12.5px] leading-relaxed text-txt-dim">
+      <ExamGroup
+        title="מבחני הקורס — יהדות, נצרות, ברזל וגבולות"
+        count={secondBlock.length}
+        note="מבחני הבלוק השני — דגשי הרכז והמבחנים הנושאיים. אלה המבחנים
+          הארוכים (50 פריטים), ובהם החלק הגדול של שאלות ההשלמה."
+      >
+        {secondBlock.map((exam, i) => (
+          <SectionCard
+            key={exam.slug}
+            index={i}
+            href={`/exams/${exam.slug}`}
+            slug="quizzes"
+            title={exam.label.he}
+            description={fills(exam)}
+            meta={`${exam.questions.length} שאלות`}
+          />
+        ))}
+      </ExamGroup>
+
+      <div className="mt-6 rounded-md border border-line bg-card p-4 text-[12.5px] leading-relaxed text-txt-dim">
         <p className="mb-2">
           <b className="text-txt">מה עוד חסר?</b> לקיץ 2020, קיץ 2022, קיץ 2024,
           חורף 2025 וקיץ 2025 אין בידינו לא מפתח ולא פתרון — הם לא כאן.

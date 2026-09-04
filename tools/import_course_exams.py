@@ -31,11 +31,18 @@ ROOT = Path(__file__).resolve().parent.parent
 EXAM_DIR = ROOT / "src/data/exams/course"
 QUIZ_FILE = ROOT / "src/data/quizzes/course-bank.ts"
 
-# (collection in the source, our slug prefix, what to call the family)
+# The course taught two blocks and examined each of them separately. The five
+# "מבחן תרגול" papers were written for the first block, the ten later ones for
+# the second, so the subjects below are the syllabus of the block a paper
+# covers — not a guess from its questions.
+FIRST_BLOCK = "חי, צומח, גיאולוגיה, פרהיסטוריה, מבוא לארכיאולוגיה וברונזה"
+SECOND_BLOCK = "יהדות, נצרות, ברזל וגבולות"
+
+# (collection in the source, our slug prefix, what to call the family, subjects)
 SETS = [
-    ("EXAMS", "practice", "מבחן תרגול"),
-    ("FOCUS_EXAMS", "focus", "מבחן דגשי הרכז"),
-    ("TOPIC_EXAMS", "topic", "מבחן נושאי"),
+    ("EXAMS", "practice", "מבחן תרגול", FIRST_BLOCK),
+    ("FOCUS_EXAMS", "focus", "מבחן דגשי הרכז", SECOND_BLOCK),
+    ("TOPIC_EXAMS", "topic", "מבחן נושאי", SECOND_BLOCK),
 ]
 
 # Question ids are `ID_BASE + running number` so a re-import never renumbers.
@@ -109,7 +116,7 @@ def main():
     EXAM_DIR.mkdir(parents=True, exist_ok=True)
 
     exams, bank, next_id = [], [], ID_BASE
-    for collection, prefix, family in SETS:
+    for collection, prefix, family, subjects in SETS:
         for order, (key, raw) in enumerate(
             sorted(source.get(collection, {}).items(), key=lambda kv: int(kv[0])), 1
         ):
@@ -161,6 +168,8 @@ def main():
                 "date": title,
                 "languages": ["he"],
                 "keySource": "course",
+                "family": family,
+                "subjects": subjects,
                 "questions": questions,
             }
             (EXAM_DIR / f"{slug}.ts").write_text(

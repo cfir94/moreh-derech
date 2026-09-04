@@ -1,20 +1,24 @@
 import type { Quiz } from "@/data/quizzes/types";
+import archaeologyIntro from "@/data/quizzes/archaeology-intro";
+import bronzeAge from "@/data/quizzes/bronze-age";
 import christianity from "@/data/quizzes/christianity";
 import courseBank from "@/data/quizzes/course-bank";
 import floraFauna from "@/data/quizzes/flora-fauna";
 import geology from "@/data/quizzes/geology";
-import history from "@/data/quizzes/history";
 import ironAge from "@/data/quizzes/iron-age";
 import israelBorders from "@/data/quizzes/israel-borders";
 import judaism from "@/data/quizzes/judaism";
 import pastExams from "@/data/quizzes/past-exams";
+import prehistory from "@/data/quizzes/prehistory";
 
 export const QUIZZES: Quiz[] = [
   pastExams,
   courseBank,
   floraFauna,
   geology,
-  history,
+  prehistory,
+  archaeologyIntro,
+  bronzeAge,
   ironAge,
   christianity,
   judaism,
@@ -30,8 +34,12 @@ export const QUIZ_DESCRIPTIONS: Record<string, string> = {
     "צמחייה, ציפורים, יונקים, זוחלים, נדידה ובתי גידול — הטבע של ארץ ישראל.",
   geology:
     "טקטוניקת לוחות, סוגי סלעים, בקע ים המלח וגיאומורפולוגיה של הארץ.",
-  history:
-    "מהתקופות הקדומות ועד ימינו — אירועים, שליטים ותרבויות לאורך ההיסטוריה.",
+  prehistory:
+    "אבולוציית האדם, פליאולית, התרבות הנטופית והמהפכה החקלאית — ניאולית וכלקוליתי.",
+  "archaeology-intro":
+    "תל, שכבה וטיפולוגיה, שיטות חפירה ותיארוך, וחלוצי המחקר הארכיאולוגי בארץ.",
+  "bronze-age":
+    "ברונזה קדומה, ביניימית, תיכונה ומאוחרת — ערים, ביצורים, מצרים וכנען.",
   "iron-age":
     "ממלכות ישראל ויהודה, ערים מרכזיות, ממצאים וכתובות מתקופת הברזל.",
   christianity:

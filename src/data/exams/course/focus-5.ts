@@ -15,6 +15,8 @@ const exam: Exam = {
     "he"
   ],
   "keySource": "course",
+  "family": "מבחן דגשי הרכז",
+  "subjects": "יהדות, נצרות, ברזל וגבולות",
   "questions": [
     {
       "number": 1,

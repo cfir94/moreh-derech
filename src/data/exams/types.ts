@@ -48,6 +48,10 @@ export type Exam = {
    * "course"   — a practice exam written for the course, not a Ministry paper.
    */
   keySource: "official" | "derived" | "course";
+  /** Course exams only: the set the paper belongs to ("מבחן דגשי הרכז"). */
+  family?: string;
+  /** Course exams only: the subjects of the block that paper examines. */
+  subjects?: string;
   questions: ExamQuestion[];
 };
 
