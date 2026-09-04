@@ -10,12 +10,12 @@ export default function Home() {
     QUIZZES.find((q) => q.slug === "past-exams")?.questions.length ?? 0;
   const sections = [
     {
-      slug: "game",
-      href: "/game",
-      title: "משחק אֶבֶן דֶּרֶךְ",
+      slug: "games",
+      href: "/games",
+      title: "משחקים",
       description:
-        "משחק אינטראקטיבי לתרגול ידיעת הארץ: אתרים, אזורים, גיאולוגיה, נחלים ועוד.",
-      meta: "החשבון שלכם מחובר",
+        "משחקי זיהוי ותרגול בידיעת הארץ, כנסיות וצמחי בר ישראליים.",
+      meta: "3 משחקים",
     },
     {
       slug: "quizzes",
