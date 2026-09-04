@@ -40,7 +40,8 @@ const quiz: Quiz = {
           "text": "\"לפני הכתיבה\" — התקופה שקדמה להמצאת הכתב",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 2,
@@ -63,7 +64,8 @@ const quiz: Quiz = {
           "text": "כעשרה אחוזים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 3,
@@ -86,7 +88,8 @@ const quiz: Quiz = {
           "text": "באמצעות ניתוח גנטי של אוכלוסיות מודרניות בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 4,
@@ -109,7 +112,8 @@ const quiz: Quiz = {
           "text": "15,000 שנה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 5,
@@ -132,7 +136,8 @@ const quiz: Quiz = {
           "text": "1.8 מיליון שנה לפני זמננו",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 6,
@@ -155,7 +160,8 @@ const quiz: Quiz = {
           "text": "כ-790,000 שנה לפני זמננו",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 7,
@@ -178,7 +184,8 @@ const quiz: Quiz = {
           "text": "כ-1.8 מיליון שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 8,
@@ -201,7 +208,8 @@ const quiz: Quiz = {
           "text": "כ-790,000 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "islam"
     },
     {
       "id": 9,
@@ -224,7 +232,8 @@ const quiz: Quiz = {
           "text": "תפוצה כלל-עולמית שנייה של האדם מאפריקה, של מין ההומו ספיינס",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 10,
@@ -247,7 +256,8 @@ const quiz: Quiz = {
           "text": "כ-2.5–1.8 מיליון שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 11,
@@ -270,7 +280,8 @@ const quiz: Quiz = {
           "text": "הומו ארקטוס והומו הבילוס",
           "correct": false
         }
-      ]
+      ],
+      "topic": "modern-yishuv"
     },
     {
       "id": 12,
@@ -278,22 +289,24 @@ const quiz: Quiz = {
       "category": "מבוא לפרהיסטוריה ואבולוציית האדם",
       "answers": [
         {
-          "text": "רשימת תגליות הזהב שנמצאו בנחל מערות",
-          "correct": false
-        },
-        {
-          "text": "טבלה המסנכרנת בין שכבות המערות באתר (התנור, הגדי, הנחל) לבין תקופות הפרהיסטוריה של ארץ ישראל",
+          "text": "טבלה המסנכרנת בין שכבות המערות לתקופות הפרהיסטוריה",
           "correct": true
         },
         {
-          "text": "מפת התיירות של שמורת נחל מערות כיום",
+          "text": "רשימת הממצאים שנחשפו בשמורת נחל מערות בכל שנה",
           "correct": false
         },
         {
-          "text": "שם נוסף לתרבות הנטופית בלבד",
+          "text": "מפת השבילים והמערות של שמורת נחל מערות כיום",
+          "correct": false
+        },
+        {
+          "text": "שם נוסף לרצף התרבות הנטופית בגליל ובכרמל",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "מערות התנור, הגדי והנחל שבנחל מערות מכילות רצף אנושי של כ-500 אלף שנה — ולכן הן אתר מורשת עולמית.",
+      "topic": "prehistory"
     },
     {
       "id": 13,
@@ -316,7 +329,8 @@ const quiz: Quiz = {
           "text": "כ-250,000 עד 50,000 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 14,
@@ -339,7 +353,8 @@ const quiz: Quiz = {
           "text": "התרבות האוריניאקית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 15,
@@ -362,7 +377,8 @@ const quiz: Quiz = {
           "text": "להב סכין דק",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 16,
@@ -370,22 +386,24 @@ const quiz: Quiz = {
       "category": "פליאולית",
       "answers": [
         {
-          "text": "יריחו ותל אביב",
-          "correct": false
-        },
-        {
           "text": "עובדיה, גשר בנות יעקב וביצת רוחמה",
           "correct": true
         },
         {
-          "text": "עין גדי ומצדה",
+          "text": "מערת קסם, נחל מערות וכפר החורש",
           "correct": false
         },
         {
-          "text": "תל דן ותל חצור",
+          "text": "יריחו, נחל אורן ומעין ברוך",
+          "correct": false
+        },
+        {
+          "text": "עין גדי, מצדה ותל דן",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "עובדיה שבבקעת הירדן היא מהאתרים הקדומים ביותר מחוץ לאפריקה — כ-1.4 מיליון שנה.",
+      "topic": "prehistory"
     },
     {
       "id": 17,
@@ -408,7 +426,8 @@ const quiz: Quiz = {
           "text": "דיג ואיסוף רכיכות בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 18,
@@ -431,7 +450,8 @@ const quiz: Quiz = {
           "text": "כ-6,500 עד 5,500 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 19,
@@ -454,7 +474,8 @@ const quiz: Quiz = {
           "text": "התרבות המוסטרית",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 20,
@@ -477,7 +498,8 @@ const quiz: Quiz = {
           "text": "שיטת אשלרו-יברודית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 21,
@@ -500,7 +522,8 @@ const quiz: Quiz = {
           "text": "הומו ספיינס בלבד, ללא אדם ניאנדרטלי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 22,
@@ -523,7 +546,8 @@ const quiz: Quiz = {
           "text": "בניית ערים מבוצרות ומקדשים ציבוריים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 23,
@@ -546,7 +570,8 @@ const quiz: Quiz = {
           "text": "חרבות ברזל וכלי נשק ממתכת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 24,
@@ -569,7 +594,8 @@ const quiz: Quiz = {
           "text": "כ-50,000 עד 20,000 שנה לפני זמננו",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 25,
@@ -592,7 +618,8 @@ const quiz: Quiz = {
           "text": "הירמוכית והוואדי רבה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 26,
@@ -615,7 +642,8 @@ const quiz: Quiz = {
           "text": "כלי נחושת וזהב",
           "correct": false
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 27,
@@ -638,7 +666,8 @@ const quiz: Quiz = {
           "text": "אירופה ואסיה בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 28,
@@ -646,22 +675,24 @@ const quiz: Quiz = {
       "category": "פליאולית",
       "answers": [
         {
-          "text": "ראשית הבנייה בלבני בוץ ותכנון ערים",
-          "correct": false
-        },
-        {
-          "text": "עדויות להתנהגות מודרנית מלאה: תכשיטים, חפצי אמנות, שימוש בצבע, כלי נגינה וצלמיות",
+          "text": "תכשיטים, אמנות, שימוש בצבע וצלמיות",
           "correct": true
         },
         {
-          "text": "ראשית ביות בעלי החיים והצמחים",
+          "text": "בנייה בלבני בוץ ותכנון ערים ראשוני",
           "correct": false
         },
         {
-          "text": "היעדר מוחלט של כל עדות לפולחן או אמנות",
+          "text": "ביות בעלי חיים וראשית החקלאות",
+          "correct": false
+        },
+        {
+          "text": "ייצור כלי מתכת ראשונים מנחושת",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "בפליאולית העליון מופיעות לראשונה עדויות ל\"התנהגות מודרנית\" — סמלים ואמנות, ולא רק כלים.",
+      "topic": "prehistory"
     },
     {
       "id": 137,
@@ -669,19 +700,19 @@ const quiz: Quiz = {
       "category": "פליאולית",
       "answers": [
         {
-          "text": "להב מגל מצור",
-          "correct": false
-        },
-        {
-          "text": "אבן יד — הכלי האופייני לתרבות האשלית",
+          "text": "אבן יד",
           "correct": true
         },
         {
-          "text": "כלי כתישה עגול",
+          "text": "להב מגל",
           "correct": false
         },
         {
-          "text": "ראש חץ קטן ומחודד",
+          "text": "ראש חץ מחודד",
+          "correct": false
+        },
+        {
+          "text": "כלי כתישה עגול",
           "correct": false
         }
       ],
@@ -689,7 +720,9 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/hand_axe.jpg",
         "fit": "contain",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "explanation": "כלי האבן האופייני לתרבות האשלית שבפליאולית התחתון — משמש לחיתוך, לגירוד ולשבירת עצמות.",
+      "topic": "prehistory"
     },
     {
       "id": 29,
@@ -712,7 +745,8 @@ const quiz: Quiz = {
           "text": "התקופה שבה קרסה התרבות העירונית הכנענית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 30,
@@ -735,7 +769,8 @@ const quiz: Quiz = {
           "text": "כ-50,000 עד 20,000 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 31,
@@ -758,7 +793,8 @@ const quiz: Quiz = {
           "text": "תרבות ניאוליתית קרמית, מקבילה לירמוכית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 32,
@@ -781,7 +817,8 @@ const quiz: Quiz = {
           "text": "כ-6,500 עד 5,500 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 33,
@@ -804,7 +841,8 @@ const quiz: Quiz = {
           "text": "המצאת הכתב וגלגל היוצר",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 34,
@@ -827,7 +865,8 @@ const quiz: Quiz = {
           "text": "כלי חרס מעוטרים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 35,
@@ -850,7 +889,8 @@ const quiz: Quiz = {
           "text": "ציד באמצעות כלבים מבויתים בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 36,
@@ -873,7 +913,8 @@ const quiz: Quiz = {
           "text": "תחילת הדיג",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 37,
@@ -896,7 +937,8 @@ const quiz: Quiz = {
           "text": "מערת הנחל",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 38,
@@ -919,7 +961,8 @@ const quiz: Quiz = {
           "text": "אין קשר בין התקופה הגיאולוגית לבין מפלס הים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 138,
@@ -927,19 +970,19 @@ const quiz: Quiz = {
       "category": "אפיפליאולית והתרבות הנטופית",
       "answers": [
         {
-          "text": "להב מגל — שולב בקת עץ או עצם ושימש לקציר דגנים",
+          "text": "להב מגל",
           "correct": true
         },
         {
-          "text": "אבן יד גדולה",
-          "correct": false
-        },
-        {
-          "text": "גרזן אפסילון מברונזה",
+          "text": "אבן יד אשלית",
           "correct": false
         },
         {
           "text": "חוד חנית ארוך",
+          "correct": false
+        },
+        {
+          "text": "גרזן נחושת",
           "correct": false
         }
       ],
@@ -947,7 +990,9 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/flint_sickle.jpg",
         "fit": "contain",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "explanation": "שולב בקת עץ או עצם ושימש לקציר דגנים; ברק הסיליקה על להביו מעיד על השימוש.",
+      "topic": "geology"
     },
     {
       "id": 39,
@@ -970,7 +1015,8 @@ const quiz: Quiz = {
           "text": "כ-50,000 עד 20,000 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 40,
@@ -993,7 +1039,8 @@ const quiz: Quiz = {
           "text": "קדם-קרמי א', קדם-קרמי ב', קדם-קרמי ג', וניאולית קרמי",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 41,
@@ -1016,7 +1063,8 @@ const quiz: Quiz = {
           "text": "המהפכה החקלאית — ביות צמחים ובעלי חיים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 42,
@@ -1039,7 +1087,8 @@ const quiz: Quiz = {
           "text": "עצי פרי ופרחי נוי בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 43,
@@ -1062,7 +1111,8 @@ const quiz: Quiz = {
           "text": "סוסים וגמלים בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 44,
@@ -1085,7 +1135,8 @@ const quiz: Quiz = {
           "text": "בפליאולית העליון, יחד עם חפצי האמנות הראשונים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 45,
@@ -1108,7 +1159,8 @@ const quiz: Quiz = {
           "text": "כלי ברזל וכלי נחושת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 46,
@@ -1131,7 +1183,8 @@ const quiz: Quiz = {
           "text": "מגורים בערים גדולות מבוצרות בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 47,
@@ -1154,7 +1207,8 @@ const quiz: Quiz = {
           "text": "כ-11,000 עד 6,000 שנה לפני זמננו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 48,
@@ -1177,7 +1231,8 @@ const quiz: Quiz = {
           "text": "תקופת מעבר לקראת ההיסטוריה, טרם המצאת הכתב באזורנו",
           "correct": true
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 49,
@@ -1185,7 +1240,11 @@ const quiz: Quiz = {
       "category": "ניאולית וכלקוליתי",
       "answers": [
         {
-          "text": "תחילת ייצור כלי הברזל",
+          "text": "תחילת חרושת המתכת — כלי נחושת",
+          "correct": true
+        },
+        {
+          "text": "תחילת ייצור כלים מברזל",
           "correct": false
         },
         {
@@ -1193,14 +1252,12 @@ const quiz: Quiz = {
           "correct": false
         },
         {
-          "text": "המצאת האלפבית",
+          "text": "המצאת הכתב האלפביתי",
           "correct": false
-        },
-        {
-          "text": "תחילת חרושת המתכת — ייצור כלי נחושת וצמידי זהב",
-          "correct": true
         }
-      ]
+      ],
+      "explanation": "שם התקופה עצמו — כלקוליתית — מורכב מ\"נחושת\" ו\"אבן\" ביוונית. אוצר נחל משמר הוא שיאה.",
+      "topic": "prehistory"
     },
     {
       "id": 50,
@@ -1223,7 +1280,8 @@ const quiz: Quiz = {
           "text": "מעבר מגידול דגנים לגידול ירקות בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 51,
@@ -1246,7 +1304,8 @@ const quiz: Quiz = {
           "text": "אמורית, כנענית ופלישתית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 139,
@@ -1254,15 +1313,15 @@ const quiz: Quiz = {
       "category": "ניאולית וכלקוליתי",
       "answers": [
         {
-          "text": "תכשיטי הפלישתים מעקרון",
-          "correct": false
-        },
-        {
-          "text": "אוצר נחל משמר — אוסף חפצי נחושת כלקוליתיים שנמצא במערה במדבר יהודה",
+          "text": "אוצר נחל משמר",
           "correct": true
         },
         {
           "text": "אוצר תל ערד",
+          "correct": false
+        },
+        {
+          "text": "תכשיטי עקרון הפלישתית",
           "correct": false
         },
         {
@@ -1274,7 +1333,9 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/nahal_mishmar_hoard.jpg",
         "fit": "cover",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "explanation": "יותר מ-400 חפצי נחושת כלקוליתיים שנמצאו במערה במדבר יהודה — כנראה אוצר מקדש עין גדי.",
+      "topic": "bible"
     },
     {
       "id": 52,
@@ -1282,22 +1343,24 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "לימוד שיטתי של דברים עתיקים דרך התרבות החומרית, בשונה מהיסטוריון החוקר בעיקר דרך מסמכים כתובים",
+          "text": "חקר העבר דרך התרבות החומרית ולא דרך מסמכים",
           "correct": true
         },
         {
-          "text": "מדע העוסק אך ורק בפענוח כתבים עתיקים",
+          "text": "חקר העבר דרך פענוח כתבים עתיקים בלבד",
           "correct": false
         },
         {
-          "text": "שם נרדף להיסטוריה — שני המונחים זהים לחלוטין",
+          "text": "ענף של גיאולוגיה החוקר סלעים עתיקים",
           "correct": false
         },
         {
-          "text": "ענף של גיאולוגיה החוקר סלעים עתיקים בלבד",
+          "text": "שם נרדף להיסטוריה — אין ביניהם הבדל",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "ההיסטוריון קורא מה שנכתב; הארכיאולוג קורא מה שנשאר. רוב זמן קיומו של האדם אינו מתועד בכתב.",
+      "topic": "geology"
     },
     {
       "id": 53,
@@ -1320,7 +1383,8 @@ const quiz: Quiz = {
           "text": "תיארוך, שיווק ואוצרות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "tourism"
     },
     {
       "id": 54,
@@ -1343,7 +1407,8 @@ const quiz: Quiz = {
           "text": "שיטת מחקר של איתור אתרים באזור מסוים על ידי הליכה בשטח ובחינת פני הקרקע, ללא חפירה",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 55,
@@ -1366,7 +1431,8 @@ const quiz: Quiz = {
           "text": "כלי חרס טקסי ששימש לניסוך יין בפולחן",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 56,
@@ -1389,7 +1455,8 @@ const quiz: Quiz = {
           "text": "מבנה קבורה מפואר ומונומנטלי",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 57,
@@ -1412,7 +1479,8 @@ const quiz: Quiz = {
           "text": "כלי חרס לאחסון גרעינים; מיוונית \"אוצר תבואה\"",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 58,
@@ -1435,7 +1503,8 @@ const quiz: Quiz = {
           "text": "הוא נמצא אך ורק באתרים מהתקופה הכנענית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "islam"
     },
     {
       "id": 59,
@@ -1443,22 +1512,24 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "תעלת השקיה חקלאית מעל פני הקרקע",
-          "correct": false
-        },
-        {
-          "text": "מנהרות, פירים ומחילות חצובות בסלע, שנועדו להבטיח גישה בטוחה ונסתרת למקור מים בשעת מצור",
+          "text": "מנהרות ופירים שנחצבו כדי להגיע למים בשעת מצור",
           "correct": true
         },
         {
-          "text": "בריכת שחייה ציבורית מהתקופה ההלניסטית",
+          "text": "תעלת השקיה חקלאית מעל פני הקרקע",
           "correct": false
         },
         {
           "text": "מערכת ביוב עירונית מהתקופה הרומית",
           "correct": false
+        },
+        {
+          "text": "בריכה ציבורית לרחצה מהתקופה ההלניסטית",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "המעיין נמצא כמעט תמיד מחוץ לחומה; מפעל המים בחצור, במגידו, בגזר ובעיר דוד פתר בדיוק את הבעיה הזו.",
+      "topic": "second-temple"
     },
     {
       "id": 60,
@@ -1466,22 +1537,24 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "כלי כתישה טקסי מהתקופה הכלקוליתית",
-          "correct": false
+          "text": "מסגרת מלבנית עם שתי ידיות, להכנת כתובת",
+          "correct": true
         },
         {
           "text": "שולחן אבן מרכזי בבית מגורים כנעני",
           "correct": false
         },
         {
-          "text": "מסגרת מלבנית עם שתי ידיות בולטות, ששימשה כהכנה לכתיבת כתובת הנצחה בתקופה הרומית-ביזנטית",
-          "correct": true
+          "text": "כלי כתישה טקסי מהתקופה הכלקוליתית",
+          "correct": false
         },
         {
-          "text": "סוג של מטבע רומי נדיר",
+          "text": "סוג נדיר של מטבע מהתקופה הרומית",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "צורה רומית-ביזנטית אופיינית לכתובות הקדשה והנצחה — מעין \"מסגרת תמונה\" חצובה באבן.",
+      "topic": "prehistory"
     },
     {
       "id": 61,
@@ -1504,7 +1577,8 @@ const quiz: Quiz = {
           "text": "כל חפץ שמקורו בתקופה הכנענית או קדומה יותר בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "tourism"
     },
     {
       "id": 62,
@@ -1527,7 +1601,8 @@ const quiz: Quiz = {
           "text": "גבעה מלאכותית שהתגבהה עם השנים כתוצאה מהתיישבות והרס חוזרים ונשנים באותו המקום",
           "correct": true
         }
-      ]
+      ],
+      "topic": "christianity"
     },
     {
       "id": 63,
@@ -1550,7 +1625,8 @@ const quiz: Quiz = {
           "text": "השכבה התחתונה תמיד מקבלת מספר 1, כי היא הראשונה שנחפרת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "christianity"
     },
     {
       "id": 64,
@@ -1573,7 +1649,8 @@ const quiz: Quiz = {
           "text": "חפירה בעקבות עבודות פיתוח/בנייה כדי להציל מידע לפני שייהרס; מבחינה שיטתית היא חפירה מדעית לכל דבר",
           "correct": true
         }
-      ]
+      ],
+      "topic": "tourism"
     },
     {
       "id": 65,
@@ -1596,7 +1673,8 @@ const quiz: Quiz = {
           "text": "שם אחר למאגר המים המרכזי בעיר עתיקה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "water-climate"
     },
     {
       "id": 66,
@@ -1619,7 +1697,8 @@ const quiz: Quiz = {
           "text": "תעלה עמוקה שנחפרת לחיפוש מים תת-קרקעיים בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "modern-yishuv"
     },
     {
       "id": 67,
@@ -1627,22 +1706,24 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "כלי חפירה מיוחד לחשיפת שכבות עדינות",
-          "correct": false
-        },
-        {
-          "text": "מונח לציון מיקום האתר על המפה הגיאוגרפית",
-          "correct": false
-        },
-        {
-          "text": "יחידת עפר או אלמנט אחיד (כמו קיר, רצפה או מילוי) המשתייך לפרק זמן אחד ומקבל מספר זיהוי ייחודי",
+          "text": "יחידת עפר או אלמנט אחיד בעל מספר זיהוי",
           "correct": true
         },
         {
-          "text": "השם הרשמי לריבוע החפירה כולו",
+          "text": "השם הרשמי של ריבוע החפירה כולו",
+          "correct": false
+        },
+        {
+          "text": "כלי חפירה לחשיפת שכבות עדינות",
+          "correct": false
+        },
+        {
+          "text": "מיקומו של האתר על המפה הגיאוגרפית",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "לוקוס יכול להיות קיר, רצפה, מילוי או בור. הוא היחידה הבסיסית שבה נרשם כל ממצא בחפירה.",
+      "topic": "geography"
     },
     {
       "id": 68,
@@ -1650,22 +1731,24 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "חפירה שנעשית אך ורק באמצעות מכונות כבדות",
-          "correct": false
-        },
-        {
-          "text": "חפירה סביב מבנה שלם כדי לחשוף אותו במלואו",
-          "correct": false
-        },
-        {
-          "text": "חפירת תעלה ארוכה וצרה, המשמשת לחיבור בין שטחי חפירה או לאיתור אלמנט נסתר שמיקומו המדויק אינו ידוע",
+          "text": "תעלה ארוכה וצרה לאיתור אלמנט או חיבור שטחים",
           "correct": true
         },
         {
-          "text": "חפירה של קבר בודד בלבד, ללא הקשר לשטח סביבו",
+          "text": "חפירה סביב מבנה שלם כדי לחשפו במלואו",
+          "correct": false
+        },
+        {
+          "text": "חפירה של קבר בודד ללא הקשר לסביבתו",
+          "correct": false
+        },
+        {
+          "text": "חפירה הנעשית כולה באמצעות מכונות כבדות",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "חתך חושף רצף שכבות אנכי במהירות — אבל מוסר מעט על מה שהיה בשטח לרוחבו.",
+      "topic": "geography"
     },
     {
       "id": 69,
@@ -1673,7 +1756,11 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "כשרוצים לחפור מספר אתרים סמוכים בו-זמנית",
+          "text": "כשמבנה או כביש קיימים מונעים חפירה מלמעלה",
+          "correct": true
+        },
+        {
+          "text": "כשרוצים לחפור כמה אתרים סמוכים בבת אחת",
           "correct": false
         },
         {
@@ -1681,14 +1768,12 @@ const quiz: Quiz = {
           "correct": false
         },
         {
-          "text": "כשלא ניתן לחפור בשיטה הרגילה מלמעלה, למשל בשל מבנים או כביש קיימים מעל האתר — החפירה מתקדמת אופקית פנימה",
-          "correct": true
-        },
-        {
-          "text": "כשמעוניינים לחסוך בעלויות תיעוד ופרסום",
+          "text": "כשרוצים לחסוך בעלויות תיעוד ופרסום",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "החפירה מתקדמת אז אופקית לתוך המדרון או התל — כמו במפעלי המים ובחפירות בעיר העתיקה.",
+      "topic": "geography"
     },
     {
       "id": 145,
@@ -1696,19 +1781,19 @@ const quiz: Quiz = {
       "category": "יסודות בארכיאולוגיה",
       "answers": [
         {
-          "text": "מקווה טהרה",
-          "correct": false
+          "text": "בליסטרה",
+          "correct": true
         },
         {
           "text": "מפעל מים תת-קרקעי",
           "correct": false
         },
         {
-          "text": "בליסטרה — מכונת מצור למטול אבנים כבדות",
-          "correct": true
+          "text": "מגדל מעיין כנעני",
+          "correct": false
         },
         {
-          "text": "מגדל מעיין כנעני",
+          "text": "מקווה טהרה",
           "correct": false
         }
       ],
@@ -1716,7 +1801,9 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/ballista.jpg",
         "fit": "cover",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "explanation": "מכונת מצור לירי אבנים כבדות; אבני בליסטרה נמצאו בגמלא, ביודפת ובירושלים.",
+      "topic": "judaism"
     },
     {
       "id": 70,
@@ -1739,7 +1826,8 @@ const quiz: Quiz = {
           "text": "שיטה לקביעת שנת ייצור מדויקת של כלי בודד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 71,
@@ -1762,7 +1850,8 @@ const quiz: Quiz = {
           "text": "כי כלי חרס הם הממצא הנדיר ביותר בחפירות ולכן החשוב ביותר",
           "correct": false
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 72,
@@ -1785,7 +1874,8 @@ const quiz: Quiz = {
           "text": "תיארוך המבוסס אך ורק על מקורות כתובים היסטוריים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 73,
@@ -1808,7 +1898,8 @@ const quiz: Quiz = {
           "text": "קביעת תאריך ספציפי (שנה, עשור או מאה) לממצא או לשכבה ארכיאולוגית",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 74,
@@ -1816,22 +1907,24 @@ const quiz: Quiz = {
       "category": "שיטות חפירה, טיפולוגיה ותיארוך",
       "answers": [
         {
-          "text": "מדידת עומק השכבה ביחס לפני השטח הנוכחיים",
-          "correct": false
-        },
-        {
-          "text": "ספירת מספר החדרים במבנה שנחשף",
-          "correct": false
-        },
-        {
-          "text": "מציאת שמות מלכים המוזכרים בכתובות, והצלבתם עם תיעוד היסטורי של תצפיות אסטרונומיות (כמו ליקויי חמה)",
+          "text": "הצלבת שמות מלכים עם תיעוד אסטרונומי מתוארך",
           "correct": true
+        },
+        {
+          "text": "מדידת עומק השכבה ביחס לפני השטח היום",
+          "correct": false
         },
         {
           "text": "בדיקת סוג הסלע שממנו נבנה המבנה",
           "correct": false
+        },
+        {
+          "text": "ספירת מספר החדרים והמבנים שנחשפו",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "ליקוי חמה שתועד במצרים או באשור נותן תאריך מדויק, ודרכו מתוארכים המלכים והשכבות שלהם.",
+      "topic": "geology"
     },
     {
       "id": 75,
@@ -1854,7 +1947,8 @@ const quiz: Quiz = {
           "text": "וילרד ליבי, בשנות ה-50 של המאה ה-20",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 76,
@@ -1877,7 +1971,8 @@ const quiz: Quiz = {
           "text": "100 שנה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 77,
@@ -1900,7 +1995,8 @@ const quiz: Quiz = {
           "text": "אין לה כל מגבלה, והיא מדויקת לכל טווח זמן וכל סוג חומר",
           "correct": false
         }
-      ]
+      ],
+      "topic": "christianity"
     },
     {
       "id": 78,
@@ -1923,7 +2019,8 @@ const quiz: Quiz = {
           "text": "כי תיעוד נדרש רק בחפירות הצלה, ולא בחפירות מדעיות יזומות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 79,
@@ -1946,7 +2043,8 @@ const quiz: Quiz = {
           "text": "רק רישום כמותי של מספר הממצאים, ללא תיאור שלהם",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 80,
@@ -1954,22 +2052,24 @@ const quiz: Quiz = {
       "category": "שיטות חפירה, טיפולוגיה ותיארוך",
       "answers": [
         {
-          "text": "לוח אבן עם טקסט זהה בשלושה כתבים (יווני, הירוגליפי ודמוטי), ששימש מפתח לפענוח כתב החרטומים המצרי",
+          "text": "לוח אבן ובו טקסט זהה בשלושה כתבים",
           "correct": true
         },
         {
-          "text": "אוסף לוחות חוק כתובים בכתב יתדות בבלי",
+          "text": "כתובת ניצחון מצרית המזכירה את ישראל",
           "correct": false
         },
         {
-          "text": "כתובת ניצחון מצרית המזכירה לראשונה את השם \"ישראל\"",
+          "text": "אוסף לוחות חוק בכתב יתדות מבבל",
           "correct": false
         },
         {
           "text": "מפה טופוגרפית עתיקה של ארץ ישראל",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "יווני, הירוגליפי ודמוטי — ומכאן פענח שמפוליון את כתב החרטומים. האבן נמצאה במסע נפוליאון.",
+      "topic": "geography"
     },
     {
       "id": 81,
@@ -1992,7 +2092,8 @@ const quiz: Quiz = {
           "text": "קונרד שיק",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 82,
@@ -2015,7 +2116,8 @@ const quiz: Quiz = {
           "text": "המפה המדעית המפורטת הראשונה של ארץ ישראל, ששורטטה ב-1799 במהלך מסע נפוליאון",
           "correct": true
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 140,
@@ -2043,7 +2145,8 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/rosetta_stone.jpg",
         "fit": "contain",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "topic": "judaism"
     },
     {
       "id": 83,
@@ -2066,7 +2169,8 @@ const quiz: Quiz = {
           "text": "וילרד ליבי — פיתח את שיטת תיארוך הפחמן 14",
           "correct": false
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 84,
@@ -2089,7 +2193,8 @@ const quiz: Quiz = {
           "text": "קרטוגרף צרפתי שיצר את המפה המדעית הראשונה של הארץ",
           "correct": false
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 85,
@@ -2112,7 +2217,8 @@ const quiz: Quiz = {
           "text": "קצין בריטי מטעם ה-PEF, ששלח ב-1867 וגילה, באמצעות פירים ומנהרות, את \"שער וורן\" ו\"פיר וורן\"",
           "correct": true
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 86,
@@ -2135,7 +2241,8 @@ const quiz: Quiz = {
           "text": "כי הוא חיפש אוצרות זהב ורצה להסתיר את החפירה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "mamluk-ottoman"
     },
     {
       "id": 87,
@@ -2158,7 +2265,8 @@ const quiz: Quiz = {
           "text": "ארגון מצרי לשימור עתיקות, שהוקם ב-1799 בעקבות מסע נפוליאון",
           "correct": false
         }
-      ]
+      ],
+      "topic": "modern-yishuv"
     },
     {
       "id": 88,
@@ -2166,22 +2274,24 @@ const quiz: Quiz = {
       "category": "חלוצי המחקר הארכיאולוגי",
       "answers": [
         {
-          "text": "קצין בריטי שחפר בעזרת פירים ומנהרות בעיר דוד",
-          "correct": false
-        },
-        {
-          "text": "אדריכל וחוקר גרמני שחי בירושלים למעלה מ-50 שנה ותיעד באופן שיטתי את כל התגליות בעיר, אף שכמעט לא חפר בעצמו",
+          "text": "אדריכל גרמני שתיעד שיטתית את תגליות ירושלים",
           "correct": true
         },
         {
-          "text": "פרעה מצרי שהזכיר לראשונה את שם ישראל",
+          "text": "קצין בריטי שחפר בפירים ובמנהרות בעיר דוד",
           "correct": false
         },
         {
-          "text": "חוקר שפיתח את עקרון הסטרטיגרפיה לראשונה בעולם",
+          "text": "חוקר שפיתח לראשונה את עקרון הסטרטיגרפיה",
+          "correct": false
+        },
+        {
+          "text": "נזיר צרפתי שחקר את מנזרי מדבר יהודה",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "שיק חי בירושלים למעלה מחמישים שנה, ותיעודו המדויק הוא מקור מרכזי — אף שכמעט לא חפר בעצמו.",
+      "topic": "jerusalem"
     },
     {
       "id": 89,
@@ -2189,22 +2299,24 @@ const quiz: Quiz = {
       "category": "חלוצי המחקר הארכיאולוגי",
       "answers": [
         {
-          "text": "הוא הוביל להקמת הקרן לחקירת ארץ ישראל (PEF)",
-          "correct": false
-        },
-        {
-          "text": "הוא הביא את מפת ז'קוטן ואת גילוי אבן רוזטה, ופתח את הדרך למחקר גיאוגרפי-ארכיאולוגי מדעי של הארץ",
+          "text": "מפת ז'קוטן וגילוי אבן רוזטה",
           "correct": true
         },
         {
-          "text": "הוא הוביל לגירוש החיקסוס ממצרים",
+          "text": "הקמת הקרן הבריטית לחקירת ארץ ישראל",
           "correct": false
         },
         {
-          "text": "הוא הוביל לגילוי כתבי אל עמארנה",
+          "text": "גילוי כתבי אל-עמארנה בארכיון המצרי",
+          "correct": false
+        },
+        {
+          "text": "פענוח כתב היתדות של האימפריה האשורית",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "מסע 1799 הביא אנשי מדע לצד חיילים; מפת ז'קוטן היא המפה המודרנית הראשונה של הארץ.",
+      "topic": "bible"
     },
     {
       "id": 90,
@@ -2227,7 +2339,8 @@ const quiz: Quiz = {
           "text": "שניהם קצינים ומהנדסים בריטים שנשלחו לירושלים במאה ה-19 לחקור ולמפות אותה",
           "correct": true
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 91,
@@ -2250,7 +2363,8 @@ const quiz: Quiz = {
           "text": "כ-1550 עד 1200 לפני הספירה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 92,
@@ -2273,7 +2387,8 @@ const quiz: Quiz = {
           "text": "זהב טהור מעורב בכסף",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 93,
@@ -2296,7 +2411,8 @@ const quiz: Quiz = {
           "text": "כי הברונזה התגלתה רק בסוף התקופה הכנענית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 94,
@@ -2319,7 +2435,8 @@ const quiz: Quiz = {
           "text": "ביות בעלי חיים ← המצאת הברזל ← מסחר ימי ← עיור",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 95,
@@ -2327,22 +2444,24 @@ const quiz: Quiz = {
       "category": "ברונזה קדומה",
       "answers": [
         {
-          "text": "מספר תושבים העולה על מיליון בלבד",
-          "correct": false
-        },
-        {
-          "text": "קיום כתב יתדות מקומי בלבד",
-          "correct": false
-        },
-        {
-          "text": "קיום מקדש אחד בלבד, ללא כל דרישה נוספת",
-          "correct": false
-        },
-        {
-          "text": "גודל אוכלוסייה משמעותי, שלטון מרכזי, ביצורים, ותכנון עירוני עם ייעודי קרקע שונים",
+          "text": "אוכלוסייה גדולה, שלטון מרכזי, ביצורים ותכנון",
           "correct": true
+        },
+        {
+          "text": "קיום מקדש אחד לפחות בתוך היישוב",
+          "correct": false
+        },
+        {
+          "text": "מספר תושבים העולה על מיליון נפש",
+          "correct": false
+        },
+        {
+          "text": "קיום כתב יתדות מקומי משלה",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "בברונזה הקדומה מופיעות לראשונה כל התכונות יחד — וזו \"מהפכת העיור\" הראשונה בארץ.",
+      "topic": "state"
     },
     {
       "id": 96,
@@ -2350,22 +2469,24 @@ const quiz: Quiz = {
       "category": "ברונזה קדומה",
       "answers": [
         {
-          "text": "שם המלך ששלט בעיר ערד בברונזה הקדומה",
-          "correct": false
-        },
-        {
-          "text": "מבנה קבורה משפחתי אופייני לתקופה הביניימית",
-          "correct": false
-        },
-        {
-          "text": "טיפוס אדריכלי ייחודי של מבנה מגורים רוחבי (הכניסה בצלע הרחבה) עם חצר פנימית פתוחה, אופייני לתל ערד",
+          "text": "בית מגורים רוחבי עם חצר פנימית פתוחה",
           "correct": true
         },
         {
-          "text": "מקדש מרכזי בעיר ערד המוקדש לאלת הפריון",
+          "text": "מבנה קבורה משפחתי מהתקופה הביניימית",
+          "correct": false
+        },
+        {
+          "text": "מקדש מרכזי שהוקדש לאלת הפריון בערד",
+          "correct": false
+        },
+        {
+          "text": "שמו של המלך ששלט בערד בברונזה הקדומה",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "הכניסה בצלע הרחבה — סימן ההיכר של \"הבית הערדי\", טיפוס מגורים אופייני לברונזה הקדומה.",
+      "topic": "geography"
     },
     {
       "id": 97,
@@ -2388,7 +2509,8 @@ const quiz: Quiz = {
           "text": "סרך (סמל מלכות) של פרעה נערמר שנמצא באתר",
           "correct": true
         }
-      ]
+      ],
+      "topic": "art-arch"
     },
     {
       "id": 98,
@@ -2411,7 +2533,8 @@ const quiz: Quiz = {
           "text": "כלי ברזל מקומיים ייחודיים לאזור הכנרת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "water-climate"
     },
     {
       "id": 99,
@@ -2434,7 +2557,8 @@ const quiz: Quiz = {
           "text": "הם כלי החרס היחידים שנמצאו בתל ערד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 100,
@@ -2457,7 +2581,8 @@ const quiz: Quiz = {
           "text": "כלי אבן מחודד המשמש לחריטת כתובות יווניות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 101,
@@ -2480,7 +2605,8 @@ const quiz: Quiz = {
           "text": "היא שימשה כמרכז דתי מצרי מרכזי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 102,
@@ -2503,7 +2629,8 @@ const quiz: Quiz = {
           "text": "מגפה עולמית שהשמידה את כל האוכלוסייה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 103,
@@ -2511,22 +2638,24 @@ const quiz: Quiz = {
       "category": "ברונזה קדומה",
       "answers": [
         {
-          "text": "מקדש עגול המוקדש לאל השמש",
+          "text": "מקדש מוארך שבחזיתו שתי אומנות בולטות",
+          "correct": true
+        },
+        {
+          "text": "מקדש עגול שהוקדש לאל השמש הכנעני",
+          "correct": false
+        },
+        {
+          "text": "מקדש חצוב כולו בסלע מתחת לפני הקרקע",
           "correct": false
         },
         {
           "text": "מקדש מצרי שהוקם לכבוד האלה חתחור",
           "correct": false
-        },
-        {
-          "text": "מקדש תת-קרקעי חצוב לחלוטין בסלע",
-          "correct": false
-        },
-        {
-          "text": "טיפוס מקדש במבנה מוארך, שבחזיתו שתי אומנות (עמודי דופן) הבולטות החוצה",
-          "correct": true
         }
-      ]
+      ],
+      "explanation": "טיפוס המגרון הגיע מצפון סוריה ואנטוליה, ומופיע במגידו, בשכם ובחצור.",
+      "topic": "bible"
     },
     {
       "id": 104,
@@ -2549,7 +2678,8 @@ const quiz: Quiz = {
           "text": "כ-2200 עד 2000 לפני הספירה",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 105,
@@ -2572,7 +2702,8 @@ const quiz: Quiz = {
           "text": "\"כלקולית מאוחר 2\"",
           "correct": false
         }
-      ]
+      ],
+      "topic": "prehistory"
     },
     {
       "id": 106,
@@ -2595,7 +2726,8 @@ const quiz: Quiz = {
           "text": "שיא הפריחה העירונית בהיסטוריה של הארץ",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 107,
@@ -2618,7 +2750,8 @@ const quiz: Quiz = {
           "text": "תעשיית מתכת מתקדמת בערי מדינה עצמאיות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 108,
@@ -2641,7 +2774,8 @@ const quiz: Quiz = {
           "text": "בור אנכי חצוב בסלע המוליך לחדר קבורה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 109,
@@ -2664,7 +2798,8 @@ const quiz: Quiz = {
           "text": "מבנה מקדש קטן ליד קבר; מעברית \"בית נצח\"",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 110,
@@ -2687,7 +2822,8 @@ const quiz: Quiz = {
           "text": "בהרי יהודה בלבד",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 141,
@@ -2695,19 +2831,19 @@ const quiz: Quiz = {
       "category": "ברונזה ביניימית",
       "answers": [
         {
+          "text": "דולמן",
+          "correct": true
+        },
+        {
+          "text": "טומולוס (רוגם)",
+          "correct": false
+        },
+        {
           "text": "סרקופג אבן",
           "correct": false
         },
         {
-          "text": "דולמן — מבנה מגליתי מאבני עמידה ולוח אבן עליון, \"שולחן אבן\"",
-          "correct": true
-        },
-        {
           "text": "מאוזולאום מפואר",
-          "correct": false
-        },
-        {
-          "text": "טומולוס (רוגם) — תלולית אבנים ועפר",
           "correct": false
         }
       ],
@@ -2715,7 +2851,9 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/dolmen.jpg",
         "fit": "cover",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "explanation": "\"שולחן אבן\": שתי אבני עמידה ולוח עליון. אלפי דולמנים כאלה בגולן ובגליל, מהברונזה הביניימית.",
+      "topic": "geography"
     },
     {
       "id": 111,
@@ -2738,7 +2876,8 @@ const quiz: Quiz = {
           "text": "כ-1550 עד 1200 לפני הספירה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 112,
@@ -2761,7 +2900,8 @@ const quiz: Quiz = {
           "text": "נטישה סופית של כל הערים באזור",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 113,
@@ -2784,7 +2924,8 @@ const quiz: Quiz = {
           "text": "טקסטים מצריים עם שמות ערי כנען ומלכיהן, על צלמיות או לוחיות חרס שניפצו בליווי קללות כדי להבטיח שליטה מצרית",
           "correct": true
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 114,
@@ -2792,22 +2933,24 @@ const quiz: Quiz = {
       "category": "ברונזה תיכונה",
       "answers": [
         {
-          "text": "שם קבוצת הנוודים שהתיישבה בדרום מישור החוף בברונזה המאוחרת",
-          "correct": false
-        },
-        {
-          "text": "שם רשמי לשליטי החיקסוס במצרים",
-          "correct": false
-        },
-        {
-          "text": "כינוי לפקידי המנהל המצרי בכנען",
-          "correct": false
-        },
-        {
-          "text": "קבוצות אנשים ושוליים חברתיים המוזכרות בתעודות מצריות, שיש חוקרים המקשרים את שמם למונח \"עברים\"",
+          "text": "קבוצות שוליים חברתיות בתעודות מצריות",
           "correct": true
+        },
+        {
+          "text": "פקידי המנהל המצרי שישבו בערי כנען",
+          "correct": false
+        },
+        {
+          "text": "שליטי החיקסוס ששלטו במצרים התחתונה",
+          "correct": false
+        },
+        {
+          "text": "נוודים שהתיישבו בדרום מישור החוף",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "יש חוקרים המקשרים את \"עפירו\" ל\"עברים\", אך זהו מונח חברתי — לא שם עם.",
+      "topic": "geography"
     },
     {
       "id": 115,
@@ -2830,7 +2973,8 @@ const quiz: Quiz = {
           "text": "שבט נוודים מצרי שפלש לכנען וכבש אותה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 116,
@@ -2838,22 +2982,24 @@ const quiz: Quiz = {
       "category": "ברונזה תיכונה",
       "answers": [
         {
-          "text": "צבא כנעני קבוע שהגן על חומות העיר",
-          "correct": false
-        },
-        {
-          "text": "מפלצת עפר עצומה (ברוחב 40–80 מטרים) הנשענת על חומת העיר, עם קירות אבן פנימיים כשלד תומך",
+          "text": "סוללת עפר עצומה הנשענת על חומת העיר",
           "correct": true
         },
         {
-          "text": "תעלת מים המקיפה את העיר מבחוץ",
+          "text": "סוללת עפר משופעת בצדה החיצוני של החומה",
           "correct": false
         },
         {
-          "text": "סוללת עפר משופעת בצדה החיצוני של החומה בלבד",
+          "text": "תעלת מים רחבה המקיפה את העיר מבחוץ",
+          "correct": false
+        },
+        {
+          "text": "צבא קבע כנעני שהגן על חומות העיר",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "ברוחב 40–80 מטרים, עם שלד קירות אבן פנימי. הסוללה היא סימן ההיכר של ביצורי הברונזה התיכונה.",
+      "topic": "bible"
     },
     {
       "id": 117,
@@ -2861,22 +3007,24 @@ const quiz: Quiz = {
       "category": "ברונזה תיכונה",
       "answers": [
         {
-          "text": "שם אחר לסוללת העפר הפנימית התומכת בחומה",
-          "correct": false
-        },
-        {
-          "text": "סוללת עפר ועפר-לוע משופעת בצדה החיצוני של החומה, שנועדה למנוע גישה ישירה וחפירת מנהרות",
+          "text": "מדרון מלאכותי חלק בצדה החיצוני של החומה",
           "correct": true
         },
         {
-          "text": "חדר אחסון תת-קרקעי לנשק",
+          "text": "סוללת עפר פנימית התומכת בחומת העיר",
           "correct": false
         },
         {
-          "text": "מגדל שמירה עגול בשער העיר",
+          "text": "מגדל שמירה עגול המשקיף על שער העיר",
+          "correct": false
+        },
+        {
+          "text": "חדר אחסון תת-קרקעי לנשק ולמזון",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "החלקלקה מונעת מכונות מצור ומקשה על חפירת מנהרות תחת החומה.",
+      "topic": "geography"
     },
     {
       "id": 118,
@@ -2899,7 +3047,8 @@ const quiz: Quiz = {
           "text": "הוא השער הראשון בעולם שנבנה בצורת קשת אבן",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 119,
@@ -2922,7 +3071,8 @@ const quiz: Quiz = {
           "text": "הוא השער היחיד מהתקופה שנבנה מאבן בלבד, ללא לבני בוץ",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 120,
@@ -2945,7 +3095,8 @@ const quiz: Quiz = {
           "text": "בתקופה הכלקוליתית, כמרכז פולחני ראשון",
           "correct": false
         }
-      ]
+      ],
+      "topic": "second-temple"
     },
     {
       "id": 121,
@@ -2953,22 +3104,24 @@ const quiz: Quiz = {
       "category": "ברונזה תיכונה",
       "answers": [
         {
-          "text": "מגדל שמירה בשער העיר העליון",
-          "correct": false
-        },
-        {
-          "text": "מגדל שנבנה בידי המצרים כמרכז מנהלי",
-          "correct": false
-        },
-        {
-          "text": "מגדל אבן עצום עם קירות בעובי 7 מטרים, שנבנה מעל מעיין הגיחון כדי להגן עליו ולהרים את מפלס המים",
+          "text": "מגדל אבן ענק שהגן על מעיין הגיחון",
           "correct": true
+        },
+        {
+          "text": "מגדל שמירה שנבנה בשער העיר העליון",
+          "correct": false
         },
         {
           "text": "מקדש שהוקדש לאל המים הכנעני",
           "correct": false
+        },
+        {
+          "text": "מגדל מנהלי שהקימו המצרים בירושלים",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "קירות בעובי כשבעה מטרים, מהברונזה התיכונה — הביצור הכנעני המרשים ביותר שנחשף בירושלים.",
+      "topic": "bible"
     },
     {
       "id": 122,
@@ -2991,7 +3144,8 @@ const quiz: Quiz = {
           "text": "במסופוטמיה, כהתפתחות ישירה של כתב היתדות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "roman-byzantine"
     },
     {
       "id": 123,
@@ -3014,7 +3168,8 @@ const quiz: Quiz = {
           "text": "יצירת כתב תמונות (פיקטוגרפי) מורכב יותר מהקודם",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 142,
@@ -3042,7 +3197,8 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/scarab.jpg",
         "fit": "contain",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "topic": "geography"
     },
     {
       "id": 124,
@@ -3065,7 +3221,8 @@ const quiz: Quiz = {
           "text": "כ-2000 עד 1550 לפני הספירה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 125,
@@ -3088,7 +3245,8 @@ const quiz: Quiz = {
           "text": "ממלכת מיתני במסופוטמיה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 126,
@@ -3111,7 +3269,8 @@ const quiz: Quiz = {
           "text": "בשכם",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 127,
@@ -3134,7 +3293,8 @@ const quiz: Quiz = {
           "text": "הגנרל ג'חוטי הסתיר 200 לוחמים מצריים בתוך סלים שהוכנסו לעיר כ\"מתנה\"",
           "correct": true
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 128,
@@ -3157,7 +3317,8 @@ const quiz: Quiz = {
           "text": "קרב שבו כבשו הפלשתים את מגידו מהמצרים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 129,
@@ -3180,7 +3341,8 @@ const quiz: Quiz = {
           "text": "ארכיון דיפלומטי מצרי מהמאה ה-14 לפנה\"ס, בכתב יתדות אכדי, הכולל פניות שליטי כנען לפרעה",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 130,
@@ -3188,22 +3350,24 @@ const quiz: Quiz = {
       "category": "ברונזה מאוחרת",
       "answers": [
         {
-          "text": "מלך ירושלים, ששלח 6 מכתבים לפרעה בבקשת סיוע צבאי — עדות לקיום שלטון מקומי בירושלים במאה ה-14 לפנה\"ס",
+          "text": "מלך ירושלים ששלח מכתבי סיוע לפרעה",
           "correct": true
         },
         {
-          "text": "מלך כנעני ששלט על תל דן ובנה את שער אברהם",
+          "text": "מלך מצרי ששלט על כנען מבירתו באל-עמארנה",
           "correct": false
         },
         {
-          "text": "מלך מצרי ששלט על כנען כולה מבירתו באל-עמארנה",
+          "text": "מלך כנעני ששלט בתל דן ובנה את שערה",
           "correct": false
         },
         {
-          "text": "גנרל מצרי שכבש את יפו בעורמה",
+          "text": "גנרל מצרי שכבש את יפו בתחבולת הכדים",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "ששת מכתביו של עבדי-חפה הם העדות הכתובה הקדומה ביותר לשלטון מקומי בירושלים — המאה ה-14 לפנה\"ס.",
+      "topic": "bible"
     },
     {
       "id": 131,
@@ -3226,7 +3390,8 @@ const quiz: Quiz = {
           "text": "ארכיון מכתבים דיפלומטיים ממלכי כנען לפרעה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 132,
@@ -3249,7 +3414,8 @@ const quiz: Quiz = {
           "text": "הוא מציין קבוצת אנשים / קבוצה אתנית, ולא עיר מבוצרת או מחוז",
           "correct": true
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 133,
@@ -3272,7 +3438,8 @@ const quiz: Quiz = {
           "text": "קבוצות עמים שנדדו ממזרח הים התיכון בעקבות קריסת הברונזה המאוחרת (סביב 1200–1150 לפנה\"ס)",
           "correct": true
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 134,
@@ -3295,7 +3462,8 @@ const quiz: Quiz = {
           "text": "בערבה הדרומית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "roman-byzantine"
     },
     {
       "id": 135,
@@ -3318,7 +3486,8 @@ const quiz: Quiz = {
           "text": "קרמיקת יוקרה מיובאת מיוון, שנמצאה בשכבה מתוארכת היטב באל-עמארנה ומאפשרת דיוק תיארוך של כ-30 שנה",
           "correct": true
         }
-      ]
+      ],
+      "topic": "jerusalem"
     },
     {
       "id": 136,
@@ -3341,7 +3510,8 @@ const quiz: Quiz = {
           "text": "מקדש ישראלי מוקדם שנחשף בשילה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 143,
@@ -3369,7 +3539,8 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/cuneiform_tablet.jpg",
         "fit": "cover",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "topic": "geography"
     },
     {
       "id": 144,
@@ -3377,15 +3548,15 @@ const quiz: Quiz = {
       "category": "ברונזה מאוחרת",
       "answers": [
         {
-          "text": "אבן רוזטה",
-          "correct": false
-        },
-        {
-          "text": "אסטלת מרנפתח (אסטלת ישראל) — מ-1210 לפנה\"ס",
+          "text": "אסטלת מרנפתח",
           "correct": true
         },
         {
           "text": "כתבי המארות",
+          "correct": false
+        },
+        {
+          "text": "אבן רוזטה",
           "correct": false
         },
         {
@@ -3397,7 +3568,9 @@ const quiz: Quiz = {
         "url": "/quiz-images/history/artifacts/merneptah_stele.jpg",
         "fit": "contain",
         "credit": "Wikimedia Commons"
-      }
+      },
+      "explanation": "מ-1210 לפנה\"ס — האזכור החוץ-מקראי הקדום ביותר של השם \"ישראל\", ולכן היא קרויה גם \"אסטלת ישראל\".",
+      "topic": "bible"
     }
   ]
 };
