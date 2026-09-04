@@ -4,7 +4,7 @@
  * עיצוב "שכבות של דרך": ספריית צפייה מאופקת, שקופה למחצה ומכוונת משימה.
  * אזור נגן יחיד שומר על טעינה מהירה; הבחירה והתגיות משתמשות בטוקני העיצוב הקיימים.
  */
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   videoCount,
   videoGroups,
@@ -155,8 +155,15 @@ function playerUrl(item: VideoItem) {
 
 export function VideoLibrary() {
   const firstItem = videoGroups[0].items[0];
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(videoGroups[0].id);
   const [activeVideoId, setActiveVideoId] = useState(firstItem.id);
+  const [activeSubtopicByGroup, setActiveSubtopicByGroup] = useState<Record<string, string>>(
+    () =>
+      Object.fromEntries(
+        videoGroups.map((group) => [group.id, groupItemsBySubtopic(group.items)[0].subtopic.id]),
+      ),
+  );
+  const playerRef = useRef<HTMLElement>(null);
 
   const activeVideo = useMemo(
     () =>
@@ -182,14 +189,50 @@ export function VideoLibrary() {
   function selectCategory(group: VideoGroup | null) {
     setActiveCategory(group?.id ?? "all");
     if (group) {
-      const firstEmbeddable = group.items.find((item) => !item.embedRestricted);
+      const firstSubtopic = groupItemsBySubtopic(group.items)[0];
+      setActiveSubtopicByGroup((current) => ({
+        ...current,
+        [group.id]: firstSubtopic.subtopic.id,
+      }));
+      const firstEmbeddable = firstSubtopic.items.find((item) => !item.embedRestricted);
       setActiveVideoId(firstEmbeddable?.id ?? group.items[0].id);
     }
+  }
+
+  function selectSubtopic(group: VideoGroup, subtopic: VideoSubtopic) {
+    setActiveCategory(group.id);
+    setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: subtopic.id }));
+  }
+
+  function scrollToPlayer() {
+    requestAnimationFrame(() => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      playerRef.current?.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  }
+
+  function scrollCarousel(groupId: string, direction: "previous" | "next") {
+    const carousel = document.getElementById(`carousel-${groupId}`);
+    if (!carousel) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    carousel.scrollBy({
+      left: direction === "next" ? -360 : 360,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   }
 
   function selectVideo(item: VideoItem, group: VideoGroup) {
     setActiveCategory(group.id);
     setActiveVideoId(item.id);
+    setActiveSubtopicByGroup((current) => ({
+      ...current,
+      [group.id]: (item.subtopic ?? generalSubtopic).id,
+    }));
+    scrollToPlayer();
   }
 
   const activeAccent = accentClasses[activeGroup?.accent ?? "teal"];
@@ -245,7 +288,7 @@ export function VideoLibrary() {
         </div>
       </section>
 
-      <section aria-label="הנגן הנבחר" className="mb-10 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]">
+      <section ref={playerRef} aria-label="הנגן הנבחר" className="mb-10 scroll-mt-5 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]">
         <div className="grid lg:grid-cols-[minmax(0,1.35fr)_minmax(19rem,0.65fr)]">
           <div className="relative aspect-video min-h-[13rem] bg-[#07131c]">
             {activeVideo.embedRestricted ? (
@@ -328,28 +371,86 @@ export function VideoLibrary() {
                 </span>
               </div>
 
-              <div className="space-y-6">
-                {groupItemsBySubtopic(group.items).map(({ subtopic, items }) => {
-                  const subtopicAccent = subtopicAccentClasses[subtopic.tone];
-                  const subtopicHeading = `${group.id}-${subtopic.id}-heading`;
-                  return (
-                    <section key={subtopic.id} aria-labelledby={subtopicHeading} className="rounded-[var(--r-md)] border border-line/80 bg-card/45 p-3 sm:p-4">
-                      <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-line/70 pb-3">
-                        <div className="flex items-start gap-2.5">
-                          <span className={`mt-1.5 size-2.5 shrink-0 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
+              {(() => {
+                const subtopicGroups = groupItemsBySubtopic(group.items);
+                const activeSubtopicGroup =
+                  subtopicGroups.find(
+                    ({ subtopic }) => subtopic.id === activeSubtopicByGroup[group.id],
+                  ) ?? subtopicGroups[0];
+                const { subtopic, items } = activeSubtopicGroup;
+                const subtopicAccent = subtopicAccentClasses[subtopic.tone];
+
+                return (
+                  <div className="overflow-hidden rounded-[var(--r-md)] border border-line bg-card/45">
+                    <div className="border-b border-line/80 bg-card/30 p-3 sm:p-4">
+                      <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs font-bold tracking-wide text-txt-dim">בחירת תת־נושא</p>
+                          <p className="mt-1 text-sm text-txt-dim">בחרו תחום, ואז מקור צפייה מהקרוסלה.</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => scrollCarousel(group.id, "previous")}
+                            aria-label={`הצגת מקורות קודמים ב${subtopic.title}`}
+                            className="rounded-lg border border-line bg-card px-3 py-1.5 text-xs font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
+                          >
+                            הקודם
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => scrollCarousel(group.id, "next")}
+                            aria-label={`הצגת מקורות נוספים ב${subtopic.title}`}
+                            className="rounded-lg border border-line bg-card px-3 py-1.5 text-xs font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
+                          >
+                            הבא
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]" aria-label={`תתי־נושאים ב${group.category}`}>
+                        {subtopicGroups.map(({ subtopic: optionSubtopic, items: optionItems }) => {
+                          const optionAccent = subtopicAccentClasses[optionSubtopic.tone];
+                          const isActive = optionSubtopic.id === subtopic.id;
+                          return (
+                            <button
+                              key={optionSubtopic.id}
+                              type="button"
+                              onClick={() => selectSubtopic(group, optionSubtopic)}
+                              aria-pressed={isActive}
+                              className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${
+                                isActive
+                                  ? `${optionAccent.chip} shadow-[0_7px_18px_-12px_var(--teal)]`
+                                  : "border-line bg-card text-txt-dim hover:border-teal/45 hover:text-txt"
+                              }`}
+                            >
+                              <span className={`size-2 rounded-full ${optionAccent.dot}`} aria-hidden="true" />
+                              {optionSubtopic.title}
+                              <span className="num text-xs opacity-70">{optionItems.length}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="p-3 sm:p-4">
+                      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
                           <div>
-                            <h3 id={subtopicHeading} className="text-base font-black text-txt">
-                              {subtopic.title}
-                            </h3>
-                            <p className="mt-0.5 text-xs leading-relaxed text-txt-dim">{subtopic.description}</p>
+                            <h3 className="text-base font-black text-txt">{subtopic.title}</h3>
+                            <p className="mt-0.5 text-xs text-txt-dim">{subtopic.description}</p>
                           </div>
                         </div>
                         <span className={`num rounded-full border px-2.5 py-1 text-xs font-bold ${subtopicAccent.chip}`}>
                           {items.length} מקורות
                         </span>
-                      </header>
+                      </div>
 
-                      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                      <div
+                        id={`carousel-${group.id}`}
+                        className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:thin]"
+                      >
                         {items.map((item, index) => {
                           const isSelected = item.id === activeVideo.id;
                           return (
@@ -358,26 +459,21 @@ export function VideoLibrary() {
                               type="button"
                               onClick={() => selectVideo(item, group)}
                               aria-pressed={isSelected}
-                              className={`group relative flex min-h-48 flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
+                              className={`group relative flex min-h-52 w-[min(19rem,82vw)] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
                                 isSelected
                                   ? `border-transparent bg-card-2 ring-2 ${subtopicAccent.ring} shadow-[var(--shadow)]`
                                   : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
                               }`}
                             >
                               <span className={`absolute inset-y-0 right-0 w-1 ${subtopicAccent.bar}`} aria-hidden="true" />
-                              <div className="mb-4 flex items-center justify-between gap-3 pl-1">
+                              <div className="mb-5 flex items-center justify-between gap-3 pl-1">
                                 <span className={`flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-bold ${subtopicAccent.chip}`}>
                                   {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
                                   {kindLabel(item)}
                                 </span>
                                 <span className="num text-xs font-bold text-txt-dim">{String(index + 1).padStart(2, "0")}</span>
                               </div>
-                              <div className="mb-2 flex flex-wrap items-center gap-2">
-                                <span className={`rounded-full border px-2 py-0.5 text-[11px] font-bold ${subtopicAccent.chip}`}>
-                                  {subtopic.title}
-                                </span>
-                                {item.recommendedByCoordinator && <CoordinatorRecommendation />}
-                              </div>
+                              <div className="mb-2">{item.recommendedByCoordinator && <CoordinatorRecommendation />}</div>
                               <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
                               <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
                               <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
@@ -395,10 +491,10 @@ export function VideoLibrary() {
                           );
                         })}
                       </div>
-                    </section>
-                  );
-                })}
-              </div>
+                    </div>
+                  </div>
+                );
+              })()}
             </section>
           );
         })}
