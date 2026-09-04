@@ -5,7 +5,14 @@
  * אזור נגן יחיד שומר על טעינה מהירה; הבחירה והתגיות משתמשות בטוקני העיצוב הקיימים.
  */
 import { useMemo, useState } from "react";
-import { videoCount, videoGroups, type VideoGroup, type VideoItem } from "@/data/videos";
+import {
+  videoCount,
+  videoGroups,
+  type TopicTone,
+  type VideoGroup,
+  type VideoItem,
+  type VideoSubtopic,
+} from "@/data/videos";
 
 const accentClasses = {
   teal: {
@@ -33,6 +40,65 @@ const accentClasses = {
     ring: "ring-gold/50",
   },
 } as const;
+
+const subtopicAccentClasses: Record<
+  TopicTone,
+  { dot: string; bar: string; chip: string; ring: string }
+> = {
+  teal: {
+    dot: "bg-teal",
+    bar: "bg-teal",
+    chip: "border-teal/30 bg-teal/10 text-teal",
+    ring: "ring-teal/45",
+  },
+  blue: {
+    dot: "bg-blue",
+    bar: "bg-blue",
+    chip: "border-blue/30 bg-blue/10 text-blue",
+    ring: "ring-blue/45",
+  },
+  violet: {
+    dot: "bg-violet",
+    bar: "bg-violet",
+    chip: "border-violet/30 bg-violet/10 text-violet",
+    ring: "ring-violet/45",
+  },
+  gold: {
+    dot: "bg-gold",
+    bar: "bg-gold",
+    chip: "border-gold/30 bg-gold/10 text-gold",
+    ring: "ring-gold/45",
+  },
+  rose: {
+    dot: "bg-rose",
+    bar: "bg-rose",
+    chip: "border-rose/30 bg-rose/10 text-rose",
+    ring: "ring-rose/45",
+  },
+};
+
+const generalSubtopic: VideoSubtopic = {
+  id: "general",
+  title: "העשרה כללית",
+  description: "מקורות העשרה בנושאי הקורס.",
+  tone: "teal",
+};
+
+function groupItemsBySubtopic(items: VideoItem[]) {
+  return items.reduce<{ subtopic: VideoSubtopic; items: VideoItem[] }[]>(
+    (groups, item) => {
+      const subtopic = item.subtopic ?? generalSubtopic;
+      const existingGroup = groups.find((group) => group.subtopic.id === subtopic.id);
+      if (existingGroup) {
+        existingGroup.items.push(item);
+      } else {
+        groups.push({ subtopic, items: [item] });
+      }
+      return groups;
+    },
+    [],
+  );
+}
 
 function PlayIcon() {
   return (
@@ -262,44 +328,74 @@ export function VideoLibrary() {
                 </span>
               </div>
 
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {group.items.map((item, index) => {
-                  const isSelected = item.id === activeVideo.id;
+              <div className="space-y-6">
+                {groupItemsBySubtopic(group.items).map(({ subtopic, items }) => {
+                  const subtopicAccent = subtopicAccentClasses[subtopic.tone];
+                  const subtopicHeading = `${group.id}-${subtopic.id}-heading`;
                   return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => selectVideo(item, group)}
-                      aria-pressed={isSelected}
-                      className={`group relative flex min-h-48 flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
-                        isSelected
-                          ? `border-transparent bg-card-2 ring-2 ${accent.ring} shadow-[var(--shadow)]`
-                          : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
-                      }`}
-                    >
-                      <span className={`absolute inset-y-0 right-0 w-1 ${accent.bar}`} aria-hidden="true" />
-                      <div className="mb-5 flex items-center justify-between gap-3 pl-1">
-                        <span className={`flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-bold ${accent.chip}`}>
-                          {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
-                          {kindLabel(item)}
+                    <section key={subtopic.id} aria-labelledby={subtopicHeading} className="rounded-[var(--r-md)] border border-line/80 bg-card/45 p-3 sm:p-4">
+                      <header className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-line/70 pb-3">
+                        <div className="flex items-start gap-2.5">
+                          <span className={`mt-1.5 size-2.5 shrink-0 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
+                          <div>
+                            <h3 id={subtopicHeading} className="text-base font-black text-txt">
+                              {subtopic.title}
+                            </h3>
+                            <p className="mt-0.5 text-xs leading-relaxed text-txt-dim">{subtopic.description}</p>
+                          </div>
+                        </div>
+                        <span className={`num rounded-full border px-2.5 py-1 text-xs font-bold ${subtopicAccent.chip}`}>
+                          {items.length} מקורות
                         </span>
-                        {item.recommendedByCoordinator && <CoordinatorRecommendation />}
-                        <span className="num text-xs font-bold text-txt-dim">{String(index + 1).padStart(2, "0")}</span>
+                      </header>
+
+                      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                        {items.map((item, index) => {
+                          const isSelected = item.id === activeVideo.id;
+                          return (
+                            <button
+                              key={item.id}
+                              type="button"
+                              onClick={() => selectVideo(item, group)}
+                              aria-pressed={isSelected}
+                              className={`group relative flex min-h-48 flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
+                                isSelected
+                                  ? `border-transparent bg-card-2 ring-2 ${subtopicAccent.ring} shadow-[var(--shadow)]`
+                                  : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
+                              }`}
+                            >
+                              <span className={`absolute inset-y-0 right-0 w-1 ${subtopicAccent.bar}`} aria-hidden="true" />
+                              <div className="mb-4 flex items-center justify-between gap-3 pl-1">
+                                <span className={`flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-bold ${subtopicAccent.chip}`}>
+                                  {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
+                                  {kindLabel(item)}
+                                </span>
+                                <span className="num text-xs font-bold text-txt-dim">{String(index + 1).padStart(2, "0")}</span>
+                              </div>
+                              <div className="mb-2 flex flex-wrap items-center gap-2">
+                                <span className={`rounded-full border px-2 py-0.5 text-[11px] font-bold ${subtopicAccent.chip}`}>
+                                  {subtopic.title}
+                                </span>
+                                {item.recommendedByCoordinator && <CoordinatorRecommendation />}
+                              </div>
+                              <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
+                              <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
+                              <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
+                              <span
+                                className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${
+                                  isSelected
+                                    ? `${subtopicAccent.chip}`
+                                    : "border-line text-txt-dim group-hover:border-teal/50 group-hover:bg-teal/10 group-hover:text-teal"
+                                }`}
+                                aria-hidden="true"
+                              >
+                                <PlayIcon />
+                              </span>
+                            </button>
+                          );
+                        })}
                       </div>
-                      <h3 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
-                      <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
-                      <span
-                        className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${
-                          isSelected
-                            ? `${accent.chip}`
-                            : "border-line text-txt-dim group-hover:border-teal/50 group-hover:bg-teal/10 group-hover:text-teal"
-                        }`}
-                        aria-hidden="true"
-                      >
-                        <PlayIcon />
-                      </span>
-                    </button>
+                    </section>
                   );
                 })}
               </div>

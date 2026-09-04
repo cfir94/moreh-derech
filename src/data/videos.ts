@@ -3,6 +3,14 @@
  * מבנה הנתונים מופרד מהממשק כדי לאפשר עדכון, אימות והרחבה של מקורות ללא שינוי בתצוגה.
  */
 export type VideoKind = "video" | "playlist";
+export type TopicTone = "teal" | "blue" | "violet" | "gold" | "rose";
+
+export type VideoSubtopic = {
+  id: string;
+  title: string;
+  description: string;
+  tone: TopicTone;
+};
 
 export type VideoItem = {
   id: string;
@@ -14,6 +22,7 @@ export type VideoItem = {
   source: string;
   recommendedByCoordinator?: boolean;
   embedRestricted?: boolean;
+  subtopic?: VideoSubtopic;
 };
 
 export type VideoGroup = {
@@ -64,7 +73,7 @@ function video(
   };
 }
 
-export const videoGroups: VideoGroup[] = [
+const rawVideoGroups: VideoGroup[] = [
   {
     id: "history-jerusalem",
     category: "היסטוריה וירושלים",
@@ -432,6 +441,297 @@ export const videoGroups: VideoGroup[] = [
     ],
   },
 ];
+
+function subtopic(
+  id: string,
+  title: string,
+  description: string,
+  tone: TopicTone,
+): VideoSubtopic {
+  return { id, title, description, tone };
+}
+
+const subtopicsByVideoId: Record<string, VideoSubtopic> = {
+  "ancient-jewish-history": subtopic(
+    "biblical-periods",
+    "מקרא ובית שני",
+    "תקופות היסוד של ההיסטוריה היהודית הקדומה.",
+    "teal",
+  ),
+  "land-of-israel-through-ages": subtopic(
+    "historical-survey",
+    "מבט כרונולוגי",
+    "תולדות הארץ לאורך התקופות.",
+    "blue",
+  ),
+  "jerusalem-myth-history-reality": subtopic(
+    "jerusalem",
+    "ירושלים לדורותיה",
+    "העיר, שכבותיה ואתרי המפתח שלה.",
+    "gold",
+  ),
+  "zionism-aliyot-nation-building": subtopic(
+    "zionism",
+    "ציונות והיישוב",
+    "עליות, התיישבות ובניין האומה.",
+    "violet",
+  ),
+  "modern-israel-events-wars": subtopic(
+    "modern-state",
+    "המדינה ומלחמותיה",
+    "היסטוריה ישראלית מן ההקמה ועד ימינו.",
+    "rose",
+  ),
+  "philosophy-and-holocaust": subtopic(
+    "holocaust",
+    "שואה וזיכרון",
+    "היכרות עיונית עם השואה והוראתה.",
+    "rose",
+  ),
+  "tohu-va-vohu": subtopic(
+    "archaeology-overview",
+    "מבט־על ארכאולוגי",
+    "המלצת רכז הקורס למסע בין תקופות הארץ.",
+    "gold",
+  ),
+  "ancient-israel-finkelstein": subtopic(
+    "biblical-archaeology",
+    "ארכאולוגיה מקראית",
+    "ברונזה, ברזל והתהוות ישראל הקדום.",
+    "teal",
+  ),
+  "second-temple-mishnah-talmud": subtopic(
+    "classical-periods",
+    "התקופה הקלאסית",
+    "בית שני, רומא, ביזנטיון וימי חז״ל.",
+    "blue",
+  ),
+  "beneath-the-surface": subtopic(
+    "excavations",
+    "חפירות ותגליות",
+    "מבט עדכני על ממצאים ואתרי עתיקות.",
+    "violet",
+  ),
+  "city-of-david-tour-guides": subtopic(
+    "jerusalem-archaeology",
+    "ארכאולוגיית ירושלים",
+    "חידושים מעיר דוד וירושלים הקדומה.",
+    "gold",
+  ),
+  "crusader-period": subtopic(
+    "medieval-period",
+    "ימי הביניים",
+    "התקופה הצלבנית ומבני הכוח שלה.",
+    "rose",
+  ),
+  "tour-guide-secrets": subtopic(
+    "heritage-stories",
+    "סיפורי מורשת",
+    "זוויות הדרכה מאתרים מוכרים ופחות מוכרים.",
+    "teal",
+  ),
+  "christianity-holy-land": subtopic(
+    "christianity",
+    "נצרות בארץ הקודש",
+    "היסטוריה, זרמים, אתרים ומסורות.",
+    "violet",
+  ),
+  "christian-communities-rossing": subtopic(
+    "christianity",
+    "נצרות בארץ הקודש",
+    "היסטוריה, זרמים, אתרים ומסורות.",
+    "violet",
+  ),
+  "religions-and-beliefs": subtopic(
+    "monotheistic-religions",
+    "דתות ואמונות",
+    "יהדות, נצרות, אסלאם ומסורות נוספות.",
+    "gold",
+  ),
+  "early-muslim-period": subtopic(
+    "islam",
+    "אסלאם וירושלים",
+    "התקופה המוסלמית המוקדמת ואתרי הקודש.",
+    "teal",
+  ),
+  "druze-in-brief": subtopic(
+    "communities",
+    "עדות וקהילות",
+    "דרוזים, שומרונים, בהאים וקהילות הארץ.",
+    "rose",
+  ),
+  "mount-gerizim-samaritans": subtopic(
+    "communities",
+    "עדות וקהילות",
+    "דרוזים, שומרונים, בהאים וקהילות הארץ.",
+    "rose",
+  ),
+  "bahai-faith": subtopic(
+    "communities",
+    "עדות וקהילות",
+    "דרוזים, שומרונים, בהאים וקהילות הארץ.",
+    "rose",
+  ),
+  "bethlehem-nativity-church": subtopic(
+    "holy-sites",
+    "אתרי קודש",
+    "בית לחם, יריחו ואתרים בעלי משמעות דתית.",
+    "blue",
+  ),
+  "jericho-winter-palaces": subtopic(
+    "holy-sites",
+    "אתרי קודש",
+    "בית לחם, יריחו ואתרים בעלי משמעות דתית.",
+    "blue",
+  ),
+  "jewish-culture-and-creation": subtopic(
+    "jewish-culture",
+    "תרבות יהודית",
+    "יצירה, חפצים, מסורות ותרבות חומרית.",
+    "teal",
+  ),
+  "jewish-communities-east": subtopic(
+    "jewish-culture",
+    "תרבות יהודית",
+    "יצירה, חפצים, מסורות ותרבות חומרית.",
+    "teal",
+  ),
+  "jewish-art-lectures": subtopic(
+    "jewish-art",
+    "אמנות יהודית",
+    "דימויים, חפצים והיסטוריה של אמנות יהודית.",
+    "violet",
+  ),
+  "israeli-modern-art": subtopic(
+    "israeli-art",
+    "אמנות ישראלית",
+    "יצירה מודרנית, זהות ומרחב מקומי.",
+    "rose",
+  ),
+  "how-crater-forms": subtopic(
+    "negev-craters",
+    "נגב ומכתשים",
+    "תהליכי סחיפה, מכתשים ונופי מדבר.",
+    "gold",
+  ),
+  "plate-tectonics": subtopic(
+    "tectonics",
+    "טקטוניקה ובקע",
+    "לוחות, העתקים והשבר הסורי־אפריקאי.",
+    "rose",
+  ),
+  "judean-desert-geology": subtopic(
+    "desert-topography",
+    "מדבר יהודה וטופוגרפיה",
+    "מסלע, מצוקים, קווי פרשת מים ותבליט.",
+    "teal",
+  ),
+  "geology-public-lectures": subtopic(
+    "earth-sciences",
+    "מדעי כדור הארץ",
+    "ים המלח, בולענים ותופעות גאולוגיות.",
+    "blue",
+  ),
+  "geology-course": subtopic(
+    "earth-sciences",
+    "מדעי כדור הארץ",
+    "ים המלח, בולענים ותופעות גאולוגיות.",
+    "blue",
+  ),
+  "water-in-israel": subtopic(
+    "hydrology",
+    "מים והידרולוגיה",
+    "משק המים, אקוויפרים ומשאבי מים בישראל.",
+    "blue",
+  ),
+  "historic-flora": subtopic(
+    "ethnobotany",
+    "צמחי תרבות ובר",
+    "בוטניקה היסטורית, זיהוי צמחים ושימושי אדם.",
+    "gold",
+  ),
+  "quarter-to-nature": subtopic(
+    "nature-reserves",
+    "שמורות ואקולוגיה",
+    "ערכי טבע, בתי גידול ושמירת הסביבה.",
+    "teal",
+  ),
+  "nature-reserves": subtopic(
+    "nature-reserves",
+    "שמורות ואקולוגיה",
+    "ערכי טבע, בתי גידול ושמירת הסביבה.",
+    "teal",
+  ),
+  "judean-desert-flora-tour": subtopic(
+    "flora-fauna",
+    "חי וצומח",
+    "זיהוי מינים והתאמות לתנאי השטח.",
+    "violet",
+  ),
+  "israeli-desert-flora-fauna": subtopic(
+    "flora-fauna",
+    "חי וצומח",
+    "זיהוי מינים והתאמות לתנאי השטח.",
+    "violet",
+  ),
+  "israeli-palestinian-conflict-narratives": subtopic(
+    "israeli-palestinian-conflict",
+    "הסכסוך ונרטיבים",
+    "היכרות אקדמית עם סוגיות היסוד ונקודות המבט.",
+    "rose",
+  ),
+  "first-aid-training": subtopic(
+    "field-safety",
+    "עזרה ראשונה ובטיחות",
+    "מוכנות לשטח, טיפול ראשוני וניהול סיכונים.",
+    "teal",
+  ),
+  "accessible-trips": subtopic(
+    "accessible-guiding",
+    "הדרכה נגישה",
+    "תכנון והובלה של טיולים נגישים.",
+    "blue",
+  ),
+  "school-trips-safety": subtopic(
+    "field-safety",
+    "עזרה ראשונה ובטיחות",
+    "מוכנות לשטח, טיפול ראשוני וניהול סיכונים.",
+    "teal",
+  ),
+  "public-speaking-tools": subtopic(
+    "presentation-skills",
+    "עמידה מול קהל",
+    "מסרים, נוכחות וכלי הצגה מעשיים.",
+    "violet",
+  ),
+  "tour-guide-course-intro": subtopic(
+    "profession-and-licensing",
+    "המקצוע והרישוי",
+    "מבנה המקצוע, הקורס והכנה למבחני רישוי.",
+    "gold",
+  ),
+  "israel-economy-intro": subtopic(
+    "state-and-economy",
+    "המדינה והכלכלה",
+    "מוסדות המדינה, חברה וכלכלת ישראל.",
+    "blue",
+  ),
+};
+
+const uncategorizedSubtopic = subtopic(
+  "general",
+  "העשרה כללית",
+  "מקורות העשרה בנושאי הקורס.",
+  "teal",
+);
+
+export const videoGroups: VideoGroup[] = rawVideoGroups.map((group) => ({
+  ...group,
+  items: group.items.map((item) => ({
+    ...item,
+    subtopic: subtopicsByVideoId[item.id] ?? uncategorizedSubtopic,
+  })),
+}));
 
 export const videoCount = videoGroups.reduce(
   (total, group) => total + group.items.length,
