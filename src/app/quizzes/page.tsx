@@ -2,6 +2,26 @@ import Link from "next/link";
 import { QUIZZES, QUIZ_DESCRIPTIONS } from "@/data/quizzes";
 import { ReviewCallout } from "@/components/quiz/ReviewCallout";
 import { QuizGrid } from "@/components/quiz/QuizGrid";
+import { SectionCard } from "@/components/SectionCard";
+
+const timelineExercises = [
+  {
+    slug: "dating-quiz",
+    href: "/quizzes/dating",
+    title: "שאלוני תיארוך",
+    description:
+      "מתי הייתה כל תקופה, מה קדם למה ואילו תקופות התקיימו במקביל.",
+    meta: "תרגול לפי נושא",
+  },
+  {
+    slug: "timeline-drag",
+    href: "/quizzes/timeline-drag",
+    title: "תרגול ציר זמן",
+    description:
+      "גררו תקופות, אירועים ודמויות אל המקום הכרונולוגי הנכון ובדקו את הסדר.",
+    meta: "תרגול אינטראקטיבי",
+  },
+];
 
 export default function QuizzesPage() {
   const totalQuestions = QUIZZES.reduce((s, q) => s + q.questions.length, 0);
@@ -25,6 +45,17 @@ export default function QuizzesPage() {
           לסיכומים לפי נושא
         </Link>
       </p>
+
+      <section className="mb-8">
+        <h2 className="mb-3 text-lg">תרגולי תיארוך וסדר כרונולוגי</h2>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+          {timelineExercises.map((exercise, index) => (
+            <SectionCard key={exercise.slug} index={index} {...exercise} />
+          ))}
+        </div>
+      </section>
+
+      <h2 className="mb-3 text-lg">שאלונים לפי נושא</h2>
 
       <QuizGrid
         quizzes={QUIZZES.map((q) => ({

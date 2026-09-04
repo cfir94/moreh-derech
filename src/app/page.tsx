@@ -1,19 +1,13 @@
-import Link from "next/link";
 import { QUIZZES } from "@/data/quizzes";
 import { EXAMS } from "@/data/exams";
-import biblical from "@/data/timelines/biblical";
-import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { HomeProgress } from "@/components/HomeProgress";
+import { HomeActions } from "@/components/HomeActions";
 import { SectionCard } from "@/components/SectionCard";
 
 export default function Home() {
   const questionCount = QUIZZES.reduce((s, q) => s + q.questions.length, 0);
   const examCount =
     QUIZZES.find((q) => q.slug === "past-exams")?.questions.length ?? 0;
-  const eventCount =
-    biblical.reduce((s, t) => s + t.events.length, 0) +
-    egyptCanaan.reduce((s, t) => s + t.events.length, 0);
-
   const sections = [
     {
       slug: "game",
@@ -52,7 +46,7 @@ export default function Home() {
       href: "/timelines",
       title: "צירי זמן",
       description: "צירי זמן אינטראקטיביים עם הסבר ומקורות לכל אירוע.",
-      meta: `${eventCount} אירועים`,
+      meta: "5 צירי זמן",
     },
     {
       slug: "map",
@@ -111,25 +105,7 @@ export default function Home() {
             בסך הכל, צירי זמן ומפת מורשת מלאה — עם מערכת שזוכרת במה טעיתם ועל
             מה כדאי לחזור.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/exams"
-              className="rounded-full px-7 py-4 font-extrabold text-on-accent transition active:scale-95"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-                boxShadow: "0 10px 26px -10px var(--teal)",
-              }}
-            >
-              לעשות מבחן רישוי מלא
-            </Link>
-            <Link
-              href="/map"
-              className="rounded-full border border-line bg-card-2 px-7 py-4 font-extrabold transition active:scale-95"
-            >
-              לפתוח את המפה
-            </Link>
-          </div>
+          <HomeActions />
         </div>
       </section>
 

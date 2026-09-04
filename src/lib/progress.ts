@@ -170,6 +170,31 @@ export function recordAttempt(args: {
   write(state);
 }
 
+/** Records a completed embedded exercise that reports only its final score. */
+export function recordSummaryAttempt(args: {
+  quiz: string;
+  quizLabel: string;
+  category: string;
+  correct: number;
+  total: number;
+}) {
+  const currentState = readProgress();
+  write({
+    attempts: [
+      ...currentState.attempts,
+      {
+        ts: Date.now(),
+        quiz: args.quiz,
+        quizLabel: args.quizLabel,
+        category: args.category,
+        correct: args.correct,
+        total: args.total,
+      },
+    ],
+    questions: { ...currentState.questions },
+  });
+}
+
 export function resetProgress() {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(progressStorageKey());

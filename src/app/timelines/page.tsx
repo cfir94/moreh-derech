@@ -18,11 +18,26 @@ const sets = [
     meta: `${egyptCanaan.reduce((n, t) => n + t.events.length, 0)} אירועים`,
   },
   {
-    slug: "history",
-    title: "ציר הזמן ההיסטורי — קורס מורי דרך",
+    slug: "kings",
+    title: "מלכי ישראל ויהודה",
     description:
-      "תיארוך תקופות ואירועים, סדר כרונולוגי, מלכי ישראל ויהודה, ממצאים ושרשרת הספרות היהודית.",
-    meta: "5 כלי תרגול",
+      "כל המלכים על ציר משותף, לפי שנות מלכותם, הנביאים והאירועים שהתרחשו בתקופתם.",
+    meta: "שתי ממלכות",
+  },
+  {
+    slug: "archaeology",
+    title: "ממצאים, מצורים וביצורים",
+    description:
+      "מסעות וקרבות, כתובות וחרסים, תבליטים וחומות — מסודרים מהמוקדם למאוחר.",
+    meta: "ציר ארכאולוגי",
+  },
+  {
+    slug: "judaism-timeline",
+    href: "/timelines/judaism",
+    title: "יהדות — ספרים, חכמים ומרכזים",
+    description:
+      "שרשרת אחת מחתימת התנ״ך ועד ימינו, ונדידת מרכזי התורה לאורך הדורות.",
+    meta: "ציר מסירה",
   },
 ];
 
@@ -43,7 +58,7 @@ export default function TimelinesPage() {
             key={s.slug}
             index={i}
             slug={s.slug}
-            href={`/timelines/${s.slug}`}
+            href={s.href ?? `/timelines/${s.slug}`}
             title={s.title}
             description={s.description}
             meta={s.meta}

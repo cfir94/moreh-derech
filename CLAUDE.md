@@ -47,15 +47,17 @@
   מטמיעים את אפליקציות Manus המקוריות כדי לשמור על העיצוב וההתנהגות שלהן.
 - תמונות השאלונים הועתקו ל-`public/quiz-images/<quiz>/`.
 
-ה-UI נכתב מחדש מקומית (`src/components/quiz/QuizRunner.tsx`,
-`src/components/timeline/TimelineViewer.tsx`) בעיצוב של האתר, כדי שהחוויה
-תהיה אחידה ולא "קפיצה" לממשק זר.
+מנוע השאלונים המקומי נמצא ב-`src/components/quiz/QuizRunner.tsx`. צירי הזמן
+מוצגים בעיצוב המקורי שלהם בתוך מעטפת האתר.
 
 **יוצאים מן הכלל — אפליקציות מוטמעות**: `israel-heritage-map` היא אפליקציית
 MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נשארה כפי
-שהיא תחת `public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map`. גם המשחק ושלושת
-צירי הזמן נשארים באפליקציות המקוריות שלהם ומוטמעים ב-`<iframe>` תחת `/game`
-ו-`/timelines/*`. כך המשתמש נשאר באתר עם הניווט שלו והעיצוב המקורי נשמר.
+שהיא תחת `public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map`. גם המשחק וצירי
+הזמן נשארים באפליקציות המקוריות שלהם ומוטמעים ב-`<iframe>`. פרויקט
+`History_timeline` מספק חמש תצוגות ישירות דרך `?view=`: שלוש תצוגות עיון
+תחת `/timelines/*`, ושני כלי בחינה תחת `/quizzes/dating` ו-
+`/quizzes/timeline-drag`. ציוני כלי הבחינה נשלחים למעטפת ב-`postMessage`
+ונרשמים בהיסטוריית ההתקדמות. כך המשתמש נשאר באתר והעיצוב המקורי נשמר.
 
 ### מבחן מלא בתנאי אמת (`/exams`)
 
@@ -217,14 +219,15 @@ src/
     quizzes/                  אינדקס שאלונים
       [slug]/                 שאלון בודד (generateStaticParams)
       review/                 תרגול טעויות חוצה-שאלונים
-    timelines/                אינדקס + biblical/ + egypt-canaan/ + history/
+      dating/  timeline-drag/ תרגולי ציר זמן מוטמעים
+    timelines/                אינדקס + חמישה צירי עיון מוטמעים
     map/                      iframe של מפת המורשת
     guide-reports/  videos/    placeholders
   components/
     exam/ExamRunner.tsx        מנוע המבחן המלא (בלי חשיפת תשובות)
     quiz/QuizRunner.tsx        מנוע השאלונים (setup → שאלות → תוצאות)
     timeline/TimelineViewer.tsx צירי זמן אינטראקטיביים
-    Navbar.tsx  HomeProgress.tsx  PlaceholderSection.tsx
+    Navbar.tsx  HomeActions.tsx  HomeProgress.tsx  PlaceholderSection.tsx
   contexts/UserContext.tsx
   hooks/useProgress.ts         קריאת המעקב בצד לקוח בלבד
   lib/  progress.ts  localAuth.ts  basePath.ts

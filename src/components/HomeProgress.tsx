@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useProgress } from "@/hooks/useProgress";
 import { summarize } from "@/lib/progress";
 
@@ -43,17 +42,6 @@ export function HomeProgress() {
           }}
         />
       </div>
-
-      {s.reviewCount > 0 && (
-        <div className="mt-2 flex justify-end">
-          <Link
-            href="/quizzes/review"
-            className="text-[12px] font-bold text-gold hover:underline"
-          >
-            {s.reviewCount} שאלות ממתינות לחזרה ←
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
