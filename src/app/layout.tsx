@@ -16,13 +16,26 @@ export const metadata: Metadata = {
   description: "אֶבֶן דֶּרֶךְ למורי דרך — תרגול, שאלונים, צירי זמן ומפת מורשת",
 };
 
+const themeInitScript = `
+  try {
+    const saved = localStorage.getItem("even-derech-theme");
+    document.documentElement.dataset.theme = saved === "dark" ? "dark" : "light";
+  } catch (_) {
+    document.documentElement.dataset.theme = "light";
+  }
+`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="he"
       dir="rtl"
       className={`${heebo.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="flex min-h-full flex-col font-sans">
         <UserProvider>
           <Navbar />
