@@ -1,43 +1,49 @@
-/** Types for tour-guide report (דוח סיור) content. */
+/** Types for standard Israeli tour-guide course reports (דוחות סיור). */
 
+/** One row in Part I — the day's schedule table. */
 export type ScheduleRow = {
-  /** Row number in the day plan table (1-based). */
+  /** 1-based row number in the table. */
   n: number;
-  /** Time range, e.g. "06:30 – 07:30". */
+  /** e.g. "06:30 – 07:30" */
   time: string;
-  /** Route / activity description (travel, walk, visit, break). */
+  /** Route / activity description (up to ~25 words). May include on-the-way guiding. */
   activity: string;
-  /** Logistics: counts, toilets, vouchers, driver briefing, etc. */
+  /** Logistics / coordination notes (up to ~25 words). */
   logistics: string;
 };
 
-export type GuidingUnit = {
-  /** Site name. */
+/** One short guiding unit in Part II (עד ~180 מילים). */
+export type GuideUnit = {
+  /** 1-based unit number. */
+  n: number;
+  /** Site name, e.g. "הר סדום — שביל הדגים". */
   site: string;
-  /** Duration string, e.g. "20 דק׳". */
+  /** Duration label, e.g. "20 דק׳". */
   duration: string;
-  /** Condensed guiding content (up to ~180 words). */
+  /** Condensed field-guiding text; should cover the five מ״מים. */
   content: string;
-  /** Methodological aids (maps, Bible, diagrams). */
+  /** Method aids (maps, Bible, diagrams…), up to ~20 words. */
   methods: string;
 };
 
+/** Part III — one expanded guiding unit (עד ~400 מילים). */
 export type ExpandedUnit = {
   site: string;
   topic: string;
-  /** Where the group stands during the talk. */
-  location: string;
-  /** Full expanded guiding text (up to ~400 words). */
+  /** Where the group stands while being guided. */
+  groupPosition: string;
+  /** Full teaching text: opening, field references, methods, closing. */
   content: string;
 };
 
 export type TourReport = {
   slug: string;
   title: string;
-  /** Short blurb for cards. */
+  /** Short blurb for cards / index. */
   summary: string;
+  /** Region tag for filtering later. */
   region: string;
   schedule: ScheduleRow[];
-  units: GuidingUnit[];
+  units: GuideUnit[];
   expanded: ExpandedUnit;
 };
