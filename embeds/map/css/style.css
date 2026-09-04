@@ -1258,6 +1258,32 @@ body {
   border-radius: 8px;
 }
 
+.theme-button {
+  min-width: 104px !important;
+  color: var(--text) !important;
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg-panel-2)) !important;
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--border)) !important;
+}
+.theme-button:hover {
+  border-color: var(--accent) !important;
+  box-shadow: 0 8px 18px -14px var(--accent);
+}
+.theme-glyph {
+  display: grid !important;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: var(--accent-strong);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#sidebar,
+#map { transition: transform 260ms var(--ease-out), right 260ms var(--ease-out); }
+
 @media (max-width: 639px) {
   #app-header { min-height: 62px; padding: 7px 9px; }
   #app-body { height: calc(100% - 62px); }
@@ -1265,6 +1291,8 @@ body {
   .map-brand-copy > span { display: none; }
   #app-header .map-brand-copy h1 { font-size: .92rem; }
   .map-actions button span { display: none; }
+  .map-actions #btn-theme .theme-label { display: inline; }
+  .theme-button { min-width: 94px !important; }
   #app-header button { min-width: 42px; padding: 0 10px; }
   .sidebar-intro { padding: 15px; }
 }
@@ -1276,6 +1304,9 @@ body {
     border-left-color: var(--border);
     box-shadow: -16px 0 44px -36px rgba(11, 32, 50, .68);
   }
+  #sidebar.collapsed { transform: translateX(100%) !important; }
+  #sidebar.collapsed ~ #map { right: 0; }
+  #btn-toggle-sidebar { display: inline-flex; }
   #map { right: 372px; }
   #search-overlay { top: 86px; }
   #info-panel { width: 388px; }
