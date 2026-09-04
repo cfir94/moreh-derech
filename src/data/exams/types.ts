@@ -20,6 +20,11 @@ export type ExamQuestion = {
   question: Localized;
   answers: { text: Localized }[];
   correctIndex: number;
+  /**
+   * Only on a sitting whose key was worked out rather than published:
+   * h = certain, m = fairly sure, l = worth checking against a source.
+   */
+  confidence?: "h" | "m" | "l";
 };
 
 export type Exam = {
@@ -28,6 +33,12 @@ export type Exam = {
   date: string;
   /** Editions whose text came out of the PDFs complete and clean. */
   languages: ExamLang[];
+  /**
+   * "official" — the Ministry's own key marks the answer in the PDF.
+   * "derived"  — no key was ever published for this sitting and the answers
+   *              were worked out by hand. Shown as unofficial throughout.
+   */
+  keySource: "official" | "derived";
   questions: ExamQuestion[];
 };
 

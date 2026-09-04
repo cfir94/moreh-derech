@@ -12,6 +12,11 @@ const quiz: Quiz = {
     "many": "מועדים"
   },
   "categories": [
+    "יוני 2016 · תשובות לא רשמיות",
+    "נובמבר 2016 · תשובות לא רשמיות",
+    "נובמבר 2017 · תשובות לא רשמיות",
+    "יוני 2018 · תשובות לא רשמיות",
+    "יוני 2019 · תשובות לא רשמיות",
     "חורף 2021",
     "חורף 2022",
     "קיץ 2023",
@@ -21,6 +26,5756 @@ const quiz: Quiz = {
     "מועד נוסף 2024"
   ],
   "questions": [
+    {
+      "id": 7001,
+      "question": "סלע אופייני בשפלת יהודה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בזלת",
+          "correct": false
+        },
+        {
+          "text": "טוף",
+          "correct": false
+        },
+        {
+          "text": "קירטון",
+          "correct": true
+        },
+        {
+          "text": "דולומיט",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7002,
+      "question": "סינקלינה היא:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שקע ברומטרי",
+          "correct": false
+        },
+        {
+          "text": "רמה ברומטרית",
+          "correct": false
+        },
+        {
+          "text": "קער",
+          "correct": true
+        },
+        {
+          "text": "סלע מחדר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7003,
+      "question": "אבקן הוא מונח מתחום ה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גיאולוגיה",
+          "correct": false
+        },
+        {
+          "text": "בוטניקה",
+          "correct": true
+        },
+        {
+          "text": "אנרגיה",
+          "correct": false
+        },
+        {
+          "text": "מטאורולוגיה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7004,
+      "question": "מין פרח אנדמי לארץ ישראל:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אדמונית החורש",
+          "correct": false
+        },
+        {
+          "text": "סתוונית היורה",
+          "correct": false
+        },
+        {
+          "text": "פרג",
+          "correct": false
+        },
+        {
+          "text": "איריס (אירוס) הגלבוע",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7005,
+      "question": "נחל שנשפך לים התיכון:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עמוד",
+          "correct": false
+        },
+        {
+          "text": "נעמן",
+          "correct": true
+        },
+        {
+          "text": "צין",
+          "correct": false
+        },
+        {
+          "text": "צלמון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7006,
+      "question": "עץ שעליו נושרים בשלכת:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אורן",
+          "correct": false
+        },
+        {
+          "text": "אלת מסטיק",
+          "correct": false
+        },
+        {
+          "text": "תאנה",
+          "correct": true
+        },
+        {
+          "text": "אלון מצוי - 2 –",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7007,
+      "question": "שניים מארבעת המינים הם:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חיטה ושעורה",
+          "correct": false
+        },
+        {
+          "text": "רימון ולולב",
+          "correct": false
+        },
+        {
+          "text": "ערבה והדס",
+          "correct": true
+        },
+        {
+          "text": "אתרוג וזית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7008,
+      "question": "מקובל לזהות את \"סנט פיטר'ס פיש\" (Fish s’Peter .St) עם:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אמנון",
+          "correct": true
+        },
+        {
+          "text": "ברבוניה",
+          "correct": false
+        },
+        {
+          "text": "סלמון",
+          "correct": false
+        },
+        {
+          "text": "דניס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7009,
+      "question": "ציורי סלע קדומים של בעלי חיים ניתן למצוא ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מנהרות הכותל",
+          "correct": false
+        },
+        {
+          "text": "מערת אבשלום",
+          "correct": false
+        },
+        {
+          "text": "פארק תמנע",
+          "correct": true
+        },
+        {
+          "text": "נקבת חזקיהו",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7010,
+      "question": "פילאסטר הוא:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אומנה דבוקה",
+          "correct": true
+        },
+        {
+          "text": "עמוד חופשי",
+          "correct": false
+        },
+        {
+          "text": "עיטור בטיח",
+          "correct": false
+        },
+        {
+          "text": "ציור על טיח יבש",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7011,
+      "question": "מתחם מצבות פולחניות מתקופת הברונזה נמצא ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תל דן",
+          "correct": false
+        },
+        {
+          "text": "תל חצור",
+          "correct": true
+        },
+        {
+          "text": "תל מגידו",
+          "correct": false
+        },
+        {
+          "text": "יודפת",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7012,
+      "question": "לפי המקרא יהושע בן נון נלחם בעמק איילון נגד:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יבין מלך חצור",
+          "correct": false
+        },
+        {
+          "text": "עוג מלך הבשן",
+          "correct": false
+        },
+        {
+          "text": "אגג מלך עמלק",
+          "correct": false
+        },
+        {
+          "text": "חמשת מלכי האמורי",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7013,
+      "question": "הקמת תא הצפייה בתיאטרון בהרודיון מקושרת לפי המקובל לביקורו של:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אוגוסטוס",
+          "correct": false
+        },
+        {
+          "text": "אגריפה",
+          "correct": true
+        },
+        {
+          "text": "הלני המלכה",
+          "correct": false
+        },
+        {
+          "text": "אנטוניוס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7014,
+      "question": "על פי המקובל משמעות השם \"קומראן\" היא:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שני ירחים",
+          "correct": true
+        },
+        {
+          "text": "מגילות קלף",
+          "correct": false
+        },
+        {
+          "text": "קסת דיו",
+          "correct": false
+        },
+        {
+          "text": "כת מדבר -3-",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7015,
+      "question": "אתר הנמצא בעמק יהושפט:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קבר יאסון",
+          "correct": false
+        },
+        {
+          "text": "יד אבשלום",
+          "correct": true
+        },
+        {
+          "text": "מערת צדקיהו",
+          "correct": false
+        },
+        {
+          "text": "מערת האשכולות",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7016,
+      "question": "מקובל במחקר שהקברים באתר \"קברי המכבים\" הם מהתקופה ה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כלקוליתית",
+          "correct": false
+        },
+        {
+          "text": "חשמונאית",
+          "correct": false
+        },
+        {
+          "text": "רומית מאוחרת",
+          "correct": true
+        },
+        {
+          "text": "צלבנית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7017,
+      "question": "מצודת החקרא בירושלים היתה על פי יוסף בן מתתיהו:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בעיר התחתונה",
+          "correct": true
+        },
+        {
+          "text": "בעיר העליונה",
+          "correct": false
+        },
+        {
+          "text": "מצפון להר הבית",
+          "correct": false
+        },
+        {
+          "text": "במגדל דוד",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7018,
+      "question": "מנורת שבעת קנים החרוטה על אבן רבועה נמצאה בחפירות בשטח בית הכנסת ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מגדלא",
+          "correct": true
+        },
+        {
+          "text": "גמלא",
+          "correct": false
+        },
+        {
+          "text": "ואדי חמאם",
+          "correct": false
+        },
+        {
+          "text": "חורבת עתרי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7019,
+      "question": "ח'רבת אל מיניה (חורבת מינים) באזור הכנרת מתוארכת לימי השושלת ה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עבאסית",
+          "correct": false
+        },
+        {
+          "text": "אומאית",
+          "correct": true
+        },
+        {
+          "text": "איובית",
+          "correct": false
+        },
+        {
+          "text": "פאטימית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7020,
+      "question": "עדויות מובהקות לרעידת האדמה של אמצע המאה השמינית לספירה ניתן לראות ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בית שאן ויודפת",
+          "correct": false
+        },
+        {
+          "text": "עכו ורמלה",
+          "correct": false
+        },
+        {
+          "text": "בית שאן וסוסיתא",
+          "correct": true
+        },
+        {
+          "text": "יריחו ובית שמש",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7021,
+      "question": "המלך האחרון בממלכת ירושלים הצלבנית הראשונה היה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גוטפריד מבויון",
+          "correct": false
+        },
+        {
+          "text": "גי דה לוזיניאן",
+          "correct": true
+        },
+        {
+          "text": "רנו משטיון",
+          "correct": false
+        },
+        {
+          "text": "בלדווין השני",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7022,
+      "question": "המלכה שבימיה שוקמה כנסיית הקבר:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הלנה",
+          "correct": false
+        },
+        {
+          "text": "תיאודורה",
+          "correct": false
+        },
+        {
+          "text": "אאודוקיה",
+          "correct": false
+        },
+        {
+          "text": "מליסנדה - 4 -",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7023,
+      "question": "בימי בייברס נבנה בארץ:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שער האריות",
+          "correct": false
+        },
+        {
+          "text": "המגדל הלבן",
+          "correct": false
+        },
+        {
+          "text": "גשר ג'ינדס",
+          "correct": true
+        },
+        {
+          "text": "ח'אן אל עומדאן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7024,
+      "question": "חולי דבר מצבא נפוליאון שוכנו:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "למרגלות תל עכו",
+          "correct": false
+        },
+        {
+          "text": "במנזר הארמני ביפו",
+          "correct": true
+        },
+        {
+          "text": "במתחם הפרנציסקני ברמלה",
+          "correct": false
+        },
+        {
+          "text": "במנזר הכרמליתי במוחרקה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7025,
+      "question": "מושבה שנוסדה על ידי אנשי הישוב הישן מצפת:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גיא אוני",
+          "correct": true
+        },
+        {
+          "text": "זמרין",
+          "correct": false
+        },
+        {
+          "text": "פתח תקוה",
+          "correct": false
+        },
+        {
+          "text": "יסוד המעלה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7026,
+      "question": "מבין הראשונים שעלו לארץ ישראל היו::",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "התימנים בעליית \"אעלה בתמר\"",
+          "correct": false
+        },
+        {
+          "text": "חלוצי העלייה הראשונה",
+          "correct": false
+        },
+        {
+          "text": "תלמידי הגר\"א",
+          "correct": false
+        },
+        {
+          "text": "העולים בעליית רבי יהודה החסיד",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7027,
+      "question": "\"השבת השחורה\" היתה בשנת:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "1929",
+          "correct": false
+        },
+        {
+          "text": "1936",
+          "correct": false
+        },
+        {
+          "text": "1946",
+          "correct": true
+        },
+        {
+          "text": "1947",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7028,
+      "question": "אזור/מתחם שהיה מחוץ לשטחי מדינת ישראל משנת 1948 עד 1967:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בקעת באר שבע",
+          "correct": false
+        },
+        {
+          "text": "אום אל פחם",
+          "correct": false
+        },
+        {
+          "text": "משטרת לטרון",
+          "correct": true
+        },
+        {
+          "text": "רמת רחל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7029,
+      "question": "אתר \"עמק הבכא\" קשור למלחמת:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "העצמאות",
+          "correct": false
+        },
+        {
+          "text": "ששת הימים",
+          "correct": false
+        },
+        {
+          "text": "ההתשה",
+          "correct": false
+        },
+        {
+          "text": "יום הכיפורים - 5 -",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7030,
+      "question": "הסכמי אוסלו נחתמו בשנת:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "1979",
+          "correct": false
+        },
+        {
+          "text": "1993",
+          "correct": true
+        },
+        {
+          "text": "1994",
+          "correct": false
+        },
+        {
+          "text": "2003",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7031,
+      "question": "שטחה של מדינת ישראל הוא כ-",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "2,000 קמ\"ר",
+          "correct": false
+        },
+        {
+          "text": "20,000 קמ\"ר",
+          "correct": true
+        },
+        {
+          "text": "200,000 קמ\"ר",
+          "correct": false
+        },
+        {
+          "text": "2,000,000 קמ\"ר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7032,
+      "question": "משנת 1936, בימי המנדט הבריטי, הנמל הגדול בארץ ישראל היה ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יפו",
+          "correct": false
+        },
+        {
+          "text": "תל אביב",
+          "correct": false
+        },
+        {
+          "text": "אשדוד",
+          "correct": false
+        },
+        {
+          "text": "חיפה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7033,
+      "question": "האוכלוסיה הלא יהודית במדינת ישראל מהווה כ:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "5%-10% מכלל האוכלוסיה",
+          "correct": false
+        },
+        {
+          "text": "10%-15% מכלל האוכלוסיה",
+          "correct": false
+        },
+        {
+          "text": "20%-25% מכלל האוכלוסיה",
+          "correct": true
+        },
+        {
+          "text": "35%-40% מכלל האוכלוסיה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7034,
+      "question": "מקום קבורתה של מרים אם ישו על פי המסורת הנוצרית אורתודוכסית נמצא ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עמק יהושפט",
+          "correct": true
+        },
+        {
+          "text": "הר ציון",
+          "correct": false
+        },
+        {
+          "text": "הר הזיתים",
+          "correct": false
+        },
+        {
+          "text": "עין כרם",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7035,
+      "question": "אתר הקשור בנסיונות שניסה השטן את ישו:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר הקפיצה",
+          "correct": false
+        },
+        {
+          "text": "כורסי",
+          "correct": false
+        },
+        {
+          "text": "הקרנטל",
+          "correct": true
+        },
+        {
+          "text": "השומרוני הטוב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7036,
+      "question": "בל\"ג בעומר מציינים את יום:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הולדתו של רבי משה קורדוברו",
+          "correct": false
+        },
+        {
+          "text": "מותו של רבי עקיבא",
+          "correct": false
+        },
+        {
+          "text": "פטירתו של רשב\"י",
+          "correct": true
+        },
+        {
+          "text": "הולדתו של שמעון בר כוכבא - 6 –",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7037,
+      "question": "מתקן להכשרת מים במקווה מכונה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "פקדון",
+          "correct": false
+        },
+        {
+          "text": "אוצר",
+          "correct": true
+        },
+        {
+          "text": "עריבת רגליים",
+          "correct": false
+        },
+        {
+          "text": "בור שיקוע",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7038,
+      "question": "הסורות בקוראן מסודרות בדרך כלל על פי:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הסדר הכרונולוגי",
+          "correct": false
+        },
+        {
+          "text": "חשיבותן",
+          "correct": false
+        },
+        {
+          "text": "נושאיהן",
+          "correct": false
+        },
+        {
+          "text": "אורכן",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7039,
+      "question": "בית כנסת הרמח\"ל נמצא ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עכו",
+          "correct": true
+        },
+        {
+          "text": "צפת",
+          "correct": false
+        },
+        {
+          "text": "כפר יאסיף",
+          "correct": false
+        },
+        {
+          "text": "טבריה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7040,
+      "question": "כנסיה מתומנת ניתן לראות ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ממשית",
+          "correct": false
+        },
+        {
+          "text": "כורסי",
+          "correct": false
+        },
+        {
+          "text": "טבחה",
+          "correct": false
+        },
+        {
+          "text": "קיסריה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7041,
+      "question": "אתר מורשת עולמית:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גני המלך בירושלים",
+          "correct": false
+        },
+        {
+          "text": "גני הבהאג'י על יד עכו",
+          "correct": true
+        },
+        {
+          "text": "גן הנדיב ברמת הנדיב",
+          "correct": false
+        },
+        {
+          "text": "גן מאיר בתל אביב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7042,
+      "question": "רוב \"קברי הצדיקים\" בצפון הארץ נמצאים ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גליל תחתון",
+          "correct": false
+        },
+        {
+          "text": "רמת הגולן",
+          "correct": false
+        },
+        {
+          "text": "גליל עליון מזרחי",
+          "correct": true
+        },
+        {
+          "text": "גליל מערבי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7043,
+      "question": "אחת מתחנות רכבת העמק:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בית יהושע",
+          "correct": false
+        },
+        {
+          "text": "אלרואי",
+          "correct": false
+        },
+        {
+          "text": "טבעון",
+          "correct": true
+        },
+        {
+          "text": "בית אלפא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7044,
+      "question": "את סיפור אנדרומדה נהוג לספר ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יפו",
+          "correct": true
+        },
+        {
+          "text": "אפולוניה",
+          "correct": false
+        },
+        {
+          "text": "אי הזבובים",
+          "correct": false
+        },
+        {
+          "text": "קיסריה - 7 -",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7045,
+      "question": "מוזיאון מחודש לתרבות הפלישתים נמצא ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קרית גת",
+          "correct": false
+        },
+        {
+          "text": "אשקלון",
+          "correct": false
+        },
+        {
+          "text": "תל אביב",
+          "correct": false
+        },
+        {
+          "text": "אשדוד",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 7046,
+      "question": "ריכוז של אבני מיל מן התקופה הרומית ניתן לראות ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מעלה העקרבים",
+          "correct": false
+        },
+        {
+          "text": "שער יפו",
+          "correct": false
+        },
+        {
+          "text": "גבעת ישעיהו",
+          "correct": true
+        },
+        {
+          "text": "אפולוניה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7047,
+      "question": "מתחמים רוסיים בארץ ישראל נמצאים ב:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קומראן ודיר חג'לה",
+          "correct": false
+        },
+        {
+          "text": "עין כרם והר הזיתים",
+          "correct": true
+        },
+        {
+          "text": "יפו ולטרון",
+          "correct": false
+        },
+        {
+          "text": "יד השמונה וקרית יערים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7048,
+      "question": "בית הערבה הישנה היתה:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "באזור סדום",
+          "correct": false
+        },
+        {
+          "text": "מצפון לים המלח",
+          "correct": true
+        },
+        {
+          "text": "בסמוך לנחל קומראן",
+          "correct": false
+        },
+        {
+          "text": "בסמוך לנחל קדרון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7049,
+      "question": "ישוב המתמקד בנושאים סביבתיים",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קיבוץ לוטן",
+          "correct": true
+        },
+        {
+          "text": "מושב חצבה",
+          "correct": false
+        },
+        {
+          "text": "רהט",
+          "correct": false
+        },
+        {
+          "text": "להבים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 7050,
+      "question": "מעלה עלי נמצא מעל:",
+      "category": "יוני 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אבן העזר",
+          "correct": false
+        },
+        {
+          "text": "מפרץ אילת",
+          "correct": false
+        },
+        {
+          "text": "מכתש רמון",
+          "correct": false
+        },
+        {
+          "text": "המכתש הקטן בהצלחה!",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8001,
+      "question": "הגבוה מבין המקומות הבאים:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חורבת קיאפה",
+          "correct": false
+        },
+        {
+          "text": "ירושלים – הר הבית",
+          "correct": false
+        },
+        {
+          "text": "חלחול",
+          "correct": true
+        },
+        {
+          "text": "נבי סמואל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8002,
+      "question": "עוף שאינו דורס:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עורב",
+          "correct": true
+        },
+        {
+          "text": "איה",
+          "correct": false
+        },
+        {
+          "text": "פרס",
+          "correct": false
+        },
+        {
+          "text": "בז",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8003,
+      "question": "המכתש הגדול נמצא ברכס:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חדרה",
+          "correct": false
+        },
+        {
+          "text": "חתירה",
+          "correct": true
+        },
+        {
+          "text": "ירוחם",
+          "correct": false
+        },
+        {
+          "text": "מחמל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8004,
+      "question": "אמצעים למניעת שריפות יער וחורש בישראל;",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הגברת רעיה, יצירת שטחי חייץ",
+          "correct": true
+        },
+        {
+          "text": "נטיעת אורני ירושלים, הפעלת מטוסים לכיבוי",
+          "correct": false
+        },
+        {
+          "text": "יצירת שטחי חייץ ומניעת רעיה",
+          "correct": false
+        },
+        {
+          "text": "נטיעת אלונים וצמצום שבילים לכניסת כלי רכב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8005,
+      "question": "\"טבלת גידוד\" היא מונח הקשור ל:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קטיף תמרים",
+          "correct": false
+        },
+        {
+          "text": "סוג כתובות רומאיות",
+          "correct": false
+        },
+        {
+          "text": "גיאומורפולוגיה",
+          "correct": true
+        },
+        {
+          "text": "מקוואות",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8006,
+      "question": "בעונת הפריחה בישראל הפרח המקדים לפרוח בין הבאים:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כלנית",
+          "correct": true
+        },
+        {
+          "text": "נורית",
+          "correct": false
+        },
+        {
+          "text": "צבעוני החרמון",
+          "correct": false
+        },
+        {
+          "text": "פרג בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae - 2 –",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8007,
+      "question": "תארוך באמצעות פחמן 14 ניתן ליישם על:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קרמיקה",
+          "correct": false
+        },
+        {
+          "text": "מתכות",
+          "correct": false
+        },
+        {
+          "text": "חומרים אורגניים",
+          "correct": true
+        },
+        {
+          "text": "סלעים מגמתיים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8008,
+      "question": "הסרך של נערמר נמצא באזור:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תל ערד",
+          "correct": true
+        },
+        {
+          "text": "מרישה",
+          "correct": false
+        },
+        {
+          "text": "ירושלים",
+          "correct": false
+        },
+        {
+          "text": "נערן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8009,
+      "question": "כתובת בית דוד מתל דן, היא מן המאה ה:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "11 לפנה\"ס",
+          "correct": false
+        },
+        {
+          "text": "10 לפנה\"ס",
+          "correct": false
+        },
+        {
+          "text": "9 לפנה\"ס",
+          "correct": true
+        },
+        {
+          "text": "8 לפנה\"ס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8010,
+      "question": "האמירה המקורית \"הרצחת וגם ירשת\" קשורה ל:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עיר דוד",
+          "correct": false
+        },
+        {
+          "text": "גבעה",
+          "correct": false
+        },
+        {
+          "text": "תל יזרעאל",
+          "correct": true
+        },
+        {
+          "text": "מוחרקה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8011,
+      "question": "הנביאים הבאים חיו בימי הבית השני:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חגי ועמוס",
+          "correct": false
+        },
+        {
+          "text": "זכריה ומלאכי",
+          "correct": true
+        },
+        {
+          "text": "ישעיהו ועמוס",
+          "correct": false
+        },
+        {
+          "text": "ירמיהו ויחזקאל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8012,
+      "question": "\"וולוטות\" נמצאות ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כותרת מרפק",
+          "correct": false
+        },
+        {
+          "text": "כותרת קורינתית",
+          "correct": false
+        },
+        {
+          "text": "כותרת דורית",
+          "correct": false
+        },
+        {
+          "text": "כותרת יונית",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8013,
+      "question": "שטח הר הבית בימי הורדוס היה בקירוב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "15 דונם",
+          "correct": false
+        },
+        {
+          "text": "150 דונם",
+          "correct": true
+        },
+        {
+          "text": "250 דונם",
+          "correct": false
+        },
+        {
+          "text": "500 דונם",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8014,
+      "question": "היפודרום שהפך לאמפיתיאטרון התגלה ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בית גוברין",
+          "correct": false
+        },
+        {
+          "text": "קיסריה",
+          "correct": true
+        },
+        {
+          "text": "ירושלים",
+          "correct": false
+        },
+        {
+          "text": "מצדה בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae -3-",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8015,
+      "question": "חדר הכס של המלך הורדוס זוהה על ידי הארכיאולוגיים ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הרודיון",
+          "correct": true
+        },
+        {
+          "text": "מכוור",
+          "correct": false
+        },
+        {
+          "text": "קיסריה",
+          "correct": false
+        },
+        {
+          "text": "מצדה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8016,
+      "question": "בית כנסת מתקופת המשנה והתלמוד ובו פסיפס המציג דמות המזוהה עם שמשון הגיבור, נמצא ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מגדלא",
+          "correct": false
+        },
+        {
+          "text": "חורבת ורדים (ואדי חמאם)",
+          "correct": true
+        },
+        {
+          "text": "אום אל-קנאטר",
+          "correct": false
+        },
+        {
+          "text": "תל אשקלון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8017,
+      "question": "אתרים שבהם שכנה הסנהדרין:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יוקנעם ואושא",
+          "correct": false
+        },
+        {
+          "text": "סוסיתא ובית שערים",
+          "correct": false
+        },
+        {
+          "text": "שפרעם וצפת",
+          "correct": false
+        },
+        {
+          "text": "אושא וטבריה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8018,
+      "question": "הח'ליף אל-חאכם קשור ל:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "דרוזים",
+          "correct": true
+        },
+        {
+          "text": "צ'רקסים",
+          "correct": false
+        },
+        {
+          "text": "בהאים",
+          "correct": false
+        },
+        {
+          "text": "אחמדים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8019,
+      "question": "הקרב המכריע בהשתלטות האיסלם הקדום על ארץ ישראל היה ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עין ג'לות",
+          "correct": false
+        },
+        {
+          "text": "ירמוך",
+          "correct": true
+        },
+        {
+          "text": "קרני חיטין",
+          "correct": false
+        },
+        {
+          "text": "רמלה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8020,
+      "question": "שרידי מגדל טנקרד נמצאים ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "רמלה",
+          "correct": false
+        },
+        {
+          "text": "עכו",
+          "correct": false
+        },
+        {
+          "text": "ירושלים",
+          "correct": true
+        },
+        {
+          "text": "כוכב הירדן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8021,
+      "question": "המלכה מליסנדה היתה ממוצא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "צרפתי (מאנז'ו)",
+          "correct": false
+        },
+        {
+          "text": "סורי",
+          "correct": false
+        },
+        {
+          "text": "קופטי",
+          "correct": false
+        },
+        {
+          "text": "ארמני",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8022,
+      "question": "בנבי סמואל נמצא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חווה חקלאית צלבנית",
+          "correct": false
+        },
+        {
+          "text": "מצודה מלכותית",
+          "correct": false
+        },
+        {
+          "text": "מבצר צלבני, מסגד ובית כנסת",
+          "correct": true
+        },
+        {
+          "text": "מפעל סוכר צלבני בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae - 4 -",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8023,
+      "question": "מקור היסטורי חשוב ללימודי התקופה הממלוכית בארץ ישראל הוא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מוג'יר א-דין",
+          "correct": true
+        },
+        {
+          "text": "חסן אל-בנא",
+          "correct": false
+        },
+        {
+          "text": "אל-מוקדסי",
+          "correct": false
+        },
+        {
+          "text": "הנוסע מבורדו",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8024,
+      "question": "גירוש ספרד התרחש בעת שבארץ ישראל שלטו ה:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "צלבנים",
+          "correct": false
+        },
+        {
+          "text": "ממלוכים",
+          "correct": true
+        },
+        {
+          "text": "איובים",
+          "correct": false
+        },
+        {
+          "text": "עות'מאנים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8025,
+      "question": "חידוש הישוב היהודי במאה ה-16 בטבריה קשור ל:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "דונה גרציה",
+          "correct": true
+        },
+        {
+          "text": "רבי חיים אבולעפיה",
+          "correct": false
+        },
+        {
+          "text": "דאהר אל-עומר",
+          "correct": false
+        },
+        {
+          "text": "המלכה ברניקי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8026,
+      "question": "מספר הנשארים הקטן ביותר בעליות שקדמו להקמת המדינה היה בעלייה ה:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ראשונה",
+          "correct": false
+        },
+        {
+          "text": "שנייה",
+          "correct": true
+        },
+        {
+          "text": "שלישית",
+          "correct": false
+        },
+        {
+          "text": "רביעית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8027,
+      "question": "ירושלים הוכרזה בירת מדינת ישראל ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נובמבר 1947",
+          "correct": false
+        },
+        {
+          "text": "מאי 1948",
+          "correct": false
+        },
+        {
+          "text": "דצמבר 1949",
+          "correct": true
+        },
+        {
+          "text": "יוני 1967",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8028,
+      "question": "תפקיד אותו לא מילא דוד בן גוריון:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שר הבטחון",
+          "correct": false
+        },
+        {
+          "text": "יו\"ר הכנסת",
+          "correct": true
+        },
+        {
+          "text": "יו\"ר ההסתדרות",
+          "correct": false
+        },
+        {
+          "text": "ראש ממשלה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8029,
+      "question": "זאב ז'בוטינסקי קשור ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עלייה הראשונה",
+          "correct": false
+        },
+        {
+          "text": "תנועה הרביזיוניסטית",
+          "correct": true
+        },
+        {
+          "text": "יסוד הלח\"י",
+          "correct": false
+        },
+        {
+          "text": "יסוד הפלמ\"ח בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae - 5 -",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8030,
+      "question": "ישוב ערבי בואדי ערה:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סכנין",
+          "correct": false
+        },
+        {
+          "text": "בקה אל-ע'רביה",
+          "correct": false
+        },
+        {
+          "text": "אום אל-פאחם",
+          "correct": true
+        },
+        {
+          "text": "בית זרזיר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8031,
+      "question": "עיר שנוסדה בזמן שלטון מוסלמי:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "טבריה",
+          "correct": false
+        },
+        {
+          "text": "עזה",
+          "correct": false
+        },
+        {
+          "text": "לוד",
+          "correct": false
+        },
+        {
+          "text": "רמלה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8032,
+      "question": "המושג \"תקופת הצנע\" קשור לתולדות הישוב ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תום מלחמת העולם הראשונה",
+          "correct": false
+        },
+        {
+          "text": "תקופת המצור על ירושלים במלחמת העצמאות",
+          "correct": false
+        },
+        {
+          "text": "בעשור הראשון למדינה",
+          "correct": true
+        },
+        {
+          "text": "ערב מלחמת ששת הימים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8033,
+      "question": "\"מבצע משה\" ו\"מבצע שלמה\" קשורים ל:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מלחמת סיני",
+          "correct": false
+        },
+        {
+          "text": "מלחמת ששת הימים וכיבוש מפרץ שלמה",
+          "correct": false
+        },
+        {
+          "text": "עליית יהודי אתיופיה",
+          "correct": true
+        },
+        {
+          "text": "עליית יהודי תימן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8034,
+      "question": "העיר יריחו נמצאת בשטח:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "A",
+          "correct": true
+        },
+        {
+          "text": "B",
+          "correct": false
+        },
+        {
+          "text": "C",
+          "correct": false
+        },
+        {
+          "text": "G",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8035,
+      "question": "ספרי יסוד ביהדות מן התקופה הרומית והביזנטית הם:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תורה ומדרשים",
+          "correct": false
+        },
+        {
+          "text": "הכוזרי ומורה נבוכים",
+          "correct": false
+        },
+        {
+          "text": "משנה, תורה ושולחן ערוך",
+          "correct": false
+        },
+        {
+          "text": "משנה ותלמוד",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8036,
+      "question": "מספר אבות המלאכה האסורים בשבת הוא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תרי\"ג",
+          "correct": false
+        },
+        {
+          "text": "ל\"ו",
+          "correct": false
+        },
+        {
+          "text": "ל\"ט",
+          "correct": true
+        },
+        {
+          "text": "שס\"ה בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae - 6 –",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8037,
+      "question": "קריאת \"פרשת השבוע\" לקוחה מ:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "התורה",
+          "correct": true
+        },
+        {
+          "text": "המשנה",
+          "correct": false
+        },
+        {
+          "text": "התלמוד",
+          "correct": false
+        },
+        {
+          "text": "ספר הזוהר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8038,
+      "question": "שני ה\"קרדו\" (CREDO) בנצרות הם של:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כלקדון ופאולוס",
+          "correct": false
+        },
+        {
+          "text": "אפסוס ו\"ותיקן 2\"",
+          "correct": false
+        },
+        {
+          "text": "ירושלים וקונסטנטינופול",
+          "correct": false
+        },
+        {
+          "text": "השליחים וניקיאה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8039,
+      "question": "בנצרות \"רליקט\" הוא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קיר נושא איקונות",
+          "correct": false
+        },
+        {
+          "text": "שריד מקודש",
+          "correct": true
+        },
+        {
+          "text": "גומחת תפילה",
+          "correct": false
+        },
+        {
+          "text": "במה לשירה ליטורגית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8040,
+      "question": "כנסיה מתומנת מן התקופה הביזנטית נמצאת ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אבו ע'וש",
+          "correct": false
+        },
+        {
+          "text": "כורזים",
+          "correct": false
+        },
+        {
+          "text": "הר האושר (הר האשרי)",
+          "correct": false
+        },
+        {
+          "text": "קיסריה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 8041,
+      "question": "\"רכעה\" באיסלם היא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שם אשתו היהודיה של מוחמד",
+          "correct": false
+        },
+        {
+          "text": "סדר הפסוקים בקוראן",
+          "correct": false
+        },
+        {
+          "text": "כינוי למחזור תנועות בתפילה",
+          "correct": true
+        },
+        {
+          "text": "שם הסוסה המופלאה של הנביא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8042,
+      "question": "הר תבור הוא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גראבן",
+          "correct": false
+        },
+        {
+          "text": "הורסט",
+          "correct": true
+        },
+        {
+          "text": "הר געש",
+          "correct": false
+        },
+        {
+          "text": "מחדר מגמתי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8043,
+      "question": "דרוזים בגולן אפשר למצוא ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בוקעתא ועין קיניא",
+          "correct": true
+        },
+        {
+          "text": "ריחניה ומג'דל שמס",
+          "correct": false
+        },
+        {
+          "text": "מסעדה וחורפייש",
+          "correct": false
+        },
+        {
+          "text": "בית ג'אן וסמיע בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae - 7 -",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8044,
+      "question": "אחוז המלח בים המלח הינו כ:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "10%",
+          "correct": false
+        },
+        {
+          "text": "30%",
+          "correct": true
+        },
+        {
+          "text": "45%",
+          "correct": false
+        },
+        {
+          "text": "70%",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8045,
+      "question": "בית קברות פלישתי התגלה לאחרונה ב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תל גת (תל צפית)",
+          "correct": false
+        },
+        {
+          "text": "אשדוד",
+          "correct": false
+        },
+        {
+          "text": "תל אשקלון",
+          "correct": true
+        },
+        {
+          "text": "תל קסילה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8046,
+      "question": "מרכז לתרבות ואומנות בתל אביב:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בית עגנון",
+          "correct": false
+        },
+        {
+          "text": "מוזיאון הכט",
+          "correct": false
+        },
+        {
+          "text": "סוזן דלאל",
+          "correct": true
+        },
+        {
+          "text": "בית הצנחן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8047,
+      "question": "מגילות ים המלח כוללות:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "טקסטים השייכים לכת האיסיים בלבד",
+          "correct": false
+        },
+        {
+          "text": "מגוון טקסטים המשקפים תפיסות עולם מימי הבית השני",
+          "correct": true
+        },
+        {
+          "text": "טקסטים המוכרים רק מקומראן",
+          "correct": false
+        },
+        {
+          "text": "כתר ארם צובא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8048,
+      "question": "תחנת הרכבת העתידית בירושלים תהיה:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בגבעת התחמושת",
+          "correct": false
+        },
+        {
+          "text": "באזור מלחה",
+          "correct": false
+        },
+        {
+          "text": "סמוך לבניני האומה",
+          "correct": true
+        },
+        {
+          "text": "במתחם התחנה הראשונה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8049,
+      "question": "אתר תיירותי הסמוך ביותר ליישוב אפרת:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קבר רחל",
+          "correct": false
+        },
+        {
+          "text": "בריכות שלמה",
+          "correct": true
+        },
+        {
+          "text": "עין עיטם",
+          "correct": false
+        },
+        {
+          "text": "אמת הביאר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 8050,
+      "question": "העיר הראשונה בארץ בה הוקמה מערכת מים מותפלים היא:",
+      "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אשדוד",
+          "correct": false
+        },
+        {
+          "text": "אילת",
+          "correct": true
+        },
+        {
+          "text": "אשקלון",
+          "correct": false
+        },
+        {
+          "text": "ראשון לציון בהצלחה! בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.ism tour.www | il.gov.tourism@hemdae",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9001,
+      "question": "נחל אוג נמצא ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "רמת הגולן",
+          "correct": false
+        },
+        {
+          "text": "גליל התחתון",
+          "correct": false
+        },
+        {
+          "text": "הר הנגב",
+          "correct": false
+        },
+        {
+          "text": "מדבר יהודה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9002,
+      "question": "בתי כנסת עתיקים בבקעת כנרות:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סוסיתא וסוסיא",
+          "correct": false
+        },
+        {
+          "text": "עין נשוט ודיר עזיז",
+          "correct": false
+        },
+        {
+          "text": "חורבת ורדים ומגדלא",
+          "correct": true
+        },
+        {
+          "text": "גמלא ומגדלא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9003,
+      "question": "דרך שאינה בינלאומית היא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "\"דרך המלך\"",
+          "correct": false
+        },
+        {
+          "text": "\"דרך האבות\"",
+          "correct": true
+        },
+        {
+          "text": "\"דרך הים\"",
+          "correct": false
+        },
+        {
+          "text": "\"דרך הדואר\"",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9004,
+      "question": "ראש ממשלה שקבור בהר הזיתים:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מנחם בגין",
+          "correct": true
+        },
+        {
+          "text": "גולדה מאיר",
+          "correct": false
+        },
+        {
+          "text": "משה שרת",
+          "correct": false
+        },
+        {
+          "text": "יצחק שמיר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9005,
+      "question": "שמו של שער שכם בערבית:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "באב אל עמוד",
+          "correct": true
+        },
+        {
+          "text": "באב אל ח'ליל",
+          "correct": false
+        },
+        {
+          "text": "באב אל אסבאט",
+          "correct": false
+        },
+        {
+          "text": "באב יאפה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9006,
+      "question": "יוסף חיים ברנר:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יו\"ר אגודת פועלי ציון",
+          "correct": false
+        },
+        {
+          "text": "קבור בבית הקברות בכנרת",
+          "correct": false
+        },
+        {
+          "text": "ממייסדי ראש פינה",
+          "correct": false
+        },
+        {
+          "text": "סופר שנרצח ביפו בפרעות תרפ\"א בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9007,
+      "question": "שנת היווסדה של פתח תקוה:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "1882",
+          "correct": false
+        },
+        {
+          "text": "1878",
+          "correct": true
+        },
+        {
+          "text": "1914",
+          "correct": false
+        },
+        {
+          "text": "1860",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9008,
+      "question": "\"עזרה ונחמיה\" – הוא כינוי לעלייה בה עלו יהודי:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אתיופיה",
+          "correct": false
+        },
+        {
+          "text": "מרוקו",
+          "correct": false
+        },
+        {
+          "text": "עיראק",
+          "correct": true
+        },
+        {
+          "text": "תימן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9009,
+      "question": "קבר הרמב\"ם נמצא ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר הזיתים",
+          "correct": false
+        },
+        {
+          "text": "צפת",
+          "correct": false
+        },
+        {
+          "text": "טבריה",
+          "correct": true
+        },
+        {
+          "text": "קורדובה בספרד",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9010,
+      "question": "שם של אל נבטי:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אשרה",
+          "correct": false
+        },
+        {
+          "text": "דושרא",
+          "correct": true
+        },
+        {
+          "text": "יופיטר",
+          "correct": false
+        },
+        {
+          "text": "מיתרס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9011,
+      "question": "מי מהבאים הוא עוף מים:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שחרור",
+          "correct": false
+        },
+        {
+          "text": "שרקרק",
+          "correct": false
+        },
+        {
+          "text": "דוכיפת",
+          "correct": false
+        },
+        {
+          "text": "שקנאי",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9012,
+      "question": "המרכז העולמי הקראי נמצא ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "רובע היהודי בירושלים",
+          "correct": false
+        },
+        {
+          "text": "הר הזיתים",
+          "correct": false
+        },
+        {
+          "text": "רמלה",
+          "correct": true
+        },
+        {
+          "text": "מושב מצליח",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9013,
+      "question": "על פי המסורת, אחד המקומות שבהם ניסה השטן את ישוע:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בית ציידא",
+          "correct": false
+        },
+        {
+          "text": "כורזים",
+          "correct": false
+        },
+        {
+          "text": "נצרת",
+          "correct": false
+        },
+        {
+          "text": "ירושלים",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9014,
+      "question": "הטוף בכרמל הוא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סוג סלע וולקני",
+          "correct": true
+        },
+        {
+          "text": "אתר פולחני",
+          "correct": false
+        },
+        {
+          "text": "צמח אנדמי",
+          "correct": false
+        },
+        {
+          "text": "סוג סלע משקע בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9015,
+      "question": "לוח השנה המוסלמי הוא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שמשי וירחי",
+          "correct": false
+        },
+        {
+          "text": "שמשי",
+          "correct": false
+        },
+        {
+          "text": "ירחי",
+          "correct": true
+        },
+        {
+          "text": "בן 11 חודשים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9016,
+      "question": "כנסייה על שם סנטה אנה נמצאת ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מגדלא, ירושלים",
+          "correct": false
+        },
+        {
+          "text": "טבחה, ציפורי",
+          "correct": false
+        },
+        {
+          "text": "ציפורי, ירושלים",
+          "correct": true
+        },
+        {
+          "text": "גוש חלב, נצרת",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9017,
+      "question": "\"אהל אלכתאב\" מתייחס ל:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יהודים ונוצרים",
+          "correct": true
+        },
+        {
+          "text": "דרוזים ויהודים",
+          "correct": false
+        },
+        {
+          "text": "בדואים וזורואסטרים",
+          "correct": false
+        },
+        {
+          "text": "נוצרים ובודהיסטים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9018,
+      "question": "קוד לבוש והתנהגות המקובלים בכנסיות רבות:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אין להיכנס בסנדלים",
+          "correct": false
+        },
+        {
+          "text": "על המבקרים להסיר כובע",
+          "correct": false
+        },
+        {
+          "text": "אין לשכל רגליים בישיבה",
+          "correct": false
+        },
+        {
+          "text": "תשובות ב' ו-ג'",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9019,
+      "question": "\"מובילאיי\" הוא שמה של:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חברה טכנולוגית ישראלית",
+          "correct": true
+        },
+        {
+          "text": "יחידת מובילי השיירות בתש\"ח",
+          "correct": false
+        },
+        {
+          "text": "נסיכה צלבנית",
+          "correct": false
+        },
+        {
+          "text": "יחידת הפיקוח של המוביל הארצי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9020,
+      "question": "אנדרטה לאלכסנדר זייד נמצאת ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר תבור",
+          "correct": false
+        },
+        {
+          "text": "בית שערים",
+          "correct": true
+        },
+        {
+          "text": "כפר גלעדי",
+          "correct": false
+        },
+        {
+          "text": "דגניה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9021,
+      "question": "\"הקו העירוני\" בירושלים נקבע בעקבות:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הסכמי דיין ועבדאללה א-תל",
+          "correct": true
+        },
+        {
+          "text": "\"החלטת החלוקה\"",
+          "correct": false
+        },
+        {
+          "text": "תוכנית רוג'רס",
+          "correct": false
+        },
+        {
+          "text": "מלחמת ששת הימים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9022,
+      "question": "אתר הנצחה לנשיא אמריקאי נמצא ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תל אביב",
+          "correct": false
+        },
+        {
+          "text": "קרית מלאכי",
+          "correct": false
+        },
+        {
+          "text": "נמל התעופה בן גוריון",
+          "correct": false
+        },
+        {
+          "text": "הרי ירושלים בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9023,
+      "question": "הפריצה לכלא עכו היתה ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "1938",
+          "correct": false
+        },
+        {
+          "text": "1943",
+          "correct": false
+        },
+        {
+          "text": "1947",
+          "correct": true
+        },
+        {
+          "text": "1948",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9024,
+      "question": "ישוב שהוקם לאחר קום המדינה:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שדה בוקר",
+          "correct": true
+        },
+        {
+          "text": "ניר עם",
+          "correct": false
+        },
+        {
+          "text": "חולון",
+          "correct": false
+        },
+        {
+          "text": "מעלה החמישה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9025,
+      "question": "\"המכביה\" הראשונה התקיימה ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ירושלים",
+          "correct": false
+        },
+        {
+          "text": "רמת גן",
+          "correct": false
+        },
+        {
+          "text": "תל אביב",
+          "correct": true
+        },
+        {
+          "text": "מודיעין",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9026,
+      "question": "השם הקודם של אילניה:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מסחה",
+          "correct": false
+        },
+        {
+          "text": "ג'עוני",
+          "correct": false
+        },
+        {
+          "text": "סג'רה",
+          "correct": true
+        },
+        {
+          "text": "אום ג'וני",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9027,
+      "question": "מחתרת ניל\"י פעלה ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מרד גטו ורשה",
+          "correct": false
+        },
+        {
+          "text": "ירושלים",
+          "correct": false
+        },
+        {
+          "text": "ימי המנדט הבריטי",
+          "correct": false
+        },
+        {
+          "text": "מלחמת העולם הראשונה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9028,
+      "question": "ישוב שחרב וקם מחדש, תחת אותו שם:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כברי",
+          "correct": false
+        },
+        {
+          "text": "בית הערבה",
+          "correct": true
+        },
+        {
+          "text": "כפר מסריק",
+          "correct": false
+        },
+        {
+          "text": "ניר עציון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9029,
+      "question": "עמוד העלי הוא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "פסגת התל בשילה",
+          "correct": false
+        },
+        {
+          "text": "החלק המחבר בין הפרח לגבעול",
+          "correct": false
+        },
+        {
+          "text": "האיבר בפרח המייצר את גרגרי האבקה",
+          "correct": false
+        },
+        {
+          "text": "החלק הנקבי של הפרח",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9030,
+      "question": "ניתן לצפות ביעלים בישראל בעיקר ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אגמון החולה",
+          "correct": false
+        },
+        {
+          "text": "חי בר כרמל",
+          "correct": false
+        },
+        {
+          "text": "מדבר יהודה",
+          "correct": true
+        },
+        {
+          "text": "עין יעל בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9031,
+      "question": "קו פרשת המים הארצי באזור ירושלים עובר ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר הרצל – הר אורה",
+          "correct": false
+        },
+        {
+          "text": "הר ציון – הר הבית",
+          "correct": false
+        },
+        {
+          "text": "הר הצופים – הר הזיתים",
+          "correct": false
+        },
+        {
+          "text": "תחנת הרכבת – היכל שלמה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9032,
+      "question": "תחנת הרכבת החדשה בירושלים תהיה באזור:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בניני האומה",
+          "correct": true
+        },
+        {
+          "text": "מלחה",
+          "correct": false
+        },
+        {
+          "text": "תיאטרון החאן",
+          "correct": false
+        },
+        {
+          "text": "הר הרצל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9033,
+      "question": "אתר טורבינות רוח לייצור חשמל נמצא ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "גלבוע",
+          "correct": true
+        },
+        {
+          "text": "הרי ירושלים",
+          "correct": false
+        },
+        {
+          "text": "תבור",
+          "correct": false
+        },
+        {
+          "text": "חרמון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9034,
+      "question": "את הצב הרך ניתן לראות לעיתים ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נחל דישון",
+          "correct": false
+        },
+        {
+          "text": "נהר הירמוך",
+          "correct": false
+        },
+        {
+          "text": "נחל אלכסנדר",
+          "correct": true
+        },
+        {
+          "text": "נחל סער",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9035,
+      "question": "כלי המאפיין במובהק את התרבות הכלכוליתית:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קנקן שפת צווארון",
+          "correct": false
+        },
+        {
+          "text": "מחבצה ליצור חמאה",
+          "correct": true
+        },
+        {
+          "text": "גרזן עינויים",
+          "correct": false
+        },
+        {
+          "text": "סרקופג",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9036,
+      "question": "אתר קבורה לכלבים נתגלה ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עזה ואשקלון",
+          "correct": false
+        },
+        {
+          "text": "גת ויפו",
+          "correct": false
+        },
+        {
+          "text": "עכו וחיפה",
+          "correct": false
+        },
+        {
+          "text": "אשקלון וירושלים",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9037,
+      "question": "סיפורי שמשון מופיעים בספר:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יהושע",
+          "correct": false
+        },
+        {
+          "text": "שופטים",
+          "correct": true
+        },
+        {
+          "text": "שמואל א'",
+          "correct": false
+        },
+        {
+          "text": "שמואל ב'",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9038,
+      "question": "נביא שאינו שייך ל\"תרי עשר\":",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עמוס",
+          "correct": false
+        },
+        {
+          "text": "מיכה",
+          "correct": false
+        },
+        {
+          "text": "זכריה",
+          "correct": false
+        },
+        {
+          "text": "ישעיהו בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9039,
+      "question": "\"כתובת תיאודוטוס\" קשורה ל:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "איסור כניסה להר הבית",
+          "correct": false
+        },
+        {
+          "text": "בית כנסת מימי בית שני",
+          "correct": true
+        },
+        {
+          "text": "קשת רובינסון",
+          "correct": false
+        },
+        {
+          "text": "כנסיית ניאה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9040,
+      "question": "כתובת המזכירה רשימת \"משמרות כהונה\" נמצאה ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "צפת",
+          "correct": false
+        },
+        {
+          "text": "רחוב",
+          "correct": false
+        },
+        {
+          "text": "קיסריה",
+          "correct": true
+        },
+        {
+          "text": "ירושלים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9041,
+      "question": "תנאי לכשרות של מקווה הוא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נפח של 40 סאה ומים שאובים",
+          "correct": false
+        },
+        {
+          "text": "נפח מעל 40 סאה ומים לא שאובים",
+          "correct": true
+        },
+        {
+          "text": "נפח מעל 40 סאה ושבע מדרגות",
+          "correct": false
+        },
+        {
+          "text": "נפח מעל 40 סאה וטיח המונע חלחול",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9042,
+      "question": "רוב החורבות בכרמל משוייכות לתקופה ה:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הרודיאנית",
+          "correct": false
+        },
+        {
+          "text": "ביזאנטית",
+          "correct": true
+        },
+        {
+          "text": "אומאית",
+          "correct": false
+        },
+        {
+          "text": "צלבנית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9043,
+      "question": "הקיר במסגד הפונה לכיוון מכה נקרא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מנבר",
+          "correct": false
+        },
+        {
+          "text": "מחראב",
+          "correct": false
+        },
+        {
+          "text": "מינארט",
+          "correct": false
+        },
+        {
+          "text": "קיבלה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 9044,
+      "question": "הקדומה ביותר מבין הדמויות הבאות:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "רבי יוחנן בן זכאי",
+          "correct": true
+        },
+        {
+          "text": "הגאון רבי אליהו )הגר\"א(",
+          "correct": false
+        },
+        {
+          "text": "מורנו הגדול רבי ליווא )מהר\"ל(",
+          "correct": false
+        },
+        {
+          "text": "רבי יהודה הנשיא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9045,
+      "question": "אתר מן התקופה האומאית:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חורבת מינים )ח'רבת מיניה(",
+          "correct": true
+        },
+        {
+          "text": "בריכת הקשתות ברמלה",
+          "correct": false
+        },
+        {
+          "text": "קרני חיטין",
+          "correct": false
+        },
+        {
+          "text": "לוד בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9046,
+      "question": "הנציב העליון הבריטי האחרון עזב את הארץ ב:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כ\"ט בנובמבר 1947",
+          "correct": false
+        },
+        {
+          "text": "אפריל 1948",
+          "correct": false
+        },
+        {
+          "text": "מאי 1948",
+          "correct": true
+        },
+        {
+          "text": "יולי 1949",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9047,
+      "question": "יום שאינו יום צום ביהדות:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ט' באב",
+          "correct": false
+        },
+        {
+          "text": "י\"א באדר",
+          "correct": true
+        },
+        {
+          "text": "י\"ז בתמוז",
+          "correct": false
+        },
+        {
+          "text": "ג' תשרי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9048,
+      "question": "בקרני חיטין נמצא:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ישוב כנעני וישראלי",
+          "correct": true
+        },
+        {
+          "text": "ישוב ביזאנטי ועבאסי",
+          "correct": false
+        },
+        {
+          "text": "ישוב ביזאנטי ועות'מאני",
+          "correct": false
+        },
+        {
+          "text": "מבצר צלבני והתיישבות יהודית מודרנית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9049,
+      "question": "עיר שהוקפה חומה על ידי סולימאן המפואר:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יפו",
+          "correct": false
+        },
+        {
+          "text": "טבריה",
+          "correct": false
+        },
+        {
+          "text": "צפת",
+          "correct": true
+        },
+        {
+          "text": "חיפה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 9050,
+      "question": "הקשת מופיעה לראשונה בארץ ישראל בתקופה ה:",
+      "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כלכוליתית",
+          "correct": false
+        },
+        {
+          "text": "כנענית",
+          "correct": true
+        },
+        {
+          "text": "רומית",
+          "correct": false
+        },
+        {
+          "text": "עבאסית בהצלחה! בנק ישראל 5, ת.ד. 1018 ירושלים 9100900 | טל. 4345 666 02 | פקס 4474 666 02 il.gov.sm touri.www | il.gov.tourism@hemdae",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10001,
+      "question": "ָל ָבה היא:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סלע בזלתי נקבובי",
+          "correct": false
+        },
+        {
+          "text": "אפר וולקני",
+          "correct": false
+        },
+        {
+          "text": "מאגמה הזורמת על פני השטח",
+          "correct": true
+        },
+        {
+          "text": "החומר הנמצא בגרעין כדור הארץ",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10002,
+      "question": "מעיין \"פועם\" נמצא ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ואדי קלט",
+          "correct": true
+        },
+        {
+          "text": "נחל צאלים",
+          "correct": false
+        },
+        {
+          "text": "נחל סער",
+          "correct": false
+        },
+        {
+          "text": "מעיין מרים בעין כרם",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10003,
+      "question": "הנחל הצפוני מבין הנחלים הבאים:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נחל תנינים",
+          "correct": false
+        },
+        {
+          "text": "נחל בצת",
+          "correct": true
+        },
+        {
+          "text": "נחל קישון",
+          "correct": false
+        },
+        {
+          "text": "נחל אלכסנדר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10004,
+      "question": "פארק הבנוי על מטמנת פסולת הוא פארק:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אריאל שרון",
+          "correct": true
+        },
+        {
+          "text": "יצחק רבין",
+          "correct": false
+        },
+        {
+          "text": "מנחם בגין",
+          "correct": false
+        },
+        {
+          "text": "גולדה מאיר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10005,
+      "question": "מדינת ישראל נמצאת סמוך לקו רוחב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "10 מעלות",
+          "correct": false
+        },
+        {
+          "text": "20 מעלות",
+          "correct": false
+        },
+        {
+          "text": "30 מעלות",
+          "correct": true
+        },
+        {
+          "text": "50 מעלות",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10006,
+      "question": "ריכוז העגורים הגדול ביותר בארץ נמצא ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תחנת הטיבוע באילת",
+          "correct": false
+        },
+        {
+          "text": "מרכז לצפרות בלטרון",
+          "correct": false
+        },
+        {
+          "text": "בריכות המים בסח'נה",
+          "correct": false
+        },
+        {
+          "text": "אגמון החולה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10007,
+      "question": "מאפיין את החורש הים תיכוני:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אורן הסלע",
+          "correct": false
+        },
+        {
+          "text": "אלה ארץ ישראלית",
+          "correct": true
+        },
+        {
+          "text": "דולב",
+          "correct": false
+        },
+        {
+          "text": "שיטה מכחילה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10008,
+      "question": "חקלאות קדומה המתבססת על השקיה קרויה בשם חקלאות:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שלחין",
+          "correct": true
+        },
+        {
+          "text": "בעל",
+          "correct": false
+        },
+        {
+          "text": "טרסות",
+          "correct": false
+        },
+        {
+          "text": "הידרופונית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10009,
+      "question": "רעידת אדמה גדולה היתה בארץ ישראל בשנת:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "1099",
+          "correct": false
+        },
+        {
+          "text": "1261",
+          "correct": false
+        },
+        {
+          "text": "1799",
+          "correct": false
+        },
+        {
+          "text": "1837",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10010,
+      "question": "סרקופג הוא:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בור חצוב לאיסוף עצמות",
+          "correct": false
+        },
+        {
+          "text": "ארון מתים לקבורה של גופה שלמה, בימי קדם",
+          "correct": true
+        },
+        {
+          "text": "תיבה קטנה לאיסוף עצמות",
+          "correct": false
+        },
+        {
+          "text": "ארקוסוליום",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10011,
+      "question": "הופעת הערים הראשונות בארץ ישראל מתרחשת בתקופה:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הכלכוליתית",
+          "correct": false
+        },
+        {
+          "text": "הברונזה הקדומה",
+          "correct": true
+        },
+        {
+          "text": "הברונזה התיכונה",
+          "correct": false
+        },
+        {
+          "text": "הברזל 1",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10012,
+      "question": "מרכז פולחני של שבטי ישראל לפני ימי הבית הראשון היה ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שומרון",
+          "correct": false
+        },
+        {
+          "text": "בית שמש",
+          "correct": false
+        },
+        {
+          "text": "שילה",
+          "correct": true
+        },
+        {
+          "text": "סככה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10013,
+      "question": "על פי התנ\"ך ראשית השומרונים קשורה ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ימי דוד ושלמה",
+          "correct": false
+        },
+        {
+          "text": "גלות אשור",
+          "correct": true
+        },
+        {
+          "text": "גלות בבל",
+          "correct": false
+        },
+        {
+          "text": "שיבת ציון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10014,
+      "question": "מאפיין מובהק של ישוב יהודי בימי הבית השני הוא:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מקוואות",
+          "correct": true
+        },
+        {
+          "text": "קנקני שפת צווארון",
+          "correct": false
+        },
+        {
+          "text": "בתי מרחץ",
+          "correct": false
+        },
+        {
+          "text": "סרקופגים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10015,
+      "question": "כנסייה שרואים במפת מידבא היא כנסיית:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "המשיח",
+          "correct": false
+        },
+        {
+          "text": "אלאונה",
+          "correct": false
+        },
+        {
+          "text": "הגיה ציון",
+          "correct": true
+        },
+        {
+          "text": "גת שמנים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10016,
+      "question": "רבי יהודה הנשיא נקבר ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שפרעם",
+          "correct": false
+        },
+        {
+          "text": "ציפורי",
+          "correct": false
+        },
+        {
+          "text": "טבריה",
+          "correct": false
+        },
+        {
+          "text": "בית שערים",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10017,
+      "question": "עיסא בקוראן הוא:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אדם הראשון",
+          "correct": false
+        },
+        {
+          "text": "עשיו",
+          "correct": false
+        },
+        {
+          "text": "איוב",
+          "correct": false
+        },
+        {
+          "text": "ישוע (ישו)",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10018,
+      "question": "הקוראן מחולק ל:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סורות",
+          "correct": true
+        },
+        {
+          "text": "חדית'ים",
+          "correct": false
+        },
+        {
+          "text": "סונות",
+          "correct": false
+        },
+        {
+          "text": "שריעות",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10019,
+      "question": "חלוקת ירושלים בהסכם בין הצלבנים לאיובים היתה בימי:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בלדווין הראשון",
+          "correct": false
+        },
+        {
+          "text": "פרידריך ברברוסה",
+          "correct": false
+        },
+        {
+          "text": "פרידריך השני",
+          "correct": true
+        },
+        {
+          "text": "ריצ'ארד לב הארי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10020,
+      "question": "מוקרנס הוא עיטור ארכיטקטוני המוכר בארץ מהתקופה ה:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חשמונאית",
+          "correct": false
+        },
+        {
+          "text": "ביזנטית",
+          "correct": false
+        },
+        {
+          "text": "אומאית",
+          "correct": false
+        },
+        {
+          "text": "ממלוכית",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10021,
+      "question": "\"דרך הדואר\" הממלוכית מתבססת על תוואי:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "דרך הים",
+          "correct": true
+        },
+        {
+          "text": "דרך המלך",
+          "correct": false
+        },
+        {
+          "text": "דרך הבשמים",
+          "correct": false
+        },
+        {
+          "text": "דרך האבות",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10022,
+      "question": "שריד למבצר צלבני נמצא ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חורבת מנות",
+          "correct": false
+        },
+        {
+          "text": "קלעת נמרוד",
+          "correct": false
+        },
+        {
+          "text": "מעיליא",
+          "correct": true
+        },
+        {
+          "text": "אבל בית מעכה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10023,
+      "question": "אחד מן האתרים המזוהים עם אמאוס הוא:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נבי סמואל",
+          "correct": false
+        },
+        {
+          "text": "דיר רפאת",
+          "correct": false
+        },
+        {
+          "text": "בית ג'ימאל",
+          "correct": false
+        },
+        {
+          "text": "אבו ע'וש (אבו גוש)",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10024,
+      "question": "\"סביל אבו נבוט\" נמצא ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עכו",
+          "correct": false
+        },
+        {
+          "text": "על יד שער האריות בירושלים",
+          "correct": false
+        },
+        {
+          "text": "רמלה",
+          "correct": false
+        },
+        {
+          "text": "יפו",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10025,
+      "question": "מפקד ערבי ששמו נקשר בקרב על הקסטל הוא:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עבד אל קאדר אל חוסייני",
+          "correct": true
+        },
+        {
+          "text": "חאג' אמין אל חוסייני",
+          "correct": false
+        },
+        {
+          "text": "אנואר נוסייבה",
+          "correct": false
+        },
+        {
+          "text": "עבדאללה א-תל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10026,
+      "question": "מפת ז'קוטן היא מפה של ארץ ישראל מן התקופה ה:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ביזנטית",
+          "correct": false
+        },
+        {
+          "text": "צלבנית",
+          "correct": false
+        },
+        {
+          "text": "ממלוכית",
+          "correct": false
+        },
+        {
+          "text": "עות'מנית",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10027,
+      "question": "אנדרטה ללוחם הבדואי נמצאת ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "צפון הארץ",
+          "correct": false
+        },
+        {
+          "text": "אזור ירושלים",
+          "correct": false
+        },
+        {
+          "text": "נגב",
+          "correct": true
+        },
+        {
+          "text": "בקעת הירדן",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10028,
+      "question": "חנה מייזל קשורה ל:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אחוזת דוברובניק בעמק החולה",
+          "correct": false
+        },
+        {
+          "text": "חוות השקמים בצפון הנגב",
+          "correct": false
+        },
+        {
+          "text": "חוות העלמות על יד הכנרת",
+          "correct": true
+        },
+        {
+          "text": "חוות הלימוד בארמון הנציב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10029,
+      "question": "ראשי התיבות של לח\"י:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "לוחמי חירות יהודים",
+          "correct": false
+        },
+        {
+          "text": "לוחמי חירות ישראל",
+          "correct": true
+        },
+        {
+          "text": "לוחמי חץ ישראלים",
+          "correct": false
+        },
+        {
+          "text": "לוחמי חירות ירושלים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10030,
+      "question": "הפלמ\"ח פורק בפקודת:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יגאל אלון",
+          "correct": false
+        },
+        {
+          "text": "משה דיין",
+          "correct": false
+        },
+        {
+          "text": "מנחם בגין",
+          "correct": false
+        },
+        {
+          "text": "דוד בן גוריון",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10031,
+      "question": "קריית השלטון של מדינת ישראל נמצאת באזור:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר הרצל",
+          "correct": false
+        },
+        {
+          "text": "הר הזיתים",
+          "correct": false
+        },
+        {
+          "text": "גבעת רם",
+          "correct": true
+        },
+        {
+          "text": "ארמון הנציב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10032,
+      "question": "מספר התושבים במדינת ישראל בשנת 2018 הוא כ:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "6 מיליון תושבים",
+          "correct": false
+        },
+        {
+          "text": "9 מיליון תושבים",
+          "correct": true
+        },
+        {
+          "text": "10 מיליון תושבים",
+          "correct": false
+        },
+        {
+          "text": "12 מיליון תושבים",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10033,
+      "question": "סיור בשטחי אש ניתן בדרך כלל לבצע ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "פורים",
+          "correct": false
+        },
+        {
+          "text": "חול המועד פסח",
+          "correct": true
+        },
+        {
+          "text": "ט\"ו בשבט",
+          "correct": false
+        },
+        {
+          "text": "ל\"ג בעומר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10034,
+      "question": "תהלוכת יום ראשון של הדקלים מתחילה באזור:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר הזיתים",
+          "correct": true
+        },
+        {
+          "text": "הר תבור",
+          "correct": false
+        },
+        {
+          "text": "הר הקפיצה",
+          "correct": false
+        },
+        {
+          "text": "הר ציון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10035,
+      "question": "האתר במגדלא נמצא בבעלות:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "יהודית",
+          "correct": false
+        },
+        {
+          "text": "קתולית",
+          "correct": true
+        },
+        {
+          "text": "לותרנית",
+          "correct": false
+        },
+        {
+          "text": "אנגליקנית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10036,
+      "question": "הנצרות הפכה לדת מדינה באימפריה הרומית במאה ה:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "3 לספירה",
+          "correct": false
+        },
+        {
+          "text": "4 לספירה",
+          "correct": true
+        },
+        {
+          "text": "5 לספירה",
+          "correct": false
+        },
+        {
+          "text": "6 לספירה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10037,
+      "question": "\"מים שלנו\" הוא מושג הקשור בחג:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ראש השנה",
+          "correct": false
+        },
+        {
+          "text": "סוכות",
+          "correct": false
+        },
+        {
+          "text": "פסח",
+          "correct": true
+        },
+        {
+          "text": "שבועות",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10038,
+      "question": "ראשית התנועה הרפורמית של היהודים היתה:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אחרי מלחמת העולם הראשונה",
+          "correct": false
+        },
+        {
+          "text": "אחרי מלחמת העולם השנייה",
+          "correct": false
+        },
+        {
+          "text": "במאה ה-16",
+          "correct": false
+        },
+        {
+          "text": "במאה ה-19",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10039,
+      "question": "נבי סבלאן הינו אתר המקודש ל:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "צ'רקסים",
+          "correct": false
+        },
+        {
+          "text": "אחמדים",
+          "correct": false
+        },
+        {
+          "text": "בהאים",
+          "correct": false
+        },
+        {
+          "text": "דרוזים",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10040,
+      "question": "יישוב בדואי:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ערב אל עראמשה",
+          "correct": true
+        },
+        {
+          "text": "גוש חלב",
+          "correct": false
+        },
+        {
+          "text": "מעיליא",
+          "correct": false
+        },
+        {
+          "text": "נבי שועייב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10041,
+      "question": "הר ברמת הגולן:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "החרמון",
+          "correct": false
+        },
+        {
+          "text": "בנטל",
+          "correct": true
+        },
+        {
+          "text": "קרני חיטין",
+          "correct": false
+        },
+        {
+          "text": "כנען",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10042,
+      "question": "נחל הנשפך לכנרת:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ירמוך",
+          "correct": false
+        },
+        {
+          "text": "כזיב",
+          "correct": false
+        },
+        {
+          "text": "עמוד",
+          "correct": true
+        },
+        {
+          "text": "תרצה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10043,
+      "question": "רוב הממצאים במוזיאון \"המזגגה\" הם מאזור:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אפולוניה",
+          "correct": false
+        },
+        {
+          "text": "קיסריה",
+          "correct": false
+        },
+        {
+          "text": "תל דור",
+          "correct": true
+        },
+        {
+          "text": "תל שקמונה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10044,
+      "question": "בקיסריה היה מקדש רומי שהוקדש ל:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אוגוסטוס",
+          "correct": true
+        },
+        {
+          "text": "הדריאנוס",
+          "correct": false
+        },
+        {
+          "text": "הורדוס",
+          "correct": false
+        },
+        {
+          "text": "יוליאנוס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10045,
+      "question": "אמת מים להר הבית הגיעה מ:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ואדי קלט",
+          "correct": false
+        },
+        {
+          "text": "בריכת ממילא",
+          "correct": false
+        },
+        {
+          "text": "בריכות שלמה",
+          "correct": true
+        },
+        {
+          "text": "בריכת השילוח",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10046,
+      "question": "תל קסילה נמצא ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אשקלון",
+          "correct": false
+        },
+        {
+          "text": "יפו",
+          "correct": false
+        },
+        {
+          "text": "תל אביב",
+          "correct": true
+        },
+        {
+          "text": "ראש העין",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10047,
+      "question": "\"המוביל המלוח\" קשור לאזור:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נחל תנינים",
+          "correct": false
+        },
+        {
+          "text": "ים סוף",
+          "correct": false
+        },
+        {
+          "text": "החולה",
+          "correct": false
+        },
+        {
+          "text": "הכנרת",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 10048,
+      "question": "שכונה שהוקמה בירושלים אחרי מלחמת ששת הימים:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בית הכרם",
+          "correct": false
+        },
+        {
+          "text": "רמות",
+          "correct": true
+        },
+        {
+          "text": "רחביה",
+          "correct": false
+        },
+        {
+          "text": "נחלת שבעה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10049,
+      "question": "המונח אנז\"ק מתאר:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מחתרת יהודית במלחמת העולם הראשונה",
+          "correct": false
+        },
+        {
+          "text": "ארגון תרבות של האו\"ם",
+          "correct": false
+        },
+        {
+          "text": "כח לוחם בארץ ישראל הקשור למלחמת העולם הראשונה",
+          "correct": true
+        },
+        {
+          "text": "כח לוחם בארץ ישראל הקשור למלחמת העולם השנייה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 10050,
+      "question": "נמל התעופה החדש רמון נמצא ב:",
+      "category": "יוני 2018 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ערבה הדרומית מצפון לאילת",
+          "correct": false
+        },
+        {
+          "text": "ממערב למצפה רמון",
+          "correct": false
+        },
+        {
+          "text": "בעיר אילת על יד מעבר טאבה",
+          "correct": false
+        },
+        {
+          "text": "בבקעת עובדה בהצלחה!",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11001,
+      "question": "סלע נארי מתפתח על סלע:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קירטון",
+          "correct": true
+        },
+        {
+          "text": "בזלת",
+          "correct": false
+        },
+        {
+          "text": "כורכר",
+          "correct": false
+        },
+        {
+          "text": "דולומיט",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11002,
+      "question": "רב הקשור לשיקומה של טבריה הוא הרב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חיים אבולעפיה",
+          "correct": true
+        },
+        {
+          "text": "חיים פרחי",
+          "correct": false
+        },
+        {
+          "text": "חיים בן עטר",
+          "correct": false
+        },
+        {
+          "text": "שמעון בן שטח",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11003,
+      "question": "נחל הנשפך לירדן:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תנינים",
+          "correct": false
+        },
+        {
+          "text": "תרצה",
+          "correct": true
+        },
+        {
+          "text": "הבשור",
+          "correct": false
+        },
+        {
+          "text": "אלכסנדר",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11004,
+      "question": "הזור והע'ור הם מונחים הקשורים ל:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ירקון",
+          "correct": false
+        },
+        {
+          "text": "אברי הרבייה של הפרח",
+          "correct": false
+        },
+        {
+          "text": "ארכיטקטורה ממלוכית",
+          "correct": false
+        },
+        {
+          "text": "ירדן",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11005,
+      "question": "משאב טבע המצוי בכמויות גדולות בישראל:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נפט",
+          "correct": false
+        },
+        {
+          "text": "גז",
+          "correct": true
+        },
+        {
+          "text": "יהלום",
+          "correct": false
+        },
+        {
+          "text": "ברזל",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11006,
+      "question": "על פי ספר יהושע ירושלים היתה בנחלת שבט:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ראובן",
+          "correct": false
+        },
+        {
+          "text": "בנימין",
+          "correct": true
+        },
+        {
+          "text": "דן",
+          "correct": false
+        },
+        {
+          "text": "אף שבט",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11007,
+      "question": "כלניות במגוון צבעים ניתן למצוא בעיקר באזור:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עוטף עזה",
+          "correct": false
+        },
+        {
+          "text": "הרי יהודה",
+          "correct": true
+        },
+        {
+          "text": "העמקים",
+          "correct": false
+        },
+        {
+          "text": "הנגב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11008,
+      "question": "עוף פולש לארץ בשנים האחרונות:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עוזניה",
+          "correct": false
+        },
+        {
+          "text": "עורבני",
+          "correct": false
+        },
+        {
+          "text": "דררה",
+          "correct": true
+        },
+        {
+          "text": "חסידה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11009,
+      "question": "נחל אוג נמצא ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כרמל",
+          "correct": false
+        },
+        {
+          "text": "מדבר יהודה",
+          "correct": true
+        },
+        {
+          "text": "גליל",
+          "correct": false
+        },
+        {
+          "text": "ערבה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11010,
+      "question": "גשר ג'ינדס נמצא על נחל:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "איילון",
+          "correct": true
+        },
+        {
+          "text": "אלכסנדר",
+          "correct": false
+        },
+        {
+          "text": "שורק",
+          "correct": false
+        },
+        {
+          "text": "לכיש",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11011,
+      "question": "פירוש המונח 'בד' במתקן בית הבד:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אבן הרכב",
+          "correct": false
+        },
+        {
+          "text": "אבן השכב",
+          "correct": false
+        },
+        {
+          "text": "משקולות",
+          "correct": false
+        },
+        {
+          "text": "קורת העץ",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11012,
+      "question": "שריד מתקופת המקרא נמצא בחפירות ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "נבי סמואל",
+          "correct": false
+        },
+        {
+          "text": "מגדלא",
+          "correct": false
+        },
+        {
+          "text": "גן לאומי תל באר שבע",
+          "correct": true
+        },
+        {
+          "text": "סוסיא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11013,
+      "question": "קבורת כלבים בארץ בקנה מידה גדול יחסית נחשפה ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קיסריה",
+          "correct": false
+        },
+        {
+          "text": "יפו",
+          "correct": false
+        },
+        {
+          "text": "תל קסילה",
+          "correct": false
+        },
+        {
+          "text": "אשקלון",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11014,
+      "question": "אתר שלא הוכר כאתר מורשת עולמית:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מגידו",
+          "correct": false
+        },
+        {
+          "text": "בית ג'ימל",
+          "correct": true
+        },
+        {
+          "text": "מצדה",
+          "correct": false
+        },
+        {
+          "text": "חצור",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11015,
+      "question": "שמה הקדום של קיסריה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מגדל סטרטון (מגדל שרשון)",
+          "correct": true
+        },
+        {
+          "text": "דיו קיסריה",
+          "correct": false
+        },
+        {
+          "text": "דיוספוליס",
+          "correct": false
+        },
+        {
+          "text": "דקהפוליס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11016,
+      "question": "אמת מים עות'מאנית נמצאת ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עבדת",
+          "correct": false
+        },
+        {
+          "text": "מערת צדקיהו",
+          "correct": false
+        },
+        {
+          "text": "קיבוץ לוחמי הגיטאות",
+          "correct": true
+        },
+        {
+          "text": "חוף האקוודוקט",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11017,
+      "question": "המרד המאוחר מבין הבאים:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "המרד הגדול",
+          "correct": false
+        },
+        {
+          "text": "מרד התפוצות",
+          "correct": false
+        },
+        {
+          "text": "מרד גאלוס",
+          "correct": true
+        },
+        {
+          "text": "מרד בר כוכבא",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11018,
+      "question": "חורבן ירושלים בימי בית שני הושלם בחודש:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תשרי",
+          "correct": false
+        },
+        {
+          "text": "אב",
+          "correct": false
+        },
+        {
+          "text": "תמוז",
+          "correct": false
+        },
+        {
+          "text": "אלול",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11019,
+      "question": "עיר שהוקמה בסוף ימי הבית השני:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "טבריה",
+          "correct": true
+        },
+        {
+          "text": "לוד",
+          "correct": false
+        },
+        {
+          "text": "ציפורי",
+          "correct": false
+        },
+        {
+          "text": "עכו",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11020,
+      "question": "השליט הפאטימי אל חאכם קשור בדת ה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בהאית",
+          "correct": false
+        },
+        {
+          "text": "אחמדית",
+          "correct": false
+        },
+        {
+          "text": "דרוזית",
+          "correct": true
+        },
+        {
+          "text": "סלג'וקית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11021,
+      "question": "מתחם צלבני גרמני בירושלים נמצא ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "שער שכם",
+          "correct": false
+        },
+        {
+          "text": "מנזר ווירי גלילאי",
+          "correct": false
+        },
+        {
+          "text": "רובע היהודי",
+          "correct": true
+        },
+        {
+          "text": "רובע הארמני",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11022,
+      "question": "ראשית הזרם הקראי היה במאה ה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "7 לספירה",
+          "correct": false
+        },
+        {
+          "text": "8 לספירה",
+          "correct": true
+        },
+        {
+          "text": "9 לספירה",
+          "correct": false
+        },
+        {
+          "text": "10 לספירה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11023,
+      "question": "מאפיין ארכיטקטוני מובהק של הבנייה הממלוכית:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "טריגליפים",
+          "correct": false
+        },
+        {
+          "text": "מוקרנס",
+          "correct": true
+        },
+        {
+          "text": "עמוד מרפק",
+          "correct": false
+        },
+        {
+          "text": "כותרת קורינתית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11024,
+      "question": "מייסדת \"חוות העלמות\" היתה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "רחל המשוררת",
+          "correct": false
+        },
+        {
+          "text": "גולדה מאירסון",
+          "correct": false
+        },
+        {
+          "text": "מניה שוחט",
+          "correct": false
+        },
+        {
+          "text": "חנה מייזל",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11025,
+      "question": "מהיישובים הראשונים שנוסדו בגוש עציון לפני קום המדינה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אלון שבות",
+          "correct": false
+        },
+        {
+          "text": "רחלים",
+          "correct": false
+        },
+        {
+          "text": "אפרת",
+          "correct": false
+        },
+        {
+          "text": "קיבוץ רבדים",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11026,
+      "question": "שער נצחון רומי ניתן לראות ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "קיסריה",
+          "correct": false
+        },
+        {
+          "text": "יודפת",
+          "correct": false
+        },
+        {
+          "text": "ירושלים",
+          "correct": true
+        },
+        {
+          "text": "בית גוברין",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11027,
+      "question": "הפלי\"ם הוא:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הזרוע הצבאית הימית של הפלמ\"ח",
+          "correct": true
+        },
+        {
+          "text": "פלוגות ירושלים של האצ\"ל",
+          "correct": false
+        },
+        {
+          "text": "שמה של ספינת מעפילים",
+          "correct": false
+        },
+        {
+          "text": "פלוגות של הלח\"י שעסקו בהבאת מעפילים ארצה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11028,
+      "question": "המנורה מסמל מדינת ישראל לקוחה מ:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "מטבע של מתתיהו אנטיגונוס",
+          "correct": false
+        },
+        {
+          "text": "המנורה בשער טיטוס",
+          "correct": true
+        },
+        {
+          "text": "המנורה במגדלא",
+          "correct": false
+        },
+        {
+          "text": "המנורה ברובע ההרודיאני",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11029,
+      "question": "ההכרזה על הקמת מדינת ישראל היתה ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "כ\"ט בנובמבר",
+          "correct": false
+        },
+        {
+          "text": "ד' באייר",
+          "correct": false
+        },
+        {
+          "text": "ה' באייר",
+          "correct": true
+        },
+        {
+          "text": "15 במאי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11030,
+      "question": "בתי קברות צבאיים בריטיים נמצאים ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "באר שבע ורמלה",
+          "correct": true
+        },
+        {
+          "text": "ירושלים ואשדוד",
+          "correct": false
+        },
+        {
+          "text": "חיפה וקצרין",
+          "correct": false
+        },
+        {
+          "text": "עזה וניצנה",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11031,
+      "question": "במפת מידבא לא נמצא בירושלים את:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הקארדו המזרחי",
+          "correct": false
+        },
+        {
+          "text": "כנסיית הגייה ציון",
+          "correct": false
+        },
+        {
+          "text": "חומת העיר",
+          "correct": false
+        },
+        {
+          "text": "מקדש יופיטר על הר הבית",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11032,
+      "question": "רצח ראש הממשלה יצחק רבין היה בשנת:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "1993",
+          "correct": false
+        },
+        {
+          "text": "1994",
+          "correct": false
+        },
+        {
+          "text": "1995",
+          "correct": true
+        },
+        {
+          "text": "1996",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11033,
+      "question": "שתולה וזרעית הוקמו כ:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ישובי חומה ומגדל",
+          "correct": false
+        },
+        {
+          "text": "מצפים בצפון",
+          "correct": false
+        },
+        {
+          "text": "מושבים בגליל",
+          "correct": false
+        },
+        {
+          "text": "מוצבי צה\"ל",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11034,
+      "question": "אתר הדורש תיאום בטחוני לצורך הביקור בו:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סרטבא",
+          "correct": true
+        },
+        {
+          "text": "הר הבית",
+          "correct": false
+        },
+        {
+          "text": "שילה",
+          "correct": false
+        },
+        {
+          "text": "עין קשתות (אום אל קנאטיר)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11035,
+      "question": "חוקר ארץ ישראל במאה ה-19:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ריכרד קאופמן",
+          "correct": false
+        },
+        {
+          "text": "קונרד שיק",
+          "correct": true
+        },
+        {
+          "text": "אריק מנדלסון",
+          "correct": false
+        },
+        {
+          "text": "יגאל ידין",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11036,
+      "question": "טובא זנגריה הוא ישוב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בדואי",
+          "correct": true
+        },
+        {
+          "text": "צ'רקסי",
+          "correct": false
+        },
+        {
+          "text": "דרוזי",
+          "correct": false
+        },
+        {
+          "text": "שיעי",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11037,
+      "question": "אחרון המלכים ביהודה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "אחזיהו",
+          "correct": false
+        },
+        {
+          "text": "יאשיהו",
+          "correct": false
+        },
+        {
+          "text": "צדקיהו",
+          "correct": true
+        },
+        {
+          "text": "יהויכין",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11038,
+      "question": "מס מיוחד שהוטל על יהודים תחת שלטון האיסלאם:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ג'יזיה",
+          "correct": true
+        },
+        {
+          "text": "טאבו",
+          "correct": false
+        },
+        {
+          "text": "ד'ימי",
+          "correct": false
+        },
+        {
+          "text": "ג'יפתליק",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11039,
+      "question": "שטריימל הוא:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "פיוט לשבת",
+          "correct": false
+        },
+        {
+          "text": "כובע חסידי",
+          "correct": true
+        },
+        {
+          "text": "תיק לספר תורה",
+          "correct": false
+        },
+        {
+          "text": "חגורה למעיל של חסיד",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11040,
+      "question": "פלמינגו ניתן לראות ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "עין תמיר",
+          "correct": false
+        },
+        {
+          "text": "בריכות שלמה",
+          "correct": false
+        },
+        {
+          "text": "ראש הנקרה",
+          "correct": false
+        },
+        {
+          "text": "בריכות המלח מצפון לאילת",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11041,
+      "question": "\"שביל ישו\" ו\"דרך הבשורה\" עוברים באיזור:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "הר הזיתים",
+          "correct": false
+        },
+        {
+          "text": "הר ציון",
+          "correct": false
+        },
+        {
+          "text": "בקעת כנרות",
+          "correct": true
+        },
+        {
+          "text": "הבניאס",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11042,
+      "question": "חג \"הסיגד\" שייך לעדה ה:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "תימנית",
+          "correct": false
+        },
+        {
+          "text": "אתיופית",
+          "correct": true
+        },
+        {
+          "text": "קראית",
+          "correct": false
+        },
+        {
+          "text": "שומרונית",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11043,
+      "question": "מספר חברי הכנסת בכנסת ישראל:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "70",
+          "correct": false
+        },
+        {
+          "text": "71",
+          "correct": false
+        },
+        {
+          "text": "100",
+          "correct": false
+        },
+        {
+          "text": "120",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11044,
+      "question": "\"עיד אל אדחא\" מתקיים:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "בקיץ",
+          "correct": false
+        },
+        {
+          "text": "בחורף",
+          "correct": false
+        },
+        {
+          "text": "באביב",
+          "correct": false
+        },
+        {
+          "text": "לא בעונה קבועה",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": 11045,
+      "question": "מסע נפוליאון לארץ ישראל היה ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "סוף המאה ה-17",
+          "correct": false
+        },
+        {
+          "text": "סוף המאה ה-18",
+          "correct": true
+        },
+        {
+          "text": "סוף המאה ה-19",
+          "correct": false
+        },
+        {
+          "text": "ראשית המאה ה-20",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11046,
+      "question": "הקיסר פראנץ יוזף ביקר באזורנו לרגל:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חנוכת תעלת סואץ",
+          "correct": true
+        },
+        {
+          "text": "פריצת השער החדש",
+          "correct": false
+        },
+        {
+          "text": "חנוכת קו הרכבת החיג'אזית",
+          "correct": false
+        },
+        {
+          "text": "פריצת שער יפו",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11047,
+      "question": "מוזיאון \"המזגגה\" נמצא ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "ירוחם",
+          "correct": false
+        },
+        {
+          "text": "חיפה",
+          "correct": false
+        },
+        {
+          "text": "קיבוץ נחשולים",
+          "correct": true
+        },
+        {
+          "text": "זכרון יעקב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11048,
+      "question": "\"אקווריום ישראל\" נמצא ב:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חיפה",
+          "correct": false
+        },
+        {
+          "text": "אילת",
+          "correct": false
+        },
+        {
+          "text": "ירושלים",
+          "correct": true
+        },
+        {
+          "text": "תל אביב",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11049,
+      "question": "מוזיאון פרה היסטורי נמצא בקיבוץ:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "דפנה",
+          "correct": false
+        },
+        {
+          "text": "מעיין ברוך",
+          "correct": true
+        },
+        {
+          "text": "גינוסר",
+          "correct": false
+        },
+        {
+          "text": "יראון",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": 11050,
+      "question": "תחנת הרכבת בירושלים נקראת על שמו של הנשיא:",
+      "category": "יוני 2019 · תשובות לא רשמיות",
+      "answers": [
+        {
+          "text": "חיים ויצמן",
+          "correct": false
+        },
+        {
+          "text": "יצחק בן צבי",
+          "correct": false
+        },
+        {
+          "text": "זלמן שזר",
+          "correct": false
+        },
+        {
+          "text": "יצחק נבון בהצלחה!",
+          "correct": true
+        }
+      ]
+    },
     {
       "id": 1001,
       "question": "בית הכנסת שבו יש סמליות אדריכלית מיוחדת למספרים מ-1 עד 12 הוא:",

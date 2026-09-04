@@ -39,6 +39,27 @@ function withBlank(text: string) {
 const ACCENT_BG =
   "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)";
 
+/**
+ * Said plainly wherever a sitting without a published key appears. Getting an
+ * answer wrong here can mean the answer is wrong, not the student.
+ */
+function UnofficialNotice({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`rounded-md border p-3.5 text-[12.5px] leading-relaxed ${className}`}
+      style={{
+        borderColor: "var(--gold)",
+        background:
+          "linear-gradient(120deg, color-mix(in srgb, var(--gold) 16%, transparent), transparent)",
+      }}
+    >
+      <b>למועד הזה לא פורסם מפתח תשובות רשמי.</b> השאלות הן המקוריות של משרד
+      התיירות, אבל התשובות המסומנות כאן נקבעו על ידי המערכת ולא על ידי המשרד —
+      ייתכנו בהן טעויות. כדאי לאמת מול מקור לפני שסומכים על תשובה.
+    </div>
+  );
+}
+
 export function ExamRunner({ exam }: { exam: Exam }) {
   const [phase, setPhase] = useState<"intro" | "running" | "results">("intro");
   const [lang, setLang] = useState<ExamLang>(exam.languages[0] ?? "he");
@@ -120,6 +141,8 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           </div>
         </div>
 
+        {exam.keySource === "derived" && <UnofficialNotice className="mb-6" />}
+
         <div className="flex flex-col gap-6 rounded-lg border border-line bg-card p-5">
           <section>
             <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
@@ -156,7 +179,11 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           <ul className="flex flex-col gap-1.5 text-[12.5px] text-txt-dim">
             <li>· <span className="num">{PAGE_SIZE}</span> שאלות בעמוד</li>
             <li>· ניווט חופשי קדימה ואחורה עד ההגשה</li>
-            <li>· בסוף: ציון, התשובות הנכונות, וגם ההשלמות של החלק הראשון</li>
+            <li>
+              · בסוף: ציון והתשובות הנכונות
+              {questions.some((q) => q.statement[lang]) &&
+                ", וגם ההשלמות של החלק הראשון"}
+            </li>
             <li>· טעויות נשמרות ומצטרפות לתרגול הטעויות שלכם</li>
           </ul>
 
@@ -235,6 +262,8 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           </div>
         </div>
 
+        {exam.keySource === "derived" && <UnofficialNotice className="mb-4" />}
+
         <div className="mb-3 flex gap-1 rounded-full border border-line bg-card-2 p-1">
           {(
             [
@@ -277,6 +306,13 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                   >
                     {right ? "✓ נכון" : pick === undefined ? "— לא נענתה" : "✗ טעות"}
                   </span>
+                  {q.confidence && q.confidence !== "h" && (
+                    <span className="text-[11px] font-bold text-gold">
+                      {q.confidence === "l"
+                        ? "· תשובה לא ודאית — לאמת"
+                        : "· תשובה פחות ודאית"}
+                    </span>
+                  )}
                 </div>
 
                 {q.statement[lang] && (

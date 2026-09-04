@@ -49,7 +49,9 @@ LANGS = {
     },
 }
 
-ITEM_RE = re.compile(r"^\s*(\d{1,2})\s*[.)]\s*(.*)$")
+# Older papers print "1(" — the right-to-left read mirrors the bracket, so
+# either bracket closes a number or a label.
+ITEM_RE = re.compile(r"^\s*(\d{1,2})\s*[.)(]\s*(.*)$")
 # The key prints the fill-in answer inline, e.g. "... is called ____ [Gezer]".
 FILL_ANSWER_RE = re.compile(r"[\[(]([^\[\]()]{2,80})[\])][\s_.]*$")
 
@@ -218,7 +220,7 @@ def read_lines(pdf, lang):
 
 def option_re_for(labels):
     escaped = "|".join(re.escape(l) for l in labels)
-    return re.compile(rf"^\s*({escaped})\s*[.)]\s*(.*)$")
+    return re.compile(rf"^\s*({escaped})\s*[.)(]\s*(.*)$")
 
 
 ALL_SETS = [HE_LABELS, AR_LABELS, DIGITS, ["A", "B", "C", "D"], ["a", "b", "c", "d"]]

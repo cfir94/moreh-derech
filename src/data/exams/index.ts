@@ -6,9 +6,14 @@ import july2024 from "@/data/exams/july-2024";
 import summer2023 from "@/data/exams/summer-2023";
 import winter2022 from "@/data/exams/winter-2022";
 import winter2021 from "@/data/exams/winter-2021";
+import summer2019 from "@/data/exams/summer-2019";
+import summer2018 from "@/data/exams/summer-2018";
+import winter2017 from "@/data/exams/winter-2017";
+import winter2016 from "@/data/exams/winter-2016";
+import summer2016 from "@/data/exams/summer-2016";
 
 /** Newest sitting first. */
-export const EXAMS: Exam[] = [july2025, january2025, july2024, summer2023, winter2022, winter2021];
+export const EXAMS: Exam[] = [july2025, january2025, july2024, summer2023, winter2022, winter2021, summer2019, summer2018, winter2017, winter2016, summer2016];
 
 export function getExam(slug: string): Exam | undefined {
   return EXAMS.find((e) => e.slug === slug);

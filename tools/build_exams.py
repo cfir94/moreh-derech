@@ -12,10 +12,18 @@ One script for the whole pipeline, because the two outputs must never drift:
 A question carries the same id in both, so a mistake made in exam mode joins
 the ordinary review queue.
 
-Which sittings are here is decided by one thing: **an official answer key.**
-Summer 2020, summer 2022, summer 2024, winter 2025 and summer 2025 are held in
-question form only, and a guessed answer would teach the wrong thing before a
-licensing exam. They are not included.
+Sittings come in two kinds, and the site never blurs them:
+
+  * SITTINGS — the official answer key marks the correct option in the PDF.
+    Where more than one language edition is marked, they cross-check each other.
+  * DERIVED — the 2016-2019 papers, for which no key was ever published. The
+    owner asked for them anyway, so their answers were worked out by hand and
+    live in tools/answer_keys/<slug>.txt, each with a confidence. They are
+    labelled as unofficial everywhere they appear, and a low-confidence answer
+    says so on the results screen.
+
+Summer 2020, summer 2022, summer 2024, winter 2025 and summer 2025 have neither
+a key nor a worked answer, so they are not here at all.
 
 Usage (from the repo root, with the PDF folders alongside):
     python3 tools/build_exams.py --pdfs /path/to/exam/pdfs
@@ -32,6 +40,7 @@ from parse_exam import parse
 ROOT = Path(__file__).resolve().parent.parent
 QUIZ_FILE = ROOT / "src/data/quizzes/past-exams.ts"
 EXAM_DIR = ROOT / "src/data/exams"
+KEY_DIR = Path(__file__).resolve().parent / "answer_keys"
 
 LANGS = ("he", "en", "ar")
 
@@ -134,6 +143,71 @@ SITTINGS = [
             "en": "2025/Part1_jul2025_En.pdf",
             "ar": "2025/Part1_jul2025_Ar.pdf",
         },
+    },
+]
+
+# Sittings with no published key. `key` names a file in tools/answer_keys/,
+# one line per question: "<number> <answer index 0-3> <h|m|l confidence>".
+DERIVED_SITTINGS = [
+    {
+        "slug": "summer-2016",
+        "id_base": 7000,
+        "category": "יוני 2016",
+        "date": "יוני 2016",
+        "label": {
+            "he": "מבחן רישוי — יוני 2016",
+            "en": "Licensing Exam — June 2016",
+            "ar": "امتحان الترخيص — حزيران 2016",
+        },
+        "source": "old/multi_q_summer_2016.pdf",
+    },
+    {
+        "slug": "winter-2016",
+        "id_base": 8000,
+        "category": "נובמבר 2016",
+        "date": "נובמבר 2016",
+        "label": {
+            "he": "מבחן רישוי — נובמבר 2016",
+            "en": "Licensing Exam — November 2016",
+            "ar": "امتحان الترخيص — تشرين الثاني 2016",
+        },
+        "source": "old/multi_q_winter_2016-17.pdf",
+    },
+    {
+        "slug": "winter-2017",
+        "id_base": 9000,
+        "category": "נובמבר 2017",
+        "date": "נובמבר 2017",
+        "label": {
+            "he": "מבחן רישוי — נובמבר 2017",
+            "en": "Licensing Exam — November 2017",
+            "ar": "امتحان الترخيص — تشرين الثاني 2017",
+        },
+        "source": "old/mc_question_oct-nov_2017.pdf",
+    },
+    {
+        "slug": "summer-2018",
+        "id_base": 10000,
+        "category": "יוני 2018",
+        "date": "יוני 2018",
+        "label": {
+            "he": "מבחן רישוי — יוני 2018",
+            "en": "Licensing Exam — June 2018",
+            "ar": "امتحان الترخيص — حزيران 2018",
+        },
+        "source": "old/mc_ques_june_2018.pdf",
+    },
+    {
+        "slug": "summer-2019",
+        "id_base": 11000,
+        "category": "יוני 2019",
+        "date": "יוני 2019",
+        "label": {
+            "he": "מבחן רישוי — יוני 2019",
+            "en": "Licensing Exam — June 2019",
+            "ar": "امتحان الترخيص — حزيران 2019",
+        },
+        "source": "old/multi_q_summer_2019.pdf",
     },
 ]
 
@@ -316,6 +390,68 @@ def build_sitting(sitting, pdf_dir):
         "label": sitting["label"],
         "date": sitting["date"],
         "languages": languages,
+        "keySource": "official",
+        "questions": questions,
+    }
+
+
+def build_derived(sitting, pdf_dir):
+    """
+    A sitting whose answers were worked out by hand rather than read off a key.
+
+    The questions still come from the PDF — only the answer index and its
+    confidence come from tools/answer_keys/. These papers are Hebrew-only and
+    single-part: 50 standalone questions, no fill-in half.
+    """
+    key_file = KEY_DIR / f"{sitting['slug']}.txt"
+    key = {}
+    for line in key_file.read_text().split("\n"):
+        if not line.strip():
+            continue
+        number, answer, confidence = line.split()
+        key[int(number)] = (int(answer), confidence)
+
+    # The 2016-2019 papers are 50 questions long, not 33.
+    items, problems, found = parse(
+        str(pdf_dir / sitting["source"]), "he", expected_count=len(key)
+    )
+    print(f"  he: {len(items)}/{found} items, {len(key)} worked answers", file=sys.stderr)
+
+    questions = []
+    for item in items:
+        n = item["number"]
+        if n not in key:
+            print(f"  ! Q{n}: no worked answer, dropped", file=sys.stderr)
+            continue
+        answer, confidence = key[n]
+        questions.append(
+            {
+                "number": n,
+                "quizId": sitting["id_base"] + n,
+                "statement": {lang: "" for lang in LANGS},
+                "statementAnswer": {lang: "" for lang in LANGS},
+                "question": {"he": item["question"], "en": "", "ar": ""},
+                "answers": [
+                    {"text": {"he": a["text"], "en": "", "ar": ""}}
+                    for a in item["answers"]
+                ],
+                "correctIndex": answer,
+                "confidence": confidence,
+            }
+        )
+
+    unsure = [q["number"] for q in questions if q["confidence"] != "h"]
+    print(
+        f"  -> {len(questions)} questions, {len(unsure)} of them less certain:"
+        f" {unsure}",
+        file=sys.stderr,
+    )
+    return {
+        "slug": sitting["slug"],
+        "label": sitting["label"],
+        "date": sitting["date"],
+        "languages": ["he"],
+        "keySource": "derived",
         "questions": questions,
     }
 
@@ -326,7 +462,7 @@ def load_quiz():
     return json.loads(text[start : text.rindex("}") + 1])
 
 
-def write_site(exams):
+def write_site(exams, sittings):
     EXAM_DIR.mkdir(parents=True, exist_ok=True)
     for exam in exams:
         (EXAM_DIR / f"{exam['slug']}.ts").write_text(
@@ -353,18 +489,28 @@ def write_site(exams):
 
     # Rebuild the past-exams quiz: sittings we generate, plus any category that
     # came from elsewhere and still has no exam of its own.
+    # The category carries the warning, because it is what the quiz shows on the
+    # chip, in the results and in the review list — everywhere one of these
+    # questions can surface.
+    def category_of(sitting, exam):
+        if exam.get("keySource") == "derived":
+            return sitting["category"] + " · תשובות לא רשמיות"
+        return sitting["category"]
+
+    categories = [category_of(s, e) for s, e in zip(sittings, exams)]
+
     quiz = load_quiz()
-    ours = {s["category"] for s in SITTINGS}
+    ours = set(categories) | {s["category"] for s in sittings}
     kept = [q for q in quiz["questions"] if q["category"] not in ours]
 
     generated = []
-    for sitting, exam in zip(SITTINGS, exams):
+    for category, exam in zip(categories, exams):
         for q in exam["questions"]:
             generated.append(
                 {
                     "id": q["quizId"],
                     "question": q["question"]["he"],
-                    "category": sitting["category"],
+                    "category": category,
                     "answers": [
                         {
                             "text": a["text"]["he"],
@@ -376,9 +522,7 @@ def write_site(exams):
             )
 
     quiz["questions"] = generated + kept
-    quiz["categories"] = [s["category"] for s in SITTINGS] + sorted(
-        {q["category"] for q in kept}
-    )
+    quiz["categories"] = categories + sorted({q["category"] for q in kept})
     QUIZ_FILE.write_text(
         QUIZ_HEADER
         + json.dumps(quiz, ensure_ascii=False, indent=2)
@@ -402,11 +546,14 @@ def main():
 
     pdf_dir = Path(args.pdfs)
     exams = []
+    for sitting in DERIVED_SITTINGS:
+        print(f"{sitting['slug']} (worked answers):", file=sys.stderr)
+        exams.append(build_derived(sitting, pdf_dir))
     for sitting in SITTINGS:
         print(f"{sitting['slug']}:", file=sys.stderr)
         exams.append(build_sitting(sitting, pdf_dir))
 
-    write_site(exams)
+    write_site(exams, DERIVED_SITTINGS + SITTINGS)
 
 
 if __name__ == "__main__":

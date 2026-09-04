@@ -4,6 +4,8 @@ import { LANG_META } from "@/data/exams/types";
 import { SectionCard } from "@/components/SectionCard";
 
 export default function ExamsPage() {
+  const official = EXAMS.filter((e) => e.keySource === "official");
+  const derived = EXAMS.filter((e) => e.keySource === "derived");
   const total = EXAMS.reduce((s, e) => s + e.questions.length, 0);
 
   return (
@@ -14,13 +16,15 @@ export default function ExamsPage() {
           <span className="num">{EXAMS.length}</span> מועדי מבחן של משרד
           התיירות, <span className="num">{total}</span> שאלות בסך הכל, בתנאים של
           המבחן האמיתי: התשובה לא נחשפת בזמן המענה, אפשר לנוע קדימה ואחורה
-          ולשנות תשובות, וההגשה בסוף היא זו שנותנת את הציון. כל השאלות והתשובות
-          נלקחו ממפתחות התשובות הרשמיים.
+          ולשנות תשובות, וההגשה בסוף היא זו שנותנת את הציון.
         </p>
       </header>
 
-      <div className="mb-7 grid grid-cols-2 gap-3 lg:grid-cols-3">
-        {EXAMS.map((exam, i) => (
+      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
+        עם מפתח תשובות רשמי
+      </h2>
+      <div className="mb-9 grid grid-cols-2 gap-3 lg:grid-cols-3">
+        {official.map((exam, i) => (
           <SectionCard
             key={exam.slug}
             index={i}
@@ -35,17 +39,38 @@ export default function ExamsPage() {
         ))}
       </div>
 
+      <h2 className="mb-1.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+        בלי מפתח רשמי — תשובות שנקבעו על ידי המערכת
+      </h2>
+      <p className="mb-3 max-w-2xl text-[12.5px] leading-relaxed text-txt-dim">
+        למועדים האלה משרד התיירות מעולם לא פרסם פתרון. השאלות מקוריות, אבל
+        התשובות המסומנות בהם נקבעו על ידי המערכת — ייתכנו טעויות, ובמסך התוצאות
+        מסומנות התשובות שפחות ודאיות. שווה לתרגל, לא שווה לשנן בעיניים עצומות.
+      </p>
+      <div className="mb-9 grid grid-cols-2 gap-3 lg:grid-cols-3">
+        {derived.map((exam, i) => (
+          <SectionCard
+            key={exam.slug}
+            index={i}
+            href={`/exams/${exam.slug}`}
+            slug="past-exams"
+            title={exam.date}
+            description="תשובות לא רשמיות · עברית"
+            badge="לא רשמי"
+            meta={`${exam.questions.length} שאלות`}
+          />
+        ))}
+      </div>
+
       <div className="rounded-md border border-line bg-card p-4 text-[12.5px] leading-relaxed text-txt-dim">
         <p className="mb-2">
-          <b className="text-txt">למה חלק מהמועדים חסרים?</b> מבחן נכלל כאן רק
-          כשיש בידינו את <b>מפתח התשובות הרשמי</b> שלו. למועדי קיץ 2020, קיץ
-          2022, קיץ 2024, חורף 2025 וקיץ 2025 יש רק את השאלות — ותשובה מנוחשת
-          לקראת מבחן רישוי גרועה מכלום.
+          <b className="text-txt">מה עוד חסר?</b> לקיץ 2020, קיץ 2022, קיץ 2024,
+          חורף 2025 וקיץ 2025 אין בידינו לא מפתח ולא פתרון — הם לא כאן.
         </p>
         <p>
-          מאותה סיבה, שאלה בודדת שבה סימון התשובה במפתח אינו חד-משמעי נשמטת
-          מהמועד שלה, ולכן חלק מהמועדים קצרים מ-<span className="num">33</span>{" "}
-          שאלות. רוצים לתרגל שאלות בודדות מכל השנים, עם תשובה מיד?{" "}
+          במועדים עם מפתח רשמי, שאלה שסימונה במפתח אינו חד-משמעי נשמטת, ולכן
+          חלקם קצרים מ-<span className="num">33</span> שאלות. רוצים לתרגל שאלות
+          בודדות מכל השנים, עם תשובה מיד?{" "}
           <Link
             href="/quizzes/past-exams"
             className="font-bold text-teal hover:underline"
