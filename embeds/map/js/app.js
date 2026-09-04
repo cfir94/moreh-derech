@@ -6,6 +6,7 @@ import * as maplibregl from '../vendor/maplibre/maplibre-gl.mjs';
 import mlcontour from '../vendor/maplibre/maplibre-contour.mjs';
 
 const MAP_THEME_STORAGE_KEY = 'even-derech-map-theme';
+const SITE_THEME_STORAGE_KEY = 'even-derech-theme';
 
 function readSavedTheme() {
   try {
@@ -17,8 +18,20 @@ function readSavedTheme() {
   return 'light';
 }
 
+function readSiteTheme() {
+  try {
+    const parentTheme = window.parent.document.documentElement.dataset.theme;
+    if (parentTheme === 'dark' || parentTheme === 'light') return parentTheme;
+    const saved = localStorage.getItem(SITE_THEME_STORAGE_KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
+  } catch (e) {
+    // Standalone and restricted embeds still receive the site's dark default.
+  }
+  return 'dark';
+}
+
 let activeTheme = readSavedTheme();
-document.documentElement.dataset.theme = activeTheme;
+document.documentElement.dataset.theme = readSiteTheme();
 
 const BASEMAP_PALETTES = {
   light: {
@@ -1806,11 +1819,29 @@ function setupThemeToggle() {
   });
 }
 
+function watchParentTheme() {
+  try {
+    const parentRoot = window.parent.document.documentElement;
+    const syncShellTheme = () => {
+      const nextTheme = parentRoot.dataset.theme;
+      if (nextTheme === 'dark' || nextTheme === 'light') {
+        document.documentElement.dataset.theme = nextTheme;
+      }
+    };
+    syncShellTheme();
+    const observer = new MutationObserver(syncShellTheme);
+    observer.observe(parentRoot, { attributes: true, attributeFilter: ['data-theme'] });
+  } catch (e) {
+    // Standalone embeds keep the site theme read during startup.
+  }
+}
+
 async function main() {
   // A hard ceiling on the splash: whatever happens to the network, the map is
   // interactive after four seconds rather than sitting behind a logo.
   setTimeout(dismissSplash, 4000);
   setupThemeToggle();
+  watchParentTheme();
   await loadData();
   await initMap();
   map.once('idle', dismissSplash);
