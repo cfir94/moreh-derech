@@ -370,7 +370,12 @@ async function initMap() {
   renderRoute();
   wireUI();
 
-  await new Promise(resolve => map.on('load', resolve));
+  // A cached PMTiles style can finish before this listener is registered on
+  // GitHub Pages. In that case waiting for a second `load` event leaves the
+  // branded shell visible but never adds the educational layers.
+  if (!map.isStyleLoaded()) {
+    await new Promise(resolve => map.once('load', resolve));
+  }
 
   // Icons make the map readable at a glance: a cross, a crescent, a Star of
   // David, an ibex or a tree says what a coloured dot cannot.
