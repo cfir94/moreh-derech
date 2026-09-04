@@ -17,7 +17,7 @@ export default function Home() {
   const sections = [
     {
       slug: "game",
-      href: "https://cfir94.github.io/israel-geo-game/",
+      href: "/game",
       title: "משחק אבן דרך",
       description:
         "משחק אינטראקטיבי לתרגול ידיעת הארץ: אתרים, אזורים, גיאולוגיה, נחלים ועוד.",
