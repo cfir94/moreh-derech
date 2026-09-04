@@ -5,19 +5,16 @@
 import * as maplibregl from '../vendor/maplibre/maplibre-gl.mjs';
 import mlcontour from '../vendor/maplibre/maplibre-contour.mjs';
 
-const THEME_STORAGE_KEY = 'even-derech-theme';
-const THEME_EVENT = 'even-derech-theme-change';
+const MAP_THEME_STORAGE_KEY = 'even-derech-map-theme';
 
 function readSavedTheme() {
   try {
-    const parentTheme = window.parent.document.documentElement.dataset.theme;
-    if (parentTheme === 'dark' || parentTheme === 'light') return parentTheme;
-    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    const saved = localStorage.getItem(MAP_THEME_STORAGE_KEY);
     if (saved === 'dark' || saved === 'light') return saved;
   } catch (e) {
     // A storage restriction should never prevent the map from loading.
   }
-  return 'dark';
+  return 'light';
 }
 
 let activeTheme = readSavedTheme();
@@ -88,7 +85,7 @@ const ERA_ICONS = {
 
 // Israel's real extent, used to keep the map focused (no wandering into
 // neighboring countries) and to build the era-color match expression.
-const ISRAEL_BOUNDS = [[33.9, 28.9], [36.3, 33.8]];
+const REGIONAL_BOUNDS = [[15, 10], [55, 50]];
 
 // Base-style layers that make the map read as "a generic street map" — the road
 // grid, buildings, landcover, road names. When a thematic layer (regions/geology)
@@ -338,9 +335,9 @@ async function initMap() {
     style: styleObj,
     center: [35.1, 31.6],
     zoom: 7.3,
-    minZoom: 6.5,
+    minZoom: 4.5,
     maxZoom: 18,
-    maxBounds: ISRAEL_BOUNDS,
+    maxBounds: REGIONAL_BOUNDS,
     attributionControl: false
   });
   // Exposed so the map can be inspected from the browser console / automated
@@ -1796,40 +1793,17 @@ function setupThemeToggle() {
   const button = document.getElementById('btn-theme');
   const label = document.getElementById('theme-label');
   const isDark = activeTheme === 'dark';
-  const nextLabel = isDark ? 'מצב בהיר' : 'מצב כהה';
+  const nextLabel = isDark ? 'מפה בהירה' : 'מפה כהה';
   label.textContent = nextLabel;
-  button.setAttribute('aria-label', `מעבר ל${nextLabel}`);
+  button.setAttribute('aria-label', `מעבר לצבעי ${nextLabel}`);
   button.setAttribute('aria-pressed', String(isDark));
-  button.title = `מעבר ל${nextLabel}`;
+  button.title = `מעבר לצבעי ${nextLabel}`;
   button.addEventListener('click', () => {
     const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (e) { /* storage is optional */ }
+    try { localStorage.setItem(MAP_THEME_STORAGE_KEY, nextTheme); } catch (e) { /* storage is optional */ }
     activeTheme = nextTheme;
-    try {
-      window.parent.document.documentElement.dataset.theme = nextTheme;
-      window.parent.dispatchEvent(new window.parent.CustomEvent(THEME_EVENT, { detail: nextTheme }));
-    } catch (e) {
-      // Standalone and cross-origin embeds still keep their local preference.
-    }
     window.location.reload();
   });
-}
-
-function watchParentTheme() {
-  try {
-    const parentRoot = window.parent.document.documentElement;
-    const observer = new MutationObserver(() => {
-      const nextTheme = parentRoot.dataset.theme;
-      if ((nextTheme === 'dark' || nextTheme === 'light') && nextTheme !== activeTheme) {
-        activeTheme = nextTheme;
-        try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (e) { /* storage is optional */ }
-        window.location.reload();
-      }
-    });
-    observer.observe(parentRoot, { attributes: true, attributeFilter: ['data-theme'] });
-  } catch (e) {
-    // The standalone map keeps its own theme state.
-  }
 }
 
 async function main() {
@@ -1837,7 +1811,6 @@ async function main() {
   // interactive after four seconds rather than sitting behind a logo.
   setTimeout(dismissSplash, 4000);
   setupThemeToggle();
-  watchParentTheme();
   await loadData();
   await initMap();
   map.once('idle', dismissSplash);
