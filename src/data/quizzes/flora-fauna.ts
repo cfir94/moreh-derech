@@ -42,7 +42,8 @@ const quiz: Quiz = {
           "text": "שיטת הפצת זרעים של צמחים חסרי פרחים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 2,
@@ -65,7 +66,8 @@ const quiz: Quiz = {
           "text": "אמוץ זהבי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 3,
@@ -88,7 +90,8 @@ const quiz: Quiz = {
           "text": "שיטת רבייה א-מינית בצמחים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 4,
@@ -111,7 +114,8 @@ const quiz: Quiz = {
           "text": "מכלוא, היבריד",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 5,
@@ -134,7 +138,8 @@ const quiz: Quiz = {
           "text": "אוכל כל, טורף, וצמחוני",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 6,
@@ -157,7 +162,8 @@ const quiz: Quiz = {
           "text": "כינוי למשפחת בעלי חיים בה כל הנציגים אוכלי כל",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 7,
@@ -180,7 +186,8 @@ const quiz: Quiz = {
           "text": "מדע העוסק בחקר התפוצה הגיאוגרפית של צמחים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 8,
@@ -203,7 +210,8 @@ const quiz: Quiz = {
           "text": "יצורים מיתולוגיים אוכלי אדם",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 9,
@@ -226,7 +234,8 @@ const quiz: Quiz = {
           "text": "מורפולוגיה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 10,
@@ -249,7 +258,8 @@ const quiz: Quiz = {
           "text": "מדע החוקר את הקשר בין יצורים חיים לסביבתם- הביוטית והא-ביוטית.",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 11,
@@ -272,7 +282,8 @@ const quiz: Quiz = {
           "text": "חללים במצוקים או בגזעי עצים בהם ציפורים מקננות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 12,
@@ -295,7 +306,8 @@ const quiz: Quiz = {
           "text": "כמובן שכן, גם לצמחים יש גומחה אקולוגית.",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 13,
@@ -318,7 +330,8 @@ const quiz: Quiz = {
           "text": "המקום בו צרעה עוקצת את הצמח על מנת לייצר עפץ",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 14,
@@ -341,7 +354,8 @@ const quiz: Quiz = {
           "text": "חברה המורכבת מ-2 להקות לפחות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 15,
@@ -364,7 +378,8 @@ const quiz: Quiz = {
           "text": "קשר של קומנסליזם בין שני פרוקי רגליים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 16,
@@ -387,7 +402,8 @@ const quiz: Quiz = {
           "text": "תחרות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 17,
@@ -410,7 +426,8 @@ const quiz: Quiz = {
           "text": "תחרות בין חרק ובין צמח",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 18,
@@ -433,7 +450,8 @@ const quiz: Quiz = {
           "text": "הפצת זרעים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 19,
@@ -456,7 +474,8 @@ const quiz: Quiz = {
           "text": "תחרות תוך מינית",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 20,
@@ -479,30 +498,8 @@ const quiz: Quiz = {
           "text": "מצב בו זכר טריטוריאלי מגרש זכרים אחרים מנחלתו",
           "correct": false
         }
-      ]
-    },
-    {
-      "id": 21,
-      "question": "זהה את הדמות!",
-      "category": "טקסונומיה ואבולוציה",
-      "answers": [
-        {
-          "text": "אמוץ דפני- חוקר צמחים חשוב",
-          "correct": false
-        },
-        {
-          "text": "אמוץ זהבי- שתיאר את עיקרון ההכבדה",
-          "correct": true
-        },
-        {
-          "text": "עזריה אלון- ממקימי החברה להגנת הטבע",
-          "correct": false
-        },
-        {
-          "text": "צ׳ארלס דרווין",
-          "correct": false
-        }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 22,
@@ -525,30 +522,8 @@ const quiz: Quiz = {
           "text": "עיקרון ההכבדה",
           "correct": true
         }
-      ]
-    },
-    {
-      "id": 23,
-      "question": "זהה את הדמות!",
-      "category": "טקסונומיה ואבולוציה",
-      "answers": [
-        {
-          "text": "פרדיננד דה לספס",
-          "correct": false
-        },
-        {
-          "text": "אמוץ זהבי",
-          "correct": false
-        },
-        {
-          "text": "קארולוס לינאוס",
-          "correct": false
-        },
-        {
-          "text": "צ׳ראלס דרווין",
-          "correct": true
-        }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 24,
@@ -571,7 +546,8 @@ const quiz: Quiz = {
           "text": "מינים פולשים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 25,
@@ -594,7 +570,8 @@ const quiz: Quiz = {
           "text": "השיטה המכחילה, צמח בר נפוץ בישראל",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 26,
@@ -617,30 +594,8 @@ const quiz: Quiz = {
           "text": "מכלוא (היבריד) בין הים האדום לים התיכון",
           "correct": false
         }
-      ]
-    },
-    {
-      "id": 27,
-      "question": "זהה את הדמות!",
-      "category": "טקסונומיה ואבולוציה",
-      "answers": [
-        {
-          "text": "פרדיננס דה לספס! הוגה ומייסד תעלת סואץ",
-          "correct": true
-        },
-        {
-          "text": "צ׳ארלס דרווין! אבי תורת האבולוציה",
-          "correct": false
-        },
-        {
-          "text": "פרופסור היינריך מנדלסון! שגילה את העגולשון ועוד המון...",
-          "correct": false
-        },
-        {
-          "text": "אמוץ זהבי! שגילה את עיקרון ההכבדה",
-          "correct": false
-        }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 28,
@@ -663,7 +618,8 @@ const quiz: Quiz = {
           "text": "מין מתפרץ",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 29,
@@ -686,7 +642,8 @@ const quiz: Quiz = {
           "text": "מין אנדמי",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 30,
@@ -709,7 +666,8 @@ const quiz: Quiz = {
           "text": "פורחת בתחילת החורף",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 31,
@@ -732,7 +690,8 @@ const quiz: Quiz = {
           "text": "חיפוש אחר אתרי רבייה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 32,
@@ -755,7 +714,8 @@ const quiz: Quiz = {
           "text": "שהנדידה תהיה דו כיוונית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 33,
@@ -778,7 +738,8 @@ const quiz: Quiz = {
           "text": "התאמה צרכנית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 34,
@@ -801,7 +762,8 @@ const quiz: Quiz = {
           "text": "התאמה פיזיולוגית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 35,
@@ -824,7 +786,8 @@ const quiz: Quiz = {
           "text": "אי אפשר להגדיר נדידה כהתאמה, זה לא מאפיין את כל בעלי החיים.",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 36,
@@ -847,30 +810,33 @@ const quiz: Quiz = {
           "text": "מאפיין חשוב של מערכת פרוקי הרגליים- כולם ארסיים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 37,
-      "question": "מדוע חשוב לשמור על חיבור בין שטחים פתוחים (מסדרון אקולוגי)",
+      "question": "מהי המטרה העיקרית של מסדרון אקולוגי?",
       "category": "מינים: אנדמי, פולש, נכחד",
       "answers": [
         {
-          "text": "על מנת לשמור על מגוון גנטי גבוה וחילוף גנים בין אוכלוסיות",
-          "correct": false
-        },
-        {
-          "text": "על מנת לוודא שבמקרה של שריפה או מחלה, תהיה התחדשות של האוכלוסייה שנפגעה",
-          "correct": false
-        },
-        {
-          "text": "תשובות א ו- ב נכונות",
+          "text": "לאפשר מעבר בעלי חיים בין שטחים פתוחים שנותקו זה מזה",
           "correct": true
         },
         {
-          "text": "להפך, יש לשמור על כל שטח פתוח בפני עצמו ולא לחבר שטח פתוח אחד לשטח פתוח אחר, דבר היכול הביא מינים פולשים",
+          "text": "לסמן שביל טיול רציף בין שמורות טבע",
+          "correct": false
+        },
+        {
+          "text": "לחבר בין מאגרי מים לצורכי חקלאות",
+          "correct": false
+        },
+        {
+          "text": "להפריד בין שמורת טבע לבין שטח בנוי",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "פיצול בתי הגידול הוא האיום המרכזי על המגוון הביולוגי בישראל. מסדרון שומר על חילופי פרטים וגנים בין אוכלוסיות, ומאפשר התאוששות אחרי שריפה או מחלה.",
+      "topic": "flora-fauna"
     },
     {
       "id": 38,
@@ -893,38 +859,33 @@ const quiz: Quiz = {
           "text": "ציד לשם מאכל",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 39,
-      "question": "מה הסיבה בגללה נכחדו נמרים מישראל",
+      "question": "מה הביא להיעלמות הנמר מנופי ישראל?",
       "category": "מינים: אנדמי, פולש, נכחד",
       "answers": [
         {
-          "text": "ציד לשם ספורט",
-          "correct": false
-        },
-        {
-          "text": "ציד לשם מאכל",
-          "correct": false
-        },
-        {
-          "text": "אובדן בתי גידול",
-          "correct": false
-        },
-        {
-          "text": "תשובות א ו –ג נכונות",
+          "text": "ציד, הרעלות והצטמצמות בתי הגידול והטרף",
           "correct": true
         },
         {
-          "text": "תשובות א ו- ב נכונות",
+          "text": "מחלה שהתפשטה באוכלוסיית הנמרים בלבד",
           "correct": false
         },
         {
-          "text": "נמרים לא נכחדו לחלוטין מישראל, יש נמרים בגני חיות",
+          "text": "תחרות עם הברדלס על אותו טרף",
+          "correct": false
+        },
+        {
+          "text": "הגירה טבעית של האוכלוסייה לחצי האי ערב",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "נמר המדבר שרד במדבר יהודה ובנגב עד ראשית שנות ה-2000. הפגיעה באוכלוסיית היעלים והצבאים, הרעלות ופגיעה ישירה — הם שחיסלו אותה.",
+      "topic": "flora-fauna"
     },
     {
       "id": 40,
@@ -947,7 +908,8 @@ const quiz: Quiz = {
           "text": "הוא כמעט נכחד עקב אובדן בתי גידול",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 41,
@@ -970,42 +932,8 @@ const quiz: Quiz = {
           "text": "1940",
           "correct": false
         }
-      ]
-    },
-    {
-      "id": 42,
-      "question": "איזה בעל חיים לא חי מעולם בישראל?",
-      "category": "זוחלים",
-      "answers": [
-        {
-          "text": "אריה",
-          "correct": false
-        },
-        {
-          "text": "נמר",
-          "correct": false
-        },
-        {
-          "text": "תנין",
-          "correct": false
-        },
-        {
-          "text": "דב",
-          "correct": false
-        },
-        {
-          "text": "ברדלס",
-          "correct": false
-        },
-        {
-          "text": "כל התשובות שגויות",
-          "correct": true
-        },
-        {
-          "text": "כל התשובות נכונות",
-          "correct": false
-        }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 43,
@@ -1028,7 +956,8 @@ const quiz: Quiz = {
           "text": "יש כאן מגוון עצום של מיני צמחים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 44,
@@ -1051,7 +980,8 @@ const quiz: Quiz = {
           "text": "14",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 45,
@@ -1074,7 +1004,8 @@ const quiz: Quiz = {
           "text": "משננת",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 46,
@@ -1097,7 +1028,8 @@ const quiz: Quiz = {
           "text": "הוא לא חי בישראל, והובא לכאן בעת העתיקה לצביעת בדים וציציות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 47,
@@ -1120,30 +1052,8 @@ const quiz: Quiz = {
           "text": "התאמה מורפולוגית",
           "correct": false
         }
-      ]
-    },
-    {
-      "id": 48,
-      "question": "החילזון בתמונה חי במים מתוקים ומהווה לעיתים סמן ביולוגי (ביו-אינדיקטור) לאיכות המים. שמו הוא:",
-      "category": "דו-חיים",
-      "answers": [
-        {
-          "text": "ארגמון קהה קוצים",
-          "correct": false
-        },
-        {
-          "text": "עגולשון שחור גחון",
-          "correct": false
-        },
-        {
-          "text": "שחריר הנחלים",
-          "correct": true
-        },
-        {
-          "text": "יפה-פה (פי הכושי)",
-          "correct": false
-        }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 49,
@@ -1166,7 +1076,8 @@ const quiz: Quiz = {
           "text": "חשופית",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 50,
@@ -1189,7 +1100,8 @@ const quiz: Quiz = {
           "text": "כיטין",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 51,
@@ -1209,18 +1121,12 @@ const quiz: Quiz = {
           "correct": false
         },
         {
-          "text": "קרצייה",
-          "correct": false
-        },
-        {
-          "text": "פרפר",
-          "correct": false
-        },
-        {
           "text": "נדל",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "קיפוד ים שייך לקווצי העור. פרוקי הרגליים כוללים סרטנים, עכבישנים (עקרב, קרצית), רב-רגליים (נדל) וחרקים.",
+      "topic": "geography"
     },
     {
       "id": 52,
@@ -1243,7 +1149,8 @@ const quiz: Quiz = {
           "text": "10",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 53,
@@ -1266,7 +1173,8 @@ const quiz: Quiz = {
           "text": "כן, לכולם יש ארס אך בודדים מתוכם מסוכנים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 54,
@@ -1289,7 +1197,8 @@ const quiz: Quiz = {
           "text": "עכביש",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 55,
@@ -1312,7 +1221,8 @@ const quiz: Quiz = {
           "text": "יש להוריד את טמפרטורת גופם מתחת ל-10 מעלות צלסיוס",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 56,
@@ -1335,22 +1245,8 @@ const quiz: Quiz = {
           "text": "אין קשר בין צבע העקרב (שחור,צהוב) למידת הארסיות שלו",
           "correct": false
         }
-      ]
-    },
-    {
-      "id": 57,
-      "question": "האם כל העקרבים עלולים לעקוץ?",
-      "category": "חסרי חוליות: פרוקי רגליים",
-      "answers": [
-        {
-          "text": "כן",
-          "correct": true
-        },
-        {
-          "text": "לא",
-          "correct": false
-        }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 58,
@@ -1373,7 +1269,8 @@ const quiz: Quiz = {
           "text": "10",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 59,
@@ -1381,19 +1278,11 @@ const quiz: Quiz = {
       "category": "יונקים",
       "answers": [
         {
-          "text": "חיפושית",
-          "correct": false
-        },
-        {
-          "text": "פרפר",
-          "correct": false
-        },
-        {
           "text": "קרצייה",
           "correct": true
         },
         {
-          "text": "דבורה",
+          "text": "חיפושית",
           "correct": false
         },
         {
@@ -1403,12 +1292,10 @@ const quiz: Quiz = {
         {
           "text": "גמל שלמה",
           "correct": false
-        },
-        {
-          "text": "שפירית",
-          "correct": false
         }
-      ]
+      ],
+      "explanation": "לקרצית שמונה רגליים — היא עכבישן. לחרקים שש רגליים וגוף בן שלושה חלקים.",
+      "topic": "bible"
     },
     {
       "id": 60,
@@ -1416,26 +1303,24 @@ const quiz: Quiz = {
       "category": "חסרי חוליות: פרוקי רגליים",
       "answers": [
         {
-          "text": "8 רגליים",
-          "correct": false
-        },
-        {
-          "text": "עיניים",
-          "correct": false
-        },
-        {
-          "text": "ביצים",
-          "correct": false
-        },
-        {
           "text": "כנפיים",
           "correct": true
         },
         {
-          "text": "גוף מחולקת לפרקים",
+          "text": "שלד חיצוני מכיטין",
+          "correct": false
+        },
+        {
+          "text": "גוף המחולק לפרקים",
+          "correct": false
+        },
+        {
+          "text": "עיניים מורכבות",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "החרקים הם קבוצת חסרי החוליות היחידה שפיתחה תעופה. שלד חיצוני וגוף פרקי משותפים לכל פרוקי הרגליים.",
+      "topic": "geology"
     },
     {
       "id": 61,
@@ -1458,7 +1343,8 @@ const quiz: Quiz = {
           "text": "גולם",
           "correct": true
         }
-      ]
+      ],
+      "topic": "modern-yishuv"
     },
     {
       "id": 62,
@@ -1481,7 +1367,8 @@ const quiz: Quiz = {
           "text": "שיני זהב",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 63,
@@ -1504,7 +1391,8 @@ const quiz: Quiz = {
           "text": "חגב",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 64,
@@ -1527,7 +1415,8 @@ const quiz: Quiz = {
           "text": "זנבנים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 65,
@@ -1550,7 +1439,8 @@ const quiz: Quiz = {
           "text": "סוסון ים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 66,
@@ -1573,7 +1463,8 @@ const quiz: Quiz = {
           "text": "שחיינות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 67,
@@ -1596,13 +1487,18 @@ const quiz: Quiz = {
           "text": "בגלל מיקומה המיוחד של ישראל בנקודת מפגש בין יבשות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 68,
       "question": "מי מהבאים אינו שייך למחלקת הדו-חיים?",
       "category": "זוחלים",
       "answers": [
+        {
+          "text": "תנין היאור",
+          "correct": true
+        },
         {
           "text": "סלמנדרה כתומה",
           "correct": false
@@ -1612,45 +1508,37 @@ const quiz: Quiz = {
           "correct": false
         },
         {
-          "text": "תנין היאור",
-          "correct": true
-        },
-        {
           "text": "אילנית מצויה",
           "correct": false
-        },
-        {
-          "text": "עגולשון שחור גחון",
-          "correct": false
         }
-      ]
+      ],
+      "explanation": "תנין היאור הוא זוחל. הדו-חיים בישראל: סלמנדרה, טריטון, קרפדות, אילניות, חפריות ועגולשון.",
+      "topic": "geography"
     },
     {
       "id": 69,
-      "question": "מי מהבאים אינו שייך למחלקת הדו-חיים?",
+      "question": "מי מבין הבאים אינו שייך למחלקת הדו-חיים?",
       "category": "דו-חיים",
       "answers": [
+        {
+          "text": "טריטון הפסים",
+          "correct": false
+        },
         {
           "text": "קרפדה ירוקה",
           "correct": false
         },
         {
-          "text": "חפרית מצויה",
-          "correct": false
-        },
-        {
-          "text": "פינגווין",
+          "text": "חרדון מצוי",
           "correct": true
         },
         {
           "text": "אילנית מצויה",
           "correct": false
-        },
-        {
-          "text": "טריטון הפסים",
-          "correct": false
         }
-      ]
+      ],
+      "explanation": "חרדון הוא זוחל מקבוצת הלטאות. כל השאר דו-חיים המתחילים את חייהם במים.",
+      "topic": "geography"
     },
     {
       "id": 70,
@@ -1673,30 +1561,33 @@ const quiz: Quiz = {
           "text": "גילגול",
           "correct": true
         }
-      ]
+      ],
+      "topic": "modern-yishuv"
     },
     {
       "id": 71,
-      "question": "כיצד זוחלים מתרבים?",
+      "question": "כיצד מתרבים הזוחלים בישראל?",
       "category": "זוחלים",
       "answers": [
         {
-          "text": "הטלת ביצים",
-          "correct": false
-        },
-        {
-          "text": "השרצה",
-          "correct": false
-        },
-        {
-          "text": "בעזרת קשקשי הגב שלהם",
-          "correct": false
-        },
-        {
-          "text": "תשובות א ו-ב נכונות",
+          "text": "רובם מטילים ביצים, ויש מינים המשריצים ולדות חיים",
           "correct": true
+        },
+        {
+          "text": "כולם מטילים ביצים, ללא יוצא מן הכלל",
+          "correct": false
+        },
+        {
+          "text": "כולם משריצים ולדות חיים",
+          "correct": false
+        },
+        {
+          "text": "הם מתרבים ברבייה לא-מינית בלבד",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "הצפע הארץ-ישראלי, למשל, משריץ ולדות חיים — התאמה לאקלים שבו ביצה בקרקע קרה מדי בחלק מהעונה.",
+      "topic": "geography"
     },
     {
       "id": 72,
@@ -1719,7 +1610,8 @@ const quiz: Quiz = {
           "text": "תנין היאור",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 73,
@@ -1742,7 +1634,8 @@ const quiz: Quiz = {
           "text": "צפע החרמון",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 74,
@@ -1765,7 +1658,8 @@ const quiz: Quiz = {
           "text": "צפע ארץ ישראלי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 75,
@@ -1788,7 +1682,8 @@ const quiz: Quiz = {
           "text": "חי באזורים המדבריים של ישראל",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 76,
@@ -1811,7 +1706,8 @@ const quiz: Quiz = {
           "text": "בכל שטחה הלא מדברי של ישראל",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 77,
@@ -1819,22 +1715,24 @@ const quiz: Quiz = {
       "category": "ציפורים",
       "answers": [
         {
-          "text": "מקור",
-          "correct": false
-        },
-        {
           "text": "נוצות",
           "correct": true
+        },
+        {
+          "text": "מקור",
+          "correct": false
         },
         {
           "text": "הטלת ביצים",
           "correct": false
         },
         {
-          "text": "כל התשובות נכונות",
+          "text": "כנפיים",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "מקור יש גם לצבים, ביצים מטילים גם זוחלים ודגים, וכנפיים יש גם לעטלפים ולחרקים. נוצות — רק לעופות.",
+      "topic": "geography"
     },
     {
       "id": 78,
@@ -1857,7 +1755,8 @@ const quiz: Quiz = {
           "text": "אפרוחים בוקעים בדרך כלל בקינים הבנויים על מצוקים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "modern-yishuv"
     },
     {
       "id": 79,
@@ -1880,7 +1779,8 @@ const quiz: Quiz = {
           "text": "פולש",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 80,
@@ -1903,7 +1803,8 @@ const quiz: Quiz = {
           "text": "מזדמן",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 81,
@@ -1926,7 +1827,8 @@ const quiz: Quiz = {
           "text": "בסכנת הכחדה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 82,
@@ -1934,18 +1836,24 @@ const quiz: Quiz = {
       "category": "נדידה",
       "answers": [
         {
-          "text": "יציבים",
-          "correct": false
-        },
-        {
           "text": "חולפים",
           "correct": true
         },
         {
+          "text": "יציבים",
+          "correct": false
+        },
+        {
           "text": "מזדמנים",
           "correct": false
+        },
+        {
+          "text": "חורפים",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "חולף עובר דרך הארץ בסתיו ובאביב; חורף שוהה כאן את החורף; יציב נמצא כל השנה; מזדמן מגיע אחת לכמה שנים.",
+      "topic": "judaism"
     },
     {
       "id": 83,
@@ -1968,7 +1876,8 @@ const quiz: Quiz = {
           "text": "מערב",
           "correct": false
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 84,
@@ -1991,7 +1900,8 @@ const quiz: Quiz = {
           "text": "טכניקה שבה עופות נודדים מעפילים לגובה באמצעות זרמי אוויר חמים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 85,
@@ -2014,7 +1924,8 @@ const quiz: Quiz = {
           "text": "עופות הקטנים- נחליאלים, מיינות ודררות",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 86,
@@ -2037,7 +1948,8 @@ const quiz: Quiz = {
           "text": "בישראל אך ורק יונקי שלייה",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 87,
@@ -2060,7 +1972,8 @@ const quiz: Quiz = {
           "text": "כ-100 מינים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 88,
@@ -2083,7 +1996,8 @@ const quiz: Quiz = {
           "text": "כלב ים נזירי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 89,
@@ -2106,7 +2020,8 @@ const quiz: Quiz = {
           "text": "דרבן",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 90,
@@ -2129,7 +2044,8 @@ const quiz: Quiz = {
           "text": "4 מינים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 91,
@@ -2152,7 +2068,8 @@ const quiz: Quiz = {
           "text": "הם מקיימים את תהליך הפוטוסינטזה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 92,
@@ -2175,7 +2092,8 @@ const quiz: Quiz = {
           "text": "עמילן",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 93,
@@ -2198,7 +2116,8 @@ const quiz: Quiz = {
           "text": "לב",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 94,
@@ -2221,7 +2140,8 @@ const quiz: Quiz = {
           "text": "עלי כותרת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 95,
@@ -2244,7 +2164,8 @@ const quiz: Quiz = {
           "text": "עלי כותרת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 96,
@@ -2267,26 +2188,33 @@ const quiz: Quiz = {
           "text": "לא ידוע מה תפקידם המדויק של עלי הכותרת",
           "correct": false
         }
-      ]
+      ],
+      "topic": "art-arch"
     },
     {
       "id": 97,
-      "question": "צמח שבכל פרח שלו יש גם איברים זכריים (אבקנים) וגם איברים נקביים (עלי) נקרא צמח:",
+      "question": "צמח שבו פרחים זכריים ופרחים נקביים נמצאים על אותו הפרט נקרא:",
       "category": "ציפורים",
       "answers": [
         {
-          "text": "חד ביתי",
+          "text": "חד-ביתי",
           "correct": true
         },
         {
-          "text": "חד ביתי חד מיני",
+          "text": "דו-ביתי",
           "correct": false
         },
         {
-          "text": "דו ביתי",
+          "text": "דו-מיני",
+          "correct": false
+        },
+        {
+          "text": "חד-מיני",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "\"בית\" הוא הפרט: בחד-ביתי שני המינים על אותו צמח, בדו-ביתי (תמר, חרוב) על פרטים נפרדים. \"דו-מיני\" מתאר פרח שבו שני האיברים יחד.",
+      "topic": "flora-fauna"
     },
     {
       "id": 98,
@@ -2294,18 +2222,24 @@ const quiz: Quiz = {
       "category": "צמחים ובתי גידול",
       "answers": [
         {
+          "text": "דו ביתי",
+          "correct": true
+        },
+        {
           "text": "חד ביתי",
           "correct": false
         },
         {
-          "text": "חד ביתי חד מיני",
+          "text": "דו-מיני",
           "correct": false
         },
         {
-          "text": "דו ביתי",
-          "correct": true
+          "text": "חד-מיני",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "בחרוב, בתמר ובפיסטוק יש עצי זכר ועצי נקבה נפרדים — ולכן רק חלק מהעצים נותנים פרי.",
+      "topic": "flora-fauna"
     },
     {
       "id": 99,
@@ -2328,7 +2262,8 @@ const quiz: Quiz = {
           "text": "תמרים זה לא טעים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 100,
@@ -2351,7 +2286,8 @@ const quiz: Quiz = {
           "text": "מים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 101,
@@ -2359,18 +2295,24 @@ const quiz: Quiz = {
       "category": "ציפורים",
       "answers": [
         {
-          "text": "הדבורה שמגיעה לפרח המרווה על מנת לאסוף צוף ומעבירה את האבקה מפרח לפרח",
-          "correct": false
-        },
-        {
-          "text": "החיפושית שמגיעה לפרח הכלנית על מנת להזדווג בפרח",
-          "correct": false
-        },
-        {
-          "text": "ציפור קטנה שאוכלת את פירות הקטלב ומעבירה את זרעי הצמח ממקום למקום",
+          "text": "ציפור האוכלת את פירות הקטלב ומעבירה את הזרעים ממקום למקום",
           "correct": true
+        },
+        {
+          "text": "דבורה האוספת צוף ממרווה ומעבירה אבקה בין פרחים",
+          "correct": false
+        },
+        {
+          "text": "חיפושית המגיעה לפרח הכלנית ומתגלגלת באבקנים",
+          "correct": false
+        },
+        {
+          "text": "רוח המעבירה גרגרי אבקה מפרחי אורן לפרחים אחרים",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "האבקה = העברת אבקה מהאבקן לצלקת. ציפור שאוכלת פרי ומפיצה זרעים מבצעת הפצת זרעים, שלב מאוחר יותר.",
+      "topic": "flora-fauna"
     },
     {
       "id": 102,
@@ -2393,7 +2335,8 @@ const quiz: Quiz = {
           "text": "הפצת זרעים על ידי בעלי חיים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 103,
@@ -2416,7 +2359,8 @@ const quiz: Quiz = {
           "text": "דו ביתי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 104,
@@ -2439,7 +2383,8 @@ const quiz: Quiz = {
           "text": "אנדמי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 105,
@@ -2462,7 +2407,8 @@ const quiz: Quiz = {
           "text": "טפיל מלא",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 106,
@@ -2485,7 +2431,8 @@ const quiz: Quiz = {
           "text": "צמחים טפילים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 107,
@@ -2508,7 +2455,8 @@ const quiz: Quiz = {
           "text": "אנדמי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 108,
@@ -2531,7 +2479,8 @@ const quiz: Quiz = {
           "text": "5400",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 109,
@@ -2554,7 +2503,8 @@ const quiz: Quiz = {
           "text": "הוא מושפע מהמגוון הנופי הרחב שיש בישראל- הרים גבוהים, חופי ים, מדבריות וכו׳",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 110,
@@ -2577,7 +2527,8 @@ const quiz: Quiz = {
           "text": "בכל שטחה של ישראל",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 111,
@@ -2600,7 +2551,8 @@ const quiz: Quiz = {
           "text": "בעיקר בשבר הסורי אפריקני",
           "correct": true
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 112,
@@ -2623,7 +2575,8 @@ const quiz: Quiz = {
           "text": "החבל הסודני",
           "correct": false
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 113,
@@ -2646,7 +2599,8 @@ const quiz: Quiz = {
           "text": "סודני",
           "correct": false
         }
-      ]
+      ],
+      "topic": "judaism"
     },
     {
       "id": 114,
@@ -2669,7 +2623,8 @@ const quiz: Quiz = {
           "text": "אורן ירושלים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 115,
@@ -2692,7 +2647,8 @@ const quiz: Quiz = {
           "text": "אורן ירושלים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 116,
@@ -2715,7 +2671,8 @@ const quiz: Quiz = {
           "text": "אורן ירושלים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 117,
@@ -2738,7 +2695,8 @@ const quiz: Quiz = {
           "text": "אורן ירושלים",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 118,
@@ -2761,7 +2719,8 @@ const quiz: Quiz = {
           "text": "קידה שעירה ואלת המסטיק",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 119,
@@ -2784,38 +2743,8 @@ const quiz: Quiz = {
           "text": "צבי",
           "correct": false
         }
-      ]
-    },
-    {
-      "id": 120,
-      "question": "אבא של העופר נקרא?",
-      "category": "זוחלים",
-      "answers": [
-        {
-          "text": "גדי",
-          "correct": false
-        },
-        {
-          "text": "אייל",
-          "correct": false
-        },
-        {
-          "text": "צבי",
-          "correct": false
-        },
-        {
-          "text": "יעל",
-          "correct": false
-        },
-        {
-          "text": "טלה",
-          "correct": false
-        },
-        {
-          "text": "תשובות ב ו-ג נכונות",
-          "correct": true
-        }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 121,
@@ -2838,7 +2767,8 @@ const quiz: Quiz = {
           "text": "2016",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 122,
@@ -2861,42 +2791,8 @@ const quiz: Quiz = {
           "text": "אייל",
           "correct": true
         }
-      ]
-    },
-    {
-      "id": 123,
-      "question": "מי מבין הצמחים הבאים מתאים להכנת זעתר?",
-      "category": "צמחים ובתי גידול",
-      "answers": [
-        {
-          "text": "שומר פשוט",
-          "correct": false
-        },
-        {
-          "text": "אזוב מצוי",
-          "correct": false
-        },
-        {
-          "text": "קורנית מקורקפת",
-          "correct": false
-        },
-        {
-          "text": "עוזרר קוצני",
-          "correct": false
-        },
-        {
-          "text": "צתרה ורודה",
-          "correct": false
-        },
-        {
-          "text": "קזוח עקום",
-          "correct": false
-        },
-        {
-          "text": "תשובות ב,ג ו-ה נכונות",
-          "correct": true
-        }
-      ]
+      ],
+      "topic": "roman-byzantine"
     },
     {
       "id": 124,
@@ -2919,7 +2815,8 @@ const quiz: Quiz = {
           "text": "אלו חומרים חריפים הקיימים על מנת להרחיק חרקים שעלולים לאכול את הצמח",
           "correct": true
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 125,
@@ -2942,7 +2839,8 @@ const quiz: Quiz = {
           "text": "הרבה עצים נשירים וגבוהים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 126,
@@ -2950,18 +2848,24 @@ const quiz: Quiz = {
       "category": "יונקים",
       "answers": [
         {
-          "text": "שרביט צמיחה",
-          "correct": false
-        },
-        {
-          "text": "זיפים",
-          "correct": false
-        },
-        {
           "text": "קנוקנות",
           "correct": true
+        },
+        {
+          "text": "שורשי אוויר",
+          "correct": false
+        },
+        {
+          "text": "זיפים דוקרניים",
+          "correct": false
+        },
+        {
+          "text": "ענפים מלופפים",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "קנוקנת היא עלה או ענף שהתמיין לחוט מטפס — כמו בגפן ובקיסוסית.",
+      "topic": "bible"
     },
     {
       "id": 127,
@@ -2984,7 +2888,8 @@ const quiz: Quiz = {
           "text": "אוייבים טבעיים שדחקו זה את זה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 128,
@@ -3007,7 +2912,8 @@ const quiz: Quiz = {
           "text": "צמחים גדלים תחת הרותם על מנת להינות מהצל האיכותי שלו",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 129,
@@ -3030,7 +2936,8 @@ const quiz: Quiz = {
           "text": "צמחים מדבריים מפזרים את הזרעים שלהם רק אחרי שיורד מספיק גשם שיחזיק את הצאצאים ויבטיח להם מספיק מים – כמו שושנת יריחו וכוכב ננסי",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 130,
@@ -3053,7 +2960,8 @@ const quiz: Quiz = {
           "text": "שפיריות ושפריריות הם חרקים טורפים",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 131,
@@ -3076,7 +2984,8 @@ const quiz: Quiz = {
           "text": "אזוב מצוי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 132,
@@ -3099,7 +3008,8 @@ const quiz: Quiz = {
           "text": "דבקה אפורה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 133,
@@ -3122,7 +3032,8 @@ const quiz: Quiz = {
           "text": "תקשורת קולית בין שני זכרים במאבק על הזכות להזדווג עם הנקבה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 134,
@@ -3130,30 +3041,24 @@ const quiz: Quiz = {
       "category": "זוחלים",
       "answers": [
         {
-          "text": "הוא מכרסם",
-          "correct": false
-        },
-        {
-          "text": "הוא חי במחילות הנחפרות לרוב תחת שיחים גדולים כמו מלוח קיפח",
-          "correct": false
-        },
-        {
-          "text": "הוא מפריש גללים יבשים יחסית על מנת לחסוך במים",
-          "correct": false
-        },
-        {
-          "text": "הוא צמחוני, אך מגוון את מזונו בזוחלים קטנים החודרים למחילתו",
+          "text": "הוא צמחוני, אך מגוון את מזונו בזוחלים קטנים",
           "correct": true
         },
         {
-          "text": "הוא לעיתים נושא את מחלת הלשמנייה (שושנת יריחו)",
+          "text": "הוא מכרסם החי במחילות מתחת לשיחי מלוח",
           "correct": false
         },
         {
-          "text": "הוא משמש כחיית מעבדה במחקרים על מחלת הסכרת",
+          "text": "הוא מפריש גללים יבשים כדי לחסוך במים",
+          "correct": false
+        },
+        {
+          "text": "הוא נושא לעיתים את מחלת הלישמניה",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "הפסמון צמחוני; הוא אינו טורף. שאר המשפטים נכונים — כולל היותו מאגר לטפיל הלישמניה.",
+      "topic": "flora-fauna"
     },
     {
       "id": 135,
@@ -3176,352 +3081,758 @@ const quiz: Quiz = {
           "text": "גילה את עיקרון ההכבדה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "flora-fauna"
     },
     {
       "id": 136,
-      "question": "זהה את הצמח בתמונה:",
+      "question": "מהו העץ השולט בחורש הים-תיכוני הטבעי בישראל?",
       "category": "צמחים ובתי גידול",
       "answers": [
-        {
-          "text": "אלה ארץ ישראלית",
-          "correct": false
-        },
-        {
-          "text": "שיטה סלילנית",
-          "correct": false
-        },
-        {
-          "text": "אלון התולע",
-          "correct": false
-        },
         {
           "text": "אלון מצוי",
           "correct": true
-        }
-      ]
-    },
-    {
-      "id": 137,
-      "question": "זהה את הצמח בתמונה:",
-      "category": "צמחים ובתי גידול",
-      "answers": [
-        {
-          "text": "סירה קוצנית",
-          "correct": true
         },
         {
-          "text": "אזוב מצוי",
+          "text": "אלון תבור",
           "correct": false
         },
         {
-          "text": "אלת המסטיק",
-          "correct": false
-        },
-        {
-          "text": "שומרר בואסייה",
-          "correct": false
-        }
-      ]
-    },
-    {
-      "id": 138,
-      "question": "זהה את הצמח בתמונה:",
-      "category": "צמחים ובתי גידול",
-      "answers": [
-        {
-          "text": "אלת המסטיק",
-          "correct": true
-        },
-        {
-          "text": "אלון מצוי",
-          "correct": false
-        },
-        {
-          "text": "אלה ארץ ישראלית",
+          "text": "אורן ירושלים",
           "correct": false
         },
         {
           "text": "חרוב מצוי",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "אלון מצוי הוא המין השולט בחורש. אלון תבור מאפיין יער פארק, ואורן ירושלים נפוץ בעיקר ביערות נטועים.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 137,
+      "question": "יער פארק של אלון תבור שרד בעיקר באזור:",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "הגליל התחתון",
+          "correct": true
+        },
+        {
+          "text": "הרי יהודה",
+          "correct": false
+        },
+        {
+          "text": "רמת הנגב",
+          "correct": false
+        },
+        {
+          "text": "הכרמל",
+          "correct": false
+        }
+      ],
+      "explanation": "אלוני אבא ואלוני יצחק שבגליל התחתון הם שריד ליער הפארק; רוב עצי אלון תבור נכרתו בתקופה העות'מאנית.",
+      "topic": "geography"
+    },
+    {
+      "id": 138,
+      "question": "מהו ההבדל העיקרי בין אלון מצוי לאלון תבור?",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "אלון מצוי ירוק-עד ואלון תבור נשיר",
+          "correct": true
+        },
+        {
+          "text": "אלון מצוי נשיר ואלון תבור ירוק-עד",
+          "correct": false
+        },
+        {
+          "text": "שניהם ירוקי-עד ונבדלים בגובהם בלבד",
+          "correct": false
+        },
+        {
+          "text": "שניהם נשירים ונבדלים בצורת הבלוט",
+          "correct": false
+        }
+      ],
+      "explanation": "אלון תבור משיל את עליו בקיץ — התאמה לבית גידול חם ופתוח יותר מן החורש.",
+      "topic": "flora-fauna"
     },
     {
       "id": 139,
-      "question": "זהה את הצמח בתמונה:",
+      "question": "מה מבדיל בין גריגה לחורש?",
       "category": "צמחים ובתי גידול",
       "answers": [
         {
-          "text": "כליל החורש",
-          "correct": false
-        },
-        {
-          "text": "אדר סורי",
-          "correct": false
-        },
-        {
-          "text": "אלון מצוי",
-          "correct": false
-        },
-        {
-          "text": "קטלב מצוי",
+          "text": "בגריגה שיחים נמוכים ופתוחים, בחורש עצים גבוהים וצפופים",
           "correct": true
+        },
+        {
+          "text": "הגריגה מדברית והחורש ים-תיכוני",
+          "correct": false
+        },
+        {
+          "text": "הגריגה נטועה בידי אדם והחורש טבעי",
+          "correct": false
+        },
+        {
+          "text": "בגריגה שולטים מחטניים ובחורש רחבי-עלים",
+          "correct": false
         }
-      ]
+      ],
+      "explanation": "רצף ההידרדרות: יער ← חורש ← גריגה ← בתה, לפי גובה הצומח וצפיפותו; רעייה, כריתה ושריפות מקדמות אותו.",
+      "topic": "flora-fauna"
     },
     {
       "id": 140,
-      "question": "זהה את הצמח בתמונה:",
+      "question": "צמחייה ממוצא סודני מופיעה בישראל בעיקר:",
       "category": "צמחים ובתי גידול",
       "answers": [
         {
-          "text": "כליל החורש",
-          "correct": false
-        },
-        {
-          "text": "מלוח קיפח",
-          "correct": false
-        },
-        {
-          "text": "רותם המדבר",
+          "text": "לאורך הבקע ובעמק הירדן הדרומי",
           "correct": true
         },
         {
-          "text": "שומר פשוט",
+          "text": "בגליל העליון ובחרמון",
+          "correct": false
+        },
+        {
+          "text": "ברמות מנשה ובכרמל",
+          "correct": false
+        },
+        {
+          "text": "במישור החוף הצפוני",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "שיטים, זקום ודום מצרי הם מינים טרופיים שמצאו מקלט בחום של הבקע — \"אצבע\" סודנית בתוך ארץ ים-תיכונית.",
+      "topic": "geography"
     },
     {
       "id": 141,
-      "question": "זהה את הנחש הארסי בתמונה:",
-      "category": "זוחלים",
-      "answers": [
-        {
-          "text": "שרף עין גדי",
-          "correct": false
-        },
-        {
-          "text": "צפע ארץ ישראלי",
-          "correct": false
-        },
-        {
-          "text": "זעמן מטבעות",
-          "correct": false
-        },
-        {
-          "text": "אפעה מגוון",
-          "correct": true
-        }
-      ]
-    },
-    {
-      "id": 142,
-      "question": "מי בתמונה?",
-      "category": "זוחלים",
-      "answers": [
-        {
-          "text": "צבי ארץ ישראלי",
-          "correct": true
-        },
-        {
-          "text": "יעל נובי",
-          "correct": false
-        },
-        {
-          "text": "יחמור פרסי",
-          "correct": false
-        },
-        {
-          "text": "ראם לבן",
-          "correct": false
-        }
-      ]
-    },
-    {
-      "id": 143,
-      "question": "מי בתמונה?",
-      "category": "זוחלים",
-      "answers": [
-        {
-          "text": "צבי ארץ ישראלי",
-          "correct": false
-        },
-        {
-          "text": "יעל נובי",
-          "correct": true
-        },
-        {
-          "text": "יחמור פרסי",
-          "correct": false
-        },
-        {
-          "text": "ראם לבן",
-          "correct": false
-        }
-      ]
-    },
-    {
-      "id": 144,
-      "question": "מי בתמונה?",
-      "category": "דו-חיים",
-      "answers": [
-        {
-          "text": "צפרדע הנחלים",
-          "correct": false
-        },
-        {
-          "text": "קרפדה ירוקה",
-          "correct": false
-        },
-        {
-          "text": "אילנית מצויה",
-          "correct": false
-        },
-        {
-          "text": "עגולשון שחור גחון",
-          "correct": true
-        }
-      ]
-    },
-    {
-      "id": 145,
-      "question": "מי בתמונה?",
-      "category": "יונקים",
-      "answers": [
-        {
-          "text": "כלב הבית",
-          "correct": false
-        },
-        {
-          "text": "תן זהוב",
-          "correct": true
-        },
-        {
-          "text": "שועל מצוי",
-          "correct": false
-        },
-        {
-          "text": "זאב אפור",
-          "correct": false
-        }
-      ]
-    },
-    {
-      "id": 146,
-      "question": "מי בתמונה?",
-      "category": "זוחלים",
-      "answers": [
-        {
-          "text": "צפע ארץ ישראלי",
-          "correct": true
-        },
-        {
-          "text": "זעמן מטבעות",
-          "correct": false
-        },
-        {
-          "text": "כרכן קרינים",
-          "correct": false
-        },
-        {
-          "text": "עכן גדול",
-          "correct": false
-        }
-      ]
-    },
-    {
-      "id": 147,
-      "question": "מי בתמונה?",
-      "category": "ציפורים",
-      "answers": [
-        {
-          "text": "שרקרק מצוי",
-          "correct": false
-        },
-        {
-          "text": "כחל",
-          "correct": false
-        },
-        {
-          "text": "עפרוני מצויץ",
-          "correct": false
-        },
-        {
-          "text": "דוכיפת",
-          "correct": true
-        }
-      ]
-    },
-    {
-      "id": 148,
-      "question": "מה רואים בתמונה?",
-      "category": "טקסונומיה ואבולוציה",
-      "answers": [
-        {
-          "text": "גילגול",
-          "correct": false
-        },
-        {
-          "text": "הפצת זרעים ע״י בעלי חיים",
-          "correct": true
-        },
-        {
-          "text": "צמח טפיל",
-          "correct": false
-        },
-        {
-          "text": "מין פולש",
-          "correct": false
-        }
-      ]
-    },
-    {
-      "id": 149,
-      "question": "מה רואים בתמונה?",
+      "question": "היכן גדל בישראל עץ הדום המצרי?",
       "category": "צמחים ובתי גידול",
       "answers": [
         {
-          "text": "חורש",
-          "correct": false
-        },
-        {
-          "text": "יער",
-          "correct": false
-        },
-        {
-          "text": "בתה",
+          "text": "באזור אילת והערבה הדרומית",
           "correct": true
         },
         {
-          "text": "גריגה",
+          "text": "בכרמל ובגליל המערבי",
+          "correct": false
+        },
+        {
+          "text": "בעמק יזרעאל",
+          "correct": false
+        },
+        {
+          "text": "בהרי ירושלים",
           "correct": false
         }
-      ]
+      ],
+      "explanation": "הדום הוא דקל אפריקני מסועף; בישראל הוא בקצה הצפוני של תפוצתו, ומוגן.",
+      "topic": "geography"
     },
     {
-      "id": 150,
-      "question": "מי בתמונה?",
-      "category": "ציפורים",
+      "id": 142,
+      "question": "מהו הצמח שממנו מכינים את תערובת התבלין \"זעתר\"?",
+      "category": "צמחים ובתי גידול",
       "answers": [
+        {
+          "text": "אזוב מצוי",
+          "correct": true
+        },
+        {
+          "text": "מרווה משולשת",
+          "correct": false
+        },
+        {
+          "text": "לוטם שעיר",
+          "correct": false
+        },
+        {
+          "text": "סירה קוצנית",
+          "correct": false
+        }
+      ],
+      "explanation": "אזוב מצוי הוא ערך טבע מוגן, וקטיפתו בטבע אסורה — הוא מגודל היום בחקלאות.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 143,
+      "question": "מה משותף לאזוב מצוי, לעכובית הגלגל ולקורנית מקורקפת?",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "שלושתם ערכי טבע מוגנים שאסור לקטוף בטבע",
+          "correct": true
+        },
+        {
+          "text": "שלושתם מינים פולשים שהובאו לישראל",
+          "correct": false
+        },
+        {
+          "text": "שלושתם אנדמיים לישראל בלבד",
+          "correct": false
+        },
+        {
+          "text": "שלושתם צמחי מדבר הגדלים רק בנגב",
+          "correct": false
+        }
+      ],
+      "explanation": "הכרזתם כערכי טבע מוגנים באה בעקבות קטיף מסחרי שסיכן את אוכלוסיותיהם.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 144,
+      "question": "מתי פורח החצב המצוי?",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "בסוף הקיץ, לפני הגשמים הראשונים",
+          "correct": true
+        },
+        {
+          "text": "באמצע החורף, אחרי הגשמים",
+          "correct": false
+        },
+        {
+          "text": "באביב, יחד עם הכלניות",
+          "correct": false
+        },
+        {
+          "text": "בסתיו המאוחר, אחרי היורה",
+          "correct": false
+        }
+      ],
+      "explanation": "החצב פורח מהבצל על יבש, ורק אחר כך מוציא עלים — ולכן שימש סמן גבולות שדות בסוף הקיץ.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 145,
+      "question": "\"דרום אדום\" — פריחת החורף בעוטף עזה — מבוססת בעיקר על:",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "כלנית מצויה",
+          "correct": true
+        },
+        {
+          "text": "נורית אסיה",
+          "correct": false
+        },
+        {
+          "text": "פרג נסתר",
+          "correct": false
+        },
+        {
+          "text": "דם המכבים האדום",
+          "correct": false
+        }
+      ],
+      "explanation": "הכלנית פורחת בשיא החורף; הנורית והפרג פורחים אחריה באביב, ודם המכבים הוא מין אנדמי ונדיר.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 146,
+      "question": "מה מייחד את דם המכבים האדום?",
+      "category": "מינים: אנדמי, פולש, נכחד",
+      "answers": [
+        {
+          "text": "הוא מין אנדמי הגדל בישראל בלבד",
+          "correct": true
+        },
+        {
+          "text": "הוא מין פולש שהגיע מאירופה",
+          "correct": false
+        },
+        {
+          "text": "הוא מין מדברי הגדל רק בערבה",
+          "correct": false
+        },
+        {
+          "text": "הוא מין שנכחד מן הטבע והושב אליו",
+          "correct": false
+        }
+      ],
+      "explanation": "אנדמי = תפוצתו העולמית מוגבלת לאזור אחד. דוגמאות נוספות: אירוס הגלבוע ואזובית החרמון.",
+      "topic": "second-temple"
+    },
+    {
+      "id": 147,
+      "question": "מהי ההגדרה של מין פולש?",
+      "category": "מינים: אנדמי, פולש, נכחד",
+      "answers": [
+        {
+          "text": "מין שהובא בידי אדם, התבסס והתפשט על חשבון מינים מקומיים",
+          "correct": true
+        },
+        {
+          "text": "מין שחדר בכוחות עצמו מארץ שכנה ואינו מזיק",
+          "correct": false
+        },
+        {
+          "text": "מין הגדל רק בשטחים מופרים ואינו מתרבה בטבע",
+          "correct": false
+        },
+        {
+          "text": "מין שנכחד מן הטבע והושב אליו בידי האדם",
+          "correct": false
+        }
+      ],
+      "explanation": "שלושת התנאים הם הבאה בידי אדם, התבססות עצמאית ופגיעה במערכת המקומית — ולא עצם היותו זר.",
+      "topic": "geography"
+    },
+    {
+      "id": 148,
+      "question": "מי מבין הבאים הוא מין פולש שהתבסס בערי ישראל?",
+      "category": "מינים: אנדמי, פולש, נכחד",
+      "answers": [
+        {
+          "text": "מיינה מצויה",
+          "correct": true
+        },
         {
           "text": "דוכיפת",
           "correct": false
         },
         {
-          "text": "עגולשון שחור גחון",
+          "text": "בולבול",
           "correct": false
         },
         {
-          "text": "אמוניט",
+          "text": "זרזיר מצוי",
           "correct": false
-        },
-        {
-          "text": "ארכיאופטריקס",
-          "correct": true
         }
-      ]
+      ],
+      "explanation": "המיינה נמלטה מגני חיות בשנות ה-90 ומשתלטת על חללי קינון של מינים מקומיים.",
+      "topic": "geography"
+    },
+    {
+      "id": 149,
+      "question": "איזה מין נכחד מנופי ישראל בראשית המאה ה-20 ולא הושב לטבע?",
+      "category": "מינים: אנדמי, פולש, נכחד",
+      "answers": [
+        {
+          "text": "הדוב הסורי",
+          "correct": true
+        },
+        {
+          "text": "היעל הנובי",
+          "correct": false
+        },
+        {
+          "text": "הצבי הארץ-ישראלי",
+          "correct": false
+        },
+        {
+          "text": "הזאב המצוי",
+          "correct": false
+        }
+      ],
+      "explanation": "הדוב הסורי נצפה לאחרונה בגליל בשנות ה-1910. יעל, צבי וזאב עדיין חיים בישראל.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 150,
+      "question": "היכן הושב היחמור הפרסי לטבע בישראל?",
+      "category": "יונקים",
+      "answers": [
+        {
+          "text": "בנחל כזיב ובהרי ירושלים",
+          "correct": true
+        },
+        {
+          "text": "ברמת הגולן ובחרמון",
+          "correct": false
+        },
+        {
+          "text": "במדבר יהודה ובעין גדי",
+          "correct": false
+        },
+        {
+          "text": "בהר הנגב ובערבה",
+          "correct": false
+        }
+      ],
+      "explanation": "פרויקט ההשבה של חי-בר כרמל החל ב-1996; היחמור נכחד מהארץ בראשית המאה ה-20.",
+      "topic": "geography"
+    },
+    {
+      "id": 151,
+      "question": "היכן נפוץ במיוחד היעל הנובי בישראל?",
+      "category": "יונקים",
+      "answers": [
+        {
+          "text": "בעין גדי ולאורך מצוק ההעתקים",
+          "correct": true
+        },
+        {
+          "text": "ביערות הכרמל",
+          "correct": false
+        },
+        {
+          "text": "ברמות מנשה",
+          "correct": false
+        },
+        {
+          "text": "בגליל העליון",
+          "correct": false
+        }
+      ],
+      "explanation": "היעל קשור למצוקים תלולים המשמשים לו מפלט מטורפים; אוכלוסייה נוספת בנגב ובאילת.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 152,
+      "question": "מה תפקידה של התנשמת בחקלאות הישראלית?",
+      "category": "יונקים",
+      "answers": [
+        {
+          "text": "הדברה ביולוגית של מכרסמים",
+          "correct": true
+        },
+        {
+          "text": "האבקת מטעים בלילה",
+          "correct": false
+        },
+        {
+          "text": "הפצת זרעים בשדות בור",
+          "correct": false
+        },
+        {
+          "text": "בקרה על אוכלוסיות חרקים מזיקים",
+          "correct": false
+        }
+      ],
+      "explanation": "פרויקט תיבות הקינון לתנשמות ולבזים מצמצם שימוש בחומרי הדברה, ומופעל גם בשיתוף עם ירדן והרשות הפלסטינית.",
+      "topic": "state"
+    },
+    {
+      "id": 153,
+      "question": "מה נכון לגבי עטלפי הפירות בישראל?",
+      "category": "יונקים",
+      "answers": [
+        {
+          "text": "הם מוגנים בחוק, ובעבר נפגעו קשות מהרעלות במערות",
+          "correct": true
+        },
+        {
+          "text": "הם מין פולש שהגיע מאפריקה",
+          "correct": false
+        },
+        {
+          "text": "הם ניזונים מחרקים בלבד",
+          "correct": false
+        },
+        {
+          "text": "הם הוכרזו כמין שנכחד מן הטבע",
+          "correct": false
+        }
+      ],
+      "explanation": "בשנות ה-50–60 הורעלו מערות כדי לפגוע בעטלפי הפירות, ונפגעו גם עטלפי החרקים המועילים.",
+      "topic": "geography"
+    },
+    {
+      "id": 154,
+      "question": "מדוע נדידת העופות בישראל כה מרשימה?",
+      "category": "ציפורים",
+      "answers": [
+        {
+          "text": "ישראל היא צוואר בקבוק יבשתי בין אירופה, אסיה ואפריקה",
+          "correct": true
+        },
+        {
+          "text": "ישראל היא יעד הנדידה הסופי של רוב העופות מאירופה",
+          "correct": false
+        },
+        {
+          "text": "העופות חוצים דווקא כאן את הים התיכון ברוחבו",
+          "correct": false
+        },
+        {
+          "text": "אקלים ישראל מונע מהעופות להמשיך דרומה",
+          "correct": false
+        }
+      ],
+      "explanation": "כחצי מיליארד עופות עוברים בשתי עונות הנדידה — כי היבשה כאן מגשרת בין שלוש יבשות.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 155,
+      "question": "מדוע עופות דואים גדולים נמנעים ממעוף מעל הים הפתוח?",
+      "category": "נדידה",
+      "answers": [
+        {
+          "text": "מעל הים אין תרמיקות המאפשרות דאייה",
+          "correct": true
+        },
+        {
+          "text": "הרוח מעל הים חזקה מכדי שיוכלו לעוף",
+          "correct": false
+        },
+        {
+          "text": "הם נזקקים למים מתוקים כל שעות היום",
+          "correct": false
+        },
+        {
+          "text": "הם מתמצאים אך ורק לפי קווי חוף",
+          "correct": false
+        }
+      ],
+      "explanation": "תרמיקה נוצרת מעליית אוויר חם מעל יבשה מחוממת. חסידות, עגורים ודורסים דואים בה במקום להכות כנפיים.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 156,
+      "question": "היכן מתרכזים בחורף אלפי עגורים אפורים?",
+      "category": "נדידה",
+      "answers": [
+        {
+          "text": "באגמון החולה",
+          "correct": true
+        },
+        {
+          "text": "בשמורת החולה",
+          "correct": false
+        },
+        {
+          "text": "במאגר בית נטופה",
+          "correct": false
+        },
+        {
+          "text": "בבריכות המלח באילת",
+          "correct": false
+        }
+      ],
+      "explanation": "האגמון הוא שטח הצפה חקלאי שנוצר בשנות ה-90; ה\"הסדר\" של האכלת העגורים בשדה מונע נזק לחקלאות.",
+      "topic": "water-climate"
+    },
+    {
+      "id": 157,
+      "question": "ממה ניזון הנשר המקראי, הדורס הגדול בישראל?",
+      "category": "ציפורים",
+      "answers": [
+        {
+          "text": "מפגרי בעלי חיים",
+          "correct": true
+        },
+        {
+          "text": "מדגים שהוא צד במים רדודים",
+          "correct": false
+        },
+        {
+          "text": "ממכרסמים חיים שהוא צד בשדות",
+          "correct": false
+        },
+        {
+          "text": "מזוחלים וחרקים גדולים",
+          "correct": false
+        }
+      ],
+      "explanation": "הנשר הוא אוכל נבלות (grifon vulture) ואינו טורף. בעברית המקראית \"נשר\" הוא בדיוק העוף הזה.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 158,
+      "question": "שמורת גמלא ידועה בין השאר בזכות:",
+      "category": "ציפורים",
+      "answers": [
+        {
+          "text": "מושבת נשרים מקננת",
+          "correct": true
+        },
+        {
+          "text": "מושבת פלמינגו",
+          "correct": false
+        },
+        {
+          "text": "יער אלון תבור",
+          "correct": false
+        },
+        {
+          "text": "עדר יחמורים שהושב לטבע",
+          "correct": false
+        }
+      ],
+      "explanation": "מצוקי גמלא הם אתר קינון ותצפית מרכזי לנשרים בישראל.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 159,
+      "question": "מהי הציפור שנבחרה כציפור הלאומית של ישראל?",
+      "category": "ציפורים",
+      "answers": [
+        {
+          "text": "דוכיפת",
+          "correct": true
+        },
+        {
+          "text": "נשר מקראי",
+          "correct": false
+        },
+        {
+          "text": "תנשמת",
+          "correct": false
+        },
+        {
+          "text": "בולבול",
+          "correct": false
+        }
+      ],
+      "explanation": "נבחרה בהצבעת הציבור ב-2008, לציון שישים שנה למדינה.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 160,
+      "question": "מהו הפרח שנבחר כפרח הלאומי של ישראל?",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "רקפת מצויה",
+          "correct": true
+        },
+        {
+          "text": "כלנית מצויה",
+          "correct": false
+        },
+        {
+          "text": "נורית אסיה",
+          "correct": false
+        },
+        {
+          "text": "חצב מצוי",
+          "correct": false
+        }
+      ],
+      "explanation": "הרקפת ניצחה בהצבעת הציבור ב-2007; הכלנית הגיעה למקום השני.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 161,
+      "question": "מה מבדיל בין הצפע הארץ-ישראלי לאפעה המגוון?",
+      "category": "זוחלים",
+      "answers": [
+        {
+          "text": "הצפע נפוץ בחבל הים-תיכוני והאפעה מדברי",
+          "correct": true
+        },
+        {
+          "text": "הצפע ארסי והאפעה אינו ארסי",
+          "correct": false
+        },
+        {
+          "text": "שניהם מדבריים, והצפע גדול בהרבה",
+          "correct": false
+        },
+        {
+          "text": "הצפע פעיל ביום והאפעה בלילה בלבד",
+          "correct": false
+        }
+      ],
+      "explanation": "שניהם ארסיים ומסוכנים. הצפע אחראי לרוב ההכשות בישראל, והאפעה מצוי בנגב, בערבה ובמדבר יהודה.",
+      "topic": "geography"
+    },
+    {
+      "id": 162,
+      "question": "מה נכון לגבי עצי האקליפטוס בישראל?",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "הם הובאו מאוסטרליה ונטועים, ואינם צומח בר מקומי",
+          "correct": true
+        },
+        {
+          "text": "הם מין מקומי שגדל בעמקים מאז ומתמיד",
+          "correct": false
+        },
+        {
+          "text": "הם מין פולש שהתפשט בכוחות עצמו לכל הארץ",
+          "correct": false
+        },
+        {
+          "text": "הם מין אנדמי המוגן בחוק",
+          "correct": false
+        }
+      ],
+      "explanation": "האקליפטוס הובא בסוף המאה ה-19, בין השאר מתוך אמונה שייבש ביצות; בפועל הניקוז הוא שייבש אותן.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 163,
+      "question": "מה קובע חוק גנים לאומיים ושמורות טבע לגבי שמורת טבע?",
+      "category": "מינים: אנדמי, פולש, נכחד",
+      "answers": [
+        {
+          "text": "אסורה בה כל פגיעה בערכי הטבע — כולל צמח, בעל חיים ואבן",
+          "correct": true
+        },
+        {
+          "text": "מותר לקטוף בה פרחים שאינם מוגנים",
+          "correct": false
+        },
+        {
+          "text": "מותר לחנות בכל מקום, גם מחוץ לשבילים",
+          "correct": false
+        },
+        {
+          "text": "הכניסה אליה אסורה לציבור הרחב",
+          "correct": false
+        }
+      ],
+      "explanation": "עיקרון \"קח רק תמונות, השאר רק עקבות\": בשמורה אסור לפגוע, לקטוף, לצוד או להוציא דבר.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 164,
+      "question": "מהי מטרתו של חי-בר יטבתה?",
+      "category": "יונקים",
+      "answers": [
+        {
+          "text": "השבה לטבע של חיות מדבר שנכחדו מן הארץ",
+          "correct": true
+        },
+        {
+          "text": "שיקום עופות דורסים פצועים",
+          "correct": false
+        },
+        {
+          "text": "גידול דגי נוי מהים האדום",
+          "correct": false
+        },
+        {
+          "text": "שימור מיני צומח מדבריים בסכנה",
+          "correct": false
+        }
+      ],
+      "explanation": "ביטבתה גודלו ראם לבן, פרא אסייתי, יעל ובקר הבר; מהם הושבו עדרים לערבה ולנגב.",
+      "topic": "flora-fauna"
+    },
+    {
+      "id": 165,
+      "question": "מהי הסיבה העיקרית לכך שהחורש הים-תיכוני בישראל נמוך וצפוף ולא יער גבוה?",
+      "category": "צמחים ובתי גידול",
+      "answers": [
+        {
+          "text": "כריתה, רעייה ושריפות לאורך אלפי שנים",
+          "correct": true
+        },
+        {
+          "text": "כמות משקעים נמוכה מכדי לקיים עצים גבוהים",
+          "correct": false
+        },
+        {
+          "text": "סוג הסלע בהרים אינו מאפשר עצים גבוהים",
+          "correct": false
+        },
+        {
+          "text": "התחרות עם עצי האורן הנטועים",
+          "correct": false
+        }
+      ],
+      "explanation": "החורש הנוכחי הוא בעיקר חורש-משנה שהתחדש מגדמים; בישראל כמעט שלא נותרו יערות בתוליים.",
+      "topic": "flora-fauna"
     }
   ]
 };
