@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-  <title>מפת מורשת ישראל</title>
-  <meta name="description" content="מפה אינטראקטיבית של ישראל בחלוקה לשכבות: אזורים, ציר זמן היסטורי ואתרי דת — כלי עבודה למורי דרך" />
-  <meta name="theme-color" content="#0E9C8E" />
+  <title>מפת השטח — אבן דרך למורי דרך</title>
+  <meta name="description" content="מפת שטח אינטראקטיבית למורי דרך: אזורים, אתרים, טבע, גאולוגיה, היסטוריה, דת ומסלולי סיור" />
+  <meta name="theme-color" content="#0D9488" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon-192.png" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
@@ -16,8 +16,10 @@
   <!-- Held up only until the map's first frame, so the app never opens on a
        blank grey rectangle while the tiles come in. -->
   <div id="splash">
-    <img src="icons/svg/logo.svg" alt="" />
-    <div class="splash-title">מפת מורשת ישראל</div>
+    <div class="splash-mark"><img src="icons/brand-icon.png" alt="" /></div>
+    <div class="splash-eyebrow">כלי שטח למורי דרך</div>
+    <div class="splash-title">מפת השטח של אבן דרך</div>
+    <p class="splash-copy">שכבות ידע, אתרי ביקור ומסלול אחד ברור.</p>
     <div class="splash-bar"></div>
   </div>
 
@@ -25,18 +27,30 @@
     <button id="btn-toggle-sidebar" aria-label="תפריט שכבות" title="תפריט שכבות">
       <img src="icons/svg/ui-menu.svg" alt="" />
     </button>
-    <img class="logo" src="icons/svg/logo.svg" alt="" />
-    <h1>מפת מורשת<span class="long"> ישראל</span></h1>
-    <button id="btn-search" aria-label="חיפוש" title="חיפוש">
-      <img src="icons/svg/ui-search.svg" alt="" />
-    </button>
-    <div id="offline-indicator" class="hidden" title="את/ה במצב לא מקוון">אופליין</div>
-    <button id="btn-toggle-route" aria-label="בניית מסלול" title="בניית מסלול">מסלול</button>
+    <div class="map-brand">
+      <img class="logo" src="icons/brand-icon.png" alt="" />
+      <div class="map-brand-copy">
+        <span>אבן דרך • כלי שטח</span>
+        <h1>מפת ישראל למורי דרך</h1>
+      </div>
+    </div>
+    <div class="map-actions">
+      <button id="btn-search" aria-label="חיפוש" title="חיפוש">
+        <img src="icons/svg/ui-search.svg" alt="" /><span>חיפוש</span>
+      </button>
+      <div id="offline-indicator" class="hidden" title="את/ה במצב לא מקוון">אופליין</div>
+      <button id="btn-toggle-route" aria-label="בניית מסלול" title="בניית מסלול"><img src="icons/svg/ui-navigate.svg" alt="" /><span>המסלול שלי</span></button>
+    </div>
   </header>
 
   <div id="app-body">
     <div id="sidebar-backdrop" class="hidden"></div>
     <aside id="sidebar">
+      <div class="sidebar-intro">
+        <span>מרכז שכבות</span>
+        <h2>בנו את תמונת השטח</h2>
+        <p>בחרו שכבות, מצאו אתר ושמרו תחנות למסלול — גם בלי קליטה.</p>
+      </div>
       <h3 class="group-label">מה רואים במפה</h3>
 
       <section class="panel" style="--panel-color: var(--c-regions)">
@@ -50,7 +64,7 @@
       </section>
 
       <section class="panel" style="--panel-color: var(--c-visitor)">
-        <img class="panel-banner" src="assets/banners/visitor.svg" alt="" />
+        <img class="panel-banner" src="assets/banners/visitor-brand.svg" alt="" />
         <h2><img src="icons/svg/layer-visitor.svg" alt="" />שמורות, גנים ואתרים</h2>
         <label class="layer-toggle">
           <input type="checkbox" id="toggle-visitor" />
@@ -64,7 +78,7 @@
       </section>
 
       <section class="panel" style="--panel-color: var(--c-nature)">
-        <img class="panel-banner" src="assets/banners/nature.svg" alt="" />
+        <img class="panel-banner" src="assets/banners/nature-brand.svg" alt="" />
         <h2><img src="icons/svg/layer-nature.svg" alt="" />חי וצומח</h2>
         <label class="layer-toggle">
           <input type="checkbox" id="toggle-nature" />
@@ -74,7 +88,7 @@
       </section>
 
       <section class="panel" style="--panel-color: var(--c-topo)">
-        <img class="panel-banner" src="assets/banners/topo.svg" alt="" />
+        <img class="panel-banner" src="assets/banners/topo-brand.svg" alt="" />
         <h2><img src="icons/svg/layer-topo.svg" alt="" />טופוגרפיה</h2>
         <label class="layer-toggle">
           <input type="checkbox" id="toggle-topo" />
@@ -91,7 +105,7 @@
       </section>
 
       <section class="panel" style="--panel-color: var(--c-geology)">
-        <img class="panel-banner" src="assets/banners/geology.svg" alt="" />
+        <img class="panel-banner" src="assets/banners/geology-brand.svg" alt="" />
         <h2><img src="icons/svg/layer-geology.svg" alt="" />מפה גיאולוגית</h2>
         <label class="layer-toggle">
           <input type="checkbox" id="toggle-geology" />
@@ -109,7 +123,7 @@
       </section>
 
       <section class="panel" style="--panel-color: var(--c-timeline)">
-        <img class="panel-banner" src="assets/banners/timeline.svg" alt="" />
+        <img class="panel-banner" src="assets/banners/timeline-brand.svg" alt="" />
         <h2><img src="icons/svg/layer-timeline.svg" alt="" />ציר זמן היסטורי</h2>
         <label class="layer-toggle">
           <input type="checkbox" id="toggle-periods" checked />
@@ -133,7 +147,7 @@
       </section>
 
       <section class="panel" style="--panel-color: var(--c-religion)">
-        <img class="panel-banner" src="assets/banners/religion.svg" alt="" />
+        <img class="panel-banner" src="assets/banners/religion-brand.svg" alt="" />
         <h2><img src="icons/svg/layer-religion.svg" alt="" />אתרי דת</h2>
         <label class="layer-toggle">
           <input type="checkbox" id="toggle-religions" />
