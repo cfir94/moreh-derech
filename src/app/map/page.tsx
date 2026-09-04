@@ -1,17 +1,16 @@
 import { embedUrl } from "@/lib/basePath";
 
 /*
- * The heritage map is a self-contained MapLibre application (vector tiles,
- * offline service worker, ~90MB of map data). It runs in an iframe rather than
- * being rewritten as React components: it keeps its own map engine and caching
- * intact while staying inside the site shell, so the user never leaves.
+ * Design philosophy: "אטלס שכבות חי" — the self-contained MapLibre field tool
+ * keeps its offline engine, while its shell mirrors Even Derech's cool blue-grey
+ * ground, translucent cards, teal actions and compact learning hierarchy.
  */
 export default function MapPage() {
   return (
-    <div className="flex h-[calc(100vh-3.6rem)] flex-col">
+    <div className="flex h-[calc(100dvh-3.6rem)] flex-col overflow-hidden bg-bg">
       <iframe
-        src={embedUrl("map/")}
-        title="מפת מורשת ישראל"
+        src={embedUrl("map/index.html")}
+        title="מפת השטח של אבן דרך"
         className="h-full w-full border-0"
         allow="geolocation"
       />
