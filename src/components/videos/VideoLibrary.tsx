@@ -74,6 +74,14 @@ function kindLabel(item: VideoItem) {
   return item.type === "playlist" ? "פלייליסט" : "סרטון";
 }
 
+function CoordinatorRecommendation() {
+  return (
+    <span className="rounded-full border border-gold/35 bg-gold/10 px-2.5 py-1 text-xs font-bold text-gold">
+      המלצת רכז הקורס
+    </span>
+  );
+}
+
 function playerUrl(item: VideoItem) {
   const separator = item.embedUrl.includes("?") ? "&" : "?";
   return `${item.embedUrl}${separator}rel=0&modestbranding=1`;
@@ -108,7 +116,8 @@ export function VideoLibrary() {
   function selectCategory(group: VideoGroup | null) {
     setActiveCategory(group?.id ?? "all");
     if (group) {
-      setActiveVideoId(group.items[0].id);
+      const firstEmbeddable = group.items.find((item) => !item.embedRestricted);
+      setActiveVideoId(firstEmbeddable?.id ?? group.items[0].id);
     }
   }
 
@@ -128,8 +137,8 @@ export function VideoLibrary() {
         </div>
         <h1 className="grad-text text-3xl leading-tight sm:text-4xl">סרטונים מומלצים</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-          מקורות צפייה שנבחרו לפי נושאי הליבה של קורס מורי הדרך — היסטוריה, דתות,
-          גיאולוגיה, טבע וירושלים.
+          {videoCount} מקורות צפייה שנבחרו לפי נושאי הליבה של קורס מורי הדרך —
+          היסטוריה, ארכאולוגיה, דתות, אמנות, גאוגרפיה, טבע ומקצוע ההדרכה.
         </p>
       </header>
 
@@ -173,16 +182,39 @@ export function VideoLibrary() {
       <section aria-label="הנגן הנבחר" className="mb-10 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]">
         <div className="grid lg:grid-cols-[minmax(0,1.35fr)_minmax(19rem,0.65fr)]">
           <div className="relative aspect-video min-h-[13rem] bg-[#07131c]">
-            <iframe
-              key={activeVideo.id}
-              src={playerUrl(activeVideo)}
-              title={activeVideo.title}
-              className="absolute inset-0 size-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
+            {activeVideo.embedRestricted ? (
+              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-7 text-right text-white sm:p-10">
+                <span className="mb-4 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
+                  מקור מומלץ עם זמינות משתנה
+                </span>
+                <h2 className="max-w-md text-xl leading-snug sm:text-2xl">
+                  הפלייליסט אינו זמין כעת להטמעה ממיקום זה.
+                </h2>
+                <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/70">
+                  הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב.
+                </p>
+                <a
+                  href={activeVideo.directUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg bg-gold px-3.5 py-2.5 text-sm font-bold text-[#07131c] transition duration-200 ease-out hover:brightness-110 active:scale-[0.97]"
+                >
+                  פתיחה ביוטיוב
+                  <ExternalLinkIcon />
+                </a>
+              </div>
+            ) : (
+              <iframe
+                key={activeVideo.id}
+                src={playerUrl(activeVideo)}
+                title={activeVideo.title}
+                className="absolute inset-0 size-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            )}
           </div>
           <div className="flex flex-col justify-between p-5 sm:p-6">
             <div>
@@ -191,6 +223,7 @@ export function VideoLibrary() {
                   {activeVideo.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
                   {kindLabel(activeVideo)}
                 </span>
+                {activeVideo.recommendedByCoordinator && <CoordinatorRecommendation />}
                 <span className="text-xs text-txt-dim">{activeVideo.source}</span>
               </div>
               <h2 className="text-xl leading-snug text-txt sm:text-2xl">{activeVideo.title}</h2>
@@ -250,6 +283,7 @@ export function VideoLibrary() {
                           {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
                           {kindLabel(item)}
                         </span>
+                        {item.recommendedByCoordinator && <CoordinatorRecommendation />}
                         <span className="num text-xs font-bold text-txt-dim">{String(index + 1).padStart(2, "0")}</span>
                       </div>
                       <h3 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h3>
