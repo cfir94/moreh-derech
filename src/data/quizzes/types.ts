@@ -15,6 +15,10 @@ export type Question = {
   category: string;
   answers: Answer[];
   image?: QuizImage;
+  /** Shown after answering, when supplied by the source quiz. */
+  explanation?: string;
+  /** Course material or lecture on which the answer is based. */
+  source?: string;
   /**
    * Set when a question is pulled into a mixed run (review mode) so its result
    * is still credited to the quiz it actually belongs to.

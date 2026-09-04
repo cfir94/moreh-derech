@@ -34,9 +34,10 @@
 ריפואי GitHub וחלקן ZIP. **הנתונים מהן עברו פורט מלא לתוך האתר** — הם אינם
 אפליקציות נפרדות יותר:
 
-- `src/data/quizzes/*.ts` — נוצרו אוטומטית מ-`quizData.ts` של ארבעת
-  פרויקטי השאלונים (`/workspace/cfir94/{geology,history,iron-age}-quiz`,
-  `/workspace/sources/tourguidequiz`). קבצים אלה **generated — לא לערוך ידנית**.
+- `src/data/quizzes/*.ts` — נוצרו אוטומטית מפרויקטי השאלונים המקוריים,
+  לרבות `christianity-tour-guide-quiz`, `judaism-quiz`, `israel-borders-quiz`
+  ו-`iron-age-quiz`. את ארבעתם מעדכנים באמצעות `npm run import:quizzes` כאשר
+  הריפואים נמצאים כתיקיות אחיות לריפו הזה. קבצים אלה **generated — לא לערוך ידנית**.
 - `src/data/quizzes/past-exams.ts` ו-`src/data/exams/*.ts` — שאלות ממבחני
   הרישוי הרשמיים של משרד התיירות, עם התשובות הרשמיות. נוצרים **יחד** ע"י
   `tools/build_exams.py` (ראו "מבחני רישוי" למטה).
@@ -48,10 +49,11 @@
 `src/components/timeline/TimelineViewer.tsx`) בעיצוב של האתר, כדי שהחוויה
 תהיה אחידה ולא "קפיצה" לממשק זר.
 
-**היוצא מן הכלל — המפה**: `israel-heritage-map` היא אפליקציית MapLibre שלמה
-(vector tiles, service worker, ~90MB נתונים). היא נשארה כפי שהיא תחת
-`public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map` — כך המשתמש נשאר בתוך
-האתר עם הניווט שלו, בלי לשכתב מנוע מפות שלם.
+**יוצאים מן הכלל — אפליקציות מוטמעות**: `israel-heritage-map` היא אפליקציית
+MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נשארה כפי
+שהיא תחת `public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map`. גם המשחק וציר
+הזמן ההיסטורי נשארים באפליקציות GitHub Pages שלהם ומוטמעים ב-`<iframe>` תחת
+`/game` ו-`/timelines/history`. כך המשתמש נשאר באתר עם הניווט שלו.
 
 ### מבחן מלא בתנאי אמת (`/exams`)
 
@@ -156,7 +158,7 @@ src/
     quizzes/                  אינדקס שאלונים
       [slug]/                 שאלון בודד (generateStaticParams)
       review/                 תרגול טעויות חוצה-שאלונים
-    timelines/                אינדקס + biblical/ + egypt-canaan/
+    timelines/                אינדקס + biblical/ + egypt-canaan/ + history/
     map/                      iframe של מפת המורשת
     guide-reports/  videos/    placeholders
   components/

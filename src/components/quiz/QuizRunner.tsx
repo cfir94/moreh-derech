@@ -21,6 +21,13 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+function prepareQuestions(questions: Question[]): Question[] {
+  return questions.map((question) => ({
+    ...question,
+    answers: shuffle(question.answers),
+  }));
+}
+
 const OPTION_LETTERS = ["א", "ב", "ג", "ד", "ה", "ו"];
 
 export function QuizRunner({
@@ -38,7 +45,9 @@ export function QuizRunner({
   const [order, setOrder] = useState<Order>("shuffled");
   const [length, setLength] = useState<number | "all">(25);
 
-  const [questions, setQuestions] = useState<Question[]>(fixedQuestions ?? []);
+  const [questions, setQuestions] = useState<Question[]>(() =>
+    prepareQuestions(fixedQuestions ?? []),
+  );
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [answers, setAnswers] = useState<RecordedAnswer[]>([]);
@@ -56,7 +65,7 @@ export function QuizRunner({
   const start = () => {
     let list = order === "shuffled" ? shuffle(pool) : [...pool];
     if (length !== "all") list = list.slice(0, length);
-    setQuestions(list);
+    setQuestions(prepareQuestions(list));
     setIndex(0);
     setPicked(null);
     setAnswers([]);
@@ -101,7 +110,7 @@ export function QuizRunner({
     setIndex(0);
     setPicked(null);
     setAnswers([]);
-    if (fixedQuestions) setQuestions(shuffle(fixedQuestions));
+    if (fixedQuestions) setQuestions(prepareQuestions(shuffle(fixedQuestions)));
   };
 
   const retryWrong = () => {
@@ -109,7 +118,7 @@ export function QuizRunner({
       answers.filter((a) => !a.correct).map((a) => a.questionId),
     );
     const list = questions.filter((q) => wrongIds.has(q.id));
-    setQuestions(shuffle(list));
+    setQuestions(prepareQuestions(shuffle(list)));
     setIndex(0);
     setPicked(null);
     setAnswers([]);
@@ -500,27 +509,41 @@ export function QuizRunner({
         </ul>
 
         {answered && (
-          <div className="mt-5 flex items-center justify-between gap-4">
-            <p
-              className="text-[15px] font-extrabold"
-              style={{
-                color: picked === correctText ? "var(--ok)" : "var(--red)",
-              }}
-            >
-              {picked === correctText ? "נכון! ✓" : "נשמר לחזרה"}
-            </p>
-            <button
-              type="button"
-              onClick={next}
-              className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-                boxShadow: "0 10px 26px -10px var(--teal)",
-              }}
-            >
-              {index + 1 < questions.length ? "הבאה" : "לתוצאות"}
-            </button>
+          <div className="mt-5">
+            {(current.explanation || current.source) && (
+              <div className="mb-4 rounded-md border border-line bg-card-2 p-4">
+                {current.explanation && (
+                  <p className="text-sm leading-relaxed">{current.explanation}</p>
+                )}
+                {current.source && (
+                  <p className="mt-2 text-[11px] leading-relaxed text-txt-dim">
+                    מקור: {current.source}
+                  </p>
+                )}
+              </div>
+            )}
+            <div className="flex items-center justify-between gap-4">
+              <p
+                className="text-[15px] font-extrabold"
+                style={{
+                  color: picked === correctText ? "var(--ok)" : "var(--red)",
+                }}
+              >
+                {picked === correctText ? "נכון! ✓" : "נשמר לחזרה"}
+              </p>
+              <button
+                type="button"
+                onClick={next}
+                className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
+                style={{
+                  background:
+                    "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
+                  boxShadow: "0 10px 26px -10px var(--teal)",
+                }}
+              >
+                {index + 1 < questions.length ? "הבאה" : "לתוצאות"}
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -8,14 +8,21 @@ const sets = [
     title: "חמשת צירי הזמן — הברית החדשה",
     description:
       "ילדות ישוע, שליחותו, השבוע הקדוש, לאחר התחייה ומעשי השליחים — עם המקורות המלאים לכל אירוע.",
-    timelines: biblical,
+    meta: `${biblical.reduce((n, t) => n + t.events.length, 0)} אירועים`,
   },
   {
     slug: "egypt-canaan",
     title: "מצרים, כנען וראשית ישראל",
     description:
       "מקרב מגידו ומכתבי אל-עמארנה ועד ראשית תקופת הברזל ומצבת מרנפתח.",
-    timelines: egyptCanaan,
+    meta: `${egyptCanaan.reduce((n, t) => n + t.events.length, 0)} אירועים`,
+  },
+  {
+    slug: "history",
+    title: "ציר הזמן ההיסטורי — קורס מורי דרך",
+    description:
+      "תיארוך תקופות ואירועים, סדר כרונולוגי, מלכי ישראל ויהודה, ממצאים ושרשרת הספרות היהודית.",
+    meta: "5 כלי תרגול",
   },
 ];
 
@@ -39,7 +46,7 @@ export default function TimelinesPage() {
             href={`/timelines/${s.slug}`}
             title={s.title}
             description={s.description}
-            meta={`${s.timelines.reduce((n, t) => n + t.events.length, 0)} אירועים`}
+            meta={s.meta}
           />
         ))}
       </div>
