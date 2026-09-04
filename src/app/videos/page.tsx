@@ -1,15 +1,8 @@
-import { PlaceholderSection } from "@/components/PlaceholderSection";
+/**
+ * עיצוב "שכבות של דרך": עמוד ייעודי לספריית צפייה, המשמר את מעטפת האתר הקיימת.
+ */
+import { VideoLibrary } from "@/components/videos/VideoLibrary";
 
 export default function VideosPage() {
-  return (
-    <PlaceholderSection
-      title="סרטונים מומלצים"
-      description="ספריית סרטונים מומלצים לצפייה, מסודרת לפי נושאי הקורס."
-      planned={[
-        "סרטונים מסודרים לפי נושא, עם נגן מוטמע בתוך האתר",
-        "סימון סרטונים שכבר צפיתם בהם",
-        "קישור בין סרטון לנושאים הרלוונטיים בשאלונים",
-      ]}
-    />
-  );
+  return <VideoLibrary />;
 }
