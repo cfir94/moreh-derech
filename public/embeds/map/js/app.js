@@ -5,16 +5,19 @@
 import * as maplibregl from '../vendor/maplibre/maplibre-gl.mjs';
 import mlcontour from '../vendor/maplibre/maplibre-contour.mjs';
 
-const THEME_STORAGE_KEY = 'even-derech-map-theme';
+const THEME_STORAGE_KEY = 'even-derech-theme';
+const THEME_EVENT = 'even-derech-theme-change';
 
 function readSavedTheme() {
   try {
+    const parentTheme = window.parent.document.documentElement.dataset.theme;
+    if (parentTheme === 'dark' || parentTheme === 'light') return parentTheme;
     const saved = localStorage.getItem(THEME_STORAGE_KEY);
     if (saved === 'dark' || saved === 'light') return saved;
   } catch (e) {
     // A storage restriction should never prevent the map from loading.
   }
-  return 'light';
+  return 'dark';
 }
 
 let activeTheme = readSavedTheme();
@@ -1801,8 +1804,32 @@ function setupThemeToggle() {
   button.addEventListener('click', () => {
     const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
     try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (e) { /* storage is optional */ }
+    activeTheme = nextTheme;
+    try {
+      window.parent.document.documentElement.dataset.theme = nextTheme;
+      window.parent.dispatchEvent(new window.parent.CustomEvent(THEME_EVENT, { detail: nextTheme }));
+    } catch (e) {
+      // Standalone and cross-origin embeds still keep their local preference.
+    }
     window.location.reload();
   });
+}
+
+function watchParentTheme() {
+  try {
+    const parentRoot = window.parent.document.documentElement;
+    const observer = new MutationObserver(() => {
+      const nextTheme = parentRoot.dataset.theme;
+      if ((nextTheme === 'dark' || nextTheme === 'light') && nextTheme !== activeTheme) {
+        activeTheme = nextTheme;
+        try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (e) { /* storage is optional */ }
+        window.location.reload();
+      }
+    });
+    observer.observe(parentRoot, { attributes: true, attributeFilter: ['data-theme'] });
+  } catch (e) {
+    // The standalone map keeps its own theme state.
+  }
 }
 
 async function main() {
@@ -1810,6 +1837,7 @@ async function main() {
   // interactive after four seconds rather than sitting behind a logo.
   setTimeout(dismissSplash, 4000);
   setupThemeToggle();
+  watchParentTheme();
   await loadData();
   await initMap();
   map.once('idle', dismissSplash);
