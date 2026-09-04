@@ -23,6 +23,14 @@ export default function Home() {
       meta: `${questionCount} שאלות`,
     },
     {
+      slug: "exams",
+      href: "/exams",
+      title: "מבחן רישוי מלא",
+      description:
+        "מבחן שלם בתנאי אמת — בלי חשיפת תשובות, עם ניווט חופשי והגשה בסוף.",
+      meta: "עברית · English · العربية",
+    },
+    {
       slug: "timelines",
       href: "/timelines",
       title: "צירי זמן",
@@ -88,7 +96,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/quizzes/past-exams"
+              href="/exams/july-2024"
               className="rounded-full px-7 py-4 font-extrabold text-on-accent transition active:scale-95"
               style={{
                 background:
@@ -96,7 +104,7 @@ export default function Home() {
                 boxShadow: "0 10px 26px -10px var(--teal)",
               }}
             >
-              לתרגל מבחני רישוי
+              לעשות מבחן רישוי מלא
             </Link>
             <Link
               href="/map"

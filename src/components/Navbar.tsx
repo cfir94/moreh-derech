@@ -7,6 +7,7 @@ import { useUser } from "@/contexts/UserContext";
 
 const links = [
   { href: "/quizzes", label: "שאלונים" },
+  { href: "/exams", label: "מבחן מלא" },
   { href: "/timelines", label: "צירי זמן" },
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },
