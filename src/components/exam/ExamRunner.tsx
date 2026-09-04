@@ -6,6 +6,7 @@ import {
   LANG_META,
   type Exam,
   type ExamLang,
+  type ExamQuestion,
 } from "@/data/exams/types";
 import { recordAttempt } from "@/lib/progress";
 import { ReadingLink } from "@/components/ReadingLink";
@@ -41,6 +42,34 @@ const ACCENT_BG =
   "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)";
 
 /**
+ * Does a typed answer match the expected one? Deliberately forgiving —
+ * punctuation, the definite article and spacing are noise, and "/" in the
+ * expected answer separates accepted variants. Anything subtler than that is
+ * left to the reader, who can mark their own answer right on the results.
+ */
+function normalize(text: string) {
+  return text
+    .replace(/[\u0591-\u05C7]/g, "")
+    .replace(/["'׳״.,:;!?()\-–—]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function matchesAnswer(typed?: string, expected?: string) {
+  if (!typed || !expected) return false;
+  const given = normalize(typed);
+  if (!given) return false;
+  return expected
+    .split("/")
+    .map((variant) => normalize(variant))
+    .some(
+      (variant) =>
+        variant.length > 0 && (variant === given || variant === `ה${given}` ||
+          given === `ה${variant}`),
+    );
+}
+
+/**
  * Said plainly wherever a sitting without a published key appears. Getting an
  * answer wrong here can mean the answer is wrong, not the student.
  */
@@ -65,6 +94,11 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   const [phase, setPhase] = useState<"intro" | "running" | "results">("intro");
   const [lang, setLang] = useState<ExamLang>(exam.languages[0] ?? "he");
   const [picks, setPicks] = useState<Record<number, number>>({});
+  // Typed answers to the fill-in items, and the ones the reader overrode after
+  // seeing the expected answer — free text cannot be graded by string match
+  // alone ("נקבת השילוח" vs "נקבת חזקיהו"), so the reader has the last word.
+  const [texts, setTexts] = useState<Record<number, string>>({});
+  const [overrides, setOverrides] = useState<Record<number, boolean>>({});
   const [page, setPage] = useState(0);
   const [confirming, setConfirming] = useState(false);
   const [onlyWrong, setOnlyWrong] = useState(false);
@@ -74,17 +108,31 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   const dir = LANG_META[lang].dir;
   const letters = LETTERS[lang];
 
-  const answeredCount = Object.keys(picks).length;
-  const unanswered = questions.filter((q) => picks[q.number] === undefined);
+  const isAnswered = (q: ExamQuestion) =>
+    q.kind === "fill"
+      ? (texts[q.number] ?? "").trim().length > 0
+      : picks[q.number] !== undefined;
+
+  const isCorrect = (q: ExamQuestion) => {
+    if (q.kind !== "fill") return picks[q.number] === q.correctIndex;
+    if (overrides[q.number] !== undefined) return overrides[q.number];
+    return matchesAnswer(texts[q.number], q.answerText);
+  };
+
+  const answeredCount = questions.filter(isAnswered).length;
+  const unanswered = questions.filter((q) => !isAnswered(q));
 
   const correctCount = useMemo(
-    () => questions.filter((q) => picks[q.number] === q.correctIndex).length,
-    [questions, picks],
+    () => questions.filter(isCorrect).length,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [questions, picks, texts, overrides],
   );
 
   const reset = (nextLang: ExamLang = lang) => {
     setLang(nextLang);
     setPicks({});
+    setTexts({});
+    setOverrides({});
     setPage(0);
     setConfirming(false);
     setOnlyWrong(false);
@@ -101,7 +149,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
         questionId: q.quizId,
         question: q.question.he,
         category: exam.date,
-        correct: picks[q.number] === q.correctIndex,
+        correct: isCorrect(q),
       })),
     });
     setPhase("results");
@@ -209,9 +257,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   if (phase === "results") {
     const pct = Math.round((correctCount / questions.length) * 100);
     const stars = [60, 80, 95].map((t) => pct >= t);
-    const shown = onlyWrong
-      ? questions.filter((q) => picks[q.number] !== q.correctIndex)
-      : questions;
+    const shown = onlyWrong ? questions.filter((q) => !isCorrect(q)) : questions;
 
     return (
       <div
@@ -290,7 +336,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
         <ul className="mb-7 flex flex-col gap-2.5">
           {shown.map((q) => {
             const pick = picks[q.number];
-            const right = pick === q.correctIndex;
+            const right = isCorrect(q);
             return (
               <li
                 key={q.number}
@@ -305,7 +351,11 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                     className="text-[12px] font-extrabold"
                     style={{ color: right ? "var(--ok)" : "var(--red)" }}
                   >
-                    {right ? "✓ נכון" : pick === undefined ? "— לא נענתה" : "✗ טעות"}
+                    {right
+                      ? "✓ נכון"
+                      : isAnswered(q)
+                        ? "✗ טעות"
+                        : "— לא נענתה"}
                   </span>
                   {q.confidence && q.confidence !== "h" && (
                     <span className="text-[11px] font-bold text-gold">
@@ -330,6 +380,30 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                 </b>
                 {!right && <ReadingLink topic={q.topic} />}
 
+                {q.kind === "fill" ? (
+                  <div className="mt-1.5 flex flex-col gap-1.5 text-[12.5px]">
+                    <p>
+                      <span className="text-txt-dim">התשובה שלכם: </span>
+                      <b>{texts[q.number]?.trim() || "—"}</b>
+                    </p>
+                    <p>
+                      <span className="text-txt-dim">התשובה הנכונה: </span>
+                      <b className="text-ok">{q.answerText}</b>
+                    </p>
+                    {isAnswered(q) && (
+                      // Free text is graded loosely, so the reader decides.
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOverrides((prev) => ({ ...prev, [q.number]: !right }))
+                        }
+                        className="self-start rounded-full border border-line bg-card-2 px-3 py-1.5 text-[11.5px] font-bold transition active:scale-95"
+                      >
+                        {right ? "לסמן כטעות" : "בעצם עניתי נכון"}
+                      </button>
+                    )}
+                  </div>
+                ) : (
                 <ul className="flex flex-col gap-1.5">
                   {q.answers.map((a, i) => {
                     const isCorrect = i === q.correctIndex;
@@ -367,6 +441,13 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                     );
                   })}
                 </ul>
+                )}
+
+                {q.explanation && (
+                  <p className="mt-2 rounded-sm border border-line bg-card-2 px-3 py-2 text-[12px] leading-relaxed text-txt-dim">
+                    {q.explanation}
+                  </p>
+                )}
               </li>
             );
           })}
@@ -454,6 +535,18 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                 </div>
               </div>
 
+              {q.kind === "fill" ? (
+                <input
+                  type="text"
+                  value={texts[q.number] ?? ""}
+                  onChange={(e) =>
+                    setTexts((prev) => ({ ...prev, [q.number]: e.target.value }))
+                  }
+                  placeholder="התשובה שלכם"
+                  className="w-full rounded-md border border-line bg-card-2 px-3.5 py-3 text-[15px] font-bold outline-none transition focus:border-mc"
+                  dir={dir}
+                />
+              ) : (
               <ul className="grid gap-2">
                 {q.answers.map((a, i) => {
                   const selected = pick === i;
@@ -501,6 +594,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                   );
                 })}
               </ul>
+              )}
             </li>
           );
         })}
@@ -509,7 +603,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
       {/* The answer sheet: every question at a glance, filled or blank. */}
       <div className="mt-5 flex flex-wrap gap-1.5">
         {questions.map((q, i) => {
-          const done = picks[q.number] !== undefined;
+          const done = isAnswered(q);
           const onPage = Math.floor(i / PAGE_SIZE) === page;
           return (
             <button

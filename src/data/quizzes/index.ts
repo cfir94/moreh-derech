@@ -1,5 +1,6 @@
 import type { Quiz } from "@/data/quizzes/types";
 import christianity from "@/data/quizzes/christianity";
+import courseBank from "@/data/quizzes/course-bank";
 import floraFauna from "@/data/quizzes/flora-fauna";
 import geology from "@/data/quizzes/geology";
 import history from "@/data/quizzes/history";
@@ -10,6 +11,7 @@ import pastExams from "@/data/quizzes/past-exams";
 
 export const QUIZZES: Quiz[] = [
   pastExams,
+  courseBank,
   floraFauna,
   geology,
   history,
@@ -20,6 +22,8 @@ export const QUIZZES: Quiz[] = [
 ];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  "course-bank":
+    "שאלות ממבחני התרגול של הקורס — עם הסבר לכל תשובה, לפי הנושאים שנלמדו.",
   "past-exams":
     "שאלות אמיתיות ממבחני הרישוי של משרד התיירות, 2021–2025, עם התשובות הרשמיות.",
   "flora-fauna":
