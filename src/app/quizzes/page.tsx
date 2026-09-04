@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { QUIZZES, QUIZ_DESCRIPTIONS } from "@/data/quizzes";
 import { ReviewCallout } from "@/components/quiz/ReviewCallout";
 import { QuizGrid } from "@/components/quiz/QuizGrid";
@@ -17,6 +18,13 @@ export default function QuizzesPage() {
       </header>
 
       <ReviewCallout />
+
+      <p className="mb-4 text-[13px] text-txt-dim">
+        לא בטוחים בחומר עצמו?{" "}
+        <Link href="/resources" className="font-bold text-teal hover:underline">
+          לסיכומים לפי נושא
+        </Link>
+      </p>
 
       <QuizGrid
         quizzes={QUIZZES.map((q) => ({

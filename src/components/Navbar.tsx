@@ -11,6 +11,7 @@ const links = [
   { href: "/game", label: "המשחק" },
   { href: "/quizzes", label: "שאלונים" },
   { href: "/exams", label: "מבחן מלא" },
+  { href: "/resources", label: "סיכומים" },
   { href: "/timelines", label: "צירי זמן" },
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },

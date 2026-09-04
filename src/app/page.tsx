@@ -40,6 +40,14 @@ export default function Home() {
       meta: `${EXAMS.length} מועדים`,
     },
     {
+      slug: "resources",
+      href: "/resources",
+      title: "סיכומים וחומרי לימוד",
+      description:
+        "סיכום לכל נושא בסילבוס, דוחות סיור לפי אתר ומסלולים לדוגמה.",
+      meta: "מקורות חופשיים",
+    },
+    {
       slug: "timelines",
       href: "/timelines",
       title: "צירי זמן",

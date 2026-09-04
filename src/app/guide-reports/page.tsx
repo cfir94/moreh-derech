@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { SectionCard } from "@/components/SectionCard";
 import { REPORTS } from "@/data/guide-reports";
+import { FEATURED_RESOURCES } from "@/data/resources";
+import { ResourceCredit, ResourceList } from "@/components/ResourceList";
+
+// The per-site reports and the model route plans on Efrat Nakash's site cover
+// the same ground as this section, in far more places than we ever will.
+const EXTERNAL_REPORTS = FEATURED_RESOURCES.filter(
+  (r) => r.slug !== "questions",
+);
 
 const LEARN_CARDS = [
   {
@@ -93,6 +101,14 @@ export default function GuideReportsPage() {
             meta={r.region}
           />
         ))}
+      </div>
+
+      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
+        דוחות ומסלולים מוכנים ברשת
+      </h2>
+      <div className="mb-10">
+        <ResourceList items={EXTERNAL_REPORTS} slug="guide-reports" />
+        <ResourceCredit className="mt-2.5" />
       </div>
 
       <div className="rounded-lg border border-line bg-card p-5 text-[13px] leading-relaxed text-txt-dim">

@@ -21,6 +21,13 @@ export const DOMAINS: Record<string, Domain> = {
 
   quizzes: { color: "var(--teal)", icon: "📚" },
   exams: { color: "var(--gold)", icon: "🖊️" },
+  resources: { color: "var(--teal)", icon: "📖" },
+  geography: { color: "var(--rose)", icon: "🗺️" },
+  religions: { color: "var(--gold)", icon: "🕍" },
+  art: { color: "var(--blue)", icon: "🏺" },
+  "israel-today": { color: "var(--green)", icon: "🇮🇱" },
+  profession: { color: "var(--violet)", icon: "🎤" },
+  maps: { color: "var(--teal)", icon: "🧭" },
   timelines: { color: "var(--violet)", icon: "🕰️" },
   biblical: { color: "var(--violet)", icon: "✝️" },
   "egypt-canaan": { color: "var(--blue)", icon: "🏺" },
