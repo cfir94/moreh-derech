@@ -25,6 +25,7 @@ export const DOMAINS: Record<string, Domain> = {
   me: { color: "var(--blue)", icon: "📊" },
   "guide-reports": { color: "var(--rose)", icon: "📝" },
   videos: { color: "var(--violet)", icon: "🎬" },
+  game: { color: "var(--gold)", icon: "🎮" },
   review: { color: "var(--gold)", icon: "🔁" },
 };
 

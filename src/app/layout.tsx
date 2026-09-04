@@ -12,8 +12,8 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "מורי דרך",
-  description: "המערכת המרכזית לתלמידי קורס מורי דרך",
+  title: "אבן דרך למורי דרך",
+  description: "אבן דרך למורי דרך — תרגול, שאלונים, צירי זמן ומפת מורשת",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

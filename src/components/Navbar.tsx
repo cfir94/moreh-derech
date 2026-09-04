@@ -38,7 +38,7 @@ export function Navbar() {
           >
             🧭
           </span>
-          <span className="grad-text text-lg font-black">מורי דרך</span>
+          <span className="grad-text text-lg font-black">אבן דרך למורי דרך</span>
         </Link>
 
         <ul className="mr-3 hidden flex-1 items-center gap-1 md:flex">
