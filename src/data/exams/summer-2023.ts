@@ -66,7 +66,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "islam"
     },
     {
       "number": 2,
@@ -116,7 +117,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "bible"
     },
     {
       "number": 3,
@@ -166,7 +168,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "christianity"
     },
     {
       "number": 4,
@@ -216,7 +219,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "bible"
     },
     {
       "number": 5,
@@ -266,7 +270,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "roman-byzantine"
     },
     {
       "number": 6,
@@ -316,7 +321,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "second-temple"
     },
     {
       "number": 7,
@@ -366,7 +372,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "modern-yishuv"
     },
     {
       "number": 8,
@@ -416,7 +423,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "roman-byzantine"
     },
     {
       "number": 9,
@@ -466,7 +474,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "early-islam"
     },
     {
       "number": 10,
@@ -516,7 +525,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "geology"
     },
     {
       "number": 11,
@@ -566,7 +576,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "crusader"
     },
     {
       "number": 12,
@@ -616,7 +627,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "art-arch"
     },
     {
       "number": 13,
@@ -666,7 +678,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "flora-fauna"
     },
     {
       "number": 14,
@@ -716,7 +729,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "mamluk-ottoman"
     },
     {
       "number": 16,
@@ -766,7 +780,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "islam"
     },
     {
       "number": 17,
@@ -816,7 +831,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "geology"
     },
     {
       "number": 18,
@@ -866,7 +882,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "bible"
     },
     {
       "number": 19,
@@ -916,7 +933,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "state"
     },
     {
       "number": 20,
@@ -966,7 +984,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "jerusalem"
     },
     {
       "number": 21,
@@ -1016,7 +1035,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "judaism"
     },
     {
       "number": 22,
@@ -1066,7 +1086,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "state"
     },
     {
       "number": 23,
@@ -1116,7 +1137,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "bible"
     },
     {
       "number": 24,
@@ -1166,7 +1188,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "roman-byzantine"
     },
     {
       "number": 25,
@@ -1216,7 +1239,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "judaism"
     },
     {
       "number": 26,
@@ -1266,7 +1290,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "prehistory"
     },
     {
       "number": 27,
@@ -1316,7 +1341,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "geography"
     },
     {
       "number": 28,
@@ -1366,7 +1392,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "christianity"
     },
     {
       "number": 29,
@@ -1416,7 +1443,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "bible"
     },
     {
       "number": 30,
@@ -1466,7 +1494,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "geography"
     },
     {
       "number": 31,
@@ -1516,7 +1545,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "flora-fauna"
     },
     {
       "number": 32,
@@ -1566,7 +1596,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "water-climate"
     },
     {
       "number": 33,
@@ -1616,7 +1647,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "flora-fauna"
     }
   ]
 };

@@ -20,6 +20,12 @@ export type Question = {
   /** Course material or lecture on which the answer is based. */
   source?: string;
   /**
+   * Subject from the licensing syllabus (`src/data/topics.ts`). Lets the bank
+   * be drilled by subject as well as by sitting, and points a missed question
+   * at the material to go and read.
+   */
+  topic?: string;
+  /**
    * Set when a question is pulled into a mixed run (review mode) so its result
    * is still credited to the quiz it actually belongs to.
    */

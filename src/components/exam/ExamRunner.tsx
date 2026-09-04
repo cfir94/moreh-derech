@@ -8,6 +8,7 @@ import {
   type ExamLang,
 } from "@/data/exams/types";
 import { recordAttempt } from "@/lib/progress";
+import { ReadingLink } from "@/components/ReadingLink";
 import { domainStyle } from "@/lib/domains";
 
 /**
@@ -327,6 +328,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                 <b className="mb-2 block text-[14px] leading-relaxed">
                   {q.question[lang]}
                 </b>
+                {!right && <ReadingLink topic={q.topic} />}
 
                 <ul className="flex flex-col gap-1.5">
                   {q.answers.map((a, i) => {

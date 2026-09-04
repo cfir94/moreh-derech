@@ -67,7 +67,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "crusader"
     },
     {
       "number": 2,
@@ -117,7 +118,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "geology"
     },
     {
       "number": 3,
@@ -167,7 +169,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "geography"
     },
     {
       "number": 4,
@@ -217,7 +220,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "modern-yishuv"
     },
     {
       "number": 5,
@@ -267,7 +271,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "bible"
     },
     {
       "number": 6,
@@ -317,7 +322,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "modern-yishuv"
     },
     {
       "number": 7,
@@ -367,7 +373,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "flora-fauna"
     },
     {
       "number": 8,
@@ -417,7 +424,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "mamluk-ottoman"
     },
     {
       "number": 9,
@@ -467,7 +475,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "christianity"
     },
     {
       "number": 10,
@@ -517,7 +526,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "islam"
     },
     {
       "number": 11,
@@ -567,7 +577,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "second-temple"
     },
     {
       "number": 12,
@@ -617,7 +628,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "second-temple"
     },
     {
       "number": 13,
@@ -667,7 +679,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "geography"
     },
     {
       "number": 14,
@@ -717,7 +730,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "state"
     },
     {
       "number": 15,
@@ -767,7 +781,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "second-temple"
     },
     {
       "number": 16,
@@ -817,7 +832,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "judaism"
     },
     {
       "number": 17,
@@ -867,7 +883,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "roman-byzantine"
     },
     {
       "number": 18,
@@ -917,7 +934,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "modern-yishuv"
     },
     {
       "number": 19,
@@ -967,7 +985,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "flora-fauna"
     },
     {
       "number": 20,
@@ -1017,7 +1036,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "geography"
     },
     {
       "number": 21,
@@ -1067,7 +1087,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "roman-byzantine"
     },
     {
       "number": 22,
@@ -1117,7 +1138,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 2
+      "correctIndex": 2,
+      "topic": "state"
     },
     {
       "number": 23,
@@ -1167,7 +1189,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "tourism"
     },
     {
       "number": 25,
@@ -1217,7 +1240,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "jerusalem"
     },
     {
       "number": 27,
@@ -1267,7 +1291,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 0
+      "correctIndex": 0,
+      "topic": "crusader"
     },
     {
       "number": 28,
@@ -1317,7 +1342,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "early-islam"
     },
     {
       "number": 29,
@@ -1367,7 +1393,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "geography"
     },
     {
       "number": 30,
@@ -1417,7 +1444,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "minorities"
     },
     {
       "number": 31,
@@ -1467,7 +1495,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 1
+      "correctIndex": 1,
+      "topic": "modern-yishuv"
     },
     {
       "number": 32,
@@ -1517,7 +1546,8 @@ const exam: Exam = {
           }
         }
       ],
-      "correctIndex": 3
+      "correctIndex": 3,
+      "topic": "jerusalem"
     }
   ]
 };

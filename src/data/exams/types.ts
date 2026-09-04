@@ -20,6 +20,8 @@ export type ExamQuestion = {
   question: Localized;
   answers: { text: Localized }[];
   correctIndex: number;
+  /** Subject from the licensing syllabus (`src/data/topics.ts`). */
+  topic?: string;
   /**
    * Only on a sitting whose key was worked out rather than published:
    * h = certain, m = fairly sure, l = worth checking against a source.

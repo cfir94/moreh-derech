@@ -18,6 +18,7 @@ const exam: Exam = {
   "keySource": "derived",
   "questions": [
     {
+      "topic": "geology",
       "number": 1,
       "quizId": 10001,
       "statement": {
@@ -69,6 +70,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "water-climate",
       "number": 2,
       "quizId": 10002,
       "statement": {
@@ -120,6 +122,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "water-climate",
       "number": 3,
       "quizId": 10003,
       "statement": {
@@ -171,6 +174,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "state",
       "number": 4,
       "quizId": 10004,
       "statement": {
@@ -222,6 +226,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "geography",
       "number": 5,
       "quizId": 10005,
       "statement": {
@@ -273,6 +278,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "water-climate",
       "number": 6,
       "quizId": 10006,
       "statement": {
@@ -324,6 +330,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "flora-fauna",
       "number": 7,
       "quizId": 10007,
       "statement": {
@@ -375,6 +382,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "modern-yishuv",
       "number": 8,
       "quizId": 10008,
       "statement": {
@@ -426,6 +434,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "islam",
       "number": 9,
       "quizId": 10009,
       "statement": {
@@ -477,6 +486,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "bible",
       "number": 10,
       "quizId": 10010,
       "statement": {
@@ -528,6 +538,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "bible",
       "number": 11,
       "quizId": 10011,
       "statement": {
@@ -579,6 +590,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "bible",
       "number": 12,
       "quizId": 10012,
       "statement": {
@@ -630,6 +642,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "bible",
       "number": 13,
       "quizId": 10013,
       "statement": {
@@ -681,6 +694,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "second-temple",
       "number": 14,
       "quizId": 10014,
       "statement": {
@@ -732,6 +746,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "christianity",
       "number": 15,
       "quizId": 10015,
       "statement": {
@@ -783,6 +798,7 @@ const exam: Exam = {
       "confidence": "m"
     },
     {
+      "topic": "second-temple",
       "number": 16,
       "quizId": 10016,
       "statement": {
@@ -834,6 +850,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "christianity",
       "number": 17,
       "quizId": 10017,
       "statement": {
@@ -885,6 +902,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "islam",
       "number": 18,
       "quizId": 10018,
       "statement": {
@@ -936,6 +954,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "crusader",
       "number": 19,
       "quizId": 10019,
       "statement": {
@@ -987,6 +1006,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "mamluk-ottoman",
       "number": 20,
       "quizId": 10020,
       "statement": {
@@ -1038,6 +1058,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "geography",
       "number": 21,
       "quizId": 10021,
       "statement": {
@@ -1089,6 +1110,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "crusader",
       "number": 22,
       "quizId": 10022,
       "statement": {
@@ -1140,6 +1162,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "christianity",
       "number": 23,
       "quizId": 10023,
       "statement": {
@@ -1191,6 +1214,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "mamluk-ottoman",
       "number": 24,
       "quizId": 10024,
       "statement": {
@@ -1242,6 +1266,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "judaism",
       "number": 25,
       "quizId": 10025,
       "statement": {
@@ -1293,6 +1318,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "mamluk-ottoman",
       "number": 26,
       "quizId": 10026,
       "statement": {
@@ -1344,6 +1370,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "minorities",
       "number": 27,
       "quizId": 10027,
       "statement": {
@@ -1395,6 +1422,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "modern-yishuv",
       "number": 28,
       "quizId": 10028,
       "statement": {
@@ -1446,6 +1474,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "modern-yishuv",
       "number": 29,
       "quizId": 10029,
       "statement": {
@@ -1497,6 +1526,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "state",
       "number": 30,
       "quizId": 10030,
       "statement": {
@@ -1548,6 +1578,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "jerusalem",
       "number": 31,
       "quizId": 10031,
       "statement": {
@@ -1599,6 +1630,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "state",
       "number": 32,
       "quizId": 10032,
       "statement": {
@@ -1650,6 +1682,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "judaism",
       "number": 33,
       "quizId": 10033,
       "statement": {
@@ -1701,6 +1734,7 @@ const exam: Exam = {
       "confidence": "m"
     },
     {
+      "topic": "jerusalem",
       "number": 34,
       "quizId": 10034,
       "statement": {
@@ -1752,6 +1786,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "christianity",
       "number": 35,
       "quizId": 10035,
       "statement": {
@@ -1803,6 +1838,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "roman-byzantine",
       "number": 36,
       "quizId": 10036,
       "statement": {
@@ -1854,6 +1890,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "judaism",
       "number": 37,
       "quizId": 10037,
       "statement": {
@@ -1905,6 +1942,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "modern-yishuv",
       "number": 38,
       "quizId": 10038,
       "statement": {
@@ -1956,6 +1994,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "minorities",
       "number": 39,
       "quizId": 10039,
       "statement": {
@@ -2007,6 +2046,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "minorities",
       "number": 40,
       "quizId": 10040,
       "statement": {
@@ -2058,6 +2098,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "geography",
       "number": 41,
       "quizId": 10041,
       "statement": {
@@ -2109,6 +2150,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "water-climate",
       "number": 42,
       "quizId": 10042,
       "statement": {
@@ -2160,6 +2202,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "roman-byzantine",
       "number": 43,
       "quizId": 10043,
       "statement": {
@@ -2211,6 +2254,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "roman-byzantine",
       "number": 44,
       "quizId": 10044,
       "statement": {
@@ -2262,6 +2306,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "jerusalem",
       "number": 45,
       "quizId": 10045,
       "statement": {
@@ -2313,6 +2358,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "bible",
       "number": 46,
       "quizId": 10046,
       "statement": {
@@ -2364,6 +2410,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "water-climate",
       "number": 47,
       "quizId": 10047,
       "statement": {
@@ -2415,6 +2462,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "jerusalem",
       "number": 48,
       "quizId": 10048,
       "statement": {
@@ -2466,6 +2514,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "modern-yishuv",
       "number": 49,
       "quizId": 10049,
       "statement": {
@@ -2517,6 +2566,7 @@ const exam: Exam = {
       "confidence": "h"
     },
     {
+      "topic": "state",
       "number": 50,
       "quizId": 10050,
       "statement": {

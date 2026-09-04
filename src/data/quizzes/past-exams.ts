@@ -30,6 +30,7 @@ const quiz: Quiz = {
       "id": 7001,
       "question": "סלע אופייני בשפלת יהודה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "בזלת",
@@ -53,6 +54,7 @@ const quiz: Quiz = {
       "id": 7002,
       "question": "סינקלינה היא:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "שקע ברומטרי",
@@ -76,6 +78,7 @@ const quiz: Quiz = {
       "id": 7003,
       "question": "אבקן הוא מונח מתחום ה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "גיאולוגיה",
@@ -99,6 +102,7 @@ const quiz: Quiz = {
       "id": 7004,
       "question": "מין פרח אנדמי לארץ ישראל:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אדמונית החורש",
@@ -122,6 +126,7 @@ const quiz: Quiz = {
       "id": 7005,
       "question": "נחל שנשפך לים התיכון:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "עמוד",
@@ -145,6 +150,7 @@ const quiz: Quiz = {
       "id": 7006,
       "question": "עץ שעליו נושרים בשלכת:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אורן",
@@ -168,6 +174,7 @@ const quiz: Quiz = {
       "id": 7007,
       "question": "שניים מארבעת המינים הם:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "חיטה ושעורה",
@@ -191,6 +198,7 @@ const quiz: Quiz = {
       "id": 7008,
       "question": "מקובל לזהות את \"סנט פיטר'ס פיש\" (Fish s’Peter .St) עם:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אמנון",
@@ -214,6 +222,7 @@ const quiz: Quiz = {
       "id": 7009,
       "question": "ציורי סלע קדומים של בעלי חיים ניתן למצוא ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "prehistory",
       "answers": [
         {
           "text": "מנהרות הכותל",
@@ -237,6 +246,7 @@ const quiz: Quiz = {
       "id": 7010,
       "question": "פילאסטר הוא:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "אומנה דבוקה",
@@ -260,6 +270,7 @@ const quiz: Quiz = {
       "id": 7011,
       "question": "מתחם מצבות פולחניות מתקופת הברונזה נמצא ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "תל דן",
@@ -283,6 +294,7 @@ const quiz: Quiz = {
       "id": 7012,
       "question": "לפי המקרא יהושע בן נון נלחם בעמק איילון נגד:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "יבין מלך חצור",
@@ -306,6 +318,7 @@ const quiz: Quiz = {
       "id": 7013,
       "question": "הקמת תא הצפייה בתיאטרון בהרודיון מקושרת לפי המקובל לביקורו של:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "אוגוסטוס",
@@ -329,6 +342,7 @@ const quiz: Quiz = {
       "id": 7014,
       "question": "על פי המקובל משמעות השם \"קומראן\" היא:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "שני ירחים",
@@ -352,6 +366,7 @@ const quiz: Quiz = {
       "id": 7015,
       "question": "אתר הנמצא בעמק יהושפט:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "קבר יאסון",
@@ -375,6 +390,7 @@ const quiz: Quiz = {
       "id": 7016,
       "question": "מקובל במחקר שהקברים באתר \"קברי המכבים\" הם מהתקופה ה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "כלקוליתית",
@@ -398,6 +414,7 @@ const quiz: Quiz = {
       "id": 7017,
       "question": "מצודת החקרא בירושלים היתה על פי יוסף בן מתתיהו:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "בעיר התחתונה",
@@ -421,6 +438,7 @@ const quiz: Quiz = {
       "id": 7018,
       "question": "מנורת שבעת קנים החרוטה על אבן רבועה נמצאה בחפירות בשטח בית הכנסת ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "מגדלא",
@@ -444,6 +462,7 @@ const quiz: Quiz = {
       "id": 7019,
       "question": "ח'רבת אל מיניה (חורבת מינים) באזור הכנרת מתוארכת לימי השושלת ה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "עבאסית",
@@ -467,6 +486,7 @@ const quiz: Quiz = {
       "id": 7020,
       "question": "עדויות מובהקות לרעידת האדמה של אמצע המאה השמינית לספירה ניתן לראות ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "בית שאן ויודפת",
@@ -490,6 +510,7 @@ const quiz: Quiz = {
       "id": 7021,
       "question": "המלך האחרון בממלכת ירושלים הצלבנית הראשונה היה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "גוטפריד מבויון",
@@ -513,6 +534,7 @@ const quiz: Quiz = {
       "id": 7022,
       "question": "המלכה שבימיה שוקמה כנסיית הקבר:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "הלנה",
@@ -536,6 +558,7 @@ const quiz: Quiz = {
       "id": 7023,
       "question": "בימי בייברס נבנה בארץ:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "שער האריות",
@@ -559,6 +582,7 @@ const quiz: Quiz = {
       "id": 7024,
       "question": "חולי דבר מצבא נפוליאון שוכנו:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "למרגלות תל עכו",
@@ -582,6 +606,7 @@ const quiz: Quiz = {
       "id": 7025,
       "question": "מושבה שנוסדה על ידי אנשי הישוב הישן מצפת:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "גיא אוני",
@@ -605,6 +630,7 @@ const quiz: Quiz = {
       "id": 7026,
       "question": "מבין הראשונים שעלו לארץ ישראל היו::",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "התימנים בעליית \"אעלה בתמר\"",
@@ -628,6 +654,7 @@ const quiz: Quiz = {
       "id": 7027,
       "question": "\"השבת השחורה\" היתה בשנת:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "1929",
@@ -651,6 +678,7 @@ const quiz: Quiz = {
       "id": 7028,
       "question": "אזור/מתחם שהיה מחוץ לשטחי מדינת ישראל משנת 1948 עד 1967:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "בקעת באר שבע",
@@ -674,6 +702,7 @@ const quiz: Quiz = {
       "id": 7029,
       "question": "אתר \"עמק הבכא\" קשור למלחמת:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "העצמאות",
@@ -697,6 +726,7 @@ const quiz: Quiz = {
       "id": 7030,
       "question": "הסכמי אוסלו נחתמו בשנת:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "1979",
@@ -720,6 +750,7 @@ const quiz: Quiz = {
       "id": 7031,
       "question": "שטחה של מדינת ישראל הוא כ-",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "2,000 קמ\"ר",
@@ -743,6 +774,7 @@ const quiz: Quiz = {
       "id": 7032,
       "question": "משנת 1936, בימי המנדט הבריטי, הנמל הגדול בארץ ישראל היה ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "יפו",
@@ -766,6 +798,7 @@ const quiz: Quiz = {
       "id": 7033,
       "question": "האוכלוסיה הלא יהודית במדינת ישראל מהווה כ:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "5%-10% מכלל האוכלוסיה",
@@ -789,6 +822,7 @@ const quiz: Quiz = {
       "id": 7034,
       "question": "מקום קבורתה של מרים אם ישו על פי המסורת הנוצרית אורתודוכסית נמצא ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "עמק יהושפט",
@@ -812,6 +846,7 @@ const quiz: Quiz = {
       "id": 7035,
       "question": "אתר הקשור בנסיונות שניסה השטן את ישו:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "הר הקפיצה",
@@ -835,6 +870,7 @@ const quiz: Quiz = {
       "id": 7036,
       "question": "בל\"ג בעומר מציינים את יום:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "הולדתו של רבי משה קורדוברו",
@@ -858,6 +894,7 @@ const quiz: Quiz = {
       "id": 7037,
       "question": "מתקן להכשרת מים במקווה מכונה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "פקדון",
@@ -881,6 +918,7 @@ const quiz: Quiz = {
       "id": 7038,
       "question": "הסורות בקוראן מסודרות בדרך כלל על פי:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "הסדר הכרונולוגי",
@@ -904,6 +942,7 @@ const quiz: Quiz = {
       "id": 7039,
       "question": "בית כנסת הרמח\"ל נמצא ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "עכו",
@@ -927,6 +966,7 @@ const quiz: Quiz = {
       "id": 7040,
       "question": "כנסיה מתומנת ניתן לראות ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "ממשית",
@@ -950,6 +990,7 @@ const quiz: Quiz = {
       "id": 7041,
       "question": "אתר מורשת עולמית:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "גני המלך בירושלים",
@@ -973,6 +1014,7 @@ const quiz: Quiz = {
       "id": 7042,
       "question": "רוב \"קברי הצדיקים\" בצפון הארץ נמצאים ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "גליל תחתון",
@@ -996,6 +1038,7 @@ const quiz: Quiz = {
       "id": 7043,
       "question": "אחת מתחנות רכבת העמק:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "בית יהושע",
@@ -1019,6 +1062,7 @@ const quiz: Quiz = {
       "id": 7044,
       "question": "את סיפור אנדרומדה נהוג לספר ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "יפו",
@@ -1042,6 +1086,7 @@ const quiz: Quiz = {
       "id": 7045,
       "question": "מוזיאון מחודש לתרבות הפלישתים נמצא ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "קרית גת",
@@ -1065,6 +1110,7 @@ const quiz: Quiz = {
       "id": 7046,
       "question": "ריכוז של אבני מיל מן התקופה הרומית ניתן לראות ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "מעלה העקרבים",
@@ -1088,6 +1134,7 @@ const quiz: Quiz = {
       "id": 7047,
       "question": "מתחמים רוסיים בארץ ישראל נמצאים ב:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "קומראן ודיר חג'לה",
@@ -1111,6 +1158,7 @@ const quiz: Quiz = {
       "id": 7048,
       "question": "בית הערבה הישנה היתה:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "באזור סדום",
@@ -1134,6 +1182,7 @@ const quiz: Quiz = {
       "id": 7049,
       "question": "ישוב המתמקד בנושאים סביבתיים",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "tourism",
       "answers": [
         {
           "text": "קיבוץ לוטן",
@@ -1157,6 +1206,7 @@ const quiz: Quiz = {
       "id": 7050,
       "question": "מעלה עלי נמצא מעל:",
       "category": "יוני 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "אבן העזר",
@@ -1180,6 +1230,7 @@ const quiz: Quiz = {
       "id": 8001,
       "question": "הגבוה מבין המקומות הבאים:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "חורבת קיאפה",
@@ -1203,6 +1254,7 @@ const quiz: Quiz = {
       "id": 8002,
       "question": "עוף שאינו דורס:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "עורב",
@@ -1226,6 +1278,7 @@ const quiz: Quiz = {
       "id": 8003,
       "question": "המכתש הגדול נמצא ברכס:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "חדרה",
@@ -1249,6 +1302,7 @@ const quiz: Quiz = {
       "id": 8004,
       "question": "אמצעים למניעת שריפות יער וחורש בישראל;",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "הגברת רעיה, יצירת שטחי חייץ",
@@ -1272,6 +1326,7 @@ const quiz: Quiz = {
       "id": 8005,
       "question": "\"טבלת גידוד\" היא מונח הקשור ל:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "קטיף תמרים",
@@ -1295,6 +1350,7 @@ const quiz: Quiz = {
       "id": 8006,
       "question": "בעונת הפריחה בישראל הפרח המקדים לפרוח בין הבאים:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "כלנית",
@@ -1318,6 +1374,7 @@ const quiz: Quiz = {
       "id": 8007,
       "question": "תארוך באמצעות פחמן 14 ניתן ליישם על:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "prehistory",
       "answers": [
         {
           "text": "קרמיקה",
@@ -1341,6 +1398,7 @@ const quiz: Quiz = {
       "id": 8008,
       "question": "הסרך של נערמר נמצא באזור:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "תל ערד",
@@ -1364,6 +1422,7 @@ const quiz: Quiz = {
       "id": 8009,
       "question": "כתובת בית דוד מתל דן, היא מן המאה ה:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "11 לפנה\"ס",
@@ -1387,6 +1446,7 @@ const quiz: Quiz = {
       "id": 8010,
       "question": "האמירה המקורית \"הרצחת וגם ירשת\" קשורה ל:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "עיר דוד",
@@ -1410,6 +1470,7 @@ const quiz: Quiz = {
       "id": 8011,
       "question": "הנביאים הבאים חיו בימי הבית השני:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "חגי ועמוס",
@@ -1433,6 +1494,7 @@ const quiz: Quiz = {
       "id": 8012,
       "question": "\"וולוטות\" נמצאות ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "כותרת מרפק",
@@ -1456,6 +1518,7 @@ const quiz: Quiz = {
       "id": 8013,
       "question": "שטח הר הבית בימי הורדוס היה בקירוב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "15 דונם",
@@ -1479,6 +1542,7 @@ const quiz: Quiz = {
       "id": 8014,
       "question": "היפודרום שהפך לאמפיתיאטרון התגלה ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "בית גוברין",
@@ -1502,6 +1566,7 @@ const quiz: Quiz = {
       "id": 8015,
       "question": "חדר הכס של המלך הורדוס זוהה על ידי הארכיאולוגיים ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "הרודיון",
@@ -1525,6 +1590,7 @@ const quiz: Quiz = {
       "id": 8016,
       "question": "בית כנסת מתקופת המשנה והתלמוד ובו פסיפס המציג דמות המזוהה עם שמשון הגיבור, נמצא ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "מגדלא",
@@ -1548,6 +1614,7 @@ const quiz: Quiz = {
       "id": 8017,
       "question": "אתרים שבהם שכנה הסנהדרין:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "יוקנעם ואושא",
@@ -1571,6 +1638,7 @@ const quiz: Quiz = {
       "id": 8018,
       "question": "הח'ליף אל-חאכם קשור ל:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "דרוזים",
@@ -1594,6 +1662,7 @@ const quiz: Quiz = {
       "id": 8019,
       "question": "הקרב המכריע בהשתלטות האיסלם הקדום על ארץ ישראל היה ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "עין ג'לות",
@@ -1617,6 +1686,7 @@ const quiz: Quiz = {
       "id": 8020,
       "question": "שרידי מגדל טנקרד נמצאים ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "רמלה",
@@ -1640,6 +1710,7 @@ const quiz: Quiz = {
       "id": 8021,
       "question": "המלכה מליסנדה היתה ממוצא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "צרפתי (מאנז'ו)",
@@ -1663,6 +1734,7 @@ const quiz: Quiz = {
       "id": 8022,
       "question": "בנבי סמואל נמצא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "חווה חקלאית צלבנית",
@@ -1686,6 +1758,7 @@ const quiz: Quiz = {
       "id": 8023,
       "question": "מקור היסטורי חשוב ללימודי התקופה הממלוכית בארץ ישראל הוא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "מוג'יר א-דין",
@@ -1709,6 +1782,7 @@ const quiz: Quiz = {
       "id": 8024,
       "question": "גירוש ספרד התרחש בעת שבארץ ישראל שלטו ה:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "צלבנים",
@@ -1732,6 +1806,7 @@ const quiz: Quiz = {
       "id": 8025,
       "question": "חידוש הישוב היהודי במאה ה-16 בטבריה קשור ל:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "דונה גרציה",
@@ -1755,6 +1830,7 @@ const quiz: Quiz = {
       "id": 8026,
       "question": "מספר הנשארים הקטן ביותר בעליות שקדמו להקמת המדינה היה בעלייה ה:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "ראשונה",
@@ -1778,6 +1854,7 @@ const quiz: Quiz = {
       "id": 8027,
       "question": "ירושלים הוכרזה בירת מדינת ישראל ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "נובמבר 1947",
@@ -1801,6 +1878,7 @@ const quiz: Quiz = {
       "id": 8028,
       "question": "תפקיד אותו לא מילא דוד בן גוריון:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "שר הבטחון",
@@ -1824,6 +1902,7 @@ const quiz: Quiz = {
       "id": 8029,
       "question": "זאב ז'בוטינסקי קשור ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "עלייה הראשונה",
@@ -1847,6 +1926,7 @@ const quiz: Quiz = {
       "id": 8030,
       "question": "ישוב ערבי בואדי ערה:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "סכנין",
@@ -1870,6 +1950,7 @@ const quiz: Quiz = {
       "id": 8031,
       "question": "עיר שנוסדה בזמן שלטון מוסלמי:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "טבריה",
@@ -1893,6 +1974,7 @@ const quiz: Quiz = {
       "id": 8032,
       "question": "המושג \"תקופת הצנע\" קשור לתולדות הישוב ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "תום מלחמת העולם הראשונה",
@@ -1916,6 +1998,7 @@ const quiz: Quiz = {
       "id": 8033,
       "question": "\"מבצע משה\" ו\"מבצע שלמה\" קשורים ל:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "מלחמת סיני",
@@ -1939,6 +2022,7 @@ const quiz: Quiz = {
       "id": 8034,
       "question": "העיר יריחו נמצאת בשטח:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "A",
@@ -1962,6 +2046,7 @@ const quiz: Quiz = {
       "id": 8035,
       "question": "ספרי יסוד ביהדות מן התקופה הרומית והביזנטית הם:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "תורה ומדרשים",
@@ -1985,6 +2070,7 @@ const quiz: Quiz = {
       "id": 8036,
       "question": "מספר אבות המלאכה האסורים בשבת הוא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "תרי\"ג",
@@ -2008,6 +2094,7 @@ const quiz: Quiz = {
       "id": 8037,
       "question": "קריאת \"פרשת השבוע\" לקוחה מ:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "התורה",
@@ -2031,6 +2118,7 @@ const quiz: Quiz = {
       "id": 8038,
       "question": "שני ה\"קרדו\" (CREDO) בנצרות הם של:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "כלקדון ופאולוס",
@@ -2054,6 +2142,7 @@ const quiz: Quiz = {
       "id": 8039,
       "question": "בנצרות \"רליקט\" הוא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "קיר נושא איקונות",
@@ -2077,6 +2166,7 @@ const quiz: Quiz = {
       "id": 8040,
       "question": "כנסיה מתומנת מן התקופה הביזנטית נמצאת ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "אבו ע'וש",
@@ -2100,6 +2190,7 @@ const quiz: Quiz = {
       "id": 8041,
       "question": "\"רכעה\" באיסלם היא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "שם אשתו היהודיה של מוחמד",
@@ -2123,6 +2214,7 @@ const quiz: Quiz = {
       "id": 8042,
       "question": "הר תבור הוא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "גראבן",
@@ -2146,6 +2238,7 @@ const quiz: Quiz = {
       "id": 8043,
       "question": "דרוזים בגולן אפשר למצוא ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "בוקעתא ועין קיניא",
@@ -2169,6 +2262,7 @@ const quiz: Quiz = {
       "id": 8044,
       "question": "אחוז המלח בים המלח הינו כ:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "10%",
@@ -2192,6 +2286,7 @@ const quiz: Quiz = {
       "id": 8045,
       "question": "בית קברות פלישתי התגלה לאחרונה ב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "תל גת (תל צפית)",
@@ -2215,6 +2310,7 @@ const quiz: Quiz = {
       "id": 8046,
       "question": "מרכז לתרבות ואומנות בתל אביב:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "בית עגנון",
@@ -2238,6 +2334,7 @@ const quiz: Quiz = {
       "id": 8047,
       "question": "מגילות ים המלח כוללות:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "טקסטים השייכים לכת האיסיים בלבד",
@@ -2261,6 +2358,7 @@ const quiz: Quiz = {
       "id": 8048,
       "question": "תחנת הרכבת העתידית בירושלים תהיה:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "בגבעת התחמושת",
@@ -2284,6 +2382,7 @@ const quiz: Quiz = {
       "id": 8049,
       "question": "אתר תיירותי הסמוך ביותר ליישוב אפרת:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "tourism",
       "answers": [
         {
           "text": "קבר רחל",
@@ -2307,6 +2406,7 @@ const quiz: Quiz = {
       "id": 8050,
       "question": "העיר הראשונה בארץ בה הוקמה מערכת מים מותפלים היא:",
       "category": "נובמבר 2016 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "אשדוד",
@@ -2330,6 +2430,7 @@ const quiz: Quiz = {
       "id": 9001,
       "question": "נחל אוג נמצא ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "רמת הגולן",
@@ -2353,6 +2454,7 @@ const quiz: Quiz = {
       "id": 9002,
       "question": "בתי כנסת עתיקים בבקעת כנרות:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "סוסיתא וסוסיא",
@@ -2376,6 +2478,7 @@ const quiz: Quiz = {
       "id": 9003,
       "question": "דרך שאינה בינלאומית היא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "\"דרך המלך\"",
@@ -2399,6 +2502,7 @@ const quiz: Quiz = {
       "id": 9004,
       "question": "ראש ממשלה שקבור בהר הזיתים:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "מנחם בגין",
@@ -2422,6 +2526,7 @@ const quiz: Quiz = {
       "id": 9005,
       "question": "שמו של שער שכם בערבית:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "באב אל עמוד",
@@ -2445,6 +2550,7 @@ const quiz: Quiz = {
       "id": 9006,
       "question": "יוסף חיים ברנר:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "יו\"ר אגודת פועלי ציון",
@@ -2468,6 +2574,7 @@ const quiz: Quiz = {
       "id": 9007,
       "question": "שנת היווסדה של פתח תקוה:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "1882",
@@ -2491,6 +2598,7 @@ const quiz: Quiz = {
       "id": 9008,
       "question": "\"עזרה ונחמיה\" – הוא כינוי לעלייה בה עלו יהודי:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "אתיופיה",
@@ -2514,6 +2622,7 @@ const quiz: Quiz = {
       "id": 9009,
       "question": "קבר הרמב\"ם נמצא ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "הר הזיתים",
@@ -2537,6 +2646,7 @@ const quiz: Quiz = {
       "id": 9010,
       "question": "שם של אל נבטי:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "אשרה",
@@ -2560,6 +2670,7 @@ const quiz: Quiz = {
       "id": 9011,
       "question": "מי מהבאים הוא עוף מים:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "שחרור",
@@ -2583,6 +2694,7 @@ const quiz: Quiz = {
       "id": 9012,
       "question": "המרכז העולמי הקראי נמצא ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "רובע היהודי בירושלים",
@@ -2606,6 +2718,7 @@ const quiz: Quiz = {
       "id": 9013,
       "question": "על פי המסורת, אחד המקומות שבהם ניסה השטן את ישוע:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "בית ציידא",
@@ -2629,6 +2742,7 @@ const quiz: Quiz = {
       "id": 9014,
       "question": "הטוף בכרמל הוא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "סוג סלע וולקני",
@@ -2652,6 +2766,7 @@ const quiz: Quiz = {
       "id": 9015,
       "question": "לוח השנה המוסלמי הוא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "שמשי וירחי",
@@ -2675,6 +2790,7 @@ const quiz: Quiz = {
       "id": 9016,
       "question": "כנסייה על שם סנטה אנה נמצאת ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "מגדלא, ירושלים",
@@ -2698,6 +2814,7 @@ const quiz: Quiz = {
       "id": 9017,
       "question": "\"אהל אלכתאב\" מתייחס ל:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "יהודים ונוצרים",
@@ -2721,6 +2838,7 @@ const quiz: Quiz = {
       "id": 9018,
       "question": "קוד לבוש והתנהגות המקובלים בכנסיות רבות:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "tourism",
       "answers": [
         {
           "text": "אין להיכנס בסנדלים",
@@ -2744,6 +2862,7 @@ const quiz: Quiz = {
       "id": 9019,
       "question": "\"מובילאיי\" הוא שמה של:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "חברה טכנולוגית ישראלית",
@@ -2767,6 +2886,7 @@ const quiz: Quiz = {
       "id": 9020,
       "question": "אנדרטה לאלכסנדר זייד נמצאת ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "הר תבור",
@@ -2790,6 +2910,7 @@ const quiz: Quiz = {
       "id": 9021,
       "question": "\"הקו העירוני\" בירושלים נקבע בעקבות:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "הסכמי דיין ועבדאללה א-תל",
@@ -2813,6 +2934,7 @@ const quiz: Quiz = {
       "id": 9022,
       "question": "אתר הנצחה לנשיא אמריקאי נמצא ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "תל אביב",
@@ -2836,6 +2958,7 @@ const quiz: Quiz = {
       "id": 9023,
       "question": "הפריצה לכלא עכו היתה ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "1938",
@@ -2859,6 +2982,7 @@ const quiz: Quiz = {
       "id": 9024,
       "question": "ישוב שהוקם לאחר קום המדינה:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "שדה בוקר",
@@ -2882,6 +3006,7 @@ const quiz: Quiz = {
       "id": 9025,
       "question": "\"המכביה\" הראשונה התקיימה ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "ירושלים",
@@ -2905,6 +3030,7 @@ const quiz: Quiz = {
       "id": 9026,
       "question": "השם הקודם של אילניה:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "מסחה",
@@ -2928,6 +3054,7 @@ const quiz: Quiz = {
       "id": 9027,
       "question": "מחתרת ניל\"י פעלה ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "מרד גטו ורשה",
@@ -2951,6 +3078,7 @@ const quiz: Quiz = {
       "id": 9028,
       "question": "ישוב שחרב וקם מחדש, תחת אותו שם:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "כברי",
@@ -2974,6 +3102,7 @@ const quiz: Quiz = {
       "id": 9029,
       "question": "עמוד העלי הוא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "פסגת התל בשילה",
@@ -2997,6 +3126,7 @@ const quiz: Quiz = {
       "id": 9030,
       "question": "ניתן לצפות ביעלים בישראל בעיקר ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אגמון החולה",
@@ -3020,6 +3150,7 @@ const quiz: Quiz = {
       "id": 9031,
       "question": "קו פרשת המים הארצי באזור ירושלים עובר ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "הר הרצל – הר אורה",
@@ -3043,6 +3174,7 @@ const quiz: Quiz = {
       "id": 9032,
       "question": "תחנת הרכבת החדשה בירושלים תהיה באזור:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "בניני האומה",
@@ -3066,6 +3198,7 @@ const quiz: Quiz = {
       "id": 9033,
       "question": "אתר טורבינות רוח לייצור חשמל נמצא ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "גלבוע",
@@ -3089,6 +3222,7 @@ const quiz: Quiz = {
       "id": 9034,
       "question": "את הצב הרך ניתן לראות לעיתים ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "נחל דישון",
@@ -3112,6 +3246,7 @@ const quiz: Quiz = {
       "id": 9035,
       "question": "כלי המאפיין במובהק את התרבות הכלכוליתית:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "prehistory",
       "answers": [
         {
           "text": "קנקן שפת צווארון",
@@ -3135,6 +3270,7 @@ const quiz: Quiz = {
       "id": 9036,
       "question": "אתר קבורה לכלבים נתגלה ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "עזה ואשקלון",
@@ -3158,6 +3294,7 @@ const quiz: Quiz = {
       "id": 9037,
       "question": "סיפורי שמשון מופיעים בספר:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "יהושע",
@@ -3181,6 +3318,7 @@ const quiz: Quiz = {
       "id": 9038,
       "question": "נביא שאינו שייך ל\"תרי עשר\":",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "עמוס",
@@ -3204,6 +3342,7 @@ const quiz: Quiz = {
       "id": 9039,
       "question": "\"כתובת תיאודוטוס\" קשורה ל:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "איסור כניסה להר הבית",
@@ -3227,6 +3366,7 @@ const quiz: Quiz = {
       "id": 9040,
       "question": "כתובת המזכירה רשימת \"משמרות כהונה\" נמצאה ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "צפת",
@@ -3250,6 +3390,7 @@ const quiz: Quiz = {
       "id": 9041,
       "question": "תנאי לכשרות של מקווה הוא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "נפח של 40 סאה ומים שאובים",
@@ -3273,6 +3414,7 @@ const quiz: Quiz = {
       "id": 9042,
       "question": "רוב החורבות בכרמל משוייכות לתקופה ה:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "הרודיאנית",
@@ -3296,6 +3438,7 @@ const quiz: Quiz = {
       "id": 9043,
       "question": "הקיר במסגד הפונה לכיוון מכה נקרא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "מנבר",
@@ -3319,6 +3462,7 @@ const quiz: Quiz = {
       "id": 9044,
       "question": "הקדומה ביותר מבין הדמויות הבאות:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "רבי יוחנן בן זכאי",
@@ -3342,6 +3486,7 @@ const quiz: Quiz = {
       "id": 9045,
       "question": "אתר מן התקופה האומאית:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "חורבת מינים )ח'רבת מיניה(",
@@ -3365,6 +3510,7 @@ const quiz: Quiz = {
       "id": 9046,
       "question": "הנציב העליון הבריטי האחרון עזב את הארץ ב:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "כ\"ט בנובמבר 1947",
@@ -3388,6 +3534,7 @@ const quiz: Quiz = {
       "id": 9047,
       "question": "יום שאינו יום צום ביהדות:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "ט' באב",
@@ -3411,6 +3558,7 @@ const quiz: Quiz = {
       "id": 9048,
       "question": "בקרני חיטין נמצא:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "ישוב כנעני וישראלי",
@@ -3434,6 +3582,7 @@ const quiz: Quiz = {
       "id": 9049,
       "question": "עיר שהוקפה חומה על ידי סולימאן המפואר:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "יפו",
@@ -3457,6 +3606,7 @@ const quiz: Quiz = {
       "id": 9050,
       "question": "הקשת מופיעה לראשונה בארץ ישראל בתקופה ה:",
       "category": "נובמבר 2017 · תשובות לא רשמיות",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "כלכוליתית",
@@ -3480,6 +3630,7 @@ const quiz: Quiz = {
       "id": 10001,
       "question": "ָל ָבה היא:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "סלע בזלתי נקבובי",
@@ -3503,6 +3654,7 @@ const quiz: Quiz = {
       "id": 10002,
       "question": "מעיין \"פועם\" נמצא ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "ואדי קלט",
@@ -3526,6 +3678,7 @@ const quiz: Quiz = {
       "id": 10003,
       "question": "הנחל הצפוני מבין הנחלים הבאים:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "נחל תנינים",
@@ -3549,6 +3702,7 @@ const quiz: Quiz = {
       "id": 10004,
       "question": "פארק הבנוי על מטמנת פסולת הוא פארק:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "אריאל שרון",
@@ -3572,6 +3726,7 @@ const quiz: Quiz = {
       "id": 10005,
       "question": "מדינת ישראל נמצאת סמוך לקו רוחב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "10 מעלות",
@@ -3595,6 +3750,7 @@ const quiz: Quiz = {
       "id": 10006,
       "question": "ריכוז העגורים הגדול ביותר בארץ נמצא ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "תחנת הטיבוע באילת",
@@ -3618,6 +3774,7 @@ const quiz: Quiz = {
       "id": 10007,
       "question": "מאפיין את החורש הים תיכוני:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אורן הסלע",
@@ -3641,6 +3798,7 @@ const quiz: Quiz = {
       "id": 10008,
       "question": "חקלאות קדומה המתבססת על השקיה קרויה בשם חקלאות:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "שלחין",
@@ -3664,6 +3822,7 @@ const quiz: Quiz = {
       "id": 10009,
       "question": "רעידת אדמה גדולה היתה בארץ ישראל בשנת:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "1099",
@@ -3687,6 +3846,7 @@ const quiz: Quiz = {
       "id": 10010,
       "question": "סרקופג הוא:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "בור חצוב לאיסוף עצמות",
@@ -3710,6 +3870,7 @@ const quiz: Quiz = {
       "id": 10011,
       "question": "הופעת הערים הראשונות בארץ ישראל מתרחשת בתקופה:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "הכלכוליתית",
@@ -3733,6 +3894,7 @@ const quiz: Quiz = {
       "id": 10012,
       "question": "מרכז פולחני של שבטי ישראל לפני ימי הבית הראשון היה ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "שומרון",
@@ -3756,6 +3918,7 @@ const quiz: Quiz = {
       "id": 10013,
       "question": "על פי התנ\"ך ראשית השומרונים קשורה ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "ימי דוד ושלמה",
@@ -3779,6 +3942,7 @@ const quiz: Quiz = {
       "id": 10014,
       "question": "מאפיין מובהק של ישוב יהודי בימי הבית השני הוא:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "מקוואות",
@@ -3802,6 +3966,7 @@ const quiz: Quiz = {
       "id": 10015,
       "question": "כנסייה שרואים במפת מידבא היא כנסיית:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "המשיח",
@@ -3825,6 +3990,7 @@ const quiz: Quiz = {
       "id": 10016,
       "question": "רבי יהודה הנשיא נקבר ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "שפרעם",
@@ -3848,6 +4014,7 @@ const quiz: Quiz = {
       "id": 10017,
       "question": "עיסא בקוראן הוא:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "אדם הראשון",
@@ -3871,6 +4038,7 @@ const quiz: Quiz = {
       "id": 10018,
       "question": "הקוראן מחולק ל:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "סורות",
@@ -3894,6 +4062,7 @@ const quiz: Quiz = {
       "id": 10019,
       "question": "חלוקת ירושלים בהסכם בין הצלבנים לאיובים היתה בימי:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "בלדווין הראשון",
@@ -3917,6 +4086,7 @@ const quiz: Quiz = {
       "id": 10020,
       "question": "מוקרנס הוא עיטור ארכיטקטוני המוכר בארץ מהתקופה ה:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "חשמונאית",
@@ -3940,6 +4110,7 @@ const quiz: Quiz = {
       "id": 10021,
       "question": "\"דרך הדואר\" הממלוכית מתבססת על תוואי:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "דרך הים",
@@ -3963,6 +4134,7 @@ const quiz: Quiz = {
       "id": 10022,
       "question": "שריד למבצר צלבני נמצא ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "crusader",
       "answers": [
         {
           "text": "חורבת מנות",
@@ -3986,6 +4158,7 @@ const quiz: Quiz = {
       "id": 10023,
       "question": "אחד מן האתרים המזוהים עם אמאוס הוא:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "נבי סמואל",
@@ -4009,6 +4182,7 @@ const quiz: Quiz = {
       "id": 10024,
       "question": "\"סביל אבו נבוט\" נמצא ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "עכו",
@@ -4032,6 +4206,7 @@ const quiz: Quiz = {
       "id": 10025,
       "question": "מפקד ערבי ששמו נקשר בקרב על הקסטל הוא:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "עבד אל קאדר אל חוסייני",
@@ -4055,6 +4230,7 @@ const quiz: Quiz = {
       "id": 10026,
       "question": "מפת ז'קוטן היא מפה של ארץ ישראל מן התקופה ה:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "ביזנטית",
@@ -4078,6 +4254,7 @@ const quiz: Quiz = {
       "id": 10027,
       "question": "אנדרטה ללוחם הבדואי נמצאת ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "צפון הארץ",
@@ -4101,6 +4278,7 @@ const quiz: Quiz = {
       "id": 10028,
       "question": "חנה מייזל קשורה ל:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "אחוזת דוברובניק בעמק החולה",
@@ -4124,6 +4302,7 @@ const quiz: Quiz = {
       "id": 10029,
       "question": "ראשי התיבות של לח\"י:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "לוחמי חירות יהודים",
@@ -4147,6 +4326,7 @@ const quiz: Quiz = {
       "id": 10030,
       "question": "הפלמ\"ח פורק בפקודת:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "יגאל אלון",
@@ -4170,6 +4350,7 @@ const quiz: Quiz = {
       "id": 10031,
       "question": "קריית השלטון של מדינת ישראל נמצאת באזור:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "הר הרצל",
@@ -4193,6 +4374,7 @@ const quiz: Quiz = {
       "id": 10032,
       "question": "מספר התושבים במדינת ישראל בשנת 2018 הוא כ:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "6 מיליון תושבים",
@@ -4216,6 +4398,7 @@ const quiz: Quiz = {
       "id": 10033,
       "question": "סיור בשטחי אש ניתן בדרך כלל לבצע ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "פורים",
@@ -4239,6 +4422,7 @@ const quiz: Quiz = {
       "id": 10034,
       "question": "תהלוכת יום ראשון של הדקלים מתחילה באזור:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "הר הזיתים",
@@ -4262,6 +4446,7 @@ const quiz: Quiz = {
       "id": 10035,
       "question": "האתר במגדלא נמצא בבעלות:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "יהודית",
@@ -4285,6 +4470,7 @@ const quiz: Quiz = {
       "id": 10036,
       "question": "הנצרות הפכה לדת מדינה באימפריה הרומית במאה ה:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "3 לספירה",
@@ -4308,6 +4494,7 @@ const quiz: Quiz = {
       "id": 10037,
       "question": "\"מים שלנו\" הוא מושג הקשור בחג:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "ראש השנה",
@@ -4331,6 +4518,7 @@ const quiz: Quiz = {
       "id": 10038,
       "question": "ראשית התנועה הרפורמית של היהודים היתה:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "אחרי מלחמת העולם הראשונה",
@@ -4354,6 +4542,7 @@ const quiz: Quiz = {
       "id": 10039,
       "question": "נבי סבלאן הינו אתר המקודש ל:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "צ'רקסים",
@@ -4377,6 +4566,7 @@ const quiz: Quiz = {
       "id": 10040,
       "question": "יישוב בדואי:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "ערב אל עראמשה",
@@ -4400,6 +4590,7 @@ const quiz: Quiz = {
       "id": 10041,
       "question": "הר ברמת הגולן:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "החרמון",
@@ -4423,6 +4614,7 @@ const quiz: Quiz = {
       "id": 10042,
       "question": "נחל הנשפך לכנרת:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "ירמוך",
@@ -4446,6 +4638,7 @@ const quiz: Quiz = {
       "id": 10043,
       "question": "רוב הממצאים במוזיאון \"המזגגה\" הם מאזור:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "אפולוניה",
@@ -4469,6 +4662,7 @@ const quiz: Quiz = {
       "id": 10044,
       "question": "בקיסריה היה מקדש רומי שהוקדש ל:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "אוגוסטוס",
@@ -4492,6 +4686,7 @@ const quiz: Quiz = {
       "id": 10045,
       "question": "אמת מים להר הבית הגיעה מ:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "ואדי קלט",
@@ -4515,6 +4710,7 @@ const quiz: Quiz = {
       "id": 10046,
       "question": "תל קסילה נמצא ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "אשקלון",
@@ -4538,6 +4734,7 @@ const quiz: Quiz = {
       "id": 10047,
       "question": "\"המוביל המלוח\" קשור לאזור:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "נחל תנינים",
@@ -4561,6 +4758,7 @@ const quiz: Quiz = {
       "id": 10048,
       "question": "שכונה שהוקמה בירושלים אחרי מלחמת ששת הימים:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "בית הכרם",
@@ -4584,6 +4782,7 @@ const quiz: Quiz = {
       "id": 10049,
       "question": "המונח אנז\"ק מתאר:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "מחתרת יהודית במלחמת העולם הראשונה",
@@ -4607,6 +4806,7 @@ const quiz: Quiz = {
       "id": 10050,
       "question": "נמל התעופה החדש רמון נמצא ב:",
       "category": "יוני 2018 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "ערבה הדרומית מצפון לאילת",
@@ -4630,6 +4830,7 @@ const quiz: Quiz = {
       "id": 11001,
       "question": "סלע נארי מתפתח על סלע:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "geology",
       "answers": [
         {
           "text": "קירטון",
@@ -4653,6 +4854,7 @@ const quiz: Quiz = {
       "id": 11002,
       "question": "רב הקשור לשיקומה של טבריה הוא הרב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "חיים אבולעפיה",
@@ -4676,6 +4878,7 @@ const quiz: Quiz = {
       "id": 11003,
       "question": "נחל הנשפך לירדן:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "תנינים",
@@ -4699,6 +4902,7 @@ const quiz: Quiz = {
       "id": 11004,
       "question": "הזור והע'ור הם מונחים הקשורים ל:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "ירקון",
@@ -4722,6 +4926,7 @@ const quiz: Quiz = {
       "id": 11005,
       "question": "משאב טבע המצוי בכמויות גדולות בישראל:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "נפט",
@@ -4745,6 +4950,7 @@ const quiz: Quiz = {
       "id": 11006,
       "question": "על פי ספר יהושע ירושלים היתה בנחלת שבט:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "ראובן",
@@ -4768,6 +4974,7 @@ const quiz: Quiz = {
       "id": 11007,
       "question": "כלניות במגוון צבעים ניתן למצוא בעיקר באזור:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "עוטף עזה",
@@ -4791,6 +4998,7 @@ const quiz: Quiz = {
       "id": 11008,
       "question": "עוף פולש לארץ בשנים האחרונות:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "עוזניה",
@@ -4814,6 +5022,7 @@ const quiz: Quiz = {
       "id": 11009,
       "question": "נחל אוג נמצא ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "כרמל",
@@ -4837,6 +5046,7 @@ const quiz: Quiz = {
       "id": 11010,
       "question": "גשר ג'ינדס נמצא על נחל:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "geography",
       "answers": [
         {
           "text": "איילון",
@@ -4860,6 +5070,7 @@ const quiz: Quiz = {
       "id": 11011,
       "question": "פירוש המונח 'בד' במתקן בית הבד:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אבן הרכב",
@@ -4883,6 +5094,7 @@ const quiz: Quiz = {
       "id": 11012,
       "question": "שריד מתקופת המקרא נמצא בחפירות ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "נבי סמואל",
@@ -4906,6 +5118,7 @@ const quiz: Quiz = {
       "id": 11013,
       "question": "קבורת כלבים בארץ בקנה מידה גדול יחסית נחשפה ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "קיסריה",
@@ -4929,6 +5142,7 @@ const quiz: Quiz = {
       "id": 11014,
       "question": "אתר שלא הוכר כאתר מורשת עולמית:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "tourism",
       "answers": [
         {
           "text": "מגידו",
@@ -4952,6 +5166,7 @@ const quiz: Quiz = {
       "id": 11015,
       "question": "שמה הקדום של קיסריה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "מגדל סטרטון (מגדל שרשון)",
@@ -4975,6 +5190,7 @@ const quiz: Quiz = {
       "id": 11016,
       "question": "אמת מים עות'מאנית נמצאת ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "עבדת",
@@ -4998,6 +5214,7 @@ const quiz: Quiz = {
       "id": 11017,
       "question": "המרד המאוחר מבין הבאים:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "המרד הגדול",
@@ -5021,6 +5238,7 @@ const quiz: Quiz = {
       "id": 11018,
       "question": "חורבן ירושלים בימי בית שני הושלם בחודש:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "תשרי",
@@ -5044,6 +5262,7 @@ const quiz: Quiz = {
       "id": 11019,
       "question": "עיר שהוקמה בסוף ימי הבית השני:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "טבריה",
@@ -5067,6 +5286,7 @@ const quiz: Quiz = {
       "id": 11020,
       "question": "השליט הפאטימי אל חאכם קשור בדת ה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "בהאית",
@@ -5090,6 +5310,7 @@ const quiz: Quiz = {
       "id": 11021,
       "question": "מתחם צלבני גרמני בירושלים נמצא ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "שער שכם",
@@ -5113,6 +5334,7 @@ const quiz: Quiz = {
       "id": 11022,
       "question": "ראשית הזרם הקראי היה במאה ה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "7 לספירה",
@@ -5136,6 +5358,7 @@ const quiz: Quiz = {
       "id": 11023,
       "question": "מאפיין ארכיטקטוני מובהק של הבנייה הממלוכית:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "טריגליפים",
@@ -5159,6 +5382,7 @@ const quiz: Quiz = {
       "id": 11024,
       "question": "מייסדת \"חוות העלמות\" היתה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "רחל המשוררת",
@@ -5182,6 +5406,7 @@ const quiz: Quiz = {
       "id": 11025,
       "question": "מהיישובים הראשונים שנוסדו בגוש עציון לפני קום המדינה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אלון שבות",
@@ -5205,6 +5430,7 @@ const quiz: Quiz = {
       "id": 11026,
       "question": "שער נצחון רומי ניתן לראות ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "קיסריה",
@@ -5228,6 +5454,7 @@ const quiz: Quiz = {
       "id": 11027,
       "question": "הפלי\"ם הוא:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "הזרוע הצבאית הימית של הפלמ\"ח",
@@ -5251,6 +5478,7 @@ const quiz: Quiz = {
       "id": 11028,
       "question": "המנורה מסמל מדינת ישראל לקוחה מ:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "מטבע של מתתיהו אנטיגונוס",
@@ -5274,6 +5502,7 @@ const quiz: Quiz = {
       "id": 11029,
       "question": "ההכרזה על הקמת מדינת ישראל היתה ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "כ\"ט בנובמבר",
@@ -5297,6 +5526,7 @@ const quiz: Quiz = {
       "id": 11030,
       "question": "בתי קברות צבאיים בריטיים נמצאים ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "באר שבע ורמלה",
@@ -5320,6 +5550,7 @@ const quiz: Quiz = {
       "id": 11031,
       "question": "במפת מידבא לא נמצא בירושלים את:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "הקארדו המזרחי",
@@ -5343,6 +5574,7 @@ const quiz: Quiz = {
       "id": 11032,
       "question": "רצח ראש הממשלה יצחק רבין היה בשנת:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "1993",
@@ -5366,6 +5598,7 @@ const quiz: Quiz = {
       "id": 11033,
       "question": "שתולה וזרעית הוקמו כ:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "ישובי חומה ומגדל",
@@ -5389,6 +5622,7 @@ const quiz: Quiz = {
       "id": 11034,
       "question": "אתר הדורש תיאום בטחוני לצורך הביקור בו:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "tourism",
       "answers": [
         {
           "text": "סרטבא",
@@ -5412,6 +5646,7 @@ const quiz: Quiz = {
       "id": 11035,
       "question": "חוקר ארץ ישראל במאה ה-19:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "ריכרד קאופמן",
@@ -5435,6 +5670,7 @@ const quiz: Quiz = {
       "id": 11036,
       "question": "טובא זנגריה הוא ישוב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "בדואי",
@@ -5458,6 +5694,7 @@ const quiz: Quiz = {
       "id": 11037,
       "question": "אחרון המלכים ביהודה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "bible",
       "answers": [
         {
           "text": "אחזיהו",
@@ -5481,6 +5718,7 @@ const quiz: Quiz = {
       "id": 11038,
       "question": "מס מיוחד שהוטל על יהודים תחת שלטון האיסלאם:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "ג'יזיה",
@@ -5504,6 +5742,7 @@ const quiz: Quiz = {
       "id": 11039,
       "question": "שטריימל הוא:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "judaism",
       "answers": [
         {
           "text": "פיוט לשבת",
@@ -5527,6 +5766,7 @@ const quiz: Quiz = {
       "id": 11040,
       "question": "פלמינגו ניתן לראות ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "עין תמיר",
@@ -5550,6 +5790,7 @@ const quiz: Quiz = {
       "id": 11041,
       "question": "\"שביל ישו\" ו\"דרך הבשורה\" עוברים באיזור:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "christianity",
       "answers": [
         {
           "text": "הר הזיתים",
@@ -5573,6 +5814,7 @@ const quiz: Quiz = {
       "id": 11042,
       "question": "חג \"הסיגד\" שייך לעדה ה:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "minorities",
       "answers": [
         {
           "text": "תימנית",
@@ -5596,6 +5838,7 @@ const quiz: Quiz = {
       "id": 11043,
       "question": "מספר חברי הכנסת בכנסת ישראל:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "state",
       "answers": [
         {
           "text": "70",
@@ -5619,6 +5862,7 @@ const quiz: Quiz = {
       "id": 11044,
       "question": "\"עיד אל אדחא\" מתקיים:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "islam",
       "answers": [
         {
           "text": "בקיץ",
@@ -5642,6 +5886,7 @@ const quiz: Quiz = {
       "id": 11045,
       "question": "מסע נפוליאון לארץ ישראל היה ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "סוף המאה ה-17",
@@ -5665,6 +5910,7 @@ const quiz: Quiz = {
       "id": 11046,
       "question": "הקיסר פראנץ יוזף ביקר באזורנו לרגל:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "חנוכת תעלת סואץ",
@@ -5688,6 +5934,7 @@ const quiz: Quiz = {
       "id": 11047,
       "question": "מוזיאון \"המזגגה\" נמצא ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "ירוחם",
@@ -5711,6 +5958,7 @@ const quiz: Quiz = {
       "id": 11048,
       "question": "\"אקווריום ישראל\" נמצא ב:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "חיפה",
@@ -5734,6 +5982,7 @@ const quiz: Quiz = {
       "id": 11049,
       "question": "מוזיאון פרה היסטורי נמצא בקיבוץ:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "prehistory",
       "answers": [
         {
           "text": "דפנה",
@@ -5757,6 +6006,7 @@ const quiz: Quiz = {
       "id": 11050,
       "question": "תחנת הרכבת בירושלים נקראת על שמו של הנשיא:",
       "category": "יוני 2019 · תשובות לא רשמיות",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "חיים ויצמן",
@@ -5780,6 +6030,7 @@ const quiz: Quiz = {
       "id": 1001,
       "question": "בית הכנסת שבו יש סמליות אדריכלית מיוחדת למספרים מ-1 עד 12 הוא:",
       "category": "חורף 2021",
+      "topic": "state",
       "answers": [
         {
           "text": "בית הכנסת החורבה בירושלים",
@@ -5803,6 +6054,7 @@ const quiz: Quiz = {
       "id": 1002,
       "question": "מה הוא המסלע שנוצר באגם זה?",
       "category": "חורף 2021",
+      "topic": "geology",
       "answers": [
         {
           "text": "כורכר",
@@ -5826,6 +6078,7 @@ const quiz: Quiz = {
       "id": 1003,
       "question": "איזו עיר נוספת נפגעה קשה במיוחד ברעידת אדמה זו?",
       "category": "חורף 2021",
+      "topic": "geology",
       "answers": [
         {
           "text": "צפת",
@@ -5849,6 +6102,7 @@ const quiz: Quiz = {
       "id": 1004,
       "question": "איזו חומה נבנתה בירושלים כאמצעי הגנה בפני האשורים?",
       "category": "חורף 2021",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "החומה השלישית",
@@ -5872,6 +6126,7 @@ const quiz: Quiz = {
       "id": 1005,
       "question": "דרך זו חיברה בין הערים:",
       "category": "חורף 2021",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "בגדד וטבריה",
@@ -5895,6 +6150,7 @@ const quiz: Quiz = {
       "id": 1006,
       "question": "מה שמו של רכס זה לפי מסורת נוצרית?",
       "category": "חורף 2021",
+      "topic": "christianity",
       "answers": [
         {
           "text": "הר העצה הרעה",
@@ -5918,6 +6174,7 @@ const quiz: Quiz = {
       "id": 1007,
       "question": "מקור שמו של מוזיאון יד ושם הוא ב:",
       "category": "חורף 2021",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "שיר של דן פאגיס \"כתוב בעפרון בקרון החתום\"",
@@ -5941,6 +6198,7 @@ const quiz: Quiz = {
       "id": 1008,
       "question": "הגישה הציונית שבה דגל הרצל היא:",
       "category": "חורף 2021",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "הציונות המעשית",
@@ -5964,6 +6222,7 @@ const quiz: Quiz = {
       "id": 1009,
       "question": "במסורת המוסלמית פסוקי הקוראן הורדו לנביא מוחמד בפעם הראשונה ב:",
       "category": "חורף 2021",
+      "topic": "islam",
       "answers": [
         {
           "text": "עיד אל-אדחא",
@@ -5987,6 +6246,7 @@ const quiz: Quiz = {
       "id": 1010,
       "question": "מהו סדר התקופות הנכון בארץ?",
       "category": "חורף 2021",
+      "topic": "bible",
       "answers": [
         {
           "text": "בבלית, אשורית, פרסית",
@@ -6010,6 +6270,7 @@ const quiz: Quiz = {
       "id": 1011,
       "question": "ענף עם פירות הצמח הזה, זוהה ב-2021 על:",
       "category": "חורף 2021",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "חותם מימי בית שני",
@@ -6033,6 +6294,7 @@ const quiz: Quiz = {
       "id": 1012,
       "question": "ויכוח תיאולוגי שבעקבותיו התרחשה \"הסכיזמה הגדולה\" היה קשור:",
       "category": "חורף 2021",
+      "topic": "christianity",
       "answers": [
         {
           "text": "למעמדה של רוח הקודש",
@@ -6056,6 +6318,7 @@ const quiz: Quiz = {
       "id": 1013,
       "question": "מתיישביה הראשונים של העיר היו אנשי העלייה ה:",
       "category": "חורף 2021",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "ראשונה",
@@ -6079,6 +6342,7 @@ const quiz: Quiz = {
       "id": 1014,
       "question": "מה הוא הסוג הנפוץ ביותר של העצים ביער זה?",
       "category": "חורף 2021",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "אלון",
@@ -6102,6 +6366,7 @@ const quiz: Quiz = {
       "id": 1015,
       "question": "איזו מהפעולות הבאות נעשתה כדי לייבש את הביצה הזו?",
       "category": "חורף 2021",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "נטיעת אקליפטוסים",
@@ -6125,6 +6390,7 @@ const quiz: Quiz = {
       "id": 1016,
       "question": "אחד מיישובי גוש עציון שנפל היה קיבוץ:",
       "category": "חורף 2021",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "ניר עציון",
@@ -6148,6 +6414,7 @@ const quiz: Quiz = {
       "id": 1017,
       "question": "נוסח הקוראן התקבע סופית בימי החליף:",
       "category": "חורף 2021",
+      "topic": "islam",
       "answers": [
         {
           "text": "עות'מאן",
@@ -6171,6 +6438,7 @@ const quiz: Quiz = {
       "id": 1018,
       "question": "תחנת כוח הנקראת על שמו נמצאת ב:",
       "category": "חורף 2021",
+      "topic": "state",
       "answers": [
         {
           "text": "נהריים",
@@ -6194,6 +6462,7 @@ const quiz: Quiz = {
       "id": 1019,
       "question": "חגיגות אלה קשורות באתר",
       "category": "חורף 2021",
+      "topic": "christianity",
       "answers": [
         {
           "text": "שוני",
@@ -6217,6 +6486,7 @@ const quiz: Quiz = {
       "id": 1020,
       "question": "באיזה מהישובים הבאים היתה תעשייה הקשורה בעץ התות?",
       "category": "חורף 2021",
+      "topic": "state",
       "answers": [
         {
           "text": "ראש פינה",
@@ -6240,6 +6510,7 @@ const quiz: Quiz = {
       "id": 1021,
       "question": "מוזיאון למורשת ותרבות הבדואים על שם ג'ו אלון נמצא ב:",
       "category": "חורף 2021",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "באר שבע",
@@ -6263,6 +6534,7 @@ const quiz: Quiz = {
       "id": 1022,
       "question": "בין היתר נמצא בה מבנה הקשור לתקופת:",
       "category": "חורף 2021",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "החליף עומר",
@@ -6286,6 +6558,7 @@ const quiz: Quiz = {
       "id": 1023,
       "question": "ארבעת המינים הם:",
       "category": "חורף 2021",
+      "topic": "judaism",
       "answers": [
         {
           "text": "אתרוג, לולב רימון, ערבה",
@@ -6309,6 +6582,7 @@ const quiz: Quiz = {
       "id": 1024,
       "question": "מה הוא האירוע שאותו מציינים בתחנה השישית?",
       "category": "חורף 2021",
+      "topic": "christianity",
       "answers": [
         {
           "text": "ישו (ישוע) פוגש את אימו",
@@ -6332,6 +6606,7 @@ const quiz: Quiz = {
       "id": 1025,
       "question": "בנצרות תפילה זו היא פרפיגורציה לתפילת:",
       "category": "חורף 2021",
+      "topic": "judaism",
       "answers": [
         {
           "text": "בנדיקטוס",
@@ -6355,6 +6630,7 @@ const quiz: Quiz = {
       "id": 1026,
       "question": "ישנה סברה כי מקום זה היה ביתו של:",
       "category": "חורף 2021",
+      "topic": "judaism",
       "answers": [
         {
           "text": "רבי אושעיה",
@@ -6378,6 +6654,7 @@ const quiz: Quiz = {
       "id": 1027,
       "question": "איזה ממצא חשוב התגלה באתר זה?",
       "category": "חורף 2021",
+      "topic": "bible",
       "answers": [
         {
           "text": "כתובת \"בית דוד\"",
@@ -6401,6 +6678,7 @@ const quiz: Quiz = {
       "id": 1028,
       "question": "שער חשוב שהיה בחומה זו הוא:",
       "category": "חורף 2021",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "שער פסיפנוס",
@@ -6424,6 +6702,7 @@ const quiz: Quiz = {
       "id": 1029,
       "question": "רוב הצ'רקסים הם:",
       "category": "חורף 2021",
+      "topic": "minorities",
       "answers": [
         {
           "text": "קראים",
@@ -6447,6 +6726,7 @@ const quiz: Quiz = {
       "id": 1030,
       "question": "נחל זה עובר באזור:",
       "category": "חורף 2021",
+      "topic": "geography",
       "answers": [
         {
           "text": "רמת הגולן",
@@ -6470,6 +6750,7 @@ const quiz: Quiz = {
       "id": 1031,
       "question": "הוא היה המפקד הראשון של חטיבת:",
       "category": "חורף 2021",
+      "topic": "state",
       "answers": [
         {
           "text": "הנגב",
@@ -6493,6 +6774,7 @@ const quiz: Quiz = {
       "id": 1032,
       "question": "המלך שכבש את יפו בתחבולת הכדים הוא:",
       "category": "חורף 2021",
+      "topic": "bible",
       "answers": [
         {
           "text": "תחותמס השלישי",
@@ -6516,6 +6798,7 @@ const quiz: Quiz = {
       "id": 2001,
       "question": "מי היה מלך אנגליה שהגיע לארץ ישראל בראש מסע הצלב השלישי? ריצ'ארד לב הארי / ריצ'ארד ה-1 היכן ניתן למצוא בירושלים מתחם צלבני גרמני?",
       "category": "חורף 2022",
+      "topic": "crusader",
       "answers": [
         {
           "text": "ברובע היהודי",
@@ -6539,6 +6822,7 @@ const quiz: Quiz = {
       "id": 2002,
       "question": "מבחינה גיאולוגית, הר תבור הוא הורסט / סלע קירטון באיזה אזור בארץ מבין הבאים נפוצים סלעי הקירטון?",
       "category": "חורף 2022",
+      "topic": "geology",
       "answers": [
         {
           "text": "גבעות אלונים שפרעם",
@@ -6562,6 +6846,7 @@ const quiz: Quiz = {
       "id": 2003,
       "question": "שם הנחל בו עובר הגבול הגאולוגי בין רמת הגולן והחרמון הוא סער איזה מסוגי המים הבאים, זורמים בצינורות הצבועים בסגול במדינת ישראל?",
       "category": "חורף 2022",
+      "topic": "geography",
       "answers": [
         {
           "text": "מושבים",
@@ -6585,6 +6870,7 @@ const quiz: Quiz = {
       "id": 2004,
       "question": "בעקבות איזה אירוע בעיר יפו החלה הקבורה בבית העלמין טרומפלדור מגיפה / כולרה מבין האישים הבאים, מי נקבר בו?",
       "category": "חורף 2022",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "חיים נחמן ביאליק",
@@ -6608,6 +6894,7 @@ const quiz: Quiz = {
       "id": 2005,
       "question": "עם מי נפגש שאול ערב הקרב הזה?",
       "category": "חורף 2022",
+      "topic": "bible",
       "answers": [
         {
           "text": "עם אנשי יבש גלעד",
@@ -6631,6 +6918,7 @@ const quiz: Quiz = {
       "id": 2006,
       "question": "בראשית המאה ה-20 עלו הצעות ליישב את העם היהודי ב:",
       "category": "חורף 2022",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "אוגנדה",
@@ -6654,6 +6942,7 @@ const quiz: Quiz = {
       "id": 2007,
       "question": "פסטיבל שנתי גדול המתקיים בארץ בעת פריחת הכלניות בחורף נקרא דרום אדום איזה מהאתרים הירושלמיים הבאים מוגדר \"אתר טבע עירוני\"?",
       "category": "חורף 2022",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "גבעת רם",
@@ -6677,6 +6966,7 @@ const quiz: Quiz = {
       "id": 2008,
       "question": "\"תקופת הזוהר\" של צפת היתה במאה:",
       "category": "חורף 2022",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "ה-15",
@@ -6700,6 +6990,7 @@ const quiz: Quiz = {
       "id": 2009,
       "question": "באיזו עיר נמצאת כנסייה חשובה לכבוד גיאורגיוס הקדוש אשר בסמוך אליה נחשפו פסיפסים מרהיבים מן התקופה הרומית? לוד היכן ניתן לראות כנסייה הבנויה בצורה הרכזית?",
       "category": "חורף 2022",
+      "topic": "christianity",
       "answers": [
         {
           "text": "הר הבית",
@@ -6723,6 +7014,7 @@ const quiz: Quiz = {
       "id": 2010,
       "question": "ה\"קיבלה\" (כיוון התפילה) הראשונה באסלאם הייתה:",
       "category": "חורף 2022",
+      "topic": "islam",
       "answers": [
         {
           "text": "מכה",
@@ -6746,6 +7038,7 @@ const quiz: Quiz = {
       "id": 2011,
       "question": "מרד בר כוכבא מתוארך למאה ה שנייה לספירה הנוצרית אילו ממצאים ארכיאולוגיים אופייניים למרד בר כוכבא נמצאו בשפלת יהודה?",
       "category": "חורף 2022",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "מחילות מסתור חצובות",
@@ -6769,6 +7062,7 @@ const quiz: Quiz = {
       "id": 2012,
       "question": "כיבוש ארץ ישראל בידי פומפיאוס היה בשנת 63 לפני הספירה הנוצרית באיזה מן האתרים הבאים נמצאו שרידי בית כנסת מימי בית שני?",
       "category": "חורף 2022",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "בעין גדי",
@@ -6792,6 +7086,7 @@ const quiz: Quiz = {
       "id": 2013,
       "question": "שמה של הבקעה המפרידה בין הגליל העליון לגליל התחתון נקראת בקעת בית הכרם באיזה מן האיזורים הבאים בארץ ניתן למצוא ריכוז גדול של אוכלוסייה בדואית?",
       "category": "חורף 2022",
+      "topic": "geography",
       "answers": [
         {
           "text": "בגליל העליון",
@@ -6815,6 +7110,7 @@ const quiz: Quiz = {
       "id": 2014,
       "question": "בין השנים 1948-1967, העיר העתיקה בירושלים הייתה בשליטת ירדן / הירדנים/ מלך ירדן מהו מעמדם האזרחי הישראלי של מרבית ערביי מזרח ירושלים?",
       "category": "חורף 2022",
+      "topic": "state",
       "answers": [
         {
           "text": "מרביתם אזרחי ישראל ומיעוטם תושבי ישראל",
@@ -6838,6 +7134,7 @@ const quiz: Quiz = {
       "id": 2015,
       "question": "באיזה ישוב ב\"מרד הגדול\" קבע יוסף בן מתתיהו את מפקדתו? יודפת / תל יודפת / העיר יודפת / יודפת העתיקה איזה מהמקומות הבאים נפל לרומאים ב\"מרד הגדול\" ללא קרב?",
       "category": "חורף 2022",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "גמלא",
@@ -6861,6 +7158,7 @@ const quiz: Quiz = {
       "id": 2016,
       "question": "על פי המסורת היהודית, המוסד שייסד עזרא הסופר נקרא:",
       "category": "חורף 2022",
+      "topic": "judaism",
       "answers": [
         {
           "text": "כנסת הגדולה",
@@ -6884,6 +7182,7 @@ const quiz: Quiz = {
       "id": 2017,
       "question": "שרידי תיאטרון מהתקופה הרומית נמצאו ב:",
       "category": "חורף 2022",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "קיסריה",
@@ -6907,6 +7206,7 @@ const quiz: Quiz = {
       "id": 2018,
       "question": "מסילת הרכבת שעברה בנקרות ראש הנקרה הונחה בשנת",
       "category": "חורף 2022",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "1892",
@@ -6930,6 +7230,7 @@ const quiz: Quiz = {
       "id": 2019,
       "question": "מהו העץ הירוק-עד השכיח ביותר בחורש הים תיכוני הטבעי? אלון מצוי היכן ניתן לראות יחמורים חופשיים שהושבו לטבע בישראל?",
       "category": "חורף 2022",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "ברמת הגולן",
@@ -6953,6 +7254,7 @@ const quiz: Quiz = {
       "id": 2020,
       "question": "כביש 60 המכונה גם \"דרך גב ההר\" העובר ביהודה ושומרון נקרא גם \"דרך האבות\" באיזה אתר התגלה ממצא פרהיסטורי חשוב הקשור להתפתחות האדם?",
       "category": "חורף 2022",
+      "topic": "geography",
       "answers": [
         {
           "text": "מערת סדום",
@@ -6976,6 +7278,7 @@ const quiz: Quiz = {
       "id": 2021,
       "question": "בתקופה הרומית-ביזנטית הוקם בדרום הארץ קו מערכת ביצורים המכונה בלעז ה \"לימס / לימס פלסטינה\" על פי המסורת הנוצרית, היכן התרחש \"נס החזירים\" המתואר בברית החדשה?",
       "category": "חורף 2022",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "כפר נחום",
@@ -6999,6 +7302,7 @@ const quiz: Quiz = {
       "id": 2022,
       "question": "עליית מפלגת \"הליכוד\" לשלטון בשנות ה-70 של המאה ה-20 התרחשה בשנת: 1977 בכל כמה שנים אמורות להתקיים בחירות בישראל?",
       "category": "חורף 2022",
+      "topic": "state",
       "answers": [
         {
           "text": "2",
@@ -7022,6 +7326,7 @@ const quiz: Quiz = {
       "id": 2023,
       "question": "החקלאות מרכז מבקרים בנושא חדשנות בתל אביב נמצא:",
       "category": "חורף 2022",
+      "topic": "tourism",
       "answers": [
         {
           "text": "ליד מגדל שלום",
@@ -7045,6 +7350,7 @@ const quiz: Quiz = {
       "id": 2025,
       "question": "מתחם המקדשים במגידו מתוארך ל\"תקופת הברונזה / כנענית\" איזה מבין האתרים הבאים הוכרז כאתר מורשת עולמית של אונסק\"ו בשני היבטים?",
       "category": "חורף 2022",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "העיר העתיקה בעכו",
@@ -7068,6 +7374,7 @@ const quiz: Quiz = {
       "id": 2027,
       "question": "בתקופה הצלבנית נקראה \"כיפת הסלע\" בשם:",
       "category": "חורף 2022",
+      "topic": "crusader",
       "answers": [
         {
           "text": "טמפלום דומיני",
@@ -7091,6 +7398,7 @@ const quiz: Quiz = {
       "id": 2028,
       "question": "בריכת הקשתות ברמלה מתוארכת לתקופת החליפות העבאסית מי השליט המוסלמי שבנה את \"כיפת הסלע\" ?",
       "category": "חורף 2022",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "עומר",
@@ -7114,6 +7422,7 @@ const quiz: Quiz = {
       "id": 2029,
       "question": "הצ'רקסים בישראל הם בני הדת ה מוסלמית / מוסלמית סונית באיזה מן האזורים הבאים היה ריכוז גדול של כפרים צ'רקסים רבים עד לשנת 1967?",
       "category": "חורף 2022",
+      "topic": "geography",
       "answers": [
         {
           "text": "אצבע הגליל",
@@ -7137,6 +7446,7 @@ const quiz: Quiz = {
       "id": 2030,
       "question": "לפי המסורת השומרונית, מקום ההתרחשות של \"עקידת יצחק\" היה ב הר גריזים / שומרון השומרונים רואים את עצמם כצאצאי אילו שבטים?",
       "category": "חורף 2022",
+      "topic": "minorities",
       "answers": [
         {
           "text": "יהודה ובנימין",
@@ -7160,6 +7470,7 @@ const quiz: Quiz = {
       "id": 2031,
       "question": "שלטון זה החל בשנה:",
       "category": "חורף 2022",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "1917",
@@ -7183,6 +7494,7 @@ const quiz: Quiz = {
       "id": 2032,
       "question": "מה היה שמו של השער בחומת ירושלים של ימי הבית השני, דרכו הוצאו נידונים לצליבה? שער המשפט / שער גינה איזה משערי חומת העיר העתיקה של ירושלים של ימינו פונה לכיוון מזרח?",
       "category": "חורף 2022",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "שער יפו",
@@ -7206,6 +7518,7 @@ const quiz: Quiz = {
       "id": 3001,
       "question": "שמו של החג המסיים את צום הרמדאן הוא עיד איל-פיטר מהי השהאדה?",
       "category": "קיץ 2023",
+      "topic": "islam",
       "answers": [
         {
           "text": "הסורה הראשונה בקוראן",
@@ -7229,6 +7542,7 @@ const quiz: Quiz = {
       "id": 3002,
       "question": "על פי הכתוב בתנ\"ך, שמו של הקרב שבו נפל ארון הברית בידי הפלישתים הוא אבן העזר איזה מן האתרים הבאים היה תחנה בנדודי ארון הברית על פי המסופר בתנ\"ך?",
       "category": "קיץ 2023",
+      "topic": "bible",
       "answers": [
         {
           "text": "אושה",
@@ -7252,6 +7566,7 @@ const quiz: Quiz = {
       "id": 3003,
       "question": "כיצד מכונה הקיר המסתיר את המזבח בכנסיות אורתודוכסיות?",
       "category": "קיץ 2023",
+      "topic": "christianity",
       "answers": [
         {
           "text": "סקנה-פרונס",
@@ -7275,6 +7590,7 @@ const quiz: Quiz = {
       "id": 3004,
       "question": "\"כתובת בית דוד\" התגלתה באתר הארכיאולוגי תל דן / תל אל-קאדי לאיזו תקופה מתוארך המונומנט הקרוי \"יד אבשלום\" בירושלים?",
       "category": "קיץ 2023",
+      "topic": "bible",
       "answers": [
         {
           "text": "תקופת הבית הראשון",
@@ -7298,6 +7614,7 @@ const quiz: Quiz = {
       "id": 3005,
       "question": "שמו של הקיסר שלכבודו הוקם נמל קיסריה הוא אוגוסטוס/ אוקטביאנוס על פי הכתוב, איזה מהאירועים הבאים התרחש בקיסריה?",
       "category": "קיץ 2023",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "כניעתו של יוסף בן מתתיהו",
@@ -7321,6 +7638,7 @@ const quiz: Quiz = {
       "id": 3006,
       "question": "שמה של הנקרופוליס היהודית שהוכרזה אתר מורשת עולמית הוא בית שערים מה שמה של התיבה מתקופת בית שני, שנועדה לליקוט עצמות?",
       "category": "קיץ 2023",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "סרקופג",
@@ -7344,6 +7662,7 @@ const quiz: Quiz = {
       "id": 3007,
       "question": "שמו של המופתי המוכר שהנהיג את ערביי הארץ בשנות המנדט הוא חג' אמין אל חוסייני בהיווסדן, כאיזה סוג של שכונות תוכננו רחביה, תלפיות ובית הכרם?",
       "category": "קיץ 2023",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "שכונות יוקרה",
@@ -7367,6 +7686,7 @@ const quiz: Quiz = {
       "id": 3008,
       "question": "התקופה הביזנטית בא\"י התחילה במאה ה־ רביעית באיזה מן המקומות הבאים נבנתה כנסייה על ידי המלכה הלנה?",
       "category": "קיץ 2023",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "סבסטיה",
@@ -7390,6 +7710,7 @@ const quiz: Quiz = {
       "id": 3009,
       "question": "ארמון הישאם ביריחו נבנה בתקופת השושלת המוסלמית ה אומיית מה הייתה בירת הסולטנות הממלוכית?",
       "category": "קיץ 2023",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "קהיר",
@@ -7413,6 +7734,7 @@ const quiz: Quiz = {
       "id": 3010,
       "question": "סוג המסלע שממנו עשויה \"הפטרייה\" בשמורת תמנע הוא אבן חול מה כמות המשקעים הממוצעת בערבה?",
       "category": "קיץ 2023",
+      "topic": "geology",
       "answers": [
         {
           "text": "כ־20 מ\"מ בשנה.",
@@ -7436,6 +7758,7 @@ const quiz: Quiz = {
       "id": 3011,
       "question": "מסע הצלב הראשון יצא מאירופה בשנת 1096 היכן יש שרידים לתעשיית סוכר מהתקופה הצלבנית?",
       "category": "קיץ 2023",
+      "topic": "crusader",
       "answers": [
         {
           "text": "במישור חוף הגליל",
@@ -7459,6 +7782,7 @@ const quiz: Quiz = {
       "id": 3012,
       "question": "\"השער החדש\" בחומת העיר העתיקה בירושלים נפרץ במאה ה־ 19 לאיזה סגנון אדריכלי שייך מסגד אלג'זאר בעכו?",
       "category": "קיץ 2023",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "אדריכלות פאטימית",
@@ -7482,6 +7806,7 @@ const quiz: Quiz = {
       "id": 3013,
       "question": "באתר הסטף ניתן למצוא שיחזור של ממצאים מתחום ה חקלאות / השקיה היכן נפוץ שיח הרותם?",
       "category": "קיץ 2023",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "בחורש ים תיכוני ובחרמון",
@@ -7505,6 +7830,7 @@ const quiz: Quiz = {
       "id": 3014,
       "question": "התקופה שבה החל השימוש במוקרנס באדריכלות בארץ ישראל היא התקופה ה ממלוכית תחת חסותה של איזו מדינה פעלו הקתולים בארץ הקודש בתקופה העות'מאנית?",
       "category": "קיץ 2023",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "תורכיה",
@@ -7528,6 +7854,7 @@ const quiz: Quiz = {
       "id": 3016,
       "question": "הזרם באסלאם ממנו פרשה הדת הבהאית הוא הזרם ה שיעי באיזה מסגד בארץ ניתן למצוא תרגום של הקוראן לשפות שונות?",
       "category": "קיץ 2023",
+      "topic": "islam",
       "answers": [
         {
           "text": "במסגד הגדול ברמלה",
@@ -7551,6 +7878,7 @@ const quiz: Quiz = {
       "id": 3017,
       "question": "שמו הנוסף של \"המכתש הגדול\" הוא מכתש חתירה/ מכתש ירוחם מה הוא בקירוב גודל האוכלוסייה הבדואית בנגב?",
       "category": "קיץ 2023",
+      "topic": "geology",
       "answers": [
         {
           "text": "600,000",
@@ -7574,6 +7902,7 @@ const quiz: Quiz = {
       "id": 3018,
       "question": "שמו של המוזיאון לארכיאולוגיה שהוקם בירושלים בתקופת המנדט הבריטי הוא רוקפלר לאיזה אתר ארכיאולוגי, נגרם הרס מסיבי כתוצאה משיטות חפירה מיושנות?",
       "category": "קיץ 2023",
+      "topic": "bible",
       "answers": [
         {
           "text": "תל לכיש",
@@ -7597,6 +7926,7 @@ const quiz: Quiz = {
       "id": 3019,
       "question": "מנחם בגין פיקד על ארגון האצ\"ל היכן בירושלים קבור מנחם בגין?",
       "category": "קיץ 2023",
+      "topic": "state",
       "answers": [
         {
           "text": "בחלקת גדולי האומה",
@@ -7620,6 +7950,7 @@ const quiz: Quiz = {
       "id": 3020,
       "question": "התאריך העברי שבו התקיימה \"הכרזת העצמאות\" של מדינת ישראל הוא ה' באייר תש\"ח מה נקבע להיות מעמדה של ירושלים לפי החלטת החלוקה של ארץ ישראל באו\"ם?",
       "category": "קיץ 2023",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "כל ירושלים תהיה תחת שליטת הערבים",
@@ -7643,6 +7974,7 @@ const quiz: Quiz = {
       "id": 3021,
       "question": "על פי המקרא, החודש הראשון בשנה הוא חודש ניסן מה מבין הבאים מאפיין את מנהגי התפילה בבית כנסת רפורמי?",
       "category": "קיץ 2023",
+      "topic": "judaism",
       "answers": [
         {
           "text": "נשים ישבו לפני גברים",
@@ -7666,6 +7998,7 @@ const quiz: Quiz = {
       "id": 3022,
       "question": "\"אינתיפאדת אל-אקצא\" החלה בשנת 2000 מהם שטחי C על פי הסכמי אוסלו?",
       "category": "קיץ 2023",
+      "topic": "state",
       "answers": [
         {
           "text": "שטחים שיישארו עד להסכם הקבע באחריות ישראלית מלאה",
@@ -7689,6 +8022,7 @@ const quiz: Quiz = {
       "id": 3023,
       "question": "דתם של בני הכפר רג'ר היא עלאווית באיזה מהמקומות הבאים יש שרידי מקדש מתקופת הברזל?",
       "category": "קיץ 2023",
+      "topic": "bible",
       "answers": [
         {
           "text": "מוחרקה",
@@ -7712,6 +8046,7 @@ const quiz: Quiz = {
       "id": 3024,
       "question": "קשת ה\"אקה הומו\" נבנתה לפי ההשערה המקובלת במחקר ע\"י הקיסר הדריאנוס באיזה שם נוסף מכונות בריכות \"בית חסדא\"?",
       "category": "קיץ 2023",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "בריכת המגדלים",
@@ -7735,6 +8070,7 @@ const quiz: Quiz = {
       "id": 3025,
       "question": "התלמוד הירושלמי נחתם בעיר טבריה באיזה מן הישובים הבאים לא ישבה הסנהדרין?",
       "category": "קיץ 2023",
+      "topic": "judaism",
       "answers": [
         {
           "text": "ירושלים",
@@ -7758,6 +8094,7 @@ const quiz: Quiz = {
       "id": 3026,
       "question": "שמו של מקדש קדום שהתגלה בבקעת עובדה הוא מקדש הנמרים לפי המקובל במחקר, באיזו תקופה התרחשה המהפכה החקלאית הראשונה?",
       "category": "קיץ 2023",
+      "topic": "prehistory",
       "answers": [
         {
           "text": "הנאוליתית",
@@ -7781,6 +8118,7 @@ const quiz: Quiz = {
       "id": 3027,
       "question": "שמו של הקו המפריד בין שני אגני ניקוז הוא קו פרשת המים באיזה ישוב בגליל גרה קהילה בדואית גדולה?",
       "category": "קיץ 2023",
+      "topic": "geography",
       "answers": [
         {
           "text": "טבריה",
@@ -7804,6 +8142,7 @@ const quiz: Quiz = {
       "id": 3028,
       "question": "השפה בה כתובים שמות המקומות ב\"מפת מידבא\" היא יוונית מה שמו של מסלול ההליכה שמתחיל מנצרת ובו צועדים הצליינים בעקבות ישו (ישוע)?",
       "category": "קיץ 2023",
+      "topic": "christianity",
       "answers": [
         {
           "text": "שביל השליחים",
@@ -7827,6 +8166,7 @@ const quiz: Quiz = {
       "id": 3029,
       "question": "שמה של העיר שעליה נכתב בתנ\"ך כי \"היא ראש לכל הממלכות\" הוא חצור על פי הכתוב בתנ\"ך, בתקופתו של איזה מלך התפצלה \"הממלכה המאוחדת\"?",
       "category": "קיץ 2023",
+      "topic": "bible",
       "answers": [
         {
           "text": "צדקיהו",
@@ -7850,6 +8190,7 @@ const quiz: Quiz = {
       "id": 3030,
       "question": "נחל צין נשפך אל הערבה / ים המלח באיזה תוואי בעת העתיקה נסללה \"דרך המלך\"?",
       "category": "קיץ 2023",
+      "topic": "geography",
       "answers": [
         {
           "text": "בתוואי שבין מפרץ אילת וערי החוף בלבנון",
@@ -7873,6 +8214,7 @@ const quiz: Quiz = {
       "id": 3031,
       "question": "זנב הטווס הוא ביטוי לעיקרון בתקשור בבעלי חיים ששמו הוא עיקרון ההכבדה איזו מהציפורים הבאות מוגדרת כמין פולש?",
       "category": "קיץ 2023",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "טריסטרמית",
@@ -7896,6 +8238,7 @@ const quiz: Quiz = {
       "id": 3032,
       "question": "שמה של הבקעה בה נמצא מאגר אשכול הוא בית נטופה מה מקורם של מרבית מי השתייה בישראל כיום?",
       "category": "קיץ 2023",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "הכנרת",
@@ -7919,6 +8262,7 @@ const quiz: Quiz = {
       "id": 3033,
       "question": "שמו של תהליך ייצור אנרגייה בצמח הוא פוטוסינתזה היכן בארץ ניתן למצוא צמחייה מהתפוצה הסודנית?",
       "category": "קיץ 2023",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "בשפלת יהודה",
@@ -7942,6 +8286,7 @@ const quiz: Quiz = {
       "id": 4001,
       "question": "מה הם מים מוּשבים?",
       "category": "יולי 2024",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "מי קולחין שטופלו על מנת לאפשר בהם שימוש חוזר בחקלאות ובתעשייה",
@@ -7965,6 +8310,7 @@ const quiz: Quiz = {
       "id": 4002,
       "question": "איזה מן המשפטים הבאים על תל ערד הוא נכון?",
       "category": "יולי 2024",
+      "topic": "bible",
       "answers": [
         {
           "text": "בתל ערד נחשפו שרידי ישוב מתוכנן מתקופת הברזל",
@@ -7988,6 +8334,7 @@ const quiz: Quiz = {
       "id": 4003,
       "question": "מי היה מושל פחוות יהודה בתקופה הפרסית ומחדשן של חומות ירושלים?",
       "category": "יולי 2024",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "עזרא",
@@ -8011,6 +8358,7 @@ const quiz: Quiz = {
       "id": 4004,
       "question": "בפסיפס לוד ישנן סצנות הקשורות ל:",
       "category": "יולי 2024",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "ברכת הנילוס",
@@ -8034,6 +8382,7 @@ const quiz: Quiz = {
       "id": 4005,
       "question": "איזה מן המסדרים הצלבניים ישב בהר הבית?",
       "category": "יולי 2024",
+      "topic": "crusader",
       "answers": [
         {
           "text": "הטמפלרים",
@@ -8057,6 +8406,7 @@ const quiz: Quiz = {
       "id": 4006,
       "question": "מי היה עמר בן אל-ח'טאב?",
       "category": "יולי 2024",
+      "topic": "islam",
       "answers": [
         {
           "text": "הח'ליפה הראשון",
@@ -8080,6 +8430,7 @@ const quiz: Quiz = {
       "id": 4007,
       "question": "איזה מן המשפטים הבאים לגבי בריכת הקשתות ברמלה הוא נכון?",
       "category": "יולי 2024",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "הבריכה נבנתה לראשונה בימי בית שני",
@@ -8103,6 +8454,7 @@ const quiz: Quiz = {
       "id": 4008,
       "question": "איזה יישוב מבין \"11 הנקודות\" שעלו על הקרקע ב-1946 היה בתוך שטח רצועת עזה של היום?",
       "category": "יולי 2024",
+      "topic": "state",
       "answers": [
         {
           "text": "אורים",
@@ -8126,6 +8478,7 @@ const quiz: Quiz = {
       "id": 4009,
       "question": "מי היו \"הפנתרים השחורים\"?",
       "category": "יולי 2024",
+      "topic": "minorities",
       "answers": [
         {
           "text": "תנועת מחאה חברתית שקמה בראשית שנות ה-70' של המאה ה-20, על רקע אפליה ממסדית של בני עדות המזרח",
@@ -8149,6 +8502,7 @@ const quiz: Quiz = {
       "id": 4010,
       "question": "מהי חשיבותו של הכיבוש המצרי בא\"י במאה ה-19 בראייה היסטורית?",
       "category": "יולי 2024",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "יש חוקרים הרואים בו את ראשית העת החדשה בארץ ישראל",
@@ -8172,6 +8526,7 @@ const quiz: Quiz = {
       "id": 4011,
       "question": "מה היה הנימוק לבחירת התאריך שבו מצוין יום הזיכרון לשואה ולגבורה?",
       "category": "יולי 2024",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "תאריך זה סמוך לתאריך שבו פרץ מרד גטו וורשה",
@@ -8195,6 +8550,7 @@ const quiz: Quiz = {
       "id": 4012,
       "question": "מהי הסיבה המרכזית למליחות הגבוהה של ים המלח?",
       "category": "יולי 2024",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "הקרקע באזור מדבר יהודה מלוחה",
@@ -8218,6 +8574,7 @@ const quiz: Quiz = {
       "id": 4013,
       "question": "איזו מהאפשרויות הבאות מתארת בצורה המדויקת ביותר את השלטון שתחתיו חיו תושבי רצועת עזה בין 1950 ל-1967?",
       "category": "יולי 2024",
+      "topic": "state",
       "answers": [
         {
           "text": "שלטון צבאי מצרי ושלטון אזרחי פלסטיני",
@@ -8241,6 +8598,7 @@ const quiz: Quiz = {
       "id": 4014,
       "question": "מהו הכינוי של הדרך שמפרידה בין הכרמל לבין רמות מנשה?",
       "category": "יולי 2024",
+      "topic": "geography",
       "answers": [
         {
           "text": "סטלה מאריס",
@@ -8264,6 +8622,7 @@ const quiz: Quiz = {
       "id": 4015,
       "question": "מהו ה-”N ההתיישבותי”?",
       "category": "יולי 2024",
+      "topic": "geography",
       "answers": [
         {
           "text": "תוכנית ציונית ליישוב שטחי הנגב הריקים בראשית המאה ה-20 ומכאן השימוש באות N",
@@ -8287,6 +8646,7 @@ const quiz: Quiz = {
       "id": 4016,
       "question": "באיזה עשור במאה ה-20 נבנו מרבית המבנים שבנויים בסגנון המכונה \"בין-לאומי\" בא\"י?",
       "category": "יולי 2024",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "1910-1920",
@@ -8310,6 +8670,7 @@ const quiz: Quiz = {
       "id": 4017,
       "question": "מה הן שבע מצוות בני נוח?",
       "category": "יולי 2024",
+      "topic": "judaism",
       "answers": [
         {
           "text": "מצוות שציווה נוח את בניו לאחר ששרדו את המבול",
@@ -8333,6 +8694,7 @@ const quiz: Quiz = {
       "id": 4018,
       "question": "מדוע בנה הורדוס את סבסטיה?",
       "category": "יולי 2024",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "בשל מיקומה על רשת הדרכים ופוטנציאל המסחר הבין-לאומי",
@@ -8356,6 +8718,7 @@ const quiz: Quiz = {
       "id": 4019,
       "question": "איזו מן העובדות הבאות בנוגע ל\"שביל ישראל\" נכונה?",
       "category": "יולי 2024",
+      "topic": "tourism",
       "answers": [
         {
           "text": "השביל עובר בצפון השומרון",
@@ -8379,6 +8742,7 @@ const quiz: Quiz = {
       "id": 4020,
       "question": "מה משותף למעיין שכבה ומעיין העתק?",
       "category": "יולי 2024",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "שניהם נובעים בנקודת מגע שבין שכבה חדירה למים ושכבה אטומה למים",
@@ -8402,6 +8766,7 @@ const quiz: Quiz = {
       "id": 4021,
       "question": "סביב איזה מיזם התקיים בשנים האחרונות מאבק סביבתי בצפון רמת הגולן?",
       "category": "יולי 2024",
+      "topic": "geography",
       "answers": [
         {
           "text": "הקמת טורבינות רוח",
@@ -8425,6 +8790,7 @@ const quiz: Quiz = {
       "id": 4022,
       "question": "לאיזה מן החגים או המועדים הבאים יש מקור בסיפורי התנ\"ך?",
       "category": "יולי 2024",
+      "topic": "judaism",
       "answers": [
         {
           "text": "חנוכה",
@@ -8448,6 +8814,7 @@ const quiz: Quiz = {
       "id": 4023,
       "question": "איזה מן האתרים הנוצריים הבאים קשור לחג הפנטקוסט?",
       "category": "יולי 2024",
+      "topic": "christianity",
       "answers": [
         {
           "text": "חדר \"הסעודה האחרונה\"",
@@ -8471,6 +8838,7 @@ const quiz: Quiz = {
       "id": 4024,
       "question": "למה קשור מכלול הטקסים בעלייה לרגל למכה (חג')?",
       "category": "יולי 2024",
+      "topic": "islam",
       "answers": [
         {
           "text": "להתגלות האל לנביא",
@@ -8494,6 +8862,7 @@ const quiz: Quiz = {
       "id": 4025,
       "question": "באיזו שנה על פי הלוח הגרגוריאני מתחיל מניין השנים המוסלמי?",
       "category": "יולי 2024",
+      "topic": "islam",
       "answers": [
         {
           "text": "622",
@@ -8517,6 +8886,7 @@ const quiz: Quiz = {
       "id": 4026,
       "question": "חוק העתיקות חל על אתרים שנבנו לפני איזו שנה?",
       "category": "יולי 2024",
+      "topic": "tourism",
       "answers": [
         {
           "text": "1850",
@@ -8540,6 +8910,7 @@ const quiz: Quiz = {
       "id": 4027,
       "question": "מהו המניע העיקרי לאי חזרתם של תושבי הכפרים איקרית ובירעם לבתיהם?",
       "category": "יולי 2024",
+      "topic": "geography",
       "answers": [
         {
           "text": "הימנעות מתקדים משפטי של שיבת פליטים",
@@ -8563,6 +8934,7 @@ const quiz: Quiz = {
       "id": 4028,
       "question": "באיזה מן האתרים הבאים ניתן בדרך כלל לצפות בפלמינגו?",
       "category": "יולי 2024",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "בעינות גיבתון",
@@ -8586,6 +8958,7 @@ const quiz: Quiz = {
       "id": 4029,
       "question": "היכן בארץ ניתן למצוא יער פארק של אלון תבור שלא נכרת בתקופה העות'מאנית?",
       "category": "יולי 2024",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "בגליל התחתון",
@@ -8609,6 +8982,7 @@ const quiz: Quiz = {
       "id": 4030,
       "question": "מה משותף לנחל סער ולנהר הירמוך?",
       "category": "יולי 2024",
+      "topic": "geology",
       "answers": [
         {
           "text": "שניהם מהווים גבול בין-לאומי של מדינת ישראל",
@@ -8632,6 +9006,7 @@ const quiz: Quiz = {
       "id": 4031,
       "question": "המסלע האופייני שמרכיב \"טבלאות גידוד\" הוא:",
       "category": "יולי 2024",
+      "topic": "geology",
       "answers": [
         {
           "text": "כורכר",
@@ -8655,6 +9030,7 @@ const quiz: Quiz = {
       "id": 4032,
       "question": "באיזה מהטקסטים הקדומים הבאים מוזכרת ירושלים?",
       "category": "יולי 2024",
+      "topic": "jerusalem",
       "answers": [
         {
           "text": "לוח גזר",
@@ -8678,6 +9054,7 @@ const quiz: Quiz = {
       "id": 4033,
       "question": "תחת איזו בעלות נמצאים כיום מפעלי ים המלח (מקבוצת כי\"ל)?",
       "category": "יולי 2024",
+      "topic": "state",
       "answers": [
         {
           "text": "בעלות חברה זרה מסין",
@@ -8701,6 +9078,7 @@ const quiz: Quiz = {
       "id": 5001,
       "question": "אני רואה אלפי חסידות עפות צפונה. באיזו עונה מדובר?",
       "category": "ינואר 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "קיץ",
@@ -8724,6 +9102,7 @@ const quiz: Quiz = {
       "id": 5002,
       "question": "מה מקור השם באר שבע?",
       "category": "ינואר 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "שבע הבארות מימי אברהם אבינו שנמצאו בעיר",
@@ -8747,6 +9126,7 @@ const quiz: Quiz = {
       "id": 5003,
       "question": "איזה מן הסיפורים המקראיים הבאים קשור לתל יזרעאל?",
       "category": "ינואר 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "סיפור כרם נבות ודברי התוכחה של אליהו הנביא למלך אחאב",
@@ -8770,6 +9150,7 @@ const quiz: Quiz = {
       "id": 5004,
       "question": "היכן נמצאים כיום שרידי מבצר מכוור?",
       "category": "ינואר 2025",
+      "topic": "crusader",
       "answers": [
         {
           "text": "בירדן",
@@ -8793,6 +9174,7 @@ const quiz: Quiz = {
       "id": 5005,
       "question": "מי המצביא הרומי ששם קץ לעצמאות הממלכה החשמונאית בארץ ישראל?",
       "category": "ינואר 2025",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "יוליוס קיסר",
@@ -8816,6 +9198,7 @@ const quiz: Quiz = {
       "id": 5006,
       "question": "העיר ציפורי הייתה מרכז פעילותו של איזה מן האישים הבאים?",
       "category": "ינואר 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "רבי יהודה הנשיא",
@@ -8839,6 +9222,7 @@ const quiz: Quiz = {
       "id": 5007,
       "question": "מהו \"הסכם יפו\"?",
       "category": "ינואר 2025",
+      "topic": "mamluk-ottoman",
       "answers": [
         {
           "text": "הסכם בין הצלבנים לבין המוסלמים",
@@ -8862,6 +9246,7 @@ const quiz: Quiz = {
       "id": 5008,
       "question": "באיזה מן הישובים הבאים הייתה מושבה טמפּ ֶלרית?",
       "category": "ינואר 2025",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "עתלית",
@@ -8885,6 +9270,7 @@ const quiz: Quiz = {
       "id": 5009,
       "question": "בין אילו שתי נקודות ניתן היה לנסוע ב\"רכבת העמק\"?",
       "category": "ינואר 2025",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "חיפה - צמח",
@@ -8908,6 +9294,7 @@ const quiz: Quiz = {
       "id": 5010,
       "question": "איזה מן האירועים הבאים התרחש במידה רבה כתוצאה מפיצוץ מלון \"המלך דוד\"?",
       "category": "ינואר 2025",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "פירוק \"תנועת המרי העברי\"",
@@ -8931,6 +9318,7 @@ const quiz: Quiz = {
       "id": 5011,
       "question": "איזה מן המשפטים הבאים לגבי הצהרת בלפור הוא נכון:",
       "category": "ינואר 2025",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "ההצהרה היא התחייבות של בריטניה לחלוקת הארץ למדינה יהודית ולמדינה ערבית",
@@ -8954,6 +9342,7 @@ const quiz: Quiz = {
       "id": 5012,
       "question": "מהו הרקע לציון \"יום האדמה\", המצוין מדי שנה ע\"י ערביי ישראל ויהודה ושומרון?",
       "category": "ינואר 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "הפקעת קרקעות בגליל בשנת 1976 שבעקבותיה התקיימו הפגנות בישובים שונים",
@@ -8977,6 +9366,7 @@ const quiz: Quiz = {
       "id": 5013,
       "question": "מי המנהיגים שחתמו על הסכם השלום בין ישראל וירדן ובמעמדו של איזה נשיא אמריקאי התקיימה החתימה?",
       "category": "ינואר 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "יצחק רבין והמלך חוסיין, במעמד נשיא ארה\"ב ביל קלינטון",
@@ -9000,6 +9390,7 @@ const quiz: Quiz = {
       "id": 5014,
       "question": "כיצד נקראים חכמי המשנה?",
       "category": "ינואר 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "אמוראים",
@@ -9023,6 +9414,7 @@ const quiz: Quiz = {
       "id": 5015,
       "question": "בין אילו שני אתרים בנצרת מחבר \"ציר הצליינים\", המשמש את קבוצות התיירים והצליינים בעיר?",
       "category": "ינואר 2025",
+      "topic": "christianity",
       "answers": [
         {
           "text": "כנסיית הבשורה הקתולית ומעיין מרים",
@@ -9046,6 +9438,7 @@ const quiz: Quiz = {
       "id": 5016,
       "question": "מהי תפילת ה\"מגניפיקט\"?",
       "category": "ינואר 2025",
+      "topic": "christianity",
       "answers": [
         {
           "text": "מזמור הודיה לאל מפי מרים אם ישוע, המופיע בבשורה על פי לוקס",
@@ -9069,6 +9462,7 @@ const quiz: Quiz = {
       "id": 5017,
       "question": "באיזו מן האפשרויות הבאות מופיעות השושלות האסלאמיות בסדר הכרונולוגי הנכון?",
       "category": "ינואר 2025",
+      "topic": "early-islam",
       "answers": [
         {
           "text": "עבאסית, אומאיית, פאטימית, איובית.",
@@ -9092,6 +9486,7 @@ const quiz: Quiz = {
       "id": 5018,
       "question": "מהו, ככל הנראה, מקור המילה \"בדווי\"?",
       "category": "ינואר 2025",
+      "topic": "minorities",
       "answers": [
         {
           "text": "המילה \"בד\", החומר שממנו עושים אוהל",
@@ -9115,6 +9510,7 @@ const quiz: Quiz = {
       "id": 5019,
       "question": "איזה מן המשפטים הבאים לגבי הדת הבהאית הוא נכון?",
       "category": "ינואר 2025",
+      "topic": "minorities",
       "answers": [
         {
           "text": "קהילה גדולה של מאמיני הדת הבהאית מתגוררת כיום במדינת ישראל",
@@ -9138,6 +9534,7 @@ const quiz: Quiz = {
       "id": 5020,
       "question": "איזה מן הבאים הוא צמח מים מובהק?",
       "category": "ינואר 2025",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "סוף מצוי",
@@ -9161,6 +9558,7 @@ const quiz: Quiz = {
       "id": 5021,
       "question": "איזה סוג של סלע הוא דולומיט?",
       "category": "ינואר 2025",
+      "topic": "geology",
       "answers": [
         {
           "text": "סלע משקע ימי",
@@ -9184,6 +9582,7 @@ const quiz: Quiz = {
       "id": 5022,
       "question": "מה שמו של האתר המוסלמי שמצוי ליד הגן הלאומי אפולוניה?",
       "category": "ינואר 2025",
+      "topic": "islam",
       "answers": [
         {
           "text": "סידנא עלי",
@@ -9207,6 +9606,7 @@ const quiz: Quiz = {
       "id": 5023,
       "question": "בתכנונו של מפעל המוביל הארצי, איזה שיקול הכריע בהחלטה לשאוב את המים מהכינרת ולא מן הירדן ההררי?",
       "category": "ינואר 2025",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "שיקול בטחוני",
@@ -9230,6 +9630,7 @@ const quiz: Quiz = {
       "id": 5024,
       "question": "באיזה מן ההסכמים הבאים נקבע תוואי \"הקו הירוק\"?",
       "category": "ינואר 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "הסכם רודוס",
@@ -9253,6 +9654,7 @@ const quiz: Quiz = {
       "id": 5025,
       "question": "איזה מן הבאים הוא שטח שזכה לכינוי \"רצועת הביטחון\"?",
       "category": "ינואר 2025",
+      "topic": "geography",
       "answers": [
         {
           "text": "שטח בדרום לבנון שישראל וצד\"ל שלטו בו עד שנת 2000 למטרות צבאיות",
@@ -9276,6 +9678,7 @@ const quiz: Quiz = {
       "id": 5026,
       "question": "איזה מן המשפטים הבאים לגבי משק החשמל בישראל הוא נכון?",
       "category": "ינואר 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "משק החשמל הישראלי מתבסס על אנרגיה גרעינית",
@@ -9299,6 +9702,7 @@ const quiz: Quiz = {
       "id": 5027,
       "question": "באיזה מן האזורים הבאים גידול הזית הוא ענף מרכזי?",
       "category": "ינואר 2025",
+      "topic": "geography",
       "answers": [
         {
           "text": "עמק יזרעאל",
@@ -9322,6 +9726,7 @@ const quiz: Quiz = {
       "id": 5028,
       "question": "מדוע הוכרז תל באר שבע כאתר מורשת עולמית של אונסק\"ו?",
       "category": "ינואר 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "בשל גילוי שער מהתקופה הכנענית",
@@ -9345,6 +9750,7 @@ const quiz: Quiz = {
       "id": 5029,
       "question": "איזה מבין המאבקים הציבוריים הבאים בארץ נכשל?",
       "category": "ינואר 2025",
+      "topic": "tourism",
       "answers": [
         {
           "text": "המאבק לפתיחת הנגישות לחופי הכינרת",
@@ -9368,6 +9774,7 @@ const quiz: Quiz = {
       "id": 5030,
       "question": "היכן ניתן למצוא בישראל מבנים בסגנון האדריכלי הקרוי הסגנון \"הבין-לאומי\"?",
       "category": "ינואר 2025",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "בישובים עירוניים וכן בישובים כפריים כדוגמת קיבוצים ומושבים",
@@ -9391,6 +9798,7 @@ const quiz: Quiz = {
       "id": 5031,
       "question": "מקובל לראות בחומה הרחבה בירושלים חלק מהביצור שהגן על ירושלים במהלך מסע המלחמה של איזה מהכובשים/המצביאים הבאים?",
       "category": "ינואר 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "אשור בניפל",
@@ -9414,6 +9822,7 @@ const quiz: Quiz = {
       "id": 5032,
       "question": "[פנטקוסט / ירידת רוח הקודש / שבועות / הדיבור בלשונות / רחיצת רגלי השליחים / רחיצת הרגליים] לאיזה מן הזרמים הנוצריים הבאים יש חלק בכנסיית הקבר עפ\"י הסטטוס קוו?",
       "category": "ינואר 2025",
+      "topic": "christianity",
       "answers": [
         {
           "text": "בנדיקטינים",
@@ -9437,6 +9846,7 @@ const quiz: Quiz = {
       "id": 5033,
       "question": "מהו הטקסט הקדום ביותר שמוזכרת בו העיר ירושלים?",
       "category": "ינואר 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "התורה",
@@ -9460,6 +9870,7 @@ const quiz: Quiz = {
       "id": 6001,
       "question": "מהי ההשערה המקובלת במחקר לגבי חפצי הפולחן שהתגלו במערת המטמון בנחל משמר?",
       "category": "יולי 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "חפצי הפולחן קשורים לתרבות האדומית, בדומה לממצאים בתמר המקראית",
@@ -9483,6 +9894,7 @@ const quiz: Quiz = {
       "id": 6002,
       "question": "לאיזו ממלכה קשור בית המושל בתל בית שאן?",
       "category": "יולי 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "מצרית",
@@ -9506,6 +9918,7 @@ const quiz: Quiz = {
       "id": 6003,
       "question": "בזכות איזה מן הממצאים הבאים הוכרזה מצדה כאתר מורשת עולמית?",
       "category": "יולי 2025",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "בית הכנסת",
@@ -9529,6 +9942,7 @@ const quiz: Quiz = {
       "id": 6004,
       "question": "איזה מן העובדות הבאות לגבי העיר גמלא היא נכונה?",
       "category": "יולי 2025",
+      "topic": "second-temple",
       "answers": [
         {
           "text": "בעיר נמצאו שרידי בית כנסת מימי בית שני",
@@ -9552,6 +9966,7 @@ const quiz: Quiz = {
       "id": 6005,
       "question": "איזה מן המחלפים הבאים ק יבל את שמו בהשראת אירוע מרכזי מתקופת התנאים?",
       "category": "יולי 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "סומך",
@@ -9575,6 +9990,7 @@ const quiz: Quiz = {
       "id": 6006,
       "question": "מי מבין הבאים הוא מלך צרפת שהגיע לא\"י?",
       "category": "יולי 2025",
+      "topic": "islam",
       "answers": [
         {
           "text": "בולדווין השני",
@@ -9598,6 +10014,7 @@ const quiz: Quiz = {
       "id": 6007,
       "question": "לאיזו תכלית שימש מבנה המסגד הגדול ברמלה לפני היותו מסגד?",
       "category": "יולי 2025",
+      "topic": "crusader",
       "answers": [
         {
           "text": "כנסייה צלבנית",
@@ -9621,6 +10038,7 @@ const quiz: Quiz = {
       "id": 6008,
       "question": "מה מהבאים נכון לגבי \"ארבע ערי הקודש\"?",
       "category": "יולי 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "ארבע הערים היו צפת, טבריה, יפו וחברון",
@@ -9644,6 +10062,7 @@ const quiz: Quiz = {
       "id": 6009,
       "question": "מה היה הגורם הישיר לבניית נמל ת\"א בשנת 1936?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "שביתת מסחר שהכריזה ההנהגה הערבית וגרמה להשבתת נמל יפו",
@@ -9667,6 +10086,7 @@ const quiz: Quiz = {
       "id": 6010,
       "question": "מה הייתה מטרת הקמתן של 11 הנקודות בנגב בשנת 1946?",
       "category": "יולי 2025",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "השתלטות על מאגרי אקוויפר החוף",
@@ -9690,6 +10110,7 @@ const quiz: Quiz = {
       "id": 6012,
       "question": "מה חקרה וועדת אגרנט?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "את הנסיבות שהובילו לפרוץ מלחמת יום הכיפורים",
@@ -9713,6 +10134,7 @@ const quiz: Quiz = {
       "id": 6013,
       "question": "מהו מספר התושבים בעיר ת\"א-יפו?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "כ-200 אלף איש",
@@ -9736,6 +10158,7 @@ const quiz: Quiz = {
       "id": 6014,
       "question": "על פי המסורת, מי מהאימהות לא קבורה במערת המכפלה?",
       "category": "יולי 2025",
+      "topic": "bible",
       "answers": [
         {
           "text": "רחל",
@@ -9759,6 +10182,7 @@ const quiz: Quiz = {
       "id": 6015,
       "question": "מי מארבעת האישים הבאים הופיע בזמן המוקדם ביותר על במת ההיסטוריה?",
       "category": "יולי 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "רשב\"י (רבי שמעון בר יוחאי)",
@@ -9782,6 +10206,7 @@ const quiz: Quiz = {
       "id": 6016,
       "question": "מהם האוונגליונים?",
       "category": "יולי 2025",
+      "topic": "christianity",
       "answers": [
         {
           "text": "ארבעת ספרי הברית החדשה העוסקים בחייו, דרשותיו, מותו ותחייתו של ישוע",
@@ -9805,6 +10230,7 @@ const quiz: Quiz = {
       "id": 6017,
       "question": "על מה מעידה כתובת ה-PEF מול עינות צוקים בכביש ים המלח (כביש 90)?",
       "category": "יולי 2025",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "מפלס ים המלח בראשית המאה ה-20",
@@ -9828,6 +10254,7 @@ const quiz: Quiz = {
       "id": 6018,
       "question": "השומרונים מכירים בכתוב באיזה מן הטקסטים הבאים?",
       "category": "יולי 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "בתורה ובספר יהשוע",
@@ -9851,6 +10278,7 @@ const quiz: Quiz = {
       "id": 6019,
       "question": "מהו מבנה התפילה המרכזי ביישוב כפר-כמא?",
       "category": "יולי 2025",
+      "topic": "judaism",
       "answers": [
         {
           "text": "מסגד",
@@ -9874,6 +10302,7 @@ const quiz: Quiz = {
       "id": 6020,
       "question": "איזו מן הציפורים הבאות נפוצה במיוחד באתרי חוף ים המלח ומצוק ההעתקים?",
       "category": "יולי 2025",
+      "topic": "flora-fauna",
       "answers": [
         {
           "text": "נשר מקראי",
@@ -9897,6 +10326,7 @@ const quiz: Quiz = {
       "id": 6022,
       "question": "?",
       "category": "יולי 2025",
+      "topic": "geology",
       "answers": [
         {
           "text": "סלע שעבר שינוי עקב חשיפה לתנאים כגון חום ולחץ",
@@ -9920,6 +10350,7 @@ const quiz: Quiz = {
       "id": 6023,
       "question": "איזה מן העובדות הבאות נכונה לגבי האקלים הים- תיכוני בא\"י?",
       "category": "יולי 2025",
+      "topic": "water-climate",
       "answers": [
         {
           "text": "מרבית שטחי מדינת ישראל נמצאים באזור אקלימי זה",
@@ -9943,6 +10374,7 @@ const quiz: Quiz = {
       "id": 6024,
       "question": "באסלאם, מהי סורה?",
       "category": "יולי 2025",
+      "topic": "islam",
       "answers": [
         {
           "text": "פסק הלכה איסלמי",
@@ -9966,6 +10398,7 @@ const quiz: Quiz = {
       "id": 6025,
       "question": "היכן מוזכרים גבולותיה ההלכתיים של ארץ ישראל?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "בכתובת רחוב",
@@ -9989,6 +10422,7 @@ const quiz: Quiz = {
       "id": 6026,
       "question": "בצמוד לאיזו עיר עובר \"מכשול קו התפר\" (גדר הביטחון / ההפרדה)?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "יריחו",
@@ -10012,6 +10446,7 @@ const quiz: Quiz = {
       "id": 6027,
       "question": "מי בעל הסמכות לאשר באופן סופי את חוק תקציב המדינה?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "הממשלה",
@@ -10035,6 +10470,7 @@ const quiz: Quiz = {
       "id": 6028,
       "question": "איזה מן הבאים הוא ענף גידול חקלאי שהתפתח בשנים האחרונות בהר הנגב, בין שדה בוקר למצפה רמון?",
       "category": "יולי 2025",
+      "topic": "state",
       "answers": [
         {
           "text": "גידול גפנים",
@@ -10058,6 +10494,7 @@ const quiz: Quiz = {
       "id": 6029,
       "question": "מה מתאר הפסיפס במגדל שלום בתל אביב?",
       "category": "יולי 2025",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "את הווי החיים של השכונות נווה צדק ונווה שלום",
@@ -10081,6 +10518,7 @@ const quiz: Quiz = {
       "id": 6030,
       "question": "איזה מן האתרים הבאים הוא אתר מורשת עולמי של אונסק\"ו ברשות הפלסטינית?",
       "category": "יולי 2025",
+      "topic": "tourism",
       "answers": [
         {
           "text": "העיר העתיקה של חברון / אל ח'ליל",
@@ -10104,6 +10542,7 @@ const quiz: Quiz = {
       "id": 6031,
       "question": "איזו מהעובדות הבאות נכונה לגבי האדריכלות והעיצוב של בית המשפט העליון בירושלים?",
       "category": "יולי 2025",
+      "topic": "art-arch",
       "answers": [
         {
           "text": "אולמות השיפוט בנויים במבנה בסיליקלי",
@@ -10127,6 +10566,7 @@ const quiz: Quiz = {
       "id": 6032,
       "question": "באיזה מן המקומות הבאים ביקר הרצל בעת ביקורו בא\"י?",
       "category": "יולי 2025",
+      "topic": "modern-yishuv",
       "answers": [
         {
           "text": "אוגוסטה וויקטוריה",
@@ -10150,6 +10590,7 @@ const quiz: Quiz = {
       "id": 6033,
       "question": "על פי העמדה המקובלת במחקר, היכן הייתה ממוקמת הכניסה למבנה כנסיית הקבר בתקופה הביזנטית?",
       "category": "יולי 2025",
+      "topic": "roman-byzantine",
       "answers": [
         {
           "text": "הכניסה הייתה מכיוון מזרח, מן הקרדו המערבי",
@@ -10190,7 +10631,8 @@ const quiz: Quiz = {
           "text": "שבטה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "second-temple"
     },
     {
       "id": 121,
@@ -10213,7 +10655,8 @@ const quiz: Quiz = {
           "text": "כי כיסוי המדבר בנוי רובו מגרניט שכמעט ואינו מחלחל",
           "correct": false
         }
-      ]
+      ],
+      "topic": "water-climate"
     },
     {
       "id": 122,
@@ -10236,7 +10679,8 @@ const quiz: Quiz = {
           "text": "גמלא",
           "correct": false
         }
-      ]
+      ],
+      "topic": "roman-byzantine"
     },
     {
       "id": 123,
@@ -10259,7 +10703,8 @@ const quiz: Quiz = {
           "text": "למחקר ופיתוח חקלאי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 124,
@@ -10282,7 +10727,8 @@ const quiz: Quiz = {
           "text": "ההתשה",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 125,
@@ -10305,7 +10751,8 @@ const quiz: Quiz = {
           "text": "המרכז הרפואי זיו בצפת",
           "correct": true
         }
-      ]
+      ],
+      "topic": "geology"
     },
     {
       "id": 126,
@@ -10328,7 +10775,8 @@ const quiz: Quiz = {
           "text": "בית שמש",
           "correct": false
         }
-      ]
+      ],
+      "topic": "bible"
     },
     {
       "id": 127,
@@ -10351,7 +10799,8 @@ const quiz: Quiz = {
           "text": "אום אל פחם",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 128,
@@ -10374,7 +10823,8 @@ const quiz: Quiz = {
           "text": "כ35%",
           "correct": false
         }
-      ]
+      ],
+      "topic": "state"
     },
     {
       "id": 129,
@@ -10397,7 +10847,8 @@ const quiz: Quiz = {
           "text": "מספר אי-זוגי",
           "correct": false
         }
-      ]
+      ],
+      "topic": "geography"
     },
     {
       "id": 130,
@@ -10420,7 +10871,8 @@ const quiz: Quiz = {
           "text": "נמלי הים התיכון",
           "correct": true
         }
-      ]
+      ],
+      "topic": "state"
     }
   ]
 };

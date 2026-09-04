@@ -6,8 +6,11 @@ import type { Question, Quiz } from "@/data/quizzes/types";
 import { recordAttempt, type RecordedAnswer } from "@/lib/progress";
 import { withBasePath } from "@/lib/basePath";
 import { domainOf, domainStyle } from "@/lib/domains";
+import { TOPICS } from "@/data/topics";
+import { ReadingLink } from "@/components/ReadingLink";
 
 type Phase = "setup" | "running" | "results";
+type Axis = "category" | "topic";
 type Order = "sequential" | "shuffled";
 
 const LENGTHS = [10, 25, 50] as const;
@@ -42,6 +45,10 @@ export function QuizRunner({
 }) {
   const [phase, setPhase] = useState<Phase>(fixedQuestions ? "running" : "setup");
   const [category, setCategory] = useState<string>("הכל");
+  // The bank has two axes: the sitting a question came from, and the syllabus
+  // subject it belongs to. Drilling one subject across every sitting is the
+  // more useful of the two once the material, not the exam, is the problem.
+  const [axis, setAxis] = useState<Axis>("category");
   const [order, setOrder] = useState<Order>("shuffled");
   const [length, setLength] = useState<number | "all">(25);
 
@@ -54,13 +61,23 @@ export function QuizRunner({
 
   const noun = quiz.categoryNoun ?? { one: "נושא", many: "נושאים" };
 
-  const pool = useMemo(
-    () =>
-      category === "הכל"
-        ? quiz.questions
-        : quiz.questions.filter((q) => q.category === category),
-    [quiz.questions, category],
-  );
+  const topics = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const q of quiz.questions) {
+      if (q.topic) counts.set(q.topic, (counts.get(q.topic) ?? 0) + 1);
+    }
+    return TOPICS.filter((t) => counts.has(t.key)).map((t) => ({
+      ...t,
+      count: counts.get(t.key)!,
+    }));
+  }, [quiz.questions]);
+
+  const pool = useMemo(() => {
+    if (category === "הכל") return quiz.questions;
+    return quiz.questions.filter((q) =>
+      axis === "topic" ? q.topic === category : q.category === category,
+    );
+  }, [quiz.questions, category, axis]);
 
   const start = () => {
     let list = order === "shuffled" ? shuffle(pool) : [...pool];
@@ -163,15 +180,52 @@ export function QuizRunner({
 
         <div className="flex flex-col gap-6 rounded-lg border border-line bg-card p-5">
           <section>
-            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
-              {noun.one}
-            </h2>
+            <div className="mb-2.5 flex items-center justify-between gap-3">
+              <h2 className="text-sm font-bold tracking-[0.05em] text-txt-dim">
+                {axis === "topic" ? "נושא" : noun.one}
+              </h2>
+              {topics.length > 1 && (
+                <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
+                  {(
+                    [
+                      ["category", noun.one],
+                      ["topic", "נושא"],
+                    ] as const
+                  ).map(([value, label]) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => {
+                        setAxis(value);
+                        setCategory("הכל");
+                      }}
+                      className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-bold transition ${
+                        axis === value
+                          ? "bg-sheet text-txt shadow-[var(--shadow)]"
+                          : "text-txt-dim hover:text-txt"
+                      }`}
+                    >
+                      לפי {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2">
-              {["הכל", ...quiz.categories].map((c) => {
-                const count =
-                  c === "הכל"
-                    ? quiz.questions.length
-                    : quiz.questions.filter((q) => q.category === c).length;
+              {(axis === "topic"
+                ? [
+                    { key: "הכל", label: "הכל", count: quiz.questions.length },
+                    ...topics,
+                  ]
+                : ["הכל", ...quiz.categories].map((c) => ({
+                    key: c,
+                    label: c,
+                    count:
+                      c === "הכל"
+                        ? quiz.questions.length
+                        : quiz.questions.filter((q) => q.category === c).length,
+                  }))
+              ).map(({ key: c, label, count }) => {
                 const active = category === c;
                 return (
                   <button
@@ -192,7 +246,7 @@ export function QuizRunner({
                         : undefined
                     }
                   >
-                    {c}{" "}
+                    {label}{" "}
                     <span className={`num ${active ? "opacity-70" : "text-txt-dim"}`}>
                       {count}
                     </span>
@@ -356,6 +410,7 @@ export function QuizRunner({
                       <p className="text-ok">
                         {q?.answers.find((x) => x.correct)?.text}
                       </p>
+                      <ReadingLink topic={q?.topic} />
                     </div>
                   </li>
                 );
