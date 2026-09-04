@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 
 const links = [
+  { href: "https://cfir94.github.io/israel-geo-game/", label: "המשחק" },
   { href: "/quizzes", label: "שאלונים" },
   { href: "/timelines", label: "צירי זמן" },
   { href: "/map", label: "מפה" },
