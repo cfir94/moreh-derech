@@ -41,8 +41,9 @@
 - `src/data/quizzes/past-exams.ts` ו-`src/data/exams/*.ts` — שאלות ממבחני
   הרישוי הרשמיים של משרד התיירות, עם התשובות הרשמיות. נוצרים **יחד** ע"י
   `tools/build_exams.py` (ראו "מבחני רישוי" למטה).
-- `src/data/timelines/*.ts` — נוצרו מ-`biblicaltimelines` ומ-
-  `egyptcanaantimeline`.
+- `src/data/timelines/*.ts` — עותק הנתונים שנוצר מ-`biblicaltimelines` ומ-
+  `egyptcanaantimeline`; הוא משמש לספירות בכרטיסי האינדקס. עמודי התוכן עצמם
+  מטמיעים את אפליקציות Manus המקוריות כדי לשמור על העיצוב וההתנהגות שלהן.
 - תמונות השאלונים הועתקו ל-`public/quiz-images/<quiz>/`.
 
 ה-UI נכתב מחדש מקומית (`src/components/quiz/QuizRunner.tsx`,
@@ -51,9 +52,9 @@
 
 **יוצאים מן הכלל — אפליקציות מוטמעות**: `israel-heritage-map` היא אפליקציית
 MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נשארה כפי
-שהיא תחת `public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map`. גם המשחק וציר
-הזמן ההיסטורי נשארים באפליקציות GitHub Pages שלהם ומוטמעים ב-`<iframe>` תחת
-`/game` ו-`/timelines/history`. כך המשתמש נשאר באתר עם הניווט שלו.
+שהיא תחת `public/embeds/map/` ורצה ב-`<iframe>` בתוך `/map`. גם המשחק ושלושת
+צירי הזמן נשארים באפליקציות המקוריות שלהם ומוטמעים ב-`<iframe>` תחת `/game`
+ו-`/timelines/*`. כך המשתמש נשאר באתר עם הניווט שלו והעיצוב המקורי נשמר.
 
 ### מבחן מלא בתנאי אמת (`/exams`)
 

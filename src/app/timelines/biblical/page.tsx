@@ -1,13 +1,20 @@
-import timelines from "@/data/timelines/biblical";
-import { TimelineViewer } from "@/components/timeline/TimelineViewer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "צירי הזמן של הברית החדשה | אבן דרך למורי דרך",
+  description: "חמשת צירי הזמן המקוריים של הברית החדשה",
+};
 
 export default function BiblicalTimelinesPage() {
   return (
-    <TimelineViewer
-      slug="biblical"
-      timelines={timelines}
-      title="חמשת צירי הזמן"
-      intro="מסע כרונולוגי בברית החדשה, מחולק לחמישה צירים. לחיצה על אירוע פותחת את ההסבר ואת הפסוקים המלאים."
-    />
+    <div className="h-[calc(100dvh-60px)] min-h-[500px] w-full">
+      <iframe
+        src="https://biblical5-qntgpynm.manus.space/"
+        title="חמשת צירי הזמן של הברית החדשה"
+        className="h-full w-full border-0"
+        allow="fullscreen"
+        allowFullScreen
+      />
+    </div>
   );
 }

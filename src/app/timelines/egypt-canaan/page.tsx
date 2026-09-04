@@ -1,13 +1,20 @@
-import timelines from "@/data/timelines/egypt-canaan";
-import { TimelineViewer } from "@/components/timeline/TimelineViewer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "מצרים, כנען וראשית ישראל | אבן דרך למורי דרך",
+  description: "ציר הזמן המקורי של מצרים, כנען וראשית ישראל",
+};
 
 export default function EgyptCanaanTimelinePage() {
   return (
-    <TimelineViewer
-      slug="egypt-canaan"
-      timelines={timelines}
-      title="מצרים, כנען וראשית ישראל"
-      intro="ציר זמן של השליטה המצרית בכנען ושל ראשית ישראל — מקרב מגידו ועד מצבת מרנפתח."
-    />
+    <div className="h-[calc(100dvh-60px)] min-h-[500px] w-full">
+      <iframe
+        src="https://egypt-timel-n69crndr.manus.space/"
+        title="מצרים, כנען וראשית ישראל"
+        className="h-full w-full border-0"
+        allow="fullscreen"
+        allowFullScreen
+      />
+    </div>
   );
 }
