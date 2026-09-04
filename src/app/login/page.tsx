@@ -1,15 +1,26 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
+import { friendlyAuthError, isLegacyPasswordError } from "@/lib/cloudAuth";
+import { clearUser, readUser } from "@/lib/localAuth";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useUser();
-  const [error, setError] = useState(false);
+  const { user, ready, login, loginWithPassword } = useUser();
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [needsPassword, setNeedsPassword] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (ready && user) {
+      router.replace("/me");
+      return;
+    }
+  }, [ready, user, router]);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const name = String(form.get("name") ?? "").trim();
@@ -17,13 +28,31 @@ export default function LoginPage() {
       .trim()
       .toLowerCase();
 
-    if (!name || !email) {
-      setError(true);
+    const password = String(form.get("password") ?? "");
+    const classCode = String(form.get("classCode") ?? "").trim();
+
+    if ((!needsPassword && !name) || !email || (needsPassword && !password)) {
+      setError("נא למלא את כל שדות החובה.");
       return;
     }
-
-    login({ name, email });
-    router.push("/me");
+    setBusy(true);
+    setError("");
+    try {
+      if (needsPassword) await loginWithPassword(email, password);
+      else await login(name, email, classCode);
+      const legacy = readUser();
+      if (!legacy || legacy.email.trim().toLowerCase() === email) clearUser();
+      router.push("/me");
+    } catch (authError) {
+      if (!needsPassword && isLegacyPasswordError(authError)) {
+        setNeedsPassword(true);
+        setError("לחשבון הישן הזה יש סיסמה. הקלידו אותה כדי להיכנס.");
+      } else {
+        setError(friendlyAuthError(authError));
+      }
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -39,13 +68,13 @@ export default function LoginPage() {
         />
         <h1 className="grad-text relative mb-2 text-3xl">כניסה למערכת</h1>
         <p className="relative mb-6 text-sm leading-relaxed text-txt-dim">
-          הזינו שם ומייל — בלי סיסמה. הפרטים וההתקדמות נשמרים בדפדפן הזה,
-          כדי שהמערכת תזכור מה תרגלתם ובמה טעיתם.
+          זה אותו חשבון של משחק אבן דרך. הזינו את אותו אימייל ותיכנסו בלי
+          סיסמה; בחשבון ישן עם סיסמה השדה יופיע אוטומטית.
         </p>
 
         {error && (
           <p className="relative mb-4 rounded-sm border border-line px-3.5 py-2.5 text-sm font-bold text-red">
-            נא למלא שם ומייל תקינים.
+            {error}
           </p>
         )}
 
@@ -55,8 +84,9 @@ export default function LoginPage() {
             <input
               name="name"
               type="text"
-              required
+              required={!needsPassword}
               autoComplete="name"
+              disabled={needsPassword}
               className="rounded-md border border-line bg-sheet px-3.5 py-3 text-base outline-none transition focus:border-teal"
               placeholder="ישראל ישראלי"
             />
@@ -75,15 +105,44 @@ export default function LoginPage() {
             />
           </label>
 
+          {!needsPassword && (
+            <label className="flex flex-col gap-1.5 text-sm font-bold">
+              כיתה / מחזור <span className="font-normal text-txt-dim">(לא חובה)</span>
+              <input
+                name="classCode"
+                type="text"
+                autoComplete="off"
+                className="rounded-md border border-line bg-sheet px-3.5 py-3 text-base outline-none transition focus:border-teal"
+                placeholder={'למשל: קמ"ד שרון 26-27'}
+              />
+            </label>
+          )}
+
+          {needsPassword && (
+            <label className="flex flex-col gap-1.5 text-sm font-bold">
+              סיסמה
+              <input
+                name="password"
+                type="password"
+                required
+                autoComplete="current-password"
+                dir="ltr"
+                autoFocus
+                className="rounded-md border border-line bg-sheet px-3.5 py-3 text-base outline-none transition focus:border-teal"
+              />
+            </label>
+          )}
+
           <button
             type="submit"
+            disabled={busy}
             className="mt-2 rounded-full px-4 py-4 font-extrabold text-on-accent transition active:scale-95"
             style={{
               background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
               boxShadow: "0 10px 26px -10px var(--teal)",
             }}
           >
-            כניסה
+            {busy ? "מתחבר…" : "כניסה"}
           </button>
         </form>
       </div>

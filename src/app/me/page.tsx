@@ -38,6 +38,9 @@ export default function MePage() {
         <div>
           <h1 className="grad-text text-3xl">שלום, {user.name}</h1>
           <p className="text-sm text-txt-dim">{user.email}</p>
+          {user.classCode && (
+            <p className="mt-1 text-xs text-txt-dim">כיתה: {user.classCode}</p>
+          )}
         </div>
         <button
           type="button"
@@ -194,7 +197,7 @@ export default function MePage() {
             <button
               type="button"
               onClick={() => {
-                if (confirm("לאפס את כל נתוני ההתקדמות? הפעולה אינה הפיכה.")) {
+                if (confirm("לאפס את נתוני ההתקדמות של החשבון הזה במכשיר? הפעולה אינה הפיכה.")) {
                   resetProgress();
                 }
               }}
