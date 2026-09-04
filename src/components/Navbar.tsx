@@ -9,7 +9,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import brandIcon from "@/assets/brand-icon.png";
 
 const links = [
-  { href: "/game", label: "המשחק" },
+  { href: "/games", label: "משחקים" },
   { href: "/quizzes", label: "שאלונים" },
   { href: "/exams", label: "מבחן מלא" },
   { href: "/resources", label: "סיכומים" },

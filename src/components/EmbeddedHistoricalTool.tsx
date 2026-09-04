@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { recordSummaryAttempt } from "@/lib/progress";
+import { embedUrl } from "@/lib/basePath";
 
-const HISTORY_TIMELINE_URL = "https://cfir94.github.io/History_timeline/";
-const HISTORY_TIMELINE_ORIGIN = new URL(HISTORY_TIMELINE_URL).origin;
+const HISTORY_TIMELINE_URL = embedUrl("history-timeline/");
 
 type AttemptMessage = {
   type: "even-derech:historical-attempt";
@@ -42,7 +42,7 @@ export function EmbeddedHistoricalTool({
 
   useEffect(() => {
     const receiveAttempt = (event: MessageEvent) => {
-      if (event.origin !== HISTORY_TIMELINE_ORIGIN) return;
+      if (event.origin !== window.location.origin) return;
       if (event.source !== frameRef.current?.contentWindow) return;
       if (!isAttemptMessage(event.data)) return;
       recordSummaryAttempt(event.data);

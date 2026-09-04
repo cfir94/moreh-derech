@@ -33,7 +33,7 @@ export const DOMAINS: Record<string, Domain> = {
   "egypt-canaan": { color: "var(--blue)", icon: "🏺" },
   kings: { color: "var(--rose)", icon: "👑" },
   archaeology: { color: "var(--gold)", icon: "🏺" },
-  "judaism-timeline": { color: "var(--blue)", icon: "📜" },
+  "judaism-timeline": { color: "#8b234f", icon: "📖" },
   "dating-quiz": { color: "var(--green)", icon: "📅" },
   "timeline-drag": { color: "var(--violet)", icon: "🧩" },
   map: { color: "var(--teal)", icon: "🗺️" },
@@ -41,6 +41,10 @@ export const DOMAINS: Record<string, Domain> = {
   "guide-reports": { color: "var(--rose)", icon: "📝" },
   videos: { color: "var(--violet)", icon: "🎬" },
   game: { color: "var(--gold)", icon: "🎮" },
+  games: { color: "var(--gold)", icon: "🎮" },
+  "geo-game": { color: "var(--teal)", icon: "🗺️" },
+  "church-game": { color: "var(--violet)", icon: "⛪" },
+  "plants-game": { color: "var(--green)", icon: "🌿" },
   review: { color: "var(--gold)", icon: "🔁" },
 };
 
