@@ -5,17 +5,19 @@
 import * as maplibregl from '../vendor/maplibre/maplibre-gl.mjs';
 import mlcontour from '../vendor/maplibre/maplibre-contour.mjs';
 
-function readParentTheme() {
+const THEME_STORAGE_KEY = 'even-derech-map-theme';
+
+function readSavedTheme() {
   try {
-    const explicit = window.parent.document.documentElement.dataset.theme;
-    if (explicit === 'dark' || explicit === 'light') return explicit;
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === 'dark' || saved === 'light') return saved;
   } catch (e) {
-    // The standalone map still follows the device theme if embedded cross-origin.
+    // A storage restriction should never prevent the map from loading.
   }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return 'light';
 }
 
-let activeTheme = readParentTheme();
+let activeTheme = readSavedTheme();
 document.documentElement.dataset.theme = activeTheme;
 
 const BASEMAP_PALETTES = {
@@ -1712,17 +1714,26 @@ function wireUI() {
 
   const sidebar = document.getElementById('sidebar');
   const backdrop = document.getElementById('sidebar-backdrop');
+  const sidebarButton = document.getElementById('btn-toggle-sidebar');
+
+  function syncSidebarButton(isOpen) {
+    sidebarButton.setAttribute('aria-expanded', String(isOpen));
+    sidebarButton.setAttribute('aria-label', isOpen ? 'סגירת סרגל השכבות' : 'פתיחת סרגל השכבות');
+    sidebarButton.title = isOpen ? 'סגירת סרגל השכבות' : 'פתיחת סרגל השכבות';
+  }
 
   function openSidebar() {
     sidebar.classList.remove('collapsed');
     if (window.innerWidth < 900) backdrop.classList.remove('hidden');
+    syncSidebarButton(true);
   }
   function closeSidebar() {
     sidebar.classList.add('collapsed');
     backdrop.classList.add('hidden');
+    syncSidebarButton(false);
   }
 
-  document.getElementById('btn-toggle-sidebar').addEventListener('click', () => {
+  sidebarButton.addEventListener('click', () => {
     if (sidebar.classList.contains('collapsed')) openSidebar(); else closeSidebar();
   });
   backdrop.addEventListener('click', closeSidebar);
@@ -1745,6 +1756,8 @@ function wireUI() {
 
   if (window.innerWidth < 900) {
     closeSidebar();
+  } else {
+    syncSidebarButton(true);
   }
 
   window.addEventListener('online', () => document.getElementById('offline-indicator').classList.add('hidden'));
@@ -1776,24 +1789,27 @@ function dismissSplash() {
   setTimeout(() => el.remove(), 600);
 }
 
-function watchParentTheme() {
-  try {
-    const parentRoot = window.parent.document.documentElement;
-    const observer = new MutationObserver(() => {
-      const nextTheme = readParentTheme();
-      if (nextTheme !== activeTheme) window.location.reload();
-    });
-    observer.observe(parentRoot, { attributes: true, attributeFilter: ['data-theme', 'class'] });
-  } catch (e) {
-    // Standalone and cross-origin uses continue following the device theme.
-  }
+function setupThemeToggle() {
+  const button = document.getElementById('btn-theme');
+  const label = document.getElementById('theme-label');
+  const isDark = activeTheme === 'dark';
+  const nextLabel = isDark ? 'מצב בהיר' : 'מצב כהה';
+  label.textContent = nextLabel;
+  button.setAttribute('aria-label', `מעבר ל${nextLabel}`);
+  button.setAttribute('aria-pressed', String(isDark));
+  button.title = `מעבר ל${nextLabel}`;
+  button.addEventListener('click', () => {
+    const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (e) { /* storage is optional */ }
+    window.location.reload();
+  });
 }
 
 async function main() {
   // A hard ceiling on the splash: whatever happens to the network, the map is
   // interactive after four seconds rather than sitting behind a logo.
   setTimeout(dismissSplash, 4000);
-  watchParentTheme();
+  setupThemeToggle();
   await loadData();
   await initMap();
   map.once('idle', dismissSplash);
