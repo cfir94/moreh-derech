@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ihm-cache-v13';
+const CACHE_NAME = 'even-derech-map-v14';
 const MAP_CACHE_NAME = 'ihm-map-v1';
 // Every self-hosted tile archive. These are the only files served by Range
 // request, so they take the byte-slicing path below rather than plain caching.
@@ -41,12 +41,12 @@ const APP_SHELL = [
   'vendor/fonts/secular/secular-hebrew.woff2',
   'vendor/fonts/secular/secular-latin.woff2',
   'assets/banners/regions.svg',
-  'assets/banners/visitor.svg',
-  'assets/banners/nature.svg',
-  'assets/banners/topo.svg',
-  'assets/banners/geology.svg',
-  'assets/banners/timeline.svg',
-  'assets/banners/religion.svg',
+  'assets/banners/visitor-brand.svg',
+  'assets/banners/nature-brand.svg',
+  'assets/banners/topo-brand.svg',
+  'assets/banners/geology-brand.svg',
+  'assets/banners/timeline-brand.svg',
+  'assets/banners/religion-brand.svg',
   'assets/patterns/limestone.svg',
   'assets/patterns/dolomite.svg',
   'assets/patterns/chalk.svg',
@@ -80,6 +80,7 @@ const APP_SHELL = [
   'icons/svg/ui-search.svg',
   'icons/svg/ui-menu.svg',
   'icons/svg/logo.svg',
+  'icons/brand-icon.png',
   'icons/svg/era-prehistoric.svg',
   'icons/svg/era-bronze.svg',
   'icons/svg/era-biblical.svg',

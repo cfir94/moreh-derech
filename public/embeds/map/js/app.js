@@ -1,6 +1,67 @@
-/* מפת מורשת ישראל — לוגיקת האפליקציה הראשית, על גבי מפה וקטורית עצמאית (MapLibre + PMTiles) */
+/*
+ * Design philosophy: "אטלס שכבות חי" — a field-ready MapLibre tool using
+ * Even Derech's blue-grey terrain, translucent surfaces and teal navigation.
+ */
 import * as maplibregl from '../vendor/maplibre/maplibre-gl.mjs';
 import mlcontour from '../vendor/maplibre/maplibre-contour.mjs';
+
+function readParentTheme() {
+  try {
+    const explicit = window.parent.document.documentElement.dataset.theme;
+    if (explicit === 'dark' || explicit === 'light') return explicit;
+  } catch (e) {
+    // The standalone map still follows the device theme if embedded cross-origin.
+  }
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+let activeTheme = readParentTheme();
+document.documentElement.dataset.theme = activeTheme;
+
+const BASEMAP_PALETTES = {
+  light: {
+    ground: '#EAF0F5', residential: '#E3EAF1', park: '#CFE5D9', wood: '#BEDBCB',
+    water: '#9DD9D5', waterText: '#0F766E', building: '#D6E0E8', buildingLine: '#BFCDD8',
+    road: '#FFFFFF', roadCasing: '#B7C4CE', motorway: '#F5B942', motorwayCasing: '#B97908',
+    path: '#8294A3', rail: '#7E91A0', boundary: '#91A4B3', text: '#334B5C', halo: '#F6F8FB'
+  },
+  dark: {
+    ground: '#07131E', residential: '#102330', park: '#14382F', wood: '#194437',
+    water: '#0E3C4B', waterText: '#9FE8DD', building: '#19303E', buildingLine: '#284656',
+    road: '#294353', roadCasing: '#07131E', motorway: '#FFCE4D', motorwayCasing: '#9A6712',
+    path: '#5C7586', rail: '#657F8F', boundary: '#536C7C', text: '#D8E6EF', halo: '#08131E'
+  }
+};
+
+function applyBrandBasemap(styleObj, theme) {
+  const p = BASEMAP_PALETTES[theme];
+  styleObj.layers.forEach(layer => {
+    const paint = layer.paint || (layer.paint = {});
+    if (layer.id === 'background') paint['background-color'] = p.ground;
+    if (layer.id === 'park') paint['fill-color'] = p.park;
+    if (layer.id === 'landcover_wood') paint['fill-color'] = p.wood;
+    if (layer.id === 'landuse_residential') paint['fill-color'] = p.residential;
+    if (layer.id === 'water') paint['fill-color'] = p.water;
+    if (layer.id === 'waterway') paint['line-color'] = p.water;
+    if (layer.id === 'building') {
+      paint['fill-color'] = p.building;
+      paint['fill-outline-color'] = p.buildingLine;
+    }
+    if (/highway_path/.test(layer.id)) paint['line-color'] = p.path;
+    if (/railway/.test(layer.id)) paint['line-color'] = p.rail;
+    if (/boundary_/.test(layer.id)) paint['line-color'] = p.boundary;
+    if (/motorway.*casing|tunnel_motorway_casing/.test(layer.id)) paint['line-color'] = p.motorwayCasing;
+    if (/motorway.*inner|tunnel_motorway_inner/.test(layer.id)) paint['line-color'] = p.motorway;
+    if (/highway_(minor|major_inner)/.test(layer.id)) paint['line-color'] = p.road;
+    if (/highway_major_casing/.test(layer.id)) paint['line-color'] = p.roadCasing;
+    if (layer.type === 'symbol' && Object.hasOwn(paint, 'text-color')) {
+      paint['text-color'] = layer.id === 'water_name' ? p.waterText : p.text;
+      paint['text-halo-color'] = p.halo;
+      paint['text-halo-width'] = Math.max(Number(paint['text-halo-width']) || 0, 1.35);
+    }
+  });
+  return styleObj;
+}
 
 const ERA_COLORS = {
   prehistoric: '#A97142',
@@ -215,10 +276,10 @@ function loadMapIcons() {
       // a soft disc behind the glyph so it stays legible over any layer colour
       ctx.beginPath();
       ctx.arc(c.width / 2, c.height / 2, c.width / 2 - dpr, 0, Math.PI * 2);
-      ctx.fillStyle = '#FFFBF2';
+      ctx.fillStyle = activeTheme === 'dark' ? '#122B39' : '#F6F8FB';
       ctx.fill();
       ctx.lineWidth = 2 * dpr;
-      ctx.strokeStyle = 'rgba(46,36,24,0.28)';
+      ctx.strokeStyle = activeTheme === 'dark' ? 'rgba(159,232,221,.48)' : 'rgba(13,31,45,.22)';
       ctx.stroke();
       const pad = 9 * dpr;
       ctx.drawImage(img, pad, pad, c.width - pad * 2, c.height - pad * 2);
@@ -247,6 +308,7 @@ function natureColorMatchExpression() {
 
 async function initMap() {
   const styleObj = await fetch('vendor/maplibre/style.json').then(r => r.json());
+  applyBrandBasemap(styleObj, activeTheme);
   styleObj.sources.openmaptiles.url = 'pmtiles://' + abs('data/israel.pmtiles');
   styleObj.glyphs = absDir() + 'vendor/maplibre/fonts/{fontstack}/{range}.pbf';
 
@@ -330,9 +392,9 @@ async function initMap() {
     layout: { visibility: 'none' },
     paint: {
       'hillshade-exaggeration': 0.45,
-      'hillshade-shadow-color': '#6B5636',
-      'hillshade-highlight-color': '#FFF6E4',
-      'hillshade-accent-color': '#8A7350'
+      'hillshade-shadow-color': activeTheme === 'dark' ? '#02070B' : '#64748B',
+      'hillshade-highlight-color': activeTheme === 'dark' ? '#315063' : '#F8FAFC',
+      'hillshade-accent-color': activeTheme === 'dark' ? '#163647' : '#94A3B8'
     }
   }, HILLSHADE_INSERT_BEFORE);
 
@@ -360,7 +422,7 @@ async function initMap() {
     id: 'contour-lines', type: 'line', source: 'contours', 'source-layer': 'contours',
     layout: { visibility: 'none', 'line-join': 'round' },
     paint: {
-      'line-color': '#8A6B3F',
+      'line-color': activeTheme === 'dark' ? '#6B8799' : '#6B7F8F',
       // major contours read heavier than the minor ones between them
       'line-width': ['match', ['get', 'level'], 1, 1.3, 0.6],
       'line-opacity': ['match', ['get', 'level'], 1, 0.65, 0.4]
@@ -378,8 +440,8 @@ async function initMap() {
       'text-max-angle': 25
     },
     paint: {
-      'text-color': '#6B5230',
-      'text-halo-color': '#FFFBF2',
+      'text-color': activeTheme === 'dark' ? '#C7D9E4' : '#405768',
+      'text-halo-color': activeTheme === 'dark' ? '#08131E' : '#F6F8FB',
       'text-halo-width': 1.6
     }
   }, HILLSHADE_INSERT_BEFORE);
@@ -425,14 +487,14 @@ async function initMap() {
   map.addLayer({
     id: 'route-casing', type: 'line', source: 'route',
     layout: { 'line-cap': 'round', 'line-join': 'round' },
-    paint: { 'line-color': '#FFFBF2', 'line-width': 9, 'line-opacity': 0.9 }
+    paint: { 'line-color': activeTheme === 'dark' ? '#08131E' : '#F6F8FB', 'line-width': 9, 'line-opacity': 0.9 }
   }, HILLSHADE_INSERT_BEFORE);
   // line-dasharray is not data-driven in MapLibre, so the dashed "estimated"
   // styling is applied from JS in drawRoute() instead of via an expression.
   map.addLayer({
     id: 'route-line', type: 'line', source: 'route',
     layout: { 'line-cap': 'round', 'line-join': 'round' },
-    paint: { 'line-color': '#EF6F53', 'line-width': 5 }
+    paint: { 'line-color': activeTheme === 'dark' ? '#FF9B62' : '#F97316', 'line-width': 5 }
   }, HILLSHADE_INSERT_BEFORE);
 
   map.addSource('sites', { type: 'geojson', data: state.sitesGeoJSON });
@@ -442,7 +504,7 @@ async function initMap() {
     paint: {
       'circle-radius': 8,
       'circle-color': eraColorMatchExpression(),
-      'circle-stroke-color': '#FFFBF2',
+      'circle-stroke-color': activeTheme === 'dark' ? '#122B39' : '#F6F8FB',
       'circle-stroke-width': 2.5
     }
   });
@@ -469,10 +531,10 @@ async function initMap() {
     filter: ['has', 'point_count'],
     layout: { visibility: 'none' },
     paint: {
-      'circle-color': '#2F7D5B',
+      'circle-color': activeTheme === 'dark' ? '#2EE6C5' : '#0D9488',
       'circle-opacity': 0.9,
       'circle-radius': ['step', ['get', 'point_count'], 15, 10, 20, 40, 26],
-      'circle-stroke-color': '#FFFBF2',
+      'circle-stroke-color': activeTheme === 'dark' ? '#122B39' : '#F6F8FB',
       'circle-stroke-width': 2.5
     }
   });
@@ -485,7 +547,7 @@ async function initMap() {
       'text-font': ['Noto Sans Regular'],
       'text-size': 12
     },
-    paint: { 'text-color': '#FFFBF2' }
+    paint: { 'text-color': activeTheme === 'dark' ? '#06121A' : '#FFFFFF' }
   });
   map.addLayer({
     id: 'visitor-points', type: 'symbol', source: 'visitor',
@@ -517,8 +579,8 @@ async function initMap() {
     id: 'route-stops', type: 'circle', source: 'route-stops',
     paint: {
       'circle-radius': 13,
-      'circle-color': '#EF6F53',
-      'circle-stroke-color': '#FFFBF2',
+      'circle-color': activeTheme === 'dark' ? '#FF9B62' : '#F97316',
+      'circle-stroke-color': activeTheme === 'dark' ? '#122B39' : '#F6F8FB',
       'circle-stroke-width': 3
     }
   });
@@ -530,7 +592,7 @@ async function initMap() {
       'text-size': 13,
       'text-allow-overlap': true
     },
-    paint: { 'text-color': '#FFFBF2' }
+    paint: { 'text-color': activeTheme === 'dark' ? '#06121A' : '#FFFFFF' }
   });
 
   ['regions-fill', 'geology-fill', 'sites-periods', 'sites-religions', 'nature-points', 'visitor-points', 'visitor-clusters'].forEach(id => {
@@ -1709,10 +1771,24 @@ function dismissSplash() {
   setTimeout(() => el.remove(), 600);
 }
 
+function watchParentTheme() {
+  try {
+    const parentRoot = window.parent.document.documentElement;
+    const observer = new MutationObserver(() => {
+      const nextTheme = readParentTheme();
+      if (nextTheme !== activeTheme) window.location.reload();
+    });
+    observer.observe(parentRoot, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+  } catch (e) {
+    // Standalone and cross-origin uses continue following the device theme.
+  }
+}
+
 async function main() {
   // A hard ceiling on the splash: whatever happens to the network, the map is
   // interactive after four seconds rather than sitting behind a logo.
   setTimeout(dismissSplash, 4000);
+  watchParentTheme();
   await loadData();
   await initMap();
   map.once('idle', dismissSplash);
@@ -1727,10 +1803,10 @@ function showFatalError(message) {
   document.getElementById('sidebar').classList.add('collapsed');
   document.getElementById('sidebar-backdrop').classList.add('hidden');
   const mapEl = document.getElementById('map');
-  mapEl.innerHTML = `<div style="padding:24px;text-align:center;color:#2E2418;">
+  mapEl.innerHTML = `<div style="padding:24px;text-align:center;color:var(--text);">
     <p style="font-weight:700;margin-bottom:8px;">משהו השתבש בטעינת המפה</p>
-    <p style="font-size:0.85rem;color:#5C4E3A;">${message}</p>
-    <button onclick="location.reload()" style="margin-top:12px;padding:10px 16px;border-radius:999px;border:none;background:#F2A93B;font-weight:700;">רענן את הדף</button>
+    <p style="font-size:0.85rem;color:var(--text-dim);">${message}</p>
+    <button onclick="location.reload()" style="margin-top:12px;padding:10px 16px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-weight:700;">רענן את הדף</button>
   </div>`;
 }
 
