@@ -1,5 +1,5 @@
 {
-  "note": "Two rounds. The first levelled the length tell inherited from the old \"תקופות היסטוריות\" quiz. The second, after the split, replaced the distractors a student could dismiss without knowing anything — writing, metal or cities offered as an answer about the Palaeolithic — with the neighbouring period's true answer (נטופית מול ניאולית, פליאולית תיכון מול עליון, נחושת מול ברזל), and moved the teaching into `explanation`. Third round: the quiz was only as wide as the pile it was split out of. These questions are written from the course's own material — Dr Reuven Yeshurun's prehistory summary and the lecturers' term lists in the owner's Drive — so they cover what the course actually taught and the exam actually asks: the sites (עובדייה, גשר בנות יעקב, טבון, מיסליה, אוהלו, עינן, יריחו, שער הגולן, עתלית-ים, נחל משמר), the sequence, and what each find proves.",
+  "note": "Two rounds. The first levelled the length tell inherited from the old \"תקופות היסטוריות\" quiz. The second, after the split, replaced the distractors a student could dismiss without knowing anything — writing, metal or cities offered as an answer about the Palaeolithic — with the neighbouring period's true answer (נטופית מול ניאולית, פליאולית תיכון מול עליון, נחושת מול ברזל), and moved the teaching into `explanation`. Third round: the quiz was only as wide as the pile it was split out of. These questions are written from the course's own material — Dr Reuven Yeshurun's prehistory summary and the lecturers' term lists in the owner's Drive — so they cover what the course actually taught and the exam actually asks: the sites (עובדייה, גשר בנות יעקב, טבון, מיסליה, אוהלו, עינן, יריחו, שער הגולן, עתלית-ים, נחל משמר), the sequence, and what each find proves. Fourth round, after cross-checking every question against the course's NotebookLM notebooks (the lecturers' own recordings and handouts). Only findings backed by a primary source were applied — a recording or a course handout. Findings whose only evidence was a `presentation_*.txt` or `podcast_brief_*.txt` source were treated as leads, not authority: those files are NotebookLM's own generated output, uploaded back into the notebook, so citing them would be circular.",
   "drop": {},
   "replace": {
     "12": {
@@ -357,7 +357,7 @@
           false
         ]
       ],
-      "explanation": "החידוש הוא הכלי המורכב: ראש צור מעוצב שנקשר לידית עץ. הקשת ומטיל החנית מופיעים רק בפליאולית העליון."
+      "explanation": "החידוש הוא הכלי המורכב: ראש צור מעוצב שנקשר לידית עץ. החץ והקשת מופיעים מאוחר יותר — באפיפליאולית, שבו הסהרונים הזעירים משמשים כראשי חצים."
     },
     "2": {
       "answers": [
@@ -463,6 +463,27 @@
         ]
       ],
       "explanation": "הכלי הראשון (האולדוואי) פותח את הפליאולית התחתון. 790,000 — גשר בנות יעקב ושליטה באש; 11,000 — ראשית החקלאות."
+    },
+    "150": {
+      "answers": [
+        [
+          "התרחב מערבה ושימש שטח ציד פתוח",
+          true
+        ],
+        [
+          "הוצף כליל ונעלם מתחת לפני הים",
+          false
+        ],
+        [
+          "נעשה מדברי לחלוטין וננטש כליל",
+          false
+        ],
+        [
+          "התכסה בקרחונים ובאגמי קרח",
+          false
+        ]
+      ],
+      "explanation": "ירידת מפלס הים בתקופות הקרחוניות חשפה את המדף היבשתי והרחיבה את מישור החוף במספר קילומטרים. גם בקע הירדן היה אז אגם ענק — אגם הלשון, מחצבה ועד כורזים."
     }
   },
   "add": [
@@ -1727,6 +1748,351 @@
         ],
         [
           "כ-11,500 לפנה\"ס, עם החקלאות",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מה כוללת \"ההתנהגות האנושית המודרנית\" שמופיעה לפני 250–50 אלף שנה?",
+      "category": "מבוא לפרהיסטוריה ואבולוציית האדם",
+      "explanation": "אלה מאפיינים שאינם מותירים כלי אבן אלא עדות עקיפה — קבורה מכוונת, חרוזים, חריטה. הם מופיעים אצל הומו ספיינס ואצל הניאנדרטלים גם יחד.",
+      "answers": [
+        [
+          "שפה, אמנות ופולחן",
+          true
+        ],
+        [
+          "חקלאות, ביות וכפרים",
+          false
+        ],
+        [
+          "כתב, מסחר וערים",
+          false
+        ],
+        [
+          "מתכת, גלגל ומרכבה",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "איזו תרבות מסיימת את הפליאולית התחתון בארץ?",
+      "category": "פליאולית",
+      "explanation": "סביב 400–350 אלף שנה לפני זמננו, כשלב מעבר בין האשלית של אבן היד לבין המוסטרית של הפליאולית התיכון.",
+      "answers": [
+        [
+          "האשלרו-יברודית",
+          true
+        ],
+        [
+          "המוסטרית",
+          false
+        ],
+        [
+          "האוריניאקית",
+          false
+        ],
+        [
+          "הכבארית",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו אתרים נוספים מיוחסים לפליאולית התחתון בארץ?",
+      "category": "פליאולית",
+      "explanation": "לצד עובדייה וגשר בנות יעקב. הפיזור שלהם — מהגליל ועד השפלה — מלמד שהאדם הקדום נכח כמעט בכל אזורי הארץ.",
+      "answers": [
+        [
+          "עברון, נחל חסי ומערת גמל",
+          true
+        ],
+        [
+          "עינן, אוהלו ונחל אורן",
+          false
+        ],
+        [
+          "מנות, מיסליה וכבארה",
+          false
+        ],
+        [
+          "יריחו, מוצא ושער הגולן",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מערת היונים נמנית עם אתרי:",
+      "category": "פליאולית",
+      "explanation": "לצד טבון, סחול, מיסליה, עמוד וכבארה — המערות שבהן נמצאו שרידי הומו ספיינס וניאנדרטלים באותו אזור ובאותה תקופה.",
+      "answers": [
+        [
+          "הפליאולית התיכון",
+          true
+        ],
+        [
+          "הפליאולית התחתון",
+          false
+        ],
+        [
+          "האפיפליאולית",
+          false
+        ],
+        [
+          "הניאולית",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "לפי אילו שכבות מחלקים את התרבות המוסטרית?",
+      "category": "פליאולית",
+      "explanation": "מערת טבון נותנת רצף של 23 מ' שכבות, ולכן היא אמת המידה: מוסטרית קדומה (D), תיכונה (C) ומאוחרת (B).",
+      "answers": [
+        [
+          "שכבות טבון D, C ו-B",
+          true
+        ],
+        [
+          "שכבות עובדייה 1, 2 ו-3",
+          false
+        ],
+        [
+          "שכבות יריחו PPNA ו-PPNB",
+          false
+        ],
+        [
+          "שכבות אוהלו העליונות",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו תרבויות נוספות מופיעות בפליאולית העליון, מלבד האחמרית והאוריניאקית?",
+      "category": "פליאולית",
+      "explanation": "החלוקה הדקה הזו נשענת על טיפוסי כלי הצור, וכל שם הוא אתר או אזור שבו זוהתה התעשייה לראשונה.",
+      "answers": [
+        [
+          "אמירה, עתליתית ומשרקית",
+          true
+        ],
+        [
+          "כבארית, רמונית וחריפאית",
+          false
+        ],
+        [
+          "אשלית, יברודית ומוסטרית",
+          false
+        ],
+        [
+          "ירמוכית, לודית וע'סולית",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "הטכנולוגיה האופיינית לפליאולית העליון היא ייצור:",
+      "category": "פליאולית",
+      "explanation": "הלהב — נתז ארוך וצר שנסתת מגלעין מוכן — הוא קפיצת המדרגה: מגלעין אחד מפיקים הרבה יותר שוליים חדים מבעבר.",
+      "answers": [
+        [
+          "מגרדים, נקרים ולהבים",
+          true
+        ],
+        [
+          "אבני יד וקופיצים",
+          false
+        ],
+        [
+          "סהרונים ולהבי מגל",
+          false
+        ],
+        [
+          "ראשי חץ וגרזנים",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו תרבויות מופיעות באפיפליאולית לצד הכבארית והנטופית?",
+      "category": "אפיפליאולית והתרבות הנטופית",
+      "explanation": "רובן מזוהות בנגב ובסיני — עדות לכך שהאפיפליאולית אינו רצף אחיד אלא פסיפס של קבוצות באזורים שונים.",
+      "answers": [
+        [
+          "מושבית, רמונית וחריפאית",
+          true
+        ],
+        [
+          "אמירה, עתליתית ומשרקית",
+          false
+        ],
+        [
+          "ירמוכית, לודית וע'סולית",
+          false
+        ],
+        [
+          "אשלית, יברודית ומוסטרית",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מלבד ארכיטקטורת אבן ובתי קברות, מה מאפיין את התרבות הנטופית?",
+      "category": "אפיפליאולית והתרבות הנטופית",
+      "explanation": "ידיות מגולפות מעצם, חרוזים מצדפים ומשיני שועלים, וצלמיות אדם. חברה שיושבת במקום אחד מפתחת גם חפצים שאינם לשימוש מיידי.",
+      "answers": [
+        [
+          "שימוש רב באמנות",
+          true
+        ],
+        [
+          "שימוש רב בכלי חרס",
+          false
+        ],
+        [
+          "שימוש רב בכלי נחושת",
+          false
+        ],
+        [
+          "שימוש רב בכתב חרוט",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו סימנים למורכבות חברתית מופיעים בתקופה הניאוליתית?",
+      "category": "ניאולית וכלקוליתי",
+      "explanation": "אובסידיאן מאנטוליה וצדפים מים סוף מגיעים לכאן. מבנה ציבורי דורש גיוס עבודה — כלומר מישהו שמארגן אותה.",
+      "answers": [
+        [
+          "סחר למרחקים ומבני פולחן ציבוריים",
+          true
+        ],
+        [
+          "כתב מנהלי וגביית מסים",
+          false
+        ],
+        [
+          "חומות עיר ושערים מבוצרים",
+          false
+        ],
+        [
+          "מרכבות מלחמה וצבא קבע",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מה נובע מייצור המזון ומישיבת הקבע בניאולית?",
+      "category": "ניאולית וכלקוליתי",
+      "explanation": "חקלאות מפרנסת יותר אנשים לדונם מציד ולקט, וישיבת קבע מקצרת את המרווח בין לידות. זו נקודת הפתיחה של הציביליזציה.",
+      "answers": [
+        [
+          "עלייה חדה באוכלוסיית העולם",
+          true
+        ],
+        [
+          "ירידה חדה באוכלוסיית העולם",
+          false
+        ],
+        [
+          "חזרה לנוודות ולציד",
+          false
+        ],
+        [
+          "היעלמות כלי הצור",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מה מסמן את השלמת המהפכה החקלאית בתקופה הכלקוליתית?",
+      "category": "ניאולית וכלקוליתי",
+      "explanation": "זית, גפן ותאנה דורשים שנים עד ליבול ראשון — ולכן נוטע אותם רק מי שבטוח שיישאר במקום. המשק נעשה דומה לזה של התקופות ההיסטוריות.",
+      "answers": [
+        [
+          "ביות עצי פרי לצד הדגנים",
+          true
+        ],
+        [
+          "ביות הדגנים לראשונה",
+          false
+        ],
+        [
+          "ביות הכלב לראשונה",
+          false
+        ],
+        [
+          "ביות הסוס והגמל",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו בעלי מקצוע מופיעים בתקופה הכלקוליתית?",
+      "category": "ניאולית וכלקוליתי",
+      "explanation": "מי שיוצק נחושת בשעווה אבודה אינו מגדל את מזונו — כלומר החברה כבר מסוגלת לפרנס אותו. זו ראשית ההיררכיה שתוליד את העיר.",
+      "answers": [
+        [
+          "חרשי מתכת וכהנים",
+          true
+        ],
+        [
+          "סופרים וגובי מס",
+          false
+        ],
+        [
+          "בנאים ומהנדסי מים",
+          false
+        ],
+        [
+          "סוחרים ימיים וספנים",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו כלים אופייניים לתקופה הכלקוליתית?",
+      "category": "ניאולית וכלקוליתי",
+      "explanation": "לצדם מחבצה לחמאה ובזיך לפולחן. מגרד המניפה והכילף (מכוש) הם סימני היכר של התקופה בכלי הצור.",
+      "answers": [
+        [
+          "מגרדי מניפה, כילפות וקובעות",
+          true
+        ],
+        [
+          "סהרונים, מכתשים ועליים",
+          false
+        ],
+        [
+          "אבני יד, קופיצים ונתזים",
+          false
+        ],
+        [
+          "ראשי חץ, גרזנים ולהבים",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מדוע יש בנחל מערות שרידים מעטים בלבד מן הניאולית ואילך?",
+      "category": "ניאולית וכלקוליתי",
+      "explanation": "כל עוד חיו מציד ולקט, המערה שבמצוק הייתה בית מצוין. איכר צריך שדה ומים — ולכן היישוב יורד אל העמק ואל המישור.",
+      "answers": [
+        [
+          "הכפרים הוקמו בנוף אחר",
+          true
+        ],
+        [
+          "המערות קרסו ברעידת אדמה",
+          false
+        ],
+        [
+          "הים הציף את האזור כולו",
+          false
+        ],
+        [
+          "האזור ננטש בשל בצורת",
           false
         ]
       ]

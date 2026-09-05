@@ -1,5 +1,5 @@
 {
-  "note": "Two rounds. The first levelled the length tell inherited from the old \"תקופות היסטוריות\" quiz. The second, after the split, took every remaining question whose correct answer was the obvious long one: the teaching moved into `explanation` and the distractors became near misses — the neighbouring archive (מארות מול אל-עמארנה), the neighbouring period (ברונזה קדומה מול תיכונה), the other conqueror (חיקסוס, גויי הים, חיתים), or the neighbouring region (דרום מישור החוף מול צפונו). Third round: written from the course's own material — Dr Eyal Miron's Bronze Age summary and the term list ציון בת-זיו handed out for the unit, both in the owner's Drive. The list is the exam's scope, and its terms that the quiz did not yet cover are now in it: טומולי, קברי פיר, עפירו ושאסו, סוללה וחלקלקה, השער באשקלון, תקופת האבות, סיפור סינוחה, תעודות מארי ויציאת מצרים במחקר.",
+  "note": "Two rounds. The first levelled the length tell inherited from the old \"תקופות היסטוריות\" quiz. The second, after the split, took every remaining question whose correct answer was the obvious long one: the teaching moved into `explanation` and the distractors became near misses — the neighbouring archive (מארות מול אל-עמארנה), the neighbouring period (ברונזה קדומה מול תיכונה), the other conqueror (חיקסוס, גויי הים, חיתים), or the neighbouring region (דרום מישור החוף מול צפונו). Third round: written from the course's own material — Dr Eyal Miron's Bronze Age summary and the term list ציון בת-זיו handed out for the unit, both in the owner's Drive. The list is the exam's scope, and its terms that the quiz did not yet cover are now in it: טומולי, קברי פיר, עפירו ושאסו, סוללה וחלקלקה, השער באשקלון, תקופת האבות, סיפור סינוחה, תעודות מארי ויציאת מצרים במחקר. Fourth round, after cross-checking every question against the course's NotebookLM notebooks (the lecturers' own recordings and handouts). Only findings backed by a primary source were applied — a recording or a course handout. Findings whose only evidence was a `presentation_*.txt` or `podcast_brief_*.txt` source were treated as leads, not authority: those files are NotebookLM's own generated output, uploaded back into the notebook, so citing them would be circular.",
   "drop": {},
   "replace": {
     "95": {
@@ -525,7 +525,7 @@
           false
         ]
       ],
-      "explanation": "טיפוס מובהק של הברונזה התיכונה: שלוש לשוניות היוצאות מן הראש ויוצרות צורת ε, ודרכן הודק העץ. ממצא כזה מתארך את השכבה שבה נמצא."
+      "explanation": "טיפוס מובהק של הברונזה הקדומה: שלוש לשוניות היוצאות מן הראש ויוצרות צורת ε, ודרכן הודק העץ. הוא מעיד על חילופי ידע עם סוריה ולבנון, וממצא כזה מתארך את השכבה שבה נמצא."
     },
     "128": {
       "answers": [
@@ -799,6 +799,54 @@
         ]
       ],
       "explanation": "העודף הוא הציר: מי שמסוגל לאגור מסוגל גם לפרנס את מי שאינו מגדל מזון — פקיד, חייל, כוהן — ומרגע שיש מה לאגור, יש גם מה להגן עליו."
+    },
+    "159": {
+      "answers": [
+        [
+          "בורות לאגירת מי גשמים בתוך היישוב",
+          true
+        ],
+        [
+          "מנהרות חצובות אל מעיין שמחוץ לחומה",
+          false
+        ],
+        [
+          "אמות מים ארוכות ממעיינות רחוקים",
+          false
+        ],
+        [
+          "בריכות אגירה מדופנות באבן גזית",
+          false
+        ]
+      ],
+      "explanation": "בערד נאספו המים בנקודה הנמוכה בעיר. מפעלי המים החצובים אל מעיין שמחוץ לחומה — בחצור, במגידו ובעיר דוד — הם פתרון מאוחר בהרבה. (על טיוח הבורות כבר בשלב זה חלוקים המקורות בקורס.)"
+    },
+    "188": {
+      "explanation": "המרכבה היא כוח הסתערות מהיר: הלוחם שעליה יורה חצים או מפעיל חרב. השימוש בה נמשך ומתרחב בברונזה המאוחרת, ולצדה נעשית שם נפוצה גם הקשת המורכבת."
+    },
+    "193": {
+      "answers": [
+        [
+          "עזה (הבירה), יפו, אפק ובית שאן",
+          true
+        ],
+        [
+          "ירושלים, שכם, חברון ובית לחם",
+          false
+        ],
+        [
+          "חצור, מגידו, דן ועכו",
+          false
+        ],
+        [
+          "אשקלון, אשדוד, עקרון וגת",
+          false
+        ]
+      ],
+      "explanation": "ולצדן גם לכיש. מיקומן על דרך הים ובצומתי הדרכים הוא שקבע את בחירתן; אזור ההר נשאר מחוץ למערך. בבית שאן נמצא ארמון מושל מצרי מן המאה ה-12."
+    },
+    "213": {
+      "explanation": "לפי פרופ' אדם זרטל, השרדנה מסרדיניה התיישבו באל-אחואט שבצפון השומרון. הנדידה עצמה באה בעקבות משבר האקלים והקריסה האזורית — גויי הים הם תוצאה שלו לא פחות מסיבה; בגלה נעלמה הממלכה החתית ומצרים איבדה את מאחזיה בכנען."
     }
   },
   "add": [
@@ -2431,6 +2479,167 @@
         ],
         [
           "שערים בקמרונות קשת מלבני בוץ",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו עדויות לחקלאות ההר מופיעות בברונזה הקדומה?",
+      "category": "ברונזה קדומה",
+      "explanation": "הטרסה עוצרת את סחף האדמה במדרון ומאפשרת לעבד אותו. מכאן שהיישוב בברונזה הקדומה אינו בעמקים בלבד.",
+      "answers": [
+        [
+          "חקלאות מדרגות (טרסות) במדרונות",
+          true
+        ],
+        [
+          "חקלאות שלחין בתעלות השקיה",
+          false
+        ],
+        [
+          "מטעי זית וגפן מאורגנים",
+          false
+        ],
+        [
+          "שדות מוקפים בגדרות אבן",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מה קורה לאוכלוסיית הארץ בברונזה הביניימית?",
+      "category": "ברונזה ביניימית",
+      "explanation": "עם נטישת הערים נעלמת גם המסה האנושית שהחזיקה אותן. היישובים שנשארים קטנים, פזורים ומבוססים על רעיית צאן.",
+      "answers": [
+        [
+          "מצטמצמת בחדות",
+          true
+        ],
+        [
+          "גדלה בהתמדה",
+          false
+        ],
+        [
+          "נשארת ללא שינוי",
+          false
+        ],
+        [
+          "עוברת כולה אל הערים",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו אתרים מייצגים את היישוב בברונזה הביניימית?",
+      "category": "ברונזה ביניימית",
+      "explanation": "יישובים ארעיים בנגב ובשולי היישוב, ולא ערים. בירושלים נמצאו אתרים מקבילים בנחל רפאים ובמלחה.",
+      "answers": [
+        [
+          "הר ירוחם ובאר רסיסים",
+          true
+        ],
+        [
+          "חצור ומגידו",
+          false
+        ],
+        [
+          "לכיש ועקרון",
+          false
+        ],
+        [
+          "עכו ודור",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מדוע שולבו קורות עץ בשערי הברונזה התיכונה?",
+      "category": "ברונזה תיכונה",
+      "explanation": "עץ סופג תנודה שאבן מעבירה. השילוב של לבנים וקורות מוכר בשער תל עכו ובמגידו — הנדסה מתקדמת יותר משנדמה.",
+      "answers": [
+        [
+          "כדי להקנות גמישות בפני רעידות אדמה",
+          true
+        ],
+        [
+          "כדי לחסוך באבן יקרה ובעבודה",
+          false
+        ],
+        [
+          "כדי לזרז את קצב הבנייה",
+          false
+        ],
+        [
+          "כדי לתלות עליהן את דלתות השער",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מלבד עזה, יפו, אפק ובית שאן, איזו עיר שימשה מרכז מנהל מצרי?",
+      "category": "ברונזה מאוחרת",
+      "explanation": "בלכיש נחשפו מקדש ומבנה מנהל בסגנון מצרי. אזור ההר — ירושלים, שכם, חברון — נשאר דווקא מחוץ למערך הזה.",
+      "answers": [
+        [
+          "לכיש",
+          true
+        ],
+        [
+          "חברון",
+          false
+        ],
+        [
+          "שכם",
+          false
+        ],
+        [
+          "ירושלים",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "אילו מנהגי קבורה נהגו בברונזה המאוחרת, מלבד ארונות דמויי אדם?",
+      "category": "ברונזה מאוחרת",
+      "explanation": "המערה המשפחתית ממשיכה מן התקופות הקודמות, ולצדה מופיע קבר היחיד — אולי בהשפעת אמונות מצריות על גורלו של הפרט.",
+      "answers": [
+        [
+          "קבורת רבים במערות וקברי ארגז ליחיד",
+          true
+        ],
+        [
+          "שריפת גופות ופיזור האפר בשדה",
+          false
+        ],
+        [
+          "קבורה משנית בגלוסקמאות בלבד",
+          false
+        ],
+        [
+          "קבורה תחת רצפות הבתים בלבד",
+          false
+        ]
+      ]
+    },
+    {
+      "question": "מה מייחד את מגידו לאורך כל תקופות הברונזה?",
+      "category": "ברונזה קדומה",
+      "explanation": "מקדשי המגארון בקדומה, נטישה בביניימית, שער סורי וביצורים בתיכונה, קרב תחותמס ואוסף השנהבים במאוחרת. תל אחד שמספר את כל התקופה.",
+      "answers": [
+        [
+          "רצף: עיר, נטישה, שער סורי וקרב מצרי",
+          true
+        ],
+        [
+          "יישוב רצוף ללא הפסקה כלל",
+          false
+        ],
+        [
+          "נטישה מוחלטת לאורך כל התקופה",
+          false
+        ],
+        [
+          "שלטון מצרי ישיר מראשיתה",
           false
         ]
       ]
