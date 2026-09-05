@@ -22,6 +22,7 @@ export type VideoItem = {
   source: string;
   recommendedByCoordinator?: boolean;
   embedRestricted?: boolean;
+  externalProvider?: string;
   subtopic?: VideoSubtopic;
 };
 
@@ -52,6 +53,29 @@ function playlist(
     source,
     ...(recommendedByCoordinator ? { recommendedByCoordinator } : {}),
     ...(embedRestricted ? { embedRestricted } : {}),
+  };
+}
+
+function externalSeries(
+  id: string,
+  title: string,
+  description: string,
+  directUrl: string,
+  source: string,
+  externalProvider: string,
+  recommendedByCoordinator = false,
+): VideoItem {
+  return {
+    id,
+    title,
+    description,
+    type: "playlist",
+    embedUrl: directUrl,
+    directUrl,
+    source,
+    embedRestricted: true,
+    externalProvider,
+    ...(recommendedByCoordinator ? { recommendedByCoordinator } : {}),
   };
 }
 
@@ -130,13 +154,13 @@ const rawVideoGroups: VideoGroup[] = [
     intro: "פרהיסטוריה, תקופות קלאסיות וימי הביניים דרך ממצאים, חפירות והרצאות חוקרים.",
     accent: "gold",
     items: [
-      playlist(
+      externalSeries(
         "tohu-va-vohu",
         "והארץ הייתה תוהו ובוהו — כל הפרקים",
-        "סדרה מומלצת ישירות על ידי רכז הקורס; מתאימה להעמקת ההיכרות עם ארכאולוגיה ותולדות הארץ.",
-        "PLY8SR_z5GHjcxaML9v0NW5f1TJdi4PXRV",
-        "Eldad Beeri · המלצת רכז הקורס",
-        true,
+        "סדרת התעודה הרשמית של כאן 11: 15 פרקים על תולדות ארץ ישראל, מן הפרהיסטוריה ועד התקופה העותמאנית.",
+        "https://www.kan.org.il/content/kan/kan-11/p-13894/",
+        "כאן 11 · המלצת רכז הקורס",
+        "כאן 11",
         true,
       ),
       playlist(

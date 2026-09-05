@@ -137,6 +137,7 @@ function ExternalLinkIcon() {
 }
 
 function kindLabel(item: VideoItem) {
+  if (item.externalProvider) return "סדרה";
   return item.type === "playlist" ? "פלייליסט" : "סרטון";
 }
 
@@ -341,13 +342,19 @@ export function VideoLibrary() {
             {activeVideo.embedRestricted ? (
               <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-white sm:p-7">
                 <span className="mb-3 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
-                  מקור מומלץ עם זמינות משתנה
+                  {activeVideo.externalProvider
+                    ? `מקור רשמי של ${activeVideo.externalProvider}`
+                    : "מקור מומלץ עם זמינות משתנה"}
                 </span>
                 <h2 className="max-w-md text-lg leading-snug sm:text-xl">
-                  הפלייליסט אינו זמין כעת להטמעה ממיקום זה.
+                  {activeVideo.externalProvider
+                    ? `הסדרה זמינה לצפייה באתר ${activeVideo.externalProvider}.`
+                    : "הפלייליסט אינו זמין כעת להטמעה ממיקום זה."}
                 </h2>
                 <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/70">
-                  הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב.
+                  {activeVideo.externalProvider
+                    ? `${activeVideo.externalProvider} חוסם הטמעה בתוך אתרים חיצוניים. הקישור פותח את כל פרקי הסדרה באיכות המקורית.`
+                    : "הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב."}
                 </p>
                 <a
                   href={activeVideo.directUrl}
@@ -355,7 +362,7 @@ export function VideoLibrary() {
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-gold px-3.5 py-2.5 text-sm font-bold text-[#07131c] transition duration-200 ease-out hover:brightness-110 active:scale-[0.97]"
                 >
-                  פתיחה ביוטיוב
+                  פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
                   <ExternalLinkIcon />
                 </a>
               </div>
@@ -376,7 +383,7 @@ export function VideoLibrary() {
             <div>
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 <span className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${activeAccent.chip}`}>
-                  {activeVideo.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
+              {activeVideo.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
                   {kindLabel(activeVideo)}
                 </span>
                 {activeVideo.recommendedByCoordinator && <CoordinatorRecommendation />}
@@ -391,7 +398,7 @@ export function VideoLibrary() {
               rel="noopener noreferrer"
               className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg border border-line bg-card-2 px-3.5 py-2.5 text-sm font-bold text-txt transition duration-200 ease-out hover:border-teal/60 hover:bg-teal/10 hover:text-teal active:scale-[0.97]"
             >
-              פתיחה ביוטיוב
+              פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
               <ExternalLinkIcon />
             </a>
           </div>
