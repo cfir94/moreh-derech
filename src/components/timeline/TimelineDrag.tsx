@@ -34,7 +34,10 @@ import { domainStyle } from "@/lib/domains";
  * picking anything up.
  */
 
-const ROW_H = 60;
+// Tall enough for a two-line label plus the date line the check reveals — the
+// labels have to name what the card is now that the dates are hidden, so they
+// are longer than a one-line row would take.
+const ROW_H = 68;
 const ROW_GAP = 8;
 const STEP = ROW_H + ROW_GAP;
 
@@ -222,8 +225,8 @@ export function TimelineDrag() {
           {revealed
             ? "זה הסדר הנכון, מן המוקדם למאוחר."
             : checked
-              ? "ליד כרטיס שגוי מופיע המקום שאליו הוא שייך."
-              : "מן המוקדם (למעלה) אל המאוחר (למטה)."}
+              ? "התאריכים חזרו, וליד כרטיס שגוי מופיע המקום שאליו הוא שייך."
+              : "מן המוקדם (למעלה) אל המאוחר (למטה). התאריכים יתגלו בבדיקה."}
         </p>
       </header>
 
@@ -274,13 +277,19 @@ export function TimelineDrag() {
                 </button>
               )}
 
+              {/* The dates are the answer. While the exercise is open the card
+                  shows the label alone — with the two lines the dates would
+                  have taken, so long labels still fit — and the dates come back
+                  on בדיקה as the correction. */}
               <div className="flex min-w-0 flex-1 flex-col justify-center py-1">
-                <span className="truncate text-[14px] font-bold">
+                <span className="line-clamp-2 text-[13.5px] leading-[1.25] font-bold">
                   {card.label}
                 </span>
-                <span className="num truncate text-[11.5px] text-txt-dim">
-                  {card.dates}
-                </span>
+                {checked && (
+                  <span className="num truncate text-[10.5px] text-txt-dim">
+                    {card.dates}
+                  </span>
+                )}
               </div>
 
               {checked && (

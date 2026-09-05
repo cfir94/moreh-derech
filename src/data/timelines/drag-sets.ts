@@ -1,25 +1,73 @@
 // Extracted from the History_timeline embed under public/embeds/, which the
 // native drag exercise replaces. Each set is already in chronological order —
 // earliest first — and that order is the answer key, so never sort these.
+//
+// Two rules when adding a node:
+//
+// * **No ties.** The dates are hidden while the exercise is played, so the
+//   student orders from knowledge alone. Two cards that start at the same
+//   moment have no learnable answer — that is why the prehistory set folds
+//   "בונים בתים ונקברים עם כלבים" into תרבות נטופית and "המהפכה ששינתה את הכל"
+//   into the Neolithic rather than listing a period and the event that defines
+//   it as two separate cards.
+// * **The label has to carry the answer.** Since the dates are hidden, a label
+//   like "מהפכת שיטת הסיתות" is only orderable if it names what it is; hence
+//   the "— הלבלואה" half of each label.
 import type { TimelineSet } from "./types";
 
 export const TIMELINE_SETS: TimelineSet[] = [
   {
     "key": "prehistory_bronze",
     "title": "פרהיסטוריה ותקופת הברונזה",
-    "subtitle": "מן התרבות הנטופית ועד סוף הברונזה המאוחרת",
+    "subtitle": "מן הכלים הראשונים באפריקה ועד סוף הברונזה המאוחרת",
     "nodes": [
       {
-        "label": "תרבות נטופית",
-        "dates": "12,500–9,500 לפנה\"ס"
+        "label": "תחילת הדרך האנושית — כלי האבן הראשונים",
+        "dates": "2.5 מיליון שנה לפני זמננו"
       },
       {
-        "label": "ניאולית",
-        "dates": "9,500–4,500 לפנה\"ס"
+        "label": "פורצים את גבולות היבשת — היציאה מאפריקה",
+        "dates": "1.8 מיליון שנה לפני זמננו"
       },
       {
-        "label": "תקופה כלקוליתית",
-        "dates": "4,500–3,300 לפנה\"ס"
+        "label": "ההתיישבות הקדומה בארץ ישראל — עובידיה",
+        "dates": "1.5 מיליון שנה לפני זמננו"
+      },
+      {
+        "label": "אש על המים — גשר בנות יעקב",
+        "dates": "800,000–790,000 שנה לפני זמננו"
+      },
+      {
+        "label": "מהפכת שיטת הסיתות — הלבלואה",
+        "dates": "250,000 שנה לפני זמננו"
+      },
+      {
+        "label": "פגישת המחזור הגדולה — אדם מודרני וניאנדרטלי",
+        "dates": "200,000–100,000 שנה לפני זמננו"
+      },
+      {
+        "label": "הניצחון הסופי והאמנות פורצת",
+        "dates": "50,000/47,000 שנה לפני זמננו"
+      },
+      {
+        "label": "הסוכות ששרדו בקרקעית האגם — אוהלו",
+        "dates": "23,000 שנה לפני זמננו"
+      },
+      {
+        "label": "תרבות נטופית — בתים ראשונים וקבורה עם כלבים",
+        "dates": "15,000–11,500 לפני זמננו · 12,500–9,500 לפנה\"ס"
+      },
+      {
+        "label": "המהפכה ששינתה את הכל — ראשית הניאולית והחקלאות",
+        "dates": "11,500 לפני זמננו · 9,500 לפנה\"ס"
+      },
+      {
+        "label": "המצאת הקרמיקה והרחובות הראשונים — הניאולית הקרמית",
+        "dates": "7,800 לפני זמננו · סביב 5,800 לפנה\"ס"
+      },
+      {
+        "label": "עידן המתכת, הכהנים והחלב — התקופה הכלקוליתית",
+        "dates": "6,500–5,500 לפני זמננו · 4,500–3,300 לפנה\"ס"
       },
       {
         "label": "ברונזה קדומה",
@@ -32,6 +80,69 @@ export const TIMELINE_SETS: TimelineSet[] = [
       {
         "label": "ברונזה מאוחרת",
         "dates": "1,550–1,200 לפנה\"ס"
+      }
+    ]
+  },
+  {
+    "key": "bible_events",
+    "title": "אירועי התנ\"ך שמורה דרך צריך להכיר",
+    "subtitle": "מן האבות ועד שיבת ציון — לפי הסדר המקראי והתיארוך המקובל בקורס",
+    "nodes": [
+      {
+        "label": "אברהם בכנען — שכם, בית אל וחברון",
+        "dates": "תקופת האבות, סביב 1800 לפנה\"ס"
+      },
+      {
+        "label": "ירידת יעקב ובניו למצרים",
+        "dates": "סוף הברונזה התיכונה"
+      },
+      {
+        "label": "יציאת מצרים ונדודי המדבר",
+        "dates": "סביב 1250 לפנה\"ס"
+      },
+      {
+        "label": "כיבוש יריחו והברית בשכם",
+        "dates": "ראשית הברזל א', סביב 1200 לפנה\"ס"
+      },
+      {
+        "label": "שבי ארון הברית וחורבן שילה",
+        "dates": "סביב 1050 לפנה\"ס"
+      },
+      {
+        "label": "משיחת שאול ומותו בהר הגלבוע",
+        "dates": "1030–1004 לפנה\"ס"
+      },
+      {
+        "label": "דוד כובש את יבוס ומייסד את עיר דוד",
+        "dates": "סביב 1000 לפנה\"ס"
+      },
+      {
+        "label": "שלמה בונה את המקדש ואת חצור, מגידו וגזר",
+        "dates": "סביב 960 לפנה\"ס"
+      },
+      {
+        "label": "ירבעם מקים את מקדשי דן ובית אל",
+        "dates": "928 לפנה\"ס"
+      },
+      {
+        "label": "מרד מישע מלך מואב",
+        "dates": "סביב 840 לפנה\"ס"
+      },
+      {
+        "label": "נפילת שומרון וגלות עשרת השבטים",
+        "dates": "722 לפנה\"ס"
+      },
+      {
+        "label": "נקבת השילוח ומצור סנחריב על ירושלים",
+        "dates": "701 לפנה\"ס"
+      },
+      {
+        "label": "חורבן בית ראשון וגלות בבל",
+        "dates": "586 לפנה\"ס"
+      },
+      {
+        "label": "הצהרת כורש ושיבת ציון",
+        "dates": "538 לפנה\"ס"
       }
     ]
   },
