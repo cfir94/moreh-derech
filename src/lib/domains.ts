@@ -11,6 +11,7 @@ export type Domain = {
 
 export const DOMAINS: Record<string, Domain> = {
   "past-exams": { color: "var(--gold)", icon: "🎓" },
+  "exam-bank": { color: "var(--gold)", icon: "🗂️" },
   geology: { color: "var(--rose)", icon: "🪨" },
   "flora-fauna": { color: "var(--green)", icon: "🌿" },
   prehistory: { color: "var(--violet)", icon: "🦴" },

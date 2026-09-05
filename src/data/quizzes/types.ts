@@ -35,6 +35,11 @@ export type Question = {
 export type Quiz = {
   slug: string;
   label: string;
+  /**
+   * Shown above the setup screen. Used where the answers are not an official
+   * key and the student must be told so before they start.
+   */
+  notice?: string;
   categories: string[];
   questions: Question[];
   /**

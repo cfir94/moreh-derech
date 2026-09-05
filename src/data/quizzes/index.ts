@@ -3,6 +3,7 @@ import archaeologyIntro from "@/data/quizzes/archaeology-intro";
 import bronzeAge from "@/data/quizzes/bronze-age";
 import christianity from "@/data/quizzes/christianity";
 import courseBank from "@/data/quizzes/course-bank";
+import examBank from "@/data/quizzes/exam-bank";
 import floraFauna from "@/data/quizzes/flora-fauna";
 import geology from "@/data/quizzes/geology";
 import ironAge from "@/data/quizzes/iron-age";
@@ -13,6 +14,7 @@ import prehistory from "@/data/quizzes/prehistory";
 
 export const QUIZZES: Quiz[] = [
   pastExams,
+  examBank,
   courseBank,
   floraFauna,
   geology,
@@ -30,6 +32,8 @@ export const QUIZ_DESCRIPTIONS: Record<string, string> = {
     "שאלות ממבחני התרגול של הקורס — עם הסבר לכל תשובה, לפי הנושאים שנלמדו.",
   "past-exams":
     "שאלות אמיתיות ממבחני הרישוי של משרד התיירות, 2021–2025, עם התשובות הרשמיות.",
+  "exam-bank":
+    "2,634 שאלות ממבחני הרישוי 2000–2017, ממוינות ל-23 נושאים — כולל נושאים שאין להם שאלון אחר.",
   "flora-fauna":
     "צמחייה, ציפורים, יונקים, זוחלים, נדידה ובתי גידול — הטבע של ארץ ישראל.",
   geology:

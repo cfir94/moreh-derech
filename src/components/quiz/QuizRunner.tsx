@@ -178,6 +178,12 @@ export function QuizRunner({
           </div>
         </div>
 
+        {quiz.notice && (
+          <p className="mb-5 rounded-md border border-line bg-card px-4 py-3 text-[12.5px] leading-relaxed text-gold">
+            {quiz.notice}
+          </p>
+        )}
+
         <div className="flex flex-col gap-6 rounded-lg border border-line bg-card p-5">
           <section>
             <div className="mb-2.5 flex items-center justify-between gap-3">

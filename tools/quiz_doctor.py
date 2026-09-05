@@ -28,6 +28,12 @@ QUIZ_DIR = ROOT / "src/data/quizzes"
 TARGET_LONGEST = 0.25
 TARGET_RATIO = 1.35
 
+# Quizzes that quote the Ministry's papers verbatim. Their defects are the
+# exam's, not ours, and "fixing" them would falsify the source — so they are
+# measured and reported, but not held to the targets. Measured over the 2,634
+# items of 2000-2017: 17% clearly longest, 1.27x, and 6% carry a meta answer.
+QUOTED = {"past-exams", "exam-bank"}
+
 IMAGE_WORDS = ("בתמונה", "בצילום", "זהה את", "מי בתמונה", "בסרטון")
 META_WORDS = ("תשובות א", "תשובות ב", "כל התשובות", "אף תשובה", "אף אחת מן התשובות")
 
@@ -88,6 +94,7 @@ def examine(quiz):
 def report(slug, verbose):
     quiz = load(slug)
     r = examine(quiz)
+    quoted = slug in QUOTED
     flags = []
     if r["longest_share"] > TARGET_LONGEST:
         flags.append(f"correct answer clearly longest in {r['longest_share']:.0%}")
@@ -106,6 +113,7 @@ def report(slug, verbose):
     print(
         f"{slug:16s} n={r['n']:4d}  explained={r['explained']:4.0%}  "
         + ("; ".join(flags) if flags else "clean")
+        + ("   [quoted from the exam — reported, not a target]" if quoted and flags else "")
     )
 
     if verbose:
