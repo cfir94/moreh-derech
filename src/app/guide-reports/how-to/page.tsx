@@ -148,14 +148,57 @@ export default function HowToWriteReportPage() {
       <section className="mb-8 rounded-lg border border-line bg-card p-5">
         <h2 className="mb-2 text-lg">הקשר למבחן הרישוי</h2>
         <p className="mb-3 text-[13.5px] leading-relaxed text-txt-dim">
-          במבחן הרישוי בכתב של משרד התיירות (חלק ב׳) מתבקשים לבחור קבוצת יעד
-          ולבנות עבורה מסלול טיול. היכולת לתכנן יום, לנסח יחידות הדרכה ולחשוב
-          על מנהלות — בדיוק מה שמתרגלים בדו״ח הסיור — היא הבסיס לחלק הזה.
+          שלושת החלקים למעלה אינם המצאה של הקורס — הם{" "}
+          <b className="text-txt">בדיוק מבנה חלק ב׳ של מבחן הרישוי</b>. בטופס
+          המקורי של משרד התיירות מקבלים שלוש קבוצות מטיילים, בוחרים אחת, ומתכננים
+          לה יום שלם בין שעת יציאה לשעת סיום נתונות — ואז כותבים{" "}
+          <b className="text-txt">שש יחידות הדרכה קצרות</b> לפי רשימת דרישות
+          ממוספרת (״הדרכת דרך״, ״אתר בעל חשיבות דתית לאסלאם״, ״יחידה הקשורה
+          לבוטניקה בגליל העליון״), ועוד{" "}
+          <b className="text-txt">יחידה מורחבת אחת</b> שגם לה תנאי משלה.
         </p>
-        <p className="text-[13.5px] leading-relaxed text-txt-dim">
-          בקורס עצמו מגישים דו״ח אחרי כל סיור (בדרך כלל תוך שבועיים), לקבלת
-          הערות מהרכז ותרגול כתיבה.
+        <dl className="mb-3 grid gap-x-4 gap-y-1.5 text-[13px] sm:grid-cols-2">
+          <div className="flex gap-2">
+            <dt className="font-extrabold text-mc">חלק א׳</dt>
+            <dd className="text-txt-dim">
+              <span className="num">30</span> נקודות — שאלות ידע והבנה
+            </dd>
+          </div>
+          <div className="flex gap-2">
+            <dt className="font-extrabold text-mc">חלק ב׳</dt>
+            <dd className="text-txt-dim">
+              <span className="num">70</span> נקודות — תכנון היום
+            </dd>
+          </div>
+          <div className="flex gap-2">
+            <dt className="font-extrabold text-mc">משך חלק ב׳</dt>
+            <dd className="text-txt-dim">
+              <span className="num">3</span> שעות
+            </dd>
+          </div>
+          <div className="flex gap-2">
+            <dt className="font-extrabold text-mc">מועדים</dt>
+            <dd className="text-txt-dim">מאי ונובמבר, פעמיים בשנה</dd>
+          </div>
+          <div className="flex gap-2 sm:col-span-2">
+            <dt className="font-extrabold text-mc">עובר</dt>
+            <dd className="text-txt-dim">
+              <span className="num">65</span> ומעלה מזכה בגישה לבחינה בעל פה
+              (ינואר ויולי, מול ועדה של שלושה מורי דרך ונציג סוכני הנסיעות).
+            </dd>
+          </div>
+        </dl>
+        <p className="mb-3 text-[13.5px] leading-relaxed text-txt-dim">
+          בקורס עצמו מגישים דו״ח אחרי כל סיור, בדרך כלל תוך שבועיים. זו לא רק
+          מטלה: <b className="text-txt">הגשת דוחות הסיור כנדרש היא תנאי</b>{" "}
+          לזכאות לגשת למבחן הרישוי.
         </p>
+        <Link
+          href="/guide-reports/exam"
+          className="text-[13.5px] font-bold text-teal hover:underline"
+        >
+          לתרגל על טופס בחינה אמיתי ↗
+        </Link>
       </section>
 
       <div className="flex flex-wrap gap-3">

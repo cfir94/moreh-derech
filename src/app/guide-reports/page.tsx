@@ -32,11 +32,19 @@ const LEARN_CARDS = [
 const PRACTICE_CARDS = [
   {
     slug: "guide-reports",
+    href: "/guide-reports/exam",
+    title: "סימולציית חלק ב׳ במבחן הרישוי",
+    description:
+      "טפסי הבחינה המקוריים של משרד התיירות: שלוש קבוצות, בוחרים אחת, שעון של שלוש שעות, ורשימת הדרישות שצריך למלא.",
+    meta: "70 נקודות · 3 שעות",
+  },
+  {
+    slug: "guide-reports",
     href: "/guide-reports/practice/day",
     title: "סימולטור יום סיור",
     description:
-      "בחרו קבוצה עם אילוצים (כמו חלק ב׳ במבחן) ובנו לוח זמנים מלא עם מנהלות.",
-    meta: "חלק ב׳ · לוח זמנים",
+      "תרחישי קבוצות של האתר — תרגול בניית לוח זמנים ומנהלות, בלי כל אילוצי הבחינה.",
+    meta: "תרגול חופשי · לוח זמנים",
   },
   {
     slug: "guide-reports",
