@@ -35,7 +35,7 @@ export function EmbeddedHistoricalTool({
   view,
   title,
 }: {
-  view: "dating" | "drag" | "kings" | "archaeology" | "judaism";
+  view: "dating" | "kings" | "archaeology" | "judaism";
   title: string;
 }) {
   const frameRef = useRef<HTMLIFrameElement>(null);

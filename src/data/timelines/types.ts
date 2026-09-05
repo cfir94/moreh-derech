@@ -24,3 +24,18 @@ export type Timeline = {
   subtitle: string;
   events: TimelineEvent[];
 };
+
+/** One card in the drag exercise: a period, an event or a find. */
+export type TimelineNode = {
+  label: string;
+  /** Free text as taught — "3,300–2,300 לפנה״ס", "גיל 30". */
+  dates: string;
+};
+
+/** A drag set. `nodes` is stored in chronological order and IS the answer key. */
+export type TimelineSet = {
+  key: string;
+  title: string;
+  subtitle: string;
+  nodes: TimelineNode[];
+};

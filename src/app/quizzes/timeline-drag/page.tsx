@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { EmbeddedHistoricalTool } from "@/components/EmbeddedHistoricalTool";
+import { TimelineDrag } from "@/components/timeline/TimelineDrag";
 
 export const metadata: Metadata = {
   title: "תרגול ציר זמן | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "תרגול גרירה וסידור של תקופות, אירועים ודמויות",
+  description: "סידור תקופות, אירועים ודמויות בסדר כרונולוגי",
 };
 
 export default function TimelineDragPage() {
-  return <EmbeddedHistoricalTool view="drag" title="תרגול ציר זמן" />;
+  return <TimelineDrag />;
 }
