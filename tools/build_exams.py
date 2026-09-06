@@ -36,6 +36,7 @@ import sys
 from pathlib import Path
 
 from parse_exam import parse
+from parse_exam_2026 import parse as parse_2026
 from topics import LABELS as TOPIC_LABELS, TOPICS, topic_of
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -145,6 +146,37 @@ SITTINGS = [
             "en": "2025/Part1_jul2025_En.pdf",
             "ar": "2025/Part1_jul2025_Ar.pdf",
         },
+    },
+]
+
+# The 2026 papers, which the Ministry rebuilt: two independent sections of 45
+# rather than 33 paired items, so 90 graded questions instead of 33. Hebrew
+# only — that is the edition we hold — and read by tools/parse_exam_2026.py,
+# since the old parser assumes the pairing.
+SITTINGS_2026 = [
+    {
+        "slug": "january-2026",
+        "id_base": 12000,
+        "category": "ינואר 2026",
+        "date": "ינואר 2026",
+        "label": {
+            "he": "מבחן רישוי — ינואר 2026",
+            "en": "Licensing Exam — January 2026",
+            "ar": "امتحان الترخيص — كانون الثاني 2026",
+        },
+        "source": "exams2026/jan2026-a.pdf",
+    },
+    {
+        "slug": "july-2026",
+        "id_base": 13000,
+        "category": "יולי 2026",
+        "date": "יולי 2026",
+        "label": {
+            "he": "מבחן רישוי — יולי 2026",
+            "en": "Licensing Exam — July 2026",
+            "ar": "امتحان الترخيص — تموز 2026",
+        },
+        "source": "exams2026/july2026-a.pdf",
     },
 ]
 
@@ -466,6 +498,69 @@ def build_derived(sitting, pdf_dir):
     }
 
 
+def build_2026(sitting, pdf_dir):
+    """
+    A 2026-format sitting: 45 fill-in items, then 45 four-option items.
+
+    Nothing is paired, so `statement` stays empty throughout and the two halves
+    differ only in `kind`. The runner already renders a fill item as a typed
+    answer and skips an empty statement, so this needs no component of its own.
+    """
+    items, problems = parse_2026(str(pdf_dir / sitting["source"]))
+    fills = sum(1 for i in items if i["kind"] == "fill")
+    print(
+        f"  he: {len(items)} items ({fills} fill, {len(items) - fills} mc)",
+        file=sys.stderr,
+    )
+    for why in problems:
+        print(f"  ! {why}", file=sys.stderr)
+
+    questions = []
+    for item in items:
+        quiz_id = sitting["id_base"] + item["number"]
+        options = [a["text"] for a in item.get("answers", [])]
+        q = {
+            "topic": topic_of(quiz_id, item["question"], options),
+            "number": item["number"],
+            "quizId": quiz_id,
+            "kind": item["kind"],
+            "statement": {lang: "" for lang in LANGS},
+            "statementAnswer": {lang: "" for lang in LANGS},
+            "question": {"he": item["question"], "en": "", "ar": ""},
+            "answers": [
+                {"text": {"he": t, "en": "", "ar": ""}} for t in options
+            ],
+            "correctIndex": item.get("correctIndex", 0),
+        }
+        if item["kind"] == "fill":
+            q["answerText"] = item["answerText"]
+        questions.append(q)
+
+    return {
+        "slug": sitting["slug"],
+        "label": sitting["label"],
+        "date": sitting["date"],
+        "languages": ["he"],
+        "keySource": "official",
+        "questions": questions,
+    }
+
+
+def load_generated(slug):
+    """
+    A sitting read back from the file this script wrote for it earlier.
+
+    The archive of Ministry PDFs is not kept in the repo, so a run that only
+    adds a new sitting would otherwise have to re-download eleven papers to
+    rewrite index.ts and past-exams.ts — both of which are built from the whole
+    list. Reading the untouched sittings back keeps one script in charge of the
+    pipeline without demanding every source it ever consumed.
+    """
+    text = (EXAM_DIR / f"{slug}.ts").read_text()
+    start = text.index("{", text.index("const exam"))
+    return json.loads(text[start : text.rindex("}") + 1])
+
+
 def load_quiz():
     text = QUIZ_FILE.read_text()
     start = text.index("{", text.index("const quiz"))
@@ -526,6 +621,10 @@ def write_site(exams, sittings):
     generated = []
     for category, exam in zip(categories, exams):
         for q in exam["questions"]:
+            # The 2026 papers' fill-in half has no options, so it cannot become
+            # a four-option practice question. It is still sat in exam mode.
+            if q.get("kind") == "fill":
+                continue
             generated.append(
                 {
                     "id": q["quizId"],
@@ -636,14 +735,22 @@ def main():
 
     pdf_dir = Path(args.pdfs)
     exams = []
-    for sitting in DERIVED_SITTINGS:
-        print(f"{sitting['slug']} (worked answers):", file=sys.stderr)
-        exams.append(build_derived(sitting, pdf_dir))
-    for sitting in SITTINGS:
-        print(f"{sitting['slug']}:", file=sys.stderr)
-        exams.append(build_sitting(sitting, pdf_dir))
+    for builder, group in (
+        (build_derived, DERIVED_SITTINGS),
+        (build_sitting, SITTINGS),
+        (build_2026, SITTINGS_2026),
+    ):
+        for sitting in group:
+            names = sitting.get("sources", {"he": sitting.get("source")}).values()
+            if not all((pdf_dir / n).exists() for n in names if n):
+                print(f"{sitting['slug']}: PDFs absent, kept as built",
+                      file=sys.stderr)
+                exams.append(load_generated(sitting["slug"]))
+                continue
+            print(f"{sitting['slug']}:", file=sys.stderr)
+            exams.append(builder(sitting, pdf_dir))
 
-    write_site(exams, DERIVED_SITTINGS + SITTINGS)
+    write_site(exams, DERIVED_SITTINGS + SITTINGS + SITTINGS_2026)
     write_topics()
 
 

@@ -232,28 +232,38 @@ export function ExamSimulator() {
           <Timer hours={paper.hours} />
         </div>
         <p className="text-[12.5px] leading-relaxed text-txt-dim">
-          <b className="text-txt">
-            חלק ב׳ — סה״כ <span className="num">{paper.points}</span> נקודות.
-          </b>{" "}
+          {paper.points !== undefined && (
+            <b className="text-txt">
+              חלק ב׳ — סה״כ <span className="num">{paper.points}</span> נקודות.{" "}
+            </b>
+          )}
           משך חלק זה של הבחינה:{" "}
-          <span className="num">{paper.hours}</span> שעות. עליכם לבחור אחת משלוש
-          הקבוצות ולתכנן עבורה טיול.{" "}
-          <a
-            href={paper.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-bold text-teal hover:underline"
-          >
-            טופס הבחינה המקורי ↗
-          </a>
+          <span className="num">{paper.hours}</span> שעות. עליכם לבחור אחת מתוך{" "}
+          <span className="num">{paper.groups.length}</span> הקבוצות ולתכנן
+          עבורה טיול.{" "}
+          {paper.sourceUrl && (
+            <a
+              href={paper.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-teal hover:underline"
+            >
+              טופס הבחינה המקורי ↗
+            </a>
+          )}
         </p>
+        {paper.note && (
+          <p className="mt-2 text-[12px] leading-relaxed text-txt-dim opacity-80">
+            {paper.note}
+          </p>
+        )}
       </section>
 
       <section>
         <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
           בחרו קבוצה אחת
         </h2>
-        <div className="grid gap-3 lg:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {paper.groups.map((g) => {
             const active = g.n === groupN;
             return (

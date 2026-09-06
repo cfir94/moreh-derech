@@ -52,5 +52,12 @@ next-env.d.ts
 /.windsurf/
 /skills-lock.json
 
+# ...except the skills written for this project. quiz-writer holds what we
+# measured about how the licensing exam is actually worded; it is project
+# knowledge, not local editor state, and losing it means measuring again.
+!/.claude/
+/.claude/*
+!/.claude/skills/
+
 # Python bytecode from tools/
 __pycache__/
