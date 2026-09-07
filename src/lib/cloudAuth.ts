@@ -45,7 +45,7 @@ type AuthResponse = {
   };
 };
 
-type RequestOptions = {
+export type SupabaseRequestOptions = {
   method?: string;
   body?: unknown;
   auth?: boolean;
@@ -112,7 +112,10 @@ function saveSession(session: SharedSession | null) {
   }
 }
 
-async function request(path: string, options: RequestOptions = {}) {
+export async function supabaseRequest<T = unknown>(
+  path: string,
+  options: SupabaseRequestOptions = {},
+): Promise<T> {
   const {
     method = "GET",
     body,
@@ -133,7 +136,7 @@ async function request(path: string, options: RequestOptions = {}) {
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
-  if (response.status === 204) return null;
+  if (response.status === 204) return null as T;
   const text = await response.text();
   let data: unknown = null;
   try {
@@ -154,7 +157,7 @@ async function request(path: string, options: RequestOptions = {}) {
     error.status = response.status;
     throw error;
   }
-  return data;
+  return data as T;
 }
 
 let refreshing: Promise<void> | null = null;
@@ -165,7 +168,7 @@ async function refreshSession() {
     const current = readSession();
     if (!current?.refresh_token) throw new CloudAuthError("אין התחברות פעילה");
     try {
-      const response = (await request(
+      const response = (await supabaseRequest(
         "/auth/v1/token?grant_type=refresh_token",
         {
           method: "POST",
@@ -255,7 +258,7 @@ async function signUp(
   displayName: string,
   classCode: string,
 ) {
-  const response = (await request("/auth/v1/signup", {
+  const response = (await supabaseRequest("/auth/v1/signup", {
     method: "POST",
     auth: false,
     body: {
@@ -278,7 +281,7 @@ async function signUp(
 }
 
 export async function signIn(email: string, password: string) {
-  const response = (await request("/auth/v1/token?grant_type=password", {
+  const response = (await supabaseRequest("/auth/v1/token?grant_type=password", {
     method: "POST",
     auth: false,
     body: { email, password },
@@ -325,7 +328,7 @@ async function ensureProfile(displayName: string, classCode: string) {
     row.class_code = classCode || session.class_code;
   }
   await withAuth(() =>
-    request("/rest/v1/profiles", {
+    supabaseRequest("/rest/v1/profiles", {
       method: "POST",
       headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
       body: [row],
@@ -342,7 +345,7 @@ export async function refreshProfile() {
   const session = readSession();
   if (!session) return null;
   const rows = (await withAuth(() =>
-    request(
+    supabaseRequest(
       `/rest/v1/profiles?id=eq.${encodeURIComponent(session.user_id)}` +
         "&select=display_name,class_code,is_teacher",
     ),
@@ -364,6 +367,18 @@ export async function refreshProfile() {
 
 export function signOut() {
   saveSession(null);
+}
+
+export async function authenticatedSupabaseRequest<T = unknown>(
+  path: string,
+  options: Omit<SupabaseRequestOptions, "auth"> = {},
+) {
+  return withAuth(() =>
+    supabaseRequest<T>(path, {
+      ...options,
+      auth: true,
+    }),
+  );
 }
 
 export function friendlyAuthError(error: unknown) {

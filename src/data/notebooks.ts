@@ -40,6 +40,7 @@ export type OnlineNotebook = {
   id: string;
   mode: "online";
   title: string;
+  date?: string;
   focus: string;
   lecturer?: string;
   url: string;
