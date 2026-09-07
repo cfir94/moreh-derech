@@ -7,9 +7,12 @@
 import { useMemo, useState } from "react";
 import {
   NOTEBOOK_MODES,
+  THEORY_NOTEBOOKS,
+  THEORY_SUBJECTS,
   TOUR_NOTEBOOKS,
   TOUR_REGIONS,
   type NotebookMode,
+  type TheorySubject,
   type TourRegion,
 } from "@/data/notebooks";
 
@@ -75,6 +78,115 @@ function FutureMode({ mode }: { mode: NotebookMode }) {
   );
 }
 
+function TheorySection() {
+  const [activeSubject, setActiveSubject] = useState<TheorySubject | "all">("all");
+  const shownNotebooks = useMemo(
+    () =>
+      activeSubject === "all"
+        ? THEORY_NOTEBOOKS
+        : THEORY_NOTEBOOKS.filter((notebook) => notebook.subject === activeSubject),
+    [activeSubject],
+  );
+  const selectedSubject =
+    activeSubject === "all"
+      ? undefined
+      : THEORY_SUBJECTS.find((subject) => subject.id === activeSubject);
+
+  return (
+    <>
+      <section aria-labelledby="theory-subjects-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
+        <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 id="theory-subjects-heading" className="text-lg text-txt">עיוני לפי תחום לימוד</h2>
+            <p className="mt-1 text-sm text-txt-dim">בחרו תחום כדי לצמצם את המחברות לרצף לימוד אחד.</p>
+          </div>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">
+            {shownNotebooks.length} מחברות
+          </span>
+        </div>
+        <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
+          <button
+            type="button"
+            onClick={() => setActiveSubject("all")}
+            aria-pressed={activeSubject === "all"}
+            className={`shrink-0 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${
+              activeSubject === "all"
+                ? "border-teal/45 bg-teal/10 text-teal"
+                : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"
+            }`}
+          >
+            כל התחומים
+          </button>
+          {THEORY_SUBJECTS.map((subject) => {
+            const count = THEORY_NOTEBOOKS.filter((notebook) => notebook.subject === subject.id).length;
+            const isActive = activeSubject === subject.id;
+            return (
+              <button
+                key={subject.id}
+                type="button"
+                onClick={() => setActiveSubject(subject.id)}
+                aria-pressed={isActive}
+                className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${
+                  isActive ? toneClasses[subject.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"
+                }`}
+              >
+                {subject.title}
+                <span className="num text-xs opacity-70">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section aria-live="polite" aria-label="מחברות העיוני">
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 className="text-xl text-txt sm:text-2xl">{selectedSubject?.title ?? "כל המחברות העיוניות"}</h2>
+            {selectedSubject && <p className="mt-1 text-sm text-txt-dim">{selectedSubject.description}</p>}
+          </div>
+          <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למחברות</p>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {shownNotebooks.map((notebook, index) => {
+            const subject = THEORY_SUBJECTS.find((entry) => entry.id === notebook.subject)!;
+            return (
+              <article
+                key={notebook.id}
+                style={{ animationDelay: `${index * 0.04}s` }}
+                className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
+              >
+                <span aria-hidden="true" className={`absolute inset-y-0 right-0 w-1 ${toneClasses[subject.tone].split(" ")[1]}`} />
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${toneClasses[subject.tone]}`}>
+                    <NotebookIcon />
+                    {subject.title}
+                  </span>
+                  <span className="num text-xs font-bold text-txt-dim">{notebook.date}</span>
+                </div>
+                <h3 className="text-lg leading-snug text-txt">{notebook.title}</h3>
+                <p className="mt-2 flex items-center gap-1.5 text-sm text-txt-dim">
+                  <span className="font-bold text-txt">מוביל/ה:</span> {notebook.guide}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-txt-dim">{notebook.focus}</p>
+                <a
+                  href={notebook.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex w-fit items-center gap-2 pt-5 text-sm font-bold text-teal transition duration-200 ease-out group-hover:text-txt focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+                >
+                  פתיחה במחברת
+                  <ExternalIcon />
+                </a>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </>
+  );
+}
+
 export function NotebookLibrary() {
   const [activeMode, setActiveMode] = useState<NotebookMode>("tours");
   const [activeRegion, setActiveRegion] = useState<TourRegion | "all">("all");
@@ -110,7 +222,12 @@ export function NotebookLibrary() {
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
           {NOTEBOOK_MODES.map((mode) => {
             const isActive = activeMode === mode.id;
-            const count = mode.id === "tours" ? TOUR_NOTEBOOKS.length : null;
+            const count =
+              mode.id === "tours"
+                ? TOUR_NOTEBOOKS.length
+                : mode.id === "theory"
+                  ? THEORY_NOTEBOOKS.length
+                  : null;
             return (
               <button
                 key={mode.id}
@@ -131,8 +248,10 @@ export function NotebookLibrary() {
         </div>
       </section>
 
-      {activeMode !== "tours" ? (
+      {activeMode === "online" ? (
         <FutureMode mode={activeMode} />
+      ) : activeMode === "theory" ? (
+        <TheorySection />
       ) : (
         <>
           <section aria-labelledby="tour-regions-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
