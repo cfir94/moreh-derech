@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * ניווט אבן דרך: קישורים קצרים בשורה אחת במחשב ותפריט נגיש בנייד.
+ * קישור המחברות מצטרף למרכזי הלמידה בלי להעמיס על שורת הניווט.
+ */
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -13,6 +17,7 @@ const links = [
   { href: "/quizzes", label: "שאלונים" },
   { href: "/exams", label: "מבחן מלא" },
   { href: "/resources", label: "סיכומים" },
+  { href: "/notebooks", label: "מחברות" },
   { href: "/timelines", label: "צירי זמן" },
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },
@@ -42,7 +47,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <ul className="mr-2 hidden min-w-0 flex-1 items-center gap-0.5 md:flex">
+        <ul className="mr-2 hidden min-w-0 flex-1 items-center gap-0.5 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <Link
@@ -91,7 +96,7 @@ export function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label="תפריט"
             aria-expanded={open}
-            className="grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90 md:hidden"
+            className="grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90 lg:hidden"
           >
             ☰
           </button>
@@ -99,7 +104,7 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <ul className="border-t border-line bg-sheet px-4 pb-3 md:hidden">
+        <ul className="border-t border-line bg-sheet px-4 pb-3 lg:hidden">
           {links.map((link) => (
             <li key={link.href}>
               <Link
