@@ -4,20 +4,9 @@
  */
 export type NotebookMode = "tours" | "theory" | "online";
 
-export type TourRegion =
-  | "coastal-lowlands"
-  | "samaria-sharon"
-  | "carmel-coast"
-  | "galilee-valleys"
-  | "golan"
-  | "desert";
+export type TourRegion = string;
 
-export type TheorySubject =
-  | "borders"
-  | "christianity"
-  | "judaism"
-  | "geology"
-  | "nature";
+export type TheorySubject = string;
 
 export type CourseNotebook = {
   id: string;

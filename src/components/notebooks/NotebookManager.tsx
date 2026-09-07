@@ -29,7 +29,7 @@ type Props = {
 
 const EMPTY_FORM: StoredNotebookDraft = {
   mode: "tours",
-  subcategory: TOUR_REGIONS[0].id,
+  subcategory: TOUR_REGIONS[0].title,
   title: "",
   date: "",
   guide: "",
@@ -37,14 +37,50 @@ const EMPTY_FORM: StoredNotebookDraft = {
   url: "",
 };
 
-function optionsForMode(mode: StoredNotebookMode) {
+function defaultSuggestionsForMode(mode: StoredNotebookMode) {
   if (mode === "tours") {
-    return TOUR_REGIONS.map((region) => ({ value: region.id, label: region.title }));
+    return TOUR_REGIONS.map((region) => region.title);
   }
   if (mode === "theory") {
-    return THEORY_SUBJECTS.map((subject) => ({ value: subject.id, label: subject.title }));
+    return THEORY_SUBJECTS.map((subject) => subject.title);
   }
-  return [{ value: "online", label: "שיעורים מקוונים" }];
+  return ["שיעורים מקוונים"];
+}
+
+function suggestionsForMode(mode: StoredNotebookMode, notebooks: StoredNotebook[]) {
+  return Array.from(
+    new Set([
+      ...defaultSuggestionsForMode(mode),
+      ...notebooks
+        .filter((notebook) => notebook.mode === mode)
+        .map((notebook) => subcategoryLabel(mode, notebook.subcategory)),
+    ]),
+  ).filter(Boolean);
+}
+
+function subcategoryLabel(mode: StoredNotebookMode, value: string) {
+  if (mode === "tours") {
+    return TOUR_REGIONS.find((region) => region.id === value)?.title ?? value;
+  }
+  if (mode === "theory") {
+    return THEORY_SUBJECTS.find((subject) => subject.id === value)?.title ?? value;
+  }
+  return value === "online" ? "שיעורים מקוונים" : value;
+}
+
+function normalizeSubcategory(mode: StoredNotebookMode, value: string) {
+  const trimmed = value.trim();
+  if (mode === "tours") {
+    return TOUR_REGIONS.find(
+      (region) => region.id === trimmed || region.title === trimmed,
+    )?.id ?? trimmed;
+  }
+  if (mode === "theory") {
+    return THEORY_SUBJECTS.find(
+      (subject) => subject.id === trimmed || subject.title === trimmed,
+    )?.id ?? trimmed;
+  }
+  return trimmed === "שיעורים מקוונים" ? "online" : trimmed;
 }
 
 function normalizeNotebookUrl(value: string) {
@@ -67,7 +103,7 @@ export function NotebookManager({
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const subcategoryOptions = optionsForMode(draft.mode);
+  const subcategorySuggestions = suggestionsForMode(draft.mode, notebooks);
 
   const updateField = <K extends keyof StoredNotebookDraft>(
     field: K,
@@ -81,8 +117,8 @@ export function NotebookManager({
   };
 
   const handleModeChange = (mode: StoredNotebookMode) => {
-    const firstOption = optionsForMode(mode)[0].value;
-    setDraft((current) => ({ ...current, mode, subcategory: firstOption }));
+    const firstSuggestion = defaultSuggestionsForMode(mode)[0];
+    setDraft((current) => ({ ...current, mode, subcategory: firstSuggestion }));
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -93,11 +129,15 @@ export function NotebookManager({
     try {
       const cleanDraft = {
         ...draft,
+        subcategory: normalizeSubcategory(draft.mode, draft.subcategory),
         title: draft.title.trim(),
         guide: draft.guide.trim(),
         places: draft.places.trim(),
         url: normalizeNotebookUrl(draft.url),
       };
+      if (!cleanDraft.subcategory) {
+        throw new Error("יש להזין אזור, תחום לימוד או סוג מפגש.");
+      }
       if (editingId === null) {
         const created = await createStoredNotebook(cleanDraft);
         onCreated(created);
@@ -119,7 +159,7 @@ export function NotebookManager({
     setEditingId(notebook.id);
     setDraft({
       mode: notebook.mode,
-      subcategory: notebook.subcategory,
+      subcategory: subcategoryLabel(notebook.mode, notebook.subcategory),
       title: notebook.title,
       date: notebook.date,
       guide: notebook.guide,
@@ -169,13 +209,18 @@ export function NotebookManager({
 
         <label className="flex flex-col gap-1.5 text-sm font-bold text-txt">
           {draft.mode === "tours" ? "אזור" : draft.mode === "theory" ? "תחום לימוד" : "סוג מפגש"}
-          <select
+          <input
+            required
+            list={`notebook-subcategories-${draft.mode}`}
             value={draft.subcategory}
             onChange={(event) => updateField("subcategory", event.target.value)}
             className="rounded-md border border-line bg-sheet px-3.5 py-3 text-base font-normal outline-none transition focus:border-teal"
-          >
-            {subcategoryOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-          </select>
+            placeholder={draft.mode === "tours" ? "למשל: ירושלים והסביבה" : draft.mode === "theory" ? "למשל: אסלאם" : "למשל: שיעור זום"}
+          />
+          <datalist id={`notebook-subcategories-${draft.mode}`}>
+            {subcategorySuggestions.map((suggestion) => <option key={suggestion} value={suggestion} />)}
+          </datalist>
+          <span className="font-normal text-txt-dim">אפשר לבחור הצעה קיימת או להקליד ערך חדש.</span>
         </label>
 
         <label className="flex flex-col gap-1.5 text-sm font-bold text-txt sm:col-span-2">
