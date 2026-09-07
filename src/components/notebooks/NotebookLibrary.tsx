@@ -7,6 +7,7 @@
 import { useMemo, useState } from "react";
 import {
   NOTEBOOK_MODES,
+  ONLINE_NOTEBOOKS,
   THEORY_NOTEBOOKS,
   THEORY_SUBJECTS,
   TOUR_NOTEBOOKS,
@@ -48,33 +49,6 @@ function PinIcon() {
       <path d="M12 21s6-5.05 6-11a6 6 0 1 0-12 0c0 5.95 6 11 6 11Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
       <circle cx="12" cy="10" r="2" stroke="currentColor" strokeWidth="1.8" />
     </svg>
-  );
-}
-
-function FutureMode({ mode }: { mode: NotebookMode }) {
-  const content = {
-    theory: {
-      title: "המחברות העיוניות יתווספו כאן",
-      body: "כשיועברו הקישורים, הן ימוינו לפי תחומים כמו תאולוגיה, ארכאולוגיה, היסטוריה, גאוגרפיה ומדינת ישראל.",
-    },
-    online: {
-      title: "המחברות המקוונות יתווספו כאן",
-      body: "כשיועברו הקישורים, הן ימוינו לפי מפגשים, הקלטות, חומרי המשך ומשימות לימוד.",
-    },
-    tours: { title: "", body: "" },
-  }[mode];
-
-  return (
-    <section className="relative overflow-hidden rounded-[var(--r-lg)] border border-line bg-card p-6 sm:p-8">
-      <span aria-hidden="true" className="absolute -top-16 -left-16 size-44 rounded-full bg-violet/10 blur-2xl" />
-      <div className="relative max-w-xl">
-        <span className="mb-4 flex size-11 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet">
-          <NotebookIcon />
-        </span>
-        <h2 className="text-xl text-txt sm:text-2xl">{content.title}</h2>
-        <p className="mt-2 leading-relaxed text-txt-dim">{content.body}</p>
-      </div>
-    </section>
   );
 }
 
@@ -187,6 +161,67 @@ function TheorySection() {
   );
 }
 
+function OnlineSection() {
+  return (
+    <section aria-label="מחברות השיעורים המקוונים">
+      <div className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-4 sm:p-5">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 className="text-lg text-txt">שיעורים מקוונים</h2>
+            <p className="mt-1 text-sm text-txt-dim">רצף מחברות בארכאולוגיה, פרהיסטוריה ותקופות ארץ ישראל.</p>
+          </div>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">
+            {ONLINE_NOTEBOOKS.length} מחברות
+          </span>
+        </div>
+      </div>
+
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 className="text-xl text-txt sm:text-2xl">כל השיעורים המקוונים</h2>
+          <p className="mt-1 text-sm text-txt-dim">המחברות מוצגות לפי סדר המפגשים שנמסר.</p>
+        </div>
+        <p className="text-xs font-bold text-txt-dim">{ONLINE_NOTEBOOKS.length} קישורים ישירים למחברות</p>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {ONLINE_NOTEBOOKS.map((notebook, index) => (
+          <article
+            key={notebook.id}
+            style={{ animationDelay: `${index * 0.04}s` }}
+            className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
+          >
+            <span aria-hidden="true" className="absolute inset-y-0 right-0 w-1 bg-violet/10" />
+            <div className="mb-5 flex items-center justify-between gap-3">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/35 bg-violet/10 px-2.5 py-1 text-xs font-bold text-violet">
+                <NotebookIcon />
+                מקוון
+              </span>
+              <span className="num text-xs font-bold text-txt-dim">שיעור</span>
+            </div>
+            <h3 className="text-lg leading-snug text-txt">{notebook.title}</h3>
+            {notebook.lecturer && (
+              <p className="mt-2 flex items-center gap-1.5 text-sm text-txt-dim">
+                <span className="font-bold text-txt">מרצה:</span> {notebook.lecturer}
+              </p>
+            )}
+            <p className="mt-2 text-sm leading-relaxed text-txt-dim">{notebook.focus}</p>
+            <a
+              href={notebook.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-auto inline-flex w-fit items-center gap-2 pt-5 text-sm font-bold text-teal transition duration-200 ease-out group-hover:text-txt focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+            >
+              פתיחה במחברת
+              <ExternalIcon />
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function NotebookLibrary() {
   const [activeMode, setActiveMode] = useState<NotebookMode>("tours");
   const [activeRegion, setActiveRegion] = useState<TourRegion | "all">("all");
@@ -227,7 +262,7 @@ export function NotebookLibrary() {
                 ? TOUR_NOTEBOOKS.length
                 : mode.id === "theory"
                   ? THEORY_NOTEBOOKS.length
-                  : null;
+                  : ONLINE_NOTEBOOKS.length;
             return (
               <button
                 key={mode.id}
@@ -249,7 +284,7 @@ export function NotebookLibrary() {
       </section>
 
       {activeMode === "online" ? (
-        <FutureMode mode={activeMode} />
+        <OnlineSection />
       ) : activeMode === "theory" ? (
         <TheorySection />
       ) : (

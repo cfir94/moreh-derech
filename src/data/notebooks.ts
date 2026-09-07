@@ -36,6 +36,15 @@ export type TheoryNotebook = Omit<CourseNotebook, "mode" | "region" | "places"> 
   focus: string;
 };
 
+export type OnlineNotebook = {
+  id: string;
+  mode: "online";
+  title: string;
+  focus: string;
+  lecturer?: string;
+  url: string;
+};
+
 export const NOTEBOOK_MODES: {
   id: NotebookMode;
   title: string;
@@ -386,4 +395,50 @@ export const THEORY_NOTEBOOKS: TheoryNotebook[] = [
   },
 ];
 
-export const notebookCount = TOUR_NOTEBOOKS.length + THEORY_NOTEBOOKS.length;
+export const ONLINE_NOTEBOOKS: OnlineNotebook[] = [
+  {
+    id: "second-temple-period",
+    mode: "online",
+    title: "תקופת הבית השני",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/e1eef0d4-ef58-4296-92d1-e8eb32859abc",
+  },
+  {
+    id: "iron-age-two",
+    mode: "online",
+    title: "תקופת הברזל ב׳",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/60ee95aa-2ddf-4f0a-9609-925833a4efc7",
+  },
+  {
+    id: "iron-age-one",
+    mode: "online",
+    title: "תקופת הברזל א׳",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/049b364f-2dfd-4dc2-8b0b-26f8f9797872",
+  },
+  {
+    id: "bronze-age",
+    mode: "online",
+    title: "תקופת הברונזה",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/aaf4d95b-6aba-44a5-889a-0dc294f3414d",
+  },
+  {
+    id: "introduction-to-archaeology",
+    mode: "online",
+    title: "מבוא לארכאולוגיה",
+    focus: "שיעור מקוון · יסודות המחקר הארכאולוגי",
+    url: "https://notebook.google.com/notebook/98e0faca-5ea0-42bc-99c2-763a646bfd87",
+  },
+  {
+    id: "prehistory-of-israel",
+    mode: "online",
+    title: "פרהיסטוריה של א״י",
+    focus: "שיעור מקוון · ראשית האדם בארץ ישראל",
+    lecturer: "ראובן ישורון",
+    url: "https://notebook.google.com/notebook/d407b5f1-3dc0-49a8-b88e-97ac086a4b75",
+  },
+];
+
+export const notebookCount = TOUR_NOTEBOOKS.length + THEORY_NOTEBOOKS.length + ONLINE_NOTEBOOKS.length;
