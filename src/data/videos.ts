@@ -24,13 +24,14 @@ export type VideoItem = {
   embedRestricted?: boolean;
   externalProvider?: string;
   subtopic?: VideoSubtopic;
+  keywords?: string[];
 };
 
 export type VideoGroup = {
   id: string;
   category: string;
   intro: string;
-  accent: "teal" | "blue" | "violet" | "gold";
+  accent: "teal" | "blue" | "violet" | "gold" | "rose";
   items: VideoItem[];
 };
 

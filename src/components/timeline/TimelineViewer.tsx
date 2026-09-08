@@ -69,7 +69,7 @@ export function TimelineViewer({
       {/* The rail sits on the right in RTL; events hang off it in order. */}
       <ol className="relative border-r-2 border-line pr-6">
         {active.events.map((event, i) => (
-          <li key={event.id} className="relative mb-4 last:mb-0">
+          <li id={event.id} key={event.id} className="relative mb-4 scroll-mt-24 last:mb-0">
             <span
               className="num absolute -right-[1.95rem] top-5 grid h-6 w-6 place-items-center rounded-full border-2 border-mc bg-bg text-[0.65rem] font-extrabold text-mc"
               aria-hidden

@@ -4,7 +4,7 @@
  * עיצוב "שכבות של דרך": ניווט נושאי קודם לצפייה, נגן יחיד קומפקטי, וקרוסלת מקורות בהמשך.
  * הסדר מכוון לסריקה מהירה: קטגוריה → תת־נושא → מקור פעיל → מקורות משלימים.
  */
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   videoCount,
   videoGroups,
@@ -13,6 +13,11 @@ import {
   type VideoItem,
   type VideoSubtopic,
 } from "@/data/videos";
+import {
+  CLASS_VIDEO_SECTIONS,
+  classVideoCount,
+  type VideoSection,
+} from "@/data/class-videos";
 
 const accentClasses = {
   teal: {
@@ -38,6 +43,12 @@ const accentClasses = {
     bar: "bg-gold",
     chip: "border-gold/30 bg-gold/10 text-gold",
     ring: "ring-gold/50",
+  },
+  rose: {
+    dot: "bg-rose",
+    bar: "bg-rose",
+    chip: "border-rose/30 bg-rose/10 text-rose",
+    ring: "ring-rose/50",
   },
 } as const;
 
@@ -83,6 +94,16 @@ const generalSubtopic: VideoSubtopic = {
   description: "מקורות העשרה בנושאי הקורס.",
   tone: "teal",
 };
+
+const enrichmentSection: VideoSection = {
+  id: "enrichment",
+  title: "העשרה",
+  description: "סדרות, הרצאות וסרטונים משלימים שנבחרו לפי נושאי הליבה של קורס מורי הדרך.",
+  groups: videoGroups,
+};
+
+const videoSections: VideoSection[] = [...CLASS_VIDEO_SECTIONS, enrichmentSection];
+const totalVideoCount = classVideoCount + videoCount;
 
 function groupItemsBySubtopic(items: VideoItem[]) {
   return items.reduce<{ subtopic: VideoSubtopic; items: VideoItem[] }[]>(
@@ -159,20 +180,27 @@ function firstEmbeddableItem(items: VideoItem[]) {
 }
 
 export function VideoLibrary() {
-  const firstItem = videoGroups[0].items[0];
-  const [activeCategory, setActiveCategory] = useState(videoGroups[0].id);
+  const firstSection = videoSections[0];
+  const firstGroup = firstSection.groups[0];
+  const firstItem = firstGroup.items[0];
+  const [activeSection, setActiveSection] = useState(firstSection.id);
+  const [activeCategory, setActiveCategory] = useState(firstGroup.id);
   const [activeVideoId, setActiveVideoId] = useState(firstItem.id);
   const [activeSubtopicByGroup, setActiveSubtopicByGroup] = useState<Record<string, string>>(
     () =>
       Object.fromEntries(
-        videoGroups.map((group) => [group.id, groupItemsBySubtopic(group.items)[0].subtopic.id]),
+        videoSections.flatMap((section) => section.groups).map((group) => [group.id, groupItemsBySubtopic(group.items)[0].subtopic.id]),
       ),
   );
   const playerRef = useRef<HTMLElement>(null);
 
+  const selectedSection = useMemo(
+    () => videoSections.find((section) => section.id === activeSection) ?? firstSection,
+    [activeSection, firstSection],
+  );
   const selectedGroup = useMemo(
-    () => videoGroups.find((group) => group.id === activeCategory) ?? videoGroups[0],
-    [activeCategory],
+    () => selectedSection.groups.find((group) => group.id === activeCategory) ?? selectedSection.groups[0],
+    [activeCategory, selectedSection],
   );
   const subtopicGroups = useMemo(
     () => groupItemsBySubtopic(selectedGroup.items),
@@ -187,7 +215,8 @@ export function VideoLibrary() {
   );
   const activeVideo = useMemo(
     () =>
-      videoGroups
+      videoSections
+        .flatMap((section) => section.groups)
         .flatMap((group) => group.items)
         .find((item) => item.id === activeVideoId) ?? firstItem,
     [activeVideoId, firstItem],
@@ -196,6 +225,41 @@ export function VideoLibrary() {
   const activeAccent = accentClasses[selectedGroup.accent];
   const activeSubtopic = activeSubtopicGroup.subtopic;
   const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
+
+  useEffect(() => {
+    const requestedId = new URLSearchParams(window.location.search).get("video");
+    if (!requestedId) return;
+    let nextSelection: { section: VideoSection; group: VideoGroup; item: VideoItem } | undefined;
+    for (const section of videoSections) {
+      for (const group of section.groups) {
+        const item = group.items.find((candidate) => candidate.id === requestedId);
+        if (!item) continue;
+        nextSelection = { section, group, item };
+        break;
+      }
+      if (nextSelection) break;
+    }
+    if (!nextSelection) return;
+    const timer = window.setTimeout(() => {
+        const { section, group, item } = nextSelection;
+        const itemSubtopic = item.subtopic ?? generalSubtopic;
+        setActiveSection(section.id);
+        setActiveCategory(group.id);
+        setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: itemSubtopic.id }));
+        setActiveVideoId(item.id);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  function selectSection(section: VideoSection) {
+    const group = section.groups[0];
+    const firstSubtopic = groupItemsBySubtopic(group.items)[0];
+    const nextItem = firstEmbeddableItem(firstSubtopic.items);
+    setActiveSection(section.id);
+    setActiveCategory(group.id);
+    setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
+    setActiveVideoId(nextItem.id);
+  }
 
   function selectCategory(group: VideoGroup) {
     const firstSubtopic = groupItemsBySubtopic(group.items)[0];
@@ -248,16 +312,40 @@ export function VideoLibrary() {
           <span className="h-px w-8 bg-teal" aria-hidden="true" />
           מרכז הלמידה
         </div>
-        <h1 className="grad-text text-3xl leading-tight sm:text-4xl">סרטונים מומלצים</h1>
+        <h1 className="grad-text text-3xl leading-tight sm:text-4xl">ספריית הסרטונים</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-          {videoCount} מקורות צפייה שנבחרו לפי נושאי הליבה של קורס מורי הדרך —
-          היסטוריה, ארכאולוגיה, דתות, אמנות, גאוגרפיה, טבע ומקצוע ההדרכה.
+          {totalVideoCount} מקורות צפייה המחברים בין הקלטות הקורס, יחידות מקוונות,
+          סיורי השטח וספריית ההעשרה.
         </p>
       </header>
 
+      <section aria-labelledby="video-sections-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
+        <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 id="video-sections-heading" className="text-lg text-txt">בחירת סוג החומר</h2>
+            <p className="mt-1 text-sm text-txt-dim">הקלטות הקורס נפרדות מחומרי ההעשרה, כדי להגיע ישר למה שחובה או רלוונטי עכשיו.</p>
+          </div>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">
+            {selectedSection.groups.reduce((total, group) => total + group.items.length, 0)} מקורות
+          </span>
+        </div>
+        <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
+          {videoSections.map((section) => {
+            const isActive = selectedSection.id === section.id;
+            const count = section.groups.reduce((total, group) => total + group.items.length, 0);
+            return (
+              <button key={section.id} type="button" onClick={() => selectSection(section)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-black transition duration-200 ease-out active:scale-[0.97] ${isActive ? "border-teal/45 bg-teal/10 text-teal shadow-[0_7px_18px_-12px_var(--teal)]" : "border-line bg-card text-txt-dim hover:border-teal/35 hover:bg-card-2 hover:text-txt"}`}>
+                {section.title}<span className="num text-xs opacity-70">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-txt-dim">{selectedSection.description}</p>
+      </section>
+
       <section aria-label="סינון לפי תחום" className="mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
-          {videoGroups.map((group) => {
+          {selectedSection.groups.map((group) => {
             const accent = accentClasses[group.accent];
             const isActive = selectedGroup.id === group.id;
             return (

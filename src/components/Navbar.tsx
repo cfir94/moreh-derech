@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteSearch } from "@/components/SiteSearch";
 import brandIcon from "@/assets/brand-icon.png";
 
 const links = [
@@ -65,6 +66,7 @@ export function Navbar() {
         </ul>
 
         <div className="mr-auto flex items-center gap-2 md:mr-0">
+          <SiteSearch />
           <ThemeToggle />
           {ready && user ? (
             <Link
