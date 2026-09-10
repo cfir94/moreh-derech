@@ -225,6 +225,7 @@ export function VideoLibrary() {
   const activeAccent = accentClasses[selectedGroup.accent];
   const activeSubtopic = activeSubtopicGroup.subtopic;
   const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
+  const isUnifiedOnline = selectedSection.id === "online";
 
   useEffect(() => {
     const requestedId = new URLSearchParams(window.location.search).get("video");
@@ -343,6 +344,7 @@ export function VideoLibrary() {
         <p className="mt-3 text-sm leading-relaxed text-txt-dim">{selectedSection.description}</p>
       </section>
 
+      {!isUnifiedOnline && (
       <section aria-label="סינון לפי תחום" className="mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
           {selectedSection.groups.map((group) => {
@@ -367,7 +369,9 @@ export function VideoLibrary() {
           })}
         </div>
       </section>
+      )}
 
+      {!isUnifiedOnline && (
       <section aria-labelledby={`${selectedGroup.id}-heading`} className="mb-4">
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -419,6 +423,7 @@ export function VideoLibrary() {
           </div>
         </div>
       </section>
+      )}
 
       <section
         ref={playerRef}
@@ -499,9 +504,9 @@ export function VideoLibrary() {
             <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
             <div>
               <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
-                מקורות נוספים: {activeSubtopic.title}
+                {isUnifiedOnline ? "כל הקורסים המקוונים" : `מקורות נוספים: ${activeSubtopic.title}`}
               </h3>
-              <p className="mt-0.5 text-xs text-txt-dim">{activeSubtopic.description}</p>
+              <p className="mt-0.5 text-xs text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

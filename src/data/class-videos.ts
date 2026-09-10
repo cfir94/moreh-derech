@@ -47,12 +47,12 @@ const theoryTopics = {
   profession: subtopic("class-profession", "מקצוע ההדרכה", "ניהול קבוצה ועבודה מול גורמי תיירות.", "blue"),
 };
 
-const onlineTopics = {
-  foundations: subtopic("online-foundations", "יסודות ופרהיסטוריה", "פרהיסטוריה, התפתחות האדם ומבוא לארכאולוגיה.", "teal"),
-  bronzeIron: subtopic("online-bronze-iron", "ברונזה וברזל", "תקופות הברונזה והברזל בארץ ישראל.", "gold"),
-  classical: subtopic("online-classical", "בית שני והעולם הקלאסי", "בית שני, אדריכלות קלאסית והתקופות הרומית והביזנטית.", "violet"),
-  islamic: subtopic("online-islamic", "התקופות המוסלמיות והעות׳מאנית", "מן התקופה המוסלמית הקדומה ועד התקופה העות׳מאנית.", "blue"),
-};
+const onlineAllTopic = subtopic(
+  "online-all",
+  "קורסים מקוונים",
+  "כל יחידות החובה המקוונות של הקורס ברשימה אחת.",
+  "teal",
+);
 
 const tourTopics = {
   coast: subtopic("tour-coast", "מישור החוף והמרכז", "סיורי חוף, ערי מישור החוף ואתרי המרכז.", "gold"),
@@ -112,49 +112,25 @@ export const CLASS_VIDEO_SECTIONS: VideoSection[] = [
   {
     id: "online",
     title: "קורסים מקוונים",
-    description: "יחידות החובה המקוונות של הקורס, מסודרות לפי רצף תקופות ונושאים.",
+    description: "כל יחידות החובה המקוונות של הקורס ברשימה אחת, ללא תתי־חלוקות.",
     groups: [
       {
-        id: "online-foundations",
-        category: "יסודות ופרהיסטוריה",
-        intro: onlineTopics.foundations.description,
+        id: "online-all",
+        category: "קורסים מקוונים",
+        intro: onlineAllTopic.description,
         accent: "teal",
         items: [
-          classPlaylist("online-prehistory", "יחידה 6: פרהיסטוריה והתפתחות האדם", "יחידת הקורס המקוון על ראשית האדם והתרבויות הפרהיסטוריות.", "PL20z4RUH7ooqr0q3iJvxBHE54S-wRDWGd", onlineTopics.foundations, ["פרהיסטוריה", "התפתחות האדם", "פליאולית", "ניאולית"]),
-          classPlaylist("online-archaeology-intro", "יחידה 8: מבוא לארכאולוגיה של ארץ ישראל", "יחידת יסוד על מחקר ארכאולוגי, חפירה, תיארוך וממצא.", "PLRgKoeKFZD7M", onlineTopics.foundations, ["ארכאולוגיה", "חפירה", "תיארוך", "תל"]),
-        ],
-      },
-      {
-        id: "online-bronze-iron",
-        category: "ברונזה וברזל",
-        intro: onlineTopics.bronzeIron.description,
-        accent: "gold",
-        items: [
-          classPlaylist("online-bronze-age", "יחידה 9: תקופת הברונזה", "יחידת הקורס המקוון על תקופות הברונזה וערי כנען.", "PLfj5khSEP_OU", onlineTopics.bronzeIron, ["תקופת הברונזה", "כנען", "ערי מדינה", "מגידו"]),
-          classPlaylist("online-iron-age-one", "יחידה 10: תקופת הברזל — חלק ראשון", "החלק הראשון של יחידת הקורס המקוון על תקופת הברזל.", "PLPOdFzwMj6kw", onlineTopics.bronzeIron, ["תקופת הברזל", "ישראל", "יהודה", "מקרא"]),
-          classPlaylist("online-iron-age-two", "יחידה 10: תקופת הברזל — חלק שני", "החלק השני של יחידת הקורס המקוון על תקופת הברזל.", "PLYcCpUbYG204", onlineTopics.bronzeIron, ["תקופת הברזל", "ממלכת ישראל", "ממלכת יהודה", "מגידו"]),
-        ],
-      },
-      {
-        id: "online-classical",
-        category: "בית שני והעולם הקלאסי",
-        intro: onlineTopics.classical.description,
-        accent: "violet",
-        items: [
-          classPlaylist("online-second-temple", "יחידה 11: תקופת בית שני", "יחידת הקורס המקוון על התקופה הפרסית, ההלניסטית והרומית הקדומה.", "PLOJyGbnt4Y5U", onlineTopics.classical, ["בית שני", "חשמונאים", "הורדוס", "רומאים"]),
-          classPlaylist("online-roman-byzantine", "יחידה 12: התקופה הרומית המאוחרת והביזנטית", "יחידת הקורס המקוון על התקופות הרומית המאוחרת והביזנטית.", "PLbKQBW1l0Uqo", onlineTopics.classical, ["רומית", "ביזנטית", "נצרות", "העולם הקלאסי"]),
-          classPlaylist("online-classical-architecture", "יחידה 13: ארכאולוגיה ואדריכלות העולם הקלאסי", "מושגי יסוד בארכאולוגיה ובאדריכלות של העולם הקלאסי.", "PLCOMrrqZK_48", onlineTopics.classical, ["ארכאולוגיה", "אדריכלות", "העולם הקלאסי", "מקדש"]),
-        ],
-      },
-      {
-        id: "online-islamic-periods",
-        category: "התקופות המוסלמיות והעות׳מאנית",
-        intro: onlineTopics.islamic.description,
-        accent: "blue",
-        items: [
-          classPlaylist("online-early-islam", "יחידה 14: התקופה המוסלמית הקדומה", "יחידת הקורס המקוון על הכיבוש המוסלמי והתקופות האומיית והעבאסית.", "PLfuVdWU8-RUI", onlineTopics.islamic, ["אסלאם", "מוסלמית קדומה", "אומיים", "עבאסים"]),
-          classPlaylist("online-middle-ages", "יחידה 15: הצלבנים, האיובים והממלוכים", "יחידת הקורס המקוון על תקופות ימי הביניים בארץ ישראל.", "PLZeF_g39gXEo", onlineTopics.islamic, ["צלבנים", "איובים", "ממלוכים", "ימי הביניים"]),
-          classPlaylist("online-ottoman", "יחידה 16: התקופה העות׳מאנית", "יחידת הקורס המקוון על ארץ ישראל בתקופה העות׳מאנית.", "PLU0PiDrMxRMA", onlineTopics.islamic, ["עותמאנים", "האימפריה העותמאנית", "העת החדשה"]),
+          classPlaylist("online-prehistory", "יחידה 6: פרהיסטוריה והתפתחות האדם", "יחידת הקורס המקוון על ראשית האדם והתרבויות הפרהיסטוריות.", "PL20z4RUH7ooqr0q3iJvxBHE54S-wRDWGd", onlineAllTopic, ["פרהיסטוריה", "התפתחות האדם", "פליאולית", "ניאולית"]),
+          classPlaylist("online-archaeology-intro", "יחידה 8: מבוא לארכאולוגיה של ארץ ישראל", "יחידת יסוד על מחקר ארכאולוגי, חפירה, תיארוך וממצא.", "PLRgKoeKFZD7M", onlineAllTopic, ["ארכאולוגיה", "חפירה", "תיארוך", "תל"]),
+          classPlaylist("online-bronze-age", "יחידה 9: תקופת הברונזה", "יחידת הקורס המקוון על תקופות הברונזה וערי כנען.", "PLfj5khSEP_OU", onlineAllTopic, ["תקופת הברונזה", "כנען", "ערי מדינה", "מגידו"]),
+          classPlaylist("online-iron-age-one", "יחידה 10: תקופת הברזל — חלק ראשון", "החלק הראשון של יחידת הקורס המקוון על תקופת הברזל.", "PLPOdFzwMj6kw", onlineAllTopic, ["תקופת הברזל", "ישראל", "יהודה", "מקרא"]),
+          classPlaylist("online-iron-age-two", "יחידה 10: תקופת הברזל — חלק שני", "החלק השני של יחידת הקורס המקוון על תקופת הברזל.", "PLYcCpUbYG204", onlineAllTopic, ["תקופת הברזל", "ממלכת ישראל", "ממלכת יהודה", "מגידו"]),
+          classPlaylist("online-second-temple", "יחידה 11: תקופת בית שני", "יחידת הקורס המקוון על התקופה הפרסית, ההלניסטית והרומית הקדומה.", "PLOJyGbnt4Y5U", onlineAllTopic, ["בית שני", "חשמונאים", "הורדוס", "רומאים"]),
+          classPlaylist("online-roman-byzantine", "יחידה 12: התקופה הרומית המאוחרת והביזנטית", "יחידת הקורס המקוון על התקופות הרומית המאוחרת והביזנטית.", "PLbKQBW1l0Uqo", onlineAllTopic, ["רומית", "ביזנטית", "נצרות", "העולם הקלאסי"]),
+          classPlaylist("online-classical-architecture", "יחידה 13: ארכאולוגיה ואדריכלות העולם הקלאסי", "מושגי יסוד בארכאולוגיה ובאדריכלות של העולם הקלאסי.", "PLCOMrrqZK_48", onlineAllTopic, ["ארכאולוגיה", "אדריכלות", "העולם הקלאסי", "מקדש"]),
+          classPlaylist("online-early-islam", "יחידה 14: התקופה המוסלמית הקדומה", "יחידת הקורס המקוון על הכיבוש המוסלמי והתקופות האומיית והעבאסית.", "PLfuVdWU8-RUI", onlineAllTopic, ["אסלאם", "מוסלמית קדומה", "אומיים", "עבאסים"]),
+          classPlaylist("online-middle-ages", "יחידה 15: הצלבנים, האיובים והממלוכים", "יחידת הקורס המקוון על תקופות ימי הביניים בארץ ישראל.", "PLZeF_g39gXEo", onlineAllTopic, ["צלבנים", "איובים", "ממלוכים", "ימי הביניים"]),
+          classPlaylist("online-ottoman", "יחידה 16: התקופה העות׳מאנית", "יחידת הקורס המקוון על ארץ ישראל בתקופה העות׳מאנית.", "PLU0PiDrMxRMA", onlineAllTopic, ["עותמאנים", "האימפריה העותמאנית", "העת החדשה"]),
         ],
       },
     ],
