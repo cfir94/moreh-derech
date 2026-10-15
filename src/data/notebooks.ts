@@ -437,7 +437,43 @@ export const THEORY_NOTEBOOKS: TheoryNotebook[] = [
   },
 ];
 
+// סדר הוספה: מחברות חדשות בראש הרשימה, מהחדשה לישנה.
 export const ONLINE_NOTEBOOKS: OnlineNotebook[] = [
+  {
+    id: "ottoman-period",
+    mode: "online",
+    title: "התקופה העות'מאנית",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/14f63a3e-d96e-476a-b3bd-1cf741cdf1d6",
+  },
+  {
+    id: "medieval-crusader-ayyubid-mamluk-periods",
+    mode: "online",
+    title: "תקופות ימי הביניים: הצלבנית האיובית והממלוכית",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/acc5f035-d26e-4414-8efc-2388ac0463a8",
+  },
+  {
+    id: "early-muslim-period",
+    mode: "online",
+    title: "התקופה המוסלמית הקדומה",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/a86d9c5d-facb-4319-9b22-2e29b1413520",
+  },
+  {
+    id: "classical-architecture-basics",
+    mode: "online",
+    title: "מושגי יסוד באדריכלות קלאסית",
+    focus: "שיעור מקוון · אדריכלות קלאסית",
+    url: "https://notebook.google.com/notebook/3c37ca0a-7c26-49f8-b23e-58cfe9c69d14",
+  },
+  {
+    id: "late-roman-byzantine-period",
+    mode: "online",
+    title: "התקופה הרומית המאוחרת והתקופה הביזנטית",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/35a76d16-c61b-42f8-aeea-bb60af7a6303",
+  },
   {
     id: "second-temple-period",
     mode: "online",
@@ -480,41 +516,6 @@ export const ONLINE_NOTEBOOKS: OnlineNotebook[] = [
     focus: "שיעור מקוון · ראשית האדם בארץ ישראל",
     lecturer: "ראובן ישורון",
     url: "https://notebook.google.com/notebook/d407b5f1-3dc0-49a8-b88e-97ac086a4b75",
-  },
-  {
-    id: "late-roman-byzantine-period",
-    mode: "online",
-    title: "התקופה הרומית המאוחרת והתקופה הביזנטית",
-    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
-    url: "https://notebook.google.com/notebook/35a76d16-c61b-42f8-aeea-bb60af7a6303",
-  },
-  {
-    id: "classical-architecture-basics",
-    mode: "online",
-    title: "מושגי יסוד באדריכלות קלאסית",
-    focus: "שיעור מקוון · אדריכלות קלאסית",
-    url: "https://notebook.google.com/notebook/3c37ca0a-7c26-49f8-b23e-58cfe9c69d14",
-  },
-  {
-    id: "early-muslim-period",
-    mode: "online",
-    title: "התקופה המוסלמית הקדומה",
-    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
-    url: "https://notebook.google.com/notebook/a86d9c5d-facb-4319-9b22-2e29b1413520",
-  },
-  {
-    id: "medieval-crusader-ayyubid-mamluk-periods",
-    mode: "online",
-    title: "תקופות ימי הביניים: הצלבנית האיובית והממלוכית",
-    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
-    url: "https://notebook.google.com/notebook/acc5f035-d26e-4414-8efc-2388ac0463a8",
-  },
-  {
-    id: "ottoman-period",
-    mode: "online",
-    title: "התקופה העות'מאנית",
-    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
-    url: "https://notebook.google.com/notebook/14f63a3e-d96e-476a-b3bd-1cf741cdf1d6",
   },
 ];
 
