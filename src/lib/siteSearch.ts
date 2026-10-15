@@ -17,7 +17,8 @@ import biblicalTimelines from "@/data/timelines/biblical";
 import egyptCanaanTimelines from "@/data/timelines/egypt-canaan";
 import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
-import { listStoredNotebooks, type StoredNotebook } from "@/lib/notebookStore";
+import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
+import { createRequestCache } from "@/lib/requestCache";
 
 export type SearchResultKind =
   | "notebook"
@@ -199,11 +200,10 @@ const baseResults: SearchResult[] = [
   ...toolResults,
 ];
 
-let storedNotebookPromise: Promise<StoredNotebook[]> | null = null;
+const storedNotebookCache = createRequestCache(listStoredNotebooks, 60_000);
 
 function getStoredNotebooks() {
-  storedNotebookPromise ??= listStoredNotebooks().catch(() => []);
-  return storedNotebookPromise;
+  return storedNotebookCache.get(notebookRevision()).catch(() => []);
 }
 
 function includesAllTokens(value: string, tokens: string[]) {

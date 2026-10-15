@@ -4,21 +4,27 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { UNIT_PROMPTS, promptById } from "@/data/guide-reports/practice-prompts";
 import { analyzeFiveMs } from "@/lib/fiveMs";
-import { saveDraft } from "@/lib/guideReportDrafts";
+import { saveDraft, type GuideDraft, type UnitDraftPayload } from "@/lib/guideReportDrafts";
+import { DraftLoader } from "@/components/guide-reports/DraftLoader";
 
 export function UnitPractice({ initialPromptId }: { initialPromptId?: string }) {
+  return <DraftLoader kind="unit">{(draft) => <UnitEditor draft={draft} initialPromptId={initialPromptId} />}</DraftLoader>;
+}
+
+function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draft?: GuideDraft }) {
+  const saved = draft?.payload as UnitDraftPayload | undefined;
   const [promptId, setPromptId] = useState(
-    initialPromptId && promptById(initialPromptId)
+    saved?.promptId ?? (initialPromptId && promptById(initialPromptId)
       ? initialPromptId
-      : UNIT_PROMPTS[0].id,
+      : UNIT_PROMPTS[0].id),
   );
-  const [site, setSite] = useState(() => promptById(promptId)?.site ?? "");
+  const [site, setSite] = useState(() => saved?.site ?? promptById(promptId)?.site ?? "");
   const [duration, setDuration] = useState(
-    () => promptById(promptId)?.duration ?? "20 דק׳",
+    () => saved?.duration ?? promptById(promptId)?.duration ?? "20 דק׳",
   );
-  const [methods, setMethods] = useState("");
-  const [body, setBody] = useState("");
-  const [draftId, setDraftId] = useState<string | undefined>();
+  const [methods, setMethods] = useState(saved?.methods ?? "");
+  const [body, setBody] = useState(saved?.body ?? "");
+  const [draftId, setDraftId] = useState<string | undefined>(draft?.id);
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
 

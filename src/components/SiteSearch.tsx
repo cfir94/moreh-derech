@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { withBasePath } from "@/lib/basePath";
 import type { SearchResult } from "@/lib/siteSearch";
+import { NOTEBOOKS_EVENT } from "@/lib/notebookStore";
 
 function SearchIcon() {
   return (
@@ -40,7 +41,14 @@ export function SiteSearch() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [notebookVersion, setNotebookVersion] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const refresh = () => setNotebookVersion((version) => version + 1);
+    window.addEventListener(NOTEBOOKS_EVENT, refresh);
+    return () => window.removeEventListener(NOTEBOOKS_EVENT, refresh);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -66,7 +74,7 @@ export function SiteSearch() {
 
   useEffect(() => {
     const cleaned = query.trim();
-    if (cleaned.length < 2) return;
+    if (!open || cleaned.length < 2) return;
     let cancelled = false;
     const timer = window.setTimeout(() => {
       setLoading(true);
@@ -75,6 +83,7 @@ export function SiteSearch() {
         .then((nextResults) => {
           if (!cancelled) setResults(nextResults);
         })
+        .catch(() => { if (!cancelled) setResults([]); })
         .finally(() => {
           if (!cancelled) setLoading(false);
         });
@@ -83,7 +92,7 @@ export function SiteSearch() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [query]);
+  }, [query, open, notebookVersion]);
 
   const close = () => setOpen(false);
   const updateQuery = (value: string) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   LANG_META,
@@ -8,7 +8,9 @@ import {
   type ExamLang,
   type ExamQuestion,
 } from "@/data/exams/types";
-import { recordAttempt } from "@/lib/progress";
+import { correctAttemptAnswer, questionOwner, recordAttempt } from "@/lib/progress";
+import { matchesAnswer } from "@/lib/answerMatching";
+export { matchesAnswer } from "@/lib/answerMatching";
 import { ReadingLink } from "@/components/ReadingLink";
 import { domainStyle } from "@/lib/domains";
 
@@ -42,34 +44,6 @@ const ACCENT_BG =
   "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)";
 
 /**
- * Does a typed answer match the expected one? Deliberately forgiving —
- * punctuation, the definite article and spacing are noise, and "/" in the
- * expected answer separates accepted variants. Anything subtler than that is
- * left to the reader, who can mark their own answer right on the results.
- */
-function normalize(text: string) {
-  return text
-    .replace(/[\u0591-\u05C7]/g, "")
-    .replace(/["'׳״.,:;!?()\-–—]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-export function matchesAnswer(typed?: string, expected?: string) {
-  if (!typed || !expected) return false;
-  const given = normalize(typed);
-  if (!given) return false;
-  return expected
-    .split("/")
-    .map((variant) => normalize(variant))
-    .some(
-      (variant) =>
-        variant.length > 0 && (variant === given || variant === `ה${given}` ||
-          given === `ה${variant}`),
-    );
-}
-
-/**
  * Said plainly wherever a sitting without a published key appears. Getting an
  * answer wrong here can mean the answer is wrong, not the student.
  */
@@ -91,6 +65,7 @@ function UnofficialNotice({ className = "" }: { className?: string }) {
 }
 
 export function ExamRunner({ exam }: { exam: Exam }) {
+  const attemptId = useRef<string | null>(null);
   const [phase, setPhase] = useState<"intro" | "running" | "results">("intro");
   const [lang, setLang] = useState<ExamLang>(exam.languages[0] ?? "he");
   const [picks, setPicks] = useState<Record<number, number>>({});
@@ -129,6 +104,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   );
 
   const reset = (nextLang: ExamLang = lang) => {
+    attemptId.current = null;
     setLang(nextLang);
     setPicks({});
     setTexts({});
@@ -141,11 +117,14 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   const submit = () => {
     // Exam answers are credited to the practice quiz the questions live in, so
     // whatever was missed here shows up in "תרגול טעויות" like any other slip.
-    recordAttempt({
-      quiz: "past-exams",
-      quizLabel: "מבחני רישוי — שנים קודמות",
+    if (attemptId.current) return;
+    const owner = exam.keySource === "course" ? "course-bank" : "past-exams";
+    attemptId.current = recordAttempt({
+      quiz: owner,
+      quizLabel: exam.keySource === "course" ? "מאגר שאלות הקורס" : "מבחני רישוי — שנים קודמות",
       category: `מבחן מלא — ${exam.date}`,
       answers: questions.map((q) => ({
+        quiz: questionOwner(owner, q.quizId),
         questionId: q.quizId,
         question: q.question.he,
         category: exam.date,
@@ -394,9 +373,10 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                       // Free text is graded loosely, so the reader decides.
                       <button
                         type="button"
-                        onClick={() =>
-                          setOverrides((prev) => ({ ...prev, [q.number]: !right }))
-                        }
+                        onClick={() => {
+                          if (attemptId.current) correctAttemptAnswer(attemptId.current, q.quizId, !right);
+                          setOverrides((prev) => ({ ...prev, [q.number]: !right }));
+                        }}
                         className="self-start rounded-full border border-line bg-card-2 px-3 py-1.5 text-[11.5px] font-bold transition active:scale-95"
                       >
                         {right ? "לסמן כטעות" : "בעצם עניתי נכון"}

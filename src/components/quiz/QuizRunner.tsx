@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Question, Quiz } from "@/data/quizzes/types";
 import { recordAttempt, type RecordedAnswer } from "@/lib/progress";
@@ -8,6 +8,7 @@ import { withBasePath } from "@/lib/basePath";
 import { domainOf, domainStyle } from "@/lib/domains";
 import { TOPICS } from "@/data/topics";
 import { ReadingLink } from "@/components/ReadingLink";
+import { matchesAnswer } from "@/lib/answerMatching";
 
 type Phase = "setup" | "running" | "results";
 type Axis = "category" | "topic";
@@ -43,6 +44,7 @@ export function QuizRunner({
   fixedQuestions?: Question[];
   title?: string;
 }) {
+  const recorded = useRef(false);
   const [phase, setPhase] = useState<Phase>(fixedQuestions ? "running" : "setup");
   const [category, setCategory] = useState<string>("הכל");
   // The bank has two axes: the sitting a question came from, and the syllabus
@@ -57,6 +59,7 @@ export function QuizRunner({
   );
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
+  const [typed, setTyped] = useState("");
   const [answers, setAnswers] = useState<RecordedAnswer[]>([]);
 
   const noun = quiz.categoryNoun ?? { one: "נושא", many: "נושאים" };
@@ -83,14 +86,17 @@ export function QuizRunner({
     let list = order === "shuffled" ? shuffle(pool) : [...pool];
     if (length !== "all") list = list.slice(0, length);
     setQuestions(prepareQuestions(list));
+    recorded.current = false;
     setIndex(0);
+    setTyped("");
     setPicked(null);
     setAnswers([]);
     setPhase("running");
   };
 
   const current = questions[index];
-  const correctText = current?.answers.find((a) => a.correct)?.text;
+  const correctText = current?.kind === "fill" ? current.answerText : current?.answers.find((a) => a.correct)?.text;
+  const currentCorrect = answers[index]?.correct ?? false;
 
   const pick = (text: string) => {
     if (picked !== null) return;
@@ -101,7 +107,7 @@ export function QuizRunner({
         questionId: current.id,
         question: current.question,
         category: current.category,
-        correct: text === correctText,
+        correct: current.kind === "fill" ? matchesAnswer(text, correctText) : text === correctText,
         quiz: current.sourceQuiz ?? quiz.slug,
       },
     ]);
@@ -111,8 +117,11 @@ export function QuizRunner({
     if (index + 1 < questions.length) {
       setIndex(index + 1);
       setPicked(null);
+      setTyped("");
       return;
     }
+    if (recorded.current) return;
+    recorded.current = true;
     recordAttempt({
       quiz: quiz.slug,
       quizLabel: quiz.label,
@@ -124,7 +133,9 @@ export function QuizRunner({
 
   const restart = () => {
     setPhase(fixedQuestions ? "running" : "setup");
+    recorded.current = false;
     setIndex(0);
+    setTyped("");
     setPicked(null);
     setAnswers([]);
     if (fixedQuestions) setQuestions(prepareQuestions(shuffle(fixedQuestions)));
@@ -136,7 +147,9 @@ export function QuizRunner({
     );
     const list = questions.filter((q) => wrongIds.has(q.id));
     setQuestions(prepareQuestions(shuffle(list)));
+    recorded.current = false;
     setIndex(0);
+    setTyped("");
     setPicked(null);
     setAnswers([]);
     setPhase("running");
@@ -414,7 +427,7 @@ export function QuizRunner({
                     <div className="text-[12.5px] leading-relaxed">
                       <b className="mb-0.5 block text-[13px]">{a.question}</b>
                       <p className="text-ok">
-                        {q?.answers.find((x) => x.correct)?.text}
+                        {q?.kind === "fill" ? q.answerText : q?.answers.find((x) => x.correct)?.text}
                       </p>
                       <ReadingLink topic={q?.topic} />
                     </div>
@@ -520,7 +533,25 @@ export function QuizRunner({
           </div>
         )}
 
-        <ul className="grid gap-2.5">
+        {current.kind === "fill" ? (
+          <div className="rounded-md border border-line bg-card p-4">
+            <label className="mb-2 block text-sm font-bold" htmlFor="review-fill-answer">התשובה שלכם</label>
+            <input id="review-fill-answer" value={typed} disabled={answered}
+              onChange={(event) => setTyped(event.target.value)}
+              onKeyDown={(event) => { if (event.key === "Enter" && typed.trim() && !answered) pick(typed); }}
+              className="w-full rounded-md border border-line bg-card-2 px-3 py-3 text-txt outline-none focus:border-teal" />
+            {!answered ? <button type="button" disabled={!typed.trim()} onClick={() => pick(typed)}
+              className="mt-3 rounded-full bg-teal px-5 py-2.5 font-bold text-on-accent disabled:opacity-40">בדיקת התשובה</button> : (
+              <div aria-live="polite" className="mt-3">
+                <p className="text-sm text-txt-dim">התשובה הנכונה: <b className="text-ok">{correctText}</b></p>
+                <button type="button" onClick={() => setAnswers((previous) => previous.map((answer, position) => position === index ? { ...answer, correct: !answer.correct } : answer))}
+                  className="mt-3 rounded-full border border-line bg-card-2 px-4 py-2 text-sm font-bold">
+                  {currentCorrect ? "לסמן כטעות" : "בעצם עניתי נכון"}
+                </button>
+              </div>
+            )}
+          </div>
+        ) : <ul className="grid gap-2.5">
           {current.answers.map((a, i) => {
             const isPicked = picked === a.text;
             const isCorrect = a.text === correctText;
@@ -567,7 +598,7 @@ export function QuizRunner({
               </li>
             );
           })}
-        </ul>
+        </ul>}
 
         {answered && (
           <div className="mt-5">
@@ -587,10 +618,10 @@ export function QuizRunner({
               <p
                 className="text-[15px] font-extrabold"
                 style={{
-                  color: picked === correctText ? "var(--ok)" : "var(--red)",
+                  color: currentCorrect ? "var(--ok)" : "var(--red)",
                 }}
               >
-                {picked === correctText ? "נכון! ✓" : "נשמר לחזרה"}
+                {currentCorrect ? "נכון! ✓" : "נשמר לחזרה"}
               </p>
               <button
                 type="button"

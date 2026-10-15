@@ -13,6 +13,8 @@ import { readSession } from "@/lib/cloudAuth";
  */
 
 export type AttemptRecord = {
+  id?: string;
+  answers?: StoredAnswer[];
   ts: number;
   quiz: string;
   quizLabel: string;
@@ -47,16 +49,41 @@ export function questionKey(quiz: string, questionId: number) {
   return `${quiz}:${questionId}`;
 }
 
+/** tools/import_course_exams.py reserves IDs above 20000 for course items. */
+export function questionOwner(quiz: string, questionId: number) {
+  return quiz === "past-exams" && questionId > 20000 ? "course-bank" : quiz;
+}
+
+/** Repair the former exam owner without dropping counters or timestamps. */
+function repairExamOwners(questions: ProgressState["questions"]) {
+  const repaired: ProgressState["questions"] = {};
+  for (const stat of Object.values(questions)) {
+    const quiz = questionOwner(stat.quiz, stat.questionId);
+    const key = questionKey(quiz, stat.questionId);
+    const previous = repaired[key];
+    repaired[key] = previous ? {
+      ...stat, quiz,
+      seen: previous.seen + stat.seen,
+      wrong: previous.wrong + stat.wrong,
+      lastCorrectAt: Math.max(previous.lastCorrectAt ?? 0, stat.lastCorrectAt ?? 0) || null,
+      lastWrongAt: Math.max(previous.lastWrongAt ?? 0, stat.lastWrongAt ?? 0) || null,
+    } : { ...stat, quiz };
+  }
+  return repaired;
+}
+
 /** Pure parse of the stored JSON, tolerant of corrupt or absent data. */
 export function parseProgress(raw: string | null): ProgressState {
   if (!raw) return emptyProgress;
   try {
     const parsed = JSON.parse(raw);
     return {
-      attempts: Array.isArray(parsed?.attempts) ? parsed.attempts : [],
+      attempts: Array.isArray(parsed?.attempts) ? parsed.attempts.map((attempt: AttemptRecord) =>
+        attempt.quiz === "past-exams" && /^מבחן מלא — מבחן (תרגול|דגשי הרכז|נושאי)(?:\s|$)/u.test(attempt.category)
+          ? { ...attempt, quiz: "course-bank", quizLabel: "מאגר שאלות הקורס" } : attempt) : [],
       questions:
         parsed?.questions && typeof parsed.questions === "object"
-          ? parsed.questions
+          ? repairExamOwners(parsed.questions)
           : {},
     };
   } catch {
@@ -117,6 +144,11 @@ export type RecordedAnswer = {
   quiz?: string;
 };
 
+type StoredAnswer = RecordedAnswer & {
+  previousCorrectAt: number | null;
+  previousWrongAt: number | null;
+};
+
 export function recordAttempt(args: {
   quiz: string;
   quizLabel: string;
@@ -129,10 +161,19 @@ export function recordAttempt(args: {
     attempts: [...currentState.attempts],
     questions: { ...currentState.questions },
   };
-  const now = Date.now();
+  const now = state.attempts.reduce((latest, a) => Math.max(latest, a.ts + 1), Date.now());
+  const id = `a_${now.toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
   const correct = args.answers.filter((a) => a.correct).length;
 
+  const storedAnswers: StoredAnswer[] = args.answers.map((answer) => {
+    const quiz = questionOwner(answer.quiz ?? args.quiz, answer.questionId);
+    const prev = state.questions[questionKey(quiz, answer.questionId)];
+    return { ...answer, quiz, previousCorrectAt: prev?.lastCorrectAt ?? null, previousWrongAt: prev?.lastWrongAt ?? null };
+  });
+
   state.attempts.push({
+    id,
+    answers: storedAnswers,
     ts: now,
     quiz: args.quiz,
     quizLabel: args.quizLabel,
@@ -141,7 +182,7 @@ export function recordAttempt(args: {
     total: args.answers.length,
   });
 
-  for (const a of args.answers) {
+  for (const a of storedAnswers) {
     // Review runs mix questions from several quizzes; credit each to its own.
     const owner = a.quiz ?? args.quiz;
     const key = questionKey(owner, a.questionId);
@@ -168,6 +209,32 @@ export function recordAttempt(args: {
   }
 
   write(state);
+  return id;
+}
+
+/** Change an answer in the same attempt; never count a self-check as a new run. */
+export function correctAttemptAnswer(attemptId: string, questionId: number, correct: boolean) {
+  const current = readProgress();
+  const attempt = current.attempts.find((a) => a.id === attemptId);
+  const answer = attempt?.answers?.find((a) => a.questionId === questionId);
+  if (!attempt || !answer || answer.correct === correct) return;
+  const delta = Number(correct) - Number(answer.correct);
+  const updated = { ...attempt, correct: attempt.correct + delta,
+    answers: attempt.answers!.map((a) => a === answer ? { ...a, correct } : a) };
+  const attempts = current.attempts.map((a) => a === attempt ? updated : a);
+  const owner = questionOwner(answer.quiz ?? attempt.quiz, questionId);
+  const key = questionKey(owner, questionId);
+  const previous = current.questions[key];
+  if (!previous) return;
+  const events = attempts.flatMap((a) => (a.answers ?? [])
+    .filter((item) => item.questionId === questionId && questionOwner(item.quiz ?? a.quiz, questionId) === owner)
+    .map((item) => ({ ts: a.ts, answer: item }))).sort((a, b) => a.ts - b.ts);
+  const baseline = events[0].answer;
+  const lastCorrectAt = Math.max(baseline.previousCorrectAt ?? 0, ...events.filter((e) => e.answer.correct).map((e) => e.ts)) || null;
+  const lastWrongAt = Math.max(baseline.previousWrongAt ?? 0, ...events.filter((e) => !e.answer.correct).map((e) => e.ts)) || null;
+  write({ attempts, questions: { ...current.questions, [key]: {
+    ...previous, wrong: Math.max(0, previous.wrong - delta), lastCorrectAt, lastWrongAt,
+  } } });
 }
 
 /** Records a completed embedded exercise that reports only its final score. */

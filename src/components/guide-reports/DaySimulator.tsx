@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { SCENARIOS, scenarioById } from "@/data/guide-reports/scenarios";
-import { saveDraft } from "@/lib/guideReportDrafts";
+import { saveDraft, type GuideDraft, type DayDraftPayload } from "@/lib/guideReportDrafts";
+import { DraftLoader } from "@/components/guide-reports/DraftLoader";
 import type { ScheduleRow } from "@/data/guide-reports";
 
 function emptyRow(n: number): ScheduleRow {
@@ -11,15 +12,20 @@ function emptyRow(n: number): ScheduleRow {
 }
 
 export function DaySimulator({ initialScenarioId }: { initialScenarioId?: string }) {
+  return <DraftLoader kind="day">{(draft) => <DayEditor draft={draft} initialScenarioId={initialScenarioId} />}</DraftLoader>;
+}
+
+function DayEditor({ initialScenarioId, draft }: { initialScenarioId?: string; draft?: GuideDraft }) {
+  const saved = draft?.payload as DayDraftPayload | undefined;
   const [scenarioId, setScenarioId] = useState(
-    initialScenarioId && scenarioById(initialScenarioId)
+    saved?.scenarioId ?? (initialScenarioId && scenarioById(initialScenarioId)
       ? initialScenarioId
-      : SCENARIOS[0].id,
+      : SCENARIOS[0].id),
   );
   const [rows, setRows] = useState<ScheduleRow[]>(() =>
-    Array.from({ length: 8 }, (_, i) => emptyRow(i + 1)),
+    saved?.rows ?? Array.from({ length: 8 }, (_, i) => emptyRow(i + 1)),
   );
-  const [draftId, setDraftId] = useState<string | undefined>();
+  const [draftId, setDraftId] = useState<string | undefined>(draft?.id);
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
 
   const scenario = scenarioById(scenarioId)!;

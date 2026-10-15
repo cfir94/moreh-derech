@@ -6,16 +6,21 @@ import {
   DRAFTS_EVENT,
   deleteDraft,
   readDrafts,
+  draftKind,
+  draftHref,
   type GuideDraft,
 } from "@/lib/guideReportDrafts";
 import { useHydrated } from "@/lib/clientStore";
+import { AUTH_EVENT } from "@/lib/cloudAuth";
 
 function subscribe(onChange: () => void) {
   window.addEventListener(DRAFTS_EVENT, onChange);
   window.addEventListener("storage", onChange);
+  window.addEventListener(AUTH_EVENT, onChange);
   return () => {
     window.removeEventListener(DRAFTS_EVENT, onChange);
     window.removeEventListener("storage", onChange);
+    window.removeEventListener(AUTH_EVENT, onChange);
   };
 }
 
@@ -80,18 +85,14 @@ export function DraftsList() {
           <div>
             <p className="font-extrabold">{d.title}</p>
             <p className="text-[12px] text-txt-dim">
-              {d.kind === "day" ? "יום סיור" : "יחידת הדרכה"}
+              {draftKind(d) === "exam" ? "סימולציית מבחן" : d.kind === "day" ? "יום סיור" : "יחידת הדרכה"}
               {" · "}
               {formatWhen(d.updatedAt)}
             </p>
           </div>
           <div className="flex gap-2">
             <Link
-              href={
-                d.kind === "day"
-                  ? "/guide-reports/practice/day"
-                  : "/guide-reports/practice/unit"
-              }
+              href={draftHref(d)}
               className="rounded-full border border-line bg-card-2 px-3 py-1.5 text-[12px] font-extrabold"
             >
               פתיחה

@@ -10,6 +10,9 @@ export type QuizImage = {
 };
 
 export type Question = {
+  /** Fill-in items are supplied by the exam review adapter, not the MC banks. */
+  kind?: "mc" | "fill";
+  answerText?: string;
   id: number;
   question: string;
   category: string;
