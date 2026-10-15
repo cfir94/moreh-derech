@@ -99,6 +99,18 @@ export const TOUR_REGIONS: {
     description: "מסלע, מלחות ונופי קצה.",
     tone: "sand",
   },
+  {
+    id: "jerusalem",
+    title: "ירושלים",
+    description: "קמפוס ירושלים, אתרי העיר ותולדותיה.",
+    tone: "gold",
+  },
+  {
+    id: "western-galilee",
+    title: "גליל מערבי ועכו",
+    description: "עכו ואתרי הגליל המערבי.",
+    tone: "teal",
+  },
 ];
 
 export const THEORY_SUBJECTS: {
@@ -140,6 +152,46 @@ export const THEORY_SUBJECTS: {
 ];
 
 export const TOUR_NOTEBOOKS: CourseNotebook[] = [
+  {
+    id: "acre-october-2026",
+    mode: "tours",
+    region: "western-galilee",
+    title: "עכו",
+    date: "05.10.2026",
+    guide: "שלי",
+    places: "עכו",
+    url: "https://notebook.google.com/notebook/2115d268-32da-47e6-9c11-f12999f1c953",
+  },
+  {
+    id: "jerusalem-campus-day-one",
+    mode: "tours",
+    region: "jerusalem",
+    title: "קמפוס ירושלים — יום א׳",
+    date: "",
+    guide: "שמואל",
+    places: "מערכת פיר וורן · ניקבת השילוח · קבורה בית ראשון",
+    url: "https://notebook.google.com/notebook/fcfcf210-297b-45f9-a85c-3cffcf67287a",
+  },
+  {
+    id: "jerusalem-campus-day-two",
+    mode: "tours",
+    region: "jerusalem",
+    title: "קמפוס ירושלים — יום ב׳",
+    date: "",
+    guide: "ארז",
+    places: "עיר דוד · דרך עולי רגל · אמת המים · מוזיאון ישראל",
+    url: "https://notebook.google.com/notebook/20e8bf78-6bdd-4d94-b230-23e3cc0f833f",
+  },
+  {
+    id: "jerusalem-campus-day-three",
+    mode: "tours",
+    region: "jerusalem",
+    title: "קמפוס ירושלים — יום ג׳",
+    date: "",
+    guide: "ארז",
+    places: "מנהרות הכותל · הרובע ההרודיני · קבורה מבית שני · כותל",
+    url: "https://notebook.google.com/notebook/ab6d8a7f-e8ec-41fe-b046-cf8d9ff8445e",
+  },
   {
     id: "rishon-ashkelon-ayalon",
     mode: "tours",
@@ -428,6 +480,41 @@ export const ONLINE_NOTEBOOKS: OnlineNotebook[] = [
     focus: "שיעור מקוון · ראשית האדם בארץ ישראל",
     lecturer: "ראובן ישורון",
     url: "https://notebook.google.com/notebook/d407b5f1-3dc0-49a8-b88e-97ac086a4b75",
+  },
+  {
+    id: "late-roman-byzantine-period",
+    mode: "online",
+    title: "התקופה הרומית המאוחרת והתקופה הביזנטית",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/35a76d16-c61b-42f8-aeea-bb60af7a6303",
+  },
+  {
+    id: "classical-architecture-basics",
+    mode: "online",
+    title: "מושגי יסוד באדריכלות קלאסית",
+    focus: "שיעור מקוון · אדריכלות קלאסית",
+    url: "https://notebook.google.com/notebook/3c37ca0a-7c26-49f8-b23e-58cfe9c69d14",
+  },
+  {
+    id: "early-muslim-period",
+    mode: "online",
+    title: "התקופה המוסלמית הקדומה",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/a86d9c5d-facb-4319-9b22-2e29b1413520",
+  },
+  {
+    id: "medieval-crusader-ayyubid-mamluk-periods",
+    mode: "online",
+    title: "תקופות ימי הביניים: הצלבנית האיובית והממלוכית",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/acc5f035-d26e-4414-8efc-2388ac0463a8",
+  },
+  {
+    id: "ottoman-period",
+    mode: "online",
+    title: "התקופה העות'מאנית",
+    focus: "שיעור מקוון · ארכאולוגיה והיסטוריה של ארץ ישראל",
+    url: "https://notebook.google.com/notebook/14f63a3e-d96e-476a-b3bd-1cf741cdf1d6",
   },
 ];
 
