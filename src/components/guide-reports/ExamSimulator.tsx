@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { EXAM_PAPERS, type ExamGroup } from "@/data/guide-reports/exam-briefs";
 import { analyzeFiveMs } from "@/lib/fiveMs";
@@ -46,18 +46,18 @@ function Counter({ n, max }: { n: number; max: number }) {
 
 function Timer({ hours }: { hours: number }) {
   const [left, setLeft] = useState<number | null>(null);
-  const ref = useRef<number | null>(null);
+  const running = left !== null;
 
   useEffect(() => {
-    if (left === null) return;
-    ref.current = window.setInterval(
+    if (!running) return;
+    const interval = window.setInterval(
       () => setLeft((v) => (v === null || v <= 0 ? v : v - 1)),
       1000,
     );
     return () => {
-      if (ref.current) window.clearInterval(ref.current);
+      window.clearInterval(interval);
     };
-  }, [left === null]);
+  }, [running]);
 
   if (left === null) {
     return (
@@ -126,7 +126,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
     setExpanded({ site: "", topic: "", position: "", body: "" });
   }
 
-  const check = useMemo(() => {
+  const check = (() => {
     if (!group) return null;
     const filledRows = rows.filter((r) => r.time.trim() && r.activity.trim());
     const unitsDone = units.filter((u) => u.site.trim() && WORDS(u.body) >= 40);
@@ -197,7 +197,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
         },
       ],
     };
-  }, [group, rows, units, expanded]);
+  })();
 
   function onSave() {
     if (!group) return;
