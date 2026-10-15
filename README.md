@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# אבן דרך למורי דרך
 
-## Getting Started
+אתר הלימוד לקורס מורי דרך: שאלונים, מבחני רישוי ומבחני קורס, חזרה על טעויות, מחברות NotebookLM, סרטונים, צירי זמן, משחקים, מפת מורשת ודוחות הדרכה.
 
-First, run the development server:
+האתר: https://cfir94.github.io/moreh-derech/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## פיתוח ובדיקות
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+נדרש Node.js 24 להרצת בדיקות הרגרסיה. התקינו תלויות עם `npm ci`, ואז:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run dev` — פיתוח ב-http://localhost:3000/moreh-derech/
+- `npm run test:regressions` — בדיקות מעקב, טיוטות ומטמון חיפוש.
+- `npm run lint` — בדיקת קוד.
+- `npm run build` — יצוא סטטי לתיקיית out.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Next.js עם App Router, TypeScript ו-Tailwind. הפריסה היא GitHub Pages, עם basePath של /moreh-derech. push ל-main מפעיל פריסה אוטומטית; ענפי תיקון נבדקים לפני מיזוג.
 
-## Learn More
+## שמירת מידע
 
-To learn more about Next.js, take a look at the following resources:
+הכניסה משותפת למשחק אבן דרך דרך Supabase. התקדמות האתר וטיוטות הדרכה נשמרות במכשיר בדפדפן, בנפרד לכל משתמש. הן אינן מסתנכרנות אוטומטית בין מכשירים.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ברשימת הטיוטות אפשר לפתוח יום סיור, יחידת הדרכה או סימולציית מבחן ולהמשיך לערוך את אותו תוכן. תרגול טעויות תומך גם בשאלות השלמה, והתיקון העצמי מעדכן את הניסיון שנשמר.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## תחזוקת תוכן
 
-## Deploy on Vercel
+קראו את AGENTS.md ואת CLAUDE.md לפני שינוי. קבצים המסומנים generated מעדכנים דרך הסקריפט שיצר אותם. אין לשנות מזהי שאלות או מפתחות אחסון בלי טיפול בתאימות למידע קיים.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+מקורות, שאלות רשמיות ופתרונות מוסקים מסומנים בהתאם; התשובות המוסקות אינן מפתח רשמי של משרד התיירות.

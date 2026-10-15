@@ -2,7 +2,49 @@ import { readSession } from "@/lib/cloudAuth";
 
 /** Drafts for guide-report practice (day plans + units). localStorage only. */
 
-export type DraftKind = "day" | "unit";
+export type DraftKind = "day" | "unit" | "exam";
+
+type DraftRow = { time: string; activity: string; logistics: string };
+export type DayDraftPayload = { scenarioId: string; rows: (DraftRow & { n: number })[] };
+export type UnitDraftPayload = { promptId: string; site: string; duration: string; methods: string; body: string };
+export type ExamDraftPayload = {
+  paperSlug: string; groupN: number; assumptions: string; rows: DraftRow[];
+  units: { site: string; duration: string; body: string; methods: string }[];
+  expanded: { site: string; topic: string; position: string; body: string };
+};
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === "object" && !Array.isArray(value);
+}
+function hasStrings(value: unknown, fields: string[]) {
+  return isRecord(value) && fields.every((field) => typeof value[field] === "string");
+}
+function validRows(value: unknown) {
+  return Array.isArray(value) && value.length > 0 && value.every((row) => hasStrings(row, ["time", "activity", "logistics"]));
+}
+
+/** Old exam drafts were saved as day; infer them without rewriting storage. */
+export function draftKind(draft: GuideDraft): DraftKind {
+  return draft.kind === "day" && isRecord(draft.payload) && typeof draft.payload.paperSlug === "string" ? "exam" : draft.kind;
+}
+
+export function validDraftPayload(draft: GuideDraft) {
+  const p = draft.payload;
+  if (!isRecord(p)) return false;
+  switch (draftKind(draft)) {
+    case "day": return typeof p.scenarioId === "string" && validRows(p.rows) && (p.rows as Record<string, unknown>[]).every((row) => typeof row.n === "number");
+    case "unit": return hasStrings(p, ["promptId", "site", "duration", "methods", "body"]);
+    case "exam": return hasStrings(p, ["paperSlug", "assumptions"]) && typeof p.groupN === "number" && validRows(p.rows)
+      && Array.isArray(p.units) && p.units.every((unit) => hasStrings(unit, ["site", "duration", "body", "methods"]))
+      && hasStrings(p.expanded, ["site", "topic", "position", "body"]);
+    default: return false;
+  }
+}
+
+export function draftHref(draft: GuideDraft) {
+  const kind = draftKind(draft);
+  return `${kind === "exam" ? "/guide-reports/exam" : `/guide-reports/practice/${kind}`}?draft=${encodeURIComponent(draft.id)}`;
+}
 
 export type GuideDraft = {
   id: string;

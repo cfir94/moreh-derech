@@ -68,14 +68,14 @@ export default function Home() {
       href: "/guide-reports",
       title: "דוחות הדרכה",
       description: "פורמט משרד התיירות וסימולציית בניית מסלול.",
-      meta: "בבנייה",
+      meta: "דוגמאות, תרגול וטיוטות",
     },
     {
       slug: "videos",
       href: "/videos",
       title: "סרטונים מומלצים",
       description: "ספריית סרטונים לצפייה, לפי נושאי הקורס.",
-      meta: "בבנייה",
+      meta: "ספריית צפייה לפי נושאים",
     },
   ];
 

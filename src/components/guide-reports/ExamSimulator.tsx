@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { EXAM_PAPERS, type ExamGroup } from "@/data/guide-reports/exam-briefs";
 import { analyzeFiveMs } from "@/lib/fiveMs";
-import { saveDraft } from "@/lib/guideReportDrafts";
+import { saveDraft, type GuideDraft, type ExamDraftPayload } from "@/lib/guideReportDrafts";
+import { DraftLoader } from "@/components/guide-reports/DraftLoader";
 
 /**
  * חלק ב' של מבחן הרישוי, כפי שהוא.
@@ -45,18 +46,18 @@ function Counter({ n, max }: { n: number; max: number }) {
 
 function Timer({ hours }: { hours: number }) {
   const [left, setLeft] = useState<number | null>(null);
-  const ref = useRef<number | null>(null);
+  const running = left !== null;
 
   useEffect(() => {
-    if (left === null) return;
-    ref.current = window.setInterval(
+    if (!running) return;
+    const interval = window.setInterval(
       () => setLeft((v) => (v === null || v <= 0 ? v : v - 1)),
       1000,
     );
     return () => {
-      if (ref.current) window.clearInterval(ref.current);
+      window.clearInterval(interval);
     };
-  }, [left === null]);
+  }, [running]);
 
   if (left === null) {
     return (
@@ -94,22 +95,27 @@ function Timer({ hours }: { hours: number }) {
 }
 
 export function ExamSimulator() {
-  const [paperSlug, setPaperSlug] = useState(EXAM_PAPERS[0].slug);
+  return <DraftLoader kind="exam">{(draft) => <ExamEditor draft={draft} />}</DraftLoader>;
+}
+
+function ExamEditor({ draft }: { draft?: GuideDraft }) {
+  const saved = draft?.payload as ExamDraftPayload | undefined;
+  const [paperSlug, setPaperSlug] = useState(saved?.paperSlug ?? EXAM_PAPERS[0].slug);
   const paper = EXAM_PAPERS.find((p) => p.slug === paperSlug)!;
-  const [groupN, setGroupN] = useState<number | null>(null);
+  const [groupN, setGroupN] = useState<number | null>(saved?.groupN ?? null);
   const group: ExamGroup | undefined = paper.groups.find((g) => g.n === groupN);
 
-  const [assumptions, setAssumptions] = useState("");
-  const [rows, setRows] = useState<Row[]>([emptyRow(), emptyRow(), emptyRow()]);
-  const [units, setUnits] = useState<UnitDraft[]>([]);
-  const [expanded, setExpanded] = useState({
+  const [assumptions, setAssumptions] = useState(saved?.assumptions ?? "");
+  const [rows, setRows] = useState<Row[]>(saved?.rows ?? [emptyRow(), emptyRow(), emptyRow()]);
+  const [units, setUnits] = useState<UnitDraft[]>(saved?.units ?? []);
+  const [expanded, setExpanded] = useState(saved?.expanded ?? {
     site: "",
     topic: "",
     position: "",
     body: "",
   });
   const [savedMsg, setSavedMsg] = useState<string | null>(null);
-  const [draftId, setDraftId] = useState<string | undefined>();
+  const [draftId, setDraftId] = useState<string | undefined>(draft?.id);
 
   // Choosing a group resets the answer sheet — in the exam you commit to one.
   function pickGroup(n: number) {
@@ -120,7 +126,7 @@ export function ExamSimulator() {
     setExpanded({ site: "", topic: "", position: "", body: "" });
   }
 
-  const check = useMemo(() => {
+  const check = (() => {
     if (!group) return null;
     const filledRows = rows.filter((r) => r.time.trim() && r.activity.trim());
     const unitsDone = units.filter((u) => u.site.trim() && WORDS(u.body) >= 40);
@@ -191,13 +197,13 @@ export function ExamSimulator() {
         },
       ],
     };
-  }, [group, rows, units, expanded]);
+  })();
 
   function onSave() {
     if (!group) return;
     const d = saveDraft({
       id: draftId,
-      kind: "day",
+      kind: "exam",
       title: `חלק ב׳ — ${paper.sitting} · קבוצה ${group.n}`,
       payload: { paperSlug, groupN, assumptions, rows, units, expanded },
     });

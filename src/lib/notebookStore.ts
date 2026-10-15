@@ -32,6 +32,14 @@ export type StoredNotebookDraft = Pick<
 const SELECT_FIELDS =
   "id,mode,subcategory,title,date,guide,places,url,owner_id,created_at,updated_at";
 
+export const NOTEBOOKS_EVENT = "md-notebooks-changed";
+let revision = 0;
+export function notebookRevision() { return revision; }
+function notebooksChanged() {
+  revision++;
+  if (typeof window !== "undefined") window.dispatchEvent(new Event(NOTEBOOKS_EVENT));
+}
+
 export async function listStoredNotebooks() {
   return supabaseRequest<StoredNotebook[]>(
     `/rest/v1/course_notebooks?select=${SELECT_FIELDS}&order=created_at.asc`,
@@ -51,6 +59,7 @@ export async function createStoredNotebook(draft: StoredNotebookDraft) {
     },
   );
   if (!rows[0]) throw new Error("המחברת לא נשמרה.");
+  notebooksChanged();
   return rows[0];
 }
 
@@ -67,6 +76,7 @@ export async function updateStoredNotebook(
     },
   );
   if (!rows[0]) throw new Error("המחברת לא עודכנה.");
+  notebooksChanged();
   return rows[0];
 }
 
@@ -78,6 +88,7 @@ export async function deleteStoredNotebook(id: number) {
       headers: { Prefer: "return=minimal" },
     },
   );
+  notebooksChanged();
 }
 
 export function displayNotebookDate(value: string) {
