@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { chromium, expect } from "@playwright/test";
 
-const out = fileURLToPath(new URL("../out/", import.meta.url));
+const out = resolve(fileURLToPath(new URL("../out/", import.meta.url)));
 const screenshots = process.env.TEMPLE_QA_DIR ?? mkdtempSync(join(tmpdir(), "temple-qa-"));
 const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".woff2": "font/woff2" };
 const server = createServer((req, res) => {
