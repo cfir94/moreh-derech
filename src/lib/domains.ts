@@ -21,6 +21,7 @@ export const DOMAINS: Record<string, Domain> = {
   "roman-byzantine": { color: "var(--violet)", icon: "🏛️" },
   "classical-architecture": { color: "var(--gold)", icon: "🏗️" },
   "early-islam": { color: "var(--green)", icon: "🕌" },
+  medieval: { color: "var(--rose)", icon: "🏰" },
   christianity: { color: "var(--violet)", icon: "✝️" },
   judaism: { color: "var(--blue)", icon: "✡️" },
   "israel-borders": { color: "var(--teal)", icon: "🧭" },

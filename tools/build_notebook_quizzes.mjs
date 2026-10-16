@@ -14,6 +14,7 @@ const files = readdirSync(input).filter(f => f.endsWith(".json") && (!slugs.leng
 for (const file of files) {
   const bank = JSON.parse(readFileSync(resolve(input, file), "utf8"));
   assert.equal(bank.slug, file.slice(0, -5));
+  assert(!/[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}/i.test(JSON.stringify(bank)), "Keep internal source identifiers in private provenance only");
   const seen = new Set(), texts = new Set();
   const questions = bank.rows.map(row => {
     const [id, category, question, correct, d1, d2, d3, explanation, sourceKey, anchor] = row;
