@@ -14,7 +14,6 @@ const files = readdirSync(input).filter(f => f.endsWith(".json") && (!slugs.leng
 for (const file of files) {
   const bank = JSON.parse(readFileSync(resolve(input, file), "utf8"));
   assert.equal(bank.slug, file.slice(0, -5));
-  assert.match(bank.notebook, /^[\da-f-]{36}$/);
   const seen = new Set(), texts = new Set();
   const questions = bank.rows.map(row => {
     const [id, category, question, correct, d1, d2, d3, explanation, sourceKey, anchor] = row;
@@ -23,7 +22,7 @@ for (const file of files) {
     assert(!texts.has(question.trim()), `Duplicate question ${id}`);
     assert(question.endsWith("?"), `Question ${id} needs a question mark`);
     assert([category, correct, d1, d2, d3, explanation, anchor].every(v => typeof v === "string" && v.trim()), `Empty field ${id}`);
-    assert(bank.sources[sourceKey]?.id && bank.sources[sourceKey]?.title, `Missing source ${id}`);
+    assert(bank.sources[sourceKey]?.title, `Missing source ${id}`);
     assert.equal(new Set([correct, d1, d2, d3].map(v => v.trim())).size, 4, `Duplicate options ${id}`);
     seen.add(id); texts.add(question.trim());
     const answers = [d1, d2, d3].map(text => ({ text, correct: false }));

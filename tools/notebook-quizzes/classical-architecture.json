@@ -1,32 +1,16 @@
 {
   "slug": "classical-architecture",
   "label": "מושגי יסוד באדריכלות קלאסית",
-  "notebook": "3c37ca0a-7c26-49f8-b23e-58cfe9c69d14",
   "topic": "art-arch",
   "sources": {
     "a": {
-      "id": "7f0e44af-37fb-4485-a7e9-86b7de09a458",
-      "title": "מושגים בסיסים בארכיאולוגיה והארכיטקרטורה של העולם הקלאסי.mp3",
-      "kind": "media",
-      "status_label": "ready",
-      "drive_status_label": null,
-      "created_at": "2026-10-15T07:15:57+00:00"
+      "title": "חומר הקורס — מושגי יסוד באדריכלות קלאסית — יחידה A"
     },
     "t": {
-      "id": "bfe9b72d-c198-4cf5-ab4c-a67701fd6219",
-      "title": "מושגים בסיסים בארכיאולוגיה והארכיטקרטורה של העולם הקלאסי - מקדשים, עיטורי רצפות וקירות, אמות מים ודר.mp3",
-      "kind": "media",
-      "status_label": "ready",
-      "drive_status_label": null,
-      "created_at": "2026-10-15T07:15:57+00:00"
+      "title": "חומר הקורס — מושגי יסוד באדריכלות קלאסית — יחידה T"
     },
     "e": {
-      "id": "935b1dd8-6daa-4a2d-9667-68479848dc6b",
-      "title": "מושגים בסיסים בארכיאולוגיה והארכיטקרטורה של העולם הקלאסי - מבני בידור, מרחצאות, מתקני טהרה, קבורה.mp3",
-      "kind": "media",
-      "status_label": "ready",
-      "drive_status_label": null,
-      "created_at": "2026-10-15T07:15:57+00:00"
+      "title": "חומר הקורס — מושגי יסוד באדריכלות קלאסית — יחידה E"
     }
   },
   "coverage": [

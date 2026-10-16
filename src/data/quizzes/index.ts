@@ -13,6 +13,7 @@ import pastExams from "@/data/quizzes/past-exams";
 import prehistory from "@/data/quizzes/prehistory";
 import romanByzantine from "@/data/quizzes/roman-byzantine";
 import classicalArchitecture from "@/data/quizzes/classical-architecture";
+import earlyIslam from "@/data/quizzes/early-islam";
 
 export const QUIZZES: Quiz[] = [
   pastExams,
@@ -26,12 +27,15 @@ export const QUIZZES: Quiz[] = [
   ironAge,
   romanByzantine,
   classicalArchitecture,
+  earlyIslam,
   christianity,
   judaism,
   israelBorders,
 ];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  "early-islam":
+    "ראשית האסלאם, האומיים והעבאסים, הפאטימים, רמלה, ירושלים ושינויי ההתיישבות.",
   "classical-architecture":
     "סדרים ומקדשים, תכנון עיר, מבני בידור, מרחצאות, אמות מים, טהרה וקבורה.",
   "roman-byzantine":
