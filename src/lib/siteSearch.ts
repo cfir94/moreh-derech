@@ -15,6 +15,7 @@ import { QUIZ_DESCRIPTIONS, QUIZZES } from "@/data/quizzes";
 import { FEATURED_RESOURCES, RESOURCE_GROUPS } from "@/data/resources";
 import biblicalTimelines from "@/data/timelines/biblical";
 import egyptCanaanTimelines from "@/data/timelines/egypt-canaan";
+import secondTempleEvents from "@/data/second-temple/search.json";
 import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
 import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
@@ -197,6 +198,24 @@ const baseResults: SearchResult[] = [
   ...videoResults(),
   ...resourceResults(),
   ...timelineResults(),
+  {
+    id: "timeline-second-temple",
+    kind: "timeline",
+    kindLabel: "ציר זמן",
+    title: "בית שני — מן השיבה אל החורבן",
+    description: "שיבת ציון, חשמונאים, הורדוס והמרד הגדול; דמויות, אתרים ומקורות.",
+    href: "/timelines/second-temple",
+    searchText: "בית שני הבית השני שיבת ציון חשמונאים הורדוס נציבים המרד הגדול חורבן",
+  },
+  ...secondTempleEvents.map((event) => ({
+    id: `timeline-second-temple-${event.id}`,
+    kind: "timeline" as const,
+    kindLabel: "ציר זמן",
+    title: event.title,
+    description: `בית שני · ${event.date} · ${event.summary}`,
+    href: `/timelines/second-temple/#${event.id}`,
+    searchText: ["בית שני", event.title, event.date, event.summary, event.people, event.places].join(" "),
+  })),
   ...toolResults,
 ];
 

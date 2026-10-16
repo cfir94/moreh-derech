@@ -18,6 +18,10 @@ jobs:
           node-version: 24
       - run: npm ci
       - run: npm run test:regressions
+      - name: Validate Second Temple content and provenance
+        run: node --test tests/second-temple-content.test.mjs
+      - name: Lint Second Temple timeline
+        run: npm run lint -- src/components/timeline/SecondTempleTimeline.tsx src/data/second-temple/index.ts src/app/timelines/second-temple/page.tsx src/app/timelines/page.tsx src/lib/domains.ts
       - name: Lint changed application code
         run: npm run lint -- src/app/page.tsx src/app/quizzes/review/page.tsx src/components/exam/ExamRunner.tsx src/components/quiz/QuizRunner.tsx src/components/guide-reports src/components/SiteSearch.tsx src/lib/progress.ts src/lib/guideReportDrafts.ts src/lib/notebookStore.ts src/lib/siteSearch.ts src/lib/requestCache.ts src/lib/answerMatching.ts src/lib/reviewQuestions.ts src/data/quizzes/types.ts src/data/quizzes/index.ts
       - run: npm run build
@@ -25,3 +29,5 @@ jobs:
         run: npm install --no-save --package-lock=false @playwright/test && npx playwright install --with-deps chromium
       - name: Browser regression checks
         run: node --import ./tests/register-ts.mjs tests/study-ui.mjs
+      - name: Second Temple browser checks
+        run: node tests/second-temple-ui.mjs
