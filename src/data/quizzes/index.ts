@@ -11,6 +11,7 @@ import israelBorders from "@/data/quizzes/israel-borders";
 import judaism from "@/data/quizzes/judaism";
 import pastExams from "@/data/quizzes/past-exams";
 import prehistory from "@/data/quizzes/prehistory";
+import romanByzantine from "@/data/quizzes/roman-byzantine";
 
 export const QUIZZES: Quiz[] = [
   pastExams,
@@ -22,12 +23,15 @@ export const QUIZZES: Quiz[] = [
   archaeologyIntro,
   bronzeAge,
   ironAge,
+  romanByzantine,
   christianity,
   judaism,
   israelBorders,
 ];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  "roman-byzantine":
+    "מרד בר כוכבא, משנה ותלמוד, התנצרות האימפריה, בתי כנסת, כנסיות ומפת מידבא.",
   "course-bank":
     "שאלות ממבחני התרגול של הקורס — עם הסבר לכל תשובה, לפי הנושאים שנלמדו.",
   "past-exams":
