@@ -46,7 +46,7 @@ export default function Home() {
       href: "/timelines",
       title: "צירי זמן",
       description: "צירי זמן אינטראקטיביים עם הסבר ומקורות לכל אירוע.",
-      meta: "5 צירי זמן",
+      meta: "6 צירי זמן",
     },
     {
       slug: "map",

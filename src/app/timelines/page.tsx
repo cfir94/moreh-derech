@@ -4,6 +4,13 @@ import { SectionCard } from "@/components/SectionCard";
 
 const sets = [
   {
+    slug: "second-temple",
+    title: "בית שני — מן השיבה אל החורבן",
+    description:
+      "שיבת ציון, החשמונאים, הורדוס והמרד הגדול. אירועים, דמויות ואתרים עם מקורות מחומר הקורס.",
+    meta: "88 אירועים · דמויות, אתרים ותהליכים",
+  },
+  {
     slug: "biblical",
     title: "חמשת צירי הזמן — הברית החדשה",
     description:
