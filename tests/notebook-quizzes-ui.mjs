@@ -7,6 +7,7 @@ import { chromium, expect } from "@playwright/test";
 import { QUIZZES } from "../src/data/quizzes/index.ts";
 
 const slugs = ["roman-byzantine", "classical-architecture", "early-islam", "medieval", "ottoman"];
+const originalMaxIds = { "roman-byzantine": 52, "classical-architecture": 60, "early-islam": 59, medieval: 65, ottoman: 60 };
 const out = resolve(fileURLToPath(new URL("../out/", import.meta.url)));
 const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".png": "image/png" };
 const server = createServer((req, res) => {
@@ -72,7 +73,39 @@ try {
       await page.evaluate(value => { document.documentElement.dataset.theme = value; }, theme);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     }
-    console.log(JSON.stringify({ slug, questions: quiz.questions.length, checks: ["card", "setup", "ten-question-run", "explanations", "score", "saved-owner", "retry-wrong", "category", "mobile-themes"] }));
+    // Exercise both ends of the appended range through the real review path.
+    const additions = quiz.questions.filter(q => q.id > originalMaxIds[slug]);
+    expect(additions.length).toBeGreaterThan(0);
+    const appended = [additions[0], additions.at(-1)];
+    await page.evaluate(({ slug, questions }) => {
+      const saved = JSON.parse(localStorage.getItem("md_progress_v2"));
+      for (const q of questions) saved.questions[slug + ":" + q.id] = {
+        quiz: slug, questionId: q.id, question: q.question, category: q.category,
+        seen: 1, wrong: 1, lastWrongAt: Date.now() - 1000, lastCorrectAt: null,
+      };
+      localStorage.setItem("md_progress_v2", JSON.stringify(saved));
+    }, { slug, questions: appended });
+    await page.goto(base + "/quizzes/review/");
+    await page.getByRole("button", { name: "להתחיל לחזור על הטעויות", exact: true }).click();
+    const remaining = [...appended];
+    for (let i = 0; i < appended.length; i++) {
+      await expect(page.locator("main h1")).toHaveText(new RegExp("^(" + remaining.map(q => escape(q.question)).join("|") + ")$"));
+      const heading = await page.locator("main h1").innerText();
+      const current = remaining.find(q => q.question === heading);
+      expect(current).toBeTruthy();
+      remaining.splice(remaining.indexOf(current), 1);
+      const answer = current.answers.find(a => a.correct);
+      await page.locator("li > button").filter({ has: page.getByText(answer.text, { exact: true }) }).click();
+      await expect(page.getByText(current.explanation, { exact: true })).toBeVisible();
+      await page.getByRole("button", { name: i + 1 === appended.length ? "לתוצאות" : "הבאה", exact: true }).click();
+    }
+    await expect(page.getByRole("heading", { name: "100%", exact: true })).toBeVisible();
+    state = await page.evaluate(() => JSON.parse(localStorage.getItem("md_progress_v2")));
+    for (const q of appended) {
+      expect(state.questions[slug + ":" + q.id].seen).toBe(2);
+      expect(state.questions[slug + ":" + q.id].lastCorrectAt).toBeGreaterThan(state.questions[slug + ":" + q.id].lastWrongAt);
+    }
+    console.log(JSON.stringify({ slug, questions: quiz.questions.length, checks: ["card", "setup", "ten-question-run", "explanations", "score", "saved-owner", "retry-wrong", "category", "mobile-themes", "appended-review-ids"] }));
     await context.close();
   }
   expect(errors).toEqual([]);
