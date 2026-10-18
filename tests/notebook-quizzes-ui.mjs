@@ -62,6 +62,7 @@ try {
     await page.reload();
     await expect(page.getByRole("heading", { name: quiz.label, exact: true })).toBeVisible();
     expect(await page.evaluate(() => JSON.parse(localStorage.getItem("md_progress_v2")))).toEqual(state);
+    await page.getByRole("button", { name: "לפי סדר", exact: true }).click();
     const category = quiz.categories[0], filtered = quiz.questions.filter(q => q.category === category);
     await page.getByRole("button", { name: new RegExp("^" + escape(category) + "\\s+" + filtered.length + "$") }).click();
     await page.getByRole("button", { name: new RegExp("^הכל \\(" + filtered.length + "\\)$") }).click();
