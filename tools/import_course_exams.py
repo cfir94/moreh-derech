@@ -1,9 +1,9 @@
 """
 Import the course's own practice exams from cfir94/morey-derech-quiz.
 
-That project is a single index.html holding three sets of five exams, written
-for this course: "מבחן תרגול" (24 questions), "מבחן דגשי הרכז" and "מבחן נושאי"
-(50 each, mixing multiple-choice with fill-in-the-blank). Every item carries an
+That project is a single index.html holding four sets of five exams, written
+for this course: "מבחן תרגול" (24 questions), "מבחן דגשי הרכז", "מבחן נושאי" and
+"מבחן בית שני–ביזנטית" (50 each, mixing multiple-choice with fill-in-the-blank). Every item carries an
 explanation, which the Ministry's own papers never do.
 
 They are the owner's own material, so unlike the resources directory they are
@@ -37,12 +37,15 @@ QUIZ_FILE = ROOT / "src/data/quizzes/course-bank.ts"
 # covers — not a guess from its questions.
 FIRST_BLOCK = "חי, צומח, גיאולוגיה, פרהיסטוריה, מבוא לארכיאולוגיה וברונזה"
 SECOND_BLOCK = "יהדות, נצרות, ברזל וגבולות"
+THIRD_BLOCK = "בית שני, התקופה הרומית, התקופה הביזנטית וארכיאולוגיה קלאסית"
 
 # (collection in the source, our slug prefix, what to call the family, subjects)
 SETS = [
     ("EXAMS", "practice", "מבחן תרגול", FIRST_BLOCK),
     ("FOCUS_EXAMS", "focus", "מבחן דגשי הרכז", SECOND_BLOCK),
     ("TOPIC_EXAMS", "topic", "מבחן נושאי", SECOND_BLOCK),
+    # Last, so the question ids of the earlier sets stay where they were.
+    ("TEMPLE_EXAMS", "temple", "מבחן בית שני–ביזנטית", THIRD_BLOCK),
 ]
 
 # Question ids are `ID_BASE + running number` so a re-import never renumbers.
@@ -60,7 +63,8 @@ const read = new Function(
   data +
     "\\nreturn {EXAMS: typeof EXAMS !== 'undefined' ? EXAMS : {}," +
     " FOCUS_EXAMS: typeof FOCUS_EXAMS !== 'undefined' ? FOCUS_EXAMS : {}," +
-    " TOPIC_EXAMS: typeof TOPIC_EXAMS !== 'undefined' ? TOPIC_EXAMS : {}};",
+    " TOPIC_EXAMS: typeof TOPIC_EXAMS !== 'undefined' ? TOPIC_EXAMS : {}," +
+    " TEMPLE_EXAMS: typeof TEMPLE_EXAMS !== 'undefined' ? TEMPLE_EXAMS : {}};",
 );
 process.stdout.write(JSON.stringify(read()));
 """

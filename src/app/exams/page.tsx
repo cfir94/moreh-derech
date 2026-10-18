@@ -6,6 +6,8 @@ import { ExamGroup } from "@/components/ExamGroup";
 
 /** The blocks the course examined separately; see tools/import_course_exams.py. */
 const FIRST_BLOCK = "חי, צומח, גיאולוגיה, פרהיסטוריה, מבוא לארכיאולוגיה וברונזה";
+const THIRD_BLOCK =
+  "בית שני, התקופה הרומית, התקופה הביזנטית וארכיאולוגיה קלאסית";
 
 function fills(exam: { questions: { kind?: string }[] }) {
   const n = exam.questions.filter((q) => q.kind === "fill").length;
@@ -17,7 +19,10 @@ export default function ExamsPage() {
   const derived = EXAMS.filter((e) => e.keySource === "derived");
   const course = EXAMS.filter((e) => e.keySource === "course");
   const firstBlock = course.filter((e) => e.subjects === FIRST_BLOCK);
-  const secondBlock = course.filter((e) => e.subjects !== FIRST_BLOCK);
+  const thirdBlock = course.filter((e) => e.subjects === THIRD_BLOCK);
+  const secondBlock = course.filter(
+    (e) => e.subjects !== FIRST_BLOCK && e.subjects !== THIRD_BLOCK,
+  );
   const total = EXAMS.reduce((s, e) => s + e.questions.length, 0);
 
   return (
@@ -71,6 +76,27 @@ export default function ExamsPage() {
             title={exam.date}
             description="תשובות לא רשמיות · עברית"
             badge="לא רשמי"
+            meta={`${exam.questions.length} שאלות`}
+          />
+        ))}
+      </ExamGroup>
+
+      <ExamGroup
+        title={`מבחני הקורס — ${THIRD_BLOCK}`}
+        count={thirdBlock.length}
+        open
+        note="לקראת המבחן הקרוב, לפי דגשי הרכז: הרצאות אייל מירון, רשימות
+          המושגים של כל יחידה וסיורי ארז בירושלים. 50 פריטים בכל מבחן, מהם
+          12 שאלות השלמה."
+      >
+        {thirdBlock.map((exam, i) => (
+          <SectionCard
+            key={exam.slug}
+            index={i}
+            href={`/exams/${exam.slug}`}
+            slug="quizzes"
+            title={exam.label.he}
+            description={fills(exam)}
             meta={`${exam.questions.length} שאלות`}
           />
         ))}
