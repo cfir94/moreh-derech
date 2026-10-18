@@ -1,5 +1,7 @@
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
+import { ROMAN_EVENTS } from "@/data/roman";
+import { BYZ_EVENTS } from "@/data/byzantine";
 import { SectionCard } from "@/components/SectionCard";
 
 const sets = [
@@ -9,6 +11,22 @@ const sets = [
     description:
       "שיבת ציון, החשמונאים, הורדוס והמרד הגדול. אירועים, דמויות ואתרים עם מקורות מחומר הקורס.",
     meta: "88 אירועים · דמויות, אתרים ותהליכים",
+  },
+  {
+    slug: "roman-timeline",
+    href: "/timelines/roman",
+    title: "התקופה הרומית — מפומפיוס עד קונסטנטינוס",
+    description:
+      "החורבן ויבנה, בר כוכבא ואיליה קפיטולינה, המשנה בציפורי והדרך אל הנצרות — לאורך דרך רומית ואבני מיל.",
+    meta: `${ROMAN_EVENTS.length} אירועים · קיסרים, לגיונות ואתרים`,
+  },
+  {
+    slug: "byzantine-timeline",
+    href: "/timelines/byzantine",
+    title: "התקופה הביזנטית — ארץ הקודש",
+    description:
+      "כנסיות ומנזרים, צליינים ומפת מידבא, התלמוד הירושלמי ובתי הכנסת, ועד הכיבוש המוסלמי — בפסיפס של זהב.",
+    meta: `${BYZ_EVENTS.length} אירועים · מועצות, כנסיות וצליינים`,
   },
   {
     slug: "biblical",
