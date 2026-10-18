@@ -1,0 +1,204 @@
+/* The Roman period as a Roman road: travertine and Pompeian red, a paved
+   via down the side, a milestone at every event, and each event cut as a
+   tabula ansata — the dovetailed tablet of Roman inscriptions. */
+.page {
+  --stone: #f2ebdd; --stone-raised: #fbf7ee; --stone-deep: #e6dbc6;
+  --ink: #2a1f18; --muted: #6d5f53; --edge: #d5c6ab;
+  --red: #8b2a1d; --bronze: #9a6a2c; --road-a: #c9bca3; --road-b: #b3a58b;
+  --tip-bg: #f4e3cf;
+  max-width: 1200px; margin: auto; padding: 24px 24px 40px; color: var(--ink);
+}
+:global([data-theme="dark"]) .page {
+  --stone: #1b1613; --stone-raised: #251e19; --stone-deep: #2f2620;
+  --ink: #f1e7d6; --muted: #b8a892; --edge: #4a3d32;
+  --red: #d8664d; --bronze: #d9a95f; --road-a: #3f352c; --road-b: #332a23;
+  --tip-bg: #3a2a20;
+}
+.page button, .page input, .page select { font: inherit; color: inherit; }
+.page button, .page summary, .page select { cursor: pointer; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.breadcrumb { display: flex; gap: 10px; color: var(--muted); font-size: 13px; margin: 0 4px 20px; }
+.breadcrumb a:hover { color: var(--red); }
+
+/* ---- hero: a porphyry slab with a triumphal arch ---- */
+.hero {
+  position: relative; overflow: hidden; display: grid; grid-template-columns: 1.2fr 1fr;
+  border-radius: 6px; color: #f6ead2;
+  background:
+    radial-gradient(circle at 20% 15%, #a3392a 0%, transparent 55%),
+    radial-gradient(circle at 85% 90%, #4a120c 0%, transparent 60%),
+    repeating-radial-gradient(circle at 30% 40%, #00000010 0 2px, transparent 2px 7px),
+    #6e1c13;
+  border: 1px solid #3e0f09;
+  box-shadow: inset 0 0 0 10px #6e1c13, inset 0 0 0 11px #d9b06a66;
+}
+.heroCopy { padding: 48px 46px 30px 12px; position: relative; z-index: 1; }
+.eyebrow { font-family: Georgia, "Times New Roman", serif; font-size: 12px; letter-spacing: .32em; color: #e2bf78; margin-bottom: 18px; direction: ltr; text-align: right; }
+.hero h1 { font-size: clamp(48px, 7vw, 84px); line-height: 1.05; font-weight: 900; letter-spacing: -.01em; text-shadow: 0 2px 0 #3e0f09; }
+.subtitle { font-family: Georgia, "Times New Roman", serif; font-size: clamp(17px, 2.2vw, 22px); color: #ebcd8d; margin-top: 10px; }
+.lead { max-width: 440px; font-size: 14px; line-height: 1.9; color: #f0dcc0; margin-top: 18px; }
+.start { display: inline-flex; gap: 22px; margin-top: 18px; padding: 8px 0; border-bottom: 1px solid #e2bf78; color: #f3d696; font-size: 13px; }
+.heroArt { color: #e2bf78; display: flex; align-items: center; justify-content: center; padding: 28px 18px 0; }
+.heroArt svg { width: 100%; max-width: 400px; }
+.stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 40px; padding: 20px 0 26px; border-top: 1px solid #e2bf7840; position: relative; z-index: 1; }
+.stats > div { display: flex; flex-direction: column; align-items: center; gap: 2px; border-inline-end: 1px solid #e2bf7830; }
+.stats > div:last-child { border: 0; }
+.stats strong { font-family: Georgia, serif; font-size: 30px; font-weight: 400; color: #f3d696; }
+.stats span { font-size: 11px; color: #e9cfae; text-align: center; }
+
+.note { margin: 18px 6px 24px; font-size: 12.5px; line-height: 1.85; color: var(--muted); }
+.note a { color: var(--red); font-weight: 700; }
+
+/* ---- workspace ---- */
+.workspace { background: var(--stone); border: 1px solid var(--edge); border-radius: 6px; overflow: clip; scroll-margin-top: 80px; }
+.views { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 20px; border-bottom: 2px solid var(--edge); background: var(--stone-deep); }
+.views button { display: flex; align-items: center; gap: 8px; padding: 16px 14px 13px; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.views button small { font-size: 11px; opacity: .8; }
+.views button[aria-pressed="true"] { color: var(--red); border-color: var(--red); font-weight: 800; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--edge); }
+.search { flex: 1 1 280px; display: flex; align-items: center; gap: 8px; background: var(--stone-raised); border: 1px solid var(--edge); border-radius: 4px; padding: 9px 12px; }
+.search input { flex: 1; background: none; border: 0; outline: none; font-size: 14px; min-width: 0; }
+.search:focus-within { border-color: var(--red); }
+.select { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.select select { background: var(--stone-raised); border: 1px solid var(--edge); border-radius: 4px; padding: 7px 10px; color: var(--ink); }
+.check { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+.check input { accent-color: var(--red); width: 16px; height: 16px; }
+
+.eras { display: flex; gap: 0; overflow-x: auto; padding: 16px 20px 6px; scrollbar-width: thin; }
+.eras button { flex: 0 0 auto; display: flex; flex-direction: column; gap: 2px; padding: 9px 16px 8px; text-align: start; border: 1px solid var(--edge); background: var(--stone-raised); margin-inline-start: -1px; font-size: 13px; }
+.eras button:first-child { border-start-start-radius: 4px; border-end-start-radius: 4px; }
+.eras button:last-child { border-start-end-radius: 4px; border-end-end-radius: 4px; }
+.eras button small { font-size: 11px; color: var(--muted); }
+.eras button[aria-pressed="true"] { background: var(--red); border-color: var(--red); color: #fbefd8; }
+.eras button[aria-pressed="true"] small { color: #f2d6b4; }
+.status { display: flex; align-items: center; gap: 14px; padding: 8px 20px 0; font-size: 12.5px; color: var(--muted); }
+.status button { color: var(--red); text-decoration: underline; }
+
+.empty { margin: 28px 20px; padding: 26px; text-align: center; border: 1px dashed var(--edge); border-radius: 4px; color: var(--muted); }
+.empty h2 { color: var(--ink); font-size: 18px; margin-bottom: 6px; }
+.empty button { margin-top: 12px; color: var(--red); font-weight: 700; }
+
+/* ---- an era: an inscribed stone block, then the road ---- */
+.era { padding: 26px 20px 8px; }
+.eraStone {
+  position: relative; padding: 18px 22px 16px; background: var(--stone-deep);
+  border: 1px solid var(--edge); border-radius: 3px;
+  box-shadow: inset 0 0 0 5px var(--stone-deep), inset 0 0 0 6px var(--edge);
+}
+.latin { display: block; direction: ltr; text-align: right; font-family: Georgia, "Times New Roman", serif; font-size: 12px; letter-spacing: .35em; color: var(--red); margin-bottom: 4px; }
+.eraStone h2 { font-size: 24px; font-weight: 900; }
+.range { font-family: Georgia, serif; color: var(--bronze); font-size: 14px; margin: 2px 0 6px; }
+.eraStone p:last-child { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 760px; }
+
+.road { position: relative; padding: 20px 0 6px; padding-inline-start: 86px; }
+.road::before {
+  content: ""; position: absolute; inset-block: 0; inset-inline-start: 26px; width: 36px;
+  border-inline: 3px solid var(--road-b);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 23px, var(--stone) 23px 25px),
+    repeating-linear-gradient(90deg, var(--road-a) 0 16px, var(--road-b) 16px 18px, var(--road-a) 18px 34px);
+}
+.stop { position: relative; margin-bottom: 16px; scroll-margin-top: 90px; outline: none; }
+.milestone {
+  position: absolute; inset-inline-start: -78px; top: 6px; width: 50px; height: 62px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  border-radius: 25px 25px 4px 4px; color: var(--ink);
+  background: linear-gradient(90deg, var(--stone-deep), var(--stone-raised) 45%, var(--stone-deep));
+  border: 1px solid var(--edge); box-shadow: 0 3px 0 var(--road-b);
+  font-family: Georgia, "Times New Roman", serif;
+}
+.mp { font-size: 9px; letter-spacing: .1em; color: var(--muted); }
+.mpNum { font-size: 13px; font-weight: 700; color: var(--red); direction: ltr; }
+.keyStop .milestone { background: linear-gradient(90deg, #7a2418, #a3392a 45%, #7a2418); border-color: #5c1a11; }
+.keyStop .mp { color: #f2cf96; }
+.keyStop .mpNum { color: #fff3dd; }
+
+/* the tabula ansata: a frame with a dovetail "ear" on each side */
+.tabula {
+  position: relative; margin-inline: 18px; background: var(--stone-raised);
+  border: 2px solid var(--bronze); border-radius: 2px;
+  box-shadow: inset 0 0 0 4px var(--stone-raised), inset 0 0 0 5px color-mix(in srgb, var(--bronze) 45%, transparent);
+}
+.tabula::before, .tabula::after {
+  content: ""; position: absolute; top: 50%; width: 18px; height: 40px; margin-top: -20px; background: var(--bronze);
+}
+.tabula::before { inset-inline-start: -19px; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+.tabula::after { inset-inline-end: -19px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.tabula > summary { list-style: none; display: block; padding: 14px 20px 14px; }
+.tabula > summary::-webkit-details-marker { display: none; }
+.tabula > summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 4px; }
+.date { font-family: Georgia, "Times New Roman", serif; font-weight: 700; color: var(--red); font-size: 14px; }
+.kind { font-size: 11px; color: var(--muted); border: 1px solid var(--edge); border-radius: 2px; padding: 1px 7px; }
+.concept { font-size: 11px; color: #fff4de; background: var(--bronze); border-radius: 2px; padding: 1px 7px; font-weight: 700; }
+.tabula h3 { display: flex; justify-content: space-between; gap: 12px; font-size: 17px; font-weight: 800; line-height: 1.45; }
+.plus { color: var(--bronze); transition: transform .15s; flex: 0 0 auto; }
+.tabula[open] .plus { transform: rotate(45deg); }
+.summary { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-top: 3px; }
+.body { padding: 0 20px 18px; border-top: 1px dashed var(--edge); margin: 0 6px; }
+.body > p { font-size: 14px; line-height: 1.95; margin-top: 12px; }
+.tip { margin-top: 14px; padding: 12px 14px; background: var(--tip-bg); border-inline-start: 4px solid var(--red); }
+.tip span { display: block; font-size: 11px; font-weight: 800; letter-spacing: .04em; color: var(--red); margin-bottom: 3px; }
+.tip p { font-size: 13.5px; line-height: 1.8; }
+.sites { font-size: 13px; color: var(--muted); margin-top: 10px; }
+.sites strong { color: var(--ink); }
+.permalink { display: inline-block; margin-top: 10px; font-size: 11.5px; color: var(--muted); direction: ltr; }
+.permalink:hover { color: var(--red); }
+
+/* ---- emperors: bronze coins ---- */
+.panel { padding: 8px 20px 26px; }
+.panelIntro { padding: 20px 0 12px; }
+.panelIntro h2 { font-size: 22px; font-weight: 900; }
+.panelIntro p { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.coins { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.coinCard { display: flex; gap: 14px; align-items: flex-start; padding: 14px; background: var(--stone-raised); border: 1px solid var(--edge); border-radius: 4px; }
+.coin {
+  flex: 0 0 auto; width: 78px; height: 78px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 35% 30%, #e5bd78, #a5732f 55%, #6f4a1c);
+  box-shadow: inset 0 0 0 4px #c89a55, inset 0 0 0 5px #6f4a1c, 0 2px 4px #0003;
+}
+.coin span { direction: ltr; max-width: 60px; text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: 8.5px; letter-spacing: .12em; line-height: 1.3; color: #3c2810; word-break: break-word; font-weight: 700; }
+.coinCard h3 { font-size: 16px; font-weight: 800; }
+.reign { font-family: Georgia, serif; color: var(--red); font-size: 13px; margin: 1px 0 5px; }
+.coinCard p:last-child { font-size: 13px; line-height: 1.75; color: var(--muted); }
+.legions { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.legion { padding: 16px; border: 2px solid var(--red); border-radius: 3px; background: var(--stone-raised); }
+.latinTag { display: block; direction: ltr; text-align: right; font-family: Georgia, serif; letter-spacing: .18em; font-size: 12px; color: var(--red); }
+.legion h3 { font-size: 16px; font-weight: 800; margin: 4px 0 6px; }
+.legion p { font-size: 13px; line-height: 1.75; color: var(--muted); }
+
+/* ---- sites: milestone signs ---- */
+.signs { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.sign { background: var(--stone-raised); border: 1px solid var(--edge); border-radius: 4px; overflow: hidden; }
+.signHead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 14px; background: var(--red); color: #fbefd8; }
+.signHead h3 { font-size: 15.5px; font-weight: 800; }
+.signHead span { direction: ltr; font-family: Georgia, serif; font-size: 10.5px; letter-spacing: .14em; opacity: .9; }
+.region { font-size: 11.5px; color: var(--bronze); font-weight: 700; padding: 10px 14px 0; }
+.sign p:last-child { font-size: 13px; line-height: 1.75; color: var(--muted); padding: 4px 14px 14px; }
+
+.footer { display: flex; justify-content: space-between; gap: 12px; margin: 22px 6px 0; font-size: 12.5px; color: var(--muted); }
+.footer a:hover { color: var(--red); }
+
+@media (max-width: 760px) {
+  .page { padding: 14px 16px 30px; }
+  .hero { grid-template-columns: 1fr; }
+  .heroCopy { padding: 34px 26px 10px; }
+  .heroArt { display: none; }
+  .stats { margin: 0 18px; grid-template-columns: repeat(2, 1fr); row-gap: 14px; }
+  .stats > div:nth-child(2) { border: 0; }
+  .views, .toolbar, .eras, .status { padding-inline: 14px; }
+  .era { padding-inline: 12px; }
+  .road { padding-inline-start: 54px; }
+  .road::before { inset-inline-start: 14px; width: 22px; }
+  .milestone { inset-inline-start: -52px; width: 38px; height: 50px; }
+  .mp { display: none; }
+  .tabula { margin-inline: 12px; }
+  .tabula::before, .tabula::after { width: 12px; height: 28px; margin-top: -14px; }
+  .tabula::before { inset-inline-start: -13px; }
+  .tabula::after { inset-inline-end: -13px; }
+  .tabula > summary { padding: 12px 14px; }
+  .body { padding: 0 14px 14px; }
+  .panel { padding-inline: 14px; }
+  .coins, .legions, .signs { grid-template-columns: 1fr; }
+}

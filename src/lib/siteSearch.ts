@@ -16,6 +16,8 @@ import { FEATURED_RESOURCES, RESOURCE_GROUPS } from "@/data/resources";
 import biblicalTimelines from "@/data/timelines/biblical";
 import egyptCanaanTimelines from "@/data/timelines/egypt-canaan";
 import secondTempleEvents from "@/data/second-temple/search.json";
+import { ROMAN_EVENTS } from "@/data/roman";
+import { BYZ_EVENTS } from "@/data/byzantine";
 import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
 import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
@@ -215,6 +217,42 @@ const baseResults: SearchResult[] = [
     description: `בית שני · ${event.date} · ${event.summary}`,
     href: `/timelines/second-temple/#${event.id}`,
     searchText: ["בית שני", event.title, event.date, event.summary, event.people, event.places].join(" "),
+  })),
+  {
+    id: "timeline-roman",
+    kind: "timeline",
+    kindLabel: "ציר זמן",
+    title: "התקופה הרומית — מפומפיוס עד קונסטנטינוס",
+    description: "63 לפנה״ס – 324 לספירה: החורבן, יבנה, בר כוכבא, המשנה, קיסרים, לגיונות ואתרים.",
+    href: "/timelines/roman",
+    searchText: "התקופה הרומית רומא רומאים קיסרים לגיון אדריאנוס בר כוכבא איליה קפיטולינה משנה דיוקלטיאנוס",
+  },
+  ...ROMAN_EVENTS.map((event) => ({
+    id: `timeline-roman-${event.id}`,
+    kind: "timeline" as const,
+    kindLabel: "ציר זמן",
+    title: event.title,
+    description: `התקופה הרומית · ${event.date} · ${event.summary}`,
+    href: `/timelines/roman/#${event.id}`,
+    searchText: ["התקופה הרומית", event.title, event.date, event.summary, event.sites ?? ""].join(" "),
+  })),
+  {
+    id: "timeline-byzantine",
+    kind: "timeline",
+    kindLabel: "ציר זמן",
+    title: "התקופה הביזנטית — ארץ הקודש",
+    description: "324–638: כנסיות, מנזרים, צליינים, מפת מידבא, התלמוד הירושלמי, בתי כנסת והכיבוש המוסלמי.",
+    href: "/timelines/byzantine",
+    searchText: "התקופה הביזנטית ביזנטים קונסטנטינוס יוסטיניאנוס כנסיות מנזרים צליינים מפת מידבא תלמוד ירושלמי",
+  },
+  ...BYZ_EVENTS.map((event) => ({
+    id: `timeline-byzantine-${event.id}`,
+    kind: "timeline" as const,
+    kindLabel: "ציר זמן",
+    title: event.title,
+    description: `התקופה הביזנטית · ${event.date} · ${event.summary}`,
+    href: `/timelines/byzantine/#${event.id}`,
+    searchText: ["התקופה הביזנטית", event.title, event.date, event.summary, event.sites ?? ""].join(" "),
   })),
   ...toolResults,
 ];

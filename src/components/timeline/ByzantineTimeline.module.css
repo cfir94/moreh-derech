@@ -1,0 +1,191 @@
+/* The Byzantine period as a church mosaic: a gold-tessera apse over lapis,
+   era headings cut as arched niches, a column of tesserae as the axis, and
+   each event set in a tessera-bordered panel. */
+.page {
+  --ground: #f6f0e1; --raised: #fffaf0; --deep: #ece2cc;
+  --ink: #1c2546; --muted: #5d6178; --edge: #dccfae;
+  --gold: #a9812e; --gold-hi: #e8c773; --lapis: #1e3270; --purple: #6b2f5d;
+  --tip-bg: #f1e6c9;
+  max-width: 1200px; margin: auto; padding: 24px 24px 40px; color: var(--ink);
+}
+:global([data-theme="dark"]) .page {
+  --ground: #0f1630; --raised: #172042; --deep: #1d2851;
+  --ink: #efe6cf; --muted: #aeb3c9; --edge: #2f3c6c;
+  --gold: #e0bd68; --gold-hi: #f3d98f; --lapis: #8fa4e6; --purple: #d29ccd;
+  --tip-bg: #252c4f;
+}
+.page button, .page input, .page select { font: inherit; color: inherit; }
+.page button, .page summary, .page select { cursor: pointer; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.breadcrumb { display: flex; gap: 10px; color: var(--muted); font-size: 13px; margin: 0 4px 20px; }
+.breadcrumb a:hover { color: var(--gold); }
+
+/* gold tesserae: a gradient ground cut into a grid of small stones */
+.hero {
+  position: relative; overflow: hidden; border-radius: 10px; padding: 26px 26px 0;
+  background:
+    linear-gradient(90deg, #00000026 1px, transparent 1px) 0 0 / 9px 9px,
+    linear-gradient(0deg, #00000026 1px, transparent 1px) 0 0 / 9px 9px,
+    radial-gradient(circle at 30% 20%, #f7e3a1, transparent 45%),
+    radial-gradient(circle at 75% 80%, #8a6420, transparent 55%),
+    linear-gradient(135deg, #c99a3e, #edd389 40%, #b98a33 70%, #e3c06e);
+  border: 1px solid #7a5a1d;
+}
+.apse {
+  position: relative; max-width: 780px; margin: 0 auto; padding: 46px 34px 34px; text-align: center; color: #f4ead2;
+  border-radius: 400px 400px 6px 6px / 220px 220px 6px 6px;
+  background:
+    linear-gradient(90deg, #ffffff0a 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, #ffffff0a 1px, transparent 1px) 0 0 / 8px 8px,
+    radial-gradient(ellipse at 50% 0%, #2c4697, transparent 65%),
+    #14215a;
+  box-shadow: 0 0 0 6px #14215a, 0 0 0 9px #7a5a1d55, inset 0 -30px 60px #0a1238;
+}
+.chiRho { width: 78px; height: 78px; color: var(--gold-hi); margin: 0 auto 10px; display: block; }
+.greek { font-family: Georgia, "Times New Roman", serif; letter-spacing: .3em; font-size: 12px; color: #e8c773; direction: ltr; }
+.apse h1 { font-size: clamp(40px, 6.4vw, 74px); font-weight: 900; line-height: 1.1; margin-top: 8px; color: #fbf1d6; text-shadow: 0 2px 10px #0008; }
+.subtitle { font-family: Georgia, "Times New Roman", serif; font-size: clamp(16px, 2.1vw, 21px); color: #ecd18e; margin-top: 8px; }
+.lead { max-width: 560px; margin: 16px auto 0; font-size: 14px; line-height: 1.9; color: #d9dcef; }
+.start { display: inline-flex; gap: 20px; margin-top: 16px; padding: 8px 0; border-bottom: 1px solid #e8c773; color: #f3d98f; font-size: 13px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 780px; margin: 0 auto; padding: 16px 0 20px; }
+.stats > div { display: flex; flex-direction: column; align-items: center; color: #3d2a08; }
+.stats strong { font-family: Georgia, serif; font-size: 30px; font-weight: 400; line-height: 1.2; }
+.stats span { font-size: 11px; font-weight: 700; text-align: center; }
+
+.note { margin: 18px 6px 24px; font-size: 12.5px; line-height: 1.85; color: var(--muted); }
+.note a { color: var(--gold); font-weight: 700; }
+
+.workspace { background: var(--ground); border: 1px solid var(--edge); border-radius: 10px; overflow: clip; scroll-margin-top: 80px; }
+.views { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 20px; background: var(--deep); border-bottom: 2px solid var(--edge); }
+.views button { display: flex; align-items: center; gap: 8px; padding: 16px 14px 13px; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.views button small { font-size: 11px; opacity: .8; }
+.views button[aria-pressed="true"] { color: var(--ink); border-color: var(--gold); font-weight: 800; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--edge); }
+.search { flex: 1 1 280px; display: flex; align-items: center; gap: 8px; background: var(--raised); border: 1px solid var(--edge); border-radius: 999px; padding: 9px 16px; }
+.search input { flex: 1; background: none; border: 0; outline: none; font-size: 14px; min-width: 0; }
+.search:focus-within { border-color: var(--gold); }
+.select { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.select select { background: var(--raised); border: 1px solid var(--edge); border-radius: 999px; padding: 7px 12px; color: var(--ink); }
+.check { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+.check input { accent-color: var(--gold); width: 16px; height: 16px; }
+
+.eras { display: flex; gap: 8px; overflow-x: auto; padding: 16px 20px 6px; scrollbar-width: thin; }
+.eras button { flex: 0 0 auto; display: flex; flex-direction: column; gap: 1px; padding: 10px 16px 8px; text-align: center; font-size: 13px; background: var(--raised); border: 1px solid var(--edge); border-radius: 60px 60px 4px 4px / 28px 28px 4px 4px; }
+.eras button small { font-size: 11px; color: var(--muted); }
+.eras button[aria-pressed="true"] { background: #14215a; border-color: var(--gold); color: #f7e7bb; box-shadow: inset 0 3px 0 var(--gold); }
+.eras button[aria-pressed="true"] small { color: #d7c590; }
+.status { display: flex; align-items: center; gap: 14px; padding: 8px 20px 0; font-size: 12.5px; color: var(--muted); }
+.status button { color: var(--gold); text-decoration: underline; }
+.empty { margin: 28px 20px; padding: 26px; text-align: center; border: 1px dashed var(--edge); border-radius: 10px; color: var(--muted); }
+.empty h2 { color: var(--ink); font-size: 18px; margin-bottom: 6px; }
+.empty button { margin-top: 12px; color: var(--gold); font-weight: 700; }
+
+/* ---- era: an arched niche with a gold top ---- */
+.era { padding: 28px 20px 8px; }
+.niche {
+  position: relative; text-align: center; padding: 16px 22px 18px; max-width: 760px; margin: 0 auto;
+  border-radius: 300px 300px 8px 8px / 90px 90px 8px 8px; border: 1px solid var(--edge);
+  background:
+    linear-gradient(180deg, transparent 0 46px, var(--raised) 46px),
+    linear-gradient(90deg, #0000001f 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(0deg, #0000001f 1px, transparent 1px) 0 0 / 8px 8px,
+    linear-gradient(135deg, #c99a3e, #edd389 50%, #b98a33);
+}
+.nicheGreek { display: inline-block; font-family: Georgia, "Times New Roman", serif; letter-spacing: .3em; font-size: 11.5px; color: #3d2a08; direction: ltr; margin-bottom: 20px; font-weight: 700; }
+.niche h2 { font-size: 24px; font-weight: 900; color: var(--ink); }
+.range { font-family: Georgia, serif; color: var(--gold); font-size: 14px; margin: 2px 0 6px; }
+.niche p:last-child { font-size: 13px; color: var(--muted); line-height: 1.8; }
+
+/* ---- the axis: a column of tesserae, markers like gold crosses ---- */
+.column { position: relative; padding: 22px 0 6px; padding-inline-start: 52px; max-width: 900px; margin: 0 auto; }
+.column::before {
+  content: ""; position: absolute; inset-block: 0; inset-inline-start: 18px; width: 8px;
+  background: repeating-linear-gradient(180deg, var(--gold) 0 7px, transparent 7px 9px, var(--lapis) 9px 16px, transparent 16px 18px);
+  opacity: .8;
+}
+.item { position: relative; margin-bottom: 16px; scroll-margin-top: 90px; outline: none; }
+.marker {
+  position: absolute; inset-inline-start: -44px; top: 20px; width: 24px; height: 24px; transform: rotate(45deg);
+  background: var(--raised); border: 2px solid var(--gold); box-shadow: 0 0 0 3px var(--ground);
+}
+.keyItem .marker { background: radial-gradient(circle, var(--gold-hi), var(--gold)); border-color: #7a5a1d; }
+/* a border of alternating tesserae around each panel */
+.frame {
+  padding: 5px; border-radius: 6px;
+  background: repeating-linear-gradient(90deg, var(--gold) 0 6px, var(--lapis) 6px 8px, var(--purple) 8px 13px, var(--lapis) 13px 15px);
+}
+.keyItem .frame { background: repeating-linear-gradient(90deg, var(--gold-hi) 0 6px, var(--gold) 6px 8px); }
+.panel { background: var(--raised); border-radius: 3px; }
+.panel > summary { list-style: none; display: block; padding: 14px 18px; }
+.panel > summary::-webkit-details-marker { display: none; }
+.panel > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 4px; }
+.date { font-family: Georgia, "Times New Roman", serif; font-weight: 700; color: var(--gold); font-size: 14px; }
+.kind { font-size: 11px; color: var(--muted); border: 1px solid var(--edge); border-radius: 999px; padding: 1px 8px; }
+.concept { font-size: 11px; color: #fbf1d6; background: var(--purple); border-radius: 999px; padding: 1px 8px; font-weight: 700; }
+:global([data-theme="dark"]) .concept { color: #1a1030; }
+.panel h3 { display: flex; justify-content: space-between; gap: 12px; font-size: 17px; font-weight: 800; line-height: 1.45; }
+.plus { color: var(--gold); transition: transform .15s; flex: 0 0 auto; }
+.panel[open] .plus { transform: rotate(45deg); }
+.summary { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-top: 3px; }
+.body { padding: 0 18px 18px; border-top: 1px solid var(--edge); margin: 0 6px; }
+.body > p { font-size: 14px; line-height: 1.95; margin-top: 12px; }
+.tip { margin-top: 14px; padding: 12px 14px; background: var(--tip-bg); border-radius: 4px; border-inline-start: 4px solid var(--gold); }
+.tip span { display: block; font-size: 11px; font-weight: 800; color: var(--gold); margin-bottom: 3px; }
+.tip p { font-size: 13.5px; line-height: 1.8; }
+.sites { font-size: 13px; color: var(--muted); margin-top: 10px; }
+.sites strong { color: var(--ink); }
+.permalink { display: inline-block; margin-top: 10px; font-size: 11.5px; color: var(--muted); direction: ltr; }
+.permalink:hover { color: var(--gold); }
+
+/* ---- emperors as icons with gold haloes ---- */
+.view { padding: 8px 20px 26px; }
+.viewIntro { padding: 20px 0 12px; }
+.viewIntro h2 { font-size: 22px; font-weight: 900; }
+.viewIntro p { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.icon { text-align: center; padding: 18px 14px; background: var(--raised); border: 1px solid var(--edge); border-radius: 80px 80px 6px 6px / 40px 40px 6px 6px; }
+.halo {
+  width: 74px; height: 74px; margin: 0 auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle, #14215a 0 52%, transparent 53%), conic-gradient(from 0deg, #c99a3e, #f3d98f, #b98a33, #edd389, #c99a3e);
+}
+.halo span { max-width: 52px; font-family: Georgia, serif; font-size: 7.5px; letter-spacing: .08em; color: #f3d98f; direction: ltr; word-break: break-word; line-height: 1.25; }
+.icon h3 { font-size: 16px; font-weight: 800; }
+.reign { font-family: Georgia, serif; color: var(--gold); font-size: 13px; margin: 1px 0 5px; }
+.icon p:last-child { font-size: 13px; line-height: 1.75; color: var(--muted); }
+.councils { list-style: none; display: grid; gap: 10px; padding: 0; }
+.councils li { display: flex; gap: 16px; align-items: flex-start; padding: 14px 16px; background: var(--raised); border: 1px solid var(--edge); border-radius: 8px; }
+.councilYear { flex: 0 0 96px; font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: var(--gold); padding-top: 2px; }
+.councils h3 { font-size: 15.5px; font-weight: 800; }
+.place { font-size: 12px; color: var(--purple); margin: 1px 0 4px; }
+.councils li p:last-child { font-size: 13px; line-height: 1.75; color: var(--muted); }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.tile { padding: 14px 16px; background: var(--raised); border: 1px solid var(--edge); border-radius: 8px; border-top: 5px solid var(--gold); }
+.tile.monastery { border-top-color: var(--purple); }
+.tile.synagogue { border-top-color: var(--lapis); }
+.tile.city { border-top-color: var(--muted); }
+.tileType { font-size: 11px; font-weight: 800; color: var(--muted); }
+.tile h3 { font-size: 15.5px; font-weight: 800; margin: 2px 0 4px; }
+.tile p { font-size: 13px; line-height: 1.75; color: var(--muted); }
+
+.footer { display: flex; justify-content: space-between; gap: 12px; margin: 22px 6px 0; font-size: 12.5px; color: var(--muted); }
+.footer a:hover { color: var(--gold); }
+
+@media (max-width: 760px) {
+  .page { padding: 14px 16px 30px; }
+  .hero { padding: 14px 12px 0; }
+  .apse { padding: 34px 18px 26px; border-radius: 200px 200px 6px 6px / 110px 110px 6px 6px; }
+  .stats { grid-template-columns: repeat(2, 1fr); row-gap: 10px; }
+  .views, .toolbar, .eras, .status { padding-inline: 14px; }
+  .era { padding-inline: 12px; }
+  .column { padding-inline-start: 38px; }
+  .column::before { inset-inline-start: 10px; width: 6px; }
+  .marker { inset-inline-start: -36px; width: 18px; height: 18px; }
+  .panel > summary { padding: 12px 14px; }
+  .body { padding: 0 14px 14px; }
+  .view { padding-inline: 14px; }
+  .icons, .tiles { grid-template-columns: 1fr; }
+  .councilYear { flex-basis: 70px; }
+}
