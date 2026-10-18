@@ -15,6 +15,7 @@ import romanByzantine from "@/data/quizzes/roman-byzantine";
 import classicalArchitecture from "@/data/quizzes/classical-architecture";
 import earlyIslam from "@/data/quizzes/early-islam";
 import medieval from "@/data/quizzes/medieval";
+import ottoman from "@/data/quizzes/ottoman";
 
 export const QUIZZES: Quiz[] = [
   pastExams,
@@ -30,12 +31,15 @@ export const QUIZZES: Quiz[] = [
   classicalArchitecture,
   earlyIslam,
   medieval,
+  ottoman,
   christianity,
   judaism,
   israelBorders,
 ];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  ottoman:
+    "השלטון העות׳מאני, צפת וירושלים, שליטי הגליל ועכו, נפוליאון, רפורמות והתיישבות.",
   medieval:
     "ממלכות הצלבנים, מסדרים ומבצרים, האיובים, חיטין, הממלוכים והמורשת הבנויה.",
   "early-islam":

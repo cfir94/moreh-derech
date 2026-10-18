@@ -1,0 +1,35 @@
+name: Validate notebook course quizzes
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/notebook-quizzes/**"
+      - "tools/build_notebook_quizzes.mjs"
+      - "src/data/quizzes/**"
+      - "tests/notebook-quizzes-ui.mjs"
+      - ".github/workflows/validate-notebook-quizzes.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quizzes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - name: Validate and reproduce the authored banks
+        run: |
+          node tools/build_notebook_quizzes.mjs
+          git diff --exit-code -- src/data/quizzes
+          python3 tools/quiz_doctor.py roman-byzantine classical-architecture early-islam medieval ottoman
+      - name: Lint new banks and registration
+        run: npm run lint -- src/data/quizzes/roman-byzantine.ts src/data/quizzes/classical-architecture.ts src/data/quizzes/early-islam.ts src/data/quizzes/medieval.ts src/data/quizzes/ottoman.ts src/data/quizzes/index.ts src/lib/domains.ts
+      - run: npm run build
+      - name: Install browser test tooling
+        run: npm install --no-save --package-lock=false @playwright/test@1.64.1 && npx playwright install --with-deps chromium
+      - name: Check five quiz flows against the actual static export
+        run: node --import ./tests/register-ts.mjs tests/notebook-quizzes-ui.mjs
