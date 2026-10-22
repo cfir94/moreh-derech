@@ -18,6 +18,7 @@ import egyptCanaanTimelines from "@/data/timelines/egypt-canaan";
 import secondTempleEvents from "@/data/second-temple/search.json";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
+import { PERIOD_ROWS, periodDateText } from "@/data/periods";
 import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
 import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
@@ -200,6 +201,15 @@ const baseResults: SearchResult[] = [
   ...videoResults(),
   ...resourceResults(),
   ...timelineResults(),
+  {
+    id: "timeline-periods",
+    kind: "timeline",
+    kindLabel: "טבלת תקופות",
+    title: "טבלת התקופות — מבט משווה",
+    description: "שלטונות, אירועים ושנים מהמקרא עד הכיבוש המוסלמי, לצד תקופות היצירה היהודית.",
+    href: "/timelines/periods",
+    searchText: ["טבלת התקופות השוואה כרונולוגיה שלטון מקרא משנה תלמוד תנאים אמוראים סבוראים גאונים", ...PERIOD_ROWS.map(row => `${row.event} ${periodDateText(row)}`)].join(" "),
+  },
   {
     id: "timeline-second-temple",
     kind: "timeline",

@@ -2,9 +2,17 @@ import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
+import { PERIOD_ROWS } from "@/data/periods";
 import { SectionCard } from "@/components/SectionCard";
 
 const sets = [
+  {
+    slug: "periods",
+    title: "טבלת התקופות — מבט משווה",
+    description:
+      "מהמקרא עד הכיבוש המוסלמי: שלטונות, אירועים ושנים, לצד בית ראשון, בית שני ותקופות היצירה היהודית.",
+    meta: `${PERIOD_ROWS.length} ציוני דרך · חיפוש והשוואת תקופות`,
+  },
   {
     slug: "second-temple",
     title: "בית שני — מן השיבה אל החורבן",

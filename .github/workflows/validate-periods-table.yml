@@ -1,0 +1,29 @@
+name: Validate periods table
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/data/periods.ts"
+      - "src/components/timeline/PeriodsTable*"
+      - "src/app/timelines/**"
+      - "src/lib/siteSearch.ts"
+      - "tests/periods-table*"
+      - ".github/workflows/validate-periods-table.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  periods:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: node --import ./tests/register-ts.mjs --test tests/periods-table.test.mjs
+      - run: npm run lint -- src/data/periods.ts src/components/timeline/PeriodsTable.tsx src/app/timelines/periods/page.tsx src/app/timelines/page.tsx src/lib/domains.ts src/lib/siteSearch.ts
+      - run: npm run build
+      - run: npm install --no-save --package-lock=false @playwright/test@1.64.1 && npx playwright install --with-deps chromium
+      - run: node tests/periods-table-ui.mjs
