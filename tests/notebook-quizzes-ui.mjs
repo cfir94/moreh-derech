@@ -1,4 +1,4 @@
-// Focused integration of the five new content banks with the unchanged runner.
+// Focused integration of the authored content banks with the unchanged runner.
 import { createServer } from "node:http";
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { resolve, extname, sep } from "node:path";
@@ -6,8 +6,8 @@ import { fileURLToPath } from "node:url";
 import { chromium, expect } from "@playwright/test";
 import { QUIZZES } from "../src/data/quizzes/index.ts";
 
-const slugs = ["roman-byzantine", "classical-architecture", "early-islam", "medieval", "ottoman"];
-const originalMaxIds = { "roman-byzantine": 52, "classical-architecture": 60, "early-islam": 59, medieval: 65, ottoman: 60 };
+const slugs = ["second-temple", "roman-byzantine", "classical-architecture", "early-islam", "medieval", "ottoman"];
+const originalMaxIds = { "second-temple": 0, "roman-byzantine": 52, "classical-architecture": 60, "early-islam": 59, medieval: 65, ottoman: 60 };
 const out = resolve(fileURLToPath(new URL("../out/", import.meta.url)));
 const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".png": "image/png" };
 const server = createServer((req, res) => {

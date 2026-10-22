@@ -7,6 +7,7 @@ import examBank from "@/data/quizzes/exam-bank";
 import floraFauna from "@/data/quizzes/flora-fauna";
 import geology from "@/data/quizzes/geology";
 import ironAge from "@/data/quizzes/iron-age";
+import secondTemple from "@/data/quizzes/second-temple";
 import israelBorders from "@/data/quizzes/israel-borders";
 import judaism from "@/data/quizzes/judaism";
 import pastExams from "@/data/quizzes/past-exams";
@@ -27,6 +28,7 @@ export const QUIZZES: Quiz[] = [
   archaeologyIntro,
   bronzeAge,
   ironAge,
+  secondTemple,
   romanByzantine,
   classicalArchitecture,
   earlyIslam,
@@ -38,6 +40,8 @@ export const QUIZZES: Quiz[] = [
 ];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  "second-temple":
+    "שיבת ציון, הלניזם וחשמונאים, כתות ומגילות, הורדוס ומפעליו, השלטון הרומי והמרד הגדול.",
   ottoman:
     "השלטון העות׳מאני, צפת וירושלים, שליטי הגליל ועכו, נפוליאון, רפורמות והתיישבות.",
   medieval:
