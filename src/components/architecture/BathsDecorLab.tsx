@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cx, Info, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 /* ------------------------------ VII. baths ------------------------------ */
 
@@ -25,6 +25,7 @@ export function BathsLab() {
   const xs: Record<Room, number> = { palaestra: 20, apodyterium: 140, frigidarium: 240, tepidarium: 350, caldarium: 450, hypocaust: 350, furnace: 580 };
 
   return <Plate id="baths" numeral="VII" title="בית המרחץ" lead="לא רק ניקיון — לב החיים החברתיים של העיר הרומית: פוליטיקה, עסקים ופגישות. גם יהודים, ואף חכמים, ביקרו בו. לכו לאורך המסלול, מן הקר אל החם.">
+    <Section title="מסלול הרחצה">
     <div className={styles.controls}>
       <button type="button" className={styles.action} onClick={() => pick.setActive(WALK[(step + 1) % WALK.length] ?? "palaestra")}>{step >= 0 && step < WALK.length - 1 ? "לחדר הבא ←" : "להתחיל מן הפלאסטרה"}</button>
       <button type="button" className={styles.action} onClick={() => { pick.setActive("caldarium"); setSteam((n) => n + 1); }}>לשפוך מים על הרצפה החמה</button>
@@ -50,11 +51,14 @@ export function BathsLab() {
       <Info info={room}><p className={styles.thermo}><span style={{ width: `${6 + room.heat * 64}%`, background: `color-mix(in srgb, var(--fire) ${Math.round(room.heat * 100)}%, var(--cold))` }} />{room.temp}</p></Info>
     </div>
     <ul className={styles.stepper}>{(Object.keys(ROOMS) as Room[]).map((id) => <li key={id}><button type="button" aria-pressed={pick.active === id} onClick={() => pick.setActive(id)}>{ROOMS[id].title}</button></li>)}</ul>
+    </Section>
+    <Section title="לטרינה ונימפיאון">
     <div className={styles.cards3}>
       <article className={styles.miniCard}><h4>לטרינה</h4><p>בית שימוש ציבורי: מושבים מעל תעלת ביוב, ולפניהם תעלה עם מים זורמים ומקל עם ספוג. <b>בארץ:</b> המרחץ המערבי בבית שאן.</p></article>
       <article className={styles.miniCard}><h4>נימפיאון</h4><p>מזרקה ציבורית מפוארת על שם הנימפות, מוזנת מאמת המים: גומחות, עמודים ובריכה. <b>בארץ:</b> קיסריה (שוקם, עם פסל היגיאה — מכאן &apos;היגיינה&apos;), בית שאן.</p></article>
       <article className={styles.miniCard}><h4>לאורך התקופות</h4><p><b>הלניסטית:</b> בריכות ואמבטיות, למשל בארמונות החשמונאים ביריחו. <b>רומית:</b> המרחץ המלא עם היפוקאוסט — גם במצדה ובהרודיון של הורדוס. <b>ביזנטית:</b> מרחצאות ציבוריים גדולים, כמו בבית שאן.</p></article>
     </div>
+    </Section>
   </Plate>;
 }
 
@@ -83,6 +87,7 @@ export function DecorLab() {
   const verdict = !paint ? "בחרו מתי לצייר — וציירו." : fresco ? "פרסקו: הצבע נקשר כימית לטיח הלח." : "סקו: הצבע יושב על טיח יבש.";
 
   return <Plate id="decor" numeral="VIII" title="עיטורי קירות ורצפות" lead="פרסקו, סקו וסטוקו — בשלושתם יש טיח, אבל הטכניקה שונה. ופסיפס מול אופוס סקטילה — השאלה היא גודל האבן.">
+    <Section title="ניסויי טיח ואבן">
     <div className={styles.twoUp}>
       <div className={styles.experiment}>
         <h3 className={styles.subTitle}>ניסוי: מתי מציירים על הטיח?</h3>
@@ -112,5 +117,6 @@ export function DecorLab() {
         <p className={styles.small}><b>אופוס סקטילה</b> (&apos;עבודה חתוכה&apos;): לוחות אבן צבעוניים גדולים שנחתכו לצורות — רזולוציה נמוכה, צבעוניות עזה. שברים כאלה מפרויקט סינון עפר הר הבית (עמק צורים, בראשות גבי ברקאי) מלמדים שרחבת המקדש ההרודיאנית הייתה צבעונית מאוד — כפי שתיאר יוסף בן מתתיהו.</p>
       </div>
     </div>
+    </Section>
   </Plate>;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cx, Info, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 /* ------------------------------ IV. roads ------------------------------ */
 
@@ -31,6 +31,7 @@ export function RoadsLab() {
   const choose = (m: "built" | "rock") => { setMode(m); pick.setActive(m === "rock" ? "rock" : "paving"); };
 
   return <Plate id="roads" numeral="IV" title="סלילת דרכים ואבני מיל" lead="הרומאים רישתו את האימפריה בדרכים: לתנועת הצבא, לסחורות ולהעברת המסים לרומא. כך נבנתה דרך — וכך ספרו אותה.">
+    <Section title="חתך הדרך">
     <div className={styles.controls}><Seg label="סוג דרך" value={mode} onChange={choose} options={[{ id: "built", title: "דרך בנויה בשכבות" }, { id: "rock", title: "דרך חצובה בסלע" }]} /></div>
     <div className={styles.lab}>
       <figure className={styles.figure}>
@@ -53,6 +54,8 @@ export function RoadsLab() {
       </figure>
       <Info info={ROAD[pick.active]} />
     </div>
+    </Section>
+    <Section title="אבן מיל">
     <div className={styles.milestone}>
       <div className={styles.mileStone} aria-hidden>
         <span>IMP · CAES</span><strong>{toRoman(miles)}</strong><span>M · P</span>
@@ -67,6 +70,7 @@ export function RoadsLab() {
         <p className={styles.small}>מפת פויטינגר — העתק מימי הביניים של מפת הדרכים הרומית — מראה את &quot;Aelia Capitolina&quot;, את הר הזיתים ואת רשת הדרכים שבין הערים.</p>
       </div>
     </div>
+    </Section>
   </Plate>;
 }
 
@@ -90,6 +94,7 @@ export function WaterLab() {
   const level = (x: number) => 92 + (x - 40) * 0.13;
 
   return <Plate id="water" numeral="V" title="אמות מים — מהמעיין אל העיר" lead="הטכנולוגיה שאפשרה לערים לרדת מן התלים: להביא מים ממרחק במקום לשבת ליד המעיין. עקבו אחרי המים ובחרו איך לעבור כל מכשול.">
+    <Section title="מסלול המים">
     <div className={styles.controls}>
       <Seg label="מעבר הגבעה" value={hill} onChange={(v) => { setHill(v); pick.setActive("hill"); }} options={[{ id: "tunnel", title: "מנהרה ופירים" }, { id: "detour", title: "עקיפה" }]} />
       <Seg label="מעבר העמק" value={valley} onChange={(v) => { setValley(v); pick.setActive("valley"); }} options={[{ id: "bridge", title: "גשר קשתות" }, { id: "siphon", title: "סיפון הפוך" }]} />
@@ -131,11 +136,14 @@ export function WaterLab() {
     </figure>
     <ul className={styles.stepper}>{ids.map((id) => <li key={id}><button type="button" aria-pressed={pick.active === id} onClick={() => pick.setActive(id)}>{STATIONS[id].title}</button></li>)}</ul>
     <Info info={STATIONS[pick.active]} label="תחנה" />
+    </Section>
+    <Section title="אמות בארץ">
     <div className={styles.periods}>
       <article><h4>הלניסטית־חשמונאית</h4><p>הובלת מים ממרחק מוכרת בארץ בהיקף רחב מן התקופה הזו — לארמונות החשמונאים ביריחו ולמבצרי המדבר.</p></article>
       <article><h4>רומית</h4><p><b>קיסריה, האמה העליונה:</b> תעלת הורדוס, שהוכפלה בימי אדריאנוס (כ־130) בידי חיילי הלגיונות — כתובותיהם בקשתות. <b>ירושלים:</b> האמה העליונה (עם הסיפון ההפוך) והתחתונה (מנהרת ארמון הנציב).</p></article>
       <article><h4>ביזנטית</h4><p><b>קיסריה, האמה התחתונה (הנמוכה):</b> מסכר נחל תנינים, מקורה לכל אורכה לשמירה על ניקיון — אפשר ללכת בתוכה. האמות שירתו את העיר, בתיקונים, מאות שנים.</p></article>
     </div>
     <p className={styles.small}>במנהרת ארמון הנציב רואים שתי אמות: החלק המקורי, מימי בית שני, הוא רק העליון והרדוד; הרצפה הונמכה בידי הטורקים סביב 1900.</p>
+    </Section>
   </Plate>;
 }

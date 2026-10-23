@@ -363,3 +363,13 @@
   .stopOpen { flex-basis: 240px; }
   .figure { padding: 6px; }
 }
+
+/* ---- inside the studio (one chapter per screen) ---- */
+.studioInner .figure, .studioInner .experiment, .studioInner .miniCard, .studioInner .periods article, .studioInner .compare article, .studioInner .building, .studioInner .typeCard, .studioInner .quiz, .studioInner .partList button, .studioInner .stepper button, .studioInner .process button {
+  background: color-mix(in srgb, var(--paper-2) 90%, transparent);
+  backdrop-filter: blur(6px);
+}
+.studioInner .info { top: 80px; background: color-mix(in srgb, var(--paper-2) 94%, transparent); backdrop-filter: blur(8px); }
+.studioInner .sub { margin-top: 0; padding-top: 0; border-top: 0; }
+.studioInner > .subTitle:first-child, .studioInner .sub > .subTitle:first-child { margin-top: 0; }
+.studioInner .quiz { border-style: solid; }

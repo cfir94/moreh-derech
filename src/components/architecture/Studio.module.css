@@ -1,0 +1,283 @@
+/* The studio: one screen per chapter instead of one long scroll. Each chapter
+   stands on its own material — marble for the orders, moving water for the
+   aqueducts, theatre seats, basalt paving, a torch-lit burial cave… The
+   drawings keep the drafting tokens of Architecture.module.css. */
+
+.app { max-width: 1320px; }
+
+.masthead { display: flex; flex-wrap: wrap; gap: 6px 24px; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
+.masthead p:first-child { margin-bottom: 6px; }
+.masthead h1 { font-size: clamp(24px, 3vw, 32px); font-weight: 900; line-height: 1.1; }
+.tagline { margin-top: 6px; font-size: 13.5px; color: var(--muted); max-width: 640px; line-height: 1.7; }
+.classic { font-size: 12.5px; color: var(--muted) !important; border-bottom: 1px dashed var(--edge); padding-bottom: 2px; }
+.classic:hover { color: var(--accent) !important; }
+
+.layout { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 16px; align-items: start; }
+
+/* ---- the chapter rail ---- */
+.rail { position: sticky; top: 72px; max-height: calc(100dvh - 88px); overflow-y: auto; scrollbar-width: thin; padding: 6px; border: 1px solid var(--edge); border-radius: 14px; background: color-mix(in srgb, var(--paper-2) 86%, transparent); backdrop-filter: blur(8px); }
+.railList { display: grid; gap: 3px; }
+.railItem { --dot: var(--accent); position: relative; display: grid; grid-template-columns: 40px 1fr; align-items: center; gap: 8px; width: 100%; min-height: 48px; padding: 6px 8px; border-radius: 10px; text-align: start; transition: background .18s, transform .18s; touch-action: manipulation; }
+.railItem:hover { background: color-mix(in srgb, var(--dot) 12%, transparent); }
+.railItem:active { transform: scale(.97); }
+.railItem:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.railItem[aria-selected="true"] { background: color-mix(in srgb, var(--dot) 22%, var(--paper)); box-shadow: inset -4px 0 0 var(--dot); }
+.railNum { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; font: 15px Georgia, "Times New Roman", serif; color: var(--dot); border: 1.5px solid color-mix(in srgb, var(--dot) 60%, transparent); background: var(--paper); }
+.railItem[aria-selected="true"] .railNum { background: var(--dot); color: #fff; border-color: var(--dot); }
+.railText { display: grid; line-height: 1.25; min-width: 0; }
+.railText b { font-size: 14px; }
+.railText small { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.dot_orders { --dot: #8a7f72; } .dot_temples { --dot: #c0703a; } .dot_city { --dot: #9a7b3c; }
+.dot_roads { --dot: #5b6068; } .dot_water { --dot: #2f86c6; } .dot_entertainment { --dot: #7a4fb3; }
+.dot_baths { --dot: #d0613a; } .dot_decor { --dot: #b23b2c; } .dot_purity { --dot: #2b8c8c; }
+.dot_burial { --dot: #6b5747; } .dot_synagogues { --dot: #c79a2c; } .dot_churches { --dot: #3456a6; }
+.dot_timeline { --dot: #9a6a2c; } .dot_glossary { --dot: #4f6b7a; }
+:global([data-theme="dark"]) .dot_orders { --dot: #c9c1b4; } :global([data-theme="dark"]) .dot_roads { --dot: #a3a9b3; }
+:global([data-theme="dark"]) .dot_burial { --dot: #c7a98d; } :global([data-theme="dark"]) .dot_churches { --dot: #8fa8ff; }
+:global([data-theme="dark"]) .dot_entertainment { --dot: #b89af0; } :global([data-theme="dark"]) .dot_glossary { --dot: #9cc2d6; }
+
+/* ---- the stage ---- */
+.stage { position: relative; isolation: isolate; overflow: hidden; border-radius: 18px; border: 1px solid var(--edge); min-height: min(calc(100dvh - 140px), 760px); padding: 22px 22px 14px; scroll-margin-top: 72px; display: flex; flex-direction: column; }
+.backdrop { position: absolute; inset: 0; z-index: -1; transition: opacity .3s; }
+.screen { flex: 1; animation: enter .26s cubic-bezier(.22, 1, .36, 1); }
+@keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.pager { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--edge) 70%, transparent); }
+.pager button { min-height: 44px; padding: 8px 16px; border-radius: 999px; font-size: 13.5px; font-weight: 700; background: color-mix(in srgb, var(--paper-2) 88%, transparent); border: 1px solid var(--edge); transition: transform .15s, border-color .15s; }
+.pager button:hover { border-color: var(--accent); }
+.pager button:active { transform: scale(.96); }
+.pagerNow { font: 12px Georgia, serif; color: var(--muted); letter-spacing: .1em; }
+
+/* ---- a chapter inside the stage ---- */
+.chapter { scroll-margin-top: 80px; }
+.chapterHead { display: flex; gap: 16px; align-items: center; margin-bottom: 14px; }
+.chapterHead h2 { font-size: clamp(22px, 2.8vw, 32px); font-weight: 900; line-height: 1.15; text-shadow: 0 1px 0 color-mix(in srgb, var(--paper) 70%, transparent); }
+.chapterHead p { font-size: 13.5px; line-height: 1.75; color: var(--ink); opacity: .82; max-width: 860px; margin-top: 4px; }
+.numeral { flex: 0 0 auto; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; font: 24px Georgia, "Times New Roman", serif; color: var(--accent); background: radial-gradient(circle at 35% 30%, var(--paper-2), var(--paper-3)); border: 2px solid var(--edge); box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .4); }
+.subtabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.subtabs button { min-height: 40px; padding: 7px 15px; border-radius: 999px; font-size: 13.5px; font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--paper-2) 80%, transparent); border: 1px solid var(--edge); backdrop-filter: blur(6px); transition: background .18s, transform .15s; }
+.subtabs button:active { transform: scale(.96); }
+.subtabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.page { animation: enter .22s cubic-bezier(.22, 1, .36, 1); }
+
+/* ---- 3D stage ---- */
+.stage3d { position: relative; height: clamp(340px, 58vh, 600px); border-radius: 14px; overflow: hidden; border: 1px solid var(--edge); background: radial-gradient(ellipse at 50% 30%, color-mix(in srgb, var(--paper-2) 70%, transparent), color-mix(in srgb, var(--paper-3) 85%, transparent)); box-shadow: inset 0 -40px 60px -40px rgba(0, 0, 0, .35); }
+.canvasHost { position: absolute; inset: 0; }
+.canvasHost canvas { display: block; width: 100% !important; height: 100% !important; cursor: grab; }
+.canvasHost canvas:active { cursor: grabbing; }
+.stageNote { position: absolute; inset: 0; display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 14px; color: var(--muted); padding: 20px; text-align: center; }
+.spinner { width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid var(--edge); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.tooltip { position: absolute; top: 0; left: 0; pointer-events: none; margin: -38px 0 0 12px; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 800; color: var(--paper); background: var(--ink); white-space: nowrap; box-shadow: 0 4px 14px -4px rgba(0, 0, 0, .5); }
+.stageBar { position: absolute; inset-inline: 10px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: flex-end; pointer-events: none; }
+.stageBar > * { pointer-events: auto; }
+.stageBar button { min-height: 36px; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; background: color-mix(in srgb, var(--paper-2) 88%, transparent); border: 1px solid var(--edge); backdrop-filter: blur(6px); }
+.hint { margin-inline-end: auto; font-size: 11.5px; color: var(--muted); background: color-mix(in srgb, var(--paper-2) 80%, transparent); padding: 4px 10px; border-radius: 999px; }
+.side { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.modelControls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 12px; border: 1px solid var(--edge); border-radius: 10px; background: color-mix(in srgb, var(--paper-2) 88%, transparent); }
+
+/* =========================================================
+   Chapter materials
+   ========================================================= */
+
+/* I — marble */
+.th_orders .backdrop {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='760'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0032 .011' numOctaves='5' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .41 0 0 0 0 .44 0 0 0 -3.4 2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") center / cover no-repeat,
+    linear-gradient(160deg, #f6f3ee, #e7e2d9);
+}
+:global([data-theme="dark"]) .th_orders .backdrop {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='760'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.0032 .011' numOctaves='5' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .76 0 0 0 0 .7 0 0 0 -3.6 1.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") center / cover no-repeat,
+    linear-gradient(160deg, #23262d, #121419);
+}
+.th_orders .backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle 320px at var(--mx, 70%) var(--my, 20%), rgba(255, 255, 255, .22), transparent 70%); }
+
+/* II — a Greek sky with a meander */
+.th_temples .backdrop {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Cpath d='M0 22H40V4H10V16H28V10H18' fill='none' stroke='%23b4532a' stroke-width='2.5' opacity='.55'/%3E%3C/svg%3E") 0 0 / 48px 24px repeat-x,
+    radial-gradient(ellipse at 70% 110%, rgba(232, 156, 84, .55), transparent 60%),
+    linear-gradient(180deg, #f6e6cf 0, #f1d6b4 60%, #e7c39a 100%);
+}
+:global([data-theme="dark"]) .th_temples .backdrop {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Cpath d='M0 22H40V4H10V16H28V10H18' fill='none' stroke='%23ffcf6b' stroke-width='2.5' opacity='.5'/%3E%3C/svg%3E") 0 0 / 48px 24px repeat-x,
+    radial-gradient(ellipse at 70% 110%, rgba(214, 112, 58, .45), transparent 60%),
+    linear-gradient(180deg, #1b1f3a 0, #2c2541 60%, #4a2b33 100%);
+}
+
+/* III — a city on parchment */
+.th_city .backdrop {
+  background:
+    linear-gradient(90deg, rgba(122, 92, 44, .14) 2px, transparent 2px) 0 0 / 120px 120px,
+    linear-gradient(rgba(122, 92, 44, .14) 2px, transparent 2px) 0 0 / 120px 120px,
+    linear-gradient(90deg, rgba(122, 92, 44, .06) 1px, transparent 1px) 0 0 / 30px 30px,
+    linear-gradient(rgba(122, 92, 44, .06) 1px, transparent 1px) 0 0 / 30px 30px,
+    radial-gradient(ellipse at 30% 20%, #fbf3df, #ecdcb9);
+}
+:global([data-theme="dark"]) .th_city .backdrop {
+  background:
+    linear-gradient(90deg, rgba(255, 207, 107, .12) 2px, transparent 2px) 0 0 / 120px 120px,
+    linear-gradient(rgba(255, 207, 107, .12) 2px, transparent 2px) 0 0 / 120px 120px,
+    linear-gradient(90deg, rgba(160, 205, 255, .05) 1px, transparent 1px) 0 0 / 30px 30px,
+    linear-gradient(rgba(160, 205, 255, .05) 1px, transparent 1px) 0 0 / 30px 30px,
+    radial-gradient(ellipse at 30% 20%, #16314f, #0b1d31);
+}
+
+/* IV — basalt paving */
+.th_roads .backdrop {
+  background:
+    radial-gradient(ellipse 46% 38% at 50% 50%, #8d8a83 55%, transparent 58%) 0 0 / 64px 44px,
+    radial-gradient(ellipse 46% 38% at 50% 50%, #7e7b74 55%, transparent 58%) 32px 22px / 64px 44px,
+    #c9c1b0;
+}
+:global([data-theme="dark"]) .th_roads .backdrop {
+  background:
+    radial-gradient(ellipse 46% 38% at 50% 50%, #3a3d43 55%, transparent 58%) 0 0 / 64px 44px,
+    radial-gradient(ellipse 46% 38% at 50% 50%, #33363c 55%, transparent 58%) 32px 22px / 64px 44px,
+    #1a1c20;
+}
+.th_roads .backdrop::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 55%, transparent), color-mix(in srgb, var(--paper) 25%, transparent)); }
+
+/* V — moving water */
+.th_water .backdrop {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='turbulence' baseFrequency='.012 .02' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -7 2.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E") 0 0 / 420px,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='turbulence' baseFrequency='.009 .016' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .95 0 0 0 0 1 0 0 0 -7 2.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E") 0 0 / 520px,
+    linear-gradient(180deg, #bfe3f7 0%, #7cc1e6 55%, #3d8fc4 100%);
+  animation: drift 26s linear infinite;
+  opacity: .9;
+}
+:global([data-theme="dark"]) .th_water .backdrop { background-color: #06223f; filter: brightness(.38) saturate(1.3); opacity: 1; }
+@keyframes drift { to { background-position: -420px 210px, 520px -260px, 0 0; } }
+
+/* VI — night over the theatre seats */
+.th_entertainment .backdrop {
+  background:
+    repeating-radial-gradient(ellipse 150% 120% at 50% 135%, rgba(98, 72, 140, .2) 0 3px, transparent 3px 30px),
+    radial-gradient(ellipse at 50% 120%, #f0dcc2 0, #e5cfee 45%, #cfd8f3 100%);
+}
+:global([data-theme="dark"]) .th_entertainment .backdrop {
+  background:
+    radial-gradient(1px 1px at 20% 15%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 70% 8%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 85% 25%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 40% 30%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 10% 40%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 60% 18%, #ffe9a8 50%, transparent 51%),
+    repeating-radial-gradient(ellipse 150% 120% at 50% 135%, rgba(200, 180, 255, .14) 0 3px, transparent 3px 30px),
+    linear-gradient(180deg, #0c0f2a, #2a1d4a 70%, #3c2550);
+}
+
+/* VII — from cold to hot, with steam */
+.th_baths .backdrop {
+  background: linear-gradient(90deg, #f4b48a 0%, #f2d3b4 45%, #bfe0f2 100%);
+}
+:global([data-theme="dark"]) .th_baths .backdrop { background: linear-gradient(90deg, #4a1e14 0%, #2a2230 45%, #0e2a44 100%); }
+.th_baths .backdrop::before, .th_baths .backdrop::after { content: ""; position: absolute; width: 360px; height: 360px; left: 8%; bottom: -120px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, .55), transparent 65%); filter: blur(10px); animation: steam 9s ease-in-out infinite; }
+.th_baths .backdrop::after { left: 26%; width: 260px; height: 260px; animation-delay: -4s; }
+@keyframes steam { 0% { transform: translateY(0) scale(.8); opacity: 0; } 30% { opacity: .9; } 100% { transform: translateY(-420px) scale(1.4); opacity: 0; } }
+
+/* VIII — tesserae */
+.th_decor .backdrop {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .08) 2px, transparent 2px) 0 0 / 18px 18px,
+    linear-gradient(rgba(0, 0, 0, .08) 2px, transparent 2px) 0 0 / 18px 18px,
+    conic-gradient(from 0deg at 50% 50%, #e9dcc2 0 25%, #d8c39b 0 50%, #e9dcc2 0 75%, #f1e7d3 0) 0 0 / 36px 36px;
+}
+:global([data-theme="dark"]) .th_decor .backdrop {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .35) 2px, transparent 2px) 0 0 / 18px 18px,
+    linear-gradient(rgba(0, 0, 0, .35) 2px, transparent 2px) 0 0 / 18px 18px,
+    conic-gradient(from 0deg at 50% 50%, #3b2a22 0 25%, #5a2f22 0 50%, #3b2a22 0 75%, #2b2a2f 0) 0 0 / 36px 36px;
+}
+.th_decor .backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--paper) 72%, transparent), color-mix(in srgb, var(--paper) 30%, transparent)); }
+
+/* IX — limestone and still water */
+.th_purity .backdrop {
+  background:
+    repeating-radial-gradient(ellipse at 30% 92%, rgba(255, 255, 255, .5) 0 1.5px, transparent 1.5px 26px),
+    linear-gradient(180deg, #ece6d8 0 58%, #9cc9cf 58% 100%);
+}
+:global([data-theme="dark"]) .th_purity .backdrop {
+  background:
+    repeating-radial-gradient(ellipse at 30% 92%, rgba(160, 230, 230, .18) 0 1.5px, transparent 1.5px 26px),
+    linear-gradient(180deg, #1c2328 0 58%, #0f3a40 58% 100%);
+}
+
+/* X — a rock-cut cave, lit by the pointer */
+.th_burial .backdrop {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05' numOctaves='4' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .42 0 0 0 0 .33 0 0 0 1.4 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23r)'/%3E%3C/svg%3E") 0 0 / 400px,
+    #b9a58b;
+}
+.th_burial .backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle 260px at var(--mx, 60%) var(--my, 30%), rgba(255, 200, 120, .18), rgba(20, 12, 6, .55) 55%, rgba(10, 6, 3, .82) 100%); }
+:global([data-theme="dark"]) .th_burial .backdrop { background-color: #3a2e22; }
+.th_burial .chapterHead h2, .th_burial .chapterHead p { color: #fdf0dc; text-shadow: 0 1px 6px rgba(0, 0, 0, .7); }
+.th_burial .pagerNow { color: #e9d6bb; }
+
+/* XI — a gold mosaic */
+.th_synagogues .backdrop {
+  background:
+    linear-gradient(90deg, rgba(90, 60, 10, .18) 1.5px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(rgba(90, 60, 10, .18) 1.5px, transparent 1.5px) 0 0 / 14px 14px,
+    radial-gradient(circle at 80% 10%, #fff4cf, transparent 50%),
+    conic-gradient(from 90deg at 50% 50%, #e6c56d 0 25%, #d9b14f 0 50%, #edd38a 0 75%, #d4a940 0) 0 0 / 28px 28px;
+}
+:global([data-theme="dark"]) .th_synagogues .backdrop { filter: brightness(.36) saturate(1.2); }
+.th_synagogues .backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, color-mix(in srgb, var(--paper) 55%, transparent), transparent 75%); }
+
+/* XII — lapis and a golden apse */
+.th_churches .backdrop {
+  background:
+    radial-gradient(ellipse 60% 48% at 50% 0%, rgba(240, 196, 92, .85), rgba(240, 196, 92, .2) 60%, transparent 61%),
+    linear-gradient(90deg, rgba(255, 255, 255, .1) 1.5px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(rgba(255, 255, 255, .1) 1.5px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(180deg, #c7d3f2, #9fb3e6);
+}
+:global([data-theme="dark"]) .th_churches .backdrop {
+  background:
+    radial-gradient(ellipse 60% 48% at 50% 0%, rgba(240, 196, 92, .55), rgba(240, 196, 92, .12) 60%, transparent 61%),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 1.5px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(rgba(255, 255, 255, .05) 1.5px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(180deg, #13214d, #0a1330);
+}
+
+/* timeline — papyrus; glossary — the drafting sheet */
+.th_timeline .backdrop {
+  background:
+    repeating-linear-gradient(90deg, rgba(120, 92, 40, .08) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(0deg, rgba(120, 92, 40, .06) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, #efe1bf, #e2cf9f);
+}
+:global([data-theme="dark"]) .th_timeline .backdrop { filter: brightness(.3) saturate(1.4); }
+.th_glossary .backdrop {
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .th_water .backdrop, .th_baths .backdrop::before, .th_baths .backdrop::after, .screen, .page { animation: none; }
+}
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; gap: 10px; }
+  .rail { position: sticky; top: 60px; z-index: 20; max-height: none; overflow-x: auto; overflow-y: hidden; padding: 6px; border-radius: 12px; }
+  .railList { display: flex; gap: 4px; width: max-content; }
+  .railItem { grid-template-columns: auto; justify-items: center; width: auto; min-width: 64px; min-height: 56px; padding: 6px 8px; gap: 2px; }
+  .railItem[aria-selected="true"] { box-shadow: inset 0 -3px 0 var(--dot); }
+  .railNum { width: 30px; height: 30px; font-size: 13px; }
+  .railText small { display: none; }
+  .railText b { font-size: 12px; white-space: nowrap; }
+  .stage { padding: 16px 12px 10px; min-height: 0; border-radius: 14px; scroll-margin-top: 140px; }
+  .numeral { width: 48px; height: 48px; font-size: 19px; }
+  .chapterHead p { font-size: 13px; }
+  .stage3d { height: clamp(300px, 52vh, 460px); }
+}
+@media (max-width: 560px) {
+  .masthead h1 { font-size: 26px; }
+  .chapterHead { align-items: flex-start; }
+  .hint { display: none; }
+  .pager button { padding: 8px 12px; font-size: 12.5px; }
+}

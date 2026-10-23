@@ -43,3 +43,5 @@ jobs:
         run: node tests/era-timelines-ui.mjs
       - name: Classical architecture browser checks
         run: node tests/classical-architecture-ui.mjs
+      - name: Classical architecture studio browser checks
+        run: node tests/architecture-studio-ui.mjs

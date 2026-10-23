@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClassicalArchitecture } from "@/components/architecture/ClassicalArchitecture";
+import { ArchitectureStudio } from "@/components/architecture/ArchitectureStudio";
 
 export const metadata: Metadata = {
   title: "מושגי יסוד באדריכלות קלאסית | אֶבֶן דֶּרֶךְ למורי דרך",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ClassicalArchitecturePage() {
-  return <ClassicalArchitecture />;
+  return <ArchitectureStudio />;
 }
