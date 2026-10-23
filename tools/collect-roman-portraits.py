@@ -53,13 +53,20 @@ def plain(value):
 root = Path(__file__).resolve().parents[1]
 dest = root / 'public/images/roman-people/portraits'
 dest.mkdir(parents=True, exist_ok=True)
-report = {}
+report_path = root / 'docs/roman-portrait-candidates.json'
+report = json.loads(report_path.read_text(encoding='utf-8')) if report_path.exists() else {}
+file_overrides = {'tiberius': 'Head of Tiberius.jpg', 'quietus': 'Lusius Quietus on Column of Trajan.jpg'}
+credit_overrides = {'claudius': 'Marie-Lan Nguyen (2011); crop: DIREKTOR / Wikimedia Commons',
+                    'nero': 'Bibi Saint-Pol / Wikimedia Commons', 'domitian': 'Sailko / Wikimedia Commons',
+                    'theodosius2': 'Marie-Lan Nguyen / Wikimedia Commons'}
 for person, title in TARGETS.items():
+    if report.get(person, {}).get('status') == 'downloaded-for-review':
+        continue
     entry = {'article': title, 'articleUrl': 'https://en.wikipedia.org/wiki/' + urllib.parse.quote(title.replace(' ', '_'))}
     try:
         pages = api('en.wikipedia.org', action='query', titles=title, redirects=1, prop='pageimages', piprop='name')['query']['pages']
         page = next(iter(pages.values()))
-        file = page.get('pageimage')
+        file = file_overrides.get(person) or page.get('pageimage')
         if not file:
             entry['status'] = 'no-portrait-candidate'
             report[person] = entry
@@ -71,7 +78,7 @@ for person, title in TARGETS.items():
         meta = info['extmetadata']
         field = lambda name: plain(meta.get(name, {}).get('value', ''))
         entry.update({'sourceUrl': info['descriptionurl'], 'originalUrl': info['url'],
-                      'description': field('ImageDescription'), 'credit': field('Artist'),
+                      'description': field('ImageDescription'), 'credit': credit_overrides.get(person) or field('Artist'),
                       'license': field('LicenseShortName'), 'licenseUrl': field('LicenseUrl'),
                       'restrictions': field('Restrictions'), 'date': field('DateTimeOriginal')})
         if not entry['licenseUrl'] and entry['license'] in ['Public domain', 'PD']:
@@ -92,5 +99,31 @@ for person, title in TARGETS.items():
         print(person, 'ERROR', str(error), flush=True)
     report[person] = entry
     time.sleep(1)
-(root / 'docs/roman-portrait-candidates.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+research = {}
+for title in ['Gaius Cestius Gallus', 'Gaius Cestius Gallus (governor of Syria)']:
+    research[title] = api('commons.wikimedia.org', action='query', list='categorymembers', cmtitle='Category:' + title, cmlimit=50)
+for query in ['"Cestius Gallus"', '"Gessius Florus"']:
+    research[query] = api('commons.wikimedia.org', action='query', list='search', srsearch=query, srnamespace=6, srlimit=20)
+try:
+    req = urllib.request.Request('https://www.rijksmuseum.nl/en/collection/object/Cestius-Gallus--28e362cd70d96d999d98e50c47642d48', headers={'User-Agent': USER_AGENT})
+    with urllib.request.urlopen(req, timeout=40) as response:
+        markup = response.read().decode()
+    research['rijks_image_urls'] = list(dict.fromkeys(re.findall(r'https[^\s"<>\\]+(?:jpg|jpeg|webp|png)[^\s"<>\\]*', markup)))[:80]
+    research['rijks_iiif_urls'] = list(dict.fromkeys(re.findall(r'https[^\s"<>\\]*(?:iiif|micr\.io)[^\s"<>\\]*', markup)))[:40]
+except Exception as error:
+    research['rijks_error'] = str(error)
+(root / 'docs/roman-portrait-research.json').write_text(json.dumps(research, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+from PIL import ImageDraw
+sheet = Image.new('RGB', (800, 180 * 9), '#eeeeee')
+draw = ImageDraw.Draw(sheet)
+for index, (person, entry) in enumerate(report.items()):
+    x, y = (index % 4) * 200, (index // 4) * 180
+    path = dest / (person + '.webp')
+    if path.exists():
+        image = Image.open(path)
+        image.thumbnail((185, 150))
+        sheet.paste(image, (x + (200-image.width)//2, y))
+    draw.text((x+8, y+154), person, fill='#111111')
+sheet.save(root / 'docs/roman-portrait-contact-sheet.jpg', quality=85)
 print('Collected', sum(p['status'] == 'downloaded-for-review' for p in report.values()), 'of', len(TARGETS), flush=True)
