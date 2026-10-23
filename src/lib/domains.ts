@@ -47,6 +47,7 @@ export const DOMAINS: Record<string, Domain> = {
   "second-temple": { color: "var(--gold)", icon: "🏛️" },
   "roman-timeline": { color: "#8b2a1d", icon: "🦅" },
   "byzantine-timeline": { color: "#1e3270", icon: "☦️" },
+  "classical-architecture-timeline": { color: "#a8461f", icon: "📐" },
   "dating-quiz": { color: "var(--green)", icon: "📅" },
   "timeline-drag": { color: "var(--violet)", icon: "🧩" },
   map: { color: "var(--teal)", icon: "🗺️" },

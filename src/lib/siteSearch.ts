@@ -18,6 +18,7 @@ import egyptCanaanTimelines from "@/data/timelines/egypt-canaan";
 import secondTempleEvents from "@/data/second-temple/search.json";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
+import { ARCH_TERMS } from "@/data/classical-architecture";
 import { ROMAN_PEOPLE } from "@/data/roman-people";
 import { PERIOD_ROWS, periodDateText } from "@/data/periods";
 import { TOPIC_LABELS } from "@/data/topics";
@@ -273,6 +274,24 @@ const baseResults: SearchResult[] = [
     description: `התקופה הביזנטית · ${event.date} · ${event.summary}`,
     href: `/timelines/byzantine/#${event.id}`,
     searchText: ["התקופה הביזנטית", event.title, event.date, event.summary, event.sites ?? ""].join(" "),
+  })),
+  {
+    id: "timeline-classical-architecture",
+    kind: "timeline",
+    kindLabel: "שרטוטים",
+    title: "מושגי יסוד באדריכלות קלאסית",
+    description: "שרטוטים אינטראקטיביים: סדרים, מקדשים, תכנון עיר, אמות מים, מבני בידור, מרחץ, מקוואות, קבורה, בתי כנסת וכנסיות.",
+    href: "/timelines/classical-architecture",
+    searchText: "אדריכלות קלאסית ארכיטקטורה סדרים דורי יוני קורינתי עמוד כותרת מקדש קרדו דקומנוס תיאטרון היפודרום אמפיתיאטרון מרחץ אמת מים מקווה קבורה גלוסקמה בית כנסת בסיליקה",
+  },
+  ...ARCH_TERMS.map((term) => ({
+    id: `timeline-classical-architecture-${term.id}`,
+    kind: "timeline" as const,
+    kindLabel: "מושג באדריכלות",
+    title: term.term,
+    description: term.text,
+    href: `/timelines/classical-architecture/#t-${term.id}`,
+    searchText: ["אדריכלות קלאסית", term.term, term.latin ?? "", term.text, term.site ?? ""].join(" "),
   })),
   ...toolResults,
 ];
