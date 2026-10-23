@@ -177,7 +177,19 @@
   "cestius": {
     "article": "Gaius Cestius Gallus (governor of Syria)",
     "articleUrl": "https://en.wikipedia.org/wiki/Gaius_Cestius_Gallus_%28governor_of_Syria%29",
-    "status": "no-portrait-candidate"
+    "file": "Cestius Gallus, RP-P-OB-46.197.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cestius_Gallus,_RP-P-OB-46.197.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Cestius_Gallus%2C_RP-P-OB-46.197.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "IdentificatieTitel(s): Cestius GallusObjecttype: prent Objectnummer: RP-P-OB-46.197VervaardigingVervaardiger: prentmaker: Jan LuykenDatering: 1659 - 1712Fysieke kenmerken: etsMateriaal: papier Techniek: etsenVerwerving en rechtenVerwerving: onbekendCopyright: Publiek domein",
+    "credit": "Jan Luyken / Rijksmuseum, RP-P-OB-46.197 / Wikimedia Commons",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "restrictions": "",
+    "date": "between 1659 and 1712date QS:P,+1500-00-00T00:00:00Z/6,P1319,+1659-00-00T00:00:00Z/9,P1326,+1712-00-00T00:00:00Z/9",
+    "status": "downloaded-for-review",
+    "width": 640,
+    "height": 494,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/cestius.webp"
   },
   "vespasian": {
     "article": "Vespasian",
@@ -271,12 +283,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lusius_Quietus_on_Column_of_Trajan.jpg",
     "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Lusius_Quietus_on_Column_of_Trajan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "description": "",
-    "credit": "",
+    "credit": "Hans F. Helmolt, The History of the World (1902) / Wikimedia Commons",
     "license": "Public domain",
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
     "restrictions": "",
     "date": "",
-    "status": "needs-license-review"
+    "status": "downloaded-for-review",
+    "width": 640,
+    "height": 425,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/quietus.webp"
   },
   "hadrian": {
     "article": "Hadrian",
