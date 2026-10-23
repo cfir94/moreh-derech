@@ -1,4 +1,4 @@
-name: Collect Roman portrait assets for review
+name: Collect Herodian companion images
 on:
   push:
     branches: [roman-portraits-20261023]
@@ -8,7 +8,7 @@ permissions:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -16,10 +16,9 @@ jobs:
           python-version: '3.12'
       - run: pip install Pillow
       - run: python tools/collect-roman-portraits.py
-      - name: Save candidates to the review branch
-        run: |
+      - run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/roman-portrait-*.json docs/roman-portrait-contact-sheet.jpg public/images/roman-people/portraits
-          git commit -m 'Collect licensed portrait assets and metadata for review'
+          git add docs/herodian-image-sources.json public/images/roman-people/companions
+          git commit -m 'Download three identified Herodian companion images'
           git push origin HEAD:roman-portraits-20261023
