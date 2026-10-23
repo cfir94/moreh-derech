@@ -6,7 +6,7 @@ import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from ".
 /* ------------------------------ XI. synagogues ------------------------------ */
 
 type SType = "galilean" | "golan" | "basilical" | "hebron";
-const TYPES: Record<SType, PartInfo & { short: string }> = {
+export const TYPES: Record<SType, PartInfo & { short: string }> = {
   galilean: { title: "גליליים", short: "חזית לירושלים", text: "חזית מפוארת עם שלושה פתחים הפונה דרומה — לירושלים; אולם עם עמודים בשלושה צדדים ורצפת אבן. פעם נחשבו 'קדומים' (המאות 2–3), אבל מטבעות מן המאה ה־5 מתחת לרצפת כפר נחום הראו שזו אינה הבחנה כרונולוגית.", site: "כפר נחום, ברעם, כורזים" },
   golan: { title: "גולניים", short: "בזלת", text: "בנויים בזלת — אבן האזור — בתכנון דומה לגליליים: אולם מלבני עם עמודים ומשקופים מעוטרים.", site: "עין קשתות (אום אל־קנאטיר), קצרין" },
   basilical: { title: "דמויי כנסייה", short: "אפסיס ופסיפס", text: "בתבנית הבסיליקה: חצר ונרתקס, תווך וסטרות, ואפסיס לארון הקודש בקיר הפונה לירושלים. רצפת פסיפס — ודווקא בהם גלגל המזלות.", site: "בית אלפא, חמת טבריה, ציפורי" },
@@ -119,7 +119,7 @@ export function SynagoguesLab() {
 /* ------------------------------ XII. churches ------------------------------ */
 
 type CPart = "atrium" | "narthex" | "nave" | "aisles" | "stylobates" | "bema" | "apse" | "prothesis" | "diaconicon";
-const CHURCH: Record<CPart, PartInfo> = {
+export const CHURCH: Record<CPart, PartInfo> = {
   atrium: { title: "אטריום", latin: "atrium", text: "החצר שלפני הכנסייה, לרוב מוקפת עמודים ובה בור מים. המונח לקוח מן הבית הרומי." },
   narthex: { title: "נרתקס", latin: "narthex", text: "אולם מעבר רוחבי בין האטריום לכנסייה. שם עמדו המתנצרים (קטכומנים) — עוד לא נוצרים, אבל בדרך — וצפו בטקס בלי להיכנס." },
   nave: { title: "תווך (נווה)", latin: "navis", text: "האולם המרכזי, הגבוה — 'ספינה' בלטינית. חלונות בחלקו העליון מכניסים אור." },

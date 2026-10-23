@@ -42,3 +42,18 @@ test("search matches Hebrew, Latin and site names", () => {
   assert.ok(find("וולוטות").includes("ionic"));
   assert.equal(find("").length, ARCH_TERMS.length);
 });
+
+test("every field photo is on disk, sits in a real chapter and carries its credit", async () => {
+  const { ARCH_PHOTOS } = await import("../src/data/classical-architecture/photos.ts");
+  const { existsSync } = await import("node:fs");
+  const chapters = new Set(ARCH_CHAPTERS.map((c) => c.id));
+  assert.ok(ARCH_PHOTOS.length >= 20, "photos were fetched");
+  const ids = new Set();
+  for (const p of ARCH_PHOTOS) {
+    assert.ok(!ids.has(p.id), `duplicate photo ${p.id}`); ids.add(p.id);
+    assert.ok(chapters.has(p.chapter), `${p.id}: chapter ${p.chapter}`);
+    assert.ok(existsSync(new URL(`../public${p.src}`, import.meta.url)), `${p.id}: ${p.src} missing`);
+    for (const field of ["caption", "alt", "author", "license", "source"]) assert.ok(p[field]?.trim(), `${p.id}: ${field}`);
+    assert.match(p.source, /^https:\/\/commons\.wikimedia\.org\//, `${p.id}: source`);
+  }
+});

@@ -5,6 +5,12 @@ import type { ModelId, ModelOptions, Viewer } from "./three/scenes";
 import { cx, Info, Seg, styles, type PartInfo } from "./shared";
 import { ORDER_PARTS } from "./OrdersLab";
 import { TEMPLE_PARTS } from "./TemplesLab";
+import { ARCH } from "./CityLab";
+import { ROAD } from "./RoadsWaterLab";
+import { HIPPO, THEATRE } from "./EntertainmentLab";
+import { ROOMS } from "./BathsDecorLab";
+import { BURIAL, WATER } from "./PurityBurialLab";
+import { CHURCH, TYPES } from "./SacredLab";
 import studio from "./Studio.module.css";
 
 type Status = "loading" | "ready" | "failed";
@@ -159,5 +165,85 @@ export function Aqueduct3D() {
   const parts = Object.fromEntries(Object.entries(AQUEDUCT).filter(([id]) => doubled || id !== "hadrian"));
   return <Viewer3D model="aqueduct" options={{ doubled }} parts={parts} intro={{ title: "אמת המים העליונה לקיסריה", text: "תעלת הורדוס, ובימי אדריאנוס — תעלה שנייה צמודה. כבו את התעלה השנייה וראו את האמה כפי שבנה אותה הורדוס.", site: "חוף האקוודוקט בקיסריה" }}>
     <label className={cx(styles.toggle)}><input type="checkbox" checked={doubled} onChange={(e) => setDoubled(e.target.checked)} />התעלה השנייה (אדריאנוס)</label>
+  </Viewer3D>;
+}
+
+/* ---------------- the second set: one model for every other chapter ---------------- */
+
+const pick = <T extends PartInfo>(table: Record<string, T>, ids: string[]) => Object.fromEntries(ids.filter((id) => table[id]).map((id) => [id, table[id] as PartInfo]));
+
+export function Arch3D() {
+  return <Viewer3D model="arch" options={{}} parts={pick(ARCH, ["central", "side", "pedestal", "column", "inscription"])} intro={{ title: "שער ניצחון משולש", text: "קשת מרכזית גבוהה, שתי קשתות צד, עמודים על פדסטלים וכתובת למעלה — לפי הדגם של קשת ספטימיוס סוורוס ברומא. בירושלים שרד צד שמאל של שער כזה מתחת לשער שכם.", site: "שער שכם; אקה הומו" }} />;
+}
+
+export function Road3D() {
+  const [miles, setMiles] = useState(7);
+  const parts = { ...pick(ROAD, ["paving", "fill", "gravel", "bedding", "curb", "ditch"]), milestone: { title: "אבן מיל", latin: "milia passuum", text: `מיל ${miles}: על העמוד נחקקו שם הקיסר ומספר המיל מן הפורום — ולכן היא גם תעמולה.`, site: "גבעת ישעיהו; הדרך לחברון" } };
+  return <Viewer3D model="road" options={{ miles }} parts={parts} intro={{ title: "דרך רומית בחתך", text: "שכבה על שכבה: תשתית אבנים גדולות, חצץ, מילוי דק ואבני ריצוף מעוגלות, בין אבני שפה ותעלות ניקוז. בצד — אבן מיל." }}>
+    <label className={styles.range}>מיל מן הפורום: <b>{miles}</b><input type="range" min={1} max={20} value={miles} onChange={(e) => setMiles(Number(e.target.value))} /></label>
+  </Viewer3D>;
+}
+
+export function Theatre3D() {
+  const [full, setFull] = useState(true);
+  return <Viewer3D model="theatre" options={{ fullScaena: full }} parts={pick(THEATRE, ["scaenae", "pulpitum", "proscaenium", "orchestra", "ima", "media", "summa", "aditus", "vomitorium", "ambulacrum"])} intro={{ title: "תיאטרון רומי", text: "חצי עיגול של שורות מושבים בשלושה גושים, אורכסטרה, במה, וקיר סקנה גבוה. כבו את 'הקיר בגובה מלא' כדי לראות אותו כפי שהוא בשטח היום — ואז דמיינו אותו חוסם את הנוף.", site: "בית שאן; קיסריה" }}>
+    <label className={styles.toggle}><input type="checkbox" checked={full} onChange={(e) => setFull(e.target.checked)} />קיר הסקנה בגובה מלא</label>
+  </Viewer3D>;
+}
+
+export function Hippodrome3D() {
+  const [converted, setConverted] = useState(false);
+  return <Viewer3D model="hippodrome" options={{ converted }} parts={pick(HIPPO, ["carceres", "spina", "metaPrima", "metaSecunda", "seats", "counter", ...(converted ? ["wall"] : [])])} intro={{ title: "היפודרום", text: "מרכבה מקיפה את הספינה שבעה סיבובים, ואחרי כל סיבוב דולפין על הספינה מתהפך. סמנו 'הסבה לאמפיתיאטרון' כדי לראות את קיר הרוחב שקיצר את הזירה.", site: "קיסריה; בית שאן" }}>
+    <label className={styles.toggle}><input type="checkbox" checked={converted} onChange={(e) => setConverted(e.target.checked)} />הסבה לאמפיתיאטרון</label>
+  </Viewer3D>;
+}
+
+export function Bath3D() {
+  return <Viewer3D model="bath" options={{}} parts={pick(ROOMS, ["palaestra", "apodyterium", "frigidarium", "tepidarium", "caldarium", "hypocaust", "furnace"])} intro={{ title: "בית מרחץ בחתך", text: "מן הפלאסטרה אל הקלדריום. האש בתנור מחממת אוויר שזורם בין העמודונים שמתחת לרצפה — וממעל, אדים עולים מן הבריכה החמה.", site: "בית שאן; מצדה" }} />;
+}
+
+export function Mikveh3D() {
+  const [water, setWater] = useState("clean");
+  const next: Record<string, [string, string]> = { clean: ["dirty", "הקיץ עובר…"], dirty: ["drawn", "למלא במים שאובים"], drawn: ["kosher", "להסיר את הפקק"], kosher: ["clean", "מן ההתחלה"] };
+  const state = WATER[water as keyof typeof WATER];
+  const parts: Record<string, PartInfo> = {
+    steps: { title: "מדרגות", text: "מדרגות רחבות יורדות אל בריכת הטבילה." },
+    divider: { title: "קו מפריד", text: "נתיב לטמאים שיורדים ונתיב לטהורים שעולים — ההשערה המקובלת.", site: "קומראן" },
+    pool: { title: "בריכת הטבילה", text: "40 סאה של מים שאינם שאובים — כמטר מעוקב לפי ההערכה המרבית." },
+    water: { title: state.label, text: state.note },
+    otzar: { title: "אוצר", text: "בור של מי גשמים כשרים. המגע במימיו מכשיר את מי המקווה." },
+    pipe: { title: "הצינור והפקק", text: "כשהפקק מוסר, המים נוגעים זה בזה." },
+  };
+  return <Viewer3D model="mikveh" options={{ water }} parts={parts} intro={{ title: "מקווה עם אוצר", text: `${state.label}: ${state.note}` }}>
+    <button type="button" className={styles.action} onClick={() => setWater(next[water][0])}>{next[water][1]}</button>
+  </Viewer3D>;
+}
+
+const PHASES = ["קבורה ראשונה בכוך", "כשנה — הבשר נרקב", "ליקוט העצמות", "קבורה שנייה בגלוסקמה"];
+export function Cave3D() {
+  const [phase, setPhase] = useState(0);
+  return <Viewer3D model="cave" options={{ phase }} parts={pick(BURIAL, ["kokh", "arcosolium", "smallKokh", "ossuary", "sarcophagus", "pit", "bench"])} intro={{ title: "מערת קבורה מימי בית שני", text: "בלי תקרה, כדי להציץ פנימה: כוכים בקירות, ארקוסוליום, בור עמידה וספסלים. עברו בין שלבי הקבורה וראו את הגלוסקמה נכנסת לכוך הקטן.", site: "קברי הסנהדרין" }}>
+    <div className={studio.phaseRow}>{PHASES.map((p, i) => <button key={p} type="button" aria-pressed={phase === i} onClick={() => setPhase(i)}>{i + 1}. {p}</button>)}</div>
+  </Viewer3D>;
+}
+
+export function Synagogue3D() {
+  const [cutaway, setCutaway] = useState(true);
+  const parts: Record<string, PartInfo> = {
+    facade: { title: "החזית לירושלים", text: "חזית מפוארת עם שלושה פתחים, הפונה דרומה — לכיוון ירושלים. המתפללים נכנסו ממנה, ואחר כך הסתובבו אליה." },
+    columns: { title: "עמודים בשלושה צדדים", text: "שתי שורות לאורך האולם ושורה אחת מאחור — האולם מוקף עמודים בצורת ח." },
+    benches: { title: "ספסלים", text: "ספסלים לאורך הקירות, כמו בבתי הכנסת הקדומים יותר." },
+    hall: { title: "האולם", text: "רצפת אבן — לא פסיפס — כמו בכפר נחום ובברעם." },
+    direction: { title: "הכיוון לירושלים", text: "בגליל ירושלים בדרום, ולכן החזית פונה דרומה. בדרום הר חברון — הקיר הצפוני הוא שפונה לירושלים." },
+  };
+  return <Viewer3D model="synagogue" options={{ cutaway }} parts={parts} intro={{ ...TYPES.galilean, title: "בית כנסת 'גלילי'" }}>
+    <label className={styles.toggle}><input type="checkbox" checked={cutaway} onChange={(e) => setCutaway(e.target.checked)} />בלי גג</label>
+  </Viewer3D>;
+}
+
+export function Basilica3D() {
+  const [cutaway, setCutaway] = useState(true);
+  return <Viewer3D model="basilica" options={{ cutaway }} parts={pick(CHURCH, ["atrium", "narthex", "nave", "aisles", "stylobates", "bema", "apse", "prothesis", "diaconicon"])} intro={{ title: "כנסייה בסיליקלית — בדגם כורסי", text: "מן האטריום דרך הנרתקס אל התווך הגבוה, עם חלונות מעל שורות העמודים, ועד שלוש האפסידות במזרח.", site: "כורסי" }}>
+    <label className={styles.toggle}><input type="checkbox" checked={cutaway} onChange={(e) => setCutaway(e.target.checked)} />בלי גג</label>
   </Viewer3D>;
 }

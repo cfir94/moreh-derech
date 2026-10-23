@@ -1,0 +1,254 @@
+[
+  {
+    "id": "jason-tomb",
+    "chapter": "orders",
+    "file": "Jason's_Tomb2.JPG",
+    "caption": "קבר יאסון ברחביה — חזית הקבר והגג הפירמידלי המשוחזר. בחזית: כותרת דורית.",
+    "alt": "קבר יאסון: חזית חצובה עם פתח וגג פירמידה מעליה"
+  },
+  {
+    "id": "caesarea-corinthian",
+    "chapter": "orders",
+    "file": "Caesarea theatre- Corinthian capital.jpg",
+    "caption": "כותרת קורינתית בתיאטרון קיסריה — שתי שורות של עלי אקנתוס (קוציץ סורי).",
+    "alt": "כותרת קורינתית מגולפת בעלי אקנתוס, ומאחוריה מושבי התיאטרון"
+  },
+  {
+    "id": "absalom-orders",
+    "chapter": "orders",
+    "file": "Yad_Avshalom_Panorama_7_(6979564688).jpg",
+    "caption": "יד אבשלום בנחל קדרון — עמודים יוניים ואפריז דורי, ומעליהם 'נפש' בנויה.",
+    "alt": "יד אבשלום: מבנה מרובע חצוב ומעליו תוף עגול וגג קעור"
+  },
+  {
+    "id": "tel-kedesh",
+    "chapter": "temples",
+    "file": "תל_קדש_2.jpeg",
+    "caption": "שרידי המקדש הרומי בתל קדש שבגליל העליון.",
+    "alt": "שרידי קירות ואבני בנייה של מקדש רומי בשדה"
+  },
+  {
+    "id": "severus-arch",
+    "chapter": "city",
+    "file": "Arch_of_Septimius_Severus_East.jpg",
+    "caption": "קשת ספטימיוס סוורוס ברומא — הדגם של שער ניצחון משולש: קשת מרכזית, שתי קשתות צד, עמודים על פדסטלים וכתובת.",
+    "alt": "שער ניצחון רומי משולש עם עמודים וכתובת גדולה בחלקו העליון"
+  },
+  {
+    "id": "damascus-gate",
+    "chapter": "city",
+    "file": "Jerusalem_Damaskustor_BW_1.jpg",
+    "caption": "שער שכם של היום (עות'מאני). מתחתיו נחשף צד שמאל של שער הניצחון שבנה אדריאנוס לאיליה קפיטולינה.",
+    "alt": "שער שכם בחומת העיר העתיקה של ירושלים, עם אנשים ודוכנים לפניו"
+  },
+  {
+    "id": "beit-shean-city",
+    "chapter": "city",
+    "file": "127670 beit shean national park PikiWiki Israel.jpg",
+    "caption": "בית שאן ממבט אוויר: התיאטרון ורחובות העמודים של העיר הרומית־ביזנטית.",
+    "alt": "מבט אוויר על חפירות בית שאן: תיאטרון חצי עגול ורחובות עם שורות עמודים"
+  },
+  {
+    "id": "pantheon",
+    "chapter": "city",
+    "file": "Pantheon_(Rome)_-_Right_side_and_front.jpg",
+    "caption": "הפנתאון ברומא — אכסדרת עמודים לפני רוטונדה עם כיפת בטון ואוקולוס.",
+    "alt": "הפנתאון: חזית עמודים וגמלון לפני מבנה עגול"
+  },
+  {
+    "id": "peutinger",
+    "chapter": "roads",
+    "file": "Part_of_Tabula_Peutingeriana.jpg",
+    "caption": "קטע ממפת פויטינגר — העתק מימי הביניים של מפת הדרכים של האימפריה הרומית.",
+    "alt": "קטע ממפה מוארכת ומאוירת עם קווי דרכים, נהרות ושמות מקומות"
+  },
+  {
+    "id": "caesarea-aqueduct",
+    "chapter": "water",
+    "file": "Caesarea Aqueduct Aquädukt Israel (35101295615).jpg",
+    "caption": "אמת המים העליונה לקיסריה בחוף האקוודוקט — שורת קשתות לאורך החוף.",
+    "alt": "שורה ארוכה של קשתות אבן על חוף חולי"
+  },
+  {
+    "id": "caesarea-aqueduct-sea",
+    "chapter": "water",
+    "file": "Aqueduct, Caesarea, Israel.JPG",
+    "caption": "מבט מבעד לקשתות האמה העליונה אל הים.",
+    "alt": "קשתות אמת המים ומבעדן הים"
+  },
+  {
+    "id": "beit-shean-theatre",
+    "chapter": "entertainment",
+    "file": "127671 beit shean national park PikiWiki Israel.jpg",
+    "caption": "התיאטרון הרומי בבית שאן ממבט אוויר — הקוואה, האורכסטרה והבמה.",
+    "alt": "מבט אוויר על תיאטרון רומי חצי עגול בתוך עיר עתיקה חפורה"
+  },
+  {
+    "id": "caesarea-theatre",
+    "chapter": "entertainment",
+    "file": "Caesarea - Roman theatre- (36917849810).jpg",
+    "caption": "התיאטרון הרומי בקיסריה.",
+    "alt": "מושבי תיאטרון חצי עגולים ורחבה לפניהם"
+  },
+  {
+    "id": "caesarea-hippodrome",
+    "chapter": "entertainment",
+    "file": "Caesarea Hippodrome P1080626.JPG",
+    "caption": "ההיפודרום של הורדוס בקיסריה — מושבי הקהל לאורך הזירה המוארכת.",
+    "alt": "שורות מושבי אבן לאורך זירה מוארכת וחולית"
+  },
+  {
+    "id": "beit-guvrin-amphitheatre",
+    "chapter": "entertainment",
+    "file": "Roman Amphitheater at Beit Govrin.jpg",
+    "caption": "האמפיתיאטרון בבית גוברין — נבנה כאמפיתיאטרון מלכתחילה ולא הוסב מהיפודרום.",
+    "alt": "מבט אוויר על אמפיתיאטרון אליפטי עם זירה במרכזו"
+  },
+  {
+    "id": "hypocaust",
+    "chapter": "baths",
+    "file": "Pilettes_et_praefurnium_maison_grand_péristyle.jpg",
+    "caption": "היפוקאוסט: עמודוני לבנים שנשאו את הרצפה, ומאחור פתח התנור (בית רומי בצרפת).",
+    "alt": "עמודונים מלבנים בחלל שמתחת לרצפה, ופתח מקומר בקיר"
+  },
+  {
+    "id": "herodian-quarter",
+    "chapter": "decor",
+    "file": "The_Herodian_Quarter_P8050085.JPG",
+    "caption": "רצפת פסיפס גאומטרית — בלי דמויות — ברובע ההרודיאני בירושלים.",
+    "alt": "רצפת פסיפס בדגם גאומטרי, ומעליה שולחן אבן וכלים"
+  },
+  {
+    "id": "sifting-project",
+    "chapter": "decor",
+    "file": "Temple_Mount_Sifting_Project.jpg",
+    "caption": "פרויקט סינון עפר הר הבית בעמק צורים — משם הגיעו שברי האופוס סקטילה.",
+    "alt": "סככה גדולה ובה שולחנות סינון באתר פתוח"
+  },
+  {
+    "id": "stone-vessels",
+    "chapter": "purity",
+    "file": "The_Herodian_Quarter_P8050085.JPG",
+    "caption": "שולחן אבן וכלי אבן ברובע ההרודיאני — כלי אבן אינם מקבלים טומאה.",
+    "alt": "שולחן אבן וכלי אבן גדולים מעל רצפת פסיפס"
+  },
+  {
+    "id": "sanhedria",
+    "chapter": "burial",
+    "file": "V12p186001_Tombs.jpg",
+    "caption": "קברי הסנהדרין — כוכים בשתי קומות (איור מ'האנציקלופדיה היהודית', תחילת המאה ה־20).",
+    "alt": "איור בשחור לבן של קיר מערת קבורה ובו שתי שורות של כוכים ומעליהם קשתות"
+  },
+  {
+    "id": "beit-shearim",
+    "chapter": "burial",
+    "file": "Catacomb_no._20_-_Cave_of_the_Coffins_-_partially_reconstructed.jpg",
+    "caption": "בית שערים — 'מערת הארונות', מערכת קבורה עם סרקופגים.",
+    "alt": "חזית מערכת קבורה עם שלוש קשתות וסרקופגים לפניה"
+  },
+  {
+    "id": "ossuary",
+    "chapter": "burial",
+    "file": "JamesOssuary-1-.jpg",
+    "caption": "גלוסקמה מאבן מן המאה ה־1 — קטנה מכדי להכיל גופה, ולכן לקבורה שנייה.",
+    "alt": "תיבת אבן מלבנית קטנה עם מכסה"
+  },
+  {
+    "id": "absalom",
+    "chapter": "burial",
+    "file": "Jerusalem Old City Absalom's Pillar (43177293191).jpg",
+    "caption": "יד אבשלום בנחל קדרון — 'קבר' חצוב ו'נפש' בנויה מעליו.",
+    "alt": "יד אבשלום בנחל קדרון, וסביבה מצבות ועצים"
+  },
+  {
+    "id": "hezir",
+    "chapter": "burial",
+    "file": "Hezir_tomb.JPG",
+    "caption": "קבר בני חזיר — שני עמודים דוריים בין שתי מזוזות (דיסטילוס אין אנטיס).",
+    "alt": "חזית קבר חצובה בסלע עם שני עמודים בין שתי מזוזות"
+  },
+  {
+    "id": "gamla",
+    "chapter": "synagogues",
+    "file": "Gamla Synagogue 00.jpg",
+    "caption": "בית הכנסת בגמלא — ספסלים מדורגים לאורך הקירות (ימי בית שני).",
+    "alt": "שרידי אולם מלבני עם מדרגות ישיבה לאורך הקירות ובסיסי עמודים"
+  },
+  {
+    "id": "magdala-stone",
+    "chapter": "synagogues",
+    "file": "Magdala_Stone_(4).jpg",
+    "caption": "אבן מגדלא — מבית הכנסת מימי בית שני במגדלא, ועליה מנורה מגולפת.",
+    "alt": "גוש אבן מגולף ועל צדו מנורה"
+  },
+  {
+    "id": "theodotus",
+    "chapter": "synagogues",
+    "file": "8V2A3067_(47715698331).jpg",
+    "caption": "כתובת תיאודוטוס — נמצאה בעיר דוד בירושלים.",
+    "alt": "לוח אבן ועליו כתובת יוונית בעשר שורות"
+  },
+  {
+    "id": "capernaum",
+    "chapter": "synagogues",
+    "file": "Sites_of_Christianity_in_the_Galillee_-_Ruins_of_the_ancient_Great_Synagogue_at_Capernaum_(or_Kfar_Nahum)_on_the_shore_of_the_Lake_of_Galilee,_Northern_Israel.jpg",
+    "caption": "בית הכנסת בכפר נחום — טיפוס 'גלילי': אבן גיר לבנה ועמודים.",
+    "alt": "שרידי בית כנסת מאבן גיר לבנה עם עמודים וחזית"
+  },
+  {
+    "id": "umm-el-qanatir",
+    "chapter": "synagogues",
+    "file": "אום_אל_קנאטיר_2.jpg",
+    "caption": "בית הכנסת בעין קשתות (אום אל־קנאטיר) — בזלת, טיפוס 'גולני'.",
+    "alt": "אולם בית כנסת משוחזר מבזלת עם עמודים ורצפת אבן"
+  },
+  {
+    "id": "beit-alpha",
+    "chapter": "synagogues",
+    "file": "110758 beit alpha synagogue PikiWiki Israel.jpg",
+    "caption": "רצפת הפסיפס בבית אלפא — גלגל המזלות, ומעליו לוח ארון הקודש (המאה ה־6).",
+    "alt": "רצפת פסיפס ובה גלגל מזלות עגול ולוח עם ארון קודש"
+  },
+  {
+    "id": "hammat-tiberias",
+    "chapter": "synagogues",
+    "file": "130048_hamat_tiberias_national_park_floor_of_the_ancient_PikiWiki_Israel.jpg",
+    "caption": "גלגל המזלות בחמת טבריה — המוקדם בארץ (המאה ה־4).",
+    "alt": "רצפת פסיפס ובה גלגל מזלות"
+  },
+  {
+    "id": "eshtemoa",
+    "chapter": "synagogues",
+    "file": "Eshtemou_2013.jpg",
+    "caption": "קיר בית הכנסת באשתמוע — טיפוס 'דרום הר חברון'.",
+    "alt": "קיר אבן גבוה של בית כנסת עתיק"
+  },
+  {
+    "id": "kursi",
+    "chapter": "churches",
+    "file": "Kursi0036.JPG",
+    "caption": "שרידי הכנסייה והמנזר בכורסי שממזרח לכנרת.",
+    "alt": "שרידי מבנה אבן על דשא ומאחוריו הרים"
+  },
+  {
+    "id": "nativity",
+    "chapter": "churches",
+    "file": "Church_of_the_Nativity_(7703592746).jpg",
+    "caption": "כנסיית המולד בבית לחם — בסיליקה מן התקופה הביזנטית.",
+    "alt": "חזית אבן של כנסייה וכיכר לפניה"
+  },
+  {
+    "id": "holy-sepulchre",
+    "chapter": "churches",
+    "file": "Church_of_the_Holy_Sepulchre_by_Gerd_Eichmann_(cropped).jpg",
+    "caption": "כנסיית הקבר — הכיפה מעל הרוטונדה, המבנה הרכזי סביב הקבר.",
+    "alt": "כיפות כנסיית הקבר מעל גגות העיר העתיקה"
+  },
+  {
+    "id": "dome-of-the-rock",
+    "chapter": "churches",
+    "file": "Jerusalem_DomeoftheRock_J65_(cropped).JPG",
+    "caption": "כיפת הסלע — מבנה רכזי מתומן, מוסלמי, סביב הסלע.",
+    "alt": "מבנה מתומן עם כיפת זהב"
+  }
+]

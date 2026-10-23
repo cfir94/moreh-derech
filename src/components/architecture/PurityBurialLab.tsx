@@ -6,7 +6,7 @@ import { cx, Info, Section, Plate, styles, usePick, type PartInfo } from "./shar
 /* ------------------------------ IX. purity ------------------------------ */
 
 type Water = "clean" | "dirty" | "drawn" | "kosher";
-const WATER: Record<Water, { label: string; drawn: boolean; note: string }> = {
+export const WATER: Record<Water, { label: string; drawn: boolean; note: string }> = {
   clean: { label: "מי גשם", drawn: false, note: "החורף מילא את המקווה במי גשם שזרמו בכוח עצמם — כשר." },
   dirty: { label: "מים מלוכלכים", drawn: false, note: "הקיץ עבר, המים התלכלכו מן השימוש — ואין גשם שימלא מחדש." },
   drawn: { label: "מים שאובים", drawn: true, note: "רוקנו ומילאו במים שאובים בכלי — נקיים, אבל פסולים לטבילה." },
@@ -70,7 +70,7 @@ export function PurityLab() {
 /* ------------------------------ X. burial ------------------------------ */
 
 type BPart = "kokh" | "arcosolium" | "sarcophagus" | "smallKokh" | "ossuary" | "pit" | "bench";
-const BURIAL: Record<BPart, PartInfo> = {
+export const BURIAL: Record<BPart, PartInfo> = {
   kokh: { title: "כוך", text: "גומחה צרה ועמוקה שנחצבה בדופן המערה; פתחה נאטם בדלת וטיח. כוך ארוך — לגופה שלמה: קבורה ראשונה. הכוכים הקדומים בארץ — במערות ההלניסטיות של מרשה.", site: "קברי הסנהדרין — אפילו שתי קומות של כוכים" },
   arcosolium: { title: "ארקוסוליום", latin: "arcosolium", text: "מדף חצוב ומעליו קשת (ארקוס). על מדף גדול — גופה שלמה; על קטן — עצמות. לא תמיד ליקטו אחר כך.", site: "קברי הסנהדרין" },
   sarcophagus: { title: "סרקופג", latin: "sarcophagus", text: "ארון מתים גדול לגופה שלמה — 'אוכל הבשר'. נדיר בבית שני, נפוץ אחר כך — אצל יהודים ושאינם יהודים.", site: "בית שערים" },

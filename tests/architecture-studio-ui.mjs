@@ -53,7 +53,7 @@ try {
   await rail.getByRole("tab", { name: /מבני בידור/ }).click();
   await expect(page).toHaveURL(/#entertainment$/);
   await expect(page.getByRole("heading", { name: "מבני בידור", level: 2 })).toBeVisible();
-  await stage.getByRole("tab", { name: "היפודרום" }).click();
+  await stage.getByRole("tab", { name: "היפודרום", exact: true }).click();
   await stage.getByRole("button", { name: "להזניק את המרכבה" }).click();
   await expect(stage.getByText(/סיבוב \d\/7/)).toBeVisible();
   await stage.getByRole("button", { name: /בית המרחץ/ }).click();
@@ -61,6 +61,24 @@ try {
   await page.goBack();
   await expect(page).toHaveURL(/#entertainment$/);
   await expect(rail.getByRole("tab", { selected: true })).toContainText("מבני בידור");
+
+  // Every chapter but the decoration experiments opens on a 3D model.
+  for (const id of ["temples", "city", "roads", "water", "entertainment", "baths", "purity", "burial", "synagogues", "churches"]) {
+    await page.goto(`${base}/timelines/classical-architecture/#${id}`);
+    await expect(stage.getByRole("tab", { selected: true })).toContainText("תלת־ממד");
+    await expect(stage.locator("canvas").or(stage.getByText("הדפדפן הזה לא מציג תלת־ממד"))).toBeVisible({ timeout: 20000 });
+  }
+
+  // Field photos open in a lightbox with their credit.
+  await page.goto(`${base}/timelines/classical-architecture/#synagogues`);
+  await stage.getByRole("tab", { name: "תמונות מהשטח" }).click();
+  await stage.getByRole("button", { name: /להגדיל: בית הכנסת בגמלא/ }).click();
+  const box = page.getByRole("dialog", { name: "תמונה מוגדלת" });
+  await expect(box).toBeVisible();
+  await expect(box).toContainText("צילום:");
+  await box.getByRole("button", { name: "התמונה הבאה" }).click();
+  await box.getByRole("button", { name: /סגירה/ }).click();
+  await expect(box).toBeHidden();
 
   // Deep links: a chapter, and a glossary term from site search.
   await page.goto(base + "/timelines/classical-architecture/#water");

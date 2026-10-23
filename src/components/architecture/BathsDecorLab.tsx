@@ -6,7 +6,7 @@ import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from ".
 /* ------------------------------ VII. baths ------------------------------ */
 
 type Room = "palaestra" | "apodyterium" | "frigidarium" | "tepidarium" | "caldarium" | "hypocaust" | "furnace";
-const ROOMS: Record<Room, PartInfo & { temp: string; heat: number }> = {
+export const ROOMS: Record<Room, PartInfo & { temp: string; heat: number }> = {
   palaestra: { title: "פלאסטרה", latin: "palaestra", temp: "בחוץ", heat: 0.35, text: "חצר פתוחה לפני המרחץ: התעמלות והתגוששות, להזיע ולהגביר את זרימת הדם לפני הרחצה." },
   apodyterium: { title: "אפודיטריום — מלתחה", latin: "apodyterium", temp: "רגיל", heat: 0.3, text: "כאן מניחים את הבגדים, לפעמים בתאים בקיר.", site: "חדר עם תאים באחד ממרחצאות קיסריה" },
   frigidarium: { title: "פריגידריום — הקר", latin: "frigidarium", temp: "קר", heat: 0, text: "הבריכה הקרה, הרחוקה ביותר מן התנורים (פריג'ידר — מקרר)." },
