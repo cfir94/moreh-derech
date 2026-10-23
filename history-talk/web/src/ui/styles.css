@@ -297,26 +297,32 @@ a {
 }
 
 /* ---- הדמות ---- */
-.avatar {
+/* העטיפה מחזיקה את העיגול ואת הגלים שיוצאים ממנו בזמן דיבור (העיגול עצמו חותך את התמונה). */
+.avatar-wrap {
   --size: 132px;
   --level: 0;
+  position: relative;
   width: var(--size);
   height: var(--size);
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
   flex: none;
   margin: 0 auto;
+}
+
+.stage .avatar-wrap {
+  --size: min(260px, 60vw);
+}
+
+.avatar {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
   background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent) 75%, white), var(--accent));
   box-shadow:
     0 0 0 3px color-mix(in srgb, var(--accent) 60%, transparent),
     0 0 calc(12px + var(--level) * 50px) calc(var(--level) * 10px) var(--accent);
   animation: breathe 5s ease-in-out infinite;
   transition: box-shadow 0.08s linear;
-}
-
-.stage .avatar {
-  --size: min(260px, 60vw);
 }
 
 .avatar img,
@@ -326,7 +332,13 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.35s;
+  transition: opacity 0.35s, scale 0.08s linear;
+}
+
+/* דיוקן: תנועת מצלמה איטית (כמו בסרט תיעודי), ופעימה קלה לפי עוצמת הקול. */
+.has-portrait .avatar img {
+  animation: drift 22s ease-in-out infinite alternate;
+  scale: calc(1 + var(--level) * 0.06);
 }
 
 .avatar video.hidden {
@@ -344,8 +356,31 @@ a {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
-.avatar.speaking {
+.speaking .avatar {
   animation-duration: 2.2s;
+}
+
+.avatar-wrap .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.avatar-wrap.speaking .ring {
+  animation: ripple 2s ease-out infinite;
+}
+
+.avatar-wrap.speaking .ring + .ring {
+  animation-delay: 1s;
+}
+
+.portrait-credit {
+  margin: 8px 0 0;
+  font-size: 0.72rem;
+  color: var(--txt-dim);
 }
 
 @keyframes breathe {
@@ -358,8 +393,30 @@ a {
   }
 }
 
+@keyframes drift {
+  from {
+    transform: scale(1.06) translate(0, 0);
+  }
+  to {
+    transform: scale(1.14) translate(-2%, 1.5%);
+  }
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.32);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .avatar,
+  .avatar img,
+  .avatar-wrap .ring,
   .shake {
     animation: none;
   }

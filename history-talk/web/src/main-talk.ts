@@ -187,6 +187,23 @@ async function main() {
 
   avatar = new Avatar(c);
   ui.avatarSlot.append(avatar.el);
+  if (c.portraitCredit) {
+    // רישיונות CC BY-SA דורשים קרדיט וקישור לרישיון.
+    const credit = document.createElement("p");
+    credit.className = "portrait-credit";
+    const src = document.createElement("a");
+    src.href = c.portraitCredit.url;
+    src.target = "_blank";
+    src.rel = "noopener";
+    src.textContent = c.portraitCredit.text;
+    const lic = document.createElement("a");
+    lic.href = c.portraitCredit.licenseUrl;
+    lic.target = "_blank";
+    lic.rel = "noopener";
+    lic.textContent = c.portraitCredit.license;
+    credit.append(src, " · ", lic);
+    ui.avatarSlot.append(credit);
+  }
   ui.name.textContent = c.nameHe;
   ui.meta.append(...bidiYears(`${c.years} · ${c.taglineHe}`));
   for (const s of c.sources) {

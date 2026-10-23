@@ -3,10 +3,21 @@
   "nameHe": "יוסף בן מתתיהו",
   "years": "37–100 לערך",
   "taglineHe": "כוהן, מצביא והיסטוריון",
-  "voiceName": "Sadaltager",
+  "voiceName": "Algenib",
   "accentColor": "#8C6A3F",
-  "openingLineHe": "שלום לך. אני יוסף בן מתתיהו, או ליתר דיוק שחזור של קולי מתוך כתביי. על מה תרצה לשאול?",
-  "sampleQuestionsHe": ["למה נכנעת ביודפת?", "מה ראית בחורבן המקדש?", "איך אתה עונה למי שקורא לך בוגד?"],
+  "openingLineHe": "שלום עליך, אורח. אני יוסף בן מתתיהו, כוהן מירושלים, שכתב את דברי הימים של המלחמה ההיא. שב, ושאל את אשר על לבך.",
+  "sampleQuestionsHe": [
+    "למה נכנעת ביודפת?",
+    "מה ראית בחורבן המקדש?",
+    "איך אתה עונה למי שקורא לך בוגד?"
+  ],
+  "portraitCredit": {
+    "alt": "תחריט מאוחר המיוחס ליוסף בן מתתיהו; דיוקן מדומיין, לא בן הזמן",
+    "text": "תחריט מאוחר, דיוקן מדומיין (סריקה: NYPL)",
+    "url": "https://commons.wikimedia.org/wiki/File:Joseph,_son_of_Gorian,_called_Flavius_Josephus_(cropped).jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
   "sources": [
     {
       "title": "תולדות מלחמת היהודים עם הרומאים",

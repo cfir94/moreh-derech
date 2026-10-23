@@ -5,12 +5,19 @@
   "taglineHe": "מצביא רומי וקיסר",
   "voiceName": "Alnilam",
   "accentColor": "#7A1F1F",
-  "openingLineHe": "אני טיטוס פלביוס אספסיאנוס, בנו של הקיסר. זהו שחזור של דמותי, לא דבריי שלי. שאל, ואענה כרומאי.",
+  "openingLineHe": "אני טיטוס פלביוס אספסיאנוס, בנו של הקיסר, האיש שכבש את ירושלים. דבר — ואענה לך כמו שעונה רומאי.",
   "sampleQuestionsHe": [
     "רצית לשרוף את המקדש?",
     "מה הרגשת כשעמדת מול חומות ירושלים?",
     "מה הייתה תגובתך להתפרצות הווזוב?"
   ],
+  "portraitCredit": {
+    "alt": "ראש שיש של הקיסר טיטוס, המוזיאון הארכאולוגי הלאומי באתונה",
+    "text": "ראש שיש של טיטוס, אתונה (צילום: DerHexer)",
+    "url": "https://commons.wikimedia.org/wiki/File:Portrait_head_of_the_emperor_Titus_NAMA_348_(DerHexer).JPG",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+  },
   "sources": [
     {
       "title": "תולדות מלחמת היהודים עם הרומאים, ספרים ה׳–ז׳",

@@ -9,6 +9,8 @@ export interface PublicCharacter {
   openingLineHe: string;
   sampleQuestionsHe: string[];
   sources: { title: string; translator: string; url: string; license: string }[];
+  /** קרדיט לדיוקן (רישיון חופשי מוויקישיתוף), מוצג מתחת לדמות. */
+  portraitCredit?: { alt: string; text: string; url: string; license: string; licenseUrl: string };
   media: {
     portrait: string | null;
     idle: string | null;

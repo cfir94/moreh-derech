@@ -1,5 +1,6 @@
-// הדמות על המסך: לולאת "מקשיב" ולולאת "מדבר" (מעבר רך ביניהן), או דיוקן עם הנפשת
-// CSS עדינה, או — כשאין מדיה עדיין — מונוגרמה בצבע הדמות.
+// הדמות על המסך: לולאת "מקשיב" ולולאת "מדבר" (מעבר רך ביניהן), או דיוקן עם הנפשה —
+// תנועת מצלמה איטית, פעימה לפי עוצמת הקול וגלים סביב הדיוקן בזמן דיבור — או, כשאין
+// מדיה עדיין, מונוגרמה בצבע הדמות.
 
 import type { PublicCharacter } from "./characters.ts";
 
@@ -9,35 +10,46 @@ function initials(name: string): string {
 }
 
 export class Avatar {
+  /** העטיפה: מחזיקה את העיגול ואת הגלים, שחורגים ממנו. */
   readonly el: HTMLElement;
   private idle?: HTMLVideoElement;
   private talking?: HTMLVideoElement;
 
   constructor(c: PublicCharacter) {
     this.el = document.createElement("div");
-    this.el.className = "avatar";
+    this.el.className = "avatar-wrap";
     this.el.style.setProperty("--accent", c.accentColor);
     this.el.setAttribute("role", "img");
-    this.el.setAttribute("aria-label", `${c.nameHe} — שחזור מבוסס בינה מלאכותית`);
+    this.el.setAttribute("aria-label", c.portraitCredit ? `${c.nameHe} — ${c.portraitCredit.alt}` : c.nameHe);
+
+    for (let i = 0; i < 2; i++) {
+      const ring = document.createElement("span");
+      ring.className = "ring";
+      ring.setAttribute("aria-hidden", "true");
+      this.el.append(ring);
+    }
+    const circle = document.createElement("div");
+    circle.className = "avatar";
+    this.el.append(circle);
 
     if (c.media.idle && c.media.talking) {
       this.idle = this.video(c.media.idle, c.media.idleWebm, c.media.portrait);
       this.talking = this.video(c.media.talking, c.media.talkingWebm, c.media.portrait);
       this.talking.classList.add("hidden");
-      this.el.append(this.idle, this.talking);
+      circle.append(this.idle, this.talking);
       this.el.classList.add("has-video");
     } else if (c.media.portrait) {
       const img = document.createElement("img");
       img.src = c.media.portrait;
       img.alt = "";
-      this.el.append(img);
+      circle.append(img);
       this.el.classList.add("has-portrait");
     } else {
       const mono = document.createElement("span");
       mono.className = "monogram";
       mono.textContent = initials(c.nameHe);
       mono.setAttribute("aria-hidden", "true");
-      this.el.append(mono);
+      circle.append(mono);
     }
   }
 
@@ -71,7 +83,7 @@ export class Avatar {
     hide.classList.add("hidden");
   }
 
-  /** עוצמת הדיבור 0–1, לזוהר. */
+  /** עוצמת הדיבור 0–1: זוהר ופעימה של הדיוקן. */
   setLevel(level: number): void {
     this.el.style.setProperty("--level", level.toFixed(3));
   }
