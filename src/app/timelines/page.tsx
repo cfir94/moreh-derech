@@ -5,8 +5,16 @@ import { BYZ_EVENTS } from "@/data/byzantine";
 import { PERIOD_ROWS } from "@/data/periods";
 import { ARCH_CHAPTERS, ARCH_TERMS } from "@/data/classical-architecture";
 import { SectionCard } from "@/components/SectionCard";
+import { TALK_CHARACTERS } from "@/data/history-talk";
 
 const sets = [
+  {
+    slug: "history-talk",
+    title: "דבר עם ההיסטוריה",
+    description:
+      "שיחה קולית בעברית עם יוסף בן מתתיהו ועם טיטוס: שואלים בקול, והדמות עונה מתוך כתביה ומצטטת את המקורות.",
+    meta: `${TALK_CHARACTERS.length} דמויות · שיחה קולית`,
+  },
   {
     slug: "roman-people",
     title: "מי זה מי ברומא?",

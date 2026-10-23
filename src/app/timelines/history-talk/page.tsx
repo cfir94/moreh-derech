@@ -10,6 +10,6 @@ export const metadata: Metadata = {
   description: "שיחה קולית בעברית עם דמויות היסטוריות — שחזור מבוסס בינה מלאכותית שנשען על המקורות.",
 };
 
-export default function CharactersPage() {
+export default function HistoryTalkPage() {
   return <HistoryTalk />;
 }

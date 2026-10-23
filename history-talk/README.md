@@ -7,7 +7,7 @@ Gemini Live API ו-Cloudflare Workers, ורץ בחינם בשלב ההתחלה.
 הדמויות הראשונות: **יוסף בן מתתיהו** ו**טיטוס**.
 
 ```
- הגולש (עמוד /characters באתר, iframe)
+ הגולש (עמוד /timelines/history-talk באתר, iframe)
       │  בוחר דמות, מאשר גיל 18+, לוחץ "התחל שיחה"
       ▼
  [talk.html]  ── Turnstile ──►  [Worker: POST /api/token]

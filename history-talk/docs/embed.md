@@ -1,7 +1,7 @@
 # הטמעה באתר
 
 האתר (`https://cfir94.github.io/moreh-derech/`) הוא Next.js סטטי ב-GitHub Pages, והשיחות רצות
-ב-Worker נפרד. העמוד `/characters` באתר (`src/app/characters/page.tsx` +
+ב-Worker נפרד. העמוד `/timelines/history-talk` באתר, בעזרי הלמידה (`src/app/timelines/history-talk/page.tsx` +
 `src/components/characters/HistoryTalk.tsx`) כבר מטמיע אותן. כל מה שצריך אחרי ההעלאה:
 
 ```ts

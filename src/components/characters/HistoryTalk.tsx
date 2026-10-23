@@ -22,7 +22,7 @@ export function HistoryTalk() {
       <header className="mb-6 max-w-3xl">
         <div className="mb-3 flex items-center gap-2 text-sm font-bold text-teal">
           <span className="h-px w-8 bg-teal" aria-hidden="true" />
-          מרכז הלמידה
+          עזרי למידה
         </div>
         <h1 className="grad-text text-3xl leading-tight sm:text-4xl">דבר עם ההיסטוריה</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">

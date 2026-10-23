@@ -23,7 +23,6 @@ const links = [
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },
   { href: "/videos", label: "סרטונים" },
-  { href: "/characters", label: "דמויות" },
 ];
 
 export function Navbar() {
