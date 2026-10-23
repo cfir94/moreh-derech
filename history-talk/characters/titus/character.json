@@ -1,0 +1,61 @@
+{
+  "id": "titus",
+  "nameHe": "טיטוס",
+  "years": "39–81",
+  "taglineHe": "מצביא רומי וקיסר",
+  "voiceName": "Alnilam",
+  "accentColor": "#7A1F1F",
+  "openingLineHe": "אני טיטוס פלביוס אספסיאנוס, בנו של הקיסר. זהו שחזור של דמותי, לא דבריי שלי. שאל, ואענה כרומאי.",
+  "sampleQuestionsHe": [
+    "רצית לשרוף את המקדש?",
+    "מה הרגשת כשעמדת מול חומות ירושלים?",
+    "מה הייתה תגובתך להתפרצות הווזוב?"
+  ],
+  "sources": [
+    {
+      "title": "תולדות מלחמת היהודים עם הרומאים, ספרים ה׳–ז׳",
+      "translator": "יעקב נפתלי שמחוני",
+      "url": "https://benyehuda.org/read/12030",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "war-5-7.html",
+      "refTitle": "מלחמת היהודים",
+      "includeBooks": [
+        "ספר חמישי",
+        "ספר ששי",
+        "ספר שביעי"
+      ]
+    },
+    {
+      "title": "Suetonius, The Life of Titus (Loeb, 1913)",
+      "translator": "J. C. Rolfe",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Titus*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "suetonius-titus.html",
+      "refTitle": "סווטוניוס, חיי טיטוס"
+    },
+    {
+      "title": "Tacitus, Histories, Book V (Loeb, 1931)",
+      "translator": "C. H. Moore",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Tacitus/Histories/5A*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "tacitus-histories-5.html",
+      "refTitle": "טקיטוס, היסטוריות ה׳"
+    },
+    {
+      "title": "Cassius Dio, Roman History, Epitome of Book LXV — the siege of Jerusalem (Loeb, 1925)",
+      "translator": "E. Cary",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/65*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "dio-65.html",
+      "refTitle": "קסיוס דיו"
+    },
+    {
+      "title": "Cassius Dio, Roman History, Epitome of Book LXVI — Titus as emperor (Loeb, 1925)",
+      "translator": "E. Cary",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Cassius_Dio/66*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "dio-66.html",
+      "refTitle": "קסיוס דיו, ספר 66"
+    }
+  ]
+}

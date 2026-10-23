@@ -1,0 +1,44 @@
+{
+  "id": "josephus",
+  "nameHe": "יוסף בן מתתיהו",
+  "years": "37–100 לערך",
+  "taglineHe": "כוהן, מצביא והיסטוריון",
+  "voiceName": "Sadaltager",
+  "accentColor": "#8C6A3F",
+  "openingLineHe": "שלום לך. אני יוסף בן מתתיהו, או ליתר דיוק שחזור של קולי מתוך כתביי. על מה תרצה לשאול?",
+  "sampleQuestionsHe": ["למה נכנעת ביודפת?", "מה ראית בחורבן המקדש?", "איך אתה עונה למי שקורא לך בוגד?"],
+  "sources": [
+    {
+      "title": "תולדות מלחמת היהודים עם הרומאים",
+      "translator": "יעקב נפתלי שמחוני",
+      "url": "https://benyehuda.org/read/12030",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "war.html",
+      "refTitle": "מלחמת היהודים"
+    },
+    {
+      "title": "קדמוניות היהודים (ספרים א׳–ח׳)",
+      "translator": "אלכסנדר שור",
+      "url": "https://benyehuda.org/read/29430",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "antiquities.html",
+      "refTitle": "קדמוניות היהודים"
+    },
+    {
+      "title": "חיי יוסף",
+      "translator": "מנחם שטיין",
+      "url": "https://benyehuda.org/read/22346",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "life.html",
+      "refTitle": "חיי יוסף"
+    },
+    {
+      "title": "קדמות היהודים (נגד אפיון)",
+      "translator": "יעקב נפתלי שמחוני",
+      "url": "https://benyehuda.org/read/22345",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "apion.html",
+      "refTitle": "נגד אפיון"
+    }
+  ]
+}

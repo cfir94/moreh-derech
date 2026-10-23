@@ -1,0 +1,48 @@
+// "דבר עם ההיסטוריה" — Worker אחד שמגיש גם את הקבצים הסטטיים.
+// סודות (לא כאן!): GEMINI_API_KEY, TURNSTILE_SECRET — `wrangler secret put`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "history-talk",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+
+  // ה-Worker רץ ראשון על כל בקשה כדי להוסיף כותרות אבטחה גם לקבצים הסטטיים.
+  "assets": {
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page"
+  },
+
+  "kv_namespaces": [
+    // אחרי `npx wrangler kv namespace create SESSIONS` — להחליף את ה-id.
+    { "binding": "SESSIONS", "id": "00000000000000000000000000000000" }
+  ],
+
+  // עד 5 בקשות אסימון בדקה לכל IP (נספר בנפרד בכל מיקום של Cloudflare).
+  "ratelimits": [
+    { "name": "TOKEN_LIMITER", "namespace_id": "4107", "simple": { "limit": 5, "period": 60 } }
+  ],
+
+  // הגנה מפני חשבון לא צפוי. אם ההעלאה בתוכנית החינמית נכשלת בגלל השדה הזה — למחוק אותו.
+  "limits": { "cpu_ms": 50 },
+
+  "observability": { "enabled": true },
+
+  "vars": {
+    "GEMINI_LIVE_MODEL": "gemini-3.8-live",
+    // ראו docs/api-notes.md: התיעוד אומר v1beta, ה-SDK אומר v1alpha.
+    "GEMINI_API_VERSION": "v1beta",
+    // מקורות שמותר להם לבקש אסימון (בנוסף למקור של ה-Worker עצמו).
+    "ALLOWED_ORIGINS": "https://cfir94.github.io,http://localhost:3000,http://localhost:5173",
+    // מי רשאי להטמיע את העמוד ב-iframe.
+    "FRAME_ANCESTORS": "https://cfir94.github.io http://localhost:3000",
+    "FREE_TIER_MODE": "true",
+    "MAX_SESSION_MINUTES": "12",
+    "DAILY_SESSIONS_PER_IP": "3",
+    "DAILY_SESSIONS_GLOBAL": "60",
+    // מפתח הבדיקה של Turnstile. להחליף ב-Site key האמיתי לפני העלאה.
+    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA"
+  }
+}

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // אפליקציה נפרדת (Cloudflare Worker + Vite) עם כלים משלה.
+    "history-talk/**",
   ]),
 ]);
 

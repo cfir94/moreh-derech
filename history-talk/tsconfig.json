@@ -1,0 +1,10 @@
+// צד הלקוח (DOM). ה-Worker נבדק בנפרד ב-tsconfig.worker.json, כי הטיפוסים של
+// Cloudflare ושל הדפדפן מתנגשים.
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"]
+  },
+  "include": ["web/src"]
+}
