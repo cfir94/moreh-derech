@@ -573,5 +573,57 @@ export const ARCH_PHOTOS: ArchPhoto[] = [
     "license": "Public domain",
     "licenseUrl": "",
     "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_Modell_BW_2.JPG"
+  },
+  {
+    "id": "tl-miletus",
+    "chapter": "timeline",
+    "caption": "תוכנית העיר מילטוס — רחובות שתי וערב, 'התוכנית ההיפודמית'.",
+    "alt": "תוכנית עיר עתיקה ברשת רחובות ניצבים",
+    "src": "/architecture/photos/tl-miletus.jpg",
+    "width": 911,
+    "height": 1280,
+    "author": "לא צוין",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Plan_of_Miletus_in_A._Gerkan%27s_Griechische_Stadteanlagen_Wellcome_M0009549.jpg"
+  },
+  {
+    "id": "tl-kathisma",
+    "chapter": "timeline",
+    "caption": "שרידי כנסיית הקתיסמה — המבנה המתומן, בדרך לבית לחם.",
+    "alt": "שרידי יסודות של מבנה מתומן",
+    "src": "/architecture/photos/tl-kathisma.jpg",
+    "width": 1280,
+    "height": 871,
+    "author": "Ish ha-Teven",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_octagon_of_the_Kathisma_church._View_from_Khirbet_at-Tabaliye.jpg"
+  },
+  {
+    "id": "tl-jericho-mikveh",
+    "chapter": "timeline",
+    "caption": "מקווה בארמונות החורף החשמונאיים ביריחו — מן המקוואות הקדומים הידועים.",
+    "alt": "מתקן טבילה חצוב עם מדרגות",
+    "src": "/architecture/photos/tl-jericho-mikveh.jpg",
+    "width": 1280,
+    "height": 961,
+    "author": "Ezrazo",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:World%27s_Oldest_Mikveh_at_Hasmonean_royal_winter_palaces.jpg"
+  },
+  {
+    "id": "tl-jericho-pools",
+    "chapter": "timeline",
+    "caption": "בריכות ארמונות החשמונאים ביריחו, שהוזנו במים באמות מן המעיינות.",
+    "alt": "בריכות עתיקות גדולות בשטח מדברי",
+    "src": "/architecture/photos/tl-jericho-pools.jpg",
+    "width": 1280,
+    "height": 853,
+    "author": "בן דרוסאי",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pools_hasmonean_royal_palaces1.jpg"
   }
 ];
