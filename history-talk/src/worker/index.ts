@@ -73,6 +73,7 @@ export async function handleToken(request: Request, env: Env, deps: Deps = defau
   let session: SessionRecord;
   let resumeHandle: string | undefined;
   let quotaCounts: { ipCount: number; globalCount: number } | undefined;
+  let countSession = false;
 
   if (body.resume) {
     // חידוש אחרי goAway או ניתוק: לא נספר במכסה היומית, עד MAX_RESUMES לשיחה.
@@ -101,7 +102,8 @@ export async function handleToken(request: Request, env: Env, deps: Deps = defau
     // 4. מכסות יומיות
     const quota = await checkDailyQuota(env.SESSIONS, ipHash, env, now);
     if (quota.code) return errorResponse(quota.code, cors);
-    quotaCounts = quota;
+    if (!("unlimited" in quota)) quotaCounts = quota;
+    countSession = true;
     sessionId = crypto.randomUUID();
     session = { characterId, startedAt: now, resumes: 0 };
   }
@@ -127,10 +129,8 @@ export async function handleToken(request: Request, env: Env, deps: Deps = defau
     return errorResponse("gemini_unavailable", cors);
   }
 
-  if (quotaCounts) {
-    await commitDailyQuota(env.SESSIONS, ipHash, quotaCounts, now);
-    await recordStat(env.SESSIONS, characterId, now);
-  }
+  if (quotaCounts) await commitDailyQuota(env.SESSIONS, ipHash, quotaCounts, now);
+  if (countSession) await recordStat(env.SESSIONS, characterId, now);
   const ttl = Math.max(60, Math.ceil((session.startedAt + (maxMinutes + 30) * 60_000 - now) / 1000));
   await env.SESSIONS.put(`sess:${sessionId}`, JSON.stringify(session), { expirationTtl: ttl });
 
