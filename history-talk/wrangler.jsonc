@@ -16,8 +16,7 @@
   },
 
   "kv_namespaces": [
-    // אחרי `npx wrangler kv namespace create SESSIONS` — להחליף את ה-id.
-    { "binding": "SESSIONS", "id": "00000000000000000000000000000000" }
+    { "binding": "SESSIONS", "id": "275fa6033d7d4dfa8ef7c398626a67fd" }
   ],
 
   // עד 5 בקשות אסימון בדקה לכל IP (נספר בנפרד בכל מיקום של Cloudflare).
@@ -25,8 +24,7 @@
     { "name": "TOKEN_LIMITER", "namespace_id": "4107", "simple": { "limit": 5, "period": 60 } }
   ],
 
-  // הגנה מפני חשבון לא צפוי. אם ההעלאה בתוכנית החינמית נכשלת בגלל השדה הזה — למחוק אותו.
-  "limits": { "cpu_ms": 50 },
+  // אין "limits.cpu_ms": התוכנית החינמית דוחה אותו (קוד 100328). להחזיר במעבר לתוכנית בתשלום.
 
   "observability": { "enabled": true },
 
@@ -42,7 +40,7 @@
     "MAX_SESSION_MINUTES": "12",
     "DAILY_SESSIONS_PER_IP": "3",
     "DAILY_SESSIONS_GLOBAL": "60",
-    // מפתח הבדיקה של Turnstile. להחליף ב-Site key האמיתי לפני העלאה.
-    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA"
+    // Site key ציבורי של widget "history-talk" (דומיין: history-talk.cfir94.workers.dev).
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAFiadBD73TrLR-8G"
   }
 }

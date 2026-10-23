@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 import { chunkSource, estimateTokens, parseSource } from "../scripts/build-knowledge.mjs";
 
 const para = (letter: string, words: number) => `<p>${letter}. ${Array.from({ length: words }, (_, i) => `מילה${i}`).join(" ")}</p>`;
@@ -69,7 +70,7 @@ test("אימות ציטוטים: נמצא כלשונו (גם עם השמטה), �
 test("כל הציטוטים בדפי הידע של הדמויות נמצאים במקורות", async () => {
   const { readFileSync, readdirSync, existsSync } = await import("node:fs");
   const { verifyQuotes } = await import("../scripts/build-knowledge.mjs");
-  const root = new URL("../characters/", import.meta.url).pathname;
+  const root = fileURLToPath(new URL("../characters/", import.meta.url));
   for (const id of readdirSync(root)) {
     const sheetPath = `${root}${id}/knowledge-sheet.md`;
     if (!existsSync(sheetPath)) continue;

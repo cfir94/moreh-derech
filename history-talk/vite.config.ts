@@ -10,6 +10,8 @@ export default defineConfig({
   root: resolve(here, "web"),
   publicDir: resolve(here, "web/public"),
   plugins: [cloudflare({ configPath: resolve(here, "wrangler.jsonc") })],
+  // הגדרה ריקה כדי ש-Vite לא יטען את postcss.config.mjs (Tailwind) של האתר שמעלינו.
+  css: { postcss: {} },
   build: { outDir: resolve(here, "dist"), emptyOutDir: true },
   environments: {
     client: {

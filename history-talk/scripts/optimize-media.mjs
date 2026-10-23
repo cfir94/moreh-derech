@@ -13,8 +13,9 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = new URL("..", import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const CHAR_DIR = join(ROOT, "characters");
 const MAX_BYTES = 2 * 1024 * 1024;
 

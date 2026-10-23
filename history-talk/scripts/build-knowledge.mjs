@@ -13,11 +13,12 @@
 import { existsSync } from "node:fs";
 import { copyFile, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { extname, join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import MiniSearch from "minisearch";
 import { MINISEARCH_OPTIONS, stripNiqqud } from "../web/src/shared/hebrew.mjs";
 import { decodeEntities } from "./fetch-sources.mjs";
 
-const ROOT = new URL("..", import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const CHAR_DIR = join(ROOT, "characters");
 const DATA_DIR = join(ROOT, "web/public/data");
 const MIN_WORDS = 120;
@@ -283,7 +284,7 @@ async function main() {
   );
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.error(err);
     process.exit(1);

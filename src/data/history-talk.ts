@@ -7,7 +7,7 @@
  * https://history-talk.<חשבון>.workers.dev). ריק = עוד לא הועלה, והעמוד מציג
  * הודעת "בקרוב" במקום מסגרת שבורה.
  */
-export const HISTORY_TALK_ORIGIN = "";
+export const HISTORY_TALK_ORIGIN = "https://history-talk.cfir94.workers.dev";
 
 export interface TalkCharacter {
   id: string;
