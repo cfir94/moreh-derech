@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useMemo, useRef, useState } from "react";
+import { useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { COMPARISONS, ERAS, PORTRAITS, ROMAN_PEOPLE, ROLES, SOURCES, filterPeople, portraitUrl, type RomanPerson } from "@/data/roman-people";
 import s from "./RomanPeople.module.css";
 
@@ -15,20 +15,17 @@ function Portrait({ person, large = false }: { person: RomanPerson; large?: bool
   </div>;
 }
 
-function Laurel() {
-  return <svg className={s.laurel} viewBox="0 0 240 240" fill="none" aria-hidden="true">
-    <path d="M104 220C19 188 18 85 63 29M136 220C221 188 222 85 177 29" stroke="currentColor" strokeWidth="2" />
-    {[0, 1, 2, 3, 4, 5, 6].map(i => <g key={i} transform={`rotate(${i * 19 - 48} 120 120)`}><path d="M36 108Q10 83 28 65Q49 82 36 108M36 108Q65 86 57 68Q34 78 36 108" fill="currentColor" /><path d="M204 108Q230 83 212 65Q191 82 204 108M204 108Q175 86 183 68Q206 78 204 108" fill="currentColor" /></g>)}
-  </svg>;
+function EraArtwork({ era }: { era: RomanPerson["era"] }) {
+  const index = { conquest: 0, empire: 1, byzantine: 2 }[era];
+  return <span className={s.eraArt} data-era-art={era} aria-hidden="true">
+    <img src="/moreh-derech/images/roman-people/era-emblems.webp" alt="" width="1536" height="564" style={{ left: `${-index * 100}%` }} />{/* eslint-disable-line @next/next/no-img-element */}
+  </span>;
 }
 
 function PersonDetail({ person, compact = false }: { person: RomanPerson; compact?: boolean }) {
-  const [facet, setFacet] = useState("action");
-  const facetId = useId();
-  const facets = [["action", "I", "מה עשה?"], ["memory", "II", "איך זוכרים?"], ["trap", "III", "לא להתבלבל"]];
   return <article className={`${s.detail} ${compact ? s.compact : ""}`} data-era={person.era} data-person-detail={person.id}>
     <div className={s.detailTop}>
-      <div className={s.effigy}><Laurel /><Portrait key={person.id} person={person} large={!compact} /><span className={s.effigySeal} aria-hidden>{ERAS.find(item => item.id === person.era)?.mark}</span></div>
+      <div className={s.effigy}><Portrait key={person.id} person={person} large={!compact} /></div>
       <div className={s.identity}>
         <p className={s.latin} lang="la" dir="ltr">{person.latin}</p>
         <h2>{person.name}</h2>
@@ -36,17 +33,16 @@ function PersonDetail({ person, compact = false }: { person: RomanPerson; compac
         <p className={s.date}>{person.date}</p>
       </div>
     </div>
-    {!compact && <div className={s.factTabs} aria-label="מה ללמוד על הדמות">{facets.map(([id, number, label]) => <button key={id} id={`${facetId}-${id}-button`} aria-pressed={facet === id} aria-controls={`${facetId}-${id}`} onClick={() => setFacet(id)}><span aria-hidden>{number}</span>{label}</button>)}</div>}
     <div className={s.detailBody}>
-      <section id={`${facetId}-action`} aria-labelledby={!compact ? `${facetId}-action-button` : undefined} hidden={!compact && facet !== "action"} className={s.factPanel}>
+      <section className={s.factPanel}>
       <p className={s.sectionLabel}>הדבר לזכור</p>
       <h3>{person.hook}</h3>
       <p className={s.action}>{person.action}</p>
       </section>
-      <section id={`${facetId}-memory`} aria-labelledby={!compact ? `${facetId}-memory-button` : undefined} hidden={!compact && facet !== "memory"} className={s.factPanel}>
+      <section className={s.factPanel}>
       <div className={s.memory}><span aria-hidden>✦</span><div><b>וו לזיכרון</b><p>{person.memory}</p></div></div>
       </section>
-      <section id={`${facetId}-trap`} aria-labelledby={!compact ? `${facetId}-trap-button` : undefined} hidden={!compact && facet !== "trap"} className={s.factPanel}>
+      <section className={s.factPanel}>
       <p className={s.trap}><b>שמים לב להבדל</b>{person.trap}</p>
       </section>
       {!compact && <details className={s.more}><summary>עוד הקשר ומקורות <span aria-hidden>＋</span></summary>
@@ -99,6 +95,14 @@ function Practice({ people, onEraChange }: { people: RomanPerson[]; onEraChange:
   </section>;
 }
 
+function subscribeDesktop(callback: () => void) {
+  const media = window.matchMedia("(min-width: 980px)");
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+function desktopSnapshot() { return window.matchMedia("(min-width: 980px)").matches; }
+function serverSnapshot() { return false; }
+
 export function RomanPeople() {
   const [mode, setMode] = useState("timeline");
   const [era, setEra] = useState("all");
@@ -109,6 +113,8 @@ export function RomanPeople() {
   const [pairId, setPairId] = useState(COMPARISONS[0].id);
   const [browseOpen, setBrowseOpen] = useState(false);
   const [practiceEra, setPracticeEra] = useState<RomanPerson["era"] | null>(null);
+  const desktop = useSyncExternalStore(subscribeDesktop, desktopSnapshot, serverSnapshot);
+  const browseVisible = desktop || browseOpen;
   const searchId = useId();
   const roleId = useId();
   const pairSelectId = useId();
@@ -137,13 +143,13 @@ export function RomanPeople() {
         <p className={s.range}>מפומפיוס ב־63 לפנה״ס ועד הכיבוש המוסלמי במאה ה־7</p>
         <div className={s.heroMeta}><span><b>{ROMAN_PEOPLE.length}</b> דמויות</span><span><b>3</b> פרקים</span><span><b>{COMPARISONS.length}</b> השוואות</span></div>
       </div>
-      <div className={s.chapterSeal}><Laurel /><b aria-hidden>{chapter.mark}</b><div><span>{chapter.label}</span><small>{chapter.dates}</small></div></div>
+      <div className={s.chapterSeal}><EraArtwork era={visualEra} /><div><span>{chapter.label}</span><small>{chapter.dates}</small></div></div>
     </header>
 
     <div className={s.modes} aria-label="מצבי לימוד">{[["timeline", "01", "להכיר את הדמויות"], ["compare", "02", "להבדיל בין שמות"], ["practice", "03", "לבדוק מה זכרתי"]].map(([id, number, label]) => <button key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setPracticeEra(null); }}><span>{number}</span>{label}</button>)}</div>
 
     {mode !== "compare" && <>
-      <div className={s.eras} aria-label="סינון לפי תקופה"><button className={s.allEras} aria-pressed={era === "all"} onClick={() => { setEra("all"); setPracticeEra(null); }}>כל<br /><b>התקופות</b></button>{ERAS.map(item => <button key={item.id} data-era={item.id} aria-pressed={era === item.id} onClick={() => { setEra(item.id); setPracticeEra(null); }}><span className={s.eraMark}>{item.mark}</span><div><b>{item.label}</b><small>{item.dates}</small></div></button>)}</div>
+      <div className={s.eras} aria-label="סינון לפי תקופה"><button className={s.allEras} aria-pressed={era === "all"} onClick={() => { setEra("all"); setPracticeEra(null); }}>כל<br /><b>התקופות</b></button>{ERAS.map(item => <button key={item.id} data-era={item.id} aria-pressed={era === item.id} onClick={() => { setEra(item.id); setPracticeEra(null); }}><EraArtwork era={item.id} /><div><b>{item.label}</b><small>{item.dates}</small></div></button>)}</div>
       <div className={s.filters}>
         <div className={s.search}><label htmlFor={searchId}>חיפוש דמות, אירוע או מקום</label><input id={searchId} type="search" placeholder="למשל: גליל, פילטוס, אוקטביאנוס…" value={query} onChange={event => { setQuery(event.target.value); setPracticeEra(null); setBrowseOpen(Boolean(event.target.value)); }} /></div>
         <div><label htmlFor={roleId}>תפקיד</label><select id={roleId} value={role} onChange={event => { setRole(event.target.value); setPracticeEra(null); }}><option value="all">כל התפקידים</option>{Object.entries(ROLES).map(([id, item]) => <option key={id} value={id}>{item.label}</option>)}</select></div>
@@ -157,8 +163,8 @@ export function RomanPeople() {
       <div className={s.compareRule}><span aria-hidden>↔</span><p>{pair.rule}</p></div>
       <div className={s.compareGrid}>{pair.people.map(id => <PersonDetail key={id} person={ROMAN_PEOPLE.find(person => person.id === id)!} compact />)}</div>
     </section> : !people.length ? <div className={s.empty}><h2>לא נמצאו דמויות מתאימות</h2><button onClick={clear}>להציג את כולן</button></div> : mode === "practice" ? <Practice key={`${query}-${era}-${role}-${core}`} people={people} onEraChange={setPracticeEra} /> : <section className={s.atlas} aria-label="ציר הדמויות">
-      <div className={s.navigator}><button className={s.stepButton} aria-label="הדמות הקודמת" disabled={position <= 0} onClick={() => move(-1)}><span aria-hidden>→</span><span>הקודמת</span></button><button className={s.browseToggle} aria-expanded={browseOpen} aria-controls={browseId} onClick={() => setBrowseOpen(open => !open)}><span>{position + 1} / {people.length}</span>בחירת דמות <span aria-hidden>{browseOpen ? "−" : "+"}</span></button><button className={s.stepButton} aria-label="הדמות הבאה" disabled={position >= people.length - 1} onClick={() => move(1)}><span>הבאה</span><span aria-hidden>←</span></button></div>
-      <div className={s.timeline} id={browseId} hidden={!browseOpen}><div className={s.timelineHeading}><h2>רצף הדמויות</h2><span>בוחרים שם ומגלים את הסיפור</span></div><p className={s.timelineNote}>{query.trim() ? "בחיפוש, התאמות לשם מופיעות לפני אזכורים בתוכן." : "מסודר לפי האירוע המוצג, לא לפי שנות כהונה. כמה תפקידים פועלים במקביל."}</p>
+      <div className={s.navigator}><button className={s.stepButton} aria-label="הדמות הקודמת" disabled={position <= 0} onClick={() => move(-1)}><span aria-hidden>→</span><span>הקודמת</span></button><span className={s.position}>{position + 1} / {people.length}</span><button className={s.browseToggle} aria-expanded={browseVisible} aria-controls={browseId} onClick={() => setBrowseOpen(open => !open)}><span>{position + 1} / {people.length}</span>בחירת דמות <span aria-hidden>{browseVisible ? "−" : "+"}</span></button><button className={s.stepButton} aria-label="הדמות הבאה" disabled={position >= people.length - 1} onClick={() => move(1)}><span>הבאה</span><span aria-hidden>←</span></button></div>
+      <div className={s.timeline} id={browseId} hidden={!browseVisible}><div className={s.timelineHeading}><h2>רצף הדמויות</h2><span>בוחרים שם ומגלים את הסיפור</span></div><p className={s.timelineNote}>{query.trim() ? "בחיפוש, התאמות לשם מופיעות לפני אזכורים בתוכן." : "מסודר לפי האירוע המוצג, לא לפי שנות כהונה. כמה תפקידים פועלים במקביל."}</p>
         <div className={s.timelineList}>{ERAS.map(item => { const group = people.filter(person => person.era === item.id); return group.length ? <div key={item.id} data-era={item.id}><h3 className={s.groupTitle}><span>{item.mark}</span>{item.label}</h3><ol>{group.map(person => <li key={person.id}><button data-person-button={person.id} aria-pressed={selected?.id === person.id} onClick={() => choose(person.id)}><span className={s.timelineDot} aria-hidden /><span className={s.timelineEntry}><span className={s.entryDate}>{person.date}</span><span className={s.entryName}>{person.name}<span className={s.entryRole}>{person.roles.map(id => ROLES[id].symbol).join(" ")}</span></span><span className={s.entryHook}>{person.hook}</span></span><span className={s.entryArrow} aria-hidden>←</span></button></li>)}</ol></div> : null; })}</div>
       </div>
       <div ref={detailRef} className={s.detailColumn} aria-live="polite" tabIndex={0} aria-label="הדמות הנבחרת. חץ שמאלה לדמות הבאה, חץ ימינה לקודמת" onKeyDown={event => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowLeft") { event.preventDefault(); move(1); } if (event.key === "ArrowRight") { event.preventDefault(); move(-1); } }}>{selected && <PersonDetail key={selected.id} person={selected} />}<div className={s.studyTip}><b>שיטת שלוש המילים</b><p>קרא את השם, אמור את התפקיד, הוסף מעשה אחד. רק אז המשך לדמות הבאה.</p></div></div>
@@ -166,7 +172,7 @@ export function RomanPeople() {
 
     <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p></details></section>
     <footer className={s.footer}><p>הבסיס: הקלטות מחברות בית שני והתקופה הרומית־ביזנטית. התאריכים בכרטיסים מציינים את האירוע או התקופה הנדונים. טיפי הזיכרון הם אסוציאציות ללמידה.</p>
-      <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>דיוקנאות באמנות</h3><p>צילומי פסלים ופסיפס; התמונות מוצגות בחיתוך במסגרת. במקום שאין תמונה מוצגת מונוגרמה.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(portrait.file)}`} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul></details>
+      <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>דיוקנאות באמנות</h3><p>צילומי פסלים ופסיפס; התמונות מוצגות בחיתוך במסגרת. במקום שאין תמונה מוצגת מונוגרמה.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(portrait.file)}`} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
       <div className={s.related}><Link href="/timelines/second-temple">ציר בית שני ←</Link><Link href="/timelines/roman">הציר הרומי המלא ←</Link><Link href="/timelines/byzantine">הציר הביזנטי המלא ←</Link></div>
     </footer>
     </div>

@@ -11,7 +11,7 @@ const server = createServer((req, res) => {
   if (path !== out && !path.startsWith(out + sep)) { res.writeHead(403).end(); return; }
   if (existsSync(path) && statSync(path).isDirectory()) path = resolve(path, "index.html");
   if (!existsSync(path)) { res.writeHead(404).end(); return; }
-  res.setHeader("Content-Type", ({ ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2" })[extname(path)] ?? "application/octet-stream");
+  res.setHeader("Content-Type", ({ ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".webp": "image/webp" })[extname(path)] ?? "application/octet-stream");
   res.end(readFileSync(path));
 });
 await new Promise(done => server.listen(0, "127.0.0.1", done));
@@ -25,6 +25,8 @@ try {
   await page.getByRole("link", { name: /מי זה מי ברומא/ }).click();
   await expect(page.getByRole("heading", { name: "מי זה מי ברומא?", exact: true })).toBeVisible();
   await expect(page.locator("[data-person-button]")).toHaveCount(36);
+  await expect(page.locator('[data-person-button="pompey"]')).toBeVisible();
+  await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 4 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
   await expect(page.getByRole("button", { name: "הדמות הקודמת", exact: true })).toBeDisabled();
   await page.getByRole("button", { name: "הדמות הבאה", exact: true }).click();
   await expect(page.locator('[data-person-detail="antony"]')).toBeVisible();
@@ -32,12 +34,11 @@ try {
   await stage.focus();
   await page.keyboard.press("ArrowLeft");
   await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
-  await page.getByRole("button", { name: "איך זוכרים?", exact: true }).click();
   await expect(page.getByText("אוקטביאנוס → אקטיום → אוגוסטוס. שלושה עוגנים, אדם אחד.", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "לא להתבלבל", exact: true }).click();
   await expect(page.locator('[data-person-detail="augustus"] [class*="trap"]')).toBeVisible();
-  await page.getByRole("button", { name: "מה עשה?", exact: true }).click();
-  expect(await page.locator('[data-person-detail="augustus"] [class*="action"]').evaluate(node => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(20);
+  const textSize = await page.locator('[data-person-detail="augustus"] [class*="action"]').evaluate(node => parseFloat(getComputedStyle(node).fontSize));
+  expect(textSize).toBeGreaterThanOrEqual(17);
+  expect(textSize).toBeLessThanOrEqual(19);
   const search = page.getByRole("searchbox", { name: "חיפוש דמות, אירוע או מקום" });
   await search.fill("אוקטביאנוס");
   await expect(page.locator("[data-person-button]")).toHaveCount(2);
