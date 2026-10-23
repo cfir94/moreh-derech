@@ -1,0 +1,27 @@
+name: Collect Roman portrait sources
+on:
+  push:
+    branches: [codex/roman-portrait-sources-20261023]
+    paths: [.github/workflows/collect-roman-portraits.yml, tools/collect-roman-portraits.mjs]
+permissions:
+  contents: write
+jobs:
+  collect:
+    if: github.ref == 'refs/heads/codex/roman-portrait-sources-20261023'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: node tools/collect-roman-portraits.mjs
+      - name: Save collected images on research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add portrait-research/sources.json public/images/roman-people/portraits
+          git commit -m 'Collect candidate portraits and public source metadata'
+          git push origin HEAD:codex/roman-portrait-sources-20261023
