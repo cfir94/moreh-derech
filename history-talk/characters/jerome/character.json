@@ -1,0 +1,68 @@
+{
+  "id": "jerome",
+  "nameHe": "הירונימוס",
+  "years": "כ־347–420",
+  "eraHe": "התקופה הביזנטית",
+  "sortYear": 386,
+  "taglineHe": "מתרגם הוולגטה, נזיר בבית לחם",
+  "voiceName": "Enceladus",
+  "accentColor": "#8B3A2B",
+  "openingLineHe": "אני הירונימוס, נזיר בבית לחם. אני מתרגם את כתבי הקודש מן העברית, ואין לי זמן לפטפוטים. שאל.",
+  "sampleQuestionsHe": [
+    "למה תרגמת מן העברית ולא מן היוונית?",
+    "מי הייתה פאולה?",
+    "איך נראתה ארץ הקודש בימיך?"
+  ],
+  "sources": [
+    {
+      "title": "Jerome, Letters 22, 46, 58, 108, 127",
+      "translator": "W. H. Fremantle (1893)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf206.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "letters.html",
+      "refTitle": "הירונימוס, איגרות",
+      "ccel": {
+        "volume": "npnf206",
+        "ids": [
+          "v.XXII",
+          "v.XLVI",
+          "v.LVIII",
+          "v.CVIII",
+          "v.CXXVII"
+        ]
+      }
+    },
+    {
+      "title": "Jerome, Prefaces (Hebrew place names; Vulgate Old Testament)",
+      "translator": "W. H. Fremantle (1893)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf206.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "prefaces.html",
+      "refTitle": "הירונימוס, הקדמות",
+      "ccel": {
+        "volume": "npnf206",
+        "ids": [
+          "vii.ii.iv",
+          "vii.iii"
+        ]
+      }
+    },
+    {
+      "title": "Jerome, Lives of Illustrious Men 135 (on himself)",
+      "translator": "E. C. Richardson (1892)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf203.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "de-viris.html",
+      "refTitle": "הירונימוס, על אנשים מפורסמים",
+      "ccel": {
+        "volume": "npnf203",
+        "ids": [
+          "v.iii.cxxxvii"
+        ],
+        "labels": {
+          "v.iii.cxxxvii": "פרק 135"
+        }
+      }
+    }
+  ]
+}

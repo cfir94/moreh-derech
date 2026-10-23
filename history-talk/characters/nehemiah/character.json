@@ -1,0 +1,124 @@
+{
+  "id": "nehemiah",
+  "nameHe": "נחמיה בן חכליה",
+  "years": "המאה ה־5 לפנה״ס",
+  "eraHe": "התקופה הפרסית",
+  "sortYear": -445,
+  "taglineHe": "פחת יהודה, בונה חומות ירושלים",
+  "voiceName": "Iapetus",
+  "accentColor": "#9A6B3F",
+  "openingLineHe": "אני נחמיה בן חכליה. עזבתי את ארמון המלך בשושן כדי לבנות את חומות ירושלים. שאל — העבודה ממתינה.",
+  "sampleQuestionsHe": [
+    "איך בניתם את החומה בחמישים ושניים יום?",
+    "מי היו סנבלט וטוביה?",
+    "למה סגרת את שערי ירושלים בשבת?"
+  ],
+  "sources": [
+    {
+      "title": "ספר נחמיה א–יג",
+      "url": "https://www.sefaria.org/Nehemiah.1?lang=he",
+      "license": "נחלת הכלל (ספריא, Tanach with Nikkud)",
+      "file": "nehemiah.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Tanach with Nikkud",
+        "refs": [
+          "Nehemiah.1",
+          "Nehemiah.2",
+          "Nehemiah.3",
+          "Nehemiah.4",
+          "Nehemiah.5",
+          "Nehemiah.6",
+          "Nehemiah.7",
+          "Nehemiah.8",
+          "Nehemiah.9",
+          "Nehemiah.10",
+          "Nehemiah.11",
+          "Nehemiah.12",
+          "Nehemiah.13"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "ספר מקבים ב׳ א–ב (תרגום י״ז פרנקל)",
+      "url": "https://www.sefaria.org/The_Book_of_Maccabees_II.1?lang=he",
+      "license": "נחלת הכלל (ספריא, תרגום פרנקל)",
+      "file": "maccabees-2.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "כתובים אחרונים - יצחק זעקיל פרענקיל",
+        "refs": [
+          "The_Book_of_Maccabees_II.1",
+          "The_Book_of_Maccabees_II.2"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "בן סירא מט (מהדורת דוד כהנא)",
+      "url": "https://www.sefaria.org/Ben_Sira.49?lang=he",
+      "license": "נחלת הכלל (ספריא, ויקיטקסט)",
+      "file": "ben-sira.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Ben Sira, David Kahana ed. -- Wikisource ",
+        "refs": [
+          "Ben_Sira.49"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "תלמוד בבלי: סנהדרין צג ע״ב, בבא בתרא טו ע״א",
+      "url": "https://www.sefaria.org/Sanhedrin.93b?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Sanhedrin.93b",
+          "Bava_Batra.15a"
+        ],
+        "unit": "daf"
+      }
+    },
+    {
+      "title": "Josephus, Antiquities of the Jews (Whiston, 1737)",
+      "translator": "William Whiston",
+      "url": "https://www.gutenberg.org/ebooks/2848",
+      "license": "Public domain (Project Gutenberg)",
+      "file": "antiquities-11.html",
+      "refTitle": "קדמוניות היהודים",
+      "gutenberg": {
+        "id": 2848,
+        "books": [
+          "XI"
+        ],
+        "chapters": {
+          "XI": [
+            5,
+            7,
+            8
+          ]
+        }
+      }
+    }
+  ]
+}

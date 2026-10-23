@@ -1,0 +1,115 @@
+{
+  "id": "judah-maccabee",
+  "nameHe": "יהודה המכבי",
+  "years": "נפל ב־160 לפנה״ס",
+  "eraHe": "התקופה ההלניסטית",
+  "sortYear": -164,
+  "taglineHe": "מנהיג מרד החשמונאים",
+  "voiceName": "Fenrir",
+  "accentColor": "#C2410C",
+  "openingLineHe": "אני יהודה בן מתתיהו — המקבי, כך קוראים לי. טיהרנו את המקדש והדלקנו שוב את המנורה. שאל, אחי.",
+  "sampleQuestionsHe": [
+    "איך ניצחתם צבא גדול כל כך?",
+    "מה קרה כשטיהרתם את המקדש?",
+    "למה כרתת ברית עם רומא?"
+  ],
+  "sources": [
+    {
+      "title": "ספר מקבים א׳ א–ט (תרגום י״ז פרנקל)",
+      "url": "https://www.sefaria.org/The_Book_of_Maccabees_I.1?lang=he",
+      "license": "נחלת הכלל (ספריא, תרגום פרנקל)",
+      "file": "maccabees-1.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "כתובים אחרונים - יצחק זעקיל פרענקיל",
+        "refs": [
+          "The_Book_of_Maccabees_I.1",
+          "The_Book_of_Maccabees_I.2",
+          "The_Book_of_Maccabees_I.3",
+          "The_Book_of_Maccabees_I.4",
+          "The_Book_of_Maccabees_I.5",
+          "The_Book_of_Maccabees_I.6",
+          "The_Book_of_Maccabees_I.7",
+          "The_Book_of_Maccabees_I.8",
+          "The_Book_of_Maccabees_I.9"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "ספר מקבים ב׳ ד–טו (תרגום י״ז פרנקל)",
+      "url": "https://www.sefaria.org/The_Book_of_Maccabees_II.4?lang=he",
+      "license": "נחלת הכלל (ספריא, תרגום פרנקל)",
+      "file": "maccabees-2.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "כתובים אחרונים - יצחק זעקיל פרענקיל",
+        "refs": [
+          "The_Book_of_Maccabees_II.4",
+          "The_Book_of_Maccabees_II.5",
+          "The_Book_of_Maccabees_II.6",
+          "The_Book_of_Maccabees_II.7",
+          "The_Book_of_Maccabees_II.8",
+          "The_Book_of_Maccabees_II.9",
+          "The_Book_of_Maccabees_II.10",
+          "The_Book_of_Maccabees_II.11",
+          "The_Book_of_Maccabees_II.12",
+          "The_Book_of_Maccabees_II.13",
+          "The_Book_of_Maccabees_II.14",
+          "The_Book_of_Maccabees_II.15"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "תלמוד בבלי: שבת כא ע״ב, ראש השנה יח ע״ב",
+      "url": "https://www.sefaria.org/Shabbat.21b?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Shabbat.21b",
+          "Rosh_Hashanah.18b"
+        ],
+        "unit": "daf"
+      }
+    },
+    {
+      "title": "Josephus, Antiquities of the Jews (Whiston, 1737)",
+      "translator": "William Whiston",
+      "url": "https://www.gutenberg.org/ebooks/2848",
+      "license": "Public domain (Project Gutenberg)",
+      "file": "antiquities-12.html",
+      "refTitle": "קדמוניות היהודים",
+      "gutenberg": {
+        "id": 2848,
+        "books": [
+          "XII"
+        ],
+        "chapters": {
+          "XII": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "id": "akiva",
+  "nameHe": "רבי עקיבא",
+  "years": "כ־50–135",
+  "eraHe": "התקופה הרומית",
+  "sortYear": 132,
+  "taglineHe": "גדול התנאים, תומך בר כוכבא",
+  "voiceName": "Achird",
+  "accentColor": "#3E7C4A",
+  "openingLineHe": "אני עקיבא בן יוסף. עד גיל ארבעים רעיתי צאן ולא ידעתי אות אחת. שאל — ואל תתבייש.",
+  "sampleQuestionsHe": [
+    "איך התחלת ללמוד תורה בגיל ארבעים?",
+    "למה תמכת בבר כוכבא?",
+    "למה צחקת כשראית שועל במקום המקדש?"
+  ],
+  "sources": [
+    {
+      "title": "תלמוד בבלי: ברכות סא ע״ב, כתובות סב ע״ב–סג ע״א, נדרים נ ע״א, יבמות סב ע״ב, מכות כד ע״ב, מנחות כט ע״ב, חגיגה יד ע״ב, בבא מציעא סב ע״א",
+      "url": "https://www.sefaria.org/Berakhot.61b?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Berakhot.61b",
+          "Ketubot.62b",
+          "Ketubot.63a",
+          "Nedarim.50a",
+          "Yevamot.62b",
+          "Makkot.24b",
+          "Menachot.29b",
+          "Chagigah.14b",
+          "Bava_Metzia.62a"
+        ],
+        "unit": "daf"
+      }
+    },
+    {
+      "title": "משנה: אבות ג יג–טז, ידים ג ה",
+      "url": "https://www.sefaria.org/Pirkei_Avot.3.13-16?lang=he",
+      "license": "נחלת הכלל (ספריא, Torat Emet)",
+      "file": "mishnah.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Torat Emet 357",
+        "refs": [
+          "Pirkei_Avot.3.13-16",
+          "Mishnah_Yadayim.3.5"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "משנה",
+        "משניות"
+      ]
+    },
+    {
+      "title": "אבות דרבי נתן (נוסח א)",
+      "url": "https://www.sefaria.org/Avot_D'Rabbi_Natan.6?lang=he",
+      "license": "נחלת הכלל (ספריא, דפוס וילנא)",
+      "file": "avot-de-rabbi-natan.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Talmud Bavli, Vilna 1883 ed.",
+        "refs": [
+          "Avot_D'Rabbi_Natan.6"
+        ],
+        "unit": "perek"
+      }
+    },
+    {
+      "title": "תלמוד ירושלמי: תענית ד ה, ברכות ט ה",
+      "url": "https://www.sefaria.org/Jerusalem_Talmud_Taanit.4.5?lang=he",
+      "license": "CC BY (ספריא, מהדורת גוגנהיימר)",
+      "file": "yerushalmi.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "The Jerusalem Talmud, edition by Heinrich W. Guggenheimer. Berlin, De Gruyter, 1999-2015",
+        "refs": [
+          "Jerusalem_Talmud_Taanit.4.5",
+          "Jerusalem_Talmud_Berakhot.9.5"
+        ],
+        "unit": "halakha"
+      }
+    }
+  ]
+}

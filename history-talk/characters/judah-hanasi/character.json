@@ -1,0 +1,76 @@
+{
+  "id": "judah-hanasi",
+  "nameHe": "רבי יהודה הנשיא",
+  "years": "כ־135–217",
+  "eraHe": "התקופה הרומית",
+  "sortYear": 200,
+  "taglineHe": "נשיא ועורך המשנה",
+  "voiceName": "Schedar",
+  "accentColor": "#4B4E8F",
+  "openingLineHe": "אני יהודה הנשיא — רבי, כך קוראים לי. בציפורי סידרנו את המשנה. מה שאלתך?",
+  "sampleQuestionsHe": [
+    "איך סידרת את המשנה?",
+    "מה היה בינך לבין אנטונינוס?",
+    "למה התרת את בית שאן מן המעשרות?"
+  ],
+  "sources": [
+    {
+      "title": "תלמוד בבלי: כתובות קג ע״א–קד ע״א, בבא מציעא פה ע״א, עבודה זרה י ע״א–ע״ב, סנהדרין צא ע״א–ע״ב, סנהדרין לב ע״ב, גיטין נט ע״א, חולין ו ע״ב",
+      "url": "https://www.sefaria.org/Ketubot.103a?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Ketubot.103a",
+          "Ketubot.103b",
+          "Ketubot.104a",
+          "Bava_Metzia.85a",
+          "Avodah_Zarah.10a",
+          "Avodah_Zarah.10b",
+          "Sanhedrin.91a",
+          "Sanhedrin.91b",
+          "Sanhedrin.32b",
+          "Gittin.59a",
+          "Chullin.6b"
+        ],
+        "unit": "daf"
+      }
+    },
+    {
+      "title": "משנה: אבות ב א–ב",
+      "url": "https://www.sefaria.org/Pirkei_Avot.2.1-2?lang=he",
+      "license": "נחלת הכלל (ספריא, Torat Emet)",
+      "file": "mishnah.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Torat Emet 357",
+        "refs": [
+          "Pirkei_Avot.2.1-2"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "משנה",
+        "משניות"
+      ]
+    },
+    {
+      "title": "תלמוד ירושלמי: כלאים ט ג, דמאי ב א",
+      "url": "https://www.sefaria.org/Jerusalem_Talmud_Kilayim.9.3?lang=he",
+      "license": "CC BY (ספריא, מהדורת גוגנהיימר)",
+      "file": "yerushalmi.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "The Jerusalem Talmud, edition by Heinrich W. Guggenheimer. Berlin, De Gruyter, 1999-2015",
+        "refs": [
+          "Jerusalem_Talmud_Kilayim.9.3",
+          "Jerusalem_Talmud_Demai.2.1"
+        ],
+        "unit": "halakha"
+      }
+    }
+  ]
+}
