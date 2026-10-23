@@ -30,3 +30,9 @@ Four verified artwork photographs from Wikimedia Commons have descriptive alt te
 ## Validation
 
 TypeScript and targeted lint. Data checks cover chronology, references, role distinctions, aliases and combined filters. The browser check covers the timelines entry point, filtering, comparisons, answer hiding, missed-card retry, core selection, small viewports, both themes and JavaScript errors. The existing timeline validation workflow runs these checks on the full static export, alongside the periods-table regression checks.
+
+## Immersive presentation update
+
+The historical dataset, aliases, comparisons and filter rules are unchanged. The page now uses a full-width scene with a single large central figure, a collapsible horizontal selector, previous/next buttons and keyboard arrows. Three reading panels separate the deed, memory aid and distinction while keeping every original text available; comparisons still show all three together. Typography is larger throughout.
+
+The whole canvas changes with the active figure: travertine and red, imperial porphyry/crimson, then Byzantine blue/gold with a mosaic pattern. Laurel ornaments and chapter seals provide a separate visual identity. The chapter palette also follows the active recall card, including replay and filter resets. Browser coverage includes the new navigation, reading panels, large text and chapter transitions.

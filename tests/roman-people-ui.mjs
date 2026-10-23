@@ -25,6 +25,19 @@ try {
   await page.getByRole("link", { name: /מי זה מי ברומא/ }).click();
   await expect(page.getByRole("heading", { name: "מי זה מי ברומא?", exact: true })).toBeVisible();
   await expect(page.locator("[data-person-button]")).toHaveCount(36);
+  await expect(page.getByRole("button", { name: "הדמות הקודמת", exact: true })).toBeDisabled();
+  await page.getByRole("button", { name: "הדמות הבאה", exact: true }).click();
+  await expect(page.locator('[data-person-detail="antony"]')).toBeVisible();
+  const stage = page.locator('[aria-label^="הדמות הנבחרת."]');
+  await stage.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
+  await page.getByRole("button", { name: "איך זוכרים?", exact: true }).click();
+  await expect(page.getByText("אוקטביאנוס → אקטיום → אוגוסטוס. שלושה עוגנים, אדם אחד.", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "לא להתבלבל", exact: true }).click();
+  await expect(page.locator('[data-person-detail="augustus"] [class*="trap"]')).toBeVisible();
+  await page.getByRole("button", { name: "מה עשה?", exact: true }).click();
+  expect(await page.locator('[data-person-detail="augustus"] [class*="action"]').evaluate(node => parseFloat(getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(20);
   const search = page.getByRole("searchbox", { name: "חיפוש דמות, אירוע או מקום" });
   await search.fill("אוקטביאנוס");
   await expect(page.locator("[data-person-button]")).toHaveCount(2);
@@ -57,6 +70,11 @@ try {
   await page.getByRole("button", { name: /ניקוי הסינון/ }).click();
   await page.getByRole("button", { name: /המעבר לביזנטיון/ }).click();
   await expect(page.locator("[data-person-button]")).toHaveCount(12);
+  await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "byzantine");
+  const byzantineScene = await page.locator("[data-roman-people]").evaluate(node => getComputedStyle(node).getPropertyValue("--scene"));
+  await page.getByRole("button", { name: /רומא האימפריאלית/ }).click();
+  await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "empire");
+  expect(await page.locator("[data-roman-people]").evaluate(node => getComputedStyle(node).getPropertyValue("--scene"))).not.toBe(byzantineScene);
   await page.getByRole("button", { name: /ניקוי הסינון/ }).click();
   await page.getByLabel("רק דמויות הליבה").check();
   await expect(page.locator("[data-person-button]")).toHaveCount(29);
@@ -68,10 +86,18 @@ try {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${theme}, ${width}px overflow`).toBe(true);
     }
   }
+  await page.getByRole("button", { name: /בחירת דמות/ }).click();
   await page.locator('[data-person-button="titus"]').click();
+  await expect(page.getByRole("button", { name: /בחירת דמות/ })).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator('[data-person-detail="titus"]')).toContainText("מצביא בחורבן");
   await page.locator('[data-person-detail="titus"] summary').click();
   await expect(page.locator('[data-person-detail="titus"] details')).toHaveAttribute("open", "");
+  await search.fill("גאלוס");
+  await page.getByRole("button", { name: /לבדוק מה זכרתי/ }).click();
+  await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "conquest");
+  await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
+  await page.getByRole("button", { name: /זכרתי ✓/ }).click();
+  await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "byzantine");
   expect(errors).toEqual([]);
   console.log("Roman people: navigation, alias/era/role/core filters, comparison, recall/retry, mobile, dark mode and zero page errors passed");
 } finally { await browser.close(); await new Promise(done => server.close(done)); }
