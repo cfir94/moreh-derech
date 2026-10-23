@@ -68,6 +68,8 @@ try {
   for(const width of [768,390,320]){
     await page.setViewportSize({width,height:950});
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+    for(const card of await page.getByRole("group",{name:"לימודי יהדות ונצרות"}).getByRole("button").all())
+      expect(await card.evaluate(el=>getComputedStyle(el).display)).toBe("flex");
   }
   await page.setViewportSize({width:390,height:844});
   await page.screenshot({path:"test-results/who-am-i-mobile.png",fullPage:true});
