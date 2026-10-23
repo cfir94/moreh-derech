@@ -8,10 +8,10 @@ import s from "./RomanPeople.module.css";
 function Portrait({ person, large = false }: { person: RomanPerson; large?: boolean }) {
   const portrait = PORTRAITS[person.id];
   const [failed, setFailed] = useState(false);
-  return <div className={`${s.portrait} ${large ? s.largePortrait : ""}`}>
+  return <div data-portrait={person.id} className={`${s.portrait} ${large ? s.largePortrait : ""}`}>
     <span className={s.monogram} aria-label={`מונוגרמה של ${person.name}`}><span aria-hidden>❧</span><b>{person.latin.split(" ")[0].slice(0, 2)}</b><span aria-hidden>❧</span></span>
-    {portrait && !failed && <img src={portraitUrl(portrait)} alt={portrait.alt} loading="lazy" width="500" height="660" referrerPolicy="no-referrer" onError={() => setFailed(true)} /> /* eslint-disable-line @next/next/no-img-element */}
-    <span className={s.portraitCaption}>{portrait && !failed ? "דיוקן באמנות" : "מונוגרמה"}</span>
+    {portrait && !failed && <a href={portraitUrl(portrait)} target="_blank" rel="noreferrer" aria-label={`הגדלת התמונה של ${person.name}`}><img src={portraitUrl(portrait)} alt={portrait.alt} loading="lazy" width="500" height="660" style={{ objectFit: portrait.fit ?? "cover" }} onError={() => setFailed(true)} /></a> /* eslint-disable-line @next/next/no-img-element */}
+    <span className={s.portraitCaption}>{portrait && !failed ? portrait.caption : failed ? "התמונה לא נטענה" : "לא נמצא דיוקן מזוהה"}</span>
   </div>;
 }
 
@@ -23,9 +23,10 @@ function EraArtwork({ era }: { era: RomanPerson["era"] }) {
 }
 
 function PersonDetail({ person, compact = false }: { person: RomanPerson; compact?: boolean }) {
+  const portrait = PORTRAITS[person.id];
   return <article className={`${s.detail} ${compact ? s.compact : ""}`} data-era={person.era} data-person-detail={person.id}>
     <div className={s.detailTop}>
-      <div className={s.effigy}><Portrait key={person.id} person={person} large={!compact} /></div>
+      <div className={s.effigy}><Portrait key={person.id} person={person} large={!compact} />{portrait && <a className={s.imageSource} href={portrait.sourceUrl} target="_blank" rel="noreferrer">מקור התמונה ↗</a>}</div>
       <div className={s.identity}>
         <p className={s.latin} lang="la" dir="ltr">{person.latin}</p>
         <h2>{person.name}</h2>
@@ -46,7 +47,7 @@ function PersonDetail({ person, compact = false }: { person: RomanPerson; compac
       <p className={s.trap}><b>שמים לב להבדל</b>{person.trap}</p>
       </section>
       {!compact && <details className={s.more}><summary>עוד הקשר ומקורות <span aria-hidden>＋</span></summary>
-        <p>{person.extra}</p>
+        <p>{person.extra}</p>{!portrait && <p>לא נמצא דיוקן מזוהה במקורות שנבדקו. המונוגרמה היא סימן זיכרון בלבד.</p>}{portrait && <p>{portrait.alt}. {portrait.note} <a href={portrait.sourceUrl} target="_blank" rel="noreferrer">מקור</a> · {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></p>}
         <ul>{person.sources.map(id => <li key={id}>{SOURCES[id].href ? <a href={SOURCES[id].href} target="_blank" rel="noreferrer">{SOURCES[id].title} ↗</a> : SOURCES[id].title}</li>)}</ul>
       </details>}
     </div>
@@ -172,7 +173,7 @@ export function RomanPeople() {
 
     <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p></details></section>
     <footer className={s.footer}><p>הבסיס: הקלטות מחברות בית שני והתקופה הרומית־ביזנטית. התאריכים בכרטיסים מציינים את האירוע או התקופה הנדונים. טיפי הזיכרון הם אסוציאציות ללמידה.</p>
-      <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>דיוקנאות באמנות</h3><p>צילומי פסלים ופסיפס; התמונות מוצגות בחיתוך במסגרת. במקום שאין תמונה מוצגת מונוגרמה.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(portrait.file)}`} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
+      <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>דיוקנאות באמנות</h3><p>35 תמונות של פסלים, מטבעות, פסיפסים וציורים. לחיצה על תמונה פותחת אותה להגדלה. יצירות מאוחרות וייחוסים מסופקים מסומנים; אין לראות בהם תיעוד ודאי של מראה הדמות. התמונות הוקטנו והומרו ל־WebP, והמסגרת עשויה לחתוך את התצוגה. לכל תמונה נשמר הרישיון המקורי. לפלורוס לא נמצא דיוקן מזוהה במקורות שנבדקו.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={portrait.sourceUrl} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
       <div className={s.related}><Link href="/timelines/second-temple">ציר בית שני ←</Link><Link href="/timelines/roman">הציר הרומי המלא ←</Link><Link href="/timelines/byzantine">הציר הביזנטי המלא ←</Link></div>
     </footer>
     </div>

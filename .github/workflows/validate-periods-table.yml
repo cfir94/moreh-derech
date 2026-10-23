@@ -5,6 +5,8 @@ on:
     paths:
       - "src/data/periods.ts"
       - "src/data/roman-people.ts"
+      - "src/data/roman-portraits.ts"
+      - "public/images/roman-people/portraits/**"
       - "src/components/timeline/RomanPeople*"
       - "src/components/timeline/PeriodsTable*"
       - "src/app/timelines/**"

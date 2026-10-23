@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { ROMAN_PEOPLE, COMPARISONS, ERAS, ROLES, SOURCES, PORTRAITS, filterPeople } from "../src/data/roman-people.ts";
 
 test("each person has a grounded event, a distinct role and a usable memory card", () => {
@@ -36,6 +37,14 @@ test("comparisons and image credits all resolve", () => {
   for (const [id, portrait] of Object.entries(PORTRAITS)) {
     assert.ok(ROMAN_PEOPLE.some(p => p.id === id));
     assert.ok(portrait.credit && portrait.licenseUrl.startsWith("https://"));
-    assert.match(portrait.path, /^[a-f0-9]\/[a-f0-9]{2}$/);
+    assert.match(portrait.localSrc, /^\/moreh-derech\/images\/roman-people\/portraits\/[a-z0-9]+\.webp$/);
+    const bytes = readFileSync(new URL("../public/" + portrait.localSrc.replace("/moreh-derech/", ""), import.meta.url));
+    assert.equal(bytes.toString("ascii", 0, 4), "RIFF", `${id}: valid WebP container`);
+    assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `${id}: WebP signature`);
+    assert.ok(portrait.sourceUrl.startsWith("https://commons.wikimedia.org/wiki/File:"));
   }
+  assert.equal(Object.keys(PORTRAITS).length, 35);
+  assert.deepEqual(ROMAN_PEOPLE.filter(p => !PORTRAITS[p.id]).map(p => p.id), ["florus"]);
+  for (const id of ["varus", "quirinius", "pilate", "cestius"]) assert.match(PORTRAITS[id].caption, /מאוחר/);
+  assert.ok(PORTRAITS.quietus.note.includes("אין בו דיוקן אישי ודאי"));
 });

@@ -1,3 +1,5 @@
+import { LOCAL_PORTRAITS } from "@/data/roman-portraits";
+
 export type Era = "conquest" | "empire" | "byzantine";
 export type Role = "emperor" | "general" | "governor" | "deputy" | "court";
 export const ERAS: { id: Era; label: string; dates: string; subtitle: string; mark: string }[] = [
@@ -23,18 +25,10 @@ export const SOURCES: Record<string, { title: string; detail: string; href?: str
   nero: { title: "השלמת הקשר: נירון והמרד הגדול", detail: "המרד פרץ בימיו; שלח את אספסיאנוס בשנת 67.", href: "https://en.wikipedia.org/wiki/Nero#First_Jewish_War" },
   heraclius: { title: "השלמת הקשר: הרקליוס", detail: "שמו אינו נזכר בהקלטה; נוסף לחיבור בין המלחמה בפרסים לכיבוש המוסלמי.", href: "https://en.wikipedia.org/wiki/Heraclius" },
 };
-export type Portrait = { file: string; path: string; alt: string; credit: string; license: string; licenseUrl: string };
-export const PORTRAITS: Record<string, Portrait> = {
-  augustus: { file: "Augustus_Prima_Porta_Louvre_Ma1247.jpg", path: "0/04", alt: "דיוקן אוגוסטוס בשיש, מוזיאון הלובר", credit: "Marie-Lan Nguyen / Wikimedia Commons", license: "CC BY 2.5", licenseUrl: "https://creativecommons.org/licenses/by/2.5/" },
-  hadrian: { file: "Bust_Hadrian_Musei_Capitolini_MC817.jpg", path: "d/d7", alt: "פרוטומה של אדריאנוס, המוזיאונים הקפיטוליניים", credit: "Jastrow / Wikimedia Commons", license: "נחלת הכלל", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
-  constantine: { file: "Head_Constantine_Musei_Capitolini_MC1072_(cropped).jpg", path: "0/0e", alt: "ראש קונסטנטינוס מפסל ברונזה, המוזיאונים הקפיטוליניים", credit: "Jastrow; crop: Tintero21 / Wikimedia Commons", license: "נחלת הכלל", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/" },
-  justinian: { file: "Mosaic_of_Justinianus_I_(cropped).jpg", path: "1/10", alt: "יוסטיניאנוס בפסיפס סן ויטאלה ברוונה", credit: "Petar Milošević; crop: Tintero21 / Wikimedia Commons", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
-};
+export type Portrait = { file: string; localSrc: string; sourceUrl: string; alt: string; caption: string; note?: string; credit: string; license: string; licenseUrl: string; fit?: "contain" | "cover" };
+export const PORTRAITS: Record<string, Portrait> = LOCAL_PORTRAITS;
 export function portraitUrl(portrait: Portrait) {
-  const file = encodeURIComponent(portrait.file);
-  return portrait.path
-    ? `https://thumb.wikimedia.org/wikipedia/commons/thumb/${portrait.path}/${file}/500px-${file}`
-    : `https://commons.wikimedia.org/wiki/Special:FilePath/${file}?width=500`;
+  return portrait.localSrc;
 }
 export type RomanPerson = {
   id: string; name: string; latin: string; aliases: string; era: Era; roles: Role[];

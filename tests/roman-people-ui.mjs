@@ -25,6 +25,24 @@ try {
   await page.getByRole("link", { name: /מי זה מי ברומא/ }).click();
   await expect(page.getByRole("heading", { name: "מי זה מי ברומא?", exact: true })).toBeVisible();
   await expect(page.locator("[data-person-button]")).toHaveCount(36);
+  // Exercise every downloaded portrait, including the non-core figures, from the
+  // exported site. A passing fallback alone must never count as a loaded image.
+  const personIds = await page.locator("[data-person-button]").evaluateAll(buttons => buttons.map(button => button.dataset.personButton));
+  for (const id of personIds) {
+    await page.locator(`[data-person-button="${id}"]`).click();
+    const portrait = page.locator(`[data-person-detail="${id}"] [data-portrait]`);
+    if (id === "florus") {
+      await expect(portrait.locator("img")).toHaveCount(0);
+    } else {
+      const image = portrait.locator("img");
+      await expect(image).toHaveCount(1);
+      await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+      expect(await image.getAttribute("src")).toBe(`/moreh-derech/images/roman-people/portraits/${id}.webp`);
+      await expect(portrait.locator("a")).toHaveAttribute("href", await image.getAttribute("src"));
+      await expect(page.locator(`[data-person-detail="${id}"] a[href^="https://commons.wikimedia.org/wiki/File:"]`).first()).toBeVisible();
+    }
+  }
+  await page.locator('[data-person-button="pompey"]').click();
   await expect(page.locator('[data-person-button="pompey"]')).toBeVisible();
   await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 4 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
   await expect(page.getByRole("button", { name: "הדמות הקודמת", exact: true })).toBeDisabled();
