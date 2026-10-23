@@ -16,8 +16,7 @@ def work(row):
  try:
   if article.startswith("File:"):filename=article[5:]
   else:
-   host="he.wikipedia.org" if article.startswith("he:") else "en.wikipedia.org"
-   page=next(iter(api(host,dict(action="query",titles=article[3:] if article.startswith("he:") else article,prop="pageimages",piprop="name",redirects=1))["query"]["pages"].values()))
+   page=next(iter(api("en.wikipedia.org",dict(action="query",titles=article,prop="pageimages",piprop="name",redirects=1))["query"]["pages"].values()))
    filename=page.get("pageimage")
   if not filename:raise Exception("no page image")
   info=next(iter(api("commons.wikimedia.org",dict(action="query",titles="File:"+filename,prop="imageinfo",iiprop="url|extmetadata",iiurlwidth=480))["query"]["pages"].values()))["imageinfo"][0]
