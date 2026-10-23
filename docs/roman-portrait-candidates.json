@@ -87,16 +87,19 @@
   "tiberius": {
     "article": "Tiberius",
     "articleUrl": "https://en.wikipedia.org/wiki/Tiberius",
-    "file": "8095_-_Roma_-_Ara_Pacis_-_Tiberio_-_Foto_Giovanni_Dall'Orto_-_28-Mar-2008.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:8095_-_Roma_-_Ara_Pacis_-_Tiberio_-_Foto_Giovanni_Dall%27Orto_-_28-Mar-2008.jpg",
-    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/8095_-_Roma_-_Ara_Pacis_-_Tiberio_-_Foto_Giovanni_Dall%27Orto_-_28-Mar-2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-    "description": "Rome, Ara Pacis museum: cast of a portrait of emperor Tiberius. From the collection of casts of busts showing the members of the Julio-Claudian dynasty. The original artwork is exhibited in the Ny Carlsberg Glyptotek (Copenhagen). Picture by Giovanni Dall'Orto, March 28 2008.",
-    "credit": "Giovanni Dall'Orto",
-    "license": "Attribution",
-    "licenseUrl": "",
+    "file": "Head of Tiberius.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Head_of_Tiberius.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Head_of_Tiberius.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Around AD 10-20.\nMarble.",
+    "credit": "MumblerJamie",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "restrictions": "",
-    "date": "2008-03-28",
-    "status": "needs-license-review"
+    "date": "2018-09-16 15:35:07",
+    "status": "downloaded-for-review",
+    "width": 600,
+    "height": 800,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/tiberius.webp"
   },
   "pilate": {
     "article": "Pontius Pilate",
@@ -139,12 +142,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Claudius_crop.jpg",
     "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/Claudius_crop.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "description": "Bust of Emperor Claudius.",
-    "credit": "",
+    "credit": "Marie-Lan Nguyen (2011); crop: DIREKTOR / Wikimedia Commons",
     "license": "CC BY 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
     "restrictions": "",
     "date": "between 41 and 54 AD",
-    "status": "needs-license-review"
+    "status": "downloaded-for-review",
+    "width": 605,
+    "height": 800,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/claudius.webp"
   },
   "nero": {
     "article": "Nero",
@@ -153,12 +159,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nero_Glyptothek_Munich_321.jpg",
     "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Nero_Glyptothek_Munich_321.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "description": "Head of Nero (reign 54–68 CE), from an oversized statue, about 2.40 m height. After 64 AD.",
-    "credit": "",
+    "credit": "Bibi Saint-Pol / Wikimedia Commons",
     "license": "Public domain",
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
     "restrictions": "",
     "date": "",
-    "status": "needs-license-review"
+    "status": "downloaded-for-review",
+    "width": 588,
+    "height": 800,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/nero.webp"
   },
   "florus": {
     "article": "Gessius Florus",
@@ -211,12 +220,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Domiziano_da_collezione_albani,_fine_del_I_sec._dc._02.JPG",
     "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Domiziano_da_collezione_albani%2C_fine_del_I_sec._dc._02.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "description": "Bust of roman emperor Domitianus. Antique head, body added in the 18th century. Musée du Louvre (Ma 1264), Paris. Formerly in the Albani Collection in Rome.",
-    "credit": "",
+    "credit": "Sailko / Wikimedia Commons",
     "license": "CC BY 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
     "restrictions": "",
     "date": "15 September 2013, 00:57:43",
-    "status": "needs-license-review"
+    "status": "downloaded-for-review",
+    "width": 640,
+    "height": 793,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/domitian.webp"
   },
   "nerva": {
     "article": "Nerva",
@@ -255,7 +267,16 @@
   "quietus": {
     "article": "Lusius Quietus",
     "articleUrl": "https://en.wikipedia.org/wiki/Lusius_Quietus",
-    "status": "no-portrait-candidate"
+    "file": "Lusius Quietus on Column of Trajan.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lusius_Quietus_on_Column_of_Trajan.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Lusius_Quietus_on_Column_of_Trajan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "",
+    "credit": "",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "restrictions": "",
+    "date": "",
+    "status": "needs-license-review"
   },
   "hadrian": {
     "article": "Hadrian",
@@ -502,12 +523,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Theodosius_II_Louvre_Ma1036.jpg",
     "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/Theodosius_II_Louvre_Ma1036.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "description": "Bust of Byzantine Empreror Theodosius II (reigned 408–450 AD). Marble, 5th century AD.",
-    "credit": "",
+    "credit": "Marie-Lan Nguyen / Wikimedia Commons",
     "license": "CC BY 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
     "restrictions": "",
     "date": "",
-    "status": "needs-license-review"
+    "status": "downloaded-for-review",
+    "width": 600,
+    "height": 800,
+    "localSrc": "/moreh-derech/images/roman-people/portraits/theodosius2.webp"
   },
   "eudocia": {
     "article": "Aelia Eudocia",
