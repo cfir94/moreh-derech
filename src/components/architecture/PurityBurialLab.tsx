@@ -73,7 +73,7 @@ type BPart = "kokh" | "arcosolium" | "sarcophagus" | "smallKokh" | "ossuary" | "
 export const BURIAL: Record<BPart, PartInfo> = {
   kokh: { title: "כוך", text: "גומחה צרה ועמוקה שנחצבה בדופן המערה; פתחה נאטם בדלת וטיח. כוך ארוך — לגופה שלמה: קבורה ראשונה. הכוכים הקדומים בארץ — במערות ההלניסטיות של מרשה.", site: "קברי הסנהדרין — אפילו שתי קומות של כוכים" },
   arcosolium: { title: "ארקוסוליום", latin: "arcosolium", text: "מדף חצוב ומעליו קשת (ארקוס). על מדף גדול — גופה שלמה; על קטן — עצמות. לא תמיד ליקטו אחר כך.", site: "קברי הסנהדרין" },
-  sarcophagus: { title: "סרקופג", latin: "sarcophagus", text: "ארון מתים גדול לגופה שלמה — 'אוכל הבשר'. נדיר בבית שני, נפוץ אחר כך — אצל יהודים ושאינם יהודים.", site: "בית שערים" },
+  sarcophagus: { title: "סרקופג", latin: "sarcophagus", text: "ארון מתים גדול לגופה שלמה — 'אוכל הבשר'. נדיר בבית שני (עשרות ידועים), נפוץ בתקופת המשנה והתלמוד — אצל יהודים ושאינם יהודים.", site: "בית שערים" },
   smallKokh: { title: "כוך קטן", text: "קצר מכדי להכיל גופה — ולכן לקבורה שנייה של עצמות." },
   ossuary: { title: "גלוסקמה", text: "תיבה קטנה, לרוב מאבן ומעוטרת, לעצמות. ארוכה מעצם הירך, רחבה מן האגן וגבוהה מן הגולגולת. בירושלים מסוף המאה ה־1 לפנה״ס עד החורבן; בגליל ובדרום עוד כמאתיים שנה." },
   pit: { title: "בור עמידה", text: "שקע במרכז החדר, כדי שאפשר יהיה לעמוד זקוף במערה נמוכה." },
@@ -131,7 +131,51 @@ export function BurialLab() {
       <article className={styles.miniCard}><h4>בית שערים</h4><p>מערכות קבורה מפוארות וסרקופגים מן התקופה הרומית המאוחרת — אולי גם קבר רבי יהודה הנשיא.</p></article>
     </div>
     </Section>
+    <Section title="סרקופג">
+      <SarcophagusLab />
+    </Section>
   </Plate>;
+}
+
+type SPart = "sarcophagus" | "name" | "lid" | "body" | "ossuary";
+export const SARCOPHAGUS: Record<SPart, PartInfo> = {
+  sarcophagus: { title: "סרקופג — ארון לאדם שלם", latin: "sarcophagus", text: "ארון מתים גדול, לקבורה ראשונה של הגוף כולו. במבט ראשון הוא נראה כמו גלוסקמה — אבל גדול ממנה פי כמה.", site: "בית שערים" },
+  name: { title: "'אוכל הבשר'", latin: "sarx + phagein", text: "השם בא מן הפועל 'לאכול': sarx ביוונית הוא בשר. הסרקופג 'אוכל' כביכול את בשר הנפטר ומשאיר רק עצמות." },
+  body: { title: "הגופה — קבורה ראשונה", text: "בסרקופג מניחים את המת כמות שהוא. בכוך או בארקוסוליום מלקטים אחר כך את העצמות לגלוסקמה — בסרקופג אין צורך בכך." },
+  lid: { title: "מכסה ועיטורים", text: "בבית שערים המכסים כבדים, לרוב משופעים כגג, ובפינותיהם 'קרניים' (אקרוטריות). על הדפנות: זרים, רוזטות, אריות, נשרים ושוורים — ואפילו דמויות. (השלמה מן הספרות; לא הוסבר בהרצאה.)" },
+  ossuary: { title: "ולידו — גלוסקמה", text: "קטנה מכדי להכיל אדם שלם: ארוכה מעצם הירך, רחבה מן האגן וגבוהה מן הגולגולת. היא לקבורה שנייה — לעצמות בלבד." },
+};
+
+function SarcophagusLab() {
+  const pick = usePick<SPart>("sarcophagus");
+  return <>
+    <div className={styles.lab}>
+      <figure className={styles.figure}>
+        <svg viewBox="0 0 520 240" className={styles.svg} role="img" aria-label="סרקופג וגלוסקמה באותו קנה מידה">
+          <path className={styles.earth} d="M0 200h520v40H0Z" />
+          <g {...pick.bind("lid", "מכסה הסרקופג")}><path d="M14 74 L177 38 L340 74 Z" /><rect x={10} y={66} width={22} height={14} /><rect x={322} y={66} width={22} height={14} /></g>
+          <g {...pick.bind("sarcophagus", "סרקופג")}><rect x={20} y={74} width={314} height={126} />
+            <path className={styles.ln} d="M60 112 Q105 160 150 112 M204 112 Q249 160 294 112" />
+            {[60, 150, 204, 294].map((x) => <circle key={x} cx={x} cy={110} r={5} />)}
+            <path className={styles.ln} d="M155 124h44l8 6-8 6h-44l-8-6Z" />
+          </g>
+          <g {...pick.bind("body", "הגופה")}><path className={styles.ln} strokeDasharray="5 4" d="M62 170a13 13 0 1 0 0.1 0M76 170h150M226 164l70 -2M226 176l70 2" /></g>
+          <g {...pick.bind("ossuary", "גלוסקמה")}><rect x={392} y={152} width={92} height={48} /><path d="M388 152 Q438 140 488 152 Z" /><circle cx={418} cy={176} r={10} className={styles.ln} /><circle cx={458} cy={176} r={10} className={styles.ln} /></g>
+          <g {...pick.bind("name", "'אוכל הבשר'")}><text x={177} y={28} textAnchor="middle" className={styles.svgLabel}>σαρκοφάγος — אוכל הבשר</text></g>
+          <path className={styles.dim} d="M20 214h314M20 208v12M334 208v12M392 214h92M392 208v12M484 208v12" />
+          <text x={177} y={232} textAnchor="middle" className={styles.dimText}>כ־2 מ׳ — אדם שלם</text>
+          <text x={438} y={232} textAnchor="middle" className={styles.dimText}>כ־60 ס״מ — עצמות</text>
+        </svg>
+        <figcaption className={styles.caption}>באותו קנה מידה: סרקופג לקבורה ראשונה, גלוסקמה לקבורה שנייה.</figcaption>
+      </figure>
+      <Info info={SARCOPHAGUS[pick.active]} />
+    </div>
+    <div className={styles.cards3}>
+      <article className={styles.miniCard}><h4>בימי בית שני — נדיר</h4><p>נדיר יחסית, אבל קיים: מוכרות עשרות סרקופגים מן התקופה. הרוב נקברו בכוכים ובארקוסוליות, והעצמות לוקטו לגלוסקמאות.</p></article>
+      <article className={styles.miniCard}><h4>במשנה ובתלמוד — נפוץ</h4><p>בתקופה הרומית המאוחרת והביזנטית הסרקופג נפוץ — אצל יהודים, אצל שאינם יהודים ואצל הביזנטים. הוא אינו סימן יהודי; הקבורה השנייה — כן.</p></article>
+      <article className={styles.miniCard}><h4>בית שערים</h4><p>במערכות הקבורה המפוארות — ובהן זו שאולי נקבר בה רבי יהודה הנשיא — עשרות רבות של סרקופגים מעוטרים. ב&apos;מערת הארונות&apos; לבדה יותר ממאה.</p></article>
+    </div>
+  </>;
 }
 
 type KPart = "qever" | "nefesh" | "hezirCols" | "hezirText" | "zechariah";

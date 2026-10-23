@@ -46,7 +46,7 @@ test("search matches Hebrew, Latin and site names", () => {
 test("every field photo is on disk, sits in a real chapter and carries its credit", async () => {
   const { ARCH_PHOTOS } = await import("../src/data/classical-architecture/photos.ts");
   const { existsSync } = await import("node:fs");
-  const chapters = new Set(ARCH_CHAPTERS.map((c) => c.id));
+  const chapters = new Set([...ARCH_CHAPTERS.map((c) => c.id), "timeline"]);
   assert.ok(ARCH_PHOTOS.length >= 20, "photos were fetched");
   const ids = new Set();
   for (const p of ARCH_PHOTOS) {
@@ -56,4 +56,7 @@ test("every field photo is on disk, sits in a real chapter and carries its credi
     for (const field of ["caption", "alt", "author", "license", "source"]) assert.ok(p[field]?.trim(), `${p.id}: ${field}`);
     assert.match(p.source, /^https:\/\/commons\.wikimedia\.org\//, `${p.id}: source`);
   }
+  for (const m of ARCH_MILESTONES) if (m.photo) assert.ok(ids.has(m.photo), `${m.id}: photo ${m.photo}`);
+  assert.ok(ARCH_MILESTONES.filter((m) => m.photo).length >= 12, "the timeline is illustrated");
+  assert.ok(ARCH_PHOTOS.filter((p) => p.chapter === "burial" && /סרקופג/.test(p.caption)).length >= 2, "sarcophagus photos");
 });
