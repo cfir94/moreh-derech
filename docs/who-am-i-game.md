@@ -38,3 +38,10 @@ Coverage follow-up against the course concepts sheet and lecture 14 added 16 fig
 ### Clue audit identities
 
 joshua, othniel, deborah, gideon, samson, samuel, jonathan, asa, jeroboam1, sennacherib, zedekiah, jeshua, haggai, ezra, antiochus4, aristobulus1, herod-great, archelaus, antipas, philip, trajan, quietus, gamaliel2, bar-kokhba, judah-prince, constantine, constantius, gallus, eusebius, bordeaux, egeria, antony, augustus, varus, tiberius, menachem, eleazar-simon, philo, agrippa2, jehoram-judah.
+
+### Verified release checks
+
+Validation run: https://github.com/cfir94/moreh-derech/actions/runs/39955432625
+Validated source commit: 2677187879ebf6c36468509bf3206e5221321762
+All 11 content/logic tests, targeted ESLint, production static export, and browser scenarios passed. Browser coverage includes ten-question rounds for Judaism A and Christianity B, balanced mixed answer styles, source filtering, missed-question review, all 195 image decodes, and 320/390/768 px layouts. Desktop and mobile screenshots were visually reviewed; a mobile selector inheritance issue was corrected. CI uses runner Chrome when present, with a Chromium installation fallback. Screenshot base64 logging is disabled for normal runs.
+Next maintenance: add further course-supported clue variants while preserving the identity-leak and source-filter regression checks.
