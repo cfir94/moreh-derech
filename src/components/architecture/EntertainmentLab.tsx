@@ -5,7 +5,7 @@ import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from ".
 
 type TPart = "scaenae" | "pulpitum" | "proscaenium" | "orchestra" | "ima" | "media" | "summa" | "aditus" | "vomitorium" | "ambulacrum";
 
-const THEATRE: Record<TPart, PartInfo & { n: number }> = {
+export const THEATRE: Record<TPart, PartInfo & { n: number }> = {
   scaenae: { n: 1, title: "סקנה פרונס", latin: "scaenae frons", text: "הקיר שמאחורי הבמה, מול הקהל — קיר התפאורה, בכמה קומות ועם פתחים. בתיאטרון הרומי הוא גבוה וחוסם לגמרי את הנוף: הקהל 'נכנס' אל העולם הרומי. מכאן המילה 'סצנה'." },
   pulpitum: { n: 3, title: "פולפיטום — הבמה", latin: "pulpitum", text: "הבמה שעליה עמדו השחקנים — החלק בתיאטרון הרומי שבו נערכה ההופעה. בתוכן: אצל היוונים טרגדיות וקומדיות; אצל הרומאים יותר פנטומימה וחיקויים." },
   proscaenium: { n: 4, title: "פרוסקניון", latin: "proscaenium", text: "חזית הבמה, הפונה לאורכסטרה. בגומחות שבה עמדו פסלי אלים וגיבורים." },
@@ -83,7 +83,7 @@ function onTrack(s: number) {
 }
 
 type HPart = "carceres" | "spina" | "metaPrima" | "metaSecunda" | "seats" | "counter" | "wall";
-const HIPPO: Record<HPart, PartInfo> = {
+export const HIPPO: Record<HPart, PartInfo> = {
   carceres: { title: "תאי ההזנקה", latin: "carceres", text: "המרכבות והסוסים ממתינים בתאים; עם האות — הם דוהרים החוצה. בהיפודרומים גדולים המסלול באורך 300–400 מ'." },
   spina: { title: "ספינה", latin: "spina", text: "'עמוד השדרה' — הקיר המרכזי שהמרכבות מקיפות כמה סיבובים. יכול להיות צר או רחב, פשוט או מפואר." },
   metaPrima: { title: "מטה פרימה", latin: "meta prima", text: "נקודת הסיבוב בקצה הרחוק מתאי ההזנקה — הראשונה שאליה מגיעים. כאן התהפכו מרכבות." },

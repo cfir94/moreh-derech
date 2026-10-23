@@ -14,7 +14,8 @@ import { BathsLab, DecorLab } from "./BathsDecorLab";
 import { BurialLab, PurityLab } from "./PurityBurialLab";
 import { ChurchesLab, SynagoguesLab } from "./SacredLab";
 import { Glossary, Timeline } from "./ClassicalArchitecture";
-import { Aqueduct3D, Column3D, Pantheon3D, Temple3D } from "./Models3D";
+import { Aqueduct3D, Arch3D, Basilica3D, Bath3D, Cave3D, Column3D, Hippodrome3D, Mikveh3D, Pantheon3D, Road3D, Synagogue3D, Temple3D, Theatre3D } from "./Models3D";
+import { PhotoGallery, photosFor } from "./PhotoGallery";
 
 const TABS = [
   ...ARCH_CHAPTERS.map((c) => ({ id: c.id, numeral: c.numeral, title: c.title, short: c.short })),
@@ -40,12 +41,25 @@ const LABS: Record<string, () => ReactNode> = {
   glossary: () => <Glossary />,
 };
 
-const EXTRAS: Record<string, ExtraSection[]> = {
+const MODELS: Record<string, ExtraSection[]> = {
   orders: [{ title: "עמוד בתלת־ממד", node: <Column3D /> }],
   temples: [{ title: "מקדש בתלת־ממד", node: <Temple3D /> }],
-  city: [{ title: "הפנתאון בתלת־ממד", node: <Pantheon3D />, last: true }],
+  city: [{ title: "שער ניצחון בתלת־ממד", node: <Arch3D /> }, { title: "הפנתאון בתלת־ממד", node: <Pantheon3D />, last: true }],
+  roads: [{ title: "דרך ואבן מיל בתלת־ממד", node: <Road3D /> }],
   water: [{ title: "קיסריה בתלת־ממד", node: <Aqueduct3D /> }],
+  entertainment: [{ title: "תיאטרון בתלת־ממד", node: <Theatre3D /> }, { title: "היפודרום בתלת־ממד", node: <Hippodrome3D /> }],
+  baths: [{ title: "מרחץ בתלת־ממד", node: <Bath3D /> }],
+  purity: [{ title: "מקווה בתלת־ממד", node: <Mikveh3D /> }],
+  burial: [{ title: "מערת קבורה בתלת־ממד", node: <Cave3D /> }],
+  synagogues: [{ title: "בית כנסת בתלת־ממד", node: <Synagogue3D /> }],
+  churches: [{ title: "בסיליקה בתלת־ממד", node: <Basilica3D /> }],
 };
+
+/** 3D first, then the chapter's own drawings, then the field photos. */
+const EXTRAS: Record<string, ExtraSection[]> = Object.fromEntries(ARCH_CHAPTERS.map((c) => [c.id, [
+  ...(MODELS[c.id] ?? []),
+  ...(photosFor(c.id).length ? [{ title: "תמונות מהשטח", node: <PhotoGallery chapter={c.id} />, last: true }] : []),
+]]));
 
 /** The tab lives in the URL hash, so chapters can be linked and the back button works. */
 function subscribe(callback: () => void) {
@@ -102,7 +116,7 @@ export function ArchitectureStudio() {
       <div>
         <p className={styles.eyebrow}>VITRVVIVS · DE ARCHITECTVRA</p>
         <h1>מושגי יסוד באדריכלות קלאסית</h1>
-        <p className={studio.tagline}>{ARCH_CHAPTERS.length} לוחות אינטראקטיביים, ארבעה מודלים בתלת־ממד ומילון של כל מושגי המטלה — לפי הרצאות היחידה ודף המטלה של בת־ציון זיו.</p>
+        <p className={studio.tagline}>{ARCH_CHAPTERS.length} לוחות אינטראקטיביים, 13 מודלים בתלת־ממד, תמונות מהשטח ומילון של כל מושגי המטלה — לפי הרצאות היחידה ודף המטלה של בת־ציון זיו.</p>
       </div>
       <Link href="/timelines/classical-architecture/v1" className={studio.classic}>הגרסה הקודמת — עמוד אחד ארוך</Link>
     </header>

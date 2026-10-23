@@ -6,7 +6,7 @@ import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from ".
 /* ------------------------------ IV. roads ------------------------------ */
 
 type RoadPart = "paving" | "fill" | "gravel" | "bedding" | "curb" | "ditch" | "rock" | "steps";
-const ROAD: Record<RoadPart, PartInfo> = {
+export const ROAD: Record<RoadPart, PartInfo> = {
   paving: { title: "אבני הריצוף", text: "אבנים גדולות ומהודקות, בגב מעוגל קלות כדי שמי הגשם יזרמו לצדדים. ברחובות העיר — גם מדרכות ואבני מעבר לחציית הרחוב ביום גשם (כמו בפומפיי)." },
   fill: { title: "שכבת מילוי דקה", text: "חצץ דק וטיט — מצע ישר לאבני הריצוף." },
   gravel: { title: "שכבת חצץ", text: "אבנים בינוניות וחצץ, לפיזור העומס של עגלות וצבא." },

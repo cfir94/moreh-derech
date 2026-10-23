@@ -156,7 +156,7 @@ function ConstructionLab() {
 }
 
 type ArchPart = "central" | "side" | "pedestal" | "column" | "inscription";
-const ARCH: Record<ArchPart, PartInfo> = {
+export const ARCH: Record<ArchPart, PartInfo> = {
   central: { title: "הקשת המרכזית", text: "גבוהה ורחבה. באקה הומו בירושלים שרדה הקשת המרכזית מעל ויה דולורוזה." },
   side: { title: "קשתות הצד", text: "שתיים, סימטריות, נמוכות וצרות יותר. בשער שכם נחשף צד שמאל של שער משולש — המקבילה לקשת הקטנה שבקשת ספטימיוס סוורוס ברומא." },
   pedestal: { title: "פדסטלים", text: "בסיסי העמודים אינם על הרצפה — הם מוגבהים על כַּן. בשער שכם הבסיסים נשמרו על פדסטלים." },
