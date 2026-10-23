@@ -26,6 +26,10 @@ jobs:
         run: node --import ./tests/register-ts.mjs --test tests/era-timelines.test.mjs
       - name: Lint Roman and Byzantine timelines
         run: npm run lint -- src/components/timeline/RomanTimeline.tsx src/components/timeline/ByzantineTimeline.tsx src/components/timeline/useEraTimeline.ts src/data/roman/index.ts src/data/byzantine/index.ts src/app/timelines/roman/page.tsx src/app/timelines/byzantine/page.tsx
+      - name: Validate classical architecture content
+        run: node --import ./tests/register-ts.mjs --test tests/classical-architecture.test.mjs
+      - name: Lint classical architecture page
+        run: npm run lint -- src/components/architecture src/data/classical-architecture src/app/timelines/classical-architecture
       - name: Lint changed application code
         run: npm run lint -- src/app/page.tsx src/app/quizzes/review/page.tsx src/components/exam/ExamRunner.tsx src/components/quiz/QuizRunner.tsx src/components/guide-reports src/components/SiteSearch.tsx src/lib/progress.ts src/lib/guideReportDrafts.ts src/lib/notebookStore.ts src/lib/siteSearch.ts src/lib/requestCache.ts src/lib/answerMatching.ts src/lib/reviewQuestions.ts src/data/quizzes/types.ts src/data/quizzes/index.ts
       - run: npm run build
@@ -37,3 +41,5 @@ jobs:
         run: node tests/second-temple-ui.mjs
       - name: Roman and Byzantine timeline browser checks
         run: node tests/era-timelines-ui.mjs
+      - name: Classical architecture browser checks
+        run: node tests/classical-architecture-ui.mjs

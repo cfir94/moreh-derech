@@ -3,6 +3,7 @@ import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
 import { PERIOD_ROWS } from "@/data/periods";
+import { ARCH_CHAPTERS, ARCH_TERMS } from "@/data/classical-architecture";
 import { SectionCard } from "@/components/SectionCard";
 
 const sets = [
@@ -35,6 +36,14 @@ const sets = [
     description:
       "כנסיות ומנזרים, צליינים ומפת מידבא, התלמוד הירושלמי ובתי הכנסת, ועד הכיבוש המוסלמי — בפסיפס של זהב.",
     meta: `${BYZ_EVENTS.length} אירועים · מועצות, כנסיות וצליינים`,
+  },
+  {
+    slug: "classical-architecture-timeline",
+    href: "/timelines/classical-architecture",
+    title: "מושגי יסוד באדריכלות קלאסית",
+    description:
+      "שולחן שרטוט אינטראקטיבי: הסדרים, מקדשים, העיר, אמות מים, תיאטרון והיפודרום, מרחץ, מקוואות, קבורה, בתי כנסת וכנסיות.",
+    meta: `${ARCH_CHAPTERS.length} לוחות · ${ARCH_TERMS.length} מושגים`,
   },
   {
     slug: "biblical",
