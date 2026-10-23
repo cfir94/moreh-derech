@@ -315,19 +315,6 @@ export const ARCH_PHOTOS: ArchPhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Hezir_tomb.JPG"
   },
   {
-    "id": "hezir-inscription",
-    "chapter": "burial",
-    "caption": "הכתובת מעל עמודי קבר בני חזיר — שמות משפחת הכוהנים בני חזיר.",
-    "alt": "כתובת עברית חקוקה באבן",
-    "src": "/architecture/photos/hezir-inscription.jpg",
-    "width": 1280,
-    "height": 463,
-    "author": "Dudi ancient cities",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Benei_Hezir_Tomb_inscription_(cropped).jpg"
-  },
-  {
     "id": "gamla",
     "chapter": "synagogues",
     "caption": "בית הכנסת בגמלא — ספסלים מדורגים לאורך הקירות (ימי בית שני).",

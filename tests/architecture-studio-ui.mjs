@@ -53,7 +53,7 @@ try {
   await rail.getByRole("tab", { name: /מבני בידור/ }).click();
   await expect(page).toHaveURL(/#entertainment$/);
   await expect(page.getByRole("heading", { name: "מבני בידור", level: 2 })).toBeVisible();
-  await stage.getByRole("tab", { name: "היפודרום" }).click();
+  await stage.getByRole("tab", { name: "היפודרום", exact: true }).click();
   await stage.getByRole("button", { name: "להזניק את המרכבה" }).click();
   await expect(stage.getByText(/סיבוב \d\/7/)).toBeVisible();
   await stage.getByRole("button", { name: /בית המרחץ/ }).click();
