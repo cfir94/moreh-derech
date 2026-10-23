@@ -121,7 +121,7 @@ export function SiteSearch() {
                 <button type="button" onClick={close} aria-label="סגירת החיפוש" className="grid size-9 shrink-0 place-items-center rounded-full text-txt-dim transition hover:bg-card-2 hover:text-txt active:scale-90"><CloseIcon /></button>
               </div>
               <div className="mt-2 flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-txt-dim">
-                <span>מחברות, סרטונים, שאלונים, מבחנים, סיכומים וצירי זמן</span>
+                <span>מחברות, סרטונים, שאלונים, מבחנים, סיכומים ועזרי למידה</span>
                 {query.trim().length >= 2 && !loading && <span className="num font-bold">{results.length} תוצאות</span>}
               </div>
             </div>

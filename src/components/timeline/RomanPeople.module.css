@@ -191,3 +191,16 @@
 }
 @media(max-width:360px){.page{padding-inline:12px}.hero{grid-template-columns:minmax(0,1fr) 74px;padding-inline:14px;gap:7px}.chapterSeal>.eraArt{width:74px}.hero h1{font-size:28px}.heroMeta{gap:11px;font-size:10px}.heroMeta b{font-size:18px}.intro{font-size:13px}.eyebrow{font-size:9px}.modes button{font-size:11px}.eras button{padding-inline:8px}.eras b{font-size:12px}.filters{grid-template-columns:minmax(0,1fr) 115px}.browseToggle{font-size:12px!important;gap:5px}.detailTop,.detailBody{padding:16px}.identity h2{font-size:27px}.largePortrait{width:58px;height:78px}}
 @media(prefers-reduced-motion:reduce){.page *,.page *:before,.page *:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+.companionGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.companionCard{margin:0;min-width:0;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.companionCard>a{display:block;cursor:zoom-in}
+.companionCard img{display:block;width:100%;height:180px;object-fit:contain;border-radius:6px;background:color-mix(in srgb,var(--gold) 9%,var(--paper))}
+.companionCard figcaption{margin-top:10px}
+.companionCard h3{font-size:18px;margin:0 0 5px}
+.companionCard b{font-size:13px;color:var(--accent)}
+.companionCard p{margin-top:5px!important}
+.companionCaption,.companionCard small{display:block;font-size:12px;line-height:1.7;color:var(--dim);margin-top:9px}
+.companionCard small a{text-decoration:underline}
+.companionHint{font-size:12px!important}
+@media(max-width:640px){.companionGrid{grid-template-columns:1fr}.companionCard{display:grid;grid-template-columns:90px minmax(0,1fr);gap:13px;padding:12px}.companionCard img{height:130px}.companionCard figcaption{margin-top:0}.companionCard h3{font-size:16px}}

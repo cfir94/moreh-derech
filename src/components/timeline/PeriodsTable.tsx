@@ -49,7 +49,7 @@ export function PeriodsTable() {
   const reset = () => { setQuery(""); setGroup("all"); };
 
   return <div className={s.page} dir="rtl" data-periods-page>
-    <Link className={s.back} href="/timelines"><span aria-hidden>→</span> לכל צירי הזמן</Link>
+    <Link className={s.back} href="/timelines"><span aria-hidden>→</span> לכל עזרי הלמידה</Link>
 
     <header className={s.hero}>
       <div className={s.heroText}>

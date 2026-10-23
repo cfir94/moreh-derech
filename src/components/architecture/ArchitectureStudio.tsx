@@ -111,7 +111,7 @@ export function ArchitectureStudio() {
   };
 
   return <div className={cx(styles.page, studio.app)} dir="rtl">
-    <div className={styles.breadcrumb}><Link href="/timelines">צירי זמן</Link><span aria-hidden> / </span><span>מושגי יסוד באדריכלות קלאסית</span></div>
+    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>מושגי יסוד באדריכלות קלאסית</span></div>
 
     <header className={studio.masthead}>
       <div>

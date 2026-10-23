@@ -152,7 +152,7 @@ function Flashcards() {
 export function ClassicalArchitecture() {
   const listCount = ARCH_TERMS.filter((t) => t.list).length;
   return <div className={styles.page} dir="rtl">
-    <div className={styles.breadcrumb}><Link href="/timelines">צירי זמן</Link><span aria-hidden> / </span><span>מושגי יסוד באדריכלות קלאסית</span></div>
+    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>מושגי יסוד באדריכלות קלאסית</span></div>
 
     <header className={styles.hero}>
       <div className={styles.heroCopy}>
@@ -193,6 +193,6 @@ export function ClassicalArchitecture() {
     <ChurchesLab />
     <Glossary />
 
-    <footer className={styles.footer}><span>אבן דרך למורי דרך · אדריכלות קלאסית</span><a href="#plates">↑ ללוחות</a><Link href="/timelines">לכל צירי הזמן ←</Link></footer>
+    <footer className={styles.footer}><span>אבן דרך למורי דרך · אדריכלות קלאסית</span><a href="#plates">↑ ללוחות</a><Link href="/timelines">לכל עזרי הלמידה ←</Link></footer>
   </div>;
 }

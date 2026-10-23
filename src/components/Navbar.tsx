@@ -19,7 +19,7 @@ const links = [
   { href: "/exams", label: "מבחן מלא" },
   { href: "/resources", label: "סיכומים" },
   { href: "/notebooks", label: "מחברות" },
-  { href: "/timelines", label: "צירי זמן" },
+  { href: "/timelines", label: "עזרי למידה" },
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },
   { href: "/videos", label: "סרטונים" },

@@ -13,7 +13,7 @@ const heebo = Heebo({
 
 export const metadata: Metadata = {
   title: "אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "אֶבֶן דֶּרֶךְ למורי דרך — תרגול, שאלונים, צירי זמן ומפת מורשת",
+  description: "אֶבֶן דֶּרֶךְ למורי דרך — תרגול, שאלונים, עזרי למידה ומפת מורשת",
 };
 
 const themeInitScript = `

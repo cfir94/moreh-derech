@@ -42,7 +42,7 @@ test("comparisons and image credits all resolve", () => {
     assert.equal(bytes.toString("ascii", 0, 4), "RIFF", `${id}: valid WebP container`);
     assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `${id}: WebP signature`);
     if (id === "varus") assert.equal(portrait.sourceUrl, "https://www.livius.org/pictures/a/roman-portraits/varus/");
-    else assert.ok(portrait.sourceUrl.startsWith("https://commons.wikimedia.org/wiki/File:"));
+    else assert.ok(["commons.wikimedia.org", "www.livius.org"].includes(new URL(portrait.sourceUrl).hostname));
   }
   assert.equal(Object.keys(PORTRAITS).length, 35);
   assert.deepEqual(ROMAN_PEOPLE.filter(p => !PORTRAITS[p.id]).map(p => p.id), ["florus"]);

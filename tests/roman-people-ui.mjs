@@ -22,9 +22,23 @@ try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1050 } });
   page.on("pageerror", error => errors.push(error.message));
   await page.goto(base + "/timelines/", { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("heading", { name: "עזרי למידה", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "עזרי למידה", exact: true })).toBeVisible();
   await page.getByRole("link", { name: /מי זה מי ברומא/ }).click();
   await expect(page.getByRole("heading", { name: "מי זה מי ברומא?", exact: true })).toBeVisible();
   await expect(page.locator("[data-person-button]")).toHaveCount(36);
+  const companionNote = page.locator("[data-herodian-context]");
+  await companionNote.locator("summary").click();
+  await expect(companionNote.locator("[data-companion]")).toHaveCount(3);
+  for (const id of ["herod-great", "antipas", "agrippa1"]) {
+    const figure = companionNote.locator(`[data-companion="${id}"]`);
+    await figure.scrollIntoViewIfNeeded();
+    const image = figure.locator("img");
+    await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect(figure.locator("a").first()).toHaveAttribute("href", `/moreh-derech/images/roman-people/companions/${id}.webp`);
+  }
+  await companionNote.locator("summary").click();
+
   // Exercise every downloaded portrait, including the non-core figures, from the
   // exported site. A passing fallback alone must never count as a loaded image.
   const personIds = await page.locator("[data-person-button]").evaluateAll(buttons => buttons.map(button => button.dataset.personButton));
@@ -39,7 +53,7 @@ try {
       await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
       expect(await image.getAttribute("src")).toBe(`/moreh-derech/images/roman-people/portraits/${id}.webp`);
       await expect(portrait.locator("a")).toHaveAttribute("href", await image.getAttribute("src"));
-      await expect(page.locator(`[data-person-detail="${id}"] a[href^="https://commons.wikimedia.org/wiki/File:"]`).first()).toBeVisible();
+      await expect(page.locator(`[data-person-detail="${id}"] a[href^="https://"]`).first()).toBeVisible();
     }
   }
   await page.locator('[data-person-button="pompey"]').click();

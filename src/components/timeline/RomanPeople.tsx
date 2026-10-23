@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { HERODIAN_COMPANIONS } from "@/data/herodian-companions";
 import { useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { COMPARISONS, ERAS, PORTRAITS, ROMAN_PEOPLE, ROLES, SOURCES, filterPeople, portraitUrl, type RomanPerson } from "@/data/roman-people";
 import s from "./RomanPeople.module.css";
@@ -136,7 +137,7 @@ export function RomanPeople() {
   function clear() { setQuery(""); setRole("all"); setEra("all"); setCore(false); setBrowseOpen(false); setPracticeEra(null); }
   return <div className={s.page} dir="rtl" data-roman-people data-visual-era={visualEra} data-mode={mode}>
     <div className={s.pageInner}>
-    <div className={s.topline}><Link className={s.back} href="/timelines">← לכל צירי הזמן</Link><span className={s.museumLabel} aria-hidden>PERSONAE · ROMA</span></div>
+    <div className={s.topline}><Link className={s.back} href="/timelines">← לכל עזרי הלמידה</Link><span className={s.museumLabel} aria-hidden>PERSONAE · ROMA</span></div>
     <header className={s.hero}>
       <div className={s.heroText}><p className={s.eyebrow}><span aria-hidden>SPQR</span> תיק הדמויות · רומא בארץ ישראל</p>
         <h1>מי זה מי <span>ברומא?</span></h1>
@@ -171,7 +172,10 @@ export function RomanPeople() {
       <div ref={detailRef} className={s.detailColumn} aria-live="polite" tabIndex={0} aria-label="הדמות הנבחרת. חץ שמאלה לדמות הבאה, חץ ימינה לקודמת" onKeyDown={event => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowLeft") { event.preventDefault(); move(1); } if (event.key === "ArrowRight") { event.preventDefault(); move(-1); } }}>{selected && <PersonDetail key={selected.id} person={selected} />}<div className={s.studyTip}><b>שיטת שלוש המילים</b><p>קרא את השם, אמור את התפקיד, הוסף מעשה אחד. רק אז המשך לדמות הבאה.</p></div></div>
     </section>}
 
-    <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p></details></section>
+    <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details data-herodian-context><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p><div className={s.companionGrid}>{HERODIAN_COMPANIONS.map(person => <figure className={s.companionCard} key={person.id} data-companion={person.id}>
+        <a href={person.localSrc} target="_blank" rel="noreferrer" aria-label={`הגדלת התמונה של ${person.name}`}><img src={person.localSrc} alt={person.alt} width={person.width} height={person.height} loading="lazy" />{/* eslint-disable-line @next/next/no-img-element */}</a>
+        <figcaption><h3>{person.name}</h3><b>{person.role}</b><p>{person.connection}</p><span className={s.companionCaption}>{person.caption} · {person.note}</span><small>{person.credit} · <a href={person.sourceUrl} target="_blank" rel="noreferrer">מקור</a> · <a href={person.licenseUrl} target="_blank" rel="noreferrer">{person.license}</a>{person.verificationUrl && <> · <a href={person.verificationUrl} target="_blank" rel="noreferrer">זיהוי במוזיאון</a></>}</small></figcaption>
+      </figure>)}</div><p className={s.companionHint}>לחיצה על תמונה פותחת אותה להגדלה.</p></details></section>
     <footer className={s.footer}><p>הבסיס: הקלטות מחברות בית שני והתקופה הרומית־ביזנטית. התאריכים בכרטיסים מציינים את האירוע או התקופה הנדונים. טיפי הזיכרון הם אסוציאציות ללמידה.</p>
       <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>דיוקנאות באמנות</h3><p>35 תמונות של פסלים, מטבעות, פסיפסים וציורים. לחיצה על תמונה פותחת אותה להגדלה. יצירות מאוחרות וייחוסים מסופקים מסומנים; אין לראות בהם תיעוד ודאי של מראה הדמות. התמונות הוקטנו והומרו ל־WebP, והמסגרת עשויה לחתוך את התצוגה. לכל תמונה נשמר הרישיון המקורי. לפלורוס לא נמצא דיוקן מזוהה במקורות שנבדקו.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={portrait.sourceUrl} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
       <div className={s.related}><Link href="/timelines/second-temple">ציר בית שני ←</Link><Link href="/timelines/roman">הציר הרומי המלא ←</Link><Link href="/timelines/byzantine">הציר הביזנטי המלא ←</Link></div>

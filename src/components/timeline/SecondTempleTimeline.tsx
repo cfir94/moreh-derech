@@ -105,7 +105,7 @@ export function SecondTempleTimeline() {
   function reset() { setQuery(""); setPeriod("all"); setCategory("all"); setAnchorsOnly(false); }
 
   return <div className={styles.page} dir="rtl">
-    <div className={styles.breadcrumb}><Link href="/timelines">צירי זמן</Link><span aria-hidden> / </span><span>בית שני</span></div>
+    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>בית שני</span></div>
     <header className={styles.hero}>
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}><span aria-hidden>◆</span> אבן דרך · מסע בזמן</p>
@@ -189,6 +189,6 @@ export function SecondTempleTimeline() {
         {research.issues.filter(search).map((issue) => <details key={issue.id} className={styles.wideDetail}><summary>{issue.topic}<small>{issue.id}</small></summary><p>{issue.decision}</p><p className={styles.sourceLine}>מקור ואיתור: {issue.source}</p></details>)}
       </div>}
     </section>
-    <footer className={styles.pageFooter}><span>אבן דרך למורי דרך · תקופת בית שני</span><Link href="/timelines">לכל צירי הזמן ←</Link></footer>
+    <footer className={styles.pageFooter}><span>אבן דרך למורי דרך · תקופת בית שני</span><Link href="/timelines">לכל עזרי הלמידה ←</Link></footer>
   </div>;
 }

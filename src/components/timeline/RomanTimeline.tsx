@@ -48,7 +48,7 @@ export function RomanTimeline() {
   const empty = <div className={styles.empty}><h2>לא נמצאו אירועים מתאימים</h2><p>אפשר לשנות את החיפוש או להרחיב את התקופה.</p><button type="button" onClick={t.reset}>להציג את כל האירועים</button></div>;
 
   return <div className={styles.page} dir="rtl">
-    <div className={styles.breadcrumb}><Link href="/timelines">צירי זמן</Link><span aria-hidden> / </span><span>התקופה הרומית</span></div>
+    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>התקופה הרומית</span></div>
 
     <header className={styles.hero}>
       <div className={styles.heroCopy}>
@@ -128,6 +128,6 @@ export function RomanTimeline() {
       </div>}
     </section>
 
-    <footer className={styles.footer}><span>אבן דרך למורי דרך · התקופה הרומית</span><Link href="/timelines">לכל צירי הזמן ←</Link></footer>
+    <footer className={styles.footer}><span>אבן דרך למורי דרך · התקופה הרומית</span><Link href="/timelines">לכל עזרי הלמידה ←</Link></footer>
   </div>;
 }

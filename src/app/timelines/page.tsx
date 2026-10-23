@@ -93,10 +93,10 @@ export default function TimelinesPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <header className="screen-in mb-7">
-        <h1 className="grad-text mb-2 text-3xl">צירי זמן</h1>
+        <h1 className="grad-text mb-2 text-3xl">עזרי למידה</h1>
         <p className="max-w-2xl text-txt-dim">
-          צירי זמן אינטראקטיביים לפי נושא. לחיצה על אירוע פותחת את ההסבר המלא
-          ואת המקורות.
+          צירי זמן, טבלאות השוואה, כלי זיכרון והדמיות לפי נושא —
+          ללמידה, להבנה ולחזרה על החומר.
         </p>
       </header>
 

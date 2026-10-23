@@ -44,9 +44,9 @@ export default function Home() {
     {
       slug: "timelines",
       href: "/timelines",
-      title: "צירי זמן",
-      description: "צירי זמן אינטראקטיביים עם הסבר ומקורות לכל אירוע.",
-      meta: "8 צירי זמן",
+      title: "עזרי למידה",
+      description: "צירי זמן, טבלאות השוואה וכלים אינטראקטיביים לזכירה ולהבנה.",
+      meta: "כלים אינטראקטיביים",
     },
     {
       slug: "map",
@@ -102,7 +102,7 @@ export default function Home() {
           <p className="mb-7 max-w-xl leading-relaxed text-txt-dim">
             <span className="num">{examCount}</span> שאלות מתוך מבחני הרישוי
             הרשמיים, <span className="num">{questionCount}</span> שאלות תרגול
-            בסך הכל, צירי זמן ומפת מורשת מלאה — עם מערכת שזוכרת במה טעיתם ועל
+            בסך הכל, עזרי למידה ומפת מורשת מלאה — עם מערכת שזוכרת במה טעיתם ועל
             מה כדאי לחזור.
           </p>
           <HomeActions />

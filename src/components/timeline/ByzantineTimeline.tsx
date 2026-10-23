@@ -40,7 +40,7 @@ export function ByzantineTimeline() {
   const t = useEraTimeline(BYZ_EVENTS, ID);
 
   return <div className={styles.page} dir="rtl">
-    <div className={styles.breadcrumb}><Link href="/timelines">צירי זמן</Link><span aria-hidden> / </span><span>התקופה הביזנטית</span></div>
+    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>התקופה הביזנטית</span></div>
 
     <header className={styles.hero}>
       <div className={styles.apse}>
@@ -117,6 +117,6 @@ export function ByzantineTimeline() {
       </div>}
     </section>
 
-    <footer className={styles.footer}><span>אבן דרך למורי דרך · התקופה הביזנטית</span><Link href="/timelines">לכל צירי הזמן ←</Link></footer>
+    <footer className={styles.footer}><span>אבן דרך למורי דרך · התקופה הביזנטית</span><Link href="/timelines">לכל עזרי הלמידה ←</Link></footer>
   </div>;
 }
