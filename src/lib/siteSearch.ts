@@ -192,10 +192,11 @@ function timelineResults(): SearchResult[] {
 }
 
 const toolResults: SearchResult[] = [
+  { id: "tool-who-am-i", kind: "tool", kindLabel: "משחק", title: "מי אני? — קולות מן העבר", description: "117 דמויות מההיסטוריה, רמזים בגוף ראשון, שאלות אמריקאיות והקלדה, תמונות והסברים.", href: "/games/who-am-i", searchText: "מי אני דמויות היסטוריות משחק זיהוי מלכים קיסרים נביאים חכמים בית ראשון בית שני רומא ביזנטיון ברזל שופטים טיטוס הורדוס" },
   { id: "tool-map", kind: "tool", kindLabel: "כלי", title: "מפת השטח", description: "מפת אתרים, מסלולים ונקודות עניין בארץ.", href: "/map", searchText: "מפה אתרים מקומות מסלולים נקודות עניין גאוגרפיה שטח" },
   { id: "tool-guide-reports", kind: "tool", kindLabel: "כלי", title: "דוחות הדרכה", description: "למידה, תרגול ודוגמאות להכנת דוחות סיור.", href: "/guide-reports", searchText: "דוחות הדרכה סיור אתרים תרגול בחינה מסלול" },
   { id: "tool-timeline-drag", kind: "tool", kindLabel: "תרגול", title: "תרגול סדר כרונולוגי", description: "משחק גרירה לתרגול תקופות ואירועים על ציר הזמן.", href: "/quizzes/timeline-drag", searchText: "ציר זמן סדר כרונולוגי תקופות היסטוריה תרגול" },
-  { id: "tool-games", kind: "tool", kindLabel: "משחק", title: "משחקי לימוד", description: "משחקי גאוגרפיה, כנסיות וצמחי ארץ ישראל.", href: "/games", searchText: "משחקים גאוגרפיה כנסיות נצרות צמחים צומח" },
+  { id: "tool-games", kind: "tool", kindLabel: "משחק", title: "משחקי לימוד", description: "משחקי דמויות היסטוריות, גאוגרפיה, כנסיות וצמחי ארץ ישראל.", href: "/games", searchText: "משחקים גאוגרפיה כנסיות נצרות צמחים צומח" },
 ];
 
 const baseResults: SearchResult[] = [
