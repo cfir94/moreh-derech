@@ -13,6 +13,30 @@
     "מה קרה כשטיהרתם את המקדש?",
     "למה כרתת ברית עם רומא?"
   ],
+  "portraitCredit": {
+    "alt": "יהודה המכבי בגלימה אדומה ובשריון, מביט למעלה — פרט מ\"ניצחון יהודה המכבי\" של רובנס (1634–1636); דמות מדומיינת",
+    "text": "פטר פאול רובנס, ניצחון יהודה המכבי, מוזיאון נאנט; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:JudasMaccabeus.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "JudasMaccabeus.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      573,
+      580
+    ],
+    "headH": 600,
+    "erode": 5,
+    "oval": [
+      440,
+      560,
+      360,
+      560
+    ]
+  },
   "sources": [
     {
       "title": "ספר מקבים א׳ א–ט (תרגום י״ז פרנקל)",

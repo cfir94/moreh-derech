@@ -185,7 +185,7 @@ async function main() {
   document.documentElement.style.setProperty("--accent", c.accentColor);
   ui.talk.hidden = false;
 
-  avatar = new Avatar(c);
+  avatar = new Avatar(c, { size: "stage" });
   ui.avatarSlot.append(avatar.el);
   if (c.portraitCredit) {
     // רישיונות CC BY-SA דורשים קרדיט וקישור לרישיון.

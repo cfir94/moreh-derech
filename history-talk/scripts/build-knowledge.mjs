@@ -257,7 +257,7 @@ async function buildCharacter(id) {
   );
   for (const w of warn) console.warn(`  ⚠ ${w}`);
 
-  const { sources, voiceName, ...publicFields } = char;
+  const { sources, voiceName, portrait, ...publicFields } = char;
   return {
     public: {
       ...publicFields,

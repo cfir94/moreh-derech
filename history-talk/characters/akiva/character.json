@@ -13,6 +13,23 @@
     "למה תמכת בבר כוכבא?",
     "למה צחקת כשראית שועל במקום המקדש?"
   ],
+  "portraitCredit": {
+    "alt": "רבי עקיבא, יושב ומהרהר — חיתוך עץ מהגדת מנטובה (1560); דמות מדומיינת",
+    "text": "חיתוך עץ, הגדת מנטובה, 1560; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:Akiva.png",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Akiva.png",
+    "sourceWidth": 1280,
+    "mode": "lineart",
+    "head": [
+      740,
+      230
+    ],
+    "headH": 330
+  },
   "sources": [
     {
       "title": "תלמוד בבלי: ברכות סא ע״ב, כתובות סב ע״ב–סג ע״א, נדרים נ ע״א, יבמות סב ע״ב, מכות כד ע״ב, מנחות כט ע״ב, חגיגה יד ע״ב, בבא מציעא סב ע״א",

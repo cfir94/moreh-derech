@@ -26,7 +26,8 @@ export function HistoryTalk() {
         </div>
         <h1 className="grad-text text-3xl leading-tight sm:text-4xl">דבר עם ההיסטוריה</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-          שאלו את יוסף בן מתתיהו למה נכנע ביודפת, ואת טיטוס אם רצה לשרוף את המקדש — בקול, בעברית.
+          {TALK_CHARACTERS.length} דמויות מתקופת הברזל ועד סוף התקופה הביזנטית: שאלו את חזקיהו איך נחצבה נקבת
+          השילוח, את רבן יוחנן בן זכאי מה ביקש מאספסיאנוס, ואת הירונימוס איך נראתה בית לחם בימיו — בקול, בעברית.
           כל דמות היא שחזור מבוסס בינה מלאכותית שמחפש במקורות הכתובים ומצטט אותם.
         </p>
       </header>
@@ -52,14 +53,14 @@ export function HistoryTalk() {
         <section className="rounded-[var(--r-lg)] border border-line bg-card p-6">
           <h2 className="text-xl text-txt">בקרוב</h2>
           <p className="mt-2 leading-relaxed text-txt-dim">
-            השיחות עם הדמויות עוד בהקמה. הדמויות הראשונות:
+            השיחות עם הדמויות עוד בהקמה. הדמויות:
           </p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             {TALK_CHARACTERS.map((c) => (
               <li key={c.id} className="rounded-[var(--r-md)] border border-line bg-card-2 p-4">
                 <p className="text-lg font-black text-txt">{c.name}</p>
                 <p className="text-sm text-txt-dim">
-                  <span dir="ltr">{c.years}</span> · {c.tagline}
+                  <bdi>{c.years}</bdi> · {c.tagline}
                 </p>
               </li>
             ))}

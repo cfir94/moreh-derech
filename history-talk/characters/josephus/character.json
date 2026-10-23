@@ -20,6 +20,16 @@
     "license": "נחלת הכלל",
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
   },
+  "portrait": {
+    "commonsFile": "Joseph, son of Gorian, called Flavius Josephus (cropped).jpg",
+    "sourceWidth": 600,
+    "mode": "cutout",
+    "head": [
+      293,
+      190
+    ],
+    "headH": 340
+  },
   "sources": [
     {
       "title": "תולדות מלחמת היהודים עם הרומאים",

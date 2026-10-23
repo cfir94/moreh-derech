@@ -13,6 +13,23 @@
     "למה הוצאת להורג את מרים?",
     "מה בנית בהרודיון ובמצדה?"
   ],
+  "portraitCredit": {
+    "alt": "הורדוס בכתר גבוה ובשריון מקושט — ציור של ג'יימס טיסו (סוף המאה ה־19); דמות מדומיינת",
+    "text": "ג'יימס טיסו, הורדוס, מוזיאון ברוקלין; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:Herod_tissot.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Herod tissot.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      706,
+      640
+    ],
+    "headH": 330
+  },
   "sources": [
     {
       "title": "תולדות מלחמת היהודים עם הרומאים, ספר ראשון",

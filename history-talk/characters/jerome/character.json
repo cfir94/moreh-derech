@@ -13,6 +13,23 @@
     "מי הייתה פאולה?",
     "איך נראתה ארץ הקודש בימיך?"
   ],
+  "portraitCredit": {
+    "alt": "הירונימוס הזקן והקירח קורא בספר — ציור של קרוואג'ו (1605–1606); דמות מדומיינת",
+    "text": "קרוואג'ו, הירונימוס כותב, גלריה בורגזה; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:Saint_Jerome_Writing-Caravaggio_%281605-6%29.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Saint Jerome Writing-Caravaggio (1605-6).jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      880,
+      275
+    ],
+    "headH": 175
+  },
   "sources": [
     {
       "title": "Jerome, Letters 22, 46, 58, 108, 127",

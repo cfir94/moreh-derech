@@ -13,6 +13,29 @@
     "למה בנית מנזר בסיני?",
     "מה קרה במרד ניקה?"
   ],
+  "portraitCredit": {
+    "alt": "יוסטיניאנוס בכתר ובהילה — פסיפס בכנסיית סן ויטאלה ברוונה, שנעשה בחייו (כ־547)",
+    "text": "פסיפס בסן ויטאלה, רוונה, כ־547 — מימיו (צילום: Petar Milošević)",
+    "url": "https://commons.wikimedia.org/wiki/File:Mosaic_of_Justinianus_I_-_Basilica_San_Vitale_%28Ravenna%29.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "portrait": {
+    "commonsFile": "Mosaic of Justinianus I - Basilica San Vitale (Ravenna).jpg",
+    "sourceWidth": 1280,
+    "mode": "vignette",
+    "head": [
+      645,
+      718
+    ],
+    "headH": 440,
+    "oval": [
+      400,
+      450,
+      370,
+      520
+    ]
+  },
   "sources": [
     {
       "title": "Procopius, Buildings, Book I (Loeb, 1940)",

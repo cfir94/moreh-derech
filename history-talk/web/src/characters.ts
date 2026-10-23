@@ -4,6 +4,10 @@ export interface PublicCharacter {
   id: string;
   nameHe: string;
   years: string;
+  /** התקופה, לכותרות בעמוד הבחירה ("תקופת הברזל"…). */
+  eraHe?: string;
+  /** שנת מפתח לסדר הכרונולוגי (שלילי = לפני הספירה). */
+  sortYear?: number;
   taglineHe: string;
   accentColor: string;
   openingLineHe: string;

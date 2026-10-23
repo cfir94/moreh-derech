@@ -13,6 +13,23 @@
     "למה סנחריב לא כבש את ירושלים?",
     "למה כיתתָּ את נחש הנחושת?"
   ],
+  "portraitCredit": {
+    "alt": "חזקיהו בכתר ובשרביט — ציור עממי בכנסיית אוהוס שבשוודיה; דמות מדומיינת, לא דיוקן בן הזמן",
+    "text": "ציור בכנסיית אוהוס, שוודיה; דמות מדומיינת (צילום: David Castor)",
+    "url": "https://commons.wikimedia.org/wiki/File:%C3%85hus_kyrka-10.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Åhus kyrka-10.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      612,
+      413
+    ],
+    "headH": 290
+  },
   "sources": [
     {
       "title": "מלכים ב׳ יח–כ, ישעיהו כב, לו–לט, דברי הימים ב׳ כט–לב, ירמיהו כו, משלי כה",

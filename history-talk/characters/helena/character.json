@@ -13,6 +13,23 @@
     "האם באמת מצאת את הצלב?",
     "מה ראית בירושלים כשהגעת?"
   ],
+  "portraitCredit": {
+    "alt": "הלנה בכתר ובגלימה אדומה — ציור של צ'ימה דה קונליאנו (כ־1495); דמות מדומיינת",
+    "text": "צ'ימה דה קונליאנו, הקדושה הלנה, הגלריה הלאומית בוושינגטון; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:Cima_da_Conegliano%2C_Saint_Helena%2C_c._1495%2C_NGA_46111.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Cima da Conegliano, Saint Helena, c. 1495, NGA 46111.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      600,
+      330
+    ],
+    "headH": 175
+  },
   "sources": [
     {
       "title": "Eusebius, Life of Constantine, Book III, chapters 25–47",

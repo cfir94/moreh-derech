@@ -14,11 +14,21 @@
     "מה הייתה תגובתך להתפרצות הווזוב?"
   ],
   "portraitCredit": {
-    "alt": "ראש שיש של הקיסר טיטוס, המוזיאון הארכאולוגי הלאומי באתונה",
-    "text": "ראש שיש של טיטוס, אתונה (צילום: DerHexer)",
-    "url": "https://commons.wikimedia.org/wiki/File:Portrait_head_of_the_emperor_Titus_NAMA_348_(DerHexer).JPG",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+    "alt": "פסל שיש של הקיסר טיטוס בטוגה, מימיו — המוזיאונים הקפיטוליניים ברומא",
+    "text": "פסל של טיטוס, המוזיאונים הקפיטוליניים, רומא (צילום: Franciscus3008)",
+    "url": "https://commons.wikimedia.org/wiki/File:Titus_%28Capitoline_Museums%29.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "portrait": {
+    "commonsFile": "Titus (Capitoline Museums).jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      525,
+      540
+    ],
+    "headH": 480
   },
   "sources": [
     {

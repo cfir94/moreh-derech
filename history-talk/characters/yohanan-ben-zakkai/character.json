@@ -13,6 +13,31 @@
     "מה ביקשת מאספסיאנוס?",
     "מה תיקנת ביבנה אחרי החורבן?"
   ],
+  "portraitCredit": {
+    "alt": "אין דיוקן של רבן יוחנן בן זכאי. כאן: דמות בלבוש התקופה — משה ליד הסנה, ציור קיר מבית הכנסת בדורה אירופוס, המאה ה־3",
+    "text": "אין דיוקן שלו — המחשה: ציור קיר מבית הכנסת בדורה אירופוס, המאה ה־3",
+    "url": "https://commons.wikimedia.org/wiki/File:DuraSyn-I-O-Moses_burning_bush.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "DuraSyn-I-O-Moses burning bush.jpg",
+    "sourceWidth": 1280,
+    "mode": "vignette",
+    "head": [
+      704,
+      212
+    ],
+    "headH": 275,
+    "oval": [
+      400,
+      470,
+      310,
+      450
+    ],
+    "enhance": 2,
+    "targetH": 240
+  },
   "sources": [
     {
       "title": "תלמוד בבלי: גיטין נה ע״ב–נו ע״ב, ברכות כח ע״ב, סוכה כח ע״א, ראש השנה לא ע״ב, בבא בתרא י ע״ב",

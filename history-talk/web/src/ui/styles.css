@@ -243,12 +243,24 @@ a {
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr));
   gap: 16px;
 }
 
+/* התקופה: תווית קטנה בצבע הדמות, מעל השם. */
+.era {
+  margin: 12px 0 -6px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent) 45%, var(--txt));
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
 .char-card {
-  padding: 22px 18px;
+  padding: 10px 10px 18px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -297,84 +309,166 @@ a {
 }
 
 /* ---- הדמות ---- */
-/* העטיפה מחזיקה את העיגול ואת הגלים שיוצאים ממנו בזמן דיבור (העיגול עצמו חותך את התמונה). */
+/* חלון שחור בצורת דיוקן (4:5). בתוכו, מאחור לפנים: גחליליות (קנבס), הילה עגולה וטבעת אור,
+   גלים בזמן דיבור, והדמות החתוכה. הסצנה מוטה מעט (--rx/--ry מ-avatar.ts) והשכבות יושבות בעומק
+   שונה — כך נוצר התלת־ממד. החלון שחור גם במצב בהיר: זו הבמה של הדמות, לא חלק מהעמוד. */
 .avatar-wrap {
-  --size: 132px;
+  --size: 100%;
   --level: 0;
+  --glow: color-mix(in srgb, var(--accent) 45%, #ffe7b0);
+  --glow-soft: color-mix(in srgb, var(--accent) 70%, #ffd98a);
   position: relative;
   width: var(--size);
-  height: var(--size);
+  aspect-ratio: 4 / 5;
   flex: none;
   margin: 0 auto;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(120% 80% at 50% 32%, color-mix(in srgb, var(--accent) 16%, #000) 0%, #000 62%),
+    #000;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 18px 40px -22px #000;
+  perspective: 900px;
+  touch-action: pan-y;
 }
 
 .stage .avatar-wrap {
-  --size: min(260px, 60vw);
+  --size: min(340px, 82vw);
+  border-radius: var(--r-lg);
 }
 
-.avatar {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent) 75%, white), var(--accent));
-  box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--accent) 60%, transparent),
-    0 0 calc(12px + var(--level) * 50px) calc(var(--level) * 10px) var(--accent);
-  animation: breathe 5s ease-in-out infinite;
-  transition: box-shadow 0.08s linear;
-}
-
-.avatar img,
-.avatar video {
+.fireflies {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: opacity 0.35s, scale 0.08s linear;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* דיוקן: תנועת מצלמה איטית (כמו בסרט תיעודי), ופעימה קלה לפי עוצמת הקול. */
-.has-portrait .avatar img {
-  animation: drift 22s ease-in-out infinite alternate;
-  scale: calc(1 + var(--level) * 0.06);
-}
-
-.avatar video.hidden {
-  opacity: 0;
-}
-
-.avatar .monogram {
+.avatar-wrap .scene {
+  --rx: 0deg;
+  --ry: 0deg;
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  font-size: calc(var(--size) * 0.36);
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
 }
 
-.speaking .avatar {
-  animation-duration: 2.2s;
+/* ההילה: אור עגול מאחורי הראש. נושמת לאט, ומתעצמת עם הקול. */
+.avatar-wrap .halo {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: 92%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--glow) 85%, white) 0%,
+    var(--glow) 18%,
+    color-mix(in srgb, var(--glow-soft) 45%, transparent) 38%,
+    transparent 68%
+  );
+  opacity: calc(0.55 + var(--level) * 0.45);
+  transform: translate(-50%, -50%) translateZ(-60px) scale(calc(1 + var(--level) * 0.12));
+  animation: halo-breathe 7s ease-in-out infinite;
+  transition: opacity 0.1s linear, transform 0.1s linear;
+}
+
+/* טבעת אור דקה — "עלומה" — סביב הראש. */
+.avatar-wrap .halo-ring {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--glow) 70%, white);
+  box-shadow:
+    0 0 18px 2px var(--glow-soft),
+    inset 0 0 16px 1px color-mix(in srgb, var(--glow-soft) 60%, transparent);
+  opacity: 0.75;
+  transform: translate(-50%, -50%) translateZ(-40px);
 }
 
 .avatar-wrap .ring {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 36%;
+  width: 60%;
+  aspect-ratio: 1;
   border-radius: 50%;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--glow);
   opacity: 0;
+  transform: translate(-50%, -50%) translateZ(-40px);
   pointer-events: none;
 }
 
 .avatar-wrap.speaking .ring {
-  animation: ripple 2s ease-out infinite;
+  animation: ripple 2.2s ease-out infinite;
 }
 
 .avatar-wrap.speaking .ring + .ring {
-  animation-delay: 1s;
+  animation-delay: 1.1s;
+}
+
+/* הדמות: צילום בינוני, צמוד לתחתית, קדימה בעומק. תאורת שוליים בצבע ההילה ונשימה קלה. */
+.avatar-wrap .figure {
+  position: absolute;
+  inset: 4% 0 0;
+  transform: translateZ(40px) scale(0.92);
+  transform-origin: 50% 100%;
+}
+
+.avatar-wrap .figure img,
+.avatar-wrap .figure video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+  user-select: none;
+  filter: drop-shadow(0 -1px 5px color-mix(in srgb, var(--glow) 55%, transparent))
+    drop-shadow(0 14px 22px rgba(0, 0, 0, 0.85));
+  animation: figure-breathe 6s ease-in-out infinite;
+  transition: opacity 0.35s;
+}
+
+.avatar-wrap .figure video.hidden {
+  opacity: 0;
+}
+
+.avatar-wrap .monogram {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  translate: -50% -50%;
+  font-weight: 900;
+  font-size: calc(var(--mono, 64px));
+  color: #fff8e6;
+  text-shadow: 0 0 24px var(--glow), 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.stage .avatar-wrap .monogram {
+  --mono: 110px;
+}
+
+/* הדמות נבלעת בחושך בתחתית החלון. */
+.avatar-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.75) 9%, transparent 30%),
+    radial-gradient(140% 100% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.7) 100%);
 }
 
 .portrait-credit {
@@ -383,39 +477,40 @@ a {
   color: var(--txt-dim);
 }
 
-@keyframes breathe {
+@keyframes halo-breathe {
   0%,
   100% {
-    transform: scale(1);
+    filter: brightness(1);
   }
   50% {
-    transform: scale(1.025);
+    filter: brightness(1.18);
   }
 }
 
-@keyframes drift {
-  from {
-    transform: scale(1.06) translate(0, 0);
+@keyframes figure-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
   }
-  to {
-    transform: scale(1.14) translate(-2%, 1.5%);
+  50% {
+    transform: translateY(-0.6%) scale(1.008);
   }
 }
 
 @keyframes ripple {
   from {
-    transform: scale(1);
-    opacity: 0.55;
+    transform: translate(-50%, -50%) translateZ(-40px) scale(1);
+    opacity: 0.6;
   }
   to {
-    transform: scale(1.32);
+    transform: translate(-50%, -50%) translateZ(-40px) scale(1.45);
     opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .avatar,
-  .avatar img,
+  .avatar-wrap .halo,
+  .avatar-wrap .figure img,
   .avatar-wrap .ring,
   .shake {
     animation: none;

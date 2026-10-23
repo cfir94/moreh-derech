@@ -99,7 +99,7 @@ test("ספריא: עוגן שהוא כתובת מלאה, ו'פסוק/פסוקי�
     title: "תנ״ך",
     refTitle: "",
     url: "https://www.sefaria.org/II_Kings.18?lang=he",
-    sectionLabel: ["פסוק", "פסוקים"],
+    sectionLabel: ["פסוק", "פסוקים"] as [string, string],
   });
   assert.equal(c.ref, "מלכים ב, פרק י״ח, פסוקים א–ב");
   assert.equal(c.url, "https://www.sefaria.org/II_Kings.18?lang=he");

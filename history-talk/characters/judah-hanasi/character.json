@@ -13,6 +13,32 @@
     "מה היה בינך לבין אנטונינוס?",
     "למה התרת את בית שאן מן המעשרות?"
   ],
+  "portraitCredit": {
+    "alt": "אין דיוקן של רבי יהודה הנשיא. כאן: חכם מחזיק מגילה (עזרא או ירמיהו) — ציור קיר מבית הכנסת בדורה אירופוס, כ־244 לספירה, דור אחרי רבי",
+    "text": "אין דיוקן שלו — המחשה: ציור קיר מבית הכנסת בדורה אירופוס, כ־244",
+    "url": "https://commons.wikimedia.org/wiki/File:DuraSyn-III-Jeremiah.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "DuraSyn-III-Jeremiah.jpg",
+    "sourceWidth": 1280,
+    "mode": "vignette",
+    "head": [
+      640,
+      135
+    ],
+    "headH": 200,
+    "oval": [
+      400,
+      440,
+      300,
+      420
+    ],
+    "fade": 160,
+    "enhance": 2,
+    "targetH": 250
+  },
   "sources": [
     {
       "title": "תלמוד בבלי: כתובות קג ע״א–קד ע״א, בבא מציעא פה ע״א, עבודה זרה י ע״א–ע״ב, סנהדרין צא ע״א–ע״ב, סנהדרין לב ע״ב, גיטין נט ע״א, חולין ו ע״ב",

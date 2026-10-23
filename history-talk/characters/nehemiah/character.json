@@ -13,6 +13,24 @@
     "מי היו סנבלט וטוביה?",
     "למה סגרת את שערי ירושלים בשבת?"
   ],
+  "portraitCredit": {
+    "alt": "נחמיה בהילה, מחזיק מגילה — פסיפס מהמאה ה־13 בבית הטבילה בפירנצה; דמות מדומיינת",
+    "text": "פסיפס, בית הטבילה בפירנצה, המאה ה־13 (צילום: SuzzaneMcg)",
+    "url": "https://commons.wikimedia.org/wiki/File:FlorenceBaptistery_Nehemiah.png",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "portrait": {
+    "commonsFile": "FlorenceBaptistery Nehemiah.png",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      604,
+      200
+    ],
+    "headH": 228,
+    "targetH": 200
+  },
   "sources": [
     {
       "title": "ספר נחמיה א–יג",

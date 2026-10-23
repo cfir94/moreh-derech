@@ -14,6 +14,8 @@ export interface SourceMeta {
   url: string;
   refTitle?: string;
   includeBooks?: string[];
+  /** במקום "סעיף"/"סעיפים" בהפניה, למשל ["פסוק", "פסוקים"]. */
+  sectionLabel?: [string, string];
 }
 export declare function estimateTokens(text: string): number;
 export declare function parseSource(raw: string, ext: string): Block[];
