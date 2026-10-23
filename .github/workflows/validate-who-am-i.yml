@@ -27,7 +27,13 @@ jobs:
       - run: npx eslint src/lib/whoAmI.ts src/components/games/WhoAmIGame.tsx src/app/games/who-am-i/page.tsx src/data/who-am-i/index.ts
       - run: npm run build
       - run: npm install --no-save --package-lock=false @playwright/test@1.64.1
-      - run: npx playwright install --with-deps chromium
+      - name: Use runner Chrome or install Chromium
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "WHO_AM_I_BROWSER_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
       - run: mkdir -p test-results
       - run: node tests/who-am-i-ui.mjs
         env:

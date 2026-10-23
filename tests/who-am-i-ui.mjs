@@ -16,7 +16,7 @@ const server = createServer((req, res) => {
 });
 await new Promise(done => server.listen(0, "127.0.0.1", done));
 const base = `http://127.0.0.1:${server.address().port}/moreh-derech`;
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, channel: process.env.WHO_AM_I_BROWSER_CHANNEL || undefined });
 const errors = [];
 const people=JSON.parse(readFileSync(new URL("../src/data/who-am-i/people.json",import.meta.url),"utf8"));
 try {
