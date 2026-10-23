@@ -1,0 +1,18 @@
+name: Collect supplemental identity images for review
+on:
+  push:
+    branches: [who-am-i-20261023]
+    paths: [tools/collect-who-am-i-supplement.py, .github/workflows/collect-who-am-i-supplement.yml]
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow
+      - run: python tools/collect-who-am-i-supplement.py
