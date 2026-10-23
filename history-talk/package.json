@@ -12,7 +12,7 @@
     "build": "npm run build:knowledge && vite build",
     "preview": "npm run build && vite preview",
     "deploy": "npm run build && wrangler deploy --config dist/history_talk/wrangler.json",
-    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.worker.json",
+    "typecheck": "npm run build:knowledge --silent && tsc -p tsconfig.json && tsc -p tsconfig.worker.json",
     "test": "npm run build:knowledge --silent && node --test \"test/*.test.ts\""
   },
   "dependencies": {
