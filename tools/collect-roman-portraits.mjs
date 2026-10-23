@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import sharp from 'sharp';
 
 const people = [
@@ -38,34 +38,23 @@ async function api(host,args){
   const result=await get(url,true);if(result.error)throw new Error(JSON.stringify(result.error));return result.query;
 }
 function plain(value=''){return value.replace(/<[^>]*>/g,' ').replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(+n)).replace(/&#x([a-f0-9]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();}
-await mkdir('portrait-research',{recursive:true});
-await mkdir('public/images/roman-people/portraits',{recursive:true});
-const pages=await api('https://en.wikipedia.org',{titles:people.map(x=>x[1]).join('|'),redirects:'1',prop:'pageimages',piprop:'name',pilicense:'free'});
-const pageMap=Object.fromEntries(pages.pages.map(p=>[p.title,p]));
-const redirects=Object.fromEntries((pages.redirects??[]).map(x=>[x.from,x.to]));
-const selection=people.map(([id,title])=>({id,title,resolvedTitle:redirects[title]??title,file:overrides[id]??pageMap[redirects[title]??title]?.pageimage}));
-const titles=[...new Set(selection.filter(x=>x.file).map(x=>'File:'+x.file))];
-const info=await api('https://commons.wikimedia.org',{titles:titles.join('|'),prop:'imageinfo',iiprop:'url|extmetadata|size',iiurlwidth:'500'});
-const infoMap=Object.fromEntries(info.pages.map(x=>[x.title.replace(/^File:/,'').replaceAll('_',' '),x]));
-const report=[];
-for(const item of selection){
-  const page=item.file?infoMap[item.file.replaceAll('_',' ')]:null;
-  const image=page?.imageinfo?.[0];
-  if(!image){report.push({...item,status:'missing'});console.log(item.id,'missing');continue;}
-  const m=image.extmetadata??{};
-  const row={...item,sourceUrl:image.descriptionurl,url:image.url,thumbnail:image.thumburl,width:image.width,height:image.height,
-    description:plain(m.ImageDescription?.value),artist:plain(m.Artist?.value),credit:plain(m.Credit?.value),
-    license:plain(m.LicenseShortName?.value),licenseUrl:m.LicenseUrl?.value??'',usageTerms:plain(m.UsageTerms?.value)};
-  if(!/^(CC0|CC BY|Public domain|PD|GFDL)/i.test(row.license)||/\bNC\b|\bND\b/.test(row.license)){
-    report.push({...row,status:'review-license'});console.log(item.id,'review-license',row.license);continue;
-  }
-  try{
-    let bytes;try{bytes=await get(image.thumburl??image.url);}catch{bytes=await get(image.url);}
-    const output=await sharp(bytes).rotate().resize({width:480,height:640,fit:'inside',withoutEnlargement:true}).webp({quality:85}).toBuffer();
-    const path=`public/images/roman-people/portraits/${item.id}.webp`;await writeFile(path,output);
-    report.push({...row,status:'downloaded',path,bytes:output.length});console.log(item.id,'downloaded',output.length,item.file);
-  }catch(e){report.push({...row,status:'download-error',error:String(e)});console.log(item.id,'download-error',String(e));}
-  await delay(500);
+
+const report=JSON.parse(await readFile('portrait-research/sources.json','utf8'));
+const files={tiberius:'Head of Tiberius.jpg',quietus:'Lusius Quietus on Column of Trajan.jpg',theodosius1:'Gold Solidus of Theodosius I, 379-383.jpg'};
+for(const [id,file] of Object.entries(files)){
+ const q=await api('https://commons.wikimedia.org',{titles:'File:'+file,prop:'imageinfo',iiprop:'url|extmetadata|size',iiurlwidth:'500'});
+ const image=q.pages[0].imageinfo[0],m=image.extmetadata;
+ const row={id,file,title:people.find(x=>x[0]===id)[1],sourceUrl:image.descriptionurl,url:image.url,thumbnail:image.thumburl,width:image.width,height:image.height,description:plain(m.ImageDescription?.value),artist:plain(m.Artist?.value),credit:plain(m.Credit?.value),license:plain(m.LicenseShortName?.value),licenseUrl:m.LicenseUrl?.value??''};
+ if(!/^(CC0|CC BY|Public domain|PD)/i.test(row.license))throw Error('Unapproved license '+row.license);
+ if(id==='quietus')row.artist='The History of the World (1902); Hans F. Helmolt, editor; digitized by Internet Archive / University of California Libraries';
+ let bytes;try{bytes=await get(image.thumburl??image.url);}catch{bytes=await get(image.url);}
+ const output=await sharp(bytes).rotate().resize({width:480,height:640,fit:'inside',withoutEnlargement:true}).webp({quality:85}).toBuffer();
+ row.path=`public/images/roman-people/portraits/${id}.webp`;await writeFile(row.path,output);row.bytes=output.length;row.status='downloaded';
+ report.splice(report.findIndex(x=>x.id===id),1,row);console.log(id,file,output.length);
 }
+const id='varus',url='https://www.livius.org/site/assets/files/10032/coin_varus_rgzm.jpg';
+const bytes=await get(url),output=await sharp(bytes).rotate().resize({width:480,height:640,fit:'inside',withoutEnlargement:true}).webp({quality:85}).toBuffer();
+const row={id,title:'Publius Quinctilius Varus',file:'coin_varus_rgzm.jpg',sourceUrl:'https://www.livius.org/pictures/a/roman-portraits/varus/',url,description:'Coin of Varus, 8/7 BCE. Mainz, Römisch-Germanisches Zentralmuseum.',artist:'Jona Lendering / Livius.org',credit:'Jona Lendering / Livius.org',license:'CC0',licenseUrl:'https://creativecommons.org/publicdomain/zero/1.0/',path:`public/images/roman-people/portraits/${id}.webp`,bytes:output.length,status:'downloaded'};
+await writeFile(row.path,output);report.splice(report.findIndex(x=>x.id===id),1,row);console.log(id,output.length);
 await writeFile('portrait-research/sources.json',JSON.stringify(report,null,2)+'\n');
-console.log('Collected',report.filter(x=>x.status==='downloaded').length,'of',people.length);
+console.log('Downloaded',report.filter(x=>x.status==='downloaded').length);
