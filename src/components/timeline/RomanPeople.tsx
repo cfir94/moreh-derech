@@ -9,7 +9,7 @@ function Portrait({ person, large = false }: { person: RomanPerson; large?: bool
   const portrait = PORTRAITS[person.id];
   const [failed, setFailed] = useState(false);
   return <div data-portrait={person.id} className={`${s.portrait} ${large ? s.largePortrait : ""}`}>
-    <span className={s.monogram} aria-label={`מונוגרמה של ${person.name}`}><span aria-hidden>❧</span><b>{person.latin.split(" ")[0].slice(0, 2)}</b><span aria-hidden>❧</span></span>
+    {(!portrait || failed) && <span className={s.monogram} aria-label={`מונוגרמה של ${person.name}`}><span aria-hidden>❧</span><b>{person.latin.split(" ")[0].slice(0, 2)}</b><span aria-hidden>❧</span></span>}
     {portrait && !failed && <a href={portraitUrl(portrait)} target="_blank" rel="noreferrer" aria-label={`הגדלת התמונה של ${person.name}`}><img src={portraitUrl(portrait)} alt={portrait.alt} loading="lazy" width="500" height="660" style={{ objectFit: portrait.fit ?? "cover" }} onError={() => setFailed(true)} /></a> /* eslint-disable-line @next/next/no-img-element */}
     <span className={s.portraitCaption}>{portrait && !failed ? portrait.caption : failed ? "התמונה לא נטענה" : "לא נמצא דיוקן מזוהה"}</span>
   </div>;
