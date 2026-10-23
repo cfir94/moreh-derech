@@ -155,6 +155,13 @@ test("שיחה רביעית מאותו IP נחסמת; IP אחר עדיין עו�
   assert.equal((await start({ ip: "5.6.7.8" })).status, 200);
 });
 
+test("\"0\" = בלי מכסה יומית, ובלי כתיבות מכסה ל-KV", async () => {
+  env.DAILY_SESSIONS_PER_IP = "0";
+  env.DAILY_SESSIONS_GLOBAL = "0";
+  for (let i = 0; i < 10; i++) assert.equal((await start()).status, 200);
+  assert.ok(![...kv.store.keys()].some((k) => k.startsWith("ip:") || k.startsWith("global:")));
+});
+
 test("תקרה יומית כללית", async () => {
   env.DAILY_SESSIONS_GLOBAL = "2";
   await start({ ip: "1.1.1.1" });

@@ -85,8 +85,8 @@ npm run deploy
 | `FRAME_ANCESTORS` | github.io + localhost | מי רשאי להטמיע ב-iframe |
 | `FREE_TIER_MODE` | `true` | חוסם את האיחוד האירופי, אזור הכלכלה האירופי, שווייץ ובריטניה |
 | `MAX_SESSION_MINUTES` | `12` | אורך שיחה; האסימון פג אחרי 12+2 דקות |
-| `DAILY_SESSIONS_PER_IP` | `3` | שיחות ביום לכל IP (KV, משוער) |
-| `DAILY_SESSIONS_GLOBAL` | `60` | תקרה יומית לכל האתר |
+| `DAILY_SESSIONS_PER_IP` | `0` | שיחות ביום לכל IP (KV, משוער); `0` = בלי הגבלה |
+| `DAILY_SESSIONS_GLOBAL` | `0` | תקרה יומית לכל האתר; `0` = בלי הגבלה |
 | `TURNSTILE_SITE_KEY` | מפתח בדיקה | ה-Site key של Turnstile |
 
 סודות: `GEMINI_API_KEY`, `TURNSTILE_SECRET`. מקומית — ב-`.dev.vars` (לא נכנס ל-Git).

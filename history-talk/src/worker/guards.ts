@@ -66,6 +66,10 @@ export const intVar = (v: string | undefined, fallback: number) => {
   return Number.isFinite(n) && n > 0 ? n : fallback;
 };
 
+/** מגבלה מספרית; "0" = בלי הגבלה. */
+export const limitVar = (v: string | undefined, fallback: number) =>
+  v?.trim() === "0" ? Number.POSITIVE_INFINITY : intVar(v, fallback);
+
 export const isFreeTier = (env: Env) => env.FREE_TIER_MODE !== "false";
 
 export function allowedOrigin(request: Request, env: Env): string | null {
@@ -138,14 +142,14 @@ const quotaKeys = (ipHash: string, now: number) => {
  * הספירה משוערת — מספיק לשלב הזה.
  */
 export async function checkDailyQuota(kv: KVNamespace, ipHash: string, env: Env, now = Date.now()) {
+  const perIp = limitVar(env.DAILY_SESSIONS_PER_IP, 3);
+  const global = limitVar(env.DAILY_SESSIONS_GLOBAL, 60);
+  // בלי שתי המגבלות אין מה לספור — וגם חוסכים כתיבות ל-KV.
+  if (perIp === Number.POSITIVE_INFINITY && global === Number.POSITIVE_INFINITY) return { code: null, unlimited: true };
   const { ipKey, globalKey } = quotaKeys(ipHash, now);
   const [ipCount, globalCount] = await Promise.all([readCount(kv, ipKey), readCount(kv, globalKey)]);
   const code: ErrorCode | null =
-    ipCount >= intVar(env.DAILY_SESSIONS_PER_IP, 3)
-      ? "quota_ip"
-      : globalCount >= intVar(env.DAILY_SESSIONS_GLOBAL, 60)
-        ? "quota_global"
-        : null;
+    ipCount >= perIp ? "quota_ip" : globalCount >= global ? "quota_global" : null;
   return { code, ipCount, globalCount };
 }
 

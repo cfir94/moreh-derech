@@ -38,8 +38,9 @@
     "FRAME_ANCESTORS": "https://cfir94.github.io http://localhost:3000",
     "FREE_TIER_MODE": "true",
     "MAX_SESSION_MINUTES": "12",
-    "DAILY_SESSIONS_PER_IP": "3",
-    "DAILY_SESSIONS_GLOBAL": "60",
+    // מכסות יומיות; "0" = בלי הגבלה (המגבלה בפועל: 65 אלף טוקנים לדקה אצל Gemini).
+    "DAILY_SESSIONS_PER_IP": "0",
+    "DAILY_SESSIONS_GLOBAL": "0",
     // Site key ציבורי של widget "history-talk" (דומיין: history-talk.cfir94.workers.dev).
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFiadBD73TrLR-8G"
   }
