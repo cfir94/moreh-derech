@@ -19,6 +19,7 @@ import secondTempleEvents from "@/data/second-temple/search.json";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
 import { ARCH_TERMS } from "@/data/classical-architecture";
+import { ROMAN_PEOPLE } from "@/data/roman-people";
 import { PERIOD_ROWS, periodDateText } from "@/data/periods";
 import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
@@ -202,6 +203,15 @@ const baseResults: SearchResult[] = [
   ...videoResults(),
   ...resourceResults(),
   ...timelineResults(),
+  {
+    id: "timeline-roman-people",
+    kind: "timeline",
+    kindLabel: "כלי זיכרון",
+    title: "מי זה מי ברומא? — דמויות ותפקידים",
+    description: "36 דמויות רומיות וביזנטיות, השוואות בין שמות מבלבלים ותרגול בכרטיסי זיכרון.",
+    href: "/timelines/roman-people",
+    searchText: ["קיסרים מצביאים נציבים זיכרון רומא ביזנטיון השוואה דמויות", ...ROMAN_PEOPLE.map(person => `${person.name} ${person.aliases} ${person.hook}`)].join(" "),
+  },
   {
     id: "timeline-periods",
     kind: "timeline",

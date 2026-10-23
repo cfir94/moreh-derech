@@ -8,6 +8,12 @@ import { SectionCard } from "@/components/SectionCard";
 
 const sets = [
   {
+    slug: "roman-people",
+    title: "מי זה מי ברומא?",
+    description: "קיסרים, מצביאים ונציבים — מחברים כל שם לתפקיד ולמעשה. ציר דמויות, השוואות וכרטיסי זיכרון, מפומפיוס עד הכיבוש המוסלמי.",
+    meta: "36 דמויות · 11 השוואות · תרגול זיכרון",
+  },
+  {
     slug: "periods",
     title: "טבלת התקופות — מבט משווה",
     description:
