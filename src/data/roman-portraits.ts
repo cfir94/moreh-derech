@@ -34,15 +34,15 @@ export const LOCAL_PORTRAITS: Record<string, Portrait> = {
     "caption": "פסל"
   },
   "varus": {
-    "file": "Varus_-_Antiquitates_Germanicæ_-_Tacitus_&_Hooft.tiff",
+    "file": "coin_varus_rgzm.jpg",
     "localSrc": "/moreh-derech/images/roman-people/portraits/varus.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Varus_-_Antiquitates_Germanic%C3%A6_-_Tacitus_%26_Hooft.tiff",
-    "credit": "Unknown authorUnknown author",
-    "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "alt": "ורוס במחנה הצבאי בתחריט מתוך Antiquitates Germanicæ",
-    "caption": "תחריט מאוחר",
-    "note": "תיאור אמנותי מאוחר של ורוס במחנהו, ולא דיוקן שנוצר בחייו.",
+    "sourceUrl": "https://www.livius.org/pictures/a/roman-portraits/varus/",
+    "credit": "Jona Lendering / Livius.org / Wikimedia Commons",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "alt": "דיוקן ורוס על מטבע מן השנים 8–7 לפנה״ס, מוזיאון מיינץ",
+    "caption": "מטבע",
+    "note": "דיוקן ורוס על מטבע מן השנים 8–7 לפנה״ס, מאוסף המוזיאון במיינץ.",
     "fit": "contain"
   },
   "quirinius": {
@@ -320,14 +320,16 @@ export const LOCAL_PORTRAITS: Record<string, Portrait> = {
     "fit": "contain"
   },
   "theodosius1": {
-    "file": "Bust_of_Theodosius_I.jpg",
+    "file": "Gold Solidus of Theodosius I, 379-383.jpg",
     "localSrc": "/moreh-derech/images/roman-people/portraits/theodosius1.webp",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bust_of_Theodosius_I.jpg",
-    "credit": "www.livius.org",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "alt": "ראש המיוחס לתאודוסיוס הראשון מאפרודיסיאס",
-    "caption": "פסל מיוחס"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gold_Solidus_of_Theodosius_I,_379-383.jpg",
+    "credit": "American Numismatic Society / Wikimedia Commons",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "alt": "דיוקן תאודוסיוס הראשון על סולידוס, 379–383, החברה הנומיסמטית האמריקאית",
+    "caption": "מטבע",
+    "note": "סולידוס מקונסטנטינופול, 379–383; אוסף החברה הנומיסמטית האמריקאית, מס׳ 1958.38.6.",
+    "fit": "contain"
   },
   "theodosius2": {
     "file": "Theodosius_II_Louvre_Ma1036.jpg",
