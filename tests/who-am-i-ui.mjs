@@ -88,8 +88,11 @@ try {
     const selected=page.locator('[aria-label="בחירת תקופות"] button[aria-pressed="true"],[aria-label="לימודי יהדות ונצרות"] button[aria-pressed="true"]');
     while(await selected.count()) await selected.first().click();
     await page.getByRole("group",{name:"לימודי יהדות ונצרות"}).getByRole("button",{name:new RegExp(label)}).click();
-    await page.getByText("התמקדות לפי מחברת",{exact:false}).click();
-    const books=page.getByRole("group",{name:"בחירת מחברות"});
+    const filter=page.locator("details").filter({has:page.locator("summary",{hasText:"התמקדות לפי מחברת"})});
+    if(!await filter.evaluate(details=>details.open)) await filter.locator("summary").click();
+    await expect(filter).toHaveAttribute("open","");
+    const books=filter.getByRole("group",{name:"בחירת מחברות"});
+    console.log("FAITH FILTER",faith,await books.textContent());
     await expect(books.getByRole("button")).toHaveCount(3);
     for(const button of await books.getByRole("button").all())
       if(!(await button.textContent()).includes(bookLabel)) await button.click();
@@ -116,9 +119,10 @@ try {
     await expect(page.locator("[data-summary]")).toContainText("זיהית 10 מתוך 10 דמויות.");
     await page.getByRole("button",{name:/לשנות תחומים/}).click();
     // Restore this subject's notebook selections for the next loop.
-    for(const b of await page.getByRole("group",{name:"בחירת מחברות"}).getByRole("button").all())
+    if(!await filter.evaluate(details=>details.open)) await filter.locator("summary").click();
+    for(const b of await filter.getByRole("group",{name:"בחירת מחברות"}).getByRole("button").all())
       if(await b.getAttribute("aria-pressed")==="false") await b.click();
-    await page.getByText("התמקדות לפי מחברת",{exact:false}).click();
+    if(await filter.evaluate(details=>details.open)) await filter.locator("summary").click();
   }
 
   // Validate actual browser decoding for every portrait, including newly rasterised engravings.
