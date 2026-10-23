@@ -1,4 +1,4 @@
-name: Collect Herodian companion images
+name: Collect historical identity game images
 on:
   push:
     branches: [roman-portraits-20261023]
@@ -8,7 +8,7 @@ permissions:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -19,6 +19,6 @@ jobs:
       - run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/herodian-image-sources.json public/images/roman-people/companions
-          git commit -m 'Download three identified Herodian companion images'
+          git add docs/who-am-i-* public/images/who-am-i
+          git commit -m 'Collect candidate images for historical identity game'
           git push origin HEAD:roman-portraits-20261023
