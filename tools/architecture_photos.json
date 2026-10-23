@@ -306,5 +306,33 @@
     "file": "Jerusalem_Modell_BW_2.JPG",
     "caption": "דגם ירושלים בימי בית שני (מוזיאון ישראל): המקדש ורחבת הר הבית ההרודיאנית.",
     "alt": "דגם עיר עתיקה ובמרכזו מקדש בתוך רחבה מוקפת סטווים"
+  },
+  {
+    "id": "tl-miletus",
+    "chapter": "timeline",
+    "file": "Plan of Miletus in A. Gerkan's Griechische Stadteanlagen Wellcome M0009549.jpg",
+    "caption": "תוכנית העיר מילטוס — רחובות שתי וערב, 'התוכנית ההיפודמית'.",
+    "alt": "תוכנית עיר עתיקה ברשת רחובות ניצבים"
+  },
+  {
+    "id": "tl-kathisma",
+    "chapter": "timeline",
+    "file": "The octagon of the Kathisma church. View from Khirbet at-Tabaliye.jpg",
+    "caption": "שרידי כנסיית הקתיסמה — המבנה המתומן, בדרך לבית לחם.",
+    "alt": "שרידי יסודות של מבנה מתומן"
+  },
+  {
+    "id": "tl-jericho-mikveh",
+    "chapter": "timeline",
+    "file": "World's Oldest Mikveh at Hasmonean royal winter palaces.jpg",
+    "caption": "מקווה בארמונות החורף החשמונאיים ביריחו — מן המקוואות הקדומים הידועים.",
+    "alt": "מתקן טבילה חצוב עם מדרגות"
+  },
+  {
+    "id": "tl-jericho-pools",
+    "chapter": "timeline",
+    "file": "Pools hasmonean royal palaces1.jpg",
+    "caption": "בריכות ארמונות החשמונאים ביריחו, שהוזנו במים באמות מן המעיינות.",
+    "alt": "בריכות עתיקות גדולות בשטח מדברי"
   }
 ]
