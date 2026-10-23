@@ -14,8 +14,11 @@ rows=json.load(open("scripts/faith-media.json"))
 def work(row):
  ident,article=row
  try:
-  page=next(iter(api("en.wikipedia.org",dict(action="query",titles=article,prop="pageimages",piprop="name",redirects=1))["query"]["pages"].values()))
-  filename=page.get("pageimage")
+  if article.startswith("File:"):filename=article[5:]
+  else:
+   host="he.wikipedia.org" if article.startswith("he:") else "en.wikipedia.org"
+   page=next(iter(api(host,dict(action="query",titles=article[3:] if article.startswith("he:") else article,prop="pageimages",piprop="name",redirects=1))["query"]["pages"].values()))
+   filename=page.get("pageimage")
   if not filename:raise Exception("no page image")
   info=next(iter(api("commons.wikimedia.org",dict(action="query",titles="File:"+filename,prop="imageinfo",iiprop="url|extmetadata",iiurlwidth=480))["query"]["pages"].values()))["imageinfo"][0]
   meta=info["extmetadata"];license=clean(meta.get("LicenseShortName",{}).get("value",""))
@@ -27,7 +30,7 @@ def work(row):
   data=dict(id=ident,file=filename,sourceUrl=info.get("descriptionurl","https://commons.wikimedia.org/wiki/File:"+urllib.parse.quote(filename)),credit=clean(meta.get("Artist",{}).get("value",""))[:700],license=license,licenseUrl=clean(meta.get("LicenseUrl",{}).get("value","")) or "https://commons.wikimedia.org/wiki/Commons:Copyright_tags",description=clean(meta.get("ImageDescription",{}).get("value",""))[:1000],webp=base64.b64encode(out.getvalue()).decode())
   return data
  except Exception as e:return dict(id=ident,error=str(e),article=article)
-with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:results=list(pool.map(work,rows))
+with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:results=list(pool.map(work,rows))
 for x in results:
  if "webp" in x:print("MEDIA_"+x["id"]+"="+x.pop("webp"),flush=True)
 print("MEDIA_REPORT="+base64.b64encode(json.dumps(results,ensure_ascii=False).encode()).decode(),flush=True)
