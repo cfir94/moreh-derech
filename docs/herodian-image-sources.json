@@ -1,0 +1,38 @@
+{
+  "herod-great": {
+    "file": "HerodtheGreat2.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:HerodtheGreat2.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f6/HerodtheGreat2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Herodes o Grande, which translates: \"Herod the Great\"",
+    "credit": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "width": 600,
+    "height": 551,
+    "localSrc": "/moreh-derech/images/roman-people/companions/herod-great.webp"
+  },
+  "antipas": {
+    "file": "Herod tissot.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Herod_tissot.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Herod_tissot.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "Herod the Great",
+    "credit": "James Tissot",
+    "license": "Public domain",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "width": 422,
+    "height": 800,
+    "localSrc": "/moreh-derech/images/roman-people/companions/antipas.webp"
+  },
+  "agrippa1": {
+    "file": "Agrippa I face.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Agrippa_I_face.jpg",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Agrippa_I_face.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "description": "JUDAEA, Herodian Kings. Herod Agrippa I. 37-43 CE. Æ 22mm (9.02 g, 1h). Caesarea Maritima mint. Dated RY 7 (42/3 CE). BACILEYC MEGA[C AGRIPPAC FILOKAICAP], diademed head right / KAICAPIA H PPOC TW C[EBACTW LIMHNI], Tyche of Caesarea standing left, holding rudder in right hand and palm in left. Meshorer 122; A. Burnett, \"The Coinage of King Agrippa I of Judaea and a New Coin of King Herod of Chalcis,\" Mélanges Bastien, -; RPC I 4985; Hendin 555; SNG Copenhagen -; BMC 20 corr. (Caesarea Samariae; Tyche holding cornucopiae). VF, black-green patina with sandy overtones.",
+    "credit": "CNG",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "width": 242,
+    "height": 239,
+    "localSrc": "/moreh-derech/images/roman-people/companions/agrippa1.webp"
+  }
+}
