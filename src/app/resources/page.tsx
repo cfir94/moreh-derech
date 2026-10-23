@@ -42,8 +42,8 @@ export default function ResourcesPage() {
         aria-labelledby="class-materials-title"
         className="screen-in mb-8 rounded-lg border border-teal/30 bg-card p-5 sm:p-6"
       >
-        <p className="mb-1 text-xs font-bold tracking-wide text-teal">חומרי לימוד מהכיתה</p>
-        <h2 id="class-materials-title" className="mb-2 text-xl">מצגות וחומרי חזרה לקורס</h2>
+        <p className="mb-1 text-xs font-bold tracking-wide text-teal">מהכיתה</p>
+        <h2 id="class-materials-title" className="mb-2 text-xl">סיכומים של בועז</h2>
         <p className="mb-4 max-w-2xl text-sm leading-relaxed text-txt-dim">
           מצגות לשיעור החזרה על תקופת בית שני, התקופה הרומית־ביזנטית ואדריכלות קלאסית.
         </p>

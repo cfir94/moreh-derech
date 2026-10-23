@@ -2,7 +2,7 @@
 
 Request: add four classmate DOCX summaries above the existing Efrat Nakash materials, plus the supplied Google Drive presentations folder.
 
-Completed: a separate class materials section at the top of /resources, with the exact supplied presentations folder link. Efrat's credit now applies specifically to her existing materials. Existing generated resource data is unchanged. The total includes the additional folder link.
+Completed: a separate section titled סיכומים של בועז at the top of /resources, with the exact supplied presentations folder link. Efrat's credit now applies specifically to her existing materials. Existing generated resource data is unchanged. The total includes the additional folder link.
 
 Blocked: the four attached DOCX files have not been published. Local exec cannot start because of an invalid Windows sandbox path URI. Automatic approval review rejected a proposed remote transfer because it would expose signed attachment URLs and document contents in public CI logs. That approach was stopped. No signed attachment links or transfer workflows were committed. Completion needs ordinary Google Drive sharing links for those four files.
 
