@@ -4,10 +4,13 @@ on:
     branches: [main]
     paths:
       - "src/data/periods.ts"
+      - "src/data/roman-people.ts"
+      - "src/components/timeline/RomanPeople*"
       - "src/components/timeline/PeriodsTable*"
       - "src/app/timelines/**"
       - "src/lib/siteSearch.ts"
       - "tests/periods-table*"
+      - "tests/roman-people*"
       - ".github/workflows/validate-periods-table.yml"
   workflow_dispatch:
 permissions:
@@ -23,7 +26,10 @@ jobs:
           node-version: 24
       - run: npm ci
       - run: node --import ./tests/register-ts.mjs --test tests/periods-table.test.mjs
+      - run: node --import ./tests/register-ts.mjs --test tests/roman-people.test.mjs
+      - run: npm run lint -- src/data/roman-people.ts src/components/timeline/RomanPeople.tsx src/app/timelines/roman-people/page.tsx
       - run: npm run lint -- src/data/periods.ts src/components/timeline/PeriodsTable.tsx src/app/timelines/periods/page.tsx src/app/timelines/page.tsx src/lib/domains.ts src/lib/siteSearch.ts
       - run: npm run build
       - run: npm install --no-save --package-lock=false @playwright/test@1.64.1 && npx playwright install --with-deps chromium
       - run: node tests/periods-table-ui.mjs
+      - run: node tests/roman-people-ui.mjs

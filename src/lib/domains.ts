@@ -37,6 +37,7 @@ export const DOMAINS: Record<string, Domain> = {
   profession: { color: "var(--violet)", icon: "🎤" },
   maps: { color: "var(--teal)", icon: "🧭" },
   timelines: { color: "var(--violet)", icon: "🕰️" },
+  "roman-people": { color: "#943d2b", icon: "♛" },
   periods: { color: "var(--teal)", icon: "▥" },
   biblical: { color: "var(--violet)", icon: "✝️" },
   "egypt-canaan": { color: "var(--blue)", icon: "🏺" },
