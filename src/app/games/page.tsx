@@ -8,6 +8,13 @@ export const metadata: Metadata = {
 
 const games = [
   {
+    slug: "who-am-i",
+    href: "/games/who-am-i",
+    title: "מי אני? — קולות מן העבר",
+    description: "דמות היסטורית מספרת על עצמה. מזהים את השם בשאלה אמריקאית או בהקלדה — וחושפים תמונה וסיפור.",
+    meta: "117 דמויות · 4 מחברות",
+  },
+  {
     slug: "geo-game",
     href: "/games/geography",
     title: "משחק אֶבֶן דֶּרֶךְ",

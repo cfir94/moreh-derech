@@ -1,0 +1,37 @@
+name: Validate historical identity game
+on:
+  push:
+    branches: [main, who-am-i-20261023]
+    paths:
+      - 'src/data/who-am-i/**'
+      - 'src/lib/whoAmI.ts'
+      - 'src/components/games/WhoAmIGame*'
+      - 'src/app/games/**'
+      - 'tests/who-am-i*'
+      - '.github/workflows/validate-who-am-i.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node --import ./tests/register-who-am-i.mjs --test tests/who-am-i.test.mjs
+      - run: npx eslint src/lib/whoAmI.ts src/components/games/WhoAmIGame.tsx src/app/games/who-am-i/page.tsx src/data/who-am-i/index.ts
+      - run: npm run build
+      - run: npm install --no-save --package-lock=false @playwright/test@1.64.1
+      - run: npx playwright install --with-deps chromium
+      - run: mkdir -p test-results
+      - run: node tests/who-am-i-ui.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: historical-identity-game-review
+          path: test-results/
