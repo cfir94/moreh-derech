@@ -1,0 +1,25 @@
+name: Collect Roman portrait assets for review
+on:
+  push:
+    branches: [roman-portraits-20261023]
+    paths: [tools/collect-roman-portraits.py, .github/workflows/collect-roman-portraits.yml]
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow
+      - run: python tools/collect-roman-portraits.py
+      - name: Save candidates to the review branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/roman-portrait-candidates.json public/images/roman-people/portraits
+          git commit -m 'Collect licensed portrait assets and metadata for review'
+          git push origin HEAD:roman-portraits-20261023
