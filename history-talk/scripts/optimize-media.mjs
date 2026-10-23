@@ -3,7 +3,7 @@
 // קלט: characters/<id>/media/raw/ — portrait.(png|jpg|jpeg|webp), idle.(mp4|mov|webm), talking.(mp4|mov|webm)
 //       (התיקייה raw/ לא נכנסת ל-Git; רק הקבצים המוכנים נכנסים.)
 // פלט: characters/<id>/media/
-//   portrait.webp — רוחב 768
+//   portrait.webp — רוחב 768, עם שקיפות אם יש למקור (דיוקן חתוך לבמת ההילה, 4:5)
 //   idle.mp4 / talking.mp4 — H.264, עד 720p, בלי שמע, +faststart, עד 2MB
 //   idle.webm / talking.webm — VP9, אותן מגבלות
 // אם אין וידאו לדמות — מספיק הדיוקן; אם אין גם דיוקן — מוצגת מונוגרמה בצבע הדמות.
@@ -65,7 +65,8 @@ function processCharacter(id) {
   const portrait = findRaw(raw, "portrait", ["png", "jpg", "jpeg", "webp"]);
   if (portrait) {
     const out = join(media, "portrait.webp");
-    ffmpeg(["-i", portrait, "-vf", "scale='min(768,iw)':-2", "-c:v", "libwebp", "-quality", "82", out]);
+    // yuva420p שומר את ערוץ השקיפות של PNG חתוך; לתמונה בלי שקיפות אין לו השפעה.
+    ffmpeg(["-i", portrait, "-vf", "scale='min(768,iw)':-2", "-pix_fmt", "yuva420p", "-c:v", "libwebp", "-quality", "82", out]);
     console.log(`  portrait.webp: ${(statSync(out).size / 1024).toFixed(0)}KB`);
   }
   for (const loop of ["idle", "talking"]) {

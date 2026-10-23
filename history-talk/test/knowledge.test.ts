@@ -69,6 +69,7 @@ test("אימות ציטוטים: נמצא כלשונו (גם עם השמטה), �
 
 test("כל הציטוטים בדפי הידע של הדמויות נמצאים במקורות", async () => {
   const { readFileSync, readdirSync, existsSync } = await import("node:fs");
+  const { extname } = await import("node:path");
   const { verifyQuotes } = await import("../scripts/build-knowledge.mjs");
   const root = fileURLToPath(new URL("../characters/", import.meta.url));
   for (const id of readdirSync(root)) {
@@ -77,11 +78,35 @@ test("כל הציטוטים בדפי הידע של הדמויות נמצאים �
     const char = JSON.parse(readFileSync(`${root}${id}/character.json`, "utf8"));
     const chunks = readdirSync(`${root}${id}/sources`).flatMap((f: string) =>
       chunkSource(
-        parseSource(readFileSync(`${root}${id}/sources/${f}`, "utf8"), ".html"),
+        parseSource(readFileSync(`${root}${id}/sources/${f}`, "utf8"), extname(f)),
         char.sources.find((s: { file: string }) => s.file === f) ?? { title: f, url: "" },
       ),
     );
     const missing = verifyQuotes(readFileSync(sheetPath, "utf8"), chunks).filter((q: { ref: string | null }) => !q.ref);
     assert.deepEqual(missing, [], `${id}: ציטוטים שלא נמצאו`);
   }
+});
+
+test("ספריא: עוגן שהוא כתובת מלאה, ו'פסוק/פסוקים' במקום 'סעיף'", () => {
+  const verse = (n: string, words: number) => `<p>${n}. ${Array.from({ length: words }, (_, i) => `מילה${i}`).join(" ")}</p>`;
+  const html = [
+    "<h2>מלכים ב</h2>",
+    '<h3 data-anchor="https://www.sefaria.org/II_Kings.18?lang=he">פרק י״ח</h3>',
+    verse("א", 70),
+    verse("ב", 70),
+  ].join("\n");
+  const [c] = chunkSource(parseSource(html, ".html"), {
+    title: "תנ״ך",
+    refTitle: "",
+    url: "https://www.sefaria.org/II_Kings.18?lang=he",
+    sectionLabel: ["פסוק", "פסוקים"] as [string, string],
+  });
+  assert.equal(c.ref, "מלכים ב, פרק י״ח, פסוקים א–ב");
+  assert.equal(c.url, "https://www.sefaria.org/II_Kings.18?lang=he");
+});
+
+test("מספרים עבריים ורומיים", async () => {
+  const { hebrewNumeral, fromRoman } = await import("../scripts/fetch-sources.mjs");
+  assert.deepEqual([1, 15, 16, 18, 100, 171].map(hebrewNumeral), ["א", "טו", "טז", "יח", "ק", "קעא"]);
+  assert.deepEqual(["XLII", "CXXVII", "XIV"].map(fromRoman), [42, 127, 14]);
 });

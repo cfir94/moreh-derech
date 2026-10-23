@@ -66,8 +66,9 @@ export function parseSource(raw, ext) {
   return blocks;
 }
 
-// "א. יען כי…" → "א". פסקאות בתרגומי בן־יהודה ממוספרות כך לפי הסעיפים.
-const sectionOf = (text) => text.match(/^([א-ת]{1,3})[.׳']\s/)?.[1];
+// "א. יען כי…" → "א". פסקאות בתרגומי בן־יהודה ממוספרות כך לפי הסעיפים, פסוקים
+// ומשניות מספריא באותיות, וסעיפים בתרגומים האנגליים בספרות ("12. And…").
+const sectionOf = (text) => text.match(/^([א-ת]{1,3}|\d{1,3})\.\s/)?.[1];
 
 function chapterLabel(text) {
   const short = text.split(/[:.]/)[0].trim();
@@ -112,9 +113,12 @@ export function chunkSource(blocks, source) {
     const text = buf.join(" ");
     const parts = [source.refTitle ?? source.title, book, chapter].filter(Boolean);
     const secs = sections.filter(Boolean);
-    if (secs.length) parts.push(secs.length > 1 ? `סעיפים ${secs[0]}–${secs.at(-1)}` : `סעיף ${secs[0]}`);
+    const [one, many] = source.sectionLabel ?? ["סעיף", "סעיפים"];
+    if (secs.length) parts.push(secs.length > 1 ? `${many} ${secs[0]}–${secs.at(-1)}` : `${one} ${secs[0]}`);
     const base = source.url.split("#")[0];
-    chunks.push({ ref: parts.join(", "), text, url: anchor ? `${base}#${anchor}` : base });
+    // עוגן שהוא כתובת מלאה (ספריא, CCEL) מחליף את כתובת המקור.
+    const url = !anchor ? base : /^https?:/.test(anchor) ? anchor : `${base}#${anchor}`;
+    chunks.push({ ref: parts.join(", "), text, url });
     buf = [];
     sections = [];
   };
@@ -253,7 +257,7 @@ async function buildCharacter(id) {
   );
   for (const w of warn) console.warn(`  ⚠ ${w}`);
 
-  const { sources, voiceName, ...publicFields } = char;
+  const { sources, voiceName, portrait, ...publicFields } = char;
   return {
     public: {
       ...publicFields,
@@ -271,6 +275,8 @@ async function main() {
     .sort();
   const built = [];
   for (const id of ids) built.push(await buildCharacter(id));
+  // סדר כרונולוגי: sortYear הוא שנת המפתח של הדמות (שלילי = לפני הספירה).
+  built.sort((a, b) => (a.public.sortYear ?? 0) - (b.public.sortYear ?? 0));
 
   await mkdir(DATA_DIR, { recursive: true });
   await writeFile(join(DATA_DIR, "characters.json"), JSON.stringify(built.map((b) => b.public), null, 2) + "\n");

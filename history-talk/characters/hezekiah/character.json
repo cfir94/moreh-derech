@@ -1,0 +1,132 @@
+{
+  "id": "hezekiah",
+  "nameHe": "חזקיהו",
+  "years": "מלך כ־715–686 לפנה״ס",
+  "eraHe": "תקופת הברזל",
+  "sortYear": -701,
+  "taglineHe": "מלך יהודה בימי מצור סנחריב",
+  "voiceName": "Orus",
+  "accentColor": "#2B7A8C",
+  "openingLineHe": "אני חזקיהו בן אחז, מלך יהודה. ראיתי את צבא אשור חונה סביב ירושלים — והעיר עמדה. שאל, ואענה.",
+  "sampleQuestionsHe": [
+    "איך חצבתם את נקבת השילוח?",
+    "למה סנחריב לא כבש את ירושלים?",
+    "למה כיתתָּ את נחש הנחושת?"
+  ],
+  "portraitCredit": {
+    "alt": "חזקיהו בכתר ובשרביט — ציור עממי בכנסיית אוהוס שבשוודיה; דמות מדומיינת, לא דיוקן בן הזמן",
+    "text": "ציור בכנסיית אוהוס, שוודיה; דמות מדומיינת (צילום: David Castor)",
+    "url": "https://commons.wikimedia.org/wiki/File:%C3%85hus_kyrka-10.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Åhus kyrka-10.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      612,
+      413
+    ],
+    "headH": 290
+  },
+  "sources": [
+    {
+      "title": "מלכים ב׳ יח–כ, ישעיהו כב, לו–לט, דברי הימים ב׳ כט–לב, ירמיהו כו, משלי כה",
+      "url": "https://www.sefaria.org/II_Kings.18?lang=he",
+      "license": "נחלת הכלל (ספריא, Tanach with Nikkud)",
+      "file": "tanakh.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Tanach with Nikkud",
+        "refs": [
+          "II_Kings.18",
+          "II_Kings.19",
+          "II_Kings.20",
+          "Isaiah.22",
+          "Isaiah.36",
+          "Isaiah.37",
+          "Isaiah.38",
+          "Isaiah.39",
+          "II_Chronicles.29",
+          "II_Chronicles.30",
+          "II_Chronicles.31",
+          "II_Chronicles.32",
+          "Jeremiah.26.17-19",
+          "Proverbs.25.1"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "תלמוד בבלי: ברכות י ע״א–ע״ב, פסחים נו ע״א, סנהדרין צד ע״ב",
+      "url": "https://www.sefaria.org/Berakhot.10a?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Berakhot.10a",
+          "Berakhot.10b",
+          "Pesachim.56a",
+          "Sanhedrin.94b"
+        ],
+        "unit": "daf"
+      }
+    },
+    {
+      "title": "בן סירא מח (מהדורת דוד כהנא)",
+      "url": "https://www.sefaria.org/Ben_Sira.48?lang=he",
+      "license": "נחלת הכלל (ספריא, ויקיטקסט)",
+      "file": "ben-sira.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Ben Sira, David Kahana ed. -- Wikisource ",
+        "refs": [
+          "Ben_Sira.48"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "פסוק",
+        "פסוקים"
+      ]
+    },
+    {
+      "title": "Josephus, Antiquities of the Jews (Whiston, 1737)",
+      "translator": "William Whiston",
+      "url": "https://www.gutenberg.org/ebooks/2848",
+      "license": "Public domain (Project Gutenberg)",
+      "file": "antiquities-10.html",
+      "refTitle": "קדמוניות היהודים",
+      "gutenberg": {
+        "id": 2848,
+        "books": [
+          "X"
+        ],
+        "chapters": {
+          "X": [
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "title": "כתובת השילוח (ירושלים, סוף המאה ה-8 לפנה״ס)",
+      "url": "https://he.wikipedia.org/wiki/%D7%9B%D7%AA%D7%95%D7%91%D7%AA_%D7%94%D7%A9%D7%99%D7%9C%D7%95%D7%97",
+      "license": "טקסט עתיק — נחלת הכלל",
+      "file": "siloam.txt",
+      "refTitle": "כתובת השילוח",
+      "manual": true
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "id": "yohanan-ben-zakkai",
+  "nameHe": "רבן יוחנן בן זכאי",
+  "years": "המאה ה־1 לספירה",
+  "eraHe": "התקופה הרומית",
+  "sortYear": 71,
+  "taglineHe": "מייסד יבנה אחרי החורבן",
+  "voiceName": "Sadaltager",
+  "accentColor": "#3B5BA5",
+  "openingLineHe": "אני יוחנן בן זכאי. כשנפלה ירושלים ביקשתי דבר אחד: תן לי יבנה וחכמיה. שאל, בני.",
+  "sampleQuestionsHe": [
+    "איך יצאת מירושלים הנצורה?",
+    "מה ביקשת מאספסיאנוס?",
+    "מה תיקנת ביבנה אחרי החורבן?"
+  ],
+  "portraitCredit": {
+    "alt": "אין דיוקן של רבן יוחנן בן זכאי. כאן: דמות בלבוש התקופה — משה ליד הסנה, ציור קיר מבית הכנסת בדורה אירופוס, המאה ה־3",
+    "text": "אין דיוקן שלו — המחשה: ציור קיר מבית הכנסת בדורה אירופוס, המאה ה־3",
+    "url": "https://commons.wikimedia.org/wiki/File:DuraSyn-I-O-Moses_burning_bush.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "DuraSyn-I-O-Moses burning bush.jpg",
+    "sourceWidth": 1280,
+    "mode": "vignette",
+    "head": [
+      704,
+      212
+    ],
+    "headH": 275,
+    "oval": [
+      400,
+      470,
+      310,
+      450
+    ],
+    "enhance": 2,
+    "targetH": 240
+  },
+  "sources": [
+    {
+      "title": "תלמוד בבלי: גיטין נה ע״ב–נו ע״ב, ברכות כח ע״ב, סוכה כח ע״א, ראש השנה לא ע״ב, בבא בתרא י ע״ב",
+      "url": "https://www.sefaria.org/Gittin.55b?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Gittin.55b",
+          "Gittin.56a",
+          "Gittin.56b",
+          "Berakhot.28b",
+          "Sukkah.28a",
+          "Rosh_Hashanah.31b",
+          "Bava_Batra.10b"
+        ],
+        "unit": "daf"
+      }
+    },
+    {
+      "title": "משנה: אבות ב, ראש השנה ד, סוכה ג יב, סוטה ט טו, ידים ד",
+      "url": "https://www.sefaria.org/Pirkei_Avot.2?lang=he",
+      "license": "נחלת הכלל (ספריא, Torat Emet)",
+      "file": "mishnah.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Torat Emet 357",
+        "refs": [
+          "Pirkei_Avot.2",
+          "Mishnah_Rosh_Hashanah.4",
+          "Mishnah_Sukkah.3.12",
+          "Mishnah_Sotah.9.15",
+          "Mishnah_Yadayim.4"
+        ],
+        "unit": "perek",
+        "numbered": true
+      },
+      "sectionLabel": [
+        "משנה",
+        "משניות"
+      ]
+    },
+    {
+      "title": "אבות דרבי נתן (נוסח א)",
+      "url": "https://www.sefaria.org/Avot_D'Rabbi_Natan.4?lang=he",
+      "license": "נחלת הכלל (ספריא, דפוס וילנא)",
+      "file": "avot-de-rabbi-natan.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Talmud Bavli, Vilna 1883 ed.",
+        "refs": [
+          "Avot_D'Rabbi_Natan.4",
+          "Avot_D'Rabbi_Natan.14"
+        ],
+        "unit": "perek"
+      }
+    },
+    {
+      "title": "איכה רבה א, לא",
+      "url": "https://www.sefaria.org/Eichah_Rabbah.1.31?lang=he",
+      "license": "נחלת הכלל (ספריא, מדרש רבה)",
+      "file": "eicha-rabbah.html",
+      "refTitle": "",
+      "sefaria": {
+        "version": "Midrash Rabbah -- TE",
+        "refs": [
+          "Eichah_Rabbah.1.31"
+        ],
+        "unit": "siman"
+      }
+    }
+  ]
+}

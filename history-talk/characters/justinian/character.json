@@ -1,0 +1,136 @@
+{
+  "id": "justinian",
+  "nameHe": "יוסטיניאנוס",
+  "years": "482–565",
+  "eraHe": "התקופה הביזנטית",
+  "sortYear": 527,
+  "taglineHe": "קיסר ביזנטי, בונה ומחוקק",
+  "voiceName": "Alnilam",
+  "accentColor": "#9C7A1F",
+  "openingLineHe": "אני יוסטיניאנוס, קיסר הרומאים. נתתי חוקים לעולם, ובניתי לאלוהים בתים שאין כמותם. דבר.",
+  "sampleQuestionsHe": [
+    "מה בנית בירושלים?",
+    "למה בנית מנזר בסיני?",
+    "מה קרה במרד ניקה?"
+  ],
+  "portraitCredit": {
+    "alt": "יוסטיניאנוס בכתר ובהילה — פסיפס בכנסיית סן ויטאלה ברוונה, שנעשה בחייו (כ־547)",
+    "text": "פסיפס בסן ויטאלה, רוונה, כ־547 — מימיו (צילום: Petar Milošević)",
+    "url": "https://commons.wikimedia.org/wiki/File:Mosaic_of_Justinianus_I_-_Basilica_San_Vitale_%28Ravenna%29.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "portrait": {
+    "commonsFile": "Mosaic of Justinianus I - Basilica San Vitale (Ravenna).jpg",
+    "sourceWidth": 1280,
+    "mode": "vignette",
+    "head": [
+      645,
+      718
+    ],
+    "headH": 440,
+    "oval": [
+      400,
+      450,
+      370,
+      520
+    ]
+  },
+  "sources": [
+    {
+      "title": "Procopius, Buildings, Book I (Loeb, 1940)",
+      "translator": "H. B. Dewing",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Procopius/Buildings/1A*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "buildings-1.html",
+      "refTitle": "פרוקופיוס, על הבניינים, ספר א׳"
+    },
+    {
+      "title": "Procopius, Buildings, Book V — Asia Minor, Palestine, Sinai (Loeb, 1940)",
+      "translator": "H. B. Dewing",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Procopius/Buildings/5*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "buildings-5.html",
+      "refTitle": "פרוקופיוס, על הבניינים, ספר ה׳"
+    },
+    {
+      "title": "Procopius, History of the Wars, Book IV (Vandalic War II), ch. 8–28 (Loeb, 1916)",
+      "translator": "H. B. Dewing",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Procopius/Wars/4B*.html",
+      "license": "Public domain (LacusCurtius)",
+      "file": "wars-4.html",
+      "refTitle": "פרוקופיוס, מלחמות, ספר ד׳"
+    },
+    {
+      "title": "Procopius, The Secret History (Athenian Society, 1896) — selected chapters",
+      "translator": "anonymous (Athenian Society)",
+      "url": "https://www.gutenberg.org/ebooks/12916",
+      "license": "Public domain (Project Gutenberg)",
+      "file": "secret-history.html",
+      "refTitle": "פרוקופיוס, ההיסטוריה הסודית",
+      "gutenberg": {
+        "id": 12916,
+        "slices": [
+          {
+            "label": "פרק 6",
+            "from": "^CHAPTER VI\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          },
+          {
+            "label": "פרק 8",
+            "from": "^CHAPTER VIII\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          },
+          {
+            "label": "פרק 11",
+            "from": "^CHAPTER XI\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          },
+          {
+            "label": "פרק 12",
+            "from": "^CHAPTER XII\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          },
+          {
+            "label": "פרק 13",
+            "from": "^CHAPTER XIII\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          },
+          {
+            "label": "פרק 18",
+            "from": "^CHAPTER XVIII\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          },
+          {
+            "label": "פרק 28",
+            "from": "^CHAPTER XXVIII\\s*$",
+            "to": "^CHAPTER [IVXL]+\\s*$"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Justinian, Institutes — Proem and Book I, Title I (Moyle, 5th ed. 1913)",
+      "translator": "J. B. Moyle",
+      "url": "https://www.gutenberg.org/ebooks/5983",
+      "license": "Public domain (Project Gutenberg)",
+      "file": "institutes.html",
+      "refTitle": "יוסטיניאנוס, האינסטיטוציות",
+      "gutenberg": {
+        "id": 5983,
+        "slices": [
+          {
+            "label": "פתיחה",
+            "from": "^PROOEMIVM\\s*$",
+            "to": "^BOOK I\\.\\s*$"
+          },
+          {
+            "label": "ספר א׳, כותרת א׳",
+            "from": "^TITLE I\\. OF JUSTICE AND LAW\\s*$",
+            "to": "^TITLE II\\."
+          }
+        ]
+      }
+    }
+  ]
+}

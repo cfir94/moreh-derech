@@ -1,0 +1,79 @@
+{
+  "id": "herod",
+  "nameHe": "הורדוס",
+  "years": "73–4 לפנה״ס",
+  "eraHe": "התקופה הרומית",
+  "sortYear": -37,
+  "taglineHe": "מלך יהודה והבנאי הגדול",
+  "voiceName": "Algieba",
+  "accentColor": "#6B2E83",
+  "openingLineHe": "אני הורדוס, מלך היהודים. בניתי מחדש את בית המקדש, את קיסריה ואת מצדה. שאל — אבל שקול את מילותיך.",
+  "sampleQuestionsHe": [
+    "למה בנית את המקדש מחדש?",
+    "למה הוצאת להורג את מרים?",
+    "מה בנית בהרודיון ובמצדה?"
+  ],
+  "portraitCredit": {
+    "alt": "הורדוס בכתר גבוה ובשריון מקושט — ציור של ג'יימס טיסו (סוף המאה ה־19); דמות מדומיינת",
+    "text": "ג'יימס טיסו, הורדוס, מוזיאון ברוקלין; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:Herod_tissot.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Herod tissot.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      706,
+      640
+    ],
+    "headH": 330
+  },
+  "sources": [
+    {
+      "title": "תולדות מלחמת היהודים עם הרומאים, ספר ראשון",
+      "translator": "יעקב נפתלי שמחוני",
+      "url": "https://benyehuda.org/read/12030",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "war-1.html",
+      "refTitle": "מלחמת היהודים",
+      "includeBooks": [
+        "ספר ראשון"
+      ]
+    },
+    {
+      "title": "Josephus, Antiquities of the Jews (Whiston, 1737)",
+      "translator": "William Whiston",
+      "url": "https://www.gutenberg.org/ebooks/2848",
+      "license": "Public domain (Project Gutenberg)",
+      "file": "antiquities-15-17.html",
+      "refTitle": "קדמוניות היהודים",
+      "gutenberg": {
+        "id": 2848,
+        "books": [
+          "XV",
+          "XVI",
+          "XVII"
+        ]
+      }
+    },
+    {
+      "title": "תלמוד בבלי: בבא בתרא ג ע״ב–ד ע״א, סוכה נא ע״ב, תענית כג ע״א",
+      "url": "https://www.sefaria.org/Bava_Batra.3b?lang=he",
+      "license": "CC BY-SA (ספריא, Wikisource Talmud Bavli)",
+      "file": "bavli.html",
+      "refTitle": "תלמוד בבלי",
+      "sefaria": {
+        "version": "Wikisource Talmud Bavli",
+        "refs": [
+          "Bava_Batra.3b",
+          "Bava_Batra.4a",
+          "Sukkah.51b",
+          "Taanit.23a"
+        ],
+        "unit": "daf"
+      }
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "id": "helena",
+  "nameHe": "הלנה",
+  "years": "כ־248–329",
+  "eraHe": "התקופה הביזנטית",
+  "sortYear": 326,
+  "taglineHe": "אם הקיסר, עולת רגל לארץ הקודש",
+  "voiceName": "Gacrux",
+  "accentColor": "#B03A6E",
+  "openingLineHe": "אני הלנה, אמו של הקיסר קונסטנטינוס. בזקנתי עליתי לארץ הקודש, להתפלל במקום שבו עמדו רגליו. שאל, ילדי.",
+  "sampleQuestionsHe": [
+    "אילו כנסיות בנית בארץ?",
+    "האם באמת מצאת את הצלב?",
+    "מה ראית בירושלים כשהגעת?"
+  ],
+  "portraitCredit": {
+    "alt": "הלנה בכתר ובגלימה אדומה — ציור של צ'ימה דה קונליאנו (כ־1495); דמות מדומיינת",
+    "text": "צ'ימה דה קונליאנו, הקדושה הלנה, הגלריה הלאומית בוושינגטון; דמות מדומיינת",
+    "url": "https://commons.wikimedia.org/wiki/File:Cima_da_Conegliano%2C_Saint_Helena%2C_c._1495%2C_NGA_46111.jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Cima da Conegliano, Saint Helena, c. 1495, NGA 46111.jpg",
+    "sourceWidth": 1280,
+    "mode": "cutout",
+    "head": [
+      600,
+      330
+    ],
+    "headH": 175
+  },
+  "sources": [
+    {
+      "title": "Eusebius, Life of Constantine, Book III, chapters 25–47",
+      "translator": "E. C. Richardson (1890)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf201.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "eusebius-vc-3.html",
+      "refTitle": "אוסביוס, חיי קונסטנטינוס, ספר ג׳",
+      "ccel": {
+        "volume": "npnf201",
+        "ids": [
+          "iv.vi.iii.xxv",
+          "iv.vi.iii.xxvi",
+          "iv.vi.iii.xxvii",
+          "iv.vi.iii.xxviii",
+          "iv.vi.iii.xxix",
+          "iv.vi.iii.xxx",
+          "iv.vi.iii.xxxi",
+          "iv.vi.iii.xxxii",
+          "iv.vi.iii.xxxiii",
+          "iv.vi.iii.xxxiv",
+          "iv.vi.iii.xxxv",
+          "iv.vi.iii.xxxvi",
+          "iv.vi.iii.xxxvii",
+          "iv.vi.iii.xxxviii",
+          "iv.vi.iii.xxxix",
+          "iv.vi.iii.xl",
+          "iv.vi.iii.xli",
+          "iv.vi.iii.xlii",
+          "iv.vi.iii.xliii",
+          "iv.vi.iii.xliv",
+          "iv.vi.iii.xlv",
+          "iv.vi.iii.xlvi",
+          "iv.vi.iii.xlvii"
+        ]
+      }
+    },
+    {
+      "title": "Socrates Scholasticus, Church History I.17",
+      "translator": "A. C. Zenos (1890)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf202.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "socrates.html",
+      "refTitle": "סוקרטס סכולסטיקוס, תולדות הכנסייה, ספר א׳",
+      "ccel": {
+        "volume": "npnf202",
+        "ids": [
+          "ii.iv.xvii"
+        ],
+        "labels": {
+          "ii.iv.xvii": "פרק 17"
+        }
+      }
+    },
+    {
+      "title": "Sozomen, Church History II.1–2",
+      "translator": "C. D. Hartranft (1890)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf202.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "sozomen.html",
+      "refTitle": "סוזומנוס, תולדות הכנסייה, ספר ב׳",
+      "ccel": {
+        "volume": "npnf202",
+        "ids": [
+          "iii.vii.i",
+          "iii.vii.ii"
+        ]
+      }
+    },
+    {
+      "title": "Theodoret, Ecclesiastical History I.17",
+      "translator": "B. Jackson (1892)",
+      "url": "https://www.ccel.org/ccel/schaff/npnf203.html",
+      "license": "Public domain (CCEL, Nicene and Post-Nicene Fathers)",
+      "file": "theodoret.html",
+      "refTitle": "תאודורטוס, תולדות הכנסייה, ספר א׳",
+      "ccel": {
+        "volume": "npnf203",
+        "ids": [
+          "iv.viii.i.xviii"
+        ],
+        "labels": {
+          "iv.viii.i.xviii": "פרק 17"
+        }
+      }
+    }
+  ]
+}

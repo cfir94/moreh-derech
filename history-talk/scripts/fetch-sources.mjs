@@ -3,9 +3,11 @@
 // כ-HTML מנוקה ב-characters/<id>/sources/<file>: רק כותרות (h2 = ספר, h3 = פרק)
 // ופסקאות, עם עוגן (data-anchor) לכל כותרת כדי שאפשר יהיה לקשר לקטע המדויק.
 //
-// נתמכים: פרויקט בן־יהודה (benyehuda.org/read/<id>) ו-LacusCurtius
-// (penelope.uchicago.edu). מקור אחר — מורידים ידנית ושמים בתיקייה, בפורמט
-// TXT או HTML; build-knowledge.mjs יודע לקרוא גם אותם.
+// נתמכים: פרויקט בן־יהודה (benyehuda.org/read/<id>), LacusCurtius
+// (penelope.uchicago.edu), ספריא (source.sefaria — API v3, לפי מהדורה מפורשת),
+// CCEL (source.ccel — כרך ThML של אבות הכנסייה, NPNF) ופרויקט גוטנברג
+// (source.gutenberg — קובץ טקסט עם BOOK/CHAPTER). מקור אחר — מורידים ידנית ושמים
+// בתיקייה, בפורמט TXT או HTML, עם "manual": true; build-knowledge.mjs קורא גם אותם.
 //
 // שימוש: node scripts/fetch-sources.mjs [characterId...] [--force]
 
@@ -13,6 +15,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { stripNiqqud } from "../web/src/shared/hebrew.mjs";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const CHAR_DIR = join(ROOT, "characters");
@@ -45,10 +48,42 @@ function textOf(html) {
     .trim();
 }
 
-async function get(url) {
-  const res = await fetch(url, { headers: { "user-agent": "history-talk/0.1 (educational; fetch-sources)" } });
-  if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
-  return res.text();
+const cache = new Map();
+/** כל כתובת יורדת פעם אחת בכל הרצה — כרך CCEL אחד משרת כמה מקורות. */
+function get(url) {
+  if (!cache.has(url)) {
+    cache.set(
+      url,
+      fetch(url, { headers: { "user-agent": "history-talk/0.1 (educational; fetch-sources)" } }).then((res) => {
+        if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+        return res.text();
+      }),
+    );
+  }
+  return cache.get(url);
+}
+
+// 1–399 באותיות: א, ב… טו, טז… קכג. בלי גרשיים — כך sectionOf ב-build-knowledge מזהה אותן.
+const ONES = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"];
+const TENS = ["", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"];
+const HUNDREDS = ["", "ק", "ר", "ש"];
+export function hebrewNumeral(n) {
+  const h = HUNDREDS[Math.floor(n / 100)];
+  const rest = n % 100;
+  if (rest === 15) return h + "טו";
+  if (rest === 16) return h + "טז";
+  return h + TENS[Math.floor(rest / 10)] + ONES[rest % 10];
+}
+
+const ROMAN = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+export function fromRoman(s) {
+  let total = 0;
+  for (let i = 0; i < s.length; i++) {
+    const v = ROMAN[s[i]];
+    const next = ROMAN[s[i + 1]] ?? 0;
+    total += v < next ? -v : v;
+  }
+  return total;
 }
 
 // בן־יהודה: הטקסט כולו בתוך #actualtext. כותרות h2/h3 עם id="heading-N".
@@ -111,16 +146,146 @@ function extractLacusCurtius(html) {
   return out;
 }
 
+// ספריא: source.sefaria = { version, refs: ["II_Kings.18", "Gittin.56a"…], unit, numbered }.
+// כל ref הופך לכותרת h3 (פרק / דף / הלכה) עם עוגן = הכתובת המלאה בספריא, ו-h2 לכל
+// חיבור ("מלכים ב", "גיטין"). numbered: פסוקים/משניות ממוספרים באותיות.
+const SEFARIA_UNITS = {
+  perek: (x) => `פרק ${x}`,
+  daf: (x) => `דף ${x.replace(/ א$/, " ע״א").replace(/ ב$/, " ע״ב")}`,
+  halakha: (x) => {
+    const [p, h] = x.split(":");
+    return h ? `פרק ${p} הלכה ${h}` : `פרק ${p}`;
+  },
+  siman: (x) => x.replace(/:/g, " "),
+};
+
+const flat = (t) => (Array.isArray(t) ? t.flatMap(flat) : [t]);
+
+function sefariaText(s) {
+  return stripNiqqud(decodeEntities(s.replace(/<[^>]+>/g, " ")))
+    .replace(/\{[פס]\}/g, "")
+    .replace(/[\u200b-\u200f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+async function extractSefaria(source) {
+  const { version, refs, unit = "perek", numbered = false } = source.sefaria;
+  const out = [];
+  let work;
+  for (const ref of refs) {
+    const api = `https://www.sefaria.org/api/v3/texts/${encodeURIComponent(ref)}?version=${encodeURIComponent(`hebrew|${version}`)}&return_format=text_only`;
+    const data = JSON.parse(await get(api));
+    const v = data.versions?.[0];
+    if (!v || v.versionTitle !== version) throw new Error(`${ref}: אין בספריא מהדורה "${version}"`);
+    if (data.heIndexTitle !== work) out.push(`<h2>${escapeHtml(data.heIndexTitle)}</h2>`);
+    work = data.heIndexTitle;
+    const local = data.heRef.slice(data.heIndexTitle.length).trim();
+    const url = `https://www.sefaria.org/${ref}?lang=he`;
+    out.push(`<h3 data-anchor="${url}">${escapeHtml(SEFARIA_UNITS[unit](local))}</h3>`);
+    const first = data.sections?.length > 1 ? Number(data.sections.at(-1)) : 1; // "Avot.2.8" מתחיל במשנה ח
+    flat(v.text).forEach((seg, i) => {
+      const t = sefariaText(String(seg ?? ""));
+      if (t) out.push(`<p>${escapeHtml(numbered ? `${hebrewNumeral(first + i)}. ${t}` : t)}</p>`);
+    });
+  }
+  return out;
+}
+
+// CCEL: source.ccel = { volume: "npnf201", ids: ["iv.vi.iii.xlii"…], labels? }. הכרך כולו יורד
+// כ-ThML פעם אחת; לכל div מבוקש (ולכל div בתוכו) — h3 מה-shorttitle, עם עוגן לדף
+// הפרק ב-CCEL. labels: כותרת מפורשת לפרק שאין לו shorttitle. הערות השוליים של העורכים
+// (<note>) אינן חלק מהטקסט.
+function ccelLabel(attrs) {
+  const title = attrs.match(/\stitle="([^"]*)"/)?.[1] ?? "";
+  let short = attrs.match(/shorttitle="([^"]*)"/)?.[1] || title;
+  if (short.endsWith("...")) short = title; // shorttitle קטוע: "Preface to the Book on the Sites and..."
+  const m = short.match(/^(Chapter|Letter|Book)\s+([IVXLCDM]+)\b/);
+  if (!m) return short;
+  const word = { Chapter: "פרק", Letter: "איגרת", Book: "ספר" }[m[1]];
+  return `${word} ${fromRoman(m[2])}`;
+}
+
+async function extractCcel(source) {
+  const { volume, ids, labels = {} } = source.ccel;
+  const xml = await get(`https://www.ccel.org/ccel/schaff/${volume}.xml`);
+  const out = [];
+  for (const id of ids) {
+    const open = new RegExp(`<div(\\d)\\b([^>]*\\bid="${id.replace(/\./g, "\\.")}"[^>]*)>`).exec(xml);
+    if (!open) throw new Error(`${volume}: לא נמצא div ${id}`);
+    const end = xml.indexOf(`</div${open[1]}>`, open.index);
+    const body = xml.slice(open.index, end).replace(/<note\b[\s\S]*?<\/note>/g, "");
+    for (const m of body.matchAll(/<div\d\b([^>]*)>|<p\b[^>]*>([\s\S]*?)<\/p>/g)) {
+      if (m[1] !== undefined) {
+        const divId = m[1].match(/\bid="([^"]+)"/)?.[1];
+        const label = labels[divId] ?? ccelLabel(m[1]);
+        if (divId && label) {
+          out.push(`<h3 data-anchor="https://www.ccel.org/ccel/schaff/${volume}.${divId}.html">${escapeHtml(label)}</h3>`);
+        }
+      } else {
+        const t = textOf(m[2]);
+        if (t) out.push(`<p>${escapeHtml(t)}</p>`);
+      }
+    }
+  }
+  return out;
+}
+
+// גוטנברג: source.gutenberg = { id, books: ["X", "XV"…], chapters? } — ויסטון: הגוף מתחיל
+// אחרי תוכן העניינים, "BOOK X." בתחילת שורה, "CHAPTER 1." לכל פרק, סעיפים "1. …".
+// או { id, slices: [{ label, from, to }] } — קטעים לפי ביטויים רגולריים (שורה שלמה);
+// from נלקח מהמופע האחרון שלו, כי הראשון הוא בדרך כלל בתוכן העניינים.
+// הערות השוליים של המתרגם (אחרי "FOOTNOTES", "12 (return) [ …") אינן חלק מהטקסט.
+const paragraphs = (text) =>
+  text
+    .split(/^\s*FOOTNOTES\s*$/m)[0]
+    .split(/\n\s*\n/)
+    .map((para) => para.replace(/\[\d+\]/g, "").replace(/\s+/g, " ").trim())
+    .filter((t) => t && !/^(\[|\d+ \(return\))/.test(t))
+    .map((t) => `<p>${escapeHtml(t)}</p>`);
+
+async function extractGutenberg(source) {
+  const { id, books = [], chapters, slices = [] } = source.gutenberg;
+  let txt = (await get(`https://www.gutenberg.org/cache/epub/${id}/pg${id}.txt`)).replace(/\r\n/g, "\n");
+  const stop = txt.indexOf("*** END OF THE PROJECT GUTENBERG");
+  if (stop > 0) txt = txt.slice(0, stop);
+  const out = [];
+  for (const { label, from, to } of slices) {
+    const starts = [...txt.matchAll(new RegExp(from, "gm"))];
+    if (!starts.length) throw new Error(`pg${id}: לא נמצא ${from}`);
+    const start = starts.at(-1).index + starts.at(-1)[0].length;
+    const end = txt.slice(start).search(new RegExp(to, "m"));
+    out.push(`<h3>${escapeHtml(label)}</h3>`, ...paragraphs(txt.slice(start, end > 0 ? start + end : undefined)));
+  }
+  for (const book of books) {
+    const heads = [...txt.matchAll(new RegExp(`^BOOK ${book}\\.`, "gm"))];
+    if (!heads.length) throw new Error(`pg${id}: לא נמצא BOOK ${book}`);
+    const start = heads.at(-1).index; // המופע הראשון הוא בתוכן העניינים
+    const next = txt.slice(start + 5).search(/^BOOK [IVXLC]+\./m);
+    const text = txt.slice(start, next > 0 ? start + 5 + next : undefined);
+    out.push(`<h2>ספר ${fromRoman(book)}</h2>`);
+    for (const ch of text.split(/^CHAPTER (?=\d+\.)/m).slice(1)) {
+      const num = Number(ch.match(/^(\d+)/)[1]);
+      if (chapters?.[book] && !chapters[book].includes(num)) continue;
+      // הפסקה הראשונה היא כותרת הפרק של ויסטון.
+      out.push(`<h3>פרק ${num}</h3>`, ...paragraphs(ch.split(/\n\s*\n/).slice(1).join("\n\n")));
+    }
+  }
+  return out;
+}
+
 async function fetchSource(charId, source) {
   const dest = join(CHAR_DIR, charId, "sources", source.file);
   if (existsSync(dest) && !force) {
     console.log(`  ✓ ${source.file} (קיים, --force להורדה מחדש)`);
     return;
   }
-  const html = await get(source.url);
   let parts;
-  if (source.url.includes("benyehuda.org")) parts = extractBenYehuda(html, source);
-  else if (source.url.includes("penelope.uchicago.edu")) parts = extractLacusCurtius(html);
+  if (source.sefaria) parts = await extractSefaria(source);
+  else if (source.ccel) parts = await extractCcel(source);
+  else if (source.gutenberg) parts = await extractGutenberg(source);
+  else if (source.url.includes("benyehuda.org")) parts = extractBenYehuda(await get(source.url), source);
+  else if (source.url.includes("penelope.uchicago.edu")) parts = extractLacusCurtius(await get(source.url));
   else throw new Error(`${source.url}: אתר לא נתמך — הורד ידנית לתיקייה sources/`);
   const header = `<!-- source: ${source.url} | title: ${source.title} | fetched: ${new Date().toISOString().slice(0, 10)} -->`;
   await writeFile(dest, [header, ...parts].join("\n") + "\n");
@@ -135,7 +300,7 @@ async function main() {
     console.log(`${id}:`);
     await mkdir(join(CHAR_DIR, id, "sources"), { recursive: true });
     for (const source of char.sources) {
-      if (!source.file) continue;
+      if (!source.file || source.manual) continue;
       await fetchSource(id, source);
     }
   }

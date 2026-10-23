@@ -2,6 +2,8 @@
   "id": "josephus",
   "nameHe": "יוסף בן מתתיהו",
   "years": "37–100 לערך",
+  "eraHe": "התקופה הרומית",
+  "sortYear": 67,
   "taglineHe": "כוהן, מצביא והיסטוריון",
   "voiceName": "Algenib",
   "accentColor": "#8C6A3F",
@@ -17,6 +19,16 @@
     "url": "https://commons.wikimedia.org/wiki/File:Joseph,_son_of_Gorian,_called_Flavius_Josephus_(cropped).jpg",
     "license": "נחלת הכלל",
     "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "portrait": {
+    "commonsFile": "Joseph, son of Gorian, called Flavius Josephus (cropped).jpg",
+    "sourceWidth": 600,
+    "mode": "cutout",
+    "head": [
+      293,
+      190
+    ],
+    "headH": 340
   },
   "sources": [
     {

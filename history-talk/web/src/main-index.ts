@@ -13,6 +13,9 @@ function card(c: PublicCharacter): HTMLLIElement {
   li.className = "char-card card";
   li.style.setProperty("--accent", c.accentColor);
   const avatar = new Avatar(c);
+  const era = document.createElement("p");
+  era.className = "era";
+  era.textContent = c.eraHe ?? "";
   const h2 = document.createElement("h2");
   h2.textContent = c.nameHe;
   const meta = document.createElement("p");
@@ -36,7 +39,7 @@ function card(c: PublicCharacter): HTMLLIElement {
     }
     saveSettings({ lastCharacter: c.id });
   });
-  li.append(avatar.el, h2, meta, tag, go);
+  li.append(avatar.el, ...(c.eraHe ? [era] : []), h2, meta, tag, go);
   return li;
 }
 
@@ -49,12 +52,9 @@ consent.checked = readSettings().consent === true;
 consent.addEventListener("change", syncConsent);
 syncConsent();
 
+// הדמויות מגיעות בסדר כרונולוגי (sortYear), והתקופה מסומנת על כל כרטיס.
 loadCharacters()
-  .then((chars) => {
-    const last = readSettings().lastCharacter;
-    chars.sort((a, b) => Number(b.id === last) - Number(a.id === last));
-    list.append(...chars.map(card));
-  })
+  .then((chars) => list.append(...chars.map(card)))
   .catch(() => {
     list.textContent = "לא הצלחנו לטעון את רשימת הדמויות. רענן את הדף.";
   });
