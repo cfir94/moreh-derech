@@ -211,14 +211,18 @@
   },
   "gedaliah": {
     "id": "gedaliah",
-    "title": "Gedaliah",
-    "caption": "ייצוג של גדליהו בן אחיקם באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
-    "error": "No page image",
-    "page": {
-      "pageid": 629735,
-      "ns": 0,
-      "title": "Gedaliah"
-    }
+    "title": "Tell en-Nasbeh",
+    "caption": "תל א־נצבה, המזוהה עם מצפה — תמונת הקשר למרכז שלטונו של גדליהו; לא דיוקן.",
+    "file": "Tel_a-Nasba.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_a-Nasba.jpg",
+    "description": "Aerial photo of Tel a-Nasba, commonly identified as Mizpah in Benjamin",
+    "credit": "דניאל צבי",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditExtra": "Own work",
+    "width": 640,
+    "height": 360,
+    "localSrc": "/moreh-derech/images/who-am-i/gedaliah.webp"
   },
   "jeroboam1": {
     "id": "jeroboam1",
@@ -462,17 +466,17 @@
   },
   "hazael": {
     "id": "hazael",
-    "title": "Hazael",
-    "caption": "ייצוג של חזאל מלך ארם באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
-    "file": "King_Hazael_dark.jpeg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:King_Hazael_dark.jpeg",
-    "description": "Aramaean king Hazael.[1]",
-    "credit": "Unknown authorUnknown author",
-    "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "creditExtra": "http://rubens.anu.edu.au/htdocs/bycountry/france/paris/museums/louvre/antiquities/mesopotamia/Arslan.Tash.ivories.8thCBC/",
-    "width": 600,
-    "height": 800,
+    "title": "Tel Dan stele",
+    "caption": "כתובת תל דן המיוחסת במחקר לחזאל — ממצא הקשר, לא דיוקן; שם המחבר אינו נשמר בחלק שנמצא.",
+    "file": "JRSLM_300116_Tel_Dan_Stele_01.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:JRSLM_300116_Tel_Dan_Stele_01.jpg",
+    "description": "The Tel Dan Stele on display at the Israel Museum, Jerusalem",
+    "credit": "Oren Rozen",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditExtra": "Own work",
+    "width": 640,
+    "height": 619,
     "localSrc": "/moreh-derech/images/who-am-i/hazael.webp"
   },
   "uzziah": {
@@ -612,13 +616,13 @@
   },
   "shebna": {
     "id": "shebna",
-    "title": "Shebna",
-    "caption": "ייצוג של שבנא באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
+    "title": "Tomb of the Royal Steward",
+    "caption": "קבר אשר על הבית בסילואן — ייחוסו לשבנא מוצע במחקר ואינו ודאי; אין זה דיוקן.",
     "error": "No page image",
     "page": {
-      "pageid": 69265,
       "ns": 0,
-      "title": "Shebna"
+      "title": "Tomb of the Royal Steward",
+      "missing": ""
     }
   },
   "josiah": {
@@ -1119,7 +1123,7 @@
   "philip": {
     "id": "philip",
     "title": "Philip the Tetrarch",
-    "caption": "ייצוג של פיליפוס הטטררך באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
+    "caption": "מפת הטטררכיה של פיליפוס — תמונת הקשר לתחום שלטונו, לא דיוקן.",
     "file": "Philip_Tetrarchy.svg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Philip_Tetrarchy.svg",
     "description": "Philip Tetrarchy political map (4 BC – 34 AD)",
@@ -1164,13 +1168,17 @@
   "yochanan": {
     "id": "yochanan",
     "title": "Yohanan ben Zakkai",
-    "caption": "ייצוג של רבן יוחנן בן זכאי באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
-    "error": "No page image",
-    "page": {
-      "pageid": 353399,
-      "ns": 0,
-      "title": "Yohanan ben Zakkai"
-    }
+    "caption": "רבן יוחנן בן זכאי בתבליט מנורת הכנסת של בנו אלקן — יצירה מן המאה ה־20, לא דיוקן בן הזמן.",
+    "file": "Knesset Menorah Jochanan ben Sakkai.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Knesset_Menorah_Jochanan_ben_Sakkai.jpg",
+    "description": "siebenarmiger Leuchter vor der Knesset in Jerusalem, Jochanan ben Sakkai",
+    "credit": "Knesset_Menorah_P5200011.JPG: Deror avi\nderivative work: Rabanus Flavus",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "creditExtra": "This file was derived from:  Knesset Menorah P5200011.JPG:",
+    "width": 432,
+    "height": 668,
+    "localSrc": "/moreh-derech/images/who-am-i/yochanan.webp"
   },
   "gamaliel2": {
     "id": "gamaliel2",
@@ -1219,14 +1227,10 @@
   },
   "judah-baba": {
     "id": "judah-baba",
-    "title": "Judah ben Baba",
-    "caption": "ייצוג של רבי יהודה בן בבא באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
-    "error": "No page image",
-    "page": {
-      "pageid": 3274132,
-      "ns": 0,
-      "title": "Judah ben Bava"
-    }
+    "title": "יהודה בן בבא",
+    "caption": "האתר המזוהה במסורת עם קבר רבי יהודה בן בבא — אתר הנצחה, לא דיוקן או הוכחת זיהוי.",
+    "host": "he.wikipedia.org",
+    "error": "'imageinfo'"
   },
   "judah-prince": {
     "id": "judah-prince",
@@ -1305,17 +1309,17 @@
   },
   "egeria": {
     "id": "egeria",
-    "title": "Egeria (pilgrim)",
-    "caption": "ייצוג של אגריה באמנות או בממצא; אין לראות בו בהכרח דיוקן שנעשה בחיי הדמות.",
-    "file": "EXERIA.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:EXERIA.jpg",
-    "description": "Fayum mummy portrait of Egeria[1]",
-    "credit": "Xan Carrizo",
-    "license": "Public domain",
-    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-    "creditExtra": "File:Egeria.jpg",
+    "title": "Church of the Holy Sepulchre",
+    "caption": "כנסיית הקבר בירושלים — אתר הקשור לתיאורי הצליינות של אגריה; תמונת הקשר ולא דיוקן.",
+    "file": "Church_of_the_Holy_Sepulchre_by_Gerd_Eichmann_(cropped).jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Church_of_the_Holy_Sepulchre_by_Gerd_Eichmann_(cropped).jpg",
+    "description": "Church of the Holy Sepulchre cropped to approximately the area of the original church",
+    "credit": "Gerd Eichmann",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creditExtra": "File:Jerusalem-Grabeskirche-14-vom_Erloeserkirchturm-2010-gje.jpg",
     "width": 640,
-    "height": 640,
+    "height": 417,
     "localSrc": "/moreh-derech/images/who-am-i/egeria.webp"
   },
   "chariton": {
