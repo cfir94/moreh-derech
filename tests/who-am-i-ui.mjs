@@ -91,5 +91,5 @@ try {
     expect(loaded,p.id).toBe(true);
   }
   expect(errors).toEqual([]);
-  console.log("PASS: mixed and typed rounds, filtering, scoring, review, keyboard, all 117 portraits, mobile overflow");
+  console.log("PASS: mixed and typed rounds, filtering, scoring, review, keyboard, all 133 portraits, mobile overflow");
 } finally { await browser.close(); await new Promise(done=>server.close(done)); }

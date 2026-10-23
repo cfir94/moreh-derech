@@ -10,12 +10,12 @@ function random(seed=42) { return () => ((seed = (Math.imul(1664525, seed) + 101
 
 test("four source notebooks, five periods, complete unique identities and local attributed images", () => {
   assert.equal(BOOKS.length, 4); assert.equal(PERIODS.length, 5);
-  assert.equal(PEOPLE.length, 117);
+  assert.equal(PEOPLE.length, 133);
   assert.equal(new Set(PEOPLE.map(person => person.id)).size, PEOPLE.length);
   for (const p of PEOPLE) {
     assert.ok(p.clues.length && p.clues.every(clue => clue.trim().length > 0), p.id);
     assert.ok(p.date && p.role && p.distinction && p.sources.length, p.id);
-    for (const source of p.sources) { assert.match(source.href, /^https:\/\/notebook.google.com\/notebook\//); assert.ok(source.sourceIds.length); }
+    for (const source of p.sources) { assert.match(source.href, /^https:/); if (source.href.includes("notebook.google.com/notebook/")) assert.ok(source.sourceIds.length); else assert.match(source.label, /השלמה/); }
     assert.ok(p.portrait?.alt && p.portrait.caption && p.portrait.credit && p.portrait.license, p.id);
     assert.match(p.portrait.sourceUrl, /^https:/);
     assert.match(p.portrait.licenseUrl, /^https:/);
@@ -33,7 +33,7 @@ test("typing accepts niqqud, punctuation, explicit aliases and alternate ordinal
   assert.equal(normalizeName("Gamaliel II"), normalizeName("Gamaliel 2"));
 });
 test("typing preserves distinctions between easily confused people and rejects incomplete answers", () => {
-  for (const [correct, wrong] of [["titus","קיטוס"],["constantine","קונסטנטיוס השני"],["constantius","קונסטנטינוס"],["hyrcanus1","הורקנוס"],["hyrcanus2","הורקנוס הראשון"],["joram-israel","יהורם"],["jehoram-judah","יהורם מלך ישראל"],["theodosius2","תיאודוסיוס הראשון"],["julian-sabar","יוליאנוס"]]) {
+  for (const [correct, wrong] of [["agrippa2","אגריפס הראשון"],["agrippa1","אגריפס השני"],["titus","קיטוס"],["constantine","קונסטנטיוס השני"],["constantius","קונסטנטינוס"],["hyrcanus1","הורקנוס"],["hyrcanus2","הורקנוס הראשון"],["joram-israel","יהורם"],["jehoram-judah","יהורם מלך ישראל"],["theodosius2","תיאודוסיוס הראשון"],["julian-sabar","יוליאנוס"]]) {
     assert.equal(acceptsName(person(correct), wrong, PEOPLE), false, correct + ":" + wrong);
   }
   assert.equal(acceptsName(person("titus"), "", PEOPLE), false);
@@ -70,4 +70,9 @@ test("scores count skips as incorrect and track streaks without a timer", () => 
   const answers=[true,true,false,true].map((correct,i)=>({id:String(i),correct,given:"",hinted:false}));
   assert.deepEqual(score(answers),{correct:3,total:4,streak:1,best:2,percent:75});
   assert.deepEqual(score([]),{correct:0,total:0,streak:0,best:0,percent:0});
+});
+
+test("coverage includes early Roman rulers, revolt leaders and figures required by the course concepts sheet", () => {
+  for(const id of ["augustus","antony","varus","quirinius","tiberius","caligula","claudius","nero","cestius","menachem","simon-giora","eleazar-simon","ptolemy1","seleucus1","philo","agrippa2"])
+    assert.ok(person(id),id);
 });
