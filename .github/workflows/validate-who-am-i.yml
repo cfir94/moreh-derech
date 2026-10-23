@@ -1,7 +1,7 @@
 name: Validate historical identity game
 on:
   push:
-    branches: [main, who-am-i-20261023]
+    branches: [main, who-am-i-20261023, who-am-i-faith-20261023]
     paths:
       - 'src/data/who-am-i/**'
       - 'src/lib/whoAmI.ts'
@@ -30,6 +30,8 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: mkdir -p test-results
       - run: node tests/who-am-i-ui.mjs
+        env:
+          WHO_AM_I_VISUAL_LOGS: 1
       - uses: actions/upload-artifact@v4
         if: always()
         with:

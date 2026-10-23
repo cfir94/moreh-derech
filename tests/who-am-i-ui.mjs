@@ -26,6 +26,7 @@ try {
   await page.getByRole("link",{name:/מי אני.*קולות מן העבר/}).click();
   await expect(page.getByRole("heading",{name:"מי אני?",exact:true})).toBeVisible();
   await expect(page.getByRole("group",{name:"בחירת תקופות"}).getByRole("button")).toHaveCount(5);
+  await expect(page.getByRole("group",{name:"לימודי יהדות ונצרות"}).getByRole("button")).toHaveCount(2);
   await page.screenshot({path:"test-results/who-am-i-desktop.png",fullPage:true});
   if (process.env.WHO_AM_I_VISUAL_LOGS) console.log("VISUAL_DESKTOP=" + (await page.locator("[data-who-am-i]").screenshot({type:"jpeg",quality:45})).toString("base64"));
   await page.getByRole("button",{name:"ניקוי הבחירה",exact:true}).click();
@@ -63,7 +64,7 @@ try {
   await page.locator('[data-choice="'+wrongId+'"]').click();
   await page.getByRole("button",{name:/לסיכום הסבב/}).click();
   await expect(page.locator("[data-summary]")).toContainText("זיהית 1 מתוך 1 דמויות.");
-  await page.getByRole("button",{name:/לשנות תקופות/}).click();
+  await page.getByRole("button",{name:/לשנות תחומים/}).click();
   for(const width of [768,390,320]){
     await page.setViewportSize({width,height:950});
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
@@ -78,6 +79,48 @@ try {
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   await page.screenshot({path:"test-results/who-am-i-mobile-reveal.png",fullPage:true});
 
+  // Each new subject supports selection of one notebook, both answer modes and portraits.
+  await page.getByRole("button",{name:/לבחירת תחומים/}).click();
+  await page.setViewportSize({width:1440,height:1100});
+  for(const [faith, label, bookLabel] of [
+    ["judaism","לימודי יהדות","יהדות א׳ — מקרא, תורה שבעל פה וספרות"],
+    ["christianity","לימודי נצרות","נצרות ב׳ — חיי ישוע ואתרי הבשורות"]]){
+    const selected=page.locator('[aria-label="בחירת תקופות"] button[aria-pressed="true"],[aria-label="לימודי יהדות ונצרות"] button[aria-pressed="true"]');
+    while(await selected.count()) await selected.first().click();
+    await page.getByRole("group",{name:"לימודי יהדות ונצרות"}).getByRole("button",{name:new RegExp(label)}).click();
+    await page.getByText("התמקדות לפי מחברת",{exact:false}).click();
+    const books=page.getByRole("group",{name:"בחירת מחברות"});
+    await expect(books.getByRole("button")).toHaveCount(3);
+    for(const button of await books.getByRole("button").all())
+      if(!(await button.textContent()).includes(bookLabel)) await button.click();
+    await page.getByRole("button",{name:"הפתעה בכל שאלה",exact:true}).click();
+    await page.getByRole("button",{name:/מתחילים לגלות/}).click();
+    const faithModes=new Set();
+    for(let i=0;i<10;i++){
+      const clue=await page.locator("[data-clue]").textContent();
+      const p=people.find(p=>p.clues.includes(clue));
+      expect(p.periods).toContain(faith);
+      expect(p.books).toContain(faith==="judaism"?"judaism-a":"christianity-b");
+      if(await page.locator("[data-choice]").count()){
+        faithModes.add("choice"); await page.locator('[data-choice="'+p.id+'"]').click();
+      }else{
+        faithModes.add("typed");
+        await page.getByRole("textbox",{name:"מי הדמות?"}).fill(p.name);
+        await page.getByRole("textbox",{name:"מי הדמות?"}).press("Enter");
+      }
+      await expect(page.locator("[data-feedback]")).toHaveAttribute("data-correct","true");
+      await expect.poll(()=>page.locator("[data-reveal] img").evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+      await page.getByRole("button",{name:i===9?"לסיכום הסבב":/לדמות הבאה/}).click();
+    }
+    expect([...faithModes].sort()).toEqual(["choice","typed"]);
+    await expect(page.locator("[data-summary]")).toContainText("זיהית 10 מתוך 10 דמויות.");
+    await page.getByRole("button",{name:/לשנות תחומים/}).click();
+    // Restore this subject's notebook selections for the next loop.
+    for(const b of await page.getByRole("group",{name:"בחירת מחברות"}).getByRole("button").all())
+      if(await b.getAttribute("aria-pressed")==="false") await b.click();
+    await page.getByText("התמקדות לפי מחברת",{exact:false}).click();
+  }
+
   // Validate actual browser decoding for every portrait, including newly rasterised engravings.
   const imagePaths=await import("../src/data/who-am-i/portraits.json",{with:{type:"json"}});
   const romanContent=readFileSync(new URL("../src/data/roman-portraits.ts",import.meta.url),"utf8");
@@ -91,5 +134,5 @@ try {
     expect(loaded,p.id).toBe(true);
   }
   expect(errors).toEqual([]);
-  console.log("PASS: mixed and typed rounds, filtering, scoring, review, keyboard, all 133 portraits, mobile overflow");
+  console.log("PASS: mixed and typed rounds, filtering, scoring, review, keyboard, all 195 portraits, mobile overflow");
 } finally { await browser.close(); await new Promise(done=>server.close(done)); }

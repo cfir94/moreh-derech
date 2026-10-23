@@ -8,9 +8,9 @@ import { acceptsName, createRound, filterPool, normalizeName, score } from "../s
 const person = id => PEOPLE.find(person => person.id === id);
 function random(seed=42) { return () => ((seed = (Math.imul(1664525, seed) + 1013904223) >>> 0) / 4294967296); }
 
-test("four source notebooks, five periods, complete unique identities and local attributed images", () => {
-  assert.equal(BOOKS.length, 4); assert.equal(PERIODS.length, 5);
-  assert.equal(PEOPLE.length, 133);
+test("ten source notebooks, seven topics, complete unique identities and local attributed images", () => {
+  assert.equal(BOOKS.length, 10); assert.equal(PERIODS.length, 7);
+  assert.equal(PEOPLE.length, 195);
   assert.equal(new Set(PEOPLE.map(person => person.id)).size, PEOPLE.length);
   for (const p of PEOPLE) {
     assert.ok(p.clues.length && p.clues.every(clue => clue.trim().length > 0), p.id);
@@ -75,4 +75,48 @@ test("scores count skips as incorrect and track streaks without a timer", () => 
 test("coverage includes early Roman rulers, revolt leaders and figures required by the course concepts sheet", () => {
   for(const id of ["augustus","antony","varus","quirinius","tiberius","caligula","claudius","nero","cestius","menachem","simon-giora","eleazar-simon","ptolemy1","seleucus1","philo","agrippa2"])
     assert.ok(person(id),id);
+});
+
+test("clues never repeat their answer, aliases, patronymics or explicit naming shortcuts", () => {
+  for (const p of PEOPLE) for (const clue of p.clues) {
+    const words = value => value.split(/[^\p{L}\p{N}]+/u).map(normalizeName).filter(Boolean).join(" ");
+    const normalized = " " + words(clue) + " ";
+    for (const alias of [p.name, ...p.aliases]) {
+      if (normalizeName(alias).length >= 3) assert.equal(normalized.includes(" " + words(alias) + " "), false, p.id + ": " + alias);
+    }
+    assert.doesNotMatch(clue, /(?:שמי הוא|כינויי הוא|ראשי התיבות של שמי|שמי בן.{0,8}אותיות)/, p.id);
+  }
+  const protectedParts = {"eleazar-simon":["שמעון"],"jeshua":["יהוצדק"],"othniel":["קנז"],
+    "haggai":["חגי"],"varus":["ורוס"],"quietus":["קיטוס","קיוטוס"],
+    "bar-kokhba":["כוסבה","כוכבא"],"antiochus4":["אפיפנס"],"augustus":["אוקטביאנוס","אוגוסטוס"]};
+  for (const [id, parts] of Object.entries(protectedParts)) for (const clue of person(id).clues)
+    for (const part of parts) assert.equal(normalizeName(clue).includes(normalizeName(part)), false, id);
+});
+
+test("religion filters cover six notebooks without duplicates or leaking across disabled books", () => {
+  for (const faith of ["judaism","christianity"]) {
+    const books=BOOKS.filter(book=>book.periods.includes(faith));
+    assert.equal(books.length,3);
+    const pool=filterPool(PEOPLE,[faith]);
+    assert.ok(pool.length>=30);
+    assert.equal(pool.filter(p=>p.id==="moses").length,1);
+    assert.deepEqual(filterPool(PEOPLE,[faith],BOOKS.filter(b=>!b.periods.includes(faith)).map(b=>b.id)),[]);
+    for(const book of books) {
+      const subset=filterPool(PEOPLE,[faith],[book.id]);
+      assert.ok(subset.length>=10);
+      assert.ok(subset.every(p=>p.books.includes(book.id)));
+    }
+  }
+  assert.equal(acceptsName(person("mary-bethany"),person("mary-magdalene").name,PEOPLE),false);
+  assert.equal(acceptsName(person("john-apostle"),person("john-baptist").name,PEOPLE),false);
+  assert.equal(acceptsName(person("james-zebedee"),person("james-just").name,PEOPLE),false);
+});
+
+test("revolt leader alternatives are other leaders rather than unrelated priest and prophet names", () => {
+  const pool=filterPool(PEOPLE,["temple"]);
+  for(let seed=1;seed<=20;seed++){
+    const q=createRound([person("eleazar-simon")],1,"choice",random(seed),pool)[0];
+    assert.equal(q.choices.length,4);
+    for(const id of q.choices) assert.equal(person(id).kind,"leader",id);
+  }
 });

@@ -1,4 +1,4 @@
-import type { Person, PeriodId } from "@/data/who-am-i";
+import { BOOKS, type BookId, type Person, type PeriodId } from "@/data/who-am-i";
 
 export type AnswerMode = "mixed" | "choice" | "typed";
 export type Question = { id: string; clue: string; mode: "choice" | "typed"; choices: string[] };
@@ -32,15 +32,110 @@ export function shuffled<T>(items: T[], random: () => number = Math.random): T[]
   return copy;
 }
 
+const peerGroups: string[][] = [
+  [
+    "menachem",
+    "simon-giora",
+    "eleazar-simon",
+    "judas",
+    "mattathias",
+    "bar-kokhba",
+    "jonathan-hasm",
+    "simon-hasm"
+  ],
+  [
+    "matthew",
+    "mark",
+    "luke",
+    "john-apostle"
+  ],
+  [
+    "mary-virgin",
+    "mary-magdalene",
+    "mary-bethany",
+    "martha",
+    "elizabeth",
+    "anna-prophetess"
+  ],
+  [
+    "james-zebedee",
+    "james-just",
+    "peter",
+    "john-apostle",
+    "paul",
+    "thomas",
+    "judas-iscariot",
+    "cleopas"
+  ],
+  [
+    "maimonides",
+    "joseph-karo",
+    "rema",
+    "jacob-asher",
+    "rashi",
+    "chafetz-chaim",
+    "saadia",
+    "ramchal"
+  ],
+  [
+    "isaac-luria",
+    "rashbi",
+    "moses-leon",
+    "besht",
+    "vilna-gaon"
+  ],
+  [
+    "abraham",
+    "isaac",
+    "jacob",
+    "esau",
+    "joseph-nazareth",
+    "noah",
+    "adam"
+  ],
+  [
+    "chariton",
+    "pachomius",
+    "euthymius",
+    "martyrius",
+    "gerasimus",
+    "francis",
+    "benedict"
+  ],
+  [
+    "herod-great",
+    "archelaus",
+    "antipas",
+    "philip",
+    "agrippa1",
+    "agrippa2"
+  ],
+  [
+    "jason",
+    "menelaus",
+    "jeshua",
+    "caiaphas",
+    "zechariah-priest",
+    "theodotus",
+    "eli"
+  ]
+];
+function relevance(person: Person, candidate: Person): number {
+  return (peerGroups.some(group => group.includes(person.id) && group.includes(candidate.id)) ? 100 : 0)
+    + (person.kind && person.kind === candidate.kind ? 24 : 0)
+    + (person.gender === candidate.gender ? 12 : 0)
+    + (candidate.books.some(book => person.books.includes(book)) ? 8 : 0)
+    + (candidate.periods.some(period => person.periods.includes(period)) ? 4 : 0);
+}
+
 export function createRound(pool: Person[], count: number, mode: AnswerMode, random: () => number = Math.random, distractorPool: Person[] = pool): Question[] {
   const selected = shuffled(pool, random).slice(0, count);
   // A shuffled, balanced mix guarantees both styles whenever a round has >= 2 questions.
   const modes = shuffled(selected.map((_, i) => i % 2 ? "typed" as const : "choice" as const), random);
   return selected.map((person, i) => {
     const others = distractorPool.filter(candidate => candidate.id !== person.id);
-    const related = others.filter(candidate => candidate.periods.some(period => person.periods.includes(period)));
-    const relatedIds = new Set(related.map(candidate => candidate.id));
-    const distractors = [...shuffled(related, random), ...shuffled(others.filter(candidate => !relatedIds.has(candidate.id)), random)].slice(0, 3);
+    // Shuffle before stable ranking so equally plausible alternatives remain varied.
+    const distractors = shuffled(others, random).sort((a, b) => relevance(person, b) - relevance(person, a)).slice(0, 3);
     return {
       id: person.id,
       clue: person.clues[Math.floor(random() * person.clues.length)],
@@ -50,8 +145,11 @@ export function createRound(pool: Person[], count: number, mode: AnswerMode, ran
   });
 }
 
-export function filterPool(people: Person[], selected: PeriodId[]): Person[] {
-  return people.filter(person => person.periods.some(period => selected.includes(period)));
+export function filterPool(people: Person[], selected: PeriodId[], selectedBooks?: BookId[]): Person[] {
+  const applicableBooks = selectedBooks && BOOKS.filter(book => selectedBooks.includes(book.id)
+    && book.periods.some(period => selected.includes(period))).map(book => book.id);
+  return people.filter(person => person.periods.some(period => selected.includes(period))
+    && (!applicableBooks || person.books.some(book => applicableBooks.includes(book))));
 }
 export function score(answers: Answer[]) {
   let streak = 0, best = 0;
