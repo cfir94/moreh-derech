@@ -9,7 +9,7 @@ import { ARCH } from "./CityLab";
 import { ROAD } from "./RoadsWaterLab";
 import { HIPPO, THEATRE } from "./EntertainmentLab";
 import { ROOMS } from "./BathsDecorLab";
-import { BURIAL, WATER } from "./PurityBurialLab";
+import { BURIAL, SARCOPHAGUS, WATER } from "./PurityBurialLab";
 import { CHURCH, TYPES } from "./SacredLab";
 import studio from "./Studio.module.css";
 
@@ -224,6 +224,48 @@ export function Cave3D() {
   const [phase, setPhase] = useState(0);
   return <Viewer3D model="cave" options={{ phase }} parts={pick(BURIAL, ["kokh", "arcosolium", "smallKokh", "ossuary", "sarcophagus", "pit", "bench"])} intro={{ title: "מערת קבורה מימי בית שני", text: "בלי תקרה, כדי להציץ פנימה: כוכים בקירות, ארקוסוליום, בור עמידה וספסלים. עברו בין שלבי הקבורה וראו את הגלוסקמה נכנסת לכוך הקטן.", site: "קברי הסנהדרין" }}>
     <div className={studio.phaseRow}>{PHASES.map((p, i) => <button key={p} type="button" aria-pressed={phase === i} onClick={() => setPhase(i)}>{i + 1}. {p}</button>)}</div>
+  </Viewer3D>;
+}
+
+export function Ossuary3D() {
+  const [open, setOpen] = useState(true);
+  const [xray, setXray] = useState(true);
+  const parts: Record<string, PartInfo> = {
+    femur: { title: "עצם הירך — קובעת את האורך", text: "העצם הארוכה בגוף, כ־45 ס״מ. הגלוסקמה ארוכה ממנה — ולכן אורכה כ־60 ס״מ." },
+    pelvis: { title: "האגן — קובע את הרוחב", text: "העצם הרחבה בגוף. הגלוסקמה רחבה ממנו." },
+    skull: { title: "הגולגולת — קובעת את הגובה", text: "העצם הגבוהה בגוף. הגלוסקמה גבוהה ממנה." },
+    box: { title: "התיבה", text: "לרוב מאבן גיר רכה, לפעמים מעץ או מחומרים אחרים. קטנה מכדי להכיל אדם שלם — ולכן ודאי לקבורה שנייה." },
+    rosettes: { title: "עיטור החזית", text: "רוזטות חרוטות במחוגה ומסגרת — העיטור הנפוץ. בגלוסקמאות מפוארות יש גם עיטור צמחי, כמו אשכולות ענבים." },
+    lid: { title: "המכסה", text: "מכסה שטוח, משופע או מקומר. על חלק מהגלוסקמאות נחרט שם המת — ביוונית, בעברית או בארמית." },
+    ...pick(BURIAL, ["ossuary"]),
+  };
+  return <Viewer3D model="ossuary" options={{ open: open ? 1 : 0, xray }} parts={parts} intro={{ title: "גלוסקמה — והעצמות שקובעות את מידותיה", text: "ארוכה מעצם הירך, רחבה מן האגן, גבוהה מן הגולגולת. רחפו על העצמות ועל קווי המידה, ופתחו את המכסה.", site: "גלוסקמאות מעוטרות במוזיאון ישראל" }}>
+    <div className={studio.phaseRow}>
+      <button type="button" aria-pressed={open} onClick={() => setOpen(!open)}>{open ? "לסגור את המכסה" : "לפתוח את המכסה"}</button>
+      <button type="button" aria-pressed={xray} onClick={() => setXray(!xray)}>דפנות שקופות</button>
+    </div>
+  </Viewer3D>;
+}
+
+export function Sarcophagus3D() {
+  const [open, setOpen] = useState(false);
+  const [compare, setCompare] = useState(true);
+  const parts: Record<string, PartInfo> = {
+    chest: SARCOPHAGUS.sarcophagus,
+    lid: SARCOPHAGUS.lid,
+    acroteria: { title: "אקרוטריות — 'קרני' המכסה", text: "בליטות בפינות המכסה, כמו האקרוטריות שבפינות גג המקדש. נפוצות בסרקופגים של בית שערים." },
+    garlands: { title: "זרים", text: "זרי פירות ועלים התלויים בין ראשי שוורים או עמודונים — מוטיב רומי נפוץ על סרקופגים." },
+    rosettes: { title: "רוזטות", text: "פרח עגול בתוך לולאת הזר — אותו מוטיב שמעטר את הגלוסקמאות." },
+    tabula: { title: "טבולה אנסטה", latin: "tabula ansata", text: "לוח כתובת עם 'אוזניים' משולשות, לשם הנקבר. לעיתים נשאר ריק." },
+    lions: { title: "אריות", text: "בבית שערים גם יהודים קישטו סרקופגים בבעלי חיים: אריות, נשרים ושוורים." },
+    body: SARCOPHAGUS.body,
+    ossuary: SARCOPHAGUS.ossuary,
+  };
+  return <Viewer3D model="sarcophagus" options={{ open, compare }} parts={parts} intro={{ ...SARCOPHAGUS.sarcophagus, text: `${SARCOPHAGUS.sarcophagus.text} פתחו את המכסה, והשוו לגלוסקמה שלידו.` }}>
+    <div className={studio.phaseRow}>
+      <button type="button" aria-pressed={open} onClick={() => setOpen(!open)}>{open ? "לסגור את המכסה" : "להרים את המכסה"}</button>
+      <button type="button" aria-pressed={compare} onClick={() => setCompare(!compare)}>גלוסקמה לצורך השוואה</button>
+    </div>
   </Viewer3D>;
 }
 

@@ -13,8 +13,9 @@ import { EntertainmentLab } from "./EntertainmentLab";
 import { BathsLab, DecorLab } from "./BathsDecorLab";
 import { BurialLab, PurityLab } from "./PurityBurialLab";
 import { ChurchesLab, SynagoguesLab } from "./SacredLab";
-import { Glossary, Timeline } from "./ClassicalArchitecture";
-import { Aqueduct3D, Arch3D, Basilica3D, Bath3D, Cave3D, Column3D, Hippodrome3D, Mikveh3D, Pantheon3D, Road3D, Synagogue3D, Temple3D, Theatre3D } from "./Models3D";
+import ArchTimeline from "./ArchTimeline";
+import { Glossary } from "./ClassicalArchitecture";
+import { Aqueduct3D, Arch3D, Basilica3D, Bath3D, Cave3D, Column3D, Hippodrome3D, Mikveh3D, Ossuary3D, Pantheon3D, Road3D, Sarcophagus3D, Synagogue3D, Temple3D, Theatre3D } from "./Models3D";
 import { PhotoGallery, photosFor } from "./PhotoGallery";
 
 const TABS = [
@@ -37,7 +38,7 @@ const LABS: Record<string, () => ReactNode> = {
   burial: () => <BurialLab />,
   synagogues: () => <SynagoguesLab />,
   churches: () => <ChurchesLab />,
-  timeline: () => <Timeline />,
+  timeline: () => <ArchTimeline />,
   glossary: () => <Glossary />,
 };
 
@@ -50,7 +51,7 @@ const MODELS: Record<string, ExtraSection[]> = {
   entertainment: [{ title: "תיאטרון בתלת־ממד", node: <Theatre3D /> }, { title: "היפודרום בתלת־ממד", node: <Hippodrome3D /> }],
   baths: [{ title: "מרחץ בתלת־ממד", node: <Bath3D /> }],
   purity: [{ title: "מקווה בתלת־ממד", node: <Mikveh3D /> }],
-  burial: [{ title: "מערת קבורה בתלת־ממד", node: <Cave3D /> }],
+  burial: [{ title: "מערת קבורה בתלת־ממד", node: <Cave3D /> }, { title: "גלוסקמה בתלת־ממד", node: <Ossuary3D />, last: true }, { title: "סרקופג בתלת־ממד", node: <Sarcophagus3D />, last: true }],
   synagogues: [{ title: "בית כנסת בתלת־ממד", node: <Synagogue3D /> }],
   churches: [{ title: "בסיליקה בתלת־ממד", node: <Basilica3D /> }],
 };
@@ -116,7 +117,7 @@ export function ArchitectureStudio() {
       <div>
         <p className={styles.eyebrow}>VITRVVIVS · DE ARCHITECTVRA</p>
         <h1>מושגי יסוד באדריכלות קלאסית</h1>
-        <p className={studio.tagline}>{ARCH_CHAPTERS.length} לוחות אינטראקטיביים, 13 מודלים בתלת־ממד, תמונות מהשטח ומילון של כל מושגי המטלה — לפי הרצאות היחידה ודף המטלה של בת־ציון זיו.</p>
+        <p className={studio.tagline}>{ARCH_CHAPTERS.length} לוחות אינטראקטיביים, 15 מודלים בתלת־ממד, תמונות מהשטח ומילון של כל מושגי המטלה — לפי הרצאות היחידה ודף המטלה של בת־ציון זיו.</p>
       </div>
       <Link href="/timelines/classical-architecture/v1" className={studio.classic}>הגרסה הקודמת — עמוד אחד ארוך</Link>
     </header>

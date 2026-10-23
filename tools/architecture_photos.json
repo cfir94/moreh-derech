@@ -250,5 +250,61 @@
     "file": "Jerusalem_DomeoftheRock_J65_(cropped).JPG",
     "caption": "כיפת הסלע — מבנה רכזי מתומן, מוסלמי, סביב הסלע.",
     "alt": "מבנה מתומן עם כיפת זהב"
+  },
+  {
+    "id": "sarcophagus-horned",
+    "chapter": "burial",
+    "file": "Sarcophagus at Beit She'arim Necropolis.jpg",
+    "caption": "סרקופג בבית שערים: מכסה גמלוני כבד שפינותיו מוגבהות (אקרוטריות), ועיטורים בתבליט.",
+    "alt": "ארון אבן גדול עם מכסה משופע ופינות מוגבהות, בתוך מערה מוארת"
+  },
+  {
+    "id": "sarcophagus-animals",
+    "chapter": "burial",
+    "file": "Sargophagus with zoomorphic figures in Catacomb no. 20, Beit Shearim.jpg",
+    "caption": "סרקופג 'בעלי החיים' במערה 20 בבית שערים: שני בעלי חיים מגולפים בתבליט — יהודים שנקברו כאן לא נמנעו מדמויות.",
+    "alt": "חזית סרקופג אבן ועליה תבליט של שני בעלי חיים זה מול זה"
+  },
+  {
+    "id": "sarcophagus-helena",
+    "chapter": "burial",
+    "file": "Helena of Adiabene Sarcophagus 2.JPG",
+    "caption": "הסרקופג מ'קברי המלכים' בירושלים, המיוחס להלני מלכת חדייב — מן הסרקופגים המעטים מימי בית שני. רוזטות בחזית ומכסה גמלוני.",
+    "alt": "ארון אבן לבן עם מכסה משולש ורוזטה עגולה בדופן, מוצג במוזיאון"
+  },
+  {
+    "id": "tl-parthenon",
+    "chapter": "timeline",
+    "file": "The_Parthenon_in_Athens.jpg",
+    "caption": "הפרתנון באתונה — מקדש פריפטרוס דורי על האקרופוליס.",
+    "alt": "מקדש יווני מוקף עמודים על גבעה סלעית"
+  },
+  {
+    "id": "tl-alexander",
+    "chapter": "timeline",
+    "file": "Battle_of_Issus_mosaic_-_Museo_Archeologico_Nazionale_-_Naples_2013-05-16_16-25-06_BW.jpg",
+    "caption": "'פסיפס אלכסנדר' מפומפיי: אלכסנדר מוקדון מול דריווש בקרב איסוס.",
+    "alt": "פסיפס רומי גדול של קרב פרשים ומרכבה"
+  },
+  {
+    "id": "tl-maresha",
+    "chapter": "timeline",
+    "file": "Sidonian_Burial_Caves_036.jpg",
+    "caption": "מערת הקבורה הצידונית במרשה: שורת כוכים בקירות, וציורי קיר צבעוניים מעליהם.",
+    "alt": "מערת קבורה מצוירת עם פתחי כוכים לאורך הקירות וגומחה מעוטרת בקיר הקדמי"
+  },
+  {
+    "id": "tl-pompey",
+    "chapter": "timeline",
+    "file": "(Venice)_Pompey_the_Great,_Museo_Archeologico_Nazionale.jpg",
+    "caption": "דיוקן שיש של פומפיוס הגדול, שכבש את ירושלים ב־63 לפנה״ס.",
+    "alt": "פסל ראש משיש של גבר רומי"
+  },
+  {
+    "id": "tl-holyland",
+    "chapter": "timeline",
+    "file": "Jerusalem_Modell_BW_2.JPG",
+    "caption": "דגם ירושלים בימי בית שני (מוזיאון ישראל): המקדש ורחבת הר הבית ההרודיאנית.",
+    "alt": "דגם עיר עתיקה ובמרכזו מקדש בתוך רחבה מוקפת סטווים"
   }
 ]

@@ -12,9 +12,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { materials, type Built, type ModelOptions } from "./kit";
 import { buildAqueduct, buildColumn, buildPantheon, buildTemple } from "./models1";
 import { BUILDERS2, type ModelId2 } from "./models2";
+import { BUILDERS3, type ModelId3 } from "./models3";
 
 export type { ModelOptions };
-export type ModelId = "column" | "temple" | "pantheon" | "aqueduct" | ModelId2;
+export type ModelId = "column" | "temple" | "pantheon" | "aqueduct" | ModelId2 | ModelId3;
 
 /* ---------------- viewer ---------------- */
 
@@ -158,7 +159,7 @@ export function createViewer(host: HTMLElement, events: { onHover: (part: string
       const keepView = key === lastKey;
       lastKey = key;
       if (current) { scene.remove(current.group); disposeGroup(current.group); }
-      current = id === "column" ? buildColumn(mats, options) : id === "temple" ? buildTemple(mats, options) : id === "pantheon" ? buildPantheon(mats, options) : id === "aqueduct" ? buildAqueduct(mats, options) : BUILDERS2[id](mats, options);
+      current = id === "column" ? buildColumn(mats, options) : id === "temple" ? buildTemple(mats, options) : id === "pantheon" ? buildPantheon(mats, options) : id === "aqueduct" ? buildAqueduct(mats, options) : id in BUILDERS3 ? BUILDERS3[id as ModelId3](mats, options) : BUILDERS2[id as ModelId2](mats, options);
       scene.add(current.group);
       fit(current.group, keepView, current.view);
       paint();
