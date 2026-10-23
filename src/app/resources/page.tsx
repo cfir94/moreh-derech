@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function ResourcesPage() {
   const total =
-    FEATURED_RESOURCES.length +
+    1 + FEATURED_RESOURCES.length +
     RESOURCE_GROUPS.reduce((s, g) => s + g.items.length, 0);
 
   // How often each subject actually comes up in the licensing exams we hold —
@@ -30,13 +30,37 @@ export default function ResourcesPage() {
       <header className="screen-in mb-7">
         <h1 className="grad-text mb-2 text-3xl">סיכומים וחומרי לימוד</h1>
         <p className="mb-3 max-w-2xl leading-relaxed text-txt-dim">
-          <span className="num">{total}</span> חומרים חופשיים לכל נושא בסילבוס
+          <span className="num">{total}</span> חומרי לימוד וקישורים לנושאי הסילבוס
           של הקורס: סיכום להרצאה, דוחות סיור לפי אתר, מסלולים לדוגמה לחלק ב',
           מצגות ומפות. השאלונים והמבחנים כאן בודקים ידע — הדף הזה הוא איפה
           לומדים אותו.
         </p>
-        <ResourceCredit className="max-w-2xl" />
       </header>
+
+
+      <section
+        aria-labelledby="class-materials-title"
+        className="screen-in mb-8 rounded-lg border border-teal/30 bg-card p-5 sm:p-6"
+      >
+        <p className="mb-1 text-xs font-bold tracking-wide text-teal">חומרי לימוד מהכיתה</p>
+        <h2 id="class-materials-title" className="mb-2 text-xl">מצגות וחומרי חזרה לקורס</h2>
+        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-txt-dim">
+          מצגות לשיעור החזרה על תקופת בית שני, התקופה הרומית־ביזנטית ואדריכלות קלאסית.
+        </p>
+        <a
+          href="https://drive.google.com/drive/folders/1UP3PIMYg7PZAd3zABJpqTX-xcgCo_eT0?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-lg border border-teal/30 bg-teal/10 px-4 py-3 text-sm font-bold text-teal transition hover:bg-teal/20"
+        >
+          למצגות בגוגל דרייב <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+
+      <div className="mb-5">
+        <h2 className="mb-2 text-lg">הסיכומים והחומרים של אפרת נקש</h2>
+        <ResourceCredit className="max-w-2xl" />
+      </div>
 
       <section className="mb-8">
         <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
