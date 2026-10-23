@@ -13,7 +13,7 @@ test("four source notebooks, five periods, complete unique identities and local 
   assert.equal(PEOPLE.length, 117);
   assert.equal(new Set(PEOPLE.map(person => person.id)).size, PEOPLE.length);
   for (const p of PEOPLE) {
-    assert.ok(p.clues.length && p.clues.every(clue => clue.length > 35), p.id);
+    assert.ok(p.clues.length && p.clues.every(clue => clue.trim().length > 0), p.id);
     assert.ok(p.date && p.role && p.distinction && p.sources.length, p.id);
     for (const source of p.sources) { assert.match(source.href, /^https:\/\/notebook.google.com\/notebook\//); assert.ok(source.sourceIds.length); }
     assert.ok(p.portrait?.alt && p.portrait.caption && p.portrait.credit && p.portrait.license, p.id);

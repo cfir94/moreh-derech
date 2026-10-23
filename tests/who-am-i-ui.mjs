@@ -27,6 +27,7 @@ try {
   await expect(page.getByRole("heading",{name:"מי אני?",exact:true})).toBeVisible();
   await expect(page.getByRole("group",{name:"בחירת תקופות"}).getByRole("button")).toHaveCount(5);
   await page.screenshot({path:"test-results/who-am-i-desktop.png",fullPage:true});
+  if (process.env.WHO_AM_I_VISUAL_LOGS) console.log("VISUAL_DESKTOP=" + (await page.locator("[data-who-am-i]").screenshot({type:"jpeg",quality:45})).toString("base64"));
   await page.getByRole("button",{name:"ניקוי הבחירה",exact:true}).click();
   await expect(page.getByRole("button",{name:/מתחילים לגלות/})).toBeDisabled();
   await page.getByRole("button",{name:/בית שני/}).click();
@@ -69,6 +70,7 @@ try {
   }
   await page.setViewportSize({width:390,height:844});
   await page.screenshot({path:"test-results/who-am-i-mobile.png",fullPage:true});
+  if (process.env.WHO_AM_I_VISUAL_LOGS) console.log("VISUAL_MOBILE=" + (await page.locator("[data-who-am-i]").screenshot({type:"jpeg",quality:45})).toString("base64"));
   await page.getByRole("button",{name:"הקלדת שם",exact:true}).click();
   await page.getByRole("button",{name:/מתחילים לגלות/}).click();
   await expect(page.getByRole("textbox",{name:"מי הדמות?"})).toBeVisible();
