@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cx, Info, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 /* ------------------------------ XI. synagogues ------------------------------ */
 
@@ -60,6 +60,7 @@ export function SynagoguesLab() {
   };
 
   return <Plate id="synagogues" numeral="XI" title="בתי הכנסת הקדומים" lead="מאולם הספסלים של ימי בית שני ועד רצפות הפסיפס הביזנטיות עם גלגל המזלות — ראשיתם, תפקודם ומאפייניהם האדריכליים.">
+    <Section title="ימי בית שני">
     <h3 className={styles.subTitle}>בתי הכנסת הראשונים — ימי בית שני</h3>
     <div className={styles.lab}>
       <figure className={styles.figure}>
@@ -73,6 +74,8 @@ export function SynagoguesLab() {
       <Info info={early.active === "benches" ? { ...EARLY.benches, site: "גמלא, מצדה, הרודיון, מגדלא" } : EARLY[early.active]} />
     </div>
 
+    </Section>
+    <Section title="כתובת תיאודוטוס">
     <div className={styles.inscription}>
       <h3 className={styles.subTitle}>כתובת תיאודוטוס בן וטנוס</h3>
       <p className={styles.small}>נמצאה בעיר דוד בירושלים (חפירות ריימון וייל, 1913–1914). העבירו את העכבר על השורות.</p>
@@ -81,6 +84,8 @@ export function SynagoguesLab() {
       <p className={styles.small}><b>החשיבות:</b> עדות לבית כנסת בירושלים לפני החורבן — בזמן שהמקדש עוד עמד; לתפקידו (קריאה בתורה ולימוד — לא תפילה); ולעלייה לרגל מן התפוצות, עם אכסניה ומתקני מים (ייתכן שמקוואות).</p>
     </div>
 
+    </Section>
+    <Section title="ארבעה טיפוסים">
     <h3 className={styles.subTitle}>ארבעה טיפוסים — לפי הכיוון לירושלים</h3>
     <div className={styles.controls}><label className={styles.toggle}><input type="checkbox" checked={showDir} onChange={(e) => setShowDir(e.target.checked)} />להציג את הכיוון לירושלים</label></div>
     <div className={styles.types}>{(Object.keys(TYPES) as SType[]).map((t) => <button key={t} type="button" aria-pressed={type === t} onClick={() => setType(t)} className={styles.typeCard}>
@@ -89,6 +94,8 @@ export function SynagoguesLab() {
     <Info info={TYPES[type]} label="טיפוס" />
     <p className={styles.small}>המחקר היום: ההבדלים בין הטיפוסים משקפים בעיקר <b>אזור</b>, לא זמן בנייה.</p>
 
+    </Section>
+    <Section title="גלגל המזלות">
     <h3 className={styles.subTitle}>גלגל המזלות</h3>
     <div className={styles.lab}>
       <figure className={styles.figure}>
@@ -105,6 +112,7 @@ export function SynagoguesLab() {
         ? { title: "גלגל המזלות בבית הכנסת", text: "12 המזלות במעגל, אל השמש הליוס במרכבה במרכז, ובפינות ארבע 'התקופות' — עונות השנה. בימי בית שני כמעט נמנעו מדמויות; בתקופה הביזנטית — כשהאיום הוא כבר הנצרות ולא עבודת האלילים — הרסן משתחרר.", site: "חמת טבריה (המאה ה־4, המוקדם); ציפורי (5); בית אלפא (6); נערן. בעין גדי — רק שמות המזלות, בכתב." }
         : { title: `מזל ${SIGNS[sign][0]}`, text: `מזל ${SIGNS[sign][0]} מקביל לחודש ${SIGNS[sign][1]}. בפסיפסים המזלות מסומנים בשמותיהם העבריים, לצד הדמויות.` }} label="גלגל המזלות" />
     </div>
+    </Section>
   </Plate>;
 }
 
@@ -129,6 +137,7 @@ export function ChurchesLab() {
   const ids = Object.keys(CHURCH) as CPart[];
 
   return <Plate id="churches" numeral="XII" title="כנסיות — בסיליקה ומבנה רכזי" lead="'בסיליקה' לא נולדה ככנסייה: עד המאה ה־4 היא מבנה ציבורי אזרחי — למסחר ולמשפט. כשמדריכים קבוצות נוצריות כדאי להבהיר זאת. לצידה — הכנסייה הרכזית, שמנציחה מקום.">
+    <Section title="בסיליקה">
     <div className={styles.controls}><Seg label="תצוגה" value={view} onChange={setView} options={[{ id: "plan", title: "תוכנית — כנסיית כורסי" }, { id: "section", title: "חתך רוחב" }]} /></div>
     <div className={styles.lab}>
       <figure className={styles.figure}>
@@ -154,10 +163,13 @@ export function ChurchesLab() {
       <Info info={CHURCH[pick.active]} />
     </div>
     <ul className={styles.partList}>{ids.map((id, i) => <li key={id}><button type="button" aria-pressed={pick.active === id} onClick={() => { pick.setActive(id); if (!["aisles", "nave", "stylobates"].includes(id)) setView("plan"); }}><span aria-hidden>{i + 1}</span>{CHURCH[id].title}</button></li>)}</ul>
+    </Section>
+    <Section title="מבנים רכזיים וספוליה">
     <div className={styles.cards3}>
       <article className={styles.miniCard}><svg viewBox="0 0 100 70" aria-hidden className={cx(styles.svg, styles.still)}>{[30, 20].map((r) => <path key={r} d={Array.from({ length: 8 }, (_, i) => { const a = (i / 8) * Math.PI * 2 + Math.PI / 8; return `${i ? "L" : "M"}${50 + Math.cos(a) * r} ${35 + Math.sin(a) * r}`; }).join(" ") + "Z"} />)}<circle cx={50} cy={35} r={6} className={styles.dark} /></svg><h4>כנסיית הקתיסמה</h4><p>מתומן סביב הסלע שעליו, לפי המסורת, ישבה מרים בדרך מנצרת לבית לחם — &apos;קתיסמה&apos; מלשון ישיבה.</p></article>
       <article className={styles.miniCard}><svg viewBox="0 0 100 70" aria-hidden className={cx(styles.svg, styles.still)}><circle cx={74} cy={35} r={22} /><circle cx={74} cy={35} r={7} className={styles.dark} /><rect x={8} y={20} width={44} height={30} /></svg><h4>כנסיית הקבר</h4><p>רוטונדה — מבנה רכזי סביב הסלע של הקבר — לצד בסיליקה. השורש פגני: הפנתאון ברומא.</p></article>
       <article className={styles.miniCard}><svg viewBox="0 0 100 70" aria-hidden className={cx(styles.svg, styles.still)}><rect x={8} y={14} width={84} height={50} className={styles.wall} /><rect x={20} y={30} width={60} height={12} /><path d="M44 30 h16 l-3 -10 h-10 Z" transform="rotate(180 52 30)" /><circle cx={30} cy={52} r={6} /></svg><h4>ספוליה</h4><p>&apos;שלל&apos;: עמודים, כותרות ומשקופים ממבנים חרבים שנבנו לתוך מבנים חדשים — לפעמים אפילו הפוכים. נפוץ בתקופה הביזנטית ואחריה.</p></article>
     </div>
+    </Section>
   </Plate>;
 }

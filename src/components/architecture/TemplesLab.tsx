@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Info, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { Info, Section, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 type Kind = "greek" | "roman" | "tholos";
 type Part = "steps" | "colonnade" | "cella" | "statue" | "porch" | "podium" | "approach";
 
-const PARTS: Record<Kind, Partial<Record<Part, PartInfo>>> = {
+export const TEMPLE_PARTS: Record<Kind, Partial<Record<Part, PartInfo>>> = {
   greek: {
     steps: { title: "מדרגות מכל ארבעת הצדדים", text: "המקדש היווני מוקף מדרגות מכל עבר — העליונה שבהן היא הסטילובט." },
     colonnade: { title: "טור עמודים היקפי", text: "עמודים מקיפים את המבנה מארבעה כיוונים, ולכן קשה לזהות במבט ראשון היכן הכניסה." },
@@ -36,12 +36,13 @@ const ORDER: Part[] = ["approach", "steps", "podium", "colonnade", "porch", "cel
 export function TemplesLab() {
   const [kind, setKind] = useState<Kind>("greek");
   const pick = usePick<Part>("approach");
-  const parts = PARTS[kind];
+  const parts = TEMPLE_PARTS[kind];
   const active = parts[pick.active] ? pick.active : "approach";
   const switchKind = (k: Kind) => { setKind(k); pick.setActive("approach"); };
   const dots = (xs: number[], ys: number[]) => xs.flatMap((x) => ys.map((y) => <circle key={`${x}-${y}`} cx={x} cy={y} r={5} />));
 
   return <Plate id="temples" numeral="II" title="מקדשים — יווני, רומי, טולוס" lead="מבט מלמעלה על תוכנית המקדש. החליפו בין הטיפוסים ושימו לב לשאלה הכי חשובה: מאיפה נכנסים?">
+    <Section title="תוכניות">
     <div className={styles.controls}>
       <Seg label="טיפוס מקדש" value={kind} onChange={switchKind} options={[{ id: "greek", title: "יווני" }, { id: "roman", title: "רומי" }, { id: "tholos", title: "טולוס (עגול)" }]} />
     </div>
@@ -81,5 +82,6 @@ export function TemplesLab() {
       <article className={styles.miniCard}><h4>חורבת עומרית ותל קדש</h4><p>מקדשים רומיים מן המאות ה־1–2 בצפון. בעומרית רואים היטב את גרם המדרגות היחיד; בקדש — קיר, פתח ומשקוף.</p></article>
       <article className={styles.miniCard}><h4>סקלום — מקדש קטן</h4><p>חדר פולחן קטן. במחנה הלגיון השישי ליד מגידו נחשף הסקלום: חדר הדגלים בלב המפקדה.</p></article>
     </div>
+    </Section>
   </Plate>;
 }

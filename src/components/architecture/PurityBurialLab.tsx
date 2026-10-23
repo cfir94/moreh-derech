@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cx, Info, Plate, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, Plate, styles, usePick, type PartInfo } from "./shared";
 
 /* ------------------------------ IX. purity ------------------------------ */
 
@@ -20,6 +20,7 @@ export function PurityLab() {
   const steps = "M20 40 L20 62 L50 62 L50 84 L80 84 L80 106 L110 106 L110 128 L140 128 L140 150 L170 150 L170 172 L200 172 L200 194 L224 194 L224 222 L300 222 L300 40 Z";
 
   return <Plate id="purity" numeral="IX" title="מקוואות — טהרה בימי הבית השני" lead="במקווה טובלים לא כדי להתנקות אלא כדי להיטהר מטומאה. מקוואות מופיעים לראשונה בתקופה החשמונאית, עם ההקפדה הגוברת על טהרה ('פרצה טהרה בישראל') ועם העלייה לרגל — אי אפשר להקריב פסח בטומאה.">
+    <Section title="המקווה">
     <div className={styles.lab}>
       <figure className={styles.figure}>
         <svg viewBox="0 0 560 250" className={styles.svg} role="img" aria-label="חתך מקווה עם אוצר">
@@ -54,12 +55,15 @@ export function PurityLab() {
           : <button type="button" className={styles.action} onClick={() => setWater("clean")}>מן ההתחלה</button>}
       </Info>
     </div>
+    </Section>
+    <Section title="אוצר, נתיבים וכלי אבן">
     <div className={styles.cards3}>
       <article className={styles.miniCard}><h4>האוצר — נדיר</h4><p>אחד הפתרונות שמוכרים מן ההלכה שלאחר החורבן. ברוב המקרים היו פתרונות אחרים, שאיננו מכירים — ההבנה שלנו חלקית.</p></article>
       <article className={styles.miniCard}><h4>נתיבים</h4><p>במקוואות עם קו מפריד במדרגות, ההשערה המקובלת: נתיב לטמאים שיורדים ונתיב לטהורים שעולים. <b>בארץ:</b> קומראן.</p></article>
       <article className={styles.miniCard}><h4>כלי אבן</h4><p>כלי אבן אינם מקבלים טומאה — בניגוד לחרס, מתכת ועץ. לכן נפוצים בסוף ימי בית שני, ואצל העשירים אפילו שולחנות אבן. <b>בארץ:</b> הרובע ההרודיאני.</p></article>
     </div>
     <p className={styles.small}>תפוצה: בעיקר בבתי עשירים, ובמקומות שאין בהם מעיין או ים — ירושלים (הרובע היהודי), קומראן, מצדה, ארמונות יריחו.</p>
+    </Section>
   </Plate>;
 }
 
@@ -85,6 +89,7 @@ export function BurialLab() {
   const kokhs = [[60, 120], [60, 170], [60, 220]];
 
   return <Plate id="burial" numeral="X" title="קבורה" lead="בית ראשון: מאספה משפחתית לדורות. בית שני: קבורה שנייה אישית. היכנסו למערת קבורה מימי בית שני וליוו את התהליך.">
+    <Section title="מערת הקבורה">
     <div className={styles.lab}>
       <figure className={styles.figure}>
         <svg viewBox="0 0 520 320" className={styles.svg} role="img" aria-label="תוכנית מערת קבורה">
@@ -108,17 +113,24 @@ export function BurialLab() {
       <Info info={BURIAL[pick.active]} />
     </div>
     <ol className={styles.process}>{PHASES.map((p, i) => <li key={p}><button type="button" aria-pressed={phase === i} onClick={() => { setPhase(i as Phase); pick.setActive(i < 3 ? "kokh" : "ossuary"); }}><span>{i + 1}</span>{p}</button></li>)}</ol>
+    </Section>
+    <Section title="בית ראשון ובית שני">
     <div className={styles.compare}>
       <article><h4>בית ראשון</h4><p>רוב האנשים — כנראה בקברי שוחה שלא נמצאו. במערות: קבורה ראשונה של הגופה, ואחר כך ליקוט העצמות ל<b>מאספה משפחתית</b> — בור שבו מצטרפים הדורות.</p></article>
       <article><h4>בית שני ואילך</h4><p>קבורה ראשונה בכוך, בארקוסוליום או בסרקופג; קבורה שנייה <b>אישית</b> — בכוך קטן או בגלוסקמה.</p></article>
       <article><h4>למה השינוי?</h4><p><b>תאולוגי:</b> האמונה בתחיית המתים מתועדת לראשונה בתקופה ההלניסטית־חשמונאית — מי שמצפה לקום רוצה קבר משלו. <b>חברתי:</b> עליית האינדיבידואליזם. לשתי התאוריות יש קשיים.</p></article>
     </div>
+    </Section>
+    <Section title="נחל קדרון">
     <KidronLab />
+    </Section>
+    <Section title="גלוסקמה ואורנה">
     <div className={styles.cards3}>
       <article className={styles.miniCard}><h4>אורנה (urna)</h4><p>כד לאפר המת אחרי שריפת הגופה — המנהג הרומי הרווח עד המאה ה־2 לספירה, אז גברה הקבורה בגוף ובסרקופגים. יהודים לא שרפו את מתיהם.</p></article>
       <article className={styles.miniCard}><h4>מידות הגלוסקמה</h4><svg viewBox="0 0 160 82" aria-hidden className={cx(styles.svg, styles.still)}><rect x={20} y={20} width={110} height={36} /><path className={styles.ln} d="M20 64h110M140 20v36M30 12l12 -8h70" /><text x={75} y={78} textAnchor="middle" className={styles.svgLabel}>&gt; עצם הירך</text></svg><p>ארוכה מעצם הירך, רחבה מן האגן, גבוהה מן הגולגולת — ולכן ברור שלא לגופה שלמה.</p></article>
       <article className={styles.miniCard}><h4>בית שערים</h4><p>מערכות קבורה מפוארות וסרקופגים מן התקופה הרומית המאוחרת — אולי גם קבר רבי יהודה הנשיא.</p></article>
     </div>
+    </Section>
   </Plate>;
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cx, Info, PartList, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, PartList, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 type Order = "doric" | "ionic" | "corinthian";
 type Part = "acroteria" | "pediment" | "tympanum" | "cornice" | "frieze" | "architrave" | "capital" | "shaft" | "fluting" | "entasis" | "base" | "pedestal" | "stylobate";
@@ -12,7 +12,7 @@ const ORDERS: { id: Order; title: string; cx: number }[] = [
   { id: "corinthian", title: "קורינתי", cx: 100 },
 ];
 
-const PARTS: Record<Part, PartInfo & { per: [string, string, string] }> = {
+export const ORDER_PARTS: Record<Part, PartInfo & { per: [string, string, string] }> = {
   acroteria: { title: "אקרוטריות", latin: "acroteria", text: "פסלים או עיטורים על ראש הגמלון ובשתי פינותיו — 'כתר' לחזית.", per: ["כן", "כן", "כן"] },
   pediment: { title: "גמלון", latin: "pediment", text: "הגג המשולש שבחזית המקדש. דמיינו את המשך המבנה — כל החזית חוזרת על עצמה בסימטריה.", per: ["נמוך ורחב", "דומה", "דומה, עשיר בעיטור"] },
   tympanum: { title: "טימפנון", latin: "tympanon", text: "השדה המשולש שבתוך הגמלון — מקום לפסלים: קרבות, אלים, חיות מיתולוגיות.", per: ["פסלים", "פסלים", "פסלים"] },
@@ -28,7 +28,7 @@ const PARTS: Record<Part, PartInfo & { per: [string, string, string] }> = {
   stylobate: { title: "סטילובט", latin: "stylobate", text: "המדרגה העליונה שעליה עומדים העמודים. לפעמים מעל כמה מדרגות, ולפעמים רק רצועה מוגבהת ברצפה — כמו בבתי כנסת ובכנסיות.", per: ["כן", "כן", "כן"] },
 };
 
-const IDS = Object.keys(PARTS) as Part[];
+const IDS = Object.keys(ORDER_PARTS) as Part[];
 
 /** A column shaft with optional entasis, as a single closed path. */
 function shaftPath(c: number, yb: number, yt: number, wb: number, wt: number, bulge: number) {
@@ -122,7 +122,7 @@ export function OrdersLab() {
   const entasis = entasisOn || pick.active === "entasis";
   const shown = view === "all" ? ORDERS : ORDERS.filter((o) => o.id === view);
   const viewBox = view === "all" ? "0 0 600 470" : `${ORDERS.find((o) => o.id === view)!.cx - 115} 0 230 470`;
-  const info = PARTS[pick.active];
+  const info = ORDER_PARTS[pick.active];
 
   const choose = (id: Part) => {
     pick.setActive(id);
@@ -130,6 +130,7 @@ export function OrdersLab() {
   };
 
   return <Plate id="orders" numeral="I" title="הסדרים — דורי, יוני, קורינתי" lead={<>&quot;סדר&quot; הוא יותר מסגנון: בחירת העמוד קובעת גם את הכותרת, את העיטורים שמעליה ואת הפרופורציות. העבירו את העכבר (או הקישו) על חלקי השרטוט — אותו חלק יידלק בשלושת הסדרים יחד.</>}>
+    <Section title="השוואה בשרטוט">
     <div className={styles.controls}>
       <Seg label="אילו סדרים להציג" value={view} onChange={setView} options={[{ id: "all", title: "השוואה" }, ...ORDERS.map((o) => ({ id: o.id, title: o.title }))]} />
       <label className={styles.toggle}><input type="checkbox" checked={pedestal} onChange={(e) => setPedestal(e.target.checked)} />פדסטל</label>
@@ -151,17 +152,20 @@ export function OrdersLab() {
       </figure>
       <Info info={info}>
         <table className={styles.perOrder}>
-          <tbody>{ORDERS.map((o, i) => <tr key={o.id}><th>{o.title}</th><td>{PARTS[pick.active].per[i]}</td></tr>)}</tbody>
+          <tbody>{ORDERS.map((o, i) => <tr key={o.id}><th>{o.title}</th><td>{ORDER_PARTS[pick.active].per[i]}</td></tr>)}</tbody>
         </table>
       </Info>
     </div>
-    <PartList ids={IDS} info={PARTS} active={pick.active} onPick={choose} />
+    <PartList ids={IDS} info={ORDER_PARTS} active={pick.active} onPick={choose} />
+    </Section>
+    <Section title="זהו את הסדר">
     <OrderQuiz />
     <div className={styles.cards3}>
       <article className={styles.miniCard}><h4>קבר יאסון, רחביה</h4><p>כותרת <b>דורית</b> בחזית — חלקה ופשוטה.</p></article>
       <article className={styles.miniCard}><h4>קבר בני חזיר, נחל קדרון</h4><p>שני עמודים <b>דוריים</b> בין שתי מזוזות — &quot;דיסטילוס אין אנטיס&quot;.</p></article>
       <article className={styles.miniCard}><h4>יד אבשלום, נחל קדרון</h4><p>כותרות <b>יוניות</b> עם וולוטות — ומעליהן אפריז דורי של טריגליפים ומטופות, בלי דמויות.</p></article>
     </div>
+    </Section>
   </Plate>;
 }
 

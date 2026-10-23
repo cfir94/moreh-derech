@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cx, Info, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 type Variant = "ideal" | "jerusalem" | "sussita";
 type Part = "wall" | "cardo" | "decumanus" | "tetrapylon" | "forum" | "basilica" | "insula" | "temple" | "theatre" | "baths" | "nymphaeum" | "aqueduct" | "arch" | "cardoEast" | "templeMount" | "sepulchre" | "eccehomo" | "damascus" | "hill";
@@ -51,6 +51,7 @@ export function CityLab() {
   const ids = Object.keys(INFO[variant]) as Part[];
 
   return <Plate id="city" numeral="III" title="תכנון העיר" lead="העיר הקלאסית היא עיר מתוכננת. השוו את התוכנית האידאלית לשתי ערים בארץ שסטו ממנה — ולמה.">
+    <Section title="תוכנית העיר">
     <div className={styles.controls}>
       <Seg label="עיר" value={variant} onChange={choose} options={[{ id: "ideal", title: "התוכנית האידאלית" }, { id: "jerusalem", title: "ירושלים — שני קרדו" }, { id: "sussita", title: "סוסיתא — רק דקומנוס" }]} />
     </div>
@@ -66,8 +67,13 @@ export function CityLab() {
       <Info info={info} />
     </div>
     <ul className={styles.partList}>{ids.map((id, i) => <li key={id}><button type="button" aria-pressed={pick.active === id} onClick={() => pick.setActive(id)}><span aria-hidden>{i + 1}</span>{INFO[variant][id]!.title}</button></li>)}</ul>
+    </Section>
+    <Section title="קשת, קמרון וכיפה">
     <ConstructionLab />
+    </Section>
+    <Section title="שער ניצחון">
     <ArchLab />
+    </Section>
   </Plate>;
 }
 

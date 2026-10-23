@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { cx, Info, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
+import { cx, Info, Section, Plate, Seg, styles, usePick, type PartInfo } from "./shared";
 
 type TPart = "scaenae" | "pulpitum" | "proscaenium" | "orchestra" | "ima" | "media" | "summa" | "aditus" | "vomitorium" | "ambulacrum";
 
@@ -154,11 +154,17 @@ const BUILDINGS = [
 
 export function EntertainmentLab() {
   return <Plate id="entertainment" numeral="VI" title="מבני בידור" lead="תיאטרון, אודיאון, אצטדיון, היפודרום ואמפיתיאטרון. המחקר החדש זהיר בחלוקה החדה: אותו מבנה יכול היה לשמש לכמה מטרות — וגם להיות מוסב.">
+    <Section title="סוגי המבנים">
     <div className={styles.buildings}>{BUILDINGS.map((b) => <article key={b.id} className={styles.building}>
       <svg viewBox="0 0 80 56" aria-hidden className={cx(styles.svg, styles.still)}><path d={b.shape} /></svg>
       <h4>{b.title}</h4><p>{b.use}</p><p className={styles.small}>{b.site}</p>
     </article>)}</div>
+    </Section>
+    <Section title="תיאטרון">
     <TheatreLab />
+    </Section>
+    <Section title="היפודרום">
     <HippodromeLab />
+    </Section>
   </Plate>;
 }

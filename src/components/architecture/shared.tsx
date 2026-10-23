@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type KeyboardEvent, type ReactNode } from "react";
+import { Children, createContext, isValidElement, useContext, useState, type KeyboardEvent, type ReactElement, type ReactNode } from "react";
 import styles from "./Architecture.module.css";
+import studio from "./Studio.module.css";
 
 export { styles };
 
@@ -34,7 +35,21 @@ export function usePick<T extends string>(initial: T) {
   return { active, setActive, bind };
 }
 
+/**
+ * A titled group inside a plate. On the long page it is just its children;
+ * in the studio each Section becomes a tab of its chapter.
+ */
+export function Section({ children }: { title: string; children: ReactNode }) {
+  return <>{children}</>;
+}
+
+export type ExtraSection = { title: string; node: ReactNode; last?: boolean };
+/** Studio mode: chapters render as tabbed screens, and may get extra tabs (the 3D models). */
+export const StudioContext = createContext<{ on: boolean; extras: Record<string, ExtraSection[]> }>({ on: false, extras: {} });
+
 export function Plate({ id, numeral, title, lead, children }: { id: string; numeral: string; title: string; lead: ReactNode; children: ReactNode }) {
+  const ctx = useContext(StudioContext);
+  if (ctx.on) return <StudioPlate id={id} numeral={numeral} title={title} lead={lead}>{children}</StudioPlate>;
   return <section id={`ch-${id}`} className={styles.plate} aria-labelledby={`ch-${id}-title`}>
     <header className={styles.plateHead}>
       <span className={styles.plateNo} aria-hidden>TAB · {numeral}</span>
@@ -42,6 +57,27 @@ export function Plate({ id, numeral, title, lead, children }: { id: string; nume
       <p>{lead}</p>
     </header>
     {children}
+  </section>;
+}
+
+function StudioPlate({ id, numeral, title, lead, children }: { id: string; numeral: string; title: string; lead: ReactNode; children: ReactNode }) {
+  const { extras } = useContext(StudioContext);
+  const own = Children.toArray(children)
+    .filter((child): child is ReactElement<{ title: string; children: ReactNode }> => isValidElement(child) && child.type === Section)
+    .map((child) => ({ title: child.props.title, node: child.props.children }));
+  const extra = extras[id] ?? [];
+  const pages = [...extra.filter((e) => !e.last), ...own, ...extra.filter((e) => e.last)];
+  const [page, setPage] = useState(0);
+  const current = pages[Math.min(page, pages.length - 1)];
+  return <section id={`ch-${id}`} className={studio.chapter} aria-labelledby={`ch-${id}-title`}>
+    <header className={studio.chapterHead}>
+      <span className={studio.numeral} aria-hidden>{numeral}</span>
+      <div><h2 id={`ch-${id}-title`}>{title}</h2><p>{lead}</p></div>
+    </header>
+    {pages.length > 1 && <div className={studio.subtabs} role="tablist" aria-label={`חלקי הלוח: ${title}`}>
+      {pages.map((p, i) => <button key={p.title} type="button" role="tab" aria-selected={i === page} onClick={() => setPage(i)}>{p.title}</button>)}
+    </div>}
+    <div key={current.title} className={cx(studio.page, styles.studioInner)} role="tabpanel" aria-label={current.title}>{current.node}</div>
   </section>;
 }
 

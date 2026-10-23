@@ -39,7 +39,7 @@ function HeroArt() {
   </svg>;
 }
 
-function Timeline() {
+export function Timeline() {
   const [open, setOpen] = useState(ARCH_MILESTONES[7].id);
   return <section className={styles.timeline} aria-labelledby="arch-timeline">
     <header className={styles.timelineHead}>
@@ -68,7 +68,7 @@ function copyText(term: ArchTerm) {
   return `${term.term}${term.latin ? ` (${term.latin})` : ""} — ${term.text}${term.site ? ` אתר בארץ: ${term.site}.` : ""}`;
 }
 
-function Glossary() {
+export function Glossary() {
   const [query, setQuery] = useState("");
   const [chapter, setChapter] = useState("all");
   const [listOnly, setListOnly] = useState(false);

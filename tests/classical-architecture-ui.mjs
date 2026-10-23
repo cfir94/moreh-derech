@@ -1,4 +1,4 @@
-// Browser checks for the classical architecture page, against the static export in out/.
+// Browser checks for the first (single-scroll) classical architecture page, against the static export in out/.
 import { createServer } from "node:http";
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { resolve, extname } from "node:path";
@@ -27,8 +27,8 @@ try {
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });
 
-  await page.goto(base + "/timelines/");
-  await page.getByRole("link", { name: /מושגי יסוד באדריכלות קלאסית/ }).click();
+  // The first, single-scroll version, kept unlinked at /v1 after the studio replaced it.
+  await page.goto(base + "/timelines/classical-architecture/v1/");
   await expect(page.getByRole("heading", { name: "מושגי יסוד באדריכלות קלאסית", level: 1 })).toBeVisible();
   await expect(page.locator('section[id^="ch-"]')).toHaveCount(12);
 
@@ -63,14 +63,15 @@ try {
   await page.getByRole("searchbox", { name: "חיפוש מושג" }).fill("מונרה");
   await expect(page.locator("#t-munera")).toBeVisible();
   await expect(page.locator("details[id^='t-']")).toHaveCount(1);
-  await page.goto(base + "/timelines/classical-architecture/#t-hypocaust");
+  await page.goto("about:blank");
+  await page.goto(base + "/timelines/classical-architecture/v1/#t-hypocaust");
   await expect(page.locator("#t-hypocaust")).toHaveAttribute("open", "");
 
   const phone = await browser.newContext({ viewport: { width: 320, height: 760 } });
   await phone.route("**/*.supabase.co/**", (route) => route.fulfill({ json: [] }));
   const small = await phone.newPage();
   small.on("pageerror", (error) => errors.push(error.message));
-  await small.goto(`${base}/timelines/classical-architecture/`);
+  await small.goto(`${base}/timelines/classical-architecture/v1/`);
   const overflow = await small.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow, "horizontal overflow at 320px").toBeLessThanOrEqual(1);
   expect(errors).toEqual([]);
