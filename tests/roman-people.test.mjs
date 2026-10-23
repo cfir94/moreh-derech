@@ -41,10 +41,13 @@ test("comparisons and image credits all resolve", () => {
     const bytes = readFileSync(new URL("../public/" + portrait.localSrc.replace("/moreh-derech/", ""), import.meta.url));
     assert.equal(bytes.toString("ascii", 0, 4), "RIFF", `${id}: valid WebP container`);
     assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `${id}: WebP signature`);
-    assert.ok(portrait.sourceUrl.startsWith("https://commons.wikimedia.org/wiki/File:"));
+    if (id === "varus") assert.equal(portrait.sourceUrl, "https://www.livius.org/pictures/a/roman-portraits/varus/");
+    else assert.ok(portrait.sourceUrl.startsWith("https://commons.wikimedia.org/wiki/File:"));
   }
   assert.equal(Object.keys(PORTRAITS).length, 35);
   assert.deepEqual(ROMAN_PEOPLE.filter(p => !PORTRAITS[p.id]).map(p => p.id), ["florus"]);
-  for (const id of ["varus", "quirinius", "pilate", "cestius"]) assert.match(PORTRAITS[id].caption, /מאוחר/);
+  for (const id of ["quirinius", "pilate", "cestius"]) assert.match(PORTRAITS[id].caption, /מאוחר/);
+  assert.equal(PORTRAITS.varus.caption, "מטבע");
+  assert.equal(PORTRAITS.theodosius1.file, "Gold Solidus of Theodosius I, 379-383.jpg");
   assert.ok(PORTRAITS.quietus.note.includes("אין בו דיוקן אישי ודאי"));
 });
