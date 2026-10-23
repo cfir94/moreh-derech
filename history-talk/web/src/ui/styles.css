@@ -1,0 +1,609 @@
+/* "דבר עם ההיסטוריה" — הטוקנים לקוחים מאתר "אבן דרך למורי דרך" (src/app/globals.css),
+   כדי שהמסגרת המוטמעת תיראה חלק מהאתר. כהה כברירת מחדל, כמו האתר; ?theme=light לבהיר. */
+
+:root {
+  color-scheme: dark;
+  --bg: #070f18;
+  --bg-base: #08131e;
+  --bg-grad-1: rgba(22, 48, 74, 0.9);
+  --bg-grad-2: rgba(18, 58, 53, 0.9);
+  --card: rgba(255, 255, 255, 0.055);
+  --card-2: rgba(255, 255, 255, 0.09);
+  --line: rgba(255, 255, 255, 0.11);
+  --txt: #eaf2f8;
+  --txt-dim: #93a7b8;
+  --title-1: #ffffff;
+  --title-2: #9fe8dd;
+  --teal: #2ee6c5;
+  --blue: #4aa8ff;
+  --red: #ff5d6c;
+  --gold: #ffce4d;
+  --on-accent: #06121a;
+  --focus: #ffce4d;
+  --r-lg: 26px;
+  --r-md: 18px;
+  --r-sm: 12px;
+  --shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.7);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --accent: var(--teal);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef2f7;
+  --bg-base: #f6f8fb;
+  --bg-grad-1: rgba(13, 148, 136, 0.1);
+  --bg-grad-2: rgba(37, 99, 235, 0.08);
+  --card: rgba(11, 32, 50, 0.045);
+  --card-2: rgba(11, 32, 50, 0.08);
+  --line: rgba(11, 32, 50, 0.14);
+  --txt: #0d1f2d;
+  --txt-dim: #55697a;
+  --title-1: #0b2233;
+  --title-2: #0d9488;
+  --teal: #0d9488;
+  --blue: #2563eb;
+  --red: #dc2626;
+  --gold: #a86a06;
+  --on-accent: #ffffff;
+  --focus: #2563eb;
+  --shadow: 0 10px 26px -12px rgba(11, 32, 50, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Heebo", system-ui, sans-serif;
+  color: var(--txt);
+  background:
+    radial-gradient(1200px 600px at 85% -10%, var(--bg-grad-1), transparent 60%),
+    radial-gradient(900px 500px at 0% 110%, var(--bg-grad-2), transparent 60%),
+    linear-gradient(180deg, var(--bg-base), var(--bg));
+  background-attachment: fixed;
+  line-height: 1.6;
+  padding: 0 16px 32px;
+}
+
+.embed body {
+  background: transparent;
+  padding-top: 12px;
+}
+
+a {
+  color: var(--teal);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.topbar {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 20px 0 8px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 900;
+}
+
+.grad-text {
+  background: linear-gradient(90deg, var(--title-1), var(--title-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub {
+  margin: 4px 0 0;
+  color: var(--txt-dim);
+}
+
+.back {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+}
+
+.btn {
+  font: inherit;
+  font-weight: 700;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  transition: transform 0.15s var(--ease-spring), filter 0.15s;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.btn.primary {
+  color: var(--on-accent);
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  box-shadow: 0 8px 22px -10px var(--teal);
+}
+
+.btn.big {
+  font-size: 1.15rem;
+  padding: 14px 34px;
+}
+
+.btn.ghost {
+  color: var(--txt);
+  background: var(--card-2);
+  border-color: var(--line);
+}
+
+.btn.danger {
+  color: #fff;
+  background: var(--red);
+}
+
+.btn.small {
+  min-height: 32px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+}
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.check input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--teal);
+  flex: none;
+}
+
+.shake {
+  animation: shake 0.45s;
+}
+
+@keyframes shake {
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+.disclaimer {
+  max-width: 1040px;
+  margin: 20px auto 0;
+  color: var(--txt-dim);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---- עמוד הבחירה ---- */
+.index {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.consent {
+  padding: 16px 20px;
+  margin: 12px 0 20px;
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.char-card {
+  padding: 22px 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.char-card::before {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  inset-inline-end: -50px;
+  top: -50px;
+  border-radius: 50%;
+  background: var(--accent);
+  filter: blur(50px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.char-card h2 {
+  margin: 10px 0 0;
+  font-weight: 900;
+  font-size: 1.35rem;
+}
+
+.char-card .meta {
+  margin: 0;
+  color: var(--txt-dim);
+}
+
+.char-card .tagline {
+  margin: 0 0 12px;
+}
+
+.char-card .btn {
+  margin-top: auto;
+}
+
+.grid.locked .btn.primary {
+  filter: grayscale(0.7);
+  opacity: 0.7;
+}
+
+/* ---- הדמות ---- */
+/* העטיפה מחזיקה את העיגול ואת הגלים שיוצאים ממנו בזמן דיבור (העיגול עצמו חותך את התמונה). */
+.avatar-wrap {
+  --size: 132px;
+  --level: 0;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  flex: none;
+  margin: 0 auto;
+}
+
+.stage .avatar-wrap {
+  --size: min(260px, 60vw);
+}
+
+.avatar {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent) 75%, white), var(--accent));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent) 60%, transparent),
+    0 0 calc(12px + var(--level) * 50px) calc(var(--level) * 10px) var(--accent);
+  animation: breathe 5s ease-in-out infinite;
+  transition: box-shadow 0.08s linear;
+}
+
+.avatar img,
+.avatar video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s, scale 0.08s linear;
+}
+
+/* דיוקן: תנועת מצלמה איטית (כמו בסרט תיעודי), ופעימה קלה לפי עוצמת הקול. */
+.has-portrait .avatar img {
+  animation: drift 22s ease-in-out infinite alternate;
+  scale: calc(1 + var(--level) * 0.06);
+}
+
+.avatar video.hidden {
+  opacity: 0;
+}
+
+.avatar .monogram {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: calc(var(--size) * 0.36);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.speaking .avatar {
+  animation-duration: 2.2s;
+}
+
+.avatar-wrap .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.avatar-wrap.speaking .ring {
+  animation: ripple 2s ease-out infinite;
+}
+
+.avatar-wrap.speaking .ring + .ring {
+  animation-delay: 1s;
+}
+
+.portrait-credit {
+  margin: 8px 0 0;
+  font-size: 0.72rem;
+  color: var(--txt-dim);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.025);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1.06) translate(0, 0);
+  }
+  to {
+    transform: scale(1.14) translate(-2%, 1.5%);
+  }
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.32);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar,
+  .avatar img,
+  .avatar-wrap .ring,
+  .shake {
+    animation: none;
+  }
+}
+
+/* ---- עמוד השיחה ---- */
+.talk {
+  max-width: 1040px;
+  margin: 12px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .talk {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stage {
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.stage h1 {
+  margin: 6px 0 0;
+  font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.stage .meta {
+  margin: 0;
+  color: var(--txt-dim);
+}
+
+.status {
+  margin: 0;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--card-2);
+}
+
+.status[data-state="live"],
+.status[data-state="speaking"] {
+  color: var(--on-accent);
+  background: var(--teal);
+}
+
+.timer {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--txt-dim);
+}
+
+.warning {
+  margin: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.error {
+  width: 100%;
+  border: 1px solid var(--red);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--red) 12%, transparent);
+}
+
+.error p {
+  margin: 0 0 6px;
+}
+
+.error-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.prestart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  text-align: start;
+  max-width: 460px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--txt);
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.type {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.type input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--txt);
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+
+.side {
+  padding: 16px 18px;
+}
+
+.side h2 {
+  font-size: 1.05rem;
+  margin: 8px 0;
+}
+
+.side-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transcript {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 46vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.transcript li {
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  background: var(--card-2);
+}
+
+.transcript li.model {
+  border-inline-start: 3px solid var(--accent);
+}
+
+.sources,
+.all-sources ul {
+  margin: 0;
+  padding-inline-start: 18px;
+  font-size: 0.9rem;
+}
+
+.all-sources {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--txt-dim);
+}
+
+.turnstile:empty {
+  display: none;
+}

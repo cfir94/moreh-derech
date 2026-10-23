@@ -1,0 +1,33 @@
+{
+  "name": "history-talk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "דבר עם ההיסטוריה — שיחה קולית עם דמויות היסטוריות דרך Gemini Live",
+  "scripts": {
+    "fetch:sources": "node scripts/fetch-sources.mjs",
+    "build:knowledge": "node scripts/build-knowledge.mjs",
+    "optimize:media": "node scripts/optimize-media.mjs",
+    "dev": "npm run build:knowledge && vite dev",
+    "build": "npm run build:knowledge && vite build",
+    "preview": "npm run build && vite preview",
+    "deploy": "npm run build && wrangler deploy --config dist/history_talk/wrangler.json",
+    "typecheck": "npm run build:knowledge --silent && tsc -p tsconfig.json && tsc -p tsconfig.worker.json",
+    "test": "npm run build:knowledge --silent && node --test \"test/*.test.ts\""
+  },
+  "dependencies": {
+    "@google/genai": "2.28.0",
+    "minisearch": "7.2.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.63.1",
+    "@cloudflare/workers-types": "5.20261009.1",
+    "@types/node": "^22.19.1",
+    "typescript": "5.9.3",
+    "vite": "8.3.4",
+    "wrangler": "4.149.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

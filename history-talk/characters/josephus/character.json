@@ -1,0 +1,55 @@
+{
+  "id": "josephus",
+  "nameHe": "יוסף בן מתתיהו",
+  "years": "37–100 לערך",
+  "taglineHe": "כוהן, מצביא והיסטוריון",
+  "voiceName": "Algenib",
+  "accentColor": "#8C6A3F",
+  "openingLineHe": "שלום עליך, אורח. אני יוסף בן מתתיהו, כוהן מירושלים, שכתב את דברי הימים של המלחמה ההיא. שב, ושאל את אשר על לבך.",
+  "sampleQuestionsHe": [
+    "למה נכנעת ביודפת?",
+    "מה ראית בחורבן המקדש?",
+    "איך אתה עונה למי שקורא לך בוגד?"
+  ],
+  "portraitCredit": {
+    "alt": "תחריט מאוחר המיוחס ליוסף בן מתתיהו; דיוקן מדומיין, לא בן הזמן",
+    "text": "תחריט מאוחר, דיוקן מדומיין (סריקה: NYPL)",
+    "url": "https://commons.wikimedia.org/wiki/File:Joseph,_son_of_Gorian,_called_Flavius_Josephus_(cropped).jpg",
+    "license": "נחלת הכלל",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+  },
+  "sources": [
+    {
+      "title": "תולדות מלחמת היהודים עם הרומאים",
+      "translator": "יעקב נפתלי שמחוני",
+      "url": "https://benyehuda.org/read/12030",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "war.html",
+      "refTitle": "מלחמת היהודים"
+    },
+    {
+      "title": "קדמוניות היהודים (ספרים א׳–ח׳)",
+      "translator": "אלכסנדר שור",
+      "url": "https://benyehuda.org/read/29430",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "antiquities.html",
+      "refTitle": "קדמוניות היהודים"
+    },
+    {
+      "title": "חיי יוסף",
+      "translator": "מנחם שטיין",
+      "url": "https://benyehuda.org/read/22346",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "life.html",
+      "refTitle": "חיי יוסף"
+    },
+    {
+      "title": "קדמות היהודים (נגד אפיון)",
+      "translator": "יעקב נפתלי שמחוני",
+      "url": "https://benyehuda.org/read/22345",
+      "license": "נחלת הכלל / פרויקט בן־יהודה",
+      "file": "apion.html",
+      "refTitle": "נגד אפיון"
+    }
+  ]
+}

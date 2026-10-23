@@ -1,0 +1,29 @@
+name: History talk (Worker + client)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "history-talk/**"
+      - ".github/workflows/history-talk.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: history-talk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run typecheck
+      # בונה את מאגר הידע (ומוודא שכל ציטוט בדפי הידע נמצא במקורות) ומריץ את הבדיקות
+      - run: npm test
+      - run: npm run build

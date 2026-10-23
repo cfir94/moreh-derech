@@ -214,6 +214,15 @@ const baseResults: SearchResult[] = [
     searchText: ["קיסרים מצביאים נציבים זיכרון רומא ביזנטיון השוואה דמויות", ...ROMAN_PEOPLE.map(person => `${person.name} ${person.aliases} ${person.hook}`)].join(" "),
   },
   {
+    id: "timeline-history-talk",
+    kind: "timeline",
+    kindLabel: "שיחה קולית",
+    title: "דבר עם ההיסטוריה — שיחה עם יוסף בן מתתיהו וטיטוס",
+    description: "שואלים בקול, בעברית, והדמות עונה מתוך כתביה ומצטטת את המקורות.",
+    href: "/timelines/history-talk",
+    searchText: "דבר עם ההיסטוריה שיחה קולית דמויות יוסף בן מתתיהו יוספוס טיטוס מרד גדול יודפת חורבן בית שני מצור ירושלים",
+  },
+  {
     id: "timeline-periods",
     kind: "timeline",
     kindLabel: "טבלת תקופות",
