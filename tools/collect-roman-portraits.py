@@ -55,10 +55,13 @@ dest = root / 'public/images/roman-people/portraits'
 dest.mkdir(parents=True, exist_ok=True)
 report_path = root / 'docs/roman-portrait-candidates.json'
 report = json.loads(report_path.read_text(encoding='utf-8')) if report_path.exists() else {}
-file_overrides = {'tiberius': 'Head of Tiberius.jpg', 'quietus': 'Lusius Quietus on Column of Trajan.jpg'}
+file_overrides = {'tiberius': 'Head of Tiberius.jpg', 'quietus': 'Lusius Quietus on Column of Trajan.jpg',
+                  'cestius': 'Cestius Gallus, RP-P-OB-46.197.jpg'}
 credit_overrides = {'claudius': 'Marie-Lan Nguyen (2011); crop: DIREKTOR / Wikimedia Commons',
                     'nero': 'Bibi Saint-Pol / Wikimedia Commons', 'domitian': 'Sailko / Wikimedia Commons',
-                    'theodosius2': 'Marie-Lan Nguyen / Wikimedia Commons'}
+                    'theodosius2': 'Marie-Lan Nguyen / Wikimedia Commons',
+                    'quietus': 'Hans F. Helmolt, The History of the World (1902) / Wikimedia Commons',
+                    'cestius': 'Jan Luyken / Rijksmuseum, RP-P-OB-46.197 / Wikimedia Commons'}
 for person, title in TARGETS.items():
     if report.get(person, {}).get('status') == 'downloaded-for-review':
         continue
