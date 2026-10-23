@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from PIL import Image, ImageOps, ImageDraw
 ROOT=Path.cwd()
 HEADERS={'User-Agent':'EvenDerechLearningGame/1.0 (https://github.com/cfir94/moreh-derech)'}
-ITEMS=[{"id":"menachem","title":"Masada","caption":"מצדה — אתר ההשתלטות בראשית המרד הקשורה במנחם; תמונת הקשר ולא דיוקן."},{"id":"simon-giora","title":"Simon bar Giora","caption":"שמעון בר גיורא בייצוג אמנותי מאוחר; אינו דיוקן בן הזמן."},{"id":"eleazar-simon","title":"Second Temple","caption":"דגם המקדש השני — תמונת הקשר לסיעתו של אלעזר בן שמעון בירושלים; לא דיוקן."},{"id":"ptolemy1","title":"Ptolemy I Soter","caption":"תלמי הראשון סוטר בייצוג אמנותי או בממצא; הזיהוי והתקופה יפורטו לאחר הבדיקה."},{"id":"seleucus1","title":"Seleucus I Nicator","caption":"סלאוקוס הראשון ניקטור בייצוג אמנותי או בממצא; הזיהוי והתקופה יפורטו לאחר הבדיקה."},{"id":"philo","title":"Philo","caption":"פילון האלכסנדרוני בייצוג אמנותי או בממצא; הזיהוי והתקופה יפורטו לאחר הבדיקה."},{"id":"agrippa2","title":"Herod Agrippa II","caption":"אגריפס השני בייצוג אמנותי או בממצא; הזיהוי והתקופה יפורטו לאחר הבדיקה."}]
+ITEMS=[{"id":"simon-giora","title":"Simon bar Giora","file":"John Harris Valda - Simon bar Giora in the triumph of Titus being dragged to his death.jpg","caption":"שמעון בר גיורא מובל בתהלוכת הניצחון הרומית — איור של ג׳ון האריס ולדה, 1915; ייצוג אמנותי מאוחר."}]
 def get(url,raw=False):
     for attempt in range(4):
         try:
