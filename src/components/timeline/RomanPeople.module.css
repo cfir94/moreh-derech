@@ -267,3 +267,12 @@
 /* Open the mobile picker above the selected card, so its button gives immediate feedback. */
 @media(max-width:979px){.timeline{grid-row:2}.detailColumn{grid-row:3}}
 @media(max-width:640px){.eras .allEras{flex-direction:row;line-height:1.2}.heroGallery{height:128px}.heroFigure{height:110px}.heroFigure[data-figure="1"]{height:132px}}
+
+.tenure{margin-top:13px;padding:11px 14px;border:1px solid var(--line);border-radius:9px;background:var(--soft);text-align:right}
+.tenure>span{display:block;font-size:11px;font-weight:650;color:var(--accent);margin-bottom:4px}
+.tenure>div{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 15px}
+.tenure strong{font-size:15px;font-weight:750;line-height:1.8}
+.tenure b{font-size:14px;color:var(--accent);font-weight:650}
+.tenure small{display:block;font-size:12px;line-height:1.8;color:var(--dim);margin-top:4px}
+.answer>.tenure{max-width:560px;margin:18px auto 0}
+.date>span{font-size:11px;font-weight:400;color:var(--dim)}

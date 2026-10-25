@@ -44,6 +44,7 @@ try {
   const personIds = await page.locator("[data-person-button]").evaluateAll(buttons => buttons.map(button => button.dataset.personButton));
   for (const id of personIds) {
     await page.locator(`[data-person-button="${id}"]`).click();
+    await expect(page.locator(`[data-person-detail="${id}"] [data-tenure="${id}"]`)).toBeVisible();
     const portrait = page.locator(`[data-person-detail="${id}"] [data-portrait]`);
     if (id === "florus") {
       await expect(portrait.locator("img")).toHaveCount(0);
@@ -90,8 +91,10 @@ try {
   await page.getByRole("button", { name: /לבדוק מה זכרתי/ }).click();
   await expect(page.getByText("כרטיס 1 מתוך 1", { exact: true })).toBeVisible();
   await expect(page.locator('[class*="answerIdentity"]')).toHaveCount(0);
+  await expect(page.locator('[class*="practice"] [data-tenure]')).toHaveCount(0);
   await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
   await expect(page.getByRole("heading", { name: "פומפיוס", exact: true })).toBeVisible();
+  await expect(page.locator('[data-tenure="pompey"]')).toContainText("לא מלך");
   await page.getByRole("button", { name: /צריך חיזוק/ }).click();
   await expect(page.getByRole("heading", { name: "הסבב הושלם" })).toBeVisible();
   await expect(page.getByText("זכרת 0 מתוך 1 דמויות.", { exact: true })).toBeVisible();
