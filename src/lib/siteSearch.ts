@@ -21,6 +21,7 @@ import { BYZ_EVENTS } from "@/data/byzantine";
 import { ARCH_TERMS } from "@/data/classical-architecture";
 import { ROMAN_PEOPLE } from "@/data/roman-people";
 import { PERIOD_ROWS, periodDateText } from "@/data/periods";
+import { BUILDER_BY_ID, PERIOD_BY_ID, SITES as MAP_SITES } from "@/data/learning-map";
 import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
 import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
@@ -193,17 +194,36 @@ function timelineResults(): SearchResult[] {
 
 const toolResults: SearchResult[] = [
   { id: "tool-who-am-i", kind: "tool", kindLabel: "משחק", title: "מי אני? — קולות מן העבר", description: "195 דמויות מההיסטוריה, היהדות והנצרות, רמזים בגוף ראשון, שאלות אמריקאיות והקלדה, תמונות והסברים.", href: "/games/who-am-i", searchText: "מי אני דמויות היסטוריות משחק זיהוי מלכים קיסרים נביאים חכמים בית ראשון בית שני רומא ביזנטיון ברזל שופטים טיטוס הורדוס יהדות נצרות מקרא חכמים רמבם רשי ישוע מרים שליחים" },
-  { id: "tool-map", kind: "tool", kindLabel: "כלי", title: "מפת השטח", description: "מפת אתרים, מסלולים ונקודות עניין בארץ.", href: "/map", searchText: "מפה אתרים מקומות מסלולים נקודות עניין גאוגרפיה שטח" },
+  { id: "tool-map", kind: "tool", kindLabel: "כלי", title: "מפה", description: "מפת למידה של אתרי בית שני, הרומית והביזנטית, ומפת שטח לתכנון מסלול.", href: "/map", searchText: "מפה מפות אתרים מקומות" },
+  { id: "tool-learning-map", kind: "tool", kindLabel: "כלי", title: "מפת למידה — אתרי בית שני, רומית וביזנטית", description: "מי בנה ומתי, מה רואים באתר, תמונות, טיפים לזכירה ותרגול בסגנון המבחן.", href: "/map/learn", searchText: "מפת למידה מפה אתרים בונים הורדוס קונסטנטינוס הלנה יוסטיניאנוס אבדוקיה חשמונאים כנסיות מנזרים בתי כנסת מבצרים תרגול זיהוי" },
+  { id: "tool-route-map", kind: "tool", kindLabel: "כלי", title: "מפת השטח — תכנון מסלול", description: "מפת אתרים, מסלולים ונקודות עניין בארץ, עובדת גם בלי רשת.", href: "/map/route", searchText: "מפה מפת שטח מסלול תכנון אתרים מקומות נקודות עניין גאוגרפיה שטח אופליין" },
   { id: "tool-guide-reports", kind: "tool", kindLabel: "כלי", title: "דוחות הדרכה", description: "למידה, תרגול ודוגמאות להכנת דוחות סיור.", href: "/guide-reports", searchText: "דוחות הדרכה סיור אתרים תרגול בחינה מסלול" },
   { id: "tool-timeline-drag", kind: "tool", kindLabel: "תרגול", title: "תרגול סדר כרונולוגי", description: "משחק גרירה לתרגול תקופות ואירועים על ציר הזמן.", href: "/quizzes/timeline-drag", searchText: "ציר זמן סדר כרונולוגי תקופות היסטוריה תרגול" },
   { id: "tool-games", kind: "tool", kindLabel: "משחק", title: "משחקי לימוד", description: "משחקי דמויות היסטוריות, גאוגרפיה, כנסיות וצמחי ארץ ישראל.", href: "/games", searchText: "משחקים גאוגרפיה כנסיות נצרות צמחים צומח" },
 ];
+
+function learningMapResults(): SearchResult[] {
+  return MAP_SITES.map((site) => ({
+    id: `learning-map-${site.id}`,
+    kind: "tool" as const,
+    kindLabel: "מפת למידה",
+    title: site.name,
+    description: `${site.place} · ${[...new Set(site.layers.map((l) => PERIOD_BY_ID[l.period].title))].join(", ")}`,
+    href: `/map/learn/#${site.id}`,
+    searchText: [
+      site.name, site.place,
+      ...site.layers.map((l) => `${l.title} ${l.builder ? BUILDER_BY_ID[l.builder].name : ""}`),
+      ...(site.finds ?? []).map((f) => f.title),
+    ].join(" "),
+  }));
+}
 
 const baseResults: SearchResult[] = [
   ...staticNotebookResults(),
   ...videoResults(),
   ...resourceResults(),
   ...timelineResults(),
+  ...learningMapResults(),
   {
     id: "timeline-roman-people",
     kind: "timeline",

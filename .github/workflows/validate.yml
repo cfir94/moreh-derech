@@ -30,6 +30,10 @@ jobs:
         run: node --import ./tests/register-ts.mjs --test tests/classical-architecture.test.mjs
       - name: Lint classical architecture page
         run: npm run lint -- src/components/architecture src/data/classical-architecture src/app/timelines/classical-architecture
+      - name: Validate learning map content
+        run: node --import ./tests/register-ts.mjs --test tests/learning-map.test.mjs
+      - name: Lint learning map
+        run: npm run lint -- src/app/map src/components/learning-map src/data/learning-map src/lib/learningMapProgress.ts src/components/ThemeToggle.tsx
       - name: Lint changed application code
         run: npm run lint -- src/app/page.tsx src/app/quizzes/review/page.tsx src/components/exam/ExamRunner.tsx src/components/quiz/QuizRunner.tsx src/components/guide-reports src/components/SiteSearch.tsx src/lib/progress.ts src/lib/guideReportDrafts.ts src/lib/notebookStore.ts src/lib/siteSearch.ts src/lib/requestCache.ts src/lib/answerMatching.ts src/lib/reviewQuestions.ts src/data/quizzes/types.ts src/data/quizzes/index.ts
       - name: Lint history talk page
@@ -47,3 +51,5 @@ jobs:
         run: node tests/classical-architecture-ui.mjs
       - name: Classical architecture studio browser checks
         run: node tests/architecture-studio-ui.mjs
+      - name: Learning map browser checks
+        run: node tests/learning-map-ui.mjs

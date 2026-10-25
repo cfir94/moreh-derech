@@ -30,8 +30,13 @@ function subscribeToTheme(onStoreChange: () => void) {
   return () => window.removeEventListener(THEME_EVENT, onStoreChange);
 }
 
+/** The current theme, for components that must pick an asset per theme. */
+export function useTheme(): Theme {
+  return useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => "dark");
+}
+
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => "dark");
+  const theme = useTheme();
 
   const isDark = theme === "dark";
   const nextLabel = isDark ? "מצב בהיר" : "מצב כהה";
