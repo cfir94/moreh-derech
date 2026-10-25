@@ -163,7 +163,9 @@ try {
   await page.getByRole("button", {name:"בחירת תקופה בציר"}).click();
   await expect(page.locator("[data-story-periods]")).toBeVisible();
   await page.getByRole("button", { name: "כל הקשרים", exact: true }).click();
-  await expect.poll(() => page.locator("[data-story-lines] path").count()).toBe(24);
+  await expect.poll(() => page.locator("[data-story-lines] path").count()).toBe(13);
+  expect(await page.locator("[data-story-connection]").evaluateAll(links=>links.every(link=>document.querySelector('[data-story-person="'+link.dataset.from+'"]').closest("[data-story-year]")===document.querySelector('[data-story-person="'+link.dataset.to+'"]').closest("[data-story-year]")))).toBe(true);
+  expect(await page.locator("[data-story-lines] path").evaluateAll(paths=>paths.every(path=>!/[CQ]/.test(path.getAttribute("d")||"")))).toBe(true);
   await page.keyboard.press("Escape");
   await expect(page.getByRole("button", {name:"בחירת תקופה בציר"})).toHaveAttribute("aria-expanded","false");
   await page.locator('[data-story-person="herod-great"]').click();
@@ -196,6 +198,15 @@ try {
   await expect(modal.getByRole("button",{name:"סגירת כרטיס הדמות"})).toBeFocused();
   await page.keyboard.press("Escape");
 
+  // Entrance is applied once as elements enter the viewport, and respects reduced motion.
+  await page.emulateMedia({reducedMotion:"no-preference"});
+  await page.locator('[data-story-person="pompey"]').scrollIntoViewIfNeeded();
+  await expect(page.locator('[data-story-person="pompey"]')).toHaveAttribute("data-story-reveal","visible");
+  await expect(page.locator('[data-story-person="pompey"]')).toHaveCSS("animation-name", /storyAppear/);
+  await page.emulateMedia({reducedMotion:"reduce"});
+  await expect(page.locator('[data-story-person="pompey"]')).toHaveCSS("opacity","1");
+  await expect(page.locator('[data-story-person="pompey"]')).toHaveCSS("animation-name","none");
+  await expect(page.locator('[data-story-person="pompey"]')).toHaveAttribute("data-story-reveal","ready");
   expect(errors).toEqual([]);
   console.log("Roman people: navigation, alias/era/role/core filters, comparison, recall/retry, mobile, dark mode and zero page errors passed");
 } finally { await browser.close(); await new Promise(done => server.close(done)); }
