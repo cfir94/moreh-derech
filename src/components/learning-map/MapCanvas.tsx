@@ -317,24 +317,6 @@ export function MapCanvas({ sheet, onSheet, sites, styleOf, selectedId, pulseId,
           })}
         </g>
 
-        {jerusalemBadge && (
-          <g
-            className={`${styles.badge} ${selectedId && jerusalemBadge.ids.has(selectedId) ? styles.badgeOn : ""}`}
-            transform={`translate(${jerusalemBadge.x} ${jerusalemBadge.y})`}
-            role="button"
-            tabIndex={0}
-            aria-label={`ירושלים — ${jerusalemBadge.lit} אתרים. פתיחת מפת ירושלים`}
-            onClick={() => !drag.current.moved && onSheet("jerusalem")}
-            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSheet("jerusalem")}
-          >
-            {/* the label opens the sheet too, not only the disc */}
-            <rect x={-66 * u} y={-15 * u} width={81 * u} height={30 * u} className={styles.badgeHit} />
-            <circle r={13 * u} />
-            <text y={4 * u} style={{ fontSize: 11 * u }}>{jerusalemBadge.lit}</text>
-            <text x={-17 * u} y={4 * u} className={styles.badgeLabel} style={{ fontSize: 12.5 * u }}>ירושלים</text>
-          </g>
-        )}
-
         {offMap.map(({ site, x, y, dx, dy }) => {
           const ang = (Math.atan2(dy - y, dx - x) * 180) / Math.PI;
           const st = styleOf(site);
@@ -390,6 +372,25 @@ export function MapCanvas({ sheet, onSheet, sites, styleOf, selectedId, pulseId,
             );
           })}
         </g>
+        {/* above the markers: their touch targets must not swallow the badge */}
+        {jerusalemBadge && (
+          <g
+            className={`${styles.badge} ${selectedId && jerusalemBadge.ids.has(selectedId) ? styles.badgeOn : ""}`}
+            transform={`translate(${jerusalemBadge.x} ${jerusalemBadge.y})`}
+            role="button"
+            tabIndex={0}
+            aria-label={`ירושלים — ${jerusalemBadge.lit} אתרים. פתיחת מפת ירושלים`}
+            onClick={() => !drag.current.moved && onSheet("jerusalem")}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onSheet("jerusalem")}
+          >
+            {/* the label opens the sheet too, not only the disc */}
+            <rect x={-66 * u} y={-15 * u} width={81 * u} height={30 * u} className={styles.badgeHit} />
+            <circle r={13 * u} />
+            <text y={4 * u} style={{ fontSize: 11 * u }}>{jerusalemBadge.lit}</text>
+            <text x={-17 * u} y={4 * u} className={styles.badgeLabel} style={{ fontSize: 12.5 * u }}>ירושלים</text>
+          </g>
+        )}
+
       </svg>
 
       <div className={styles.cartouche}>

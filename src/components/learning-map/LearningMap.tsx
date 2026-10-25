@@ -1,11 +1,12 @@
 "use client";
 
 /**
- * מפת הלמידה: מפה מאוירת משמאל, ומימין רשימת שלבי הבנייה לפי סדר הזמן —
- * עם סינון לפי תקופה ולפי בונה. לחיצה על אתר (במפה או ברשימה) מסמנת אותו
- * ופותחת את כרטיס האתר במקום הרשימה. מצב "תרגול" שואל בסגנון המבחן.
+ * מפת הלמידה: מימין רשימת האתרים לפי סדר הקמתם — עם סינון לפי תקופה ולפי
+ * בונה — ומשמאל מפה מאוירת (רבע מן המסך, ואפשר לגרור את המפרידה). לחיצה על
+ * אתר (במפה או ברשימה) מסמנת אותו ופותחת חלון אתר מעל הרשימה בלבד, כך שהמפה
+ * נשארת גלויה. מצב "תרגול" שואל בסגנון המבחן.
  */
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BUILDERS,
   BUILDER_BY_ID,
@@ -29,9 +30,10 @@ import { useTheme } from "@/components/ThemeToggle";
 import { MapCanvas, sheetOf, type MarkerStyle, type SheetId } from "./MapCanvas";
 import { SiteCard } from "./SiteCard";
 import { GIVE_UP, PracticePanel, usePractice, type PracticeMode } from "./Practice";
+import { Splitter, splitStyle, useSplit } from "./Splitter";
 import styles from "./LearningMap.module.css";
 
-type View = "list" | "site" | "practice";
+type View = "list" | "practice";
 
 function normalize(value: string) {
   return value.normalize("NFKD").replace(/[֑-ׇ]/g, "").replace(/[״"׳'־-]/g, " ").toLowerCase();
@@ -48,6 +50,9 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   const theme = useTheme();
   const progress = useMapProgress();
   const practice = usePractice();
+  const split = useSplit();
+  const pageRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const [view, setView] = useState<View>("list");
   const [sheet, setSheet] = useState<SheetId>("country");
@@ -59,6 +64,7 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   const [layerId, setLayerId] = useState<string>();
   const [focusNonce, setFocusNonce] = useState(0);
   const [hoverId, setHoverId] = useState<string>();
+  const [cardOpen, setCardOpen] = useState(false);
 
   const colorOf = useCallback((p: PeriodId) => (theme === "dark" ? PERIOD_BY_ID[p].dark : PERIOD_BY_ID[p].color), [theme]);
 
@@ -83,7 +89,15 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   );
 
   const pool = useMemo(() => SITES.filter(siteMatches), [siteMatches]);
-  const rows = useMemo(() => ROWS.filter((r) => layerMatches(r.layer) && siteMatches(r.site)), [layerMatches, siteMatches]);
+  // one row per site, at its earliest phase inside the filter — the order of establishment
+  const rows = useMemo(() => {
+    const seen = new Set<string>();
+    return ROWS.filter((r) => {
+      if (seen.has(r.site.id) || !layerMatches(r.layer) || !siteMatches(r.site)) return false;
+      seen.add(r.site.id);
+      return true;
+    });
+  }, [layerMatches, siteMatches]);
 
   const styleOf = useCallback(
     (site: MapSite): MarkerStyle => {
@@ -109,7 +123,8 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
     if (!site) return;
     setSelectedId(siteId);
     setLayerId(layer);
-    setView("site");
+    setView("list");
+    setCardOpen(true);
     if (!site.offMap) setSheet(sheetOf(site));
     if (focus) setFocusNonce((n) => n + 1);
     try {
@@ -130,14 +145,28 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
     return () => window.removeEventListener("hashchange", open);
   }, [select]);
 
-  const backToList = () => {
-    setView("list");
+  const closeCard = useCallback(() => {
+    setCardOpen(false);
     try {
       window.history.replaceState(null, "", window.location.pathname);
     } catch {
       /* ignore */
     }
-  };
+  }, []);
+
+  const cardShown = cardOpen && view === "list" && !!selectedId;
+  // Esc closes the site window; a new site moves focus into it (without scrolling the page)
+  useEffect(() => {
+    if (!cardShown) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !document.querySelector("dialog[open]")) closeCard();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [cardShown, closeCard]);
+  useEffect(() => {
+    if (cardShown) cardRef.current?.focus({ preventScroll: true });
+  }, [cardShown, selectedId]);
 
   // ---- practice wiring
   const current = practice.state ? practice.state.questions[practice.state.index] : undefined;
@@ -191,7 +220,7 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   }, [inPractice, answered, current]);
 
   const selected = selectedId ? SITE_BY_ID.get(selectedId) : undefined;
-  const rowIndex = selected ? rows.findIndex((r) => r.site.id === selected.id && (!layerId || r.layer.id === layerId)) : -1;
+  const rowIndex = selected ? rows.findIndex((r) => r.site.id === selected.id) : -1;
   const stepRow = (delta: number) => {
     if (!rows.length) return;
     const i = ((rowIndex < 0 ? 0 : rowIndex) + delta + rows.length) % rows.length;
@@ -221,13 +250,13 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   const eraIsTemple = era === "temple" || TEMPLE_SUBPERIODS.includes(era as PeriodId);
 
   return (
-    <div className={styles.page}>
+    <div ref={pageRef} className={styles.page} style={splitStyle(split)}>
       <section className={styles.panel} aria-label="רשימת האתרים">
         <header className={styles.panelHead}>
           <div className={styles.titleRow}>
             <h1>מפת למידה</h1>
             <div className={styles.tabs} role="tablist">
-              <button type="button" role="tab" aria-selected={view !== "practice"} onClick={() => { practice.stop(); setView(selected ? "site" : "list"); }}>אתרים</button>
+              <button type="button" role="tab" aria-selected={view !== "practice"} onClick={() => { practice.stop(); setView("list"); }}>אתרים</button>
               <button type="button" role="tab" aria-selected={view === "practice"} onClick={() => { setView("practice"); practice.stop(); }}>תרגול</button>
             </div>
           </div>
@@ -281,11 +310,14 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
         <div className={styles.panelBody}>
           {view === "list" && (
             <>
-              <div className={styles.legend} aria-label="מקרא">
-                {PERIODS.map((p) => (
-                  <span key={p.id} style={{ ["--c" as string]: colorOf(p.id) }}><i aria-hidden />{p.title}</span>
-                ))}
-                <span className={styles.legendRing}><i aria-hidden />טבעת = נבנה שוב בתקופה אחרת</span>
+              <div className={styles.listMeta}>
+                <span>{rows.length} אתרים · לפי סדר הקמה</span>
+                <span className={styles.legend} aria-label="מקרא">
+                  {PERIODS.map((p) => (
+                    <span key={p.id} style={{ ["--c" as string]: colorOf(p.id) }}><i aria-hidden />{p.title}</span>
+                  ))}
+                  <span className={styles.legendRing}><i aria-hidden />טבעת במפה = נבנה שוב</span>
+                </span>
               </div>
               {rows.length === 0 ? (
                 <div className={styles.empty}>
@@ -302,11 +334,13 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
                       {g.rows.map(({ site, layer }) => {
                         const status = siteStatus(progress[site.id]);
                         const b = layer.builder ? BUILDER_BY_ID[layer.builder] : undefined;
+                        const later = [...new Set(site.layers.filter((l) => l.year > layer.year).map((l) => l.period))].filter((p) => p !== layer.period);
                         return (
-                          <li key={layer.id}>
+                          <li key={site.id}>
                             <button
                               type="button"
                               className={styles.row}
+                              aria-current={cardShown && selectedId === site.id ? "true" : undefined}
                               style={{ ["--c" as string]: colorOf(layer.period) }}
                               onClick={() => select(site.id, layer.id)}
                               onPointerEnter={() => setHoverId(site.id)}
@@ -314,12 +348,14 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
                             >
                               <span className={styles.rowDate}>{layer.date}</span>
                               <span className={styles.rowMain}>
-                                <strong>{layer.title}</strong>
-                                <span>{site.name}{site.jerusalem ? " · ירושלים" : ""}</span>
+                                <strong>{site.name} <small>{site.place}</small></strong>
+                                <span>{layer.title}</span>
                               </span>
                               <span className={styles.rowSide}>
                                 {b && <span className={styles.builderTag}>{b.name}</span>}
-                                {layer.key && <span className={styles.keyStar} title="נושא מרכזי במבחן">★</span>}
+                                {later.map((p) => (
+                                  <i key={p} className={styles.laterDot} style={{ ["--c" as string]: colorOf(p) }} title={`נבנה שוב: ${PERIOD_BY_ID[p].title}`} />
+                                ))}
                                 {status === "known" && <span className={styles.statKnown} title="יודע">✓</span>}
                                 {status === "review" && <span className={styles.statReview} title="לחזרה">↻</span>}
                                 {sitePhotos(site).length > 0 && <span className={styles.hasPhoto} title="יש תמונות">📷</span>}
@@ -333,20 +369,6 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
                 ))
               )}
             </>
-          )}
-
-          {view === "site" && selected && (
-            <SiteCard
-              key={selected.id}
-              site={selected}
-              activeLayerId={layerId}
-              links={links[selected.id] ?? []}
-              stat={progress[selected.id]}
-              colorOf={colorOf}
-              onBack={backToList}
-              onStep={rows.length > 1 ? stepRow : undefined}
-              position={rowIndex >= 0 ? `${rowIndex + 1} / ${rows.length}` : undefined}
-            />
           )}
 
           {view === "practice" && (
@@ -363,6 +385,24 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
             />
           )}
         </div>
+
+        {cardShown && selected && (
+          <div className={styles.popup} onClick={(e) => e.target === e.currentTarget && closeCard()}>
+            <div ref={cardRef} className={styles.popupCard} role="dialog" aria-modal="false" aria-labelledby={`site-${selected.id}`} tabIndex={-1}>
+              <SiteCard
+                key={selected.id}
+                site={selected}
+                activeLayerId={layerId}
+                links={links[selected.id] ?? []}
+                stat={progress[selected.id]}
+                colorOf={colorOf}
+                onClose={closeCard}
+                onStep={rows.length > 1 ? stepRow : undefined}
+                position={rowIndex >= 0 ? `${rowIndex + 1} / ${rows.length}` : undefined}
+              />
+            </div>
+          </div>
+        )}
       </section>
 
       <section className={styles.mapArea} aria-label="המפה">
@@ -380,6 +420,7 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
           onPick={onPick}
           focusNonce={focusNonce}
         />
+        <Splitter pageRef={pageRef} split={split} />
       </section>
     </div>
   );

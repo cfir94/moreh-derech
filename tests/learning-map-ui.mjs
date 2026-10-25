@@ -35,15 +35,23 @@ try {
   const markers = page.locator("svg g[role=button][aria-label]");
   expect(await markers.count()).toBeGreaterThan(40);
 
-  // the list is in building order; a row opens the site card and marks the dot
+  // one row per site, in order of establishment; a row opens the site window beside the map
+  const rows = page.locator("ul li > button");
+  const names = await rows.locator("strong").allTextContents();
+  expect(new Set(names).size, "a site appears once in the list").toBe(names.length);
   await page.getByRole("button", { name: "ביזנטית", exact: true }).click();
   await page.getByRole("button", { name: /^יוסטיניאנוס/ }).click();
-  const rows = page.locator("ul li > button");
   await expect(rows.filter({ hasText: "הניאה" })).toHaveCount(1);
-  await expect(rows.filter({ hasText: "הבסיליקה של יוסטיניאנוס" })).toHaveCount(1);
-  await expect(rows.filter({ hasText: "הכנסייה הקונסטנטינית" })).toHaveCount(0);
+  // the Nativity church is listed once, at its Justinian phase
+  await expect(rows.filter({ hasText: "כנסיית המולד" })).toHaveCount(1);
+  await expect(rows.filter({ hasText: "כנסיית המולד" })).toContainText("הבסיליקה של יוסטיניאנוס");
   await rows.filter({ hasText: "הניאה" }).click();
   await expect(page.getByRole("heading", { name: "כנסיית הניאה" })).toBeVisible();
+  // the window covers the list, not the map
+  const win = await page.getByRole("dialog").boundingBox();
+  const map = await page.getByRole("region", { name: "המפה" }).boundingBox();
+  expect(win.x, "site window stays off the map").toBeGreaterThanOrEqual(map.x + map.width - 1);
+  expect(map.width / 1440, "the map is a quarter by default").toBeGreaterThan(0.22);
   await expect(page.getByRole("tab", { name: "ירושלים" })).toHaveAttribute("aria-selected", "true");
   expect(new URL(page.url()).hash).toBe("#nea");
   await page.getByRole("button", { name: "✓ יודע" }).click();
@@ -53,7 +61,25 @@ try {
   await page.goto(base + "/map/learn/#beit-alfa");
   await expect(page.getByRole("heading", { name: "בית הכנסת בבית אלפא" })).toBeVisible();
   await expect(page.getByText("עקדת יצחק", { exact: false }).first()).toBeVisible();
-  await page.getByRole("button", { name: "→ לרשימה" }).click();
+  // the photo leaves room for the facts: "who built it" is visible without scrolling
+  await expect(page.getByRole("heading", { name: "מי בנה ומתי" })).toBeInViewport();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+
+  // dragging the divider enlarges the map
+  const handle = page.getByRole("separator");
+  const before = (await page.getByRole("region", { name: "המפה" }).boundingBox()).width;
+  const hb = await handle.boundingBox();
+  await page.mouse.move(hb.x + hb.width / 2, hb.y + hb.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(hb.x + 300, hb.y + hb.height / 2, { steps: 5 });
+  await page.mouse.up();
+  const after = (await page.getByRole("region", { name: "המפה" }).boundingBox()).width;
+  expect(after - before, "divider drag widens the map").toBeGreaterThan(200);
+  await page.reload();
+  expect((await page.getByRole("region", { name: "המפה" }).boundingBox()).width, "the size is remembered").toBeGreaterThan(before + 200);
+  await handle.dblclick();
+
   await page.getByRole("button", { name: "כל המפה" }).click();
   await page.waitForTimeout(500);
   await page.getByRole("button", { name: /^ירושלים — \d+ אתרים/ }).click();
