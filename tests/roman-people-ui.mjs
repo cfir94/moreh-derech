@@ -58,7 +58,7 @@ try {
   }
   await page.locator('[data-person-button="pompey"]').click();
   await expect(page.locator('[data-person-button="pompey"]')).toBeVisible();
-  await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 4 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
+  await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 3 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
   await expect(page.getByRole("button", { name: "הדמות הקודמת", exact: true })).toBeDisabled();
   await page.getByRole("button", { name: "הדמות הבאה", exact: true }).click();
   await expect(page.locator('[data-person-detail="antony"]')).toBeVisible();
@@ -131,6 +131,22 @@ try {
   await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
   await page.getByRole("button", { name: /זכרתי ✓/ }).click();
   await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "byzantine");
+  await page.getByRole("button", { name: /להכיר את הדמויות/ }).click();
+  await page.getByRole("button", { name: /ניקוי הסינון/ }).click();
+  // A short round is optional; the complete filtered deck remains available.
+  await page.getByRole("button", { name: /אתגר של 5 דמויות/ }).click();
+  await expect(page.getByText("כרטיס 1 מתוך 5", { exact: true })).toBeVisible();
+  for (let i = 0; i < 5; i++) {
+    await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
+    await page.getByRole("button", { name: /זכרתי ✓/ }).click();
+  }
+  await expect(page.getByText("זכרת 5 מתוך 5 דמויות.", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /אתגר של 5 דמויות/ }).click();
+  await expect(page.getByText("כרטיס 1 מתוך 5", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /להכיר את הדמויות/ }).click();
+  await page.getByRole("button", { name: /להכיר את אוגוסטוס/, exact: true }).click();
+  await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
+
   expect(errors).toEqual([]);
   console.log("Roman people: navigation, alias/era/role/core filters, comparison, recall/retry, mobile, dark mode and zero page errors passed");
 } finally { await browser.close(); await new Promise(done => server.close(done)); }
