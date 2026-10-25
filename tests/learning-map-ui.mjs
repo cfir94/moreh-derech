@@ -85,6 +85,11 @@ try {
   await page.getByRole("button", { name: /^ירושלים — \d+ אתרים/ }).click();
   await expect(page.getByRole("tab", { name: "ירושלים" })).toHaveAttribute("aria-selected", "true");
 
+  // the map's own light/dark switch flips the whole page
+  const themeBefore = await page.evaluate(() => document.documentElement.dataset.theme);
+  await page.getByRole("region", { name: "המפה" }).getByRole("button", { name: /^מעבר למצב/ }).click();
+  expect(await page.evaluate(() => document.documentElement.dataset.theme)).not.toBe(themeBefore);
+
   // practice: "where is it?" — giving up reveals the answer; "what is it?" — options
   await page.getByRole("tab", { name: "תרגול" }).click();
   await page.getByRole("button", { name: /איפה זה\?/ }).click();

@@ -35,17 +35,18 @@ export function useTheme(): Theme {
   return useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => "dark");
 }
 
+/** Flip the site theme — also used by in-page controls such as the learning map's. */
+export function toggleTheme() {
+  const nextTheme: Theme = getThemeSnapshot() === "dark" ? "light" : "dark";
+  setDocumentTheme(nextTheme);
+  window.dispatchEvent(new CustomEvent<Theme>(THEME_EVENT, { detail: nextTheme }));
+}
+
 export function ThemeToggle() {
   const theme = useTheme();
 
   const isDark = theme === "dark";
   const nextLabel = isDark ? "מצב בהיר" : "מצב כהה";
-
-  const toggleTheme = () => {
-    const nextTheme: Theme = isDark ? "light" : "dark";
-    setDocumentTheme(nextTheme);
-    window.dispatchEvent(new CustomEvent<Theme>(THEME_EVENT, { detail: nextTheme }));
-  };
 
   return (
     <button

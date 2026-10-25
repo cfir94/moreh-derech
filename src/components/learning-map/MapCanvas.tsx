@@ -11,7 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { COUNTRY, JERUSALEM, type SheetFrame } from "@/data/learning-map/geometry";
 import type { MapSite } from "@/data/learning-map";
 import { withBasePath } from "@/lib/basePath";
-import { useTheme } from "@/components/ThemeToggle";
+import { toggleTheme, useTheme } from "@/components/ThemeToggle";
 import styles from "./LearningMap.module.css";
 
 export type SheetId = "country" | "jerusalem";
@@ -407,6 +407,15 @@ export function MapCanvas({ sheet, onSheet, sites, styleOf, selectedId, pulseId,
           <button type="button" aria-label="התקרבות" onClick={() => zoomAt(1.6, vb.x + vb.w / 2, vb.y + vb.h / 2)}>+</button>
           <button type="button" aria-label="התרחקות" onClick={() => zoomAt(1 / 1.6, vb.x + vb.w / 2, vb.y + vb.h / 2)}>−</button>
           <button type="button" aria-label="כל המפה" onClick={() => animateTo(zoom > 1.05 ? home : full)}>⤢</button>
+          <button
+            type="button"
+            className={styles.themeBtn}
+            aria-label={theme === "dark" ? "מעבר למצב בהיר" : "מעבר למצב כהה"}
+            title={theme === "dark" ? "מצב בהיר" : "מצב כהה"}
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? "☀" : "☾"}
+          </button>
         </div>
       </div>
 
