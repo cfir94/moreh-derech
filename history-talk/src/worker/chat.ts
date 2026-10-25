@@ -86,18 +86,17 @@ export class GeminiError extends Error {
 const API = "https://generativelanguage.googleapis.com/v1beta";
 
 /**
- * מודל Flash שזמין למפתח: שמות המודלים מתחלפים, ולכן כשהמודל שהוגדר לא קיים (404) או אינו
- * תומך ב-generateContent (400) — בוחרים מתוך רשימת המודלים של המפתח, ושומרים את הבחירה ליום.
+ * מודלי Flash שזמינים למפתח, לפי סדר עדיפות: יציב לפני preview, גרסה גבוהה לפני נמוכה,
+ * ו-Flash מלא לפני Flash-Lite (שנשאר גיבוי כשהמודלים הגדולים עמוסים).
  */
-export function pickFlashModel(models: { name: string; supportedGenerationMethods?: string[] }[]): string | undefined {
+export function rankFlashModels(models: { name: string; supportedGenerationMethods?: string[] }[]): string[] {
   const usable = models
     .filter((m) => m.supportedGenerationMethods?.includes("generateContent"))
     .map((m) => m.name.replace(/^models\//, ""))
-    .filter((n) => /flash/.test(n) && !/(live|tts|image|audio|embed|thinking|exp|lite)/.test(n));
+    .filter((n) => /flash/.test(n) && !/(live|tts|image|audio|embed|thinking|exp)/.test(n));
   const version = (n: string) => Number(n.match(/gemini-(\d+(?:\.\d+)?)/)?.[1] ?? 0);
-  // קודם יציב (בלי preview) ומהגרסה הגבוהה, ואז preview.
-  usable.sort((a, b) => Number(/preview/.test(a)) - Number(/preview/.test(b)) || version(b) - version(a));
-  return usable[0];
+  const rank = (n: string) => Number(/lite/.test(n)) * 2 + Number(/preview/.test(n));
+  return usable.sort((a, b) => rank(a) - rank(b) || version(b) - version(a));
 }
 
 async function callModel(env: Env, model: string, body: object): Promise<Part[]> {
@@ -111,21 +110,42 @@ async function callModel(env: Env, model: string, body: object): Promise<Part[]>
   return data.candidates?.[0]?.content?.parts ?? [];
 }
 
+/** עומס זמני או מודל שאינו זמין: כדאי לנסות מודל אחר. */
+const RETRY = new Set([400, 404, 429, 500, 503]);
+const MAX_MODELS = 3;
+
+/**
+ * קודם המודל שנבחר בפעם הקודמת (או זה שהוגדר). אם הוא עמוס (503/500/429) או לא קיים (404/400) —
+ * עוברים למודלי Flash אחרים מתוך רשימת המודלים של המפתח, עד שלושה ניסיונות. מודל שעבד נשמר לשעה.
+ */
 export const geminiGenerate: GenerateFn = async (env, body) => {
-  const configured = env.GEMINI_CHAT_MODEL || "gemini-flash-latest";
-  const cached = await env.SESSIONS.get("chat-model");
-  try {
-    return { parts: await callModel(env, cached || configured, body) };
-  } catch (err) {
-    if (!(err instanceof GeminiError) || (err.status !== 404 && err.status !== 400)) throw err;
-    console.error(JSON.stringify({ event: "chat_model_fallback", message: err.message }));
+  const first = (await env.SESSIONS.get("chat-model")) || env.GEMINI_CHAT_MODEL || "gemini-flash-latest";
+  const tried: string[] = [];
+  let queue = [first];
+  let listed = false;
+  let lastError: unknown;
+  while (tried.length < MAX_MODELS) {
+    const model = queue.find((m) => !tried.includes(m));
+    if (!model) {
+      if (listed) break;
+      listed = true;
+      const list = await fetch(`${API}/models?pageSize=200`, { headers: { "x-goog-api-key": env.GEMINI_API_KEY } });
+      if (!list.ok) break;
+      queue = rankFlashModels(((await list.json()) as { models?: { name: string }[] }).models ?? []);
+      continue;
+    }
+    tried.push(model);
+    try {
+      const parts = await callModel(env, model, body);
+      if (model !== first) await env.SESSIONS.put("chat-model", model, { expirationTtl: 3600 });
+      return { parts };
+    } catch (err) {
+      lastError = err;
+      if (!(err instanceof GeminiError) || !RETRY.has(err.status)) throw err;
+      console.error(JSON.stringify({ event: "chat_model_retry", message: err.message }));
+    }
   }
-  const list = await fetch(`${API}/models?pageSize=200`, { headers: { "x-goog-api-key": env.GEMINI_API_KEY } });
-  if (!list.ok) throw new GeminiError(list.status, `list models ${list.status}`);
-  const model = pickFlashModel(((await list.json()) as { models?: { name: string }[] }).models ?? []);
-  if (!model) throw new GeminiError(404, "no flash model available");
-  await env.SESSIONS.put("chat-model", model, { expirationTtl: 86_400 });
-  return { parts: await callModel(env, model, body) };
+  throw lastError ?? new GeminiError(503, "no flash model available");
 };
 
 interface ChatBody {
