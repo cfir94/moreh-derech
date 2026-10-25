@@ -258,7 +258,7 @@ export function MapCanvas({ sheet, onSheet, sites, styleOf, selectedId, pulseId,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusNonce, sheet]);
 
-  const showAllLabels = !hideLabels && (sheet === "jerusalem" ? zoom >= 1.5 : zoom >= 2.6);
+  const showAllLabels = !hideLabels && (sheet === "jerusalem" ? zoom >= 2.4 : zoom >= 4.5);
   const R = 6.5; // marker radius in px
   const relief = withBasePath(`/learning-map/${sheet}-${theme}.webp`);
   const unitsPerKm = frame.scale / (40075.016 * Math.cos((31.6 * Math.PI) / 180));
