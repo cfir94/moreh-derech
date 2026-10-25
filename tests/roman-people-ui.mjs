@@ -156,10 +156,16 @@ try {
   // The fourth mode ignores the card filters and connects all 39 figures.
   await page.getByRole("button", { name: /הרצף והקשרים/ }).click();
   await expect(page.locator("[data-story-person]")).toHaveCount(39);
+  expect(await page.locator("[data-story-person]").first().evaluate(node=>getComputedStyle(node).backgroundColor)).toBe("rgba(0, 0, 0, 0)");
+  expect(await page.evaluate(()=>new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image.naturalWidth===1024&&image.naturalHeight===1536);image.onerror=()=>resolve(false);image.src="/moreh-derech/images/roman-people/story-vignettes.webp";}))).toBe(true);
   await expect(page.locator("[data-story-chapter]")).toHaveCount(8);
   await expect.poll(() => page.locator("[data-story-lines] path").count()).toBeGreaterThan(0);
+  await page.getByRole("button", {name:"בחירת תקופה בציר"}).click();
+  await expect(page.locator("[data-story-periods]")).toBeVisible();
   await page.getByRole("button", { name: "כל הקשרים", exact: true }).click();
   await expect.poll(() => page.locator("[data-story-lines] path").count()).toBe(24);
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("button", {name:"בחירת תקופה בציר"})).toHaveAttribute("aria-expanded","false");
   await page.locator('[data-story-person="herod-great"]').click();
   const modal = page.getByRole("dialog");
   await expect(modal).toBeVisible();
@@ -172,7 +178,10 @@ try {
   await event.locator("summary").click();
   await expect(event).toHaveAttribute("open","");
   await expect(event).toContainText("טיטוס הוא כאן מצביא");
+  await page.getByRole("button", {name:"בחירת תקופה בציר"}).click();
   await page.getByRole("navigation", {name:"מעבר לתחנה במפת הרצף"}).getByRole("button").last().click();
+  await expect(page.locator("[data-story-periods]")).not.toBeVisible();
+  await expect(page.getByRole("button", {name:"בחירת תקופה בציר"})).toHaveAttribute("aria-expanded","false");
   await expect(page.locator('[data-story-chapter="end"]')).toBeFocused();
   for (const width of [1440,768,390,320]) {
     await page.setViewportSize({width,height:1000});
