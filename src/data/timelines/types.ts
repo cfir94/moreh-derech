@@ -38,4 +38,6 @@ export type TimelineSet = {
   title: string;
   subtitle: string;
   nodes: TimelineNode[];
+  /** Course notebooks and reference sources for this exercise. */
+  sourceUrls?: string[];
 };
