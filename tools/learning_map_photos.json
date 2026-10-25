@@ -6,12 +6,6 @@
     "alt": "מבט אוויר על רחבת הר הבית וחומותיה"
   },
   {
-    "id": "temple-mount-western-wall",
-    "search": "Western Wall Jerusalem",
-    "caption": "הכותל המערבי — קיר התמך של הורדוס. בנדבכים התחתונים: אבני גזית עם זיז.",
-    "alt": "הכותל המערבי ורחבת התפילה"
-  },
-  {
     "id": "temple-mount-huldah",
     "search": "Huldah Gates southern wall Temple Mount",
     "caption": "הכותל הדרומי של הר הבית, ממזרח לפינה הדרום־מערבית.",
@@ -60,22 +54,10 @@
     "alt": "שרידי קירות אבן בחפירה ארכאולוגית"
   },
   {
-    "id": "siloam",
-    "search": "Pilgrimage Road Jerusalem",
-    "caption": "הרחוב המדורג בעיר דוד — דרך עולי הרגל.",
-    "alt": "רחוב מרוצף באבנים גדולות במנהרה חפורה"
-  },
-  {
     "id": "siloam-pool",
     "search": "Pool of Siloam steps excavation Jerusalem",
     "caption": "מדרגות בריכת השילוח שנחשפו ב־2004.",
     "alt": "מדרגות אבן רחבות בחפירה"
-  },
-  {
-    "id": "burnt-house",
-    "search": "Burnt House Jerusalem",
-    "caption": "הבית השרוף ברובע היהודי.",
-    "alt": "חדר חפור עם כלי אבן וחרס"
   },
   {
     "id": "burnt-house-katros",
@@ -86,8 +68,8 @@
   {
     "id": "tombs-of-the-kings",
     "search": "Tomb of the Kings Jerusalem",
-    "caption": "החצר החצובה בקברות המלכים.",
-    "alt": "חזית חצובה בסלע ומדרגות"
+    "caption": "אבן הגולל בפתח קברות המלכים — צילום היסטורי.",
+    "alt": "אבן עגולה בפתח קבר חצוב"
   },
   {
     "id": "third-wall",
@@ -126,12 +108,6 @@
     "alt": "קירות וקמרון אבן עתיקים"
   },
   {
-    "id": "nea-inscription",
-    "search": "Nea Church inscription",
-    "caption": "כתובת ההקדשה של יוסטיניאנוס מבור המים שמתחת לניאה.",
-    "alt": "לוח כתובת יוונית"
-  },
-  {
     "id": "cardo",
     "file": "Cardo jerusalem2.jpg",
     "caption": "הקרדו ברובע היהודי — הקטע הביזנטי, עם העמודים המשוחזרים.",
@@ -142,12 +118,6 @@
     "search": "Cardo Madaba map",
     "caption": "העתק מפת מידבא בקרדו.",
     "alt": "פסיפס מפה על קיר"
-  },
-  {
-    "id": "st-stephen",
-    "search": "Ecole Biblique Jerusalem",
-    "caption": "בסיליקת סנט אטיין מצפון לשער שכם.",
-    "alt": "חזית כנסייה ופעמון"
   },
   {
     "id": "mount-zion",
@@ -204,12 +174,6 @@
     "alt": "יסודות מבנה מתומן"
   },
   {
-    "id": "legio",
-    "search": "Megiddo mosaic",
-    "caption": "פסיפס אולם התפילה בכפר עותנאי.",
-    "alt": "פסיפס רצפה עם דגים וכתובת"
-  },
-  {
     "id": "beit-shearim",
     "search": "Beit Shearim catacombs entrance",
     "caption": "הכניסה לאחת הקטקומבות בבית שערים.",
@@ -250,12 +214,6 @@
     "search": "Acre old city port Akko",
     "caption": "העיר העתיקה והנמל של עכו.",
     "alt": "חומות ונמל על הים"
-  },
-  {
-    "id": "tiberias",
-    "search": "Tiberias ruins",
-    "caption": "שרידי טבריה העתיקה.",
-    "alt": "שרידי עיר עתיקה ליד הכנרת"
   },
   {
     "id": "hamat-tiberias-zodiac",
@@ -320,20 +278,14 @@
   {
     "id": "beit-alfa-akedah",
     "search": "Beit Alpha Isaac",
-    "caption": "עקדת יצחק בפסיפס בית אלפא.",
-    "alt": "פסיפס עממי של אברהם, יצחק ואיל"
+    "caption": "רצפת בית הכנסת בבית אלפא — עקדת יצחק בלוח הקרוב לכניסה (בתחתית).",
+    "alt": "רצפת פסיפס עם גלגל מזלות ולוח עקדה"
   },
   {
     "id": "beit-alfa-zodiac",
     "file": "Bet Alfa Synagogue Floor.jpg",
     "caption": "רצפת בית הכנסת בבית אלפא — גלגל המזלות במרכז, ומעליו לוח ארון הקודש.",
     "alt": "רצפת פסיפס עם גלגל מזלות"
-  },
-  {
-    "id": "beit-alfa-ark",
-    "search": "Beth Alpha mosaic",
-    "caption": "לוח ארון הקודש בין המנורות בבית אלפא.",
-    "alt": "פסיפס של ארון קודש ומנורות"
   },
   {
     "id": "beit-shean-palladius",
@@ -396,12 +348,6 @@
     "alt": "תל עם שרידי קירות בשחור־לבן"
   },
   {
-    "id": "betar",
-    "search": "Betar Battir",
-    "caption": "חורבת ביתר מעל בתיר.",
-    "alt": "רכס עם טרסות"
-  },
-  {
     "id": "nativity-mosaics",
     "search": "Church of the Nativity Constantinian mosaic floor",
     "caption": "פסיפס הכנסייה הקונסטנטינית מתחת לרצפה בכנסיית המולד.",
@@ -444,12 +390,6 @@
     "alt": "מנהרה חצובה"
   },
   {
-    "id": "mamre",
-    "search": "Mamre ruins",
-    "caption": "שרידי המתחם באלוני ממרא.",
-    "alt": "קירות אבן גדולים"
-  },
-  {
     "id": "machpelah",
     "file": "Hebron Cave of the Patriarchs.jpg",
     "caption": "המתחם ההרודיאני של מערת המכפלה.",
@@ -460,12 +400,6 @@
     "search": "Susya synagogue",
     "caption": "שרידי היישוב העתיק בסוסיא.",
     "alt": "שרידי קירות אבן בשטח הררי"
-  },
-  {
-    "id": "theodosius",
-    "search": "Saint Theodosius monastery",
-    "caption": "מנזר תאודוסיוס.",
-    "alt": "מנזר במדבר"
   },
   {
     "id": "mar-saba",
