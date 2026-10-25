@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - "src/data/periods.ts"
+      - "src/data/history-atlas/**"
+      - "src/components/history-atlas/**"
+      - "tests/history-atlas*"
+      - "tests/register-atlas.mjs"
       - "src/data/roman-people.ts"
       - "src/data/herodian-companions.ts"
       - "src/data/roman-portraits.ts"
@@ -32,7 +36,10 @@ jobs:
       - run: node --import ./tests/register-ts.mjs --test tests/roman-people.test.mjs
       - run: npm run lint -- src/data/roman-people.ts src/components/timeline/RomanPeople.tsx src/app/timelines/roman-people/page.tsx
       - run: npm run lint -- src/data/periods.ts src/components/timeline/PeriodsTable.tsx src/app/timelines/periods/page.tsx src/app/timelines/page.tsx src/lib/domains.ts src/lib/siteSearch.ts
+      - run: node --import ./tests/register-atlas.mjs --test tests/history-atlas.test.mjs
+      - run: npm run lint -- src/data/history-atlas src/components/history-atlas src/app/timelines/history-atlas/page.tsx
       - run: npm run build
       - run: npm install --no-save --package-lock=false @playwright/test@1.64.1 && npx playwright install --with-deps chromium
       - run: node tests/periods-table-ui.mjs
       - run: node tests/roman-people-ui.mjs
+      - run: node tests/history-atlas-ui.mjs

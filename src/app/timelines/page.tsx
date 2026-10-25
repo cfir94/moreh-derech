@@ -8,6 +8,7 @@ import { SectionCard } from "@/components/SectionCard";
 import { TALK_CHARACTERS } from "@/data/history-talk";
 
 const sets = [
+  {slug:"history-atlas",title:"אטלס הזמן — דמויות ואירועים",description:"בית שני: מן התמונה הגדולה ועד הפרטים. מתקרבים בזמן, מגלים דמויות ואירועים נוספים, ופותחים את הקשרים והמקורות.",meta:"זום בזמן · דמויות, אירועים וקשרים"},
   {
     slug: "history-talk",
     title: "דבר עם ההיסטוריה",

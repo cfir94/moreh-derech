@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { HERODIAN_COMPANIONS } from "@/data/herodian-companions";
 import { PORTRAITS, ROMAN_PEOPLE } from "@/data/roman-people";
@@ -92,7 +93,7 @@ export function RomanStory({renderPerson}: {renderPerson: (id: string) => ReactN
   }
   return <section className={s.story} data-roman-story aria-labelledby="roman-story-title">
     <header className={s.intro} data-story-reveal="ready">
-      <p className={s.eyebrow}>רומא · יהודה · ביזנטיון</p>
+      <p className={s.eyebrow}>רומא · יהודה · ביזנטיון</p><Link href="/timelines/history-atlas" style={{fontSize:12,textDecoration:"underline",display:"inline-block",marginBottom:12}}>חדש: אטלס הזמן העצמאי · בית שני עם זום ←</Link>
       <h2 id="roman-story-title">הרצף, במבט אחד<span aria-hidden>↘</span></h2>
       <p>מהכיבוש הרומי ועד סוף התקופה הביזנטית בארץ.</p>
       <small>מתקדמים מלמעלה למטה. לוחצים על דמות ומגלים את הסיפור שלה.</small>

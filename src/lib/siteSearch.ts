@@ -225,6 +225,10 @@ const baseResults: SearchResult[] = [
   ...timelineResults(),
   ...learningMapResults(),
   {
+    id: "timeline-history-atlas",
+    kind: "tool",kindLabel:"אטלס אינטראקטיבי",title:"אטלס הזמן — בית שני: דמויות ואירועים",description:"מתקרבים ומתרחקים בזמן: מבט על, הקשר ופירוט מלא, עם דמויות, אירועים וקשרים.",href:"/timelines/history-atlas",searchText:"אטלס ציר זמן בית שני דמויות אירועים זום התקרבות התרחקות היסטוריה חשמונאים הורדוס כורש"
+  },
+  {
     id: "timeline-roman-people",
     kind: "timeline",
     kindLabel: "כלי זיכרון",
