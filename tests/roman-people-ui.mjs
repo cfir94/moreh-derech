@@ -28,7 +28,7 @@ try {
   await expect(page.getByRole("heading", { name: "מי זה מי ברומא?", exact: true })).toBeVisible();
   await expect(page.locator("[data-person-button]")).toHaveCount(36);
   const companionNote = page.locator("[data-herodian-context]");
-  await companionNote.locator("summary").click();
+  await companionNote.locator(":scope > summary").click();
   await expect(companionNote.locator("[data-companion]")).toHaveCount(3);
   for (const id of ["herod-great", "antipas", "agrippa1"]) {
     const figure = companionNote.locator(`[data-companion="${id}"]`);
@@ -37,7 +37,7 @@ try {
     await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
     await expect(figure.locator("a").first()).toHaveAttribute("href", `/moreh-derech/images/roman-people/companions/${id}.webp`);
   }
-  await companionNote.locator("summary").click();
+  await companionNote.locator(":scope > summary").click();
 
   // Exercise every downloaded portrait, including the non-core figures, from the
   // exported site. A passing fallback alone must never count as a loaded image.
@@ -45,6 +45,7 @@ try {
   for (const id of personIds) {
     await page.locator(`[data-person-button="${id}"]`).click();
     await expect(page.locator(`[data-person-detail="${id}"] [data-tenure="${id}"]`)).toBeVisible();
+    await expect(page.locator(`[data-person-detail="${id}"] [data-person-context="${id}"]`)).toBeVisible();
     const portrait = page.locator(`[data-person-detail="${id}"] [data-portrait]`);
     if (id === "florus") {
       await expect(portrait.locator("img")).toHaveCount(0);
@@ -92,6 +93,7 @@ try {
   await expect(page.getByText("כרטיס 1 מתוך 1", { exact: true })).toBeVisible();
   await expect(page.locator('[class*="answerIdentity"]')).toHaveCount(0);
   await expect(page.locator('[class*="practice"] [data-tenure]')).toHaveCount(0);
+  await expect(page.locator('[class*="practice"] [data-person-context]')).toHaveCount(0);
   await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
   await expect(page.getByRole("heading", { name: "פומפיוס", exact: true })).toBeVisible();
   await expect(page.locator('[data-tenure="pompey"]')).toContainText("לא מלך");
@@ -126,8 +128,8 @@ try {
   await page.locator('[data-person-button="titus"]').click();
   await expect(page.getByRole("button", { name: /בחירת דמות/ })).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator('[data-person-detail="titus"]')).toContainText("מצביא בחורבן");
-  await page.locator('[data-person-detail="titus"] summary').click();
-  await expect(page.locator('[data-person-detail="titus"] details')).toHaveAttribute("open", "");
+  await page.locator('[data-person-detail="titus"] details[class*="more"] > summary').click();
+  await expect(page.locator('[data-person-detail="titus"] details[class*="more"]')).toHaveAttribute("open", "");
   await search.fill("גאלוס");
   await page.getByRole("button", { name: /לבדוק מה זכרתי/ }).click();
   await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "conquest");
@@ -149,6 +151,41 @@ try {
   await page.getByRole("button", { name: /להכיר את הדמויות/ }).click();
   await page.getByRole("button", { name: /להכיר את אוגוסטוס/, exact: true }).click();
   await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
+
+
+  // The fourth mode ignores the card filters and connects all 39 figures.
+  await page.getByRole("button", { name: /הרצף והקשרים/ }).click();
+  await expect(page.locator("[data-story-person]")).toHaveCount(39);
+  await expect(page.locator("[data-story-chapter]")).toHaveCount(8);
+  await expect.poll(() => page.locator("[data-story-lines] path").count()).toBeGreaterThan(0);
+  await page.getByRole("button", { name: "כל הקשרים", exact: true }).click();
+  await expect.poll(() => page.locator("[data-story-lines] path").count()).toBe(24);
+  await page.locator('[data-story-person="herod-great"]').click();
+  const modal = page.getByRole("dialog");
+  await expect(modal).toBeVisible();
+  await expect(modal.locator('[data-jewish-context="herod-great"]')).toBeVisible();
+  await modal.getByRole("button", { name: /סב ונכדו/ }).click();
+  await expect(modal.locator('[data-companion="agrippa1"]')).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(modal).not.toBeVisible();
+  const event = page.locator('[data-story-event="destruction"]');
+  await event.locator("summary").click();
+  await expect(event).toHaveAttribute("open","");
+  await expect(event).toContainText("טיטוס הוא כאן מצביא");
+  await page.getByRole("navigation", {name:"מעבר לתחנה במפת הרצף"}).getByRole("button").last().click();
+  await expect(page.locator('[data-story-chapter="end"]')).toBeFocused();
+  for (const width of [1440,768,390,320]) {
+    await page.setViewportSize({width,height:1000});
+    for (const theme of ["light","dark"]) {
+      await page.evaluate(value => {document.documentElement.dataset.theme=value;},theme);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "story overflow: "+width+", "+theme).toBe(true);
+    }
+  }
+  await page.locator('[data-story-person="titus"]').click();
+  await expect(modal.locator('[data-person-detail="titus"]')).toBeVisible();
+  await expect(modal.locator('[data-jewish-context="titus"]')).toBeVisible();
+  await expect(modal.getByRole("button",{name:"סגירת כרטיס הדמות"})).toBeFocused();
+  await page.keyboard.press("Escape");
 
   expect(errors).toEqual([]);
   console.log("Roman people: navigation, alias/era/role/core filters, comparison, recall/retry, mobile, dark mode and zero page errors passed");

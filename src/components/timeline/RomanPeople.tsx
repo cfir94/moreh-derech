@@ -5,6 +5,8 @@ import { HERODIAN_COMPANIONS } from "@/data/herodian-companions";
 import { useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { COMPARISONS, ERAS, PORTRAITS, ROMAN_PEOPLE, ROLES, SOURCES, filterPeople, portraitUrl, type RomanPerson } from "@/data/roman-people";
 import { ROMAN_TENURES, TENURE_SOURCES } from "@/data/roman-tenures";
+import { ROMAN_PROFILES, PROFILE_SOURCES } from "@/data/roman-profiles";
+import { RomanStory } from "./RomanStory";
 import s from "./RomanPeople.module.css";
 
 function Portrait({ person, large = false }: { person: RomanPerson; large?: boolean }) {
@@ -35,6 +37,24 @@ function Tenure({ person }: { person: { id: string } }) {
   return <div className={s.tenure} data-tenure={person.id}><span>{tenure.label}</span><div><strong>{tenure.period}</strong><b>{tenure.duration}</b></div>{tenure.note && <small>{tenure.note}</small>}</div>;
 }
 
+function PersonContext({ id }: {id: string}) {
+  const profile = ROMAN_PROFILES[id];
+  if (!profile) return null;
+  const sources = [...new Set([...profile.points.flatMap(point => point.sources), ...(profile.jewish?.sources ?? [])])];
+  return <div className={s.personContext} data-person-context={id}>
+    <section className={s.contextPanel}><h3>עוד קצת הקשר</h3><ul>{profile.points.map(point => <li key={point.label}><b>{point.label}</b>{point.supplement && <span className={s.supplement}>השלמת רקע</span>}<p>{point.text}</p></li>)}</ul></section>
+    {profile.jewish && <section className={s.jewishPanel} data-jewish-context={id}><h3><span aria-hidden>✦</span> הקשר ליהודים</h3><p>{profile.jewish.text}</p></section>}
+    <details className={s.contextSources}><summary>מקורות להרחבה</summary><ul>{sources.map(key => <li key={key}>{PROFILE_SOURCES[key].href ? <a href={PROFILE_SOURCES[key].href} target="_blank" rel="noreferrer">{PROFILE_SOURCES[key].title} ↗</a> : PROFILE_SOURCES[key].title}</li>)}</ul></details>
+  </div>;
+}
+
+function CompanionDetail({person}: {person: (typeof HERODIAN_COMPANIONS)[number]}) {
+  return <figure className={s.companionCard} data-companion={person.id}>
+    <a href={person.localSrc} target="_blank" rel="noreferrer" aria-label={"הגדלת התמונה של " + person.name}><img src={person.localSrc} alt={person.alt} width={person.width} height={person.height} loading="lazy" />{/* eslint-disable-line @next/next/no-img-element */}</a>
+    <figcaption><h3>{person.name}</h3><b>{person.role}</b><Tenure person={person} /><p>{person.connection}</p><PersonContext id={person.id} /><span className={s.companionCaption}>{person.caption} · {person.note}</span><small>{person.credit} · <a href={person.sourceUrl} target="_blank" rel="noreferrer">מקור</a> · <a href={person.licenseUrl} target="_blank" rel="noreferrer">{person.license}</a>{person.verificationUrl && <> · <a href={person.verificationUrl} target="_blank" rel="noreferrer">זיהוי במוזיאון</a></>}</small></figcaption>
+  </figure>;
+}
+
 function PersonDetail({ person, compact = false }: { person: RomanPerson; compact?: boolean }) {
   const portrait = PORTRAITS[person.id];
   return <article className={`${s.detail} ${compact ? s.compact : ""}`} data-era={person.era} data-person-detail={person.id}>
@@ -51,6 +71,7 @@ function PersonDetail({ person, compact = false }: { person: RomanPerson; compac
         <section className={s.memory}><span aria-hidden>✦</span><div><b>איך זוכרים?</b><p>{person.memory}</p></div></section>
         <section className={s.trap}><b><span aria-hidden>↔</span> לא להתבלבל</b><p>{person.trap}</p></section>
       </div>
+      <PersonContext id={person.id} />
       {!compact && <details className={s.more}><summary>עוד הקשר ומקורות <span aria-hidden>＋</span></summary>
         <p>{person.extra}</p><p>מקורות לשנות הכהונה: {ROMAN_TENURES[person.id].sources.length ? ROMAN_TENURES[person.id].sources.map(id => <a key={id} href={TENURE_SOURCES[id].href} target="_blank" rel="noreferrer">{TENURE_SOURCES[id].title} ↗ </a>) : "תפקיד הדמות בחומר הקורס; אין תקופת מלוכה."}</p>{!portrait && <p>לא נמצא דיוקן מזוהה במקורות שנבדקו. המונוגרמה היא סימן זיכרון בלבד.</p>}{portrait && <p>{portrait.alt}. {portrait.note} <a href={portrait.sourceUrl} target="_blank" rel="noreferrer">מקור</a> · {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></p>}
         <ul>{person.sources.map(id => <li key={id}>{SOURCES[id].href ? <a href={SOURCES[id].href} target="_blank" rel="noreferrer">{SOURCES[id].title} ↗</a> : SOURCES[id].title}</li>)}</ul>
@@ -95,7 +116,7 @@ function Practice({ people, short, onEraChange }: { people: RomanPerson[]; short
     <p className={s.clue}>{clue}</p>
     {!revealed ? <button className={s.primary} onClick={() => setRevealed(true)}>לחשוף את התשובה</button> : <div className={s.answer} aria-live="polite">
       <div className={s.answerIdentity}><Portrait key={person.id} person={person} /><div><h3>{person.name}</h3><p>{person.role}</p></div></div>
-      <Tenure person={person} /><p className={s.memory}>{person.memory}</p><p className={s.trap}>{person.trap}</p>
+      <Tenure person={person} /><p className={s.memory}>{person.memory}</p><p className={s.trap}>{person.trap}</p><PersonContext id={person.id} />
       <div className={s.practiceActions}><button className={s.primary} onClick={() => answer(true)}>זכרתי ✓</button><button onClick={() => answer(false)}>צריך חיזוק ↻</button></div>
     </div>}
     <p className={s.practiceFoot}>נסה להגיד בקול: שם, תפקיד, פעולה אחת. אחר כך חשוף ובדוק.</p>
@@ -157,11 +178,11 @@ export function RomanPeople() {
         <span className={s.heroOrbit} aria-hidden /><span className={s.heroInscription} aria-hidden>VENI · VIDI · MEMINI</span>
       </div>
     </header>
-    <div className={s.chapterIntro}><div><p className={s.eyebrow}>שלושה פרקים. אימפריה אחת.</p><h2>באיזה עולם מתחילים?</h2></div><p>בחר תקופה, הכר דמות, בדוק מה נשאר בזיכרון.</p></div>
+    <div className={s.chapterIntro}><div><p className={s.eyebrow}>שלוש תקופות. מפת קשרים אחת.</p><h2>באיזה עולם מתחילים?</h2></div><p>בחר תקופה, הכר דמות, בדוק מה נשאר בזיכרון.</p></div>
 
-    <div id="roman-learning" className={s.modes} aria-label="מצבי לימוד">{[["timeline", "◈", "להכיר את הדמויות"], ["compare", "↔", "להבדיל בין שמות"], ["practice", "✦", "לבדוק מה זכרתי"]].map(([id, number, label]) => <button key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setShortPractice(false); setPracticeEra(null); }}><span aria-hidden>{number}</span>{label}</button>)}</div>
+    <div id="roman-learning" className={s.modes} aria-label="מצבי לימוד">{[["timeline", "◈", "להכיר את הדמויות"], ["compare", "↔", "להבדיל בין שמות"], ["practice", "✦", "לבדוק מה זכרתי"], ["story", "⌘", "הרצף והקשרים"]].map(([id, number, label]) => <button key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setShortPractice(false); setPracticeEra(null); }}><span aria-hidden>{number}</span>{label}</button>)}</div>
 
-    {mode !== "compare" && <>
+    {mode !== "compare" && mode !== "story" && <>
       <div className={s.eras} aria-label="סינון לפי תקופה"><button className={s.allEras} aria-pressed={era === "all"} onClick={() => { setEra("all"); setPracticeEra(null); }}>כל<br /><b>התקופות</b></button>{ERAS.map(item => <button key={item.id} data-era={item.id} aria-pressed={era === item.id} onClick={() => { setEra(item.id); setPracticeEra(null); }}><span className={s.eraNumber} aria-hidden>{item.mark}</span><EraArtwork era={item.id} /><div><b>{item.label}</b><small>{item.dates}</small><span className={s.eraSubtitle}>{item.subtitle}</span></div><span className={s.eraArrow} aria-hidden>←</span></button>)}</div>
       <div className={s.filters}>
         <div className={s.search}><label htmlFor={searchId}>חיפוש דמות, אירוע או מקום</label><input id={searchId} type="search" placeholder="למשל: גליל, פילטוס, אוקטביאנוס…" value={query} onChange={event => { setQuery(event.target.value); setPracticeEra(null); setBrowseOpen(Boolean(event.target.value)); }} /></div>
@@ -171,7 +192,7 @@ export function RomanPeople() {
       <div className={s.resultLine}><span role="status">{people.length} דמויות{core ? " · מסלול ליבה" : " · כולל דמויות להשלמת הרצף"}</span>{(query || era !== "all" || role !== "all" || core) && <button onClick={clear}>ניקוי הסינון ×</button>}</div>
     </>}
 
-    {mode === "compare" ? <section className={s.comparison}>
+    {mode === "story" ? <RomanStory renderPerson={id => { const person = ROMAN_PEOPLE.find(item => item.id === id); return person ? <PersonDetail key={id} person={person} /> : <CompanionDetail key={id} person={HERODIAN_COMPANIONS.find(item => item.id === id)!} />; }} /> : mode === "compare" ? <section className={s.comparison}>
       <div className={s.compareHeading}><div><p className={s.sectionLabel}>שני שמות. הבדל אחד לזכור.</p><h2>מי מתבלבל עם מי?</h2></div><div><label htmlFor={pairSelectId}>בחר זוג להשוואה</label><select id={pairSelectId} value={pairId} onChange={event => setPairId(event.target.value)}>{COMPARISONS.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></div></div>
       <div className={s.pairRail} aria-label="זוגות להשוואה">{COMPARISONS.map(item => <button key={item.id} aria-pressed={pairId === item.id} onClick={() => setPairId(item.id)}>{item.people.map(id => <Face key={id} person={ROMAN_PEOPLE.find(person => person.id === id)!} />)}<span>{item.label}</span></button>)}</div>
       <div className={s.compareRule}><span aria-hidden>↔</span><p>{pair.rule}</p></div>
@@ -184,12 +205,9 @@ export function RomanPeople() {
       <div ref={detailRef} className={s.detailColumn} aria-live="polite" tabIndex={0} aria-label="הדמות הנבחרת. חץ שמאלה לדמות הבאה, חץ ימינה לקודמת" onKeyDown={event => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowLeft") { event.preventDefault(); move(1); } if (event.key === "ArrowRight") { event.preventDefault(); move(-1); } }}>{selected && <PersonDetail key={selected.id} person={selected} />}<div className={s.studyTip}><div><b>שם ← תפקיד ← מעשה</b><p>שלוש מילים בראש. עכשיו נסה בלי להסתכל.</p></div><button onClick={challenge}>לתרגול קצר <span aria-hidden>←</span></button></div></div>
     </section>}
 
-    <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details data-herodian-context><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p><div className={s.companionGrid}>{HERODIAN_COMPANIONS.map(person => <figure className={s.companionCard} key={person.id} data-companion={person.id}>
-        <a href={person.localSrc} target="_blank" rel="noreferrer" aria-label={`הגדלת התמונה של ${person.name}`}><img src={person.localSrc} alt={person.alt} width={person.width} height={person.height} loading="lazy" />{/* eslint-disable-line @next/next/no-img-element */}</a>
-        <figcaption><h3>{person.name}</h3><b>{person.role}</b><Tenure person={person} /><p>{person.connection}</p><span className={s.companionCaption}>{person.caption} · {person.note}</span><small>{person.credit} · <a href={person.sourceUrl} target="_blank" rel="noreferrer">מקור</a> · <a href={person.licenseUrl} target="_blank" rel="noreferrer">{person.license}</a>{person.verificationUrl && <> · <a href={person.verificationUrl} target="_blank" rel="noreferrer">זיהוי במוזיאון</a></>}</small></figcaption>
-      </figure>)}</div><p className={s.companionHint}>לחיצה על תמונה פותחת אותה להגדלה.</p></details></section>
+    <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details data-herodian-context><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p><div className={s.companionGrid}>{HERODIAN_COMPANIONS.map(person => <CompanionDetail key={person.id} person={person} />)}</div><p className={s.companionHint}>לחיצה על תמונה פותחת אותה להגדלה.</p></details></section>
     <footer className={s.footer}><p>הבסיס: הקלטות מחברות בית שני והתקופה הרומית־ביזנטית. התאריכים בכרטיסים מציינים את האירוע או התקופה הנדונים. טיפי הזיכרון הם אסוציאציות ללמידה.</p>
-      <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>שנות שלטון וכהונה</h3><p>משכי הכהונה מקורבים ונועדו ללמידה; אינם חישוב מדויק בחודשים. שנים של שלטון משותף נכללות כשמצוין. תאריך האירוע המקורי בכרטיס מוצג בנפרד. במעבר מלפני הספירה לספירה אין שנת אפס.</p><ul>{Object.entries(TENURE_SOURCES).map(([id, source]) => <li key={id}><a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a></li>)}</ul><h3>דיוקנאות באמנות</h3><p>35 תמונות של פסלים, מטבעות, פסיפסים וציורים. לחיצה על תמונה פותחת אותה להגדלה. יצירות מאוחרות וייחוסים מסופקים מסומנים; אין לראות בהם תיעוד ודאי של מראה הדמות. התמונות הוקטנו והומרו ל־WebP, והמסגרת עשויה לחתוך את התצוגה. לכל תמונה נשמר הרישיון המקורי. לפלורוס לא נמצא דיוקן מזוהה במקורות שנבדקו.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={portrait.sourceUrl} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
+      <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>מקורות להרחבות ולמפת הרצף</h3><ul>{Object.entries(PROFILE_SOURCES).filter(([id]) => !SOURCES[id]).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : source.title} — {source.detail}</li>)}</ul><h3>שנות שלטון וכהונה</h3><p>משכי הכהונה מקורבים ונועדו ללמידה; אינם חישוב מדויק בחודשים. שנים של שלטון משותף נכללות כשמצוין. תאריך האירוע המקורי בכרטיס מוצג בנפרד. במעבר מלפני הספירה לספירה אין שנת אפס.</p><ul>{Object.entries(TENURE_SOURCES).map(([id, source]) => <li key={id}><a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a></li>)}</ul><h3>דיוקנאות באמנות</h3><p>הרחבות הרקע מבוססות על השיעורים; השלמות חיצוניות מסומנות בנקודת המידע עצמה. לכל דמות נרשם קשר ליהודים רק כאשר נמצא לו בסיס בחומר שנבדק. 35 תמונות של פסלים, מטבעות, פסיפסים וציורים. לחיצה על תמונה פותחת אותה להגדלה. יצירות מאוחרות וייחוסים מסופקים מסומנים; אין לראות בהם תיעוד ודאי של מראה הדמות. התמונות הוקטנו והומרו ל־WebP, והמסגרת עשויה לחתוך את התצוגה. לכל תמונה נשמר הרישיון המקורי. לפלורוס לא נמצא דיוקן מזוהה במקורות שנבדקו.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={portrait.sourceUrl} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
       <div className={s.related}><Link href="/timelines/second-temple">ציר בית שני ←</Link><Link href="/timelines/roman">הציר הרומי המלא ←</Link><Link href="/timelines/byzantine">הציר הביזנטי המלא ←</Link></div>
     </footer>
     </div>

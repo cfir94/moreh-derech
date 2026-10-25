@@ -69,3 +69,46 @@ test("every person and Herodian companion has sourced, role-specific tenure info
   assert.match(ROMAN_TENURES.quirinius.duration, /אינו ודאי/);
   assert.match(ROMAN_TENURES.titus.period, /79–81/);
 });
+
+import { ROMAN_PROFILES, PROFILE_SOURCES } from "../src/data/roman-profiles.ts";
+import { STORY_CHAPTERS, STORY_RELATIONS } from "../src/data/roman-story.ts";
+import { HERODIAN_COMPANIONS } from "../src/data/herodian-companions.ts";
+
+test("context and sourced Jewish notes cover the original figures and Herodian companions", () => {
+  const ids = [...ROMAN_PEOPLE, ...HERODIAN_COMPANIONS].map(p => p.id);
+  assert.deepEqual(Object.keys(ROMAN_PROFILES).sort(), [...ids].sort());
+  for (const id of ids) {
+    const p = ROMAN_PROFILES[id];
+    assert.equal(p.points.length, 2, id);
+    for (const point of [...p.points, ...(p.jewish ? [p.jewish] : [])]) {
+      assert.ok(point.text.length > 35, id);
+      assert.ok(point.sources.length && point.sources.every(source => PROFILE_SOURCES[source]), id);
+    }
+  }
+  for (const id of ["helena","eudocia","domitian","nerva","heraclius"]) assert.equal(ROMAN_PROFILES[id].jewish, null);
+  assert.match(ROMAN_PROFILES.caracalla.jewish.text, /השערה/);
+  assert.match(ROMAN_PROFILES.constantine.jewish.text, /אין לייחס/);
+  assert.doesNotMatch(JSON.stringify(ROMAN_PROFILES), /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/);
+});
+
+test("the story covers all 39 figures once, in chronological rows, and labels crucial transitions", () => {
+  const rows = STORY_CHAPTERS.flatMap(c => c.rows), ids = rows.flatMap(r => r.people);
+  assert.equal(STORY_CHAPTERS.length, 8);
+  assert.deepEqual([...ids].sort(), [...ROMAN_PEOPLE,...HERODIAN_COMPANIONS].map(p => p.id).sort());
+  assert.deepEqual(rows.map(r => r.year), rows.map(r => r.year).sort((a,b) => a-b));
+  assert.ok(rows.every(row => row.year !== 0));
+  const events = rows.map(row => row.event).filter(Boolean);
+  assert.deepEqual(events.filter(e => e.art !== undefined).map(e => e.art).sort(), [0,1,2,3,4,5]);
+  for (const event of events) assert.ok(event.sources.every(id => PROFILE_SOURCES[id]), event.id);
+  for (const id of ["first-prefects","last-king","second-prefects","destruction","bar-kokhba","christian-rise","state-religion","patriarchate","end-byzantine"]) assert.ok(events.some(e => e.id === id), id);
+  assert.match(events.find(e => e.id === "last-king").title, /ששלט ביהודה/);
+  assert.match(events.find(e => e.id === "last-king").text, /אגריפס השני/);
+  for (const relation of STORY_RELATIONS) {
+    assert.ok(ids.includes(relation.from) && ids.includes(relation.to), relation.id);
+    assert.ok(relation.from !== relation.to);
+    assert.ok(relation.sources.every(id => PROFILE_SOURCES[id]));
+  }
+  assert.match(STORY_RELATIONS.find(r => r.from === "herod-great" && r.to === "agrippa1").label, /סב ונכדו/);
+  assert.match(STORY_RELATIONS.find(r => r.from === "nerva" && r.to === "trajan").label, /לא אב ביולוגי/);
+  assert.equal(STORY_RELATIONS.find(r => r.from === "constantius" && r.to === "gallus").kind, "power");
+});

@@ -276,3 +276,19 @@
 .tenure small{display:block;font-size:12px;line-height:1.8;color:var(--dim);margin-top:4px}
 .answer>.tenure{max-width:560px;margin:18px auto 0}
 .date>span{font-size:11px;font-weight:400;color:var(--dim)}
+
+.personContext{margin-top:22px;text-align:right}
+.contextPanel h3,.jewishPanel h3{font-size:14px!important;font-weight:750;line-height:1.8;margin:0 0 9px!important;color:var(--accent)}
+.contextPanel ul{margin:0;padding:0;list-style:none;display:grid;gap:11px}
+.contextPanel li{border-inline-start:2px solid var(--line);padding-inline-start:12px;font-size:14px;line-height:1.9}
+.contextPanel li>b{font-size:11px;color:var(--dim);display:inline-block;margin-inline-end:7px}
+.contextPanel li p{font-size:14px!important;line-height:1.9!important;margin:2px 0 0!important}
+.supplement{font-size:9px;color:var(--dim);background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:2px 5px}
+.jewishPanel{margin-top:15px;padding:14px 16px;background:var(--soft);border:1px solid var(--line);border-radius:9px}
+.jewishPanel h3>span{color:var(--gold);margin-inline-end:5px}
+.jewishPanel p{font-size:14px!important;line-height:1.95!important}
+.contextSources{font-size:11px;line-height:1.9;color:var(--dim);margin-top:10px}
+.contextSources summary{cursor:pointer;min-height:34px;padding-block:6px}.contextSources ul{padding-inline-start:18px}.contextSources a{text-decoration:underline;text-underline-offset:3px}
+.answer>.personContext{max-width:650px;margin:20px auto 0}
+.companionCard .personContext{margin-top:16px}.companionCard .contextPanel li p,.companionCard .jewishPanel p{font-size:12px!important}.companionCard .jewishPanel{padding:10px}
+@media(max-width:640px){.personContext{margin-top:20px}.contextPanel li p,.jewishPanel p{font-size:14px!important}.modes button{font-size:10px}.modes button>span{font-size:19px}}
