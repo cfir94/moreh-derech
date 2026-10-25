@@ -10,6 +10,10 @@ import { COUNTRY, JERUSALEM } from "../src/data/learning-map/geometry.ts";
 import { ARCH_ALIAS_IDS } from "../src/data/learning-map/photo-index.ts";
 import { ROMAN_EVENTS } from "../src/data/roman/index.ts";
 import { BYZ_EVENTS } from "../src/data/byzantine/index.ts";
+import { RELIGIONS, SITE_RELIGIONS } from "../src/data/learning-map/religions.ts";
+import { SITE_ARCH } from "../src/data/learning-map/architecture.ts";
+import { resolveArch } from "../src/data/learning-map/arch-links.ts";
+import { ARCH_TERMS } from "../src/data/classical-architecture/index.ts";
 
 const research = JSON.parse(readFileSync(new URL("../src/data/second-temple/research.json", import.meta.url), "utf8"));
 const manifest = JSON.parse(readFileSync(new URL("../tools/learning_map_photos.json", import.meta.url), "utf8"));
@@ -118,5 +122,31 @@ test("photos belong to a site or a find, and are found one way", () => {
     assert.ok(!seen.has(id), `${id} is both fetched and reused`);
     const target = photoIndexSource.match(new RegExp(`"?${id}"?: "([^"]+)"`))?.[1];
     assert.ok(target && archIds.has(target), `alias ${id} → ${target}: not an architecture photo`);
+  }
+});
+
+test("every site has a religion entry (empty = no religious significance), with known ids", () => {
+  const ids = new Set(SITES.map((s) => s.id));
+  const religions = new Set(RELIGIONS.map((r) => r.id));
+  for (const site of SITES) assert.ok(Array.isArray(SITE_RELIGIONS[site.id]), `${site.id}: missing from religions.ts`);
+  for (const [id, list] of Object.entries(SITE_RELIGIONS)) {
+    assert.ok(ids.has(id), `religions.ts: no site ${id}`);
+    assert.equal(new Set(list).size, list.length, `${id}: a religion twice`);
+    for (const r of list) assert.ok(religions.has(r), `${id}: unknown religion ${r}`);
+  }
+  for (const r of RELIGIONS) assert.ok(Object.values(SITE_RELIGIONS).some((l) => l.includes(r.id)), `no site for ${r.title}`);
+});
+
+test("architecture notes point at real sites and glossary terms", () => {
+  const ids = new Set(SITES.map((s) => s.id));
+  const terms = new Set(ARCH_TERMS.map((t) => t.id));
+  for (const [id, notes] of Object.entries(SITE_ARCH)) {
+    assert.ok(ids.has(id), `architecture.ts: no site ${id}`);
+    assert.equal(new Set(notes.map((n) => n.term)).size, notes.length, `${id}: a term twice`);
+    for (const n of notes) {
+      assert.ok(terms.has(n.term), `${id}: no glossary term ${n.term}`);
+      assert.ok(n.note.trim().length > 10, `${id}/${n.term}: note`);
+    }
+    assert.equal(resolveArch(id).length, notes.length, `${id}: every note resolves`);
   }
 });

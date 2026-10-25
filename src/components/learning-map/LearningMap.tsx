@@ -25,6 +25,8 @@ import {
 } from "@/data/learning-map";
 import { sitePhotos } from "@/data/learning-map/photo-index";
 import type { CourseLink } from "@/data/learning-map/refs";
+import type { ArchLink } from "@/data/learning-map/arch-links";
+import { RELIGIONS, SITE_RELIGIONS, type ReligionId } from "@/data/learning-map/religions";
 import { siteStatus, useMapProgress } from "@/lib/learningMapProgress";
 import { useTheme } from "@/components/ThemeToggle";
 import { MapCanvas, sheetOf, type MarkerStyle, type SheetId } from "./MapCanvas";
@@ -46,7 +48,7 @@ function layerInEra(layer: Layer, era: EraFilter) {
   return layer.period === era;
 }
 
-export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) {
+export function LearningMap({ links, arch }: { links: Record<string, CourseLink[]>; arch: Record<string, ArchLink[]> }) {
   const theme = useTheme();
   const progress = useMapProgress();
   const practice = usePractice();
@@ -60,6 +62,8 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   const [builder, setBuilder] = useState<BuilderId | "all">("all");
   const [query, setQuery] = useState("");
   const [onlyReview, setOnlyReview] = useState(false);
+  const [religion, setReligion] = useState<ReligionId | "all">("all");
+  const [archChapter, setArchChapter] = useState<string>("all");
   const [selectedId, setSelectedId] = useState<string>();
   const [layerId, setLayerId] = useState<string>();
   const [focusNonce, setFocusNonce] = useState(0);
@@ -77,15 +81,17 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
     (site: MapSite) => {
       if (!site.layers.some(layerMatches)) return false;
       if (onlyReview && siteStatus(progress[site.id]) !== "review") return false;
+      if (religion !== "all" && !(SITE_RELIGIONS[site.id] ?? []).includes(religion)) return false;
+      if (archChapter !== "all" && !(arch[site.id] ?? []).some((a) => a.chapter === archChapter)) return false;
       if (query.trim()) {
         const hay = normalize(
-          [site.name, site.place, ...site.layers.map((l) => `${l.title} ${l.builder ? BUILDER_BY_ID[l.builder].name : ""}`), ...(site.finds ?? []).map((f) => f.title)].join(" "),
+          [site.name, site.place, ...site.layers.map((l) => `${l.title} ${l.builder ? BUILDER_BY_ID[l.builder].name : ""}`), ...(site.finds ?? []).map((f) => f.title), ...(arch[site.id] ?? []).map((a) => a.term)].join(" "),
         );
         if (!normalize(query).split(/\s+/).filter(Boolean).every((t) => hay.includes(t))) return false;
       }
       return true;
     },
-    [layerMatches, onlyReview, progress, query],
+    [layerMatches, onlyReview, progress, query, religion, archChapter, arch],
   );
 
   const pool = useMemo(() => SITES.filter(siteMatches), [siteMatches]);
@@ -117,6 +123,20 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
       .map((b) => ({ ...b, count: counts.get(b.id)! }))
       .sort((a, b) => b.count - a.count);
   }, [era]);
+
+  // the architecture chapters that have sites, in course order
+  const archChapters = useMemo(() => {
+    const seen = new Map<string, { id: string; title: string; order: number; count: number }>();
+    for (const links of Object.values(arch)) {
+      for (const id of new Set(links.map((a) => a.chapter))) {
+        const a = links.find((l) => l.chapter === id)!;
+        const c = seen.get(id) ?? { id, title: a.chapterTitle, order: a.chapterOrder, count: 0 };
+        c.count += 1;
+        seen.set(id, c);
+      }
+    }
+    return [...seen.values()].sort((a, b) => a.order - b.order);
+  }, [arch]);
 
   const select = useCallback((siteId: string, layer?: string, focus = true) => {
     const site = SITE_BY_ID.get(siteId);
@@ -230,6 +250,8 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
   const scopeLabel = [
     era === "all" ? "כל התקופות" : ERAS.find((e) => e.id === era)?.title ?? PERIOD_BY_ID[era as PeriodId].title,
     builder !== "all" ? BUILDER_BY_ID[builder].name : "",
+    religion !== "all" ? RELIGIONS.find((r) => r.id === religion)?.title : "",
+    archChapter !== "all" ? `אדריכלות: ${archChapters.find((c) => c.id === archChapter)?.title}` : "",
     onlyReview ? "רק לחזרה" : "",
   ].filter(Boolean).join(" · ");
 
@@ -288,6 +310,14 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
                   ))}
                 </div>
               )}
+              <div className={styles.religionRow} role="group" aria-label="דת">
+                <button type="button" aria-pressed={religion === "all"} onClick={() => setReligion("all")}>כל הדתות</button>
+                {RELIGIONS.map((r) => (
+                  <button key={r.id} type="button" aria-pressed={religion === r.id} onClick={() => setReligion(religion === r.id ? "all" : r.id)} title={r.note}>
+                    <span aria-hidden>{r.symbol}</span> {r.title}
+                  </button>
+                ))}
+              </div>
               <div className={styles.builderRow} role="group" aria-label="מי בנה">
                 <button type="button" aria-pressed={builder === "all"} onClick={() => setBuilder("all")}>כל הבונים</button>
                 {builderChips.map((b) => (
@@ -298,6 +328,12 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
               </div>
               <div className={styles.searchRow}>
                 <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="חיפוש אתר, בונה או ממצא…" aria-label="חיפוש" />
+                <select className={styles.archSelect} value={archChapter} onChange={(e) => setArchChapter(e.target.value)} aria-label="נושא באדריכלות">
+                  <option value="all">🏛 כל נושאי האדריכלות</option>
+                  {archChapters.map((c) => (
+                    <option key={c.id} value={c.id}>🏛 {c.title} ({c.count})</option>
+                  ))}
+                </select>
                 <label className={styles.reviewToggle}>
                   <input type="checkbox" checked={onlyReview} onChange={(e) => setOnlyReview(e.target.checked)} /> רק לחזרה
                 </label>
@@ -322,7 +358,7 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
               {rows.length === 0 ? (
                 <div className={styles.empty}>
                   אין אתרים שמתאימים לסינון.{" "}
-                  <button type="button" onClick={() => { setEra("all"); setBuilder("all"); setQuery(""); setOnlyReview(false); }}>לנקות סינון</button>
+                  <button type="button" onClick={() => { setEra("all"); setBuilder("all"); setQuery(""); setOnlyReview(false); setReligion("all"); setArchChapter("all"); }}>לנקות סינון</button>
                 </div>
               ) : (
                 grouped.map((g, gi) => (
@@ -356,6 +392,11 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
                                 {later.map((p) => (
                                   <i key={p} className={styles.laterDot} style={{ ["--c" as string]: colorOf(p) }} title={`נבנה שוב: ${PERIOD_BY_ID[p].title}`} />
                                 ))}
+                                {(SITE_RELIGIONS[site.id] ?? []).map((id) => {
+                                  const r = RELIGIONS.find((x) => x.id === id)!;
+                                  return <span key={id} className={styles.religionMark} title={r.title}>{r.symbol}</span>;
+                                })}
+                                {(arch[site.id]?.length ?? 0) > 0 && <span className={styles.archMark} title={`אדריכלות: ${arch[site.id].map((a) => a.term).join(", ")}`}>🏛</span>}
                                 {status === "known" && <span className={styles.statKnown} title="יודע">✓</span>}
                                 {status === "review" && <span className={styles.statReview} title="לחזרה">↻</span>}
                                 {sitePhotos(site).length > 0 && <span className={styles.hasPhoto} title="יש תמונות">📷</span>}
@@ -394,6 +435,7 @@ export function LearningMap({ links }: { links: Record<string, CourseLink[]> }) 
                 site={selected}
                 activeLayerId={layerId}
                 links={links[selected.id] ?? []}
+                arch={arch[selected.id] ?? []}
                 stat={progress[selected.id]}
                 colorOf={colorOf}
                 onClose={closeCard}
