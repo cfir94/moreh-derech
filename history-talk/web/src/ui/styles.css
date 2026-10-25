@@ -567,6 +567,12 @@ a {
   background: var(--teal);
 }
 
+/* כשהתלמיד מדבר — טבעת סביב התווית, לפי עוצמת הקול שהמיקרופון קולט. */
+.status[data-state="live"] {
+  box-shadow: 0 0 0 calc(var(--mic, 0) * 8px) color-mix(in srgb, var(--teal) 45%, transparent);
+  transition: box-shadow 80ms linear;
+}
+
 .timer {
   margin: 0;
   font-variant-numeric: tabular-nums;

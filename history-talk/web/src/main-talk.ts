@@ -74,6 +74,7 @@ let avatar: Avatar | undefined;
 let timerHandle: number | undefined;
 let levelHandle: number | undefined;
 let maxMinutes = 12;
+let micLevel = 0;
 const turnstile = new Turnstile();
 
 function setStatus(key: keyof typeof STATUS_TEXT) {
@@ -430,8 +431,12 @@ async function main() {
       avatar?.setSpeaking(playing);
       if (ui.status.dataset.state === "live" || ui.status.dataset.state === "speaking") setStatus(playing ? "speaking" : "live");
     };
+    // מד המיקרופון: הטבעת סביב "בשיחה" פועמת לפי עוצמת הקול שנקלט — כך רואים שהמיקרופון שומע.
+    micLevel = 0;
     const glow = () => {
       avatar?.setLevel(player?.level() ?? 0);
+      micLevel *= 0.85;
+      ui.status.style.setProperty("--mic", micLevel.toFixed(3));
       levelHandle = requestAnimationFrame(glow);
     };
     glow();
@@ -440,7 +445,10 @@ async function main() {
       setStatus("mic");
       mic = new Mic();
       try {
-        await mic.start((chunk) => client?.sendAudio(chunk.pcm));
+        await mic.start((chunk) => {
+          micLevel = Math.max(micLevel, Math.min(1, chunk.rms * 10));
+          client?.sendAudio(chunk.pcm);
+        });
       } catch (err) {
         mic.stop();
         mic = undefined;
