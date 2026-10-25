@@ -30,10 +30,10 @@ const josephus: ServerCharacter = {
 
 const guide: ServerCharacter = {
   id: "guide",
-  nameHe: "עמרם",
+  nameHe: "מוטי",
   voiceName: "Algenib",
   openingLineHe: "שלום.",
-  prompt: "אתה עמרם, מורה דרך ותיק.",
+  prompt: "אתה מוטי, מורה דרך ותיק.",
   knowledgeSheet: "",
   kind: "guide",
 };
