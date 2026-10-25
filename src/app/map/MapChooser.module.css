@@ -1,0 +1,56 @@
+.page { max-width: 1040px; margin: 0 auto; padding: 36px 16px 56px; }
+.head { margin-bottom: 26px; }
+.head h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.1; }
+.head p { margin-top: 8px; color: var(--txt-dim); max-width: 560px; }
+
+.cards { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
+
+.card {
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card);
+  transition: transform 0.18s var(--ease-out), border-color 0.18s;
+}
+.card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--teal) 45%, var(--line)); }
+.card:active { transform: scale(0.985); }
+
+/* the learning map's card shows the map itself, with a dot per period */
+.art {
+  position: relative; display: block; height: 220px;
+  background: var(--art-light) 48% 36% / 160% auto no-repeat;
+  border-bottom: 1px solid var(--line);
+}
+:global([data-theme="dark"]) .art { background-image: var(--art-dark); }
+.art::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--bg) 70%, transparent));
+}
+.art i {
+  position: absolute; z-index: 1; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--c); border: 2px solid #fff; box-shadow: 0 2px 8px #0005;
+  animation: pop 0.5s var(--ease-spring) both; animation-delay: calc(0.08s * var(--i));
+}
+@keyframes pop { from { transform: scale(0); } }
+
+.routeArt {
+  display: grid; place-items: center; height: 220px; border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 27px, var(--line) 27px 28px),
+    repeating-linear-gradient(90deg, transparent 0 27px, var(--line) 27px 28px),
+    var(--card-2);
+}
+.routeArt svg { width: 70%; max-width: 280px; overflow: visible; }
+.routeArt path { fill: none; stroke: var(--teal); stroke-width: 4; stroke-dasharray: 10 8; stroke-linecap: round; }
+.routeArt circle { fill: var(--blue); stroke: var(--sheet); stroke-width: 3; }
+
+.body { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px; flex: 1; }
+.kicker { font-size: 12px; font-weight: 800; color: var(--teal); letter-spacing: 0.02em; }
+.body strong { font-size: 24px; font-weight: 900; color: var(--title-1); }
+.desc { font-size: 14px; line-height: 1.75; color: var(--txt-dim); }
+.meta { font-size: 12px; font-weight: 700; color: var(--gold); }
+.go { margin-top: auto; padding-top: 10px; font-weight: 800; color: var(--teal); }
+
+@media (prefers-reduced-motion: reduce) {
+  .art i { animation: none; }
+  .card { transition: none; }
+}

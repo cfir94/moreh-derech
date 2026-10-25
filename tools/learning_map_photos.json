@@ -1,0 +1,626 @@
+[
+  {
+    "id": "temple-mount",
+    "file": "Jerusalem-2013(2)-Aerial-Temple Mount-(south exposure).jpg",
+    "caption": "הר הבית ממבט אוויר מדרום: הרחבה ההרודיאנית, הכותל הדרומי ומסגד אל־אקצא, ומאחור כיפת הסלע.",
+    "alt": "מבט אוויר על רחבת הר הבית וחומותיה"
+  },
+  {
+    "id": "temple-mount-western-wall",
+    "wiki": "he:הכותל המערבי",
+    "caption": "הכותל המערבי — קיר התמך של הורדוס. בנדבכים התחתונים: אבני גזית עם זיז.",
+    "alt": "הכותל המערבי ורחבת התפילה"
+  },
+  {
+    "id": "temple-mount-huldah",
+    "search": "Huldah Gates southern wall Temple Mount",
+    "caption": "הכותל הדרומי של הר הבית, ממזרח לפינה הדרום־מערבית.",
+    "alt": "קיר אבן גבוה בפינת הר הבית"
+  },
+  {
+    "id": "robinson-arch",
+    "file": "The remains of Robinson's Arch on the western side of the Temple Mount.jpg",
+    "caption": "שארית קשת רובינסון בולטת מן הכותל המערבי, מעל הרחוב ההרודיאני.",
+    "alt": "תחילת קשת אבן הבולטת מקיר גדול"
+  },
+  {
+    "id": "robinson-arch-trumpet",
+    "search": "Trumpeting Place inscription Temple Mount",
+    "caption": "אבן 'לבית התקיעה' — הכתובת שנמצאה למרגלות הפינה הדרום־מערבית.",
+    "alt": "אבן מסותתת ועליה כתובת עברית"
+  },
+  {
+    "id": "antonia",
+    "wiki": "he:מצודת אנטוניה",
+    "caption": "מצודת אנטוניה בדגם ירושלים בימי בית שני — שחזור, לא שרידים.",
+    "alt": "דגם של מצודה עם ארבעה מגדלים ליד המקדש"
+  },
+  {
+    "id": "tower-of-david",
+    "wiki": "he:מגדל דוד",
+    "caption": "מצודת מגדל דוד בשער יפו.",
+    "alt": "מצודה מאבן עם מגדל ליד חומת העיר"
+  },
+  {
+    "id": "tower-of-david-tower",
+    "search": "Phasael tower Tower of David citadel Herodian",
+    "caption": "בסיס המגדל ההרודיאני במצודת מגדל דוד.",
+    "alt": "מגדל מאבני גזית גדולות"
+  },
+  {
+    "id": "city-of-david",
+    "file": "City of David, Southern Wall Temple Mount Kidron Valley Ophel and Siloam.jpg",
+    "caption": "עיר דוד מדרום להר הבית, מעל נחל קדרון — צילום אוויר היסטורי.",
+    "alt": "צילום אוויר בשחור־לבן של רכס ומדרונות"
+  },
+  {
+    "id": "givati",
+    "file": "JRSLM 210416 City of David Acra 03.jpg",
+    "caption": "הביצורים בחניון גבעתי שהוצעו כשרידי החקרא.",
+    "alt": "שרידי קירות אבן בחפירה ארכאולוגית"
+  },
+  {
+    "id": "siloam",
+    "search": "Pilgrimage Road stepped street City of David",
+    "caption": "הרחוב המדורג בעיר דוד — דרך עולי הרגל.",
+    "alt": "רחוב מרוצף באבנים גדולות במנהרה חפורה"
+  },
+  {
+    "id": "siloam-pool",
+    "search": "Pool of Siloam steps excavation Jerusalem",
+    "caption": "מדרגות בריכת השילוח שנחשפו ב־2004.",
+    "alt": "מדרגות אבן רחבות בחפירה"
+  },
+  {
+    "id": "burnt-house",
+    "wiki": "he:הבית השרוף",
+    "caption": "הבית השרוף ברובע היהודי.",
+    "alt": "חדר חפור עם כלי אבן וחרס"
+  },
+  {
+    "id": "burnt-house-katros",
+    "search": "Bar Kathros stone weight Burnt House",
+    "caption": "משקולת האבן עם הכתובת 'בר קתרס'.",
+    "alt": "משקולת אבן עגולה עם כתובת"
+  },
+  {
+    "id": "tombs-of-the-kings",
+    "search": "Tombs of the Kings Jerusalem courtyard",
+    "caption": "החצר החצובה בקברות המלכים.",
+    "alt": "חזית חצובה בסלע ומדרגות"
+  },
+  {
+    "id": "third-wall",
+    "file": "Third Wall P8170056.JPG",
+    "caption": "החומה השלישית כפי שהיא משוחזרת בדגם ירושלים בימי בית שני (מוזיאון ישראל).",
+    "alt": "מגדל וחומה בדגם של העיר העתיקה"
+  },
+  {
+    "id": "ecce-homo",
+    "file": "EcceHomo.jpg",
+    "caption": "קשת אקה הומו מעל הוויה דולורוזה.",
+    "alt": "קשת אבן מעל רחוב צר בעיר העתיקה"
+  },
+  {
+    "id": "binyanei-hauma-stamp",
+    "search": "Legio X Fretensis roof tile stamp",
+    "caption": "רעף עם חותמת הלגיון העשירי פרטנסיס.",
+    "alt": "רעף חרס עם אותיות לטיניות מוטבעות"
+  },
+  {
+    "id": "holy-sepulchre-rotunda",
+    "search": "Aedicule rotunda Church of the Holy Sepulchre",
+    "caption": "האדיקולה בתוך הרוטונדה בכנסיית הקבר.",
+    "alt": "מבנה קטן מעוטר תחת כיפה גדולה"
+  },
+  {
+    "id": "eleona",
+    "search": "Church of the Pater Noster Jerusalem",
+    "caption": "הר הזיתים ממבט אוויר; כנסיית אלאונה עמדה על פסגתו, במקום כנסיית פטר נוסטר של היום.",
+    "alt": "מבט אוויר על רכס הר הזיתים ובית הקברות שעל מדרונו"
+  },
+  {
+    "id": "nea",
+    "file": "The Nea Church IMG 0047.JPG",
+    "caption": "שרידי כנסיית הניאה ליד החומה הדרומית של העיר העתיקה.",
+    "alt": "קירות וקמרון אבן עתיקים"
+  },
+  {
+    "id": "nea-inscription",
+    "search": "Nea church inscription Justinian Jerusalem",
+    "caption": "כתובת ההקדשה של יוסטיניאנוס מבור המים שמתחת לניאה.",
+    "alt": "לוח כתובת יוונית"
+  },
+  {
+    "id": "cardo",
+    "file": "Cardo jerusalem2.jpg",
+    "caption": "הקרדו ברובע היהודי — הקטע הביזנטי, עם העמודים המשוחזרים.",
+    "alt": "רחוב עמודים מרוצף"
+  },
+  {
+    "id": "cardo-madaba-copy",
+    "search": "Madaba map replica Cardo Jerusalem",
+    "caption": "העתק מפת מידבא בקרדו.",
+    "alt": "פסיפס מפה על קיר"
+  },
+  {
+    "id": "st-stephen",
+    "search": "Saint Stephen Basilica Jerusalem Ecole Biblique",
+    "caption": "בסיליקת סנט אטיין מצפון לשער שכם.",
+    "alt": "חזית כנסייה ופעמון"
+  },
+  {
+    "id": "mount-zion",
+    "file": "MtZion from Abu Tor.jpg",
+    "caption": "הר ציון ממבט מאבו טור.",
+    "alt": "גבעה עם מבנים וכיפה מעל עמק"
+  },
+  {
+    "id": "gethsemane",
+    "file": "Church of all Nations.jpg",
+    "caption": "כנסיית כל העמים בגת שמנים.",
+    "alt": "חזית כנסייה עם פסיפס זהב ועמודים"
+  },
+  {
+    "id": "ramat-rachel",
+    "wiki": "he:רמת רחל",
+    "caption": "רמת רחל ממבט אוויר: הגבעה מדרום לירושלים, והאתר הארכאולוגי בקצה הקיבוץ.",
+    "alt": "מבט אוויר על גבעה עם בתים ועצים"
+  },
+  {
+    "id": "ramat-rachel-yehud",
+    "search": "Yehud stamp impression jar handle",
+    "caption": "טביעת 'יהוד' על ידית קנקן.",
+    "alt": "ידית חרס עם חותם"
+  },
+  {
+    "id": "caesarea",
+    "wiki": "he:קיסריה",
+    "caption": "קיסריה העתיקה מן האוויר: הארמון, התיאטרון והנמל.",
+    "alt": "שרידי עיר עתיקה על חוף הים"
+  },
+  {
+    "id": "caesarea-pilate",
+    "search": "Pilate Stone Caesarea inscription",
+    "caption": "העתק של כתובת פילטוס מקיסריה — שמו של פונטיוס פילטוס בשורה השנייה.",
+    "alt": "אבן עם כתובת לטינית בשלוש שורות"
+  },
+  {
+    "id": "antipatris",
+    "file": "Afek IMG 8217.JPG",
+    "caption": "תל אפק — אנטיפטריס; על התל עומדת היום מצודה עות׳מאנית.",
+    "alt": "מצודת אבן עם מגדל על דשא"
+  },
+  {
+    "id": "sebastia",
+    "search": "Sebastia Roman theatre ruins",
+    "caption": "שרידים רומיים בסבסטיה.",
+    "alt": "שרידי תיאטרון אבן"
+  },
+  {
+    "id": "gerizim-church",
+    "search": "Mount Gerizim Theotokos church octagonal",
+    "caption": "יסודות הכנסייה המתומנת של זנון.",
+    "alt": "יסודות מבנה מתומן"
+  },
+  {
+    "id": "legio",
+    "search": "Megiddo church mosaic Kefar Othnay",
+    "caption": "פסיפס אולם התפילה בכפר עותנאי.",
+    "alt": "פסיפס רצפה עם דגים וכתובת"
+  },
+  {
+    "id": "beit-shearim",
+    "search": "Beit Shearim catacombs entrance",
+    "caption": "הכניסה לאחת הקטקומבות בבית שערים.",
+    "alt": "חזית קשתות חצובה בסלע"
+  },
+  {
+    "id": "usha",
+    "file": "Ancient Usha-3.jpg",
+    "caption": "שרידי אושא העתיקה.",
+    "alt": "שרידים עתיקים בשטח"
+  },
+  {
+    "id": "sepphoris",
+    "search": "Zippori National Park Roman theatre",
+    "caption": "התיאטרון הרומי בציפורי, ומעליו המצודה שעל פסגת הגבעה.",
+    "alt": "מושבי תיאטרון אבן ומבנה מעליהם"
+  },
+  {
+    "id": "sepphoris-mona-lisa",
+    "search": "Mona Lisa of the Galilee mosaic Sepphoris",
+    "caption": "'המונה ליזה של הגליל' — פסיפס בית דיוניסוס.",
+    "alt": "פסיפס של פני אישה"
+  },
+  {
+    "id": "sepphoris-zodiac",
+    "search": "Sepphoris synagogue mosaic zodiac",
+    "caption": "פסיפס בית הכנסת בציפורי.",
+    "alt": "פסיפס עם גלגל מזלות"
+  },
+  {
+    "id": "yodfat",
+    "search": "Yodfat ancient site Jotapata",
+    "caption": "אתר יודפת העתיקה.",
+    "alt": "גבעה עם שרידים"
+  },
+  {
+    "id": "akko",
+    "search": "Acre old city port Akko",
+    "caption": "העיר העתיקה והנמל של עכו.",
+    "alt": "חומות ונמל על הים"
+  },
+  {
+    "id": "tiberias",
+    "search": "Tiberias ancient Roman city excavations",
+    "caption": "שרידי טבריה העתיקה.",
+    "alt": "שרידי עיר עתיקה ליד הכנרת"
+  },
+  {
+    "id": "hamat-tiberias-zodiac",
+    "file": "Hamat Tiberias zodiac mosaic.jpg",
+    "caption": "גלגל המזלות בחמת טבריה, ובמרכזו הליוס.",
+    "alt": "פסיפס עגול עם מזלות ודמות במרכז"
+  },
+  {
+    "id": "magdala",
+    "file": "MAGDALA AERIAL.JPG",
+    "caption": "מגדלא ממבט אוויר.",
+    "alt": "שרידים ליד חוף אגם"
+  },
+  {
+    "id": "tabgha",
+    "file": "Church of the Multiplication in Tabgha by David Shankbone.jpg",
+    "caption": "כנסיית הלחם והדגים בטבחה.",
+    "alt": "פנים כנסייה עם מזבח"
+  },
+  {
+    "id": "tabgha-mosaic",
+    "search": "Tabgha mosaic loaves and fishes",
+    "caption": "פסיפס סל הלחם ושני הדגים, לפני המזבח.",
+    "alt": "פסיפס של סל לחם בין שני דגים"
+  },
+  {
+    "id": "capernaum-white-synagogue",
+    "file": "Kafarnaum BW 7.JPG",
+    "caption": "בית הכנסת הלבן בכפר נחום.",
+    "alt": "שרידי בית כנסת מאבן לבנה"
+  },
+  {
+    "id": "hippos",
+    "search": "Hippos Sussita excavations",
+    "caption": "האתר של סוסיתא מעל הכנרת.",
+    "alt": "שרידים על רכס ומאחור אגם"
+  },
+  {
+    "id": "gamla",
+    "file": "Golan Heights - Gamla view.jpg",
+    "caption": "רכס גמלא בגולן.",
+    "alt": "רכס תלול בין נחלים"
+  },
+  {
+    "id": "banias",
+    "search": "Banias spring Hermon stream",
+    "caption": "נחל חרמון (הבניאס) למרגלות מערת פאן.",
+    "alt": "מים זורמים בין עצים ומצוק"
+  },
+  {
+    "id": "banias-pan",
+    "search": "Banias Pan grotto niches",
+    "caption": "מערת פאן והגומחות החצובות בבניאס.",
+    "alt": "מערה וגומחות חצובות בצוק"
+  },
+  {
+    "id": "baram",
+    "file": "Ruins of the Ancient Synagogue at Bar'am.jpg",
+    "caption": "חזית בית הכנסת בברעם.",
+    "alt": "חזית אבן עם פתחים ועמודים"
+  },
+  {
+    "id": "beit-alfa-akedah",
+    "search": "Beth Alpha synagogue mosaic Binding of Isaac",
+    "caption": "עקדת יצחק בפסיפס בית אלפא.",
+    "alt": "פסיפס עממי של אברהם, יצחק ואיל"
+  },
+  {
+    "id": "beit-alfa-zodiac",
+    "file": "Bet Alfa Synagogue Floor.jpg",
+    "caption": "רצפת בית הכנסת בבית אלפא — גלגל המזלות במרכז, ומעליו לוח ארון הקודש.",
+    "alt": "רצפת פסיפס עם גלגל מזלות"
+  },
+  {
+    "id": "beit-alfa-ark",
+    "search": "Beth Alpha synagogue mosaic Torah ark menorah",
+    "caption": "לוח ארון הקודש בין המנורות בבית אלפא.",
+    "alt": "פסיפס של ארון קודש ומנורות"
+  },
+  {
+    "id": "beit-shean-palladius",
+    "search": "Palladius Street Beit Shean",
+    "caption": "רחוב פלדיוס בבית שאן.",
+    "alt": "רחוב עמודים עתיק"
+  },
+  {
+    "id": "rehov-inscription",
+    "file": "Ktovet recov AA.jpg",
+    "caption": "כתובת 'ברייתא דתחומין' מבית הכנסת ברחוב.",
+    "alt": "פסיפס של כתובת עברית ארוכה"
+  },
+  {
+    "id": "tel-shalem-hadrian-statue",
+    "search": "Hadrian bronze statue Tel Shalem Israel Museum",
+    "caption": "פסל הברונזה של אדריאנוס מתל שלם.",
+    "alt": "פסל ברונזה של ראש וחזה"
+  },
+  {
+    "id": "hamat-gader",
+    "search": "Hamat Gader Roman baths ruins",
+    "caption": "המרחצאות הרומיים בחמת גדר.",
+    "alt": "בריכות אבן וקשתות"
+  },
+  {
+    "id": "modiin",
+    "file": "MaccabeanTombs 056 (1).jpg",
+    "caption": "'קברי המכבים' — המסורת המאוחרת על קברי המשפחה.",
+    "alt": "קברים חצובים בסלע"
+  },
+  {
+    "id": "emmaus",
+    "file": "Emmaus Nicopolis basilica.JPG",
+    "caption": "שרידי הבסיליקה באמאוס־ניקופוליס.",
+    "alt": "שרידי כנסייה"
+  },
+  {
+    "id": "yavne",
+    "search": "Tel Yavne",
+    "caption": "תל יבנה.",
+    "alt": "תל עם מבנה עתיק"
+  },
+  {
+    "id": "lod-mosaic",
+    "search": "Lod Mosaic",
+    "caption": "פסיפס לוד.",
+    "alt": "פסיפס עם חיות"
+  },
+  {
+    "id": "maresha",
+    "search": "Maresha columbarium cave",
+    "caption": "קולומבריום חצוב במרשה.",
+    "alt": "מערה עם גומחות קטנות בקירות"
+  },
+  {
+    "id": "lachish",
+    "search": "Tel Lachish Persian residency",
+    "caption": "תל לכיש בצילום מימי החפירות הראשונות (שנות ה־30), אחרי פירוק הבניין הפרסי.",
+    "alt": "תל עם שרידי קירות בשחור־לבן"
+  },
+  {
+    "id": "betar",
+    "search": "Khirbet al-Yahud Betar Battir",
+    "caption": "חורבת ביתר מעל בתיר.",
+    "alt": "רכס עם טרסות"
+  },
+  {
+    "id": "nativity-mosaics",
+    "search": "Church of the Nativity Constantinian mosaic floor",
+    "caption": "פסיפס הכנסייה הקונסטנטינית מתחת לרצפה בכנסיית המולד.",
+    "alt": "פסיפס גאומטרי מתחת לפתח ברצפה"
+  },
+  {
+    "id": "nativity-grotto",
+    "search": "Grotto of the Nativity star Bethlehem",
+    "caption": "מערת הלידה בכנסיית המולד — המזבח והגומחה שמעל מקום הלידה לפי המסורת.",
+    "alt": "גומחה מוארת עם מזבח ובדים אדומים"
+  },
+  {
+    "id": "herodium",
+    "file": "Herodium from above 2.jpg",
+    "caption": "הרודיון ממבט אוויר.",
+    "alt": "הר חרוטי עם ארמון עגול בפסגתו"
+  },
+  {
+    "id": "herodium-tomb",
+    "search": "Herodium Herod's tomb mausoleum",
+    "caption": "שחזור מבנה הקבר של הורדוס, במקומו במדרון הרודיון.",
+    "alt": "מגדל לבן משוחזר עם גג עגול על מדרון"
+  },
+  {
+    "id": "herodium-palace",
+    "search": "Herodium upper palace fortress",
+    "caption": "הארמון העגול בפסגת הרודיון.",
+    "alt": "חומה עגולה ומבנים בפנים"
+  },
+  {
+    "id": "solomons-pools",
+    "wiki": "he:בריכות שלמה",
+    "caption": "בריכות שלמה.",
+    "alt": "בריכת מים גדולה מאבן"
+  },
+  {
+    "id": "solomons-pools-tunnel",
+    "search": "Armon Hanatziv aqueduct tunnel",
+    "caption": "מנהרת אמת המים בארמון הנציב.",
+    "alt": "מנהרה חצובה"
+  },
+  {
+    "id": "mamre",
+    "search": "Mamre Ramat el-Khalil enclosure",
+    "caption": "שרידי המתחם באלוני ממרא.",
+    "alt": "קירות אבן גדולים"
+  },
+  {
+    "id": "machpelah",
+    "file": "Hebron Cave of the Patriarchs.jpg",
+    "caption": "המתחם ההרודיאני של מערת המכפלה.",
+    "alt": "מבנה אבן גדול עם פילסטרים"
+  },
+  {
+    "id": "susya",
+    "search": "Susya synagogue",
+    "caption": "שרידי היישוב העתיק בסוסיא.",
+    "alt": "שרידי קירות אבן בשטח הררי"
+  },
+  {
+    "id": "theodosius",
+    "search": "Monastery of Saint Theodosius Judean desert",
+    "caption": "מנזר תאודוסיוס.",
+    "alt": "מנזר במדבר"
+  },
+  {
+    "id": "mar-saba",
+    "file": "Mar Saba IMG 1849.JPG",
+    "caption": "מנזר מר סבא על מצוקי נחל קדרון.",
+    "alt": "מנזר על צוק"
+  },
+  {
+    "id": "martyrius",
+    "file": "PikiWiki Israel 28406 Monastery of Martyrius.JPG",
+    "caption": "מנזר מרטיריוס במעלה אדומים.",
+    "alt": "שרידי מנזר"
+  },
+  {
+    "id": "euthymius",
+    "search": "Monastery of Euthymius Mishor Adumim",
+    "caption": "מנזר אבתימיוס.",
+    "alt": "שרידי מנזר"
+  },
+  {
+    "id": "chariton",
+    "search": "Chariton Pharan lavra Ein Prat monastery",
+    "caption": "מנזר חריטון בנחל פרת.",
+    "alt": "מבנה על צלע נחל"
+  },
+  {
+    "id": "koziba",
+    "search": "St George Monastery Wadi Qelt",
+    "caption": "מנזר סנט ג׳ורג׳ בואדי קלט.",
+    "alt": "מנזר תלוי על צוק"
+  },
+  {
+    "id": "jericho-palaces-reticulatum",
+    "search": "opus reticulatum Herod Jericho palace",
+    "caption": "קיר באופוס רטיקולטום בארמון הורדוס ביריחו.",
+    "alt": "קיר עם אבנים ברשת אלכסונית"
+  },
+  {
+    "id": "gerasimos",
+    "search": "Deir Hajla monastery Saint Gerasimos",
+    "caption": "מנזר גרסימוס בדיר חג׳לה.",
+    "alt": "מנזר בבקעה"
+  },
+  {
+    "id": "alexandrium",
+    "file": "Sartaba3.jpg",
+    "caption": "שרידי ביצורים על פסגת סרטבה.",
+    "alt": "קיר אבנים בנוי על פסגה"
+  },
+  {
+    "id": "qumran",
+    "wiki": "he:קומראן",
+    "caption": "קומראן ומערות המגילות.",
+    "alt": "שרידים ומצוקים"
+  },
+  {
+    "id": "qumran-cave-4",
+    "search": "Qumran Cave 4",
+    "caption": "מערה 4 בקומראן.",
+    "alt": "מערות במצוק"
+  },
+  {
+    "id": "hyrcania",
+    "file": "HurkaniaTop.JPG",
+    "caption": "פסגת הורקניה.",
+    "alt": "שרידים על פסגת גבעה"
+  },
+  {
+    "id": "nahal-hever",
+    "file": "Cave of Letters (1).jpg",
+    "caption": "מערת האגרות בנחל חבר.",
+    "alt": "פתח מערה בצוק"
+  },
+  {
+    "id": "nahal-hever-letter",
+    "search": "Bar Kokhba letter papyrus",
+    "caption": "אגרת בר כוסבה.",
+    "alt": "פפירוס עם כתב עברי"
+  },
+  {
+    "id": "masada",
+    "file": "Israel-2013-Aerial 21-Masada.jpg",
+    "caption": "מצדה ממבט אוויר.",
+    "alt": "מצוק שטוח מעל ים המלח"
+  },
+  {
+    "id": "masada-northern-palace",
+    "search": "Masada northern palace terraces",
+    "caption": "הארמון הצפוני של מצדה — המדרגות שנבנו על חוד המצוק.",
+    "alt": "מבנים על מדרגות בחוד מצוק מעל המדבר"
+  },
+  {
+    "id": "mamshit",
+    "file": "Mamshit.jpg",
+    "caption": "ממשית.",
+    "alt": "שרידי עיר במדבר"
+  },
+  {
+    "id": "haluza",
+    "file": "Khalasa.jpg",
+    "caption": "חלוצה.",
+    "alt": "שרידים בחולות"
+  },
+  {
+    "id": "shivta",
+    "file": "Ruins of a church in Shivta in the Negev.jpg",
+    "caption": "שרידי כנסייה בשבטה.",
+    "alt": "אפסיס כנסייה במדבר"
+  },
+  {
+    "id": "nitzana",
+    "search": "Nitzana Nessana ancient ruins",
+    "caption": "שרידי ניצנה העתיקה.",
+    "alt": "שרידים על גבעה במדבר"
+  },
+  {
+    "id": "avdat",
+    "file": "Aerial photograph of Avdat, Israel, Sept. 2007.jpg",
+    "caption": "עבדת ממבט אוויר.",
+    "alt": "עיר עתיקה על רכס במדבר"
+  },
+  {
+    "id": "yotvata",
+    "search": "Yotvata Roman fort",
+    "caption": "שרידי המצודה הרומית ביטבתה.",
+    "alt": "שרידי מבנה אבן במדבר"
+  },
+  {
+    "id": "aila",
+    "search": "Aqaba Aila ruins",
+    "caption": "שרידים עתיקים בעקבה, באזור העיר אילה.",
+    "alt": "שרידי קירות בין עצי דקל"
+  },
+  {
+    "id": "machaerus",
+    "file": "Machaerus Panorama.jpg",
+    "caption": "מכוור מעל ים המלח.",
+    "alt": "גבעה עם שרידים ונוף ים המלח"
+  },
+  {
+    "id": "madaba",
+    "file": "The Madaba Mosaic Map.jpg",
+    "caption": "שרטוט של מפת מידבא מתחילת המאה ה־20 — המפה כולה, וירושלים במרכזה.",
+    "alt": "שרטוט צבעוני של מפת פסיפס"
+  },
+  {
+    "id": "madaba-jerusalem",
+    "search": "Madaba map Jerusalem detail mosaic",
+    "caption": "ירושלים במפת מידבא.",
+    "alt": "פסיפס של עיר מוקפת חומה"
+  },
+  {
+    "id": "santa-katarina",
+    "file": "Katharinenkloster Sinai BW 2.jpg",
+    "caption": "מנזר סנטה קתרינה למרגלות הר משה.",
+    "alt": "מנזר מבוצר בעמק הררי"
+  }
+]
