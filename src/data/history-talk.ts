@@ -30,4 +30,5 @@ export const TALK_CHARACTERS: TalkCharacter[] = [
   { id: "helena", name: "הלנה", years: "כ־248–329", tagline: "אם הקיסר, עולת רגל לארץ הקודש" },
   { id: "jerome", name: "הירונימוס", years: "כ־347–420", tagline: "מתרגם הוולגטה, נזיר בבית לחם" },
   { id: "justinian", name: "יוסטיניאנוס", years: "482–565", tagline: "קיסר ביזנטי, בונה ומחוקק" },
+  { id: "guide", name: "עמרם, מורה הדרך הוותיק", years: "מדריך מאז 1968", tagline: "בוחן, עונה ומספר — על כל חומר הקורס" },
 ];

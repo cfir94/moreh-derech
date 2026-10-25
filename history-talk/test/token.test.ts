@@ -28,6 +28,16 @@ const josephus: ServerCharacter = {
   knowledgeSheet: "ציר זמן: 67 — יודפת.",
 };
 
+const guide: ServerCharacter = {
+  id: "guide",
+  nameHe: "עמרם",
+  voiceName: "Algenib",
+  openingLineHe: "שלום.",
+  prompt: "אתה עמרם, מורה דרך ותיק.",
+  knowledgeSheet: "",
+  kind: "guide",
+};
+
 let kv: MemoryKV;
 let env: Env;
 let created: { apiKey: string; apiVersion: string; params: CreateTokenParams }[];
@@ -36,7 +46,7 @@ let limiterOk: boolean;
 let now: number;
 
 const deps = (): Deps => ({
-  characters: { josephus },
+  characters: { josephus, guide },
   createToken: async (apiKey, apiVersion, params) => {
     created.push({ apiKey, apiVersion, params });
     return { name: `auth_tokens/t${created.length}` };
@@ -227,4 +237,24 @@ test("חידוש נדחה לדמות אחרת, לשיחה לא קיימת, וא�
 test("דמות לא קיימת", async () => {
   const res = await handleToken(req({ characterId: "__proto__", turnstileToken: "tt" }), env, deps());
   assert.equal(res.status, 404);
+});
+
+test("מורה הדרך: כללי המורה וכלי הבוחן; לדמות היסטורית — רק החיפוש", async () => {
+  await handleToken(req({ characterId: "guide", turnstileToken: "tt" }), env, deps());
+  const live = created[0].params.config.liveConnectConstraints.config;
+  assert.ok(live.systemInstruction.startsWith("כללי מערכת (מורה הדרך)"));
+  assert.ok(live.systemInstruction.includes("quiz_questions"));
+  assert.ok(!live.systemInstruction.includes("אינך יודע דבר על מה שקרה אחרי מותך"));
+  assert.deepEqual(
+    live.tools[0].functionDeclarations.map((f) => f.name),
+    ["search_sources", "quiz_questions"],
+  );
+
+  await start();
+  const historical = created[1].params.config.liveConnectConstraints.config;
+  assert.deepEqual(
+    historical.tools[0].functionDeclarations.map((f) => f.name),
+    ["search_sources"],
+  );
+  assert.ok(!historical.systemInstruction.includes("quiz_questions"));
 });

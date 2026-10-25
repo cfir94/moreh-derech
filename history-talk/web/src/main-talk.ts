@@ -6,6 +6,7 @@ import { Mic } from "./audio/mic.ts";
 import { Player } from "./audio/player.ts";
 import { applyTheme, bidiYears, embed, loadCharacters, params, readSettings, saveSettings, withParams } from "./characters.ts";
 import { ApiError, LiveClient, type LiveEvent } from "./live-client.ts";
+import { QuizBank, type QuizShown } from "./quiz.ts";
 import { SourceSearch, type Passage } from "./search.ts";
 import { Turnstile } from "./turnstile.ts";
 
@@ -40,6 +41,8 @@ const ui = {
   transcript: $<HTMLOListElement>("transcript"),
   sources: $<HTMLUListElement>("sources"),
   allSources: $<HTMLUListElement>("all-sources"),
+  quizPanel: $("quiz-panel"),
+  quizCards: $<HTMLOListElement>("quiz-cards"),
 };
 
 const STATUS_TEXT = {
@@ -119,6 +122,37 @@ function addSources(passages: Passage[]) {
     a.textContent = p.ref;
     li.append(a);
     ui.sources.prepend(li);
+  }
+}
+
+// שאלות הבוחן של מורה הדרך: מקופלות, כדי שלא יקדימו את מה שהוא שואל בקול; התשובה לא מגיעה לכאן בכלל.
+function addQuizCards(questions: QuizShown[]) {
+  ui.quizPanel.hidden = false;
+  for (const q of questions) {
+    const li = document.createElement("li");
+    const details = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = q.ref;
+    const text = document.createElement("p");
+    text.textContent = q.question;
+    details.append(summary, text);
+    if (q.options) {
+      const ol = document.createElement("ol");
+      for (const o of q.options) {
+        const opt = document.createElement("li");
+        opt.textContent = o;
+        ol.append(opt);
+      }
+      details.append(ol);
+    }
+    const a = document.createElement("a");
+    a.href = q.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "לשאלון באתר";
+    details.append(a);
+    li.append(details);
+    ui.quizCards.append(li);
   }
 }
 
@@ -224,6 +258,7 @@ async function main() {
   ui.toggleTranscript.addEventListener("click", () => setTranscriptVisible(ui.transcript.hidden));
 
   const search = new SourceSearch(`/data/${c.id}/index.json`);
+  const bank = c.quiz ? new QuizBank(`/data/${c.id}/questions.json`) : undefined;
 
   for (const q of c.sampleQuestionsHe) {
     const b = document.createElement("button");
@@ -275,6 +310,9 @@ async function main() {
       case "sources":
         addSources(e.passages);
         break;
+      case "quiz":
+        addQuizCards(e.questions);
+        break;
       case "error":
         showError(e.message);
         break;
@@ -295,6 +333,8 @@ async function main() {
     }
     ui.start.disabled = true;
     ui.transcript.replaceChildren();
+    ui.quizCards.replaceChildren();
+    ui.quizPanel.hidden = true;
     currentLine = undefined;
 
     // בתוך הלחיצה: יוצרים את ההשמעה ומבקשים מיקרופון (מדיניות הדפדפנים).
@@ -335,8 +375,15 @@ async function main() {
     }
 
     void search.load().catch(() => {}); // טוען את המאגר ברקע, לפני השאלה הראשונה
+    void bank?.load().catch(() => {});
 
-    client = new LiveClient({ characterId: c!.id, apiBase: "", search: (q) => search.search(q), onEvent });
+    client = new LiveClient({
+      characterId: c!.id,
+      apiBase: "",
+      search: (q) => search.search(q),
+      quiz: bank && ((args) => bank.pick(args)),
+      onEvent,
+    });
     try {
       setStatus("connecting");
       const token = await turnstile.take();

@@ -1,7 +1,8 @@
-// החיבור ל-Gemini Live: אסימון מהשרת, חיבור, שליחה וקבלה, הכלי search_sources,
+// החיבור ל-Gemini Live: אסימון מהשרת, חיבור, שליחה וקבלה, הכלים search_sources ו-quiz_questions,
 // תמלול, וחיבור מחדש עם sessionResumption כשמגיע goAway או כשהחיבור נקטע.
 
 import { GoogleGenAI, Modality, type LiveServerMessage, type Session } from "@google/genai";
+import type { QuizArgs, QuizItem, QuizShown } from "./quiz.ts";
 import type { Passage } from "./search.ts";
 
 export interface TokenInfo {
@@ -30,12 +31,15 @@ export type LiveEvent =
   | { type: "turnComplete" }
   | { type: "transcript"; who: "user" | "model"; text: string }
   | { type: "sources"; passages: Passage[] }
+  | { type: "quiz"; questions: QuizShown[] }
   | { type: "error"; code: string; message: string };
 
 export interface LiveClientOptions {
   characterId: string;
   apiBase: string;
   search: (query: string) => Promise<Passage[]>;
+  /** מאגר השאלות — רק למורה הדרך. */
+  quiz?: (args: QuizArgs) => Promise<{ items: QuizItem[]; shown: QuizShown[] }>;
   onEvent: (e: LiveEvent) => void;
 }
 
@@ -155,6 +159,7 @@ export class LiveClient {
   private async onToolCall(calls: { id?: string; name?: string; args?: Record<string, unknown> }[]) {
     const functionResponses = await Promise.all(
       calls.map(async (fc) => {
+        if (fc.name === "quiz_questions" && this.opts.quiz) return { id: fc.id, name: fc.name, response: await this.quiz(fc.args ?? {}) };
         if (fc.name !== "search_sources") {
           return { id: fc.id, name: fc.name, response: { error: "unknown tool" } };
         }
@@ -184,6 +189,22 @@ export class LiveClient {
     }
     if (e.code !== 1000) void this.resume();
     else this.finish();
+  }
+
+  private async quiz(args: Record<string, unknown>): Promise<Record<string, unknown>> {
+    try {
+      const { items, shown } = await this.opts.quiz!({
+        topic: String(args.topic ?? ""),
+        count: Number(args.count) || undefined,
+        format: args.format === "mc" || args.format === "open" ? args.format : "any",
+      });
+      if (shown.length) this.opts.onEvent({ type: "quiz", questions: shown });
+      return items.length
+        ? { questions: items, note: "התשובה וההסבר בשבילך בלבד. שאל שאלה אחת בכל פעם, וחכה לתשובת התלמיד." }
+        : { questions: [], note: "אין עוד שאלות על הנושא הזה. נסה נושא קרוב, או נסח שאלה משלך מתוך search_sources ואמור שהיא שלך." };
+    } catch {
+      return { error: "מאגר השאלות לא נטען. אפשר לנסח שאלות משלך מתוך search_sources, ולומר שהן שלך." };
+    }
   }
 
   /** חידוש השיחה עם אסימון חדש וה-handle האחרון. */

@@ -1,0 +1,236 @@
+{
+  "id": "guide",
+  "kind": "guide",
+  "nameHe": "עמרם, מורה הדרך הוותיק",
+  "years": "מדריך מאז 1968",
+  "eraHe": "היום — חונך למבחן",
+  "sortYear": 2026,
+  "taglineHe": "בוחן, עונה ומספר — על כל חומר הקורס",
+  "voiceName": "Algenib",
+  "accentColor": "#7A8B3E",
+  "openingLineHe": "שלום, שלום, בוא שב. אני עמרם — יותר מחמישים שנה אני מוביל קבוצות בארץ הזאת, ועכשיו אני כאן בשבילך, לקראת המבחן. רוצה שאבחן אותך על משהו, או שיש לך שאלה?",
+  "sampleQuestionsHe": [
+    "תבחן אותי על הקיסרים של רומא וביזנטיון",
+    "מה ההבדל בין אספסיאנוס לטיטוס?",
+    "ספר לי על קיסריה כאילו אנחנו בסיור",
+    "תשאל אותי שאלות פתוחות על בית שני"
+  ],
+  "sources": [
+    {
+      "title": "ציר התקופה הרומית",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/roman/",
+      "license": "חומר הלימוד של האתר",
+      "file": "roman.html",
+      "refTitle": ""
+    },
+    {
+      "title": "ציר התקופה הביזנטית",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/byzantine/",
+      "license": "חומר הלימוד של האתר",
+      "file": "byzantine.html",
+      "refTitle": ""
+    },
+    {
+      "title": "ציר בית שני",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/second-temple/",
+      "license": "חומר הלימוד של האתר",
+      "file": "second-temple.html",
+      "refTitle": ""
+    },
+    {
+      "title": "אישי רומא ויהודה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/roman-people/",
+      "license": "חומר הלימוד של האתר",
+      "file": "roman-people.html",
+      "refTitle": ""
+    },
+    {
+      "title": "מפת הלמידה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/map/learn/",
+      "license": "חומר הלימוד של האתר",
+      "file": "learning-map.html",
+      "refTitle": ""
+    },
+    {
+      "title": "מושגי יסוד באדריכלות קלאסית",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/classical-architecture/",
+      "license": "חומר הלימוד של האתר",
+      "file": "architecture.html",
+      "refTitle": ""
+    },
+    {
+      "title": "טבלת התקופות",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/periods",
+      "license": "חומר הלימוד של האתר",
+      "file": "periods.html",
+      "refTitle": ""
+    },
+    {
+      "title": "מי אני — רמזים לדמויות",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/games/who-am-i",
+      "license": "חומר הלימוד של האתר",
+      "file": "who-am-i.html",
+      "refTitle": ""
+    },
+    {
+      "title": "דפי הידע של דמויות ״דבר עם ההיסטוריה״",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/history-talk",
+      "license": "חומר הלימוד של האתר",
+      "file": "characters.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: מבחני רישוי — שנים קודמות",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/past-exams",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-past-exams.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: מאגר מבחני הרישוי לפי נושא",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/exam-bank",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-exam-bank.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: מאגר שאלות הקורס",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/course-bank",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-course-bank.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: החי והצומח של ארץ ישראל",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/flora-fauna",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-flora-fauna.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: גיאולוגיה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/geology",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-geology.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: פרהיסטוריה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/prehistory",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-prehistory.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: מבוא לארכיאולוגיה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/archaeology-intro",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-archaeology-intro.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: תקופת הברונזה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/bronze-age",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-bronze-age.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: תקופת הברזל",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/iron-age",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-iron-age.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: תקופת בית שני",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/second-temple",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-second-temple.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: התקופה הרומית המאוחרת והביזנטית",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/roman-byzantine",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-roman-byzantine.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: מושגי יסוד באדריכלות קלאסית",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/classical-architecture",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-classical-architecture.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: התקופה המוסלמית הקדומה",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/early-islam",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-early-islam.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: ימי הביניים — צלבנים, איובים וממלוכים",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/medieval",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-medieval.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: התקופה העות׳מאנית",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/ottoman",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-ottoman.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: נצרות",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/christianity",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-christianity.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: יהדות",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/judaism",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-judaism.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: גבולות ארץ ישראל",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/israel-borders",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-israel-borders.html",
+      "refTitle": ""
+    }
+  ]
+}

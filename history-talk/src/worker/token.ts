@@ -2,13 +2,13 @@
 // בלי lockAdditionalFields, כל שדות ה-LiveConnectConfig נעולים (ראו docs/api-notes.md):
 // ההוראות, הקול, הכלים, התמלול, הדחיסה וה-handle של החידוש נקבעים כאן בלבד.
 
-import { buildSystemInstruction, SEARCH_TOOL, type ServerCharacter } from "./prompt.ts";
+import { buildSystemInstruction, QUIZ_TOOL, SEARCH_TOOL, type ServerCharacter } from "./prompt.ts";
 
 export interface LiveConfig {
   responseModalities: string[];
   systemInstruction: string;
   speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: string } } };
-  tools: { functionDeclarations: (typeof SEARCH_TOOL)[] }[];
+  tools: { functionDeclarations: (typeof SEARCH_TOOL | typeof QUIZ_TOOL)[] }[];
   inputAudioTranscription: Record<string, never>;
   outputAudioTranscription: Record<string, never>;
   contextWindowCompression: { slidingWindow: Record<string, never> };
@@ -20,7 +20,8 @@ export function buildLiveConfig(character: ServerCharacter, resumeHandle?: strin
     responseModalities: ["AUDIO"],
     systemInstruction: buildSystemInstruction(character),
     speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: character.voiceName } } },
-    tools: [{ functionDeclarations: [SEARCH_TOOL] }],
+    // מורה הדרך גם בוחן; לדמויות ההיסטוריות רק החיפוש במקורות.
+    tools: [{ functionDeclarations: character.kind === "guide" ? [SEARCH_TOOL, QUIZ_TOOL] : [SEARCH_TOOL] }],
     inputAudioTranscription: {},
     outputAudioTranscription: {},
     contextWindowCompression: { slidingWindow: {} },

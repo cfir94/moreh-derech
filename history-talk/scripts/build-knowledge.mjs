@@ -7,7 +7,8 @@
 //      ושומר ב-web/public/data/<id>/index.json.
 //   4. כותב את רשימת הדמויות הציבורית (web/public/data/characters.json) ואת
 //      הנתונים שהשרת צריך כדי להרכיב הוראות (src/worker/characters.generated.ts).
-//   5. מעתיק את המדיה המוכנה ל-web/public/media/<id>/.
+//   5. מעתיק את המדיה המוכנה ל-web/public/media/<id>/, ומאגר שאלות (questions.json, של מורה הדרך)
+//      ל-web/public/data/<id>/.
 //   6. בודק שדף הידע לא חורג מכ-15 אלף טוקנים.
 
 import { existsSync } from "node:fs";
@@ -251,6 +252,10 @@ async function buildCharacter(id) {
     talkingWebm: has("talking.webm") ? `/media/${id}/talking.webm` : null,
   };
 
+  // מאגר שאלות לבוחן (מורה הדרך; נוצר ב-tools/export_guide_knowledge.mjs של האתר).
+  const quiz = existsSync(join(dir, "questions.json"));
+  if (quiz) await copyFile(join(dir, "questions.json"), join(DATA_DIR, id, "questions.json"));
+
   console.log(
     `${id}: ${chunks.length} קטעים, אינדקס ${(indexJson.length / 1024 / 1024).toFixed(1)}MB, ` +
       `דף ידע ${sheetWords} מילים (~${sheetTokens} טוקנים), ${quotes.length} ציטוטים`,
@@ -263,8 +268,17 @@ async function buildCharacter(id) {
       ...publicFields,
       sources: sources.map(({ title, translator, url, license }) => ({ title, translator, url, license })),
       media,
+      ...(quiz ? { quiz: true } : {}),
     },
-    server: { id, nameHe: char.nameHe, voiceName, openingLineHe: char.openingLineHe, prompt, knowledgeSheet: sheet },
+    server: {
+      id,
+      nameHe: char.nameHe,
+      voiceName,
+      openingLineHe: char.openingLineHe,
+      prompt,
+      knowledgeSheet: sheet,
+      ...(char.kind ? { kind: char.kind } : {}),
+    },
   };
 }
 
