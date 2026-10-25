@@ -33,10 +33,13 @@
         <div class="prestart" id="prestart">
           <label class="check" id="consent-row">
             <input type="checkbox" id="consent" />
-            <span>אני מעל גיל 18 ומבין/ה שזו דמות מבוססת בינה מלאכותית ושהשמע נשלח לעיבוד אצל Google.</span>
+            <span>אני מעל גיל 18 ומבין/ה שזו דמות מבוססת בינה מלאכותית ושהשמע או הטקסט נשלחים לעיבוד אצל Google.</span>
           </label>
           <div id="turnstile" class="turnstile"></div>
-          <button type="button" class="btn primary big" id="start">התחל שיחה</button>
+          <div class="start-row">
+            <button type="button" class="btn primary big" id="start">🎙 שיחה קולית</button>
+            <button type="button" class="btn ghost big" id="start-chat">💬 צ'אט בכתב</button>
+          </div>
         </div>
 
         <div class="controls" id="controls" hidden>

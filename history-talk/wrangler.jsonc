@@ -21,7 +21,9 @@
 
   // עד 5 בקשות אסימון בדקה לכל IP (נספר בנפרד בכל מיקום של Cloudflare).
   "ratelimits": [
-    { "name": "TOKEN_LIMITER", "namespace_id": "4107", "simple": { "limit": 5, "period": 60 } }
+    { "name": "TOKEN_LIMITER", "namespace_id": "4107", "simple": { "limit": 5, "period": 60 } },
+    // צ'אט בכתב: עד 30 בקשות בדקה לכל IP (הודעה + סבבי כלים).
+    { "name": "CHAT_LIMITER", "namespace_id": "4108", "simple": { "limit": 30, "period": 60 } }
   ],
 
   // אין "limits.cpu_ms": התוכנית החינמית דוחה אותו (קוד 100328). להחזיר במעבר לתוכנית בתשלום.
@@ -30,6 +32,8 @@
 
   "vars": {
     "GEMINI_LIVE_MODEL": "gemini-3.8-live",
+    // הצ'אט בכתב (generateContent). הכינוי "latest" מצביע תמיד על Flash העדכני, שזמין בתוכנית החינמית.
+    "GEMINI_CHAT_MODEL": "gemini-flash-latest",
     // ראו docs/api-notes.md: התיעוד אומר v1beta, ה-SDK אומר v1alpha.
     "GEMINI_API_VERSION": "v1beta",
     // מקורות שמותר להם לבקש אסימון (בנוסף למקור של ה-Worker עצמו).

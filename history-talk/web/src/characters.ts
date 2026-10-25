@@ -67,6 +67,7 @@ export function applyTheme(): void {
   const theme = params.get("theme");
   if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
   if (embed) document.documentElement.classList.add("embed");
+  if (params.get("compact") === "1") document.documentElement.classList.add("compact");
 }
 
 export function withParams(path: string, extra: Record<string, string> = {}): string {

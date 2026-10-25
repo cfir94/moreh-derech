@@ -741,3 +741,133 @@ a {
 .turnstile:empty {
   display: none;
 }
+
+/* ---- שתי דרכי פתיחה: קול או צ'אט ---- */
+.start-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.chatting .transcript li.model {
+  white-space: pre-line;
+}
+
+/* ---- תצוגה מוקטנת (?compact=1): החלונית הצפה של האתר ---- */
+.compact body {
+  padding: 0 8px 8px;
+}
+
+.compact .topbar,
+.compact .disclaimer {
+  display: none;
+}
+
+.compact .talk {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.compact .stage {
+  padding: 12px 10px;
+  gap: 6px;
+}
+
+.compact .stage .avatar-wrap {
+  --size: min(180px, 50vw);
+}
+
+.compact.started .stage .avatar-wrap {
+  --size: min(120px, 34vw);
+}
+
+.compact .stage h1 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.compact .stage .meta,
+.compact .portrait-credit {
+  font-size: 0.8rem;
+}
+
+.compact .prestart .check {
+  font-size: 0.85rem;
+}
+
+.compact .btn.big {
+  padding: 10px 16px;
+  font-size: 1rem;
+}
+
+.compact .side {
+  padding: 10px;
+}
+
+.compact .transcript {
+  max-height: 46vh;
+}
+
+/* צ'אט בתצוגה המוקטנת: דיוקן קטן למעלה, ההודעות באמצע, שורת הכתיבה למטה. */
+.compact.chatting .talk {
+  display: flex;
+  flex-direction: column;
+}
+
+/* section.stage — גם הדיוקן עצמו נושא את המחלקה stage (Avatar size="stage"). */
+.compact.chatting section.stage {
+  display: contents;
+}
+
+.compact.chatting .stage .avatar-wrap {
+  --size: 64px;
+  border-radius: 50%;
+}
+
+.compact.chatting #avatar-slot,
+.compact.chatting .stage h1 {
+  order: 1;
+  align-self: center;
+  text-align: center;
+}
+
+.compact.chatting #char-meta,
+.compact.chatting #status,
+.compact.chatting .portrait-credit,
+.compact.chatting .side-head,
+.compact.chatting .side > h2,
+.compact.chatting .all-sources {
+  display: none;
+}
+
+.compact.chatting .side {
+  order: 2;
+}
+
+.compact.chatting .samples {
+  order: 3;
+}
+
+.compact.chatting #error {
+  order: 4;
+}
+
+.compact.chatting .type {
+  order: 5;
+}
+
+.compact.chatting .controls {
+  order: 6;
+  justify-content: center;
+}
+
+.compact.chatting .controls .btn {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+}
+
+.compact.chatting .transcript {
+  max-height: 250px;
+}

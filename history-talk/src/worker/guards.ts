@@ -4,9 +4,12 @@ export interface Env {
   ASSETS: Fetcher;
   SESSIONS: KVNamespace;
   TOKEN_LIMITER: RateLimit;
+  CHAT_LIMITER: RateLimit;
   GEMINI_API_KEY: string;
   TURNSTILE_SECRET: string;
   GEMINI_LIVE_MODEL: string;
+  /** מודל הצ'אט בכתב (/api/chat). */
+  GEMINI_CHAT_MODEL?: string;
   GEMINI_API_VERSION: string;
   ALLOWED_ORIGINS: string;
   FRAME_ANCESTORS: string;
@@ -33,6 +36,7 @@ export type ErrorCode =
   | "quota_ip"
   | "quota_global"
   | "resume_rejected"
+  | "chat_ended"
   | "gemini_unavailable";
 
 const MESSAGES: Record<ErrorCode, [number, string, string]> = {
@@ -52,6 +56,7 @@ const MESSAGES: Record<ErrorCode, [number, string, string]> = {
     "נגמרה המכסה היומית של האתר. אפשר לחזור מחר.",
     "The site's daily quota is used up. Come back tomorrow.",
   ],
+  chat_ended: [403, "השיחה הזו הסתיימה. אפשר להתחיל שיחה חדשה.", "This chat has ended. Start a new one."],
   resume_rejected: [403, "לא ניתן לחדש את השיחה. התחל שיחה חדשה.", "This session can no longer be resumed."],
   gemini_unavailable: [502, "Gemini לא זמין כרגע. נסה שוב בעוד כמה דקות.", "Gemini is unavailable right now."],
 };
