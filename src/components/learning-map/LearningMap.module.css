@@ -14,8 +14,8 @@
   --lm-frame: #6e5a3f;
   --lm-tip: color-mix(in srgb, var(--gold) 12%, transparent);
   display: grid;
-  /* the text is the point: a wide reading column and a narrow, fixed map strip */
-  grid-template-columns: minmax(0, 1fr) clamp(220px, 21vw, 340px);
+  /* the list takes three quarters, the map a quarter — the divider resizes both (Splitter.tsx) */
+  grid-template-columns: minmax(0, 1fr) var(--map-w, 25%);
   height: calc(100dvh - 61px);
   min-height: 520px;
 }
@@ -35,9 +35,24 @@
 }
 .page button, .page input { font: inherit; color: inherit; }
 .page button { cursor: pointer; }
+.page[data-resizing] { cursor: col-resize; user-select: none; }
+.page[data-resizing] .canvas, .page[data-resizing] .panel { pointer-events: none; }
+
+/* ------------------------------------------------------------------ divider */
+.splitter {
+  position: absolute; z-index: 25; top: 0; bottom: 0; inset-inline-start: -7px; width: 14px;
+  display: grid; place-items: center; cursor: col-resize; touch-action: none; outline: none;
+}
+.splitter::before { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.splitter span {
+  position: relative; width: 6px; height: 48px; border-radius: 99px; background: var(--card-2);
+  border: 1px solid var(--line); box-shadow: var(--shadow); transition: background 0.15s, height 0.15s;
+}
+.splitter:hover span, .splitter:focus-visible span, .page[data-resizing] .splitter span { background: var(--teal); border-color: var(--teal); height: 72px; }
+.splitter:hover::before, .page[data-resizing] .splitter::before { background: var(--teal); width: 2px; }
 
 /* ------------------------------------------------------------------ panel */
-.panel { display: flex; flex-direction: column; min-height: 0; border-inline-end: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 70%, transparent); }
+.panel { position: relative; display: flex; flex-direction: column; min-height: 0; border-inline-end: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 70%, transparent); }
 .panelHead { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
 .titleRow { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .titleRow h1 { font-size: 22px; color: var(--title-1); }
@@ -72,7 +87,8 @@
 .panelBody { flex: 1; min-height: 0; overflow-y: auto; padding: 10px 12px 28px; scrollbar-width: thin; }
 .panelHead > *, .panelBody > * { max-width: 920px; margin-inline: auto; }
 
-.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 4px 4px 10px; font-size: 11.5px; color: var(--txt-dim); }
+.listMeta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 14px; padding: 2px 4px 8px; font-size: 12px; font-weight: 700; color: var(--txt-dim); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; font-weight: 500; color: var(--txt-dim); }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
 .legend i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
 .legendRing i { background: transparent; border: 2px solid var(--txt-dim); width: 12px; height: 12px; }
@@ -91,36 +107,57 @@
   border-inline-start: 3px solid var(--c); transition: background 0.12s, transform 0.12s;
 }
 .row:hover { background: var(--card-2); }
+.row[aria-current="true"] { background: color-mix(in srgb, var(--c) 14%, var(--card)); border-color: color-mix(in srgb, var(--c) 45%, transparent); }
 .row:active { transform: scale(0.99); }
 .rowDate { font-size: 11px; font-weight: 700; color: var(--txt-dim); line-height: 1.35; }
 .rowMain { display: flex; flex-direction: column; min-width: 0; }
-.rowMain strong { font-size: 13.5px; line-height: 1.35; color: var(--txt); }
+.rowMain strong { font-size: 14.5px; line-height: 1.35; color: var(--txt); }
+.rowMain strong small { font-size: 11.5px; font-weight: 600; color: var(--txt-dim); margin-inline-start: 4px; }
 .rowMain span { font-size: 12px; color: var(--txt-dim); }
 .rowSide { display: flex; align-items: center; gap: 5px; }
 .builderTag { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: var(--card-2); color: var(--txt-dim); white-space: nowrap; }
-.keyStar { color: var(--star); font-size: 12px; }
+.laterDot { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--c); }
 .hasPhoto { font-size: 11px; opacity: 0.65; }
 .empty { padding: 26px 14px; text-align: center; color: var(--txt-dim); border: 1px dashed var(--line); border-radius: 14px; }
 .empty button { color: var(--teal); font-weight: 800; text-decoration: underline; }
 
-/* ------------------------------------------------------------------ site card */
-.card { display: flex; flex-direction: column; gap: 12px; animation: cardIn 0.28s var(--ease-out); }
-@keyframes cardIn { from { opacity: 0; transform: translateY(6px); } }
-.cardNav { display: flex; align-items: center; justify-content: space-between; }
-.back { font-size: 13px; font-weight: 800; color: var(--teal); padding: 4px 2px; }
+/* ------------------------------------------------------------------ site window */
+/* over the list only — the map column stays in view */
+.popup {
+  position: absolute; inset: 0; z-index: 20; display: flex; justify-content: center; padding: 12px;
+  background: color-mix(in srgb, var(--bg) 60%, transparent); backdrop-filter: blur(2px);
+  animation: fadeIn 0.18s ease-out;
+}
+@keyframes fadeIn { from { opacity: 0; } }
+.popupCard {
+  width: 100%; max-width: 980px; min-height: 0; display: flex; flex-direction: column; outline: none;
+  background: var(--sheet); border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 28px 70px -24px #000a; container: site / inline-size; animation: cardIn 0.24s var(--ease-out);
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(8px) scale(0.99); } }
+.card { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.cardTop { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 14px 18px 10px; border-bottom: 1px solid var(--line); }
+.cardTools { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .stepper { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--txt-dim); }
-.stepper button { width: 30px; height: 30px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); }
+.stepper button { width: 32px; height: 32px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); }
+.close { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); font-size: 15px; font-weight: 900; }
+.close:hover, .stepper button:hover { background: var(--card-2); color: var(--teal); }
+.cardScroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 14px 18px 22px; scrollbar-width: thin; }
+
+/* facts beside a modest photo: the information is visible without scrolling past the picture */
+.hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(220px, 1fr); gap: 18px; align-items: start; }
+.facts, .media { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 
 .gallery { display: flex; flex-direction: column; gap: 6px; }
-.mainPhoto { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 440px; overflow: hidden; border-radius: 16px; background: var(--card-2); border: 1px solid var(--line); }
+.mainPhoto { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 300px; overflow: hidden; border-radius: 16px; background: var(--card-2); border: 1px solid var(--line); }
 .mainPhoto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s var(--ease-out); }
 .mainPhoto:hover img { transform: scale(1.03); }
 .photoCount { position: absolute; bottom: 8px; left: 8px; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; background: #000a; color: #fff; }
-.photoCaption { font-size: 12.5px; line-height: 1.6; color: var(--txt); }
+.photoCaption { font-size: 12px; line-height: 1.55; color: var(--txt); }
 .credit { font-size: 10.5px; color: var(--txt-dim); }
 .credit a { text-decoration: underline; }
 .thumbs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
-.thumbs button { flex: 0 0 64px; height: 48px; border-radius: 9px; overflow: hidden; border: 2px solid transparent; opacity: 0.7; padding: 0; }
+.thumbs button { flex: 0 0 54px; height: 40px; border-radius: 9px; overflow: hidden; border: 2px solid transparent; opacity: 0.7; padding: 0; }
 .thumbs button[aria-pressed="true"] { border-color: var(--teal); opacity: 1; }
 .thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .noPhoto { padding: 20px; text-align: center; font-size: 12.5px; color: var(--txt-dim); border: 1px dashed var(--line); border-radius: 14px; }
@@ -134,7 +171,8 @@
 .lightboxBar button { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); }
 .lightboxBar button:last-child { margin-inline-start: auto; }
 
-.cardHead h2 { font-size: 24px; line-height: 1.2; color: var(--title-1); }
+.cardHead { min-width: 0; }
+.cardHead h2 { font-size: 23px; line-height: 1.2; color: var(--title-1); }
 .place { font-size: 13px; color: var(--txt-dim); margin-top: 2px; }
 .periodTags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
 .periodTags span { font-size: 11px; font-weight: 800; padding: 2px 9px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
@@ -157,7 +195,7 @@
 .layers strong { display: block; font-size: 14.5px; margin-top: 2px; }
 .layers p { font-size: 13px; line-height: 1.75; color: var(--txt); margin-top: 2px; }
 
-.finds { display: flex; flex-direction: column; gap: 8px; }
+.finds { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; }
 .finds li { padding: 9px 11px; border-radius: 12px; background: var(--card); }
 .findTitle { font-size: 13.5px; font-weight: 800; text-align: right; }
 button.findTitle { color: var(--teal); }
@@ -178,6 +216,15 @@ button.findTitle { color: var(--teal); }
 .links a:hover { background: var(--card-2); }
 .links small { color: var(--txt-dim); font-weight: 700; margin-inline-end: 4px; }
 .provenance { font-size: 11px; line-height: 1.6; color: var(--txt-dim); padding-top: 6px; border-top: 1px solid var(--line); }
+
+/* a narrow window (phone, or a wide map): photo on top, kept short */
+@container site (max-width: 640px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .media { display: contents; }
+  .gallery { order: -1; }
+  .mainPhoto { aspect-ratio: 16 / 9; max-height: 180px; }
+  .cardTop, .cardScroll { padding-inline: 14px; }
+}
 
 /* ------------------------------------------------------------------ practice */
 .practiceStart { display: flex; flex-direction: column; gap: 9px; }
@@ -304,15 +351,24 @@ button.findTitle { color: var(--teal); }
 /* ------------------------------------------------------------------ phone */
 @media (max-width: 860px) {
   .page { display: flex; flex-direction: column; height: auto; min-height: 0; }
-  .mapArea { order: -1; position: sticky; top: 61px; z-index: 5; height: 30vh; min-height: 200px; border-bottom: 1px solid var(--line); }
+  .mapArea { order: -1; position: sticky; top: 61px; z-index: 5; height: max(var(--map-h, 30vh), 160px); border-bottom: 1px solid var(--line); }
   .panel { border: 0; }
   .panelBody { overflow: visible; }
-  .groupHead { top: calc(61px + max(30vh, 200px)); }
+  .groupHead { top: calc(61px + max(var(--map-h, 30vh), 160px)); }
+  /* the divider is the map's bottom edge: drag it down for a bigger map */
+  .splitter { top: auto; bottom: -9px; inset-inline: 0; width: auto; height: 18px; cursor: row-resize; }
+  .splitter::before { inset-inline: 0; top: 8px; bottom: auto; width: auto; height: 1px; }
+  .splitter span { width: 52px; height: 6px; }
+  .splitter:hover span, .splitter:focus-visible span, .page[data-resizing] .splitter span { height: 6px; width: 72px; }
+  .page[data-resizing] { cursor: row-resize; }
+  /* the site window: a sheet under the map */
+  .popup { position: fixed; top: calc(61px + max(var(--map-h, 30vh), 160px)); bottom: 0; inset-inline: 0; z-index: 30; padding: 8px 6px 6px; }
+  .popupCard { border-radius: 18px 18px 14px 14px; }
   .cartouche { display: none; }
   .controls { top: 8px; left: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .halo, .card, .feedback, .optWrong { animation: none; }
+  .halo, .popup, .popupCard, .feedback, .optWrong { animation: none; }
   .mainPhoto img { transition: none; }
 }
