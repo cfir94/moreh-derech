@@ -15,3 +15,5 @@ Supplementary chronology checks: Metropolitan Museum, https://www.metmuseum.org/
 
 Validation: targeted lint, production build, real browser sorting and full-score/reveal/retry for all three new sets, hidden dates and mobile widths. Existing sets and IDs compared byte-for-byte in data parsing before commit.
 Base: 364af79015642093c5d0b54ee517d47be8416e47.
+
+Verified: https://github.com/cfir94/moreh-derech/actions/runs/40170138782 passed targeted ESLint, full production export, and all browser scenarios. All seven original sets compared equal after parsing. No changes to authentication, progress storage, or legacy set keys.
