@@ -1,6 +1,7 @@
-// ניתוב: /api/token, /api/config, /api/health — וכל השאר לקבצים הסטטיים, עם כותרות אבטחה.
+// ניתוב: /api/token, /api/chat, /api/config, /api/health — וכל השאר לקבצים הסטטיים, עם כותרות אבטחה.
 
 import { CHARACTERS } from "./characters.generated.ts";
+import { geminiGenerate, handleChat } from "./chat.ts";
 import {
   allowedOrigin,
   corsHeaders,
@@ -166,6 +167,9 @@ async function route(request: Request, env: Env): Promise<Response> {
       );
     }
     if (url.pathname === "/api/token" && request.method === "POST") return handleToken(request, env);
+    if (url.pathname === "/api/chat" && request.method === "POST") {
+      return handleChat(request, env, { characters: CHARACTERS, fetcher: fetch, now: Date.now, generate: geminiGenerate });
+    }
     return new Response("Not found", { status: 404 });
   }
   return env.ASSETS.fetch(request);

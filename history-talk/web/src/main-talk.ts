@@ -1,10 +1,11 @@
 // עמוד השיחה (talk.html?c=<id>&embed=1): מסך פתיחה, מיקרופון, השמעה, דמות, תמלול,
-// כתיבה במקום דיבור, מקורות, טיימר, חיבור מחדש והודעות תקלה בעברית.
+// כתיבה במקום דיבור, צ'אט בכתב (ChatClient), מקורות, טיימר, חיבור מחדש והודעות תקלה בעברית.
 
 import { Avatar } from "./avatar.ts";
 import { Mic } from "./audio/mic.ts";
 import { Player } from "./audio/player.ts";
 import { applyTheme, bidiYears, embed, loadCharacters, params, readSettings, saveSettings, withParams } from "./characters.ts";
+import { ChatClient } from "./chat-client.ts";
 import { ApiError, LiveClient, type LiveEvent } from "./live-client.ts";
 import { QuizBank, type QuizShown } from "./quiz.ts";
 import { SourceSearch, type Passage } from "./search.ts";
@@ -31,6 +32,7 @@ const ui = {
   consentRow: $("consent-row"),
   turnstile: $("turnstile"),
   start: $<HTMLButtonElement>("start"),
+  startChat: $<HTMLButtonElement>("start-chat"),
   controls: $("controls"),
   mute: $<HTMLButtonElement>("mute"),
   end: $<HTMLButtonElement>("end"),
@@ -66,6 +68,7 @@ function micBlockedByPolicy(): boolean {
 }
 
 let client: LiveClient | undefined;
+let chat: ChatClient | undefined;
 let mic: Mic | undefined;
 let player: Player | undefined;
 let avatar: Avatar | undefined;
@@ -202,7 +205,9 @@ function teardown() {
   ui.warning.hidden = true;
   ui.prestart.hidden = false;
   ui.start.disabled = false;
-  ui.start.textContent = "שיחה חדשה";
+  ui.startChat.disabled = false;
+  chat = undefined;
+  document.documentElement.classList.remove("started", "chatting");
   turnstile.reset();
 }
 
@@ -265,13 +270,7 @@ async function main() {
     b.type = "button";
     b.className = "chip";
     b.textContent = q;
-    b.addEventListener("click", () => {
-      if (!client) return;
-      client.sendText(q);
-      currentLine = undefined;
-      addTranscript("user", q, c.nameHe);
-      currentLine = undefined;
-    });
+    b.addEventListener("click", () => void sendUser(q));
     ui.samples.append(b);
   }
   ui.samples.hidden = true;
@@ -319,6 +318,84 @@ async function main() {
     }
   };
 
+  // הודעה בכתב: בצ'אט — לשרת ובחזרה; בשיחה קולית — אל החיבור החי.
+  async function sendUser(text: string) {
+    if (chat) {
+      currentLine = undefined;
+      addTranscript("user", text, c!.nameHe);
+      currentLine = undefined;
+      ui.typeInput.disabled = true;
+      ui.samples.hidden = true;
+      ui.status.textContent = `${c!.nameHe.split(",")[0]} כותב…`;
+      try {
+        const token = chat.started ? undefined : await turnstile.take();
+        const reply = await chat.send(text, token);
+        addTranscript("model", reply, c!.nameHe);
+        currentLine = undefined;
+        clearError();
+      } catch (err) {
+        showError(err instanceof ApiError ? err.message : "משהו השתבש. נסה שוב.");
+        if (err instanceof ApiError && err.code === "chat_ended") teardown();
+      } finally {
+        ui.typeInput.disabled = false;
+        ui.status.textContent = "צ'אט";
+        ui.typeInput.focus();
+      }
+      return;
+    }
+    if (!client) return;
+    client.sendText(text);
+    currentLine = undefined;
+    addTranscript("user", text, c!.nameHe);
+    currentLine = undefined;
+  }
+
+  function consentOk(): boolean {
+    clearError();
+    if (!ui.consent.checked) {
+      ui.consentRow.classList.add("shake");
+      setTimeout(() => ui.consentRow.classList.remove("shake"), 500);
+      ui.consent.focus();
+      return false;
+    }
+    if (!config) {
+      showError("השרת לא זמין כרגע. נסה שוב בעוד כמה דקות.");
+      return false;
+    }
+    return true;
+  }
+
+  // צ'אט בכתב: בלי מיקרופון ובלי השמעה. הדמות פותחת במשפט הפתיחה שלה.
+  function startChat() {
+    if (!consentOk()) return;
+    ui.transcript.replaceChildren();
+    ui.quizCards.replaceChildren();
+    ui.quizPanel.hidden = true;
+    currentLine = undefined;
+    void search.load().catch(() => {});
+    void bank?.load().catch(() => {});
+    chat = new ChatClient({
+      characterId: c!.id,
+      apiBase: "",
+      search: (q) => search.search(q),
+      quiz: bank && ((args) => bank.pick(args)),
+      onSources: addSources,
+      onQuiz: addQuizCards,
+    });
+    document.documentElement.classList.add("started", "chatting");
+    setTranscriptVisible(true);
+    addTranscript("model", c!.openingLineHe, c!.nameHe);
+    currentLine = undefined;
+    ui.status.textContent = "צ'אט";
+    ui.prestart.hidden = true;
+    ui.controls.hidden = false;
+    ui.mute.hidden = true;
+    ui.typeForm.hidden = false;
+    ui.typeInput.placeholder = "כתוב הודעה…";
+    ui.samples.hidden = false;
+    ui.typeInput.focus();
+  }
+
   async function start() {
     clearError();
     if (!ui.consent.checked) {
@@ -332,6 +409,9 @@ async function main() {
       return;
     }
     ui.start.disabled = true;
+    ui.startChat.disabled = true;
+    document.documentElement.classList.add("started");
+    ui.typeInput.placeholder = "כתוב במקום לדבר…";
     ui.transcript.replaceChildren();
     ui.quizCards.replaceChildren();
     ui.quizPanel.hidden = true;
@@ -403,12 +483,18 @@ async function main() {
   }
 
   ui.start.addEventListener("click", () => void start());
+  ui.startChat.addEventListener("click", startChat);
   ui.textOnly.addEventListener("click", () => {
     textOnlyMode = true;
     clearError();
     void start();
   });
-  ui.end.addEventListener("click", () => client?.close());
+  ui.end.addEventListener("click", () => {
+    if (chat) {
+      teardown();
+      setStatus("closed");
+    } else client?.close();
+  });
   ui.mute.addEventListener("click", () => {
     if (!mic) return;
     mic.muted = !mic.muted;
@@ -418,12 +504,9 @@ async function main() {
   ui.typeForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = ui.typeInput.value.trim();
-    if (!text || !client) return;
-    client.sendText(text);
-    currentLine = undefined;
-    addTranscript("user", text, c.nameHe);
-    currentLine = undefined;
+    if (!text || (!client && !chat) || ui.typeInput.disabled) return;
     ui.typeInput.value = "";
+    void sendUser(text);
   });
   window.addEventListener("pagehide", () => client?.close());
 }

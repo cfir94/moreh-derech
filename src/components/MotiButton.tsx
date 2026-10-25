@@ -2,7 +2,8 @@
 
 /**
  * מוטי, מורה הדרך הוותיק — כפתור הכובע הקבוע בפינה השמאלית התחתונה של כל עמוד.
- * לחיצה פותחת חלונית עם הפנים שלו ועם השיחה ("דבר עם ההיסטוריה", הדמות guide).
+ * לחיצה מעלימה את הכובע ופותחת חלונית קטנה במקומו: מוטי, הסכמה, ובחירה בין שיחה קולית לצ'אט
+ * ("דבר עם ההיסטוריה", הדמות guide, בתצוגה המוקטנת compact=1).
  * המסגרת נטענת רק בלחיצה הראשונה, ואחר כך נשארת חיה גם כשהחלונית סגורה —
  * סגירה לא קוטעת שיחה, ופתיחה חוזרת ממשיכה מאותו מקום.
  */
@@ -27,7 +28,7 @@ export function MotiButton() {
     if (!src) {
       // ערכת הצבעים נקבעת פעם אחת, בטעינת המסגרת (שינוי src היה קוטע שיחה).
       const theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
-      setSrc(`${HISTORY_TALK_ORIGIN}/talk.html?c=guide&embed=1&theme=${theme}`);
+      setSrc(`${HISTORY_TALK_ORIGIN}/talk.html?c=guide&embed=1&compact=1&theme=${theme}`);
     }
     setOpen((o) => !o);
   };
@@ -39,27 +40,20 @@ export function MotiButton() {
           role="dialog"
           aria-label="מוטי, מורה הדרך הוותיק"
           hidden={!open}
-          className="fixed bottom-24 left-3 z-50 flex h-[min(720px,calc(100dvh-8rem))] w-[min(420px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-line bg-bg shadow-2xl"
+          className="fixed bottom-3 left-3 z-50 flex h-[min(540px,calc(100dvh-1.5rem))] w-[min(340px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-line bg-bg shadow-2xl"
         >
-          <header className="flex items-center gap-3 border-b border-line bg-card p-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={withBasePath("/moti/face.webp")} alt="" width="56" height="56" className="h-14 w-14 rounded-full border border-line bg-card-2 object-cover object-top" />
-            <div className="min-w-0 flex-1">
-              <p className="font-black text-txt">מוטי, מורה הדרך הוותיק</p>
-              <p className="text-sm text-txt-dim">שאלו אותו, או בקשו שיבחן אתכם</p>
-            </div>
-            <button type="button" onClick={() => setOpen(false)} aria-label="סגירה" className="rounded-full px-3 py-1 text-xl text-txt-dim active:scale-95">
+          <header className="flex items-center gap-2 border-b border-line bg-card px-3 py-1.5">
+            <p className="min-w-0 flex-1 text-sm font-black text-txt">מוטי, מורה הדרך הוותיק</p>
+            <button type="button" onClick={() => setOpen(false)} aria-label="סגירה" className="rounded-full px-2 text-lg text-txt-dim active:scale-95">
               ✕
             </button>
           </header>
           <iframe src={src} title="שיחה עם מוטי, מורה הדרך הוותיק" allow="microphone; autoplay" className="w-full flex-1 border-0" />
-          <a href={src.replace("&embed=1", "")} target="_blank" rel="noopener" className="border-t border-line bg-card p-2 text-center text-xs text-txt-dim underline">
-            המיקרופון לא עובד? פתחו בחלון חדש
-          </a>
         </section>
       )}
       <button
         type="button"
+        hidden={open}
         onClick={toggle}
         aria-expanded={open}
         aria-label={open ? "סגירת השיחה עם מוטי" : "מוטי, מורה הדרך — לשאול או להיבחן"}

@@ -65,6 +65,7 @@ beforeEach(() => {
     ASSETS: {} as Fetcher,
     SESSIONS: kv as unknown as KVNamespace,
     TOKEN_LIMITER: { limit: async () => ({ success: limiterOk }) } as unknown as RateLimit,
+    CHAT_LIMITER: { limit: async () => ({ success: limiterOk }) } as unknown as RateLimit,
     GEMINI_API_KEY: "secret-key",
     TURNSTILE_SECRET: "ts-secret",
     GEMINI_LIVE_MODEL: "gemini-3.8-live",
