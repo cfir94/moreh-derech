@@ -15,6 +15,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Jerusalem-2013(2)-Aerial-Temple_Mount-(south_exposure).jpg"
   },
   {
+    "id": "temple-mount-western-wall",
+    "caption": "הכותל המערבי — קיר התמך של הורדוס. בנדבכים התחתונים: אבני גזית עם זיז.",
+    "alt": "הכותל המערבי ורחבת התפילה",
+    "src": "/learning-map/photos/temple-mount-western-wall.jpg",
+    "width": 1280,
+    "height": 872,
+    "author": "יהודה גרינברג",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_47231_Revealing_of_the_Western_Wall_.jpg"
+  },
+  {
     "id": "temple-mount-huldah",
     "caption": "הכותל הדרומי של הר הבית, ממזרח לפינה הדרום־מערבית.",
     "alt": "קיר אבן גבוה בפינת הר הבית",
@@ -75,6 +87,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:%D7%9E%D7%92%D7%93%D7%9C_%D7%93%D7%95%D7%93.jpg"
   },
   {
+    "id": "tower-of-david-tower",
+    "caption": "בסיס המגדל ההרודיאני במצודת מגדל דוד.",
+    "alt": "מגדל מאבני גזית גדולות",
+    "src": "/learning-map/photos/tower-of-david-tower.jpg",
+    "width": 960,
+    "height": 1280,
+    "author": "Davidbena",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Tower_of_Phasael,_in_David%27s_Tower.jpg"
+  },
+  {
     "id": "city-of-david",
     "caption": "עיר דוד מדרום להר הבית, מעל נחל קדרון — צילום אוויר היסטורי.",
     "alt": "צילום אוויר בשחור־לבן של רכס ומדרונות",
@@ -99,6 +123,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:JRSLM_210416_City_of_David_Acra_03.jpg"
   },
   {
+    "id": "siloam",
+    "caption": "הרחוב המדורג בעיר דוד — דרך עולי הרגל.",
+    "alt": "רחוב מרוצף באבנים גדולות במנהרה חפורה",
+    "src": "/learning-map/photos/siloam.jpg",
+    "width": 1280,
+    "height": 816,
+    "author": "Matty Stern / U.S. Embassy Jerusalem",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Inauguration_of_Pilgrimage_Road_in_the_City_of_David,_Jerusalem_June_2019_(48168306087).jpg"
+  },
+  {
     "id": "siloam-pool",
     "caption": "מדרגות בריכת השילוח שנחשפו ב־2004.",
     "alt": "מדרגות אבן רחבות בחפירה",
@@ -109,6 +145,30 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "source": "https://commons.wikimedia.org/wiki/File:Pool_of_Siloam_(3734427511).jpg"
+  },
+  {
+    "id": "burnt-house",
+    "caption": "הבית השרוף ברובע היהודי.",
+    "alt": "חדר חפור עם כלי אבן וחרס",
+    "src": "/learning-map/photos/burnt-house.jpg",
+    "width": 1280,
+    "height": 951,
+    "author": "Bukvoed",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jerusalem-Burnt-House-441.jpg"
+  },
+  {
+    "id": "tombs-of-the-kings",
+    "caption": "החצר החצובה בקברות המלכים.",
+    "alt": "חזית חצובה בסלע ומדרגות",
+    "src": "/learning-map/photos/tombs-of-the-kings.jpg",
+    "width": 782,
+    "height": 1024,
+    "author": "The Library of Congress",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Rolling_Stone,_Tomb_of_Kings,_Jerusalem_LOC_24189799550.jpg"
   },
   {
     "id": "third-wall",
@@ -133,6 +193,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 2.5",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
     "source": "https://commons.wikimedia.org/wiki/File:EcceHomo.jpg"
+  },
+  {
+    "id": "binyanei-hauma-stamp",
+    "caption": "רעף עם חותמת הלגיון העשירי פרטנסיס.",
+    "alt": "רעף חרס עם אותיות לטיניות מוטבעות",
+    "src": "/learning-map/photos/binyanei-hauma-stamp.jpg",
+    "width": 1280,
+    "height": 1134,
+    "author": "אור פ",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Stamp-Impressions_of_the_Legio_X_Fretensis-Round.jpg"
   },
   {
     "id": "holy-sepulchre-rotunda",
@@ -171,6 +243,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:The_Nea_Church_IMG_0047.JPG"
   },
   {
+    "id": "nea-inscription",
+    "caption": "כתובת ההקדשה של יוסטיניאנוס מבור המים שמתחת לניאה.",
+    "alt": "לוח כתובת יוונית",
+    "src": "/learning-map/photos/nea-inscription.jpg",
+    "width": 1280,
+    "height": 854,
+    "author": "Ymblanter",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Thessaloniki_Nea_Panagia_church_inscription_above_entrance.jpg"
+  },
+  {
     "id": "cardo",
     "caption": "הקרדו ברובע היהודי — הקטע הביזנטי, עם העמודים המשוחזרים.",
     "alt": "רחוב עמודים מרוצף",
@@ -181,6 +265,30 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 3.0",
     "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
     "source": "https://commons.wikimedia.org/wiki/File:Cardo_jerusalem2.jpg"
+  },
+  {
+    "id": "cardo-madaba-copy",
+    "caption": "העתק מפת מידבא בקרדו.",
+    "alt": "פסיפס מפה על קיר",
+    "src": "/learning-map/photos/cardo-madaba-copy.jpg",
+    "width": 1280,
+    "height": 960,
+    "author": "Dr. Avishai Teicher",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_49116_Madaba_map_replication_in_the_Cardo.JPG"
+  },
+  {
+    "id": "st-stephen",
+    "caption": "בסיליקת סנט אטיין מצפון לשער שכם.",
+    "alt": "חזית כנסייה ופעמון",
+    "src": "/learning-map/photos/st-stephen.jpg",
+    "width": 1280,
+    "height": 960,
+    "author": "RonAlmog from Israel (ישראל)",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5251798807).jpg"
   },
   {
     "id": "mount-zion",
@@ -253,6 +361,42 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Afek_IMG_8217.JPG"
+  },
+  {
+    "id": "sebastia",
+    "caption": "שרידים רומיים בסבסטיה.",
+    "alt": "שרידי תיאטרון אבן",
+    "src": "/learning-map/photos/sebastia.jpg",
+    "width": 1280,
+    "height": 815,
+    "author": "Daniel Ventura",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ruins_by_Sebastia_02.jpg"
+  },
+  {
+    "id": "gerizim-church",
+    "caption": "יסודות הכנסייה המתומנת של זנון.",
+    "alt": "יסודות מבנה מתומן",
+    "src": "/learning-map/photos/gerizim-church.jpg",
+    "width": 1280,
+    "height": 853,
+    "author": "Deror_avi",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gerizim_Byzantine_church_IMG_2216.JPG"
+  },
+  {
+    "id": "legio",
+    "caption": "פסיפס אולם התפילה בכפר עותנאי.",
+    "alt": "פסיפס רצפה עם דגים וכתובת",
+    "src": "/learning-map/photos/legio.jpg",
+    "width": 1280,
+    "height": 960,
+    "author": "James Emery from Douglasville, United States",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Megiddo_Prison_0675_(520317013).jpg"
   },
   {
     "id": "beit-shearim",
@@ -339,6 +483,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Acre_201016_Port_03.jpg"
   },
   {
+    "id": "tiberias",
+    "caption": "שרידי טבריה העתיקה.",
+    "alt": "שרידי עיר עתיקה ליד הכנרת",
+    "src": "/learning-map/photos/tiberias.jpg",
+    "width": 1280,
+    "height": 517,
+    "author": "Vasily Polenov",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:%D0%9F%D0%BE%D0%BB%D0%B5%D0%BD%D0%BE%D0%B2_%D0%A0%D0%B0%D0%B7%D0%B2%D0%B0%D0%BB%D0%B8%D0%BD%D1%8B_%D0%A2%D0%B8%D0%B2%D0%B5%D1%80%D0%B8%D0%B0%D0%B4%D1%8B.jpg"
+  },
+  {
     "id": "hamat-tiberias-zodiac",
     "caption": "גלגל המזלות בחמת טבריה, ובמרכזו הליוס.",
     "alt": "פסיפס עגול עם מזלות ודמות במרכז",
@@ -399,6 +555,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Kafarnaum_BW_7.JPG"
   },
   {
+    "id": "hippos",
+    "caption": "האתר של סוסיתא מעל הכנרת.",
+    "alt": "שרידים על רכס ומאחור אגם",
+    "src": "/learning-map/photos/hippos.jpg",
+    "width": 1280,
+    "height": 959,
+    "author": "Michael Eisenberg מיכאל איזנברג",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sussita_-_Aerial_photography_April_2017.jpg"
+  },
+  {
     "id": "gamla",
     "caption": "רכס גמלא בגולן.",
     "alt": "רכס תלול בין נחלים",
@@ -423,6 +591,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Nahal_Hermon,_Banias,_2019_(02).jpg"
   },
   {
+    "id": "banias-pan",
+    "caption": "מערת פאן והגומחות החצובות בבניאס.",
+    "alt": "מערה וגומחות חצובות בצוק",
+    "src": "/learning-map/photos/banias-pan.jpg",
+    "width": 855,
+    "height": 1280,
+    "author": "Bahnfrend",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cave_of_Pan,_Banias,_2019_(02).jpg"
+  },
+  {
     "id": "baram",
     "caption": "חזית בית הכנסת בברעם.",
     "alt": "חזית אבן עם פתחים ועמודים",
@@ -435,6 +615,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Ruins_of_the_Ancient_Synagogue_at_Bar%27am.jpg"
   },
   {
+    "id": "beit-alfa-akedah",
+    "caption": "עקדת יצחק בפסיפס בית אלפא.",
+    "alt": "פסיפס עממי של אברהם, יצחק ואיל",
+    "src": "/learning-map/photos/beit-alfa-akedah.jpg",
+    "width": 728,
+    "height": 1280,
+    "author": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Beit_Alfa_Synagogue_Mosaic.jpg"
+  },
+  {
     "id": "beit-alfa-zodiac",
     "caption": "רצפת בית הכנסת בבית אלפא — גלגל המזלות במרכז, ומעליו לוח ארון הקודש.",
     "alt": "רצפת פסיפס עם גלגל מזלות",
@@ -445,6 +637,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Bet_Alfa_Synagogue_Floor.jpg"
+  },
+  {
+    "id": "beit-alfa-ark",
+    "caption": "לוח ארון הקודש בין המנורות בבית אלפא.",
+    "alt": "פסיפס של ארון קודש ומנורות",
+    "src": "/learning-map/photos/beit-alfa-ark.jpg",
+    "width": 874,
+    "height": 1080,
+    "author": "ArikPelzig",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Request_to_release_Perli_the_soldier_for_Beth_Alpha_Mosaic_restoration_1949.jpg"
   },
   {
     "id": "beit-shean-palladius",
@@ -481,6 +685,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "source": "https://commons.wikimedia.org/wiki/File:Bronze_statue_of_Hadrian,_found_at_the_Camp_of_the_Sixth_Roman_Legion_in_Tel_Shalem,_117%E2%80%93138_AD,_Israel_Museum,_Jerusalem_(15462648258).jpg"
+  },
+  {
+    "id": "hamat-gader",
+    "caption": "המרחצאות הרומיים בחמת גדר.",
+    "alt": "בריכות אבן וקשתות",
+    "src": "/learning-map/photos/hamat-gader.jpg",
+    "width": 1280,
+    "height": 853,
+    "author": "Bukvoed",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hamat-Gader-external-050.jpg"
   },
   {
     "id": "modiin",
@@ -555,6 +771,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Tel_Deweir_(Lachish)._Jewish_palace-fort,_after_removal_of_Persian_residency._Now_awaiting_clearance._Looking_S.W._LOC_matpc.16639.jpg"
   },
   {
+    "id": "betar",
+    "caption": "חורבת ביתר מעל בתיר.",
+    "alt": "רכס עם טרסות",
+    "src": "/learning-map/photos/betar.jpg",
+    "width": 916,
+    "height": 648,
+    "author": "OCHA OpT, amended by User:Onceinawhile",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Betar_archeological_site_(Khirbet_el_Yahud)_in_Area_C_of_the_West_Bank.jpg"
+  },
+  {
     "id": "nativity-mosaics",
     "caption": "פסיפס הכנסייה הקונסטנטינית מתחת לרצפה בכנסיית המולד.",
     "alt": "פסיפס גאומטרי מתחת לפתח ברצפה",
@@ -603,6 +831,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_43108_Model_of_Herods_mausoleum_in_Herodium.JPG"
   },
   {
+    "id": "herodium-palace",
+    "caption": "הארמון העגול בפסגת הרודיון.",
+    "alt": "חומה עגולה ומבנים בפנים",
+    "src": "/learning-map/photos/herodium-palace.jpg",
+    "width": 1024,
+    "height": 768,
+    "author": "יהודית גרעין-כל Yehudit Garinkol",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_6120_Herodium.JPG"
+  },
+  {
     "id": "solomons-pools",
     "caption": "בריכות שלמה.",
     "alt": "בריכת מים גדולה מאבן",
@@ -627,6 +867,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:The_Lower_Aqueduct_Tunnel_IMG_1460.JPG"
   },
   {
+    "id": "mamre",
+    "caption": "שרידי המתחם באלוני ממרא.",
+    "alt": "קירות אבן גדולים",
+    "src": "/learning-map/photos/mamre.jpg",
+    "width": 1280,
+    "height": 953,
+    "author": "Matson Collection",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Hebron_and_surroundings._Ramet_el_Khalil._Possibly_Mamre._Closer_view_of_the_ruins_LOC_matpc.02640.jpg"
+  },
+  {
     "id": "machpelah",
     "caption": "המתחם ההרודיאני של מערת המכפלה.",
     "alt": "מבנה אבן גדול עם פילסטרים",
@@ -649,6 +901,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Susya_ancient_synagogue_05.jpg"
+  },
+  {
+    "id": "theodosius",
+    "caption": "מנזר תאודוסיוס.",
+    "alt": "מנזר במדבר",
+    "src": "/learning-map/photos/theodosius.jpg",
+    "width": 1280,
+    "height": 960,
+    "author": "Britchi Mirela",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Palestine,_Monastery_of_Saint_Theodosius_(plaphon)(2).jpg"
   },
   {
     "id": "mar-saba",
@@ -687,6 +951,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:88182_otimius_monastery_in_mishor_adumim_PikiWiki_Israel.jpg"
   },
   {
+    "id": "chariton",
+    "caption": "מנזר חריטון בנחל פרת.",
+    "alt": "מבנה על צלע נחל",
+    "src": "/learning-map/photos/chariton.jpg",
+    "width": 1280,
+    "height": 853,
+    "author": "Holyland2026",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Chariton_Monastery_Wadi_Qelt..jpg"
+  },
+  {
     "id": "koziba",
     "caption": "מנזר סנט ג׳ורג׳ בואדי קלט.",
     "alt": "מנזר תלוי על צוק",
@@ -709,6 +985,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "source": "https://commons.wikimedia.org/wiki/File:Opus_reticulatum_stonework_from_Herod%27s_palace_at_Jericho.jpg"
+  },
+  {
+    "id": "gerasimos",
+    "caption": "מנזר גרסימוס בדיר חג׳לה.",
+    "alt": "מנזר בבקעה",
+    "src": "/learning-map/photos/gerasimos.jpg",
+    "width": 1280,
+    "height": 886,
+    "author": "Bukvoed",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:St-Gerasimus-844.jpg"
   },
   {
     "id": "alexandrium",
@@ -831,6 +1119,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Ruins_of_a_church_in_Shivta_in_the_Negev.jpg"
   },
   {
+    "id": "nitzana",
+    "caption": "שרידי ניצנה העתיקה.",
+    "alt": "שרידים על גבעה במדבר",
+    "src": "/learning-map/photos/nitzana.jpg",
+    "width": 1280,
+    "height": 960,
+    "author": "רוני קניגסברג",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:145863_tel_nitzana_PikiWiki_Israel.jpg"
+  },
+  {
     "id": "avdat",
     "caption": "עבדת ממבט אוויר.",
     "alt": "עיר עתיקה על רכס במדבר",
@@ -913,5 +1213,29 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Katharinenkloster_Sinai_BW_2.jpg"
+  },
+  {
+    "id": "gerizim",
+    "caption": "האתר הארכאולוגי על פסגת הר גריזים.",
+    "alt": "שרידי קירות על פסגת הר",
+    "src": "/learning-map/photos/gerizim.jpg",
+    "width": 1280,
+    "height": 960,
+    "author": "Daniel Ventura",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Culture_of_The_Samaritans_on_Mount_Gerizim_136.jpg"
+  },
+  {
+    "id": "masada-ramp",
+    "caption": "הסוללה הרומית במצדה.",
+    "alt": "סוללה עולה אל ראש מצוק",
+    "src": "/learning-map/photos/masada-ramp.jpg",
+    "width": 1280,
+    "height": 848,
+    "author": "Carole Raddato from FRANKFURT, Germany",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Roman_siege_ramp_seen_from_the_hilltop,_Masada_(15444361849).jpg"
   }
 ];
