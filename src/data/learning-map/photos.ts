@@ -16,8 +16,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "temple-mount-huldah",
-    "caption": "שערי חולדה בכותל הדרומי של הר הבית.",
-    "alt": "הכותל הדרומי עם פתחי שערים חסומים ומדרגות",
+    "caption": "הכותל הדרומי של הר הבית, ממזרח לפינה הדרום־מערבית.",
+    "alt": "קיר אבן גבוה בפינת הר הבית",
     "src": "/learning-map/photos/temple-mount-huldah.jpg",
     "width": 1280,
     "height": 853,
@@ -76,8 +76,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "city-of-david",
-    "caption": "עיר דוד מדרום להר הבית, מעל נחל קדרון.",
-    "alt": "מדרון רכס עם בתים ושרידים מדרום לחומה",
+    "caption": "עיר דוד מדרום להר הבית, מעל נחל קדרון — צילום אוויר היסטורי.",
+    "alt": "צילום אוויר בשחור־לבן של רכס ומדרונות",
     "src": "/learning-map/photos/city-of-david.jpg",
     "width": 1280,
     "height": 838,
@@ -112,8 +112,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "third-wall",
-    "caption": "שרידי החומה השלישית בירושלים.",
-    "alt": "שורת אבנים גדולות של חומה עתיקה",
+    "caption": "החומה השלישית כפי שהיא משוחזרת בדגם ירושלים בימי בית שני (מוזיאון ישראל).",
+    "alt": "מגדל וחומה בדגם של העיר העתיקה",
     "src": "/learning-map/photos/third-wall.jpg",
     "width": 958,
     "height": 1280,
@@ -148,8 +148,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "eleona",
-    "caption": "כנסיית פטר נוסטר בהר הזיתים, במקום אלאונה.",
-    "alt": "חצר כנסייה עם אריחים מעוטרים בכתב",
+    "caption": "הר הזיתים ממבט אוויר; כנסיית אלאונה עמדה על פסגתו, במקום כנסיית פטר נוסטר של היום.",
+    "alt": "מבט אוויר על רכס הר הזיתים ובית הקברות שעל מדרונו",
     "src": "/learning-map/photos/eleona.jpg",
     "width": 1280,
     "height": 708,
@@ -208,8 +208,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "ramat-rachel",
-    "caption": "רמת רחל — הגבעה מדרום לירושלים.",
-    "alt": "שרידים ארכאולוגיים על גבעה",
+    "caption": "רמת רחל ממבט אוויר: הגבעה מדרום לירושלים, והאתר הארכאולוגי בקצה הקיבוץ.",
+    "alt": "מבט אוויר על גבעה עם בתים ועצים",
     "src": "/learning-map/photos/ramat-rachel.jpg",
     "width": 1280,
     "height": 775,
@@ -232,8 +232,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "caesarea-pilate",
-    "caption": "כתובת פילטוס מקיסריה.",
-    "alt": "אבן עם כתובת לטינית",
+    "caption": "העתק של כתובת פילטוס מקיסריה — שמו של פונטיוס פילטוס בשורה השנייה.",
+    "alt": "אבן עם כתובת לטינית בשלוש שורות",
     "src": "/learning-map/photos/caesarea-pilate.jpg",
     "width": 794,
     "height": 1200,
@@ -244,8 +244,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "antipatris",
-    "caption": "תל אפק — אנטיפטריס.",
-    "alt": "שרידים עתיקים ומצודה בשטח פתוח",
+    "caption": "תל אפק — אנטיפטריס; על התל עומדת היום מצודה עות׳מאנית.",
+    "alt": "מצודת אבן עם מגדל על דשא",
     "src": "/learning-map/photos/antipatris.jpg",
     "width": 1280,
     "height": 744,
@@ -253,18 +253,6 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Afek_IMG_8217.JPG"
-  },
-  {
-    "id": "gerizim",
-    "caption": "האתר הארכאולוגי על פסגת הר גריזים.",
-    "alt": "שרידי קירות על פסגת הר",
-    "src": "/learning-map/photos/gerizim.jpg",
-    "width": 1280,
-    "height": 1247,
-    "author": "Scan by NYPL",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "source": "https://commons.wikimedia.org/wiki/File:Ruins_on_the_summit_of_Mount_Gerizim,_on_the_site_of_the_Samaritan_temple._In_the_distance,_on_the_right,_the_snow-covered_peaks_of_Mount_Hermon_are_visible_(NYPL_b10607452-80404).jpg"
   },
   {
     "id": "beit-shearim",
@@ -292,8 +280,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "sepphoris",
-    "caption": "התיאטרון הרומי בציפורי.",
-    "alt": "תיאטרון אבן על מדרון",
+    "caption": "התיאטרון הרומי בציפורי, ומעליו המצודה שעל פסגת הגבעה.",
+    "alt": "מושבי תיאטרון אבן ומבנה מעליהם",
     "src": "/learning-map/photos/sepphoris.jpg",
     "width": 1280,
     "height": 886,
@@ -424,8 +412,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "banias",
-    "caption": "מעיין הבניאס.",
-    "alt": "מים זורמים בין עצים",
+    "caption": "נחל חרמון (הבניאס) למרגלות מערת פאן.",
+    "alt": "מים זורמים בין עצים ומצוק",
     "src": "/learning-map/photos/banias.jpg",
     "width": 1280,
     "height": 853,
@@ -448,8 +436,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "beit-alfa-zodiac",
-    "caption": "גלגל המזלות בפסיפס בית אלפא.",
-    "alt": "פסיפס של גלגל מזלות",
+    "caption": "רצפת בית הכנסת בבית אלפא — גלגל המזלות במרכז, ומעליו לוח ארון הקודש.",
+    "alt": "רצפת פסיפס עם גלגל מזלות",
     "src": "/learning-map/photos/beit-alfa-zodiac.jpg",
     "width": 1280,
     "height": 960,
@@ -556,8 +544,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "lachish",
-    "caption": "תל לכיש.",
-    "alt": "תל עם שרידים",
+    "caption": "תל לכיש בצילום מימי החפירות הראשונות (שנות ה־30), אחרי פירוק הבניין הפרסי.",
+    "alt": "תל עם שרידי קירות בשחור־לבן",
     "src": "/learning-map/photos/lachish.jpg",
     "width": 1280,
     "height": 960,
@@ -580,8 +568,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "nativity-grotto",
-    "caption": "הכוכב במערת הלידה.",
-    "alt": "כוכב כסף על רצפת שיש",
+    "caption": "מערת הלידה בכנסיית המולד — המזבח והגומחה שמעל מקום הלידה לפי המסורת.",
+    "alt": "גומחה מוארת עם מזבח ובדים אדומים",
     "src": "/learning-map/photos/nativity-grotto.jpg",
     "width": 1280,
     "height": 1189,
@@ -604,8 +592,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "herodium-tomb",
-    "caption": "מקום קבר הורדוס במדרון הרודיון.",
-    "alt": "שרידי מבנה במדרון",
+    "caption": "שחזור מבנה הקבר של הורדוס, במקומו במדרון הרודיון.",
+    "alt": "מגדל לבן משוחזר עם גג עגול על מדרון",
     "src": "/learning-map/photos/herodium-tomb.jpg",
     "width": 1280,
     "height": 960,
@@ -639,18 +627,6 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:The_Lower_Aqueduct_Tunnel_IMG_1460.JPG"
   },
   {
-    "id": "mamre-madaba",
-    "caption": "ממרא במפת מידבא.",
-    "alt": "קטע פסיפס עם עץ וכיתוב",
-    "src": "/learning-map/photos/mamre-madaba.jpg",
-    "width": 1280,
-    "height": 831,
-    "author": "Jerzy Strzelecki",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Madaba07(js).jpg"
-  },
-  {
     "id": "machpelah",
     "caption": "המתחם ההרודיאני של מערת המכפלה.",
     "alt": "מבנה אבן גדול עם פילסטרים",
@@ -664,8 +640,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "susya",
-    "caption": "בית הכנסת בסוסיא.",
-    "alt": "שרידי בית כנסת",
+    "caption": "שרידי היישוב העתיק בסוסיא.",
+    "alt": "שרידי קירות אבן בשטח הררי",
     "src": "/learning-map/photos/susya.jpg",
     "width": 1280,
     "height": 960,
@@ -736,8 +712,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "alexandrium",
-    "caption": "פסגת סרטבה מעל בקעת הירדן.",
-    "alt": "הר חרוטי מעל עמק",
+    "caption": "שרידי ביצורים על פסגת סרטבה.",
+    "alt": "קיר אבנים בנוי על פסגה",
     "src": "/learning-map/photos/alexandrium.jpg",
     "width": 900,
     "height": 675,
@@ -808,8 +784,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "masada-northern-palace",
-    "caption": "הארמון הצפוני של מצדה.",
-    "alt": "מדרגות בנייה על חוד מצוק",
+    "caption": "הארמון הצפוני של מצדה — המדרגות שנבנו על חוד המצוק.",
+    "alt": "מבנים על מדרגות בחוד מצוק מעל המדבר",
     "src": "/learning-map/photos/masada-northern-palace.jpg",
     "width": 1280,
     "height": 960,
@@ -817,18 +793,6 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Masada_Northern_Palace_03.jpg"
-  },
-  {
-    "id": "masada-ramp",
-    "caption": "הסוללה הרומית במצדה.",
-    "alt": "סוללה עולה אל ראש מצוק",
-    "src": "/learning-map/photos/masada-ramp.jpg",
-    "width": 1280,
-    "height": 853,
-    "author": "Ray in Manila",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Masada,_Judaean_Desert.jpg"
   },
   {
     "id": "mamshit",
@@ -880,8 +844,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "yotvata",
-    "caption": "המצודה הרומית ביטבתה.",
-    "alt": "יסודות מצודה מרובעת",
+    "caption": "שרידי המצודה הרומית ביטבתה.",
+    "alt": "שרידי מבנה אבן במדבר",
     "src": "/learning-map/photos/yotvata.jpg",
     "width": 1280,
     "height": 912,
@@ -892,8 +856,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "aila",
-    "caption": "שרידי אילה בעקבה.",
-    "alt": "שרידים עתיקים",
+    "caption": "שרידים עתיקים בעקבה, באזור העיר אילה.",
+    "alt": "שרידי קירות בין עצי דקל",
     "src": "/learning-map/photos/aila.jpg",
     "width": 1280,
     "height": 852,
@@ -916,8 +880,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "madaba",
-    "caption": "מפת מידבא.",
-    "alt": "פסיפס מפה",
+    "caption": "שרטוט של מפת מידבא מתחילת המאה ה־20 — המפה כולה, וירושלים במרכזה.",
+    "alt": "שרטוט צבעוני של מפת פסיפס",
     "src": "/learning-map/photos/madaba.jpg",
     "width": 800,
     "height": 581,
