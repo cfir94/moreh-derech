@@ -14,7 +14,8 @@
   --lm-frame: #6e5a3f;
   --lm-tip: color-mix(in srgb, var(--gold) 12%, transparent);
   display: grid;
-  grid-template-columns: minmax(340px, 440px) minmax(0, 1fr);
+  /* the text is the point: a wide reading column and a narrow, fixed map strip */
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 21vw, 340px);
   height: calc(100dvh - 61px);
   min-height: 520px;
 }
@@ -69,6 +70,7 @@
 .builderNote { font-size: 12px; color: var(--txt-dim); line-height: 1.6; padding: 6px 10px; border-radius: 10px; background: var(--card); }
 
 .panelBody { flex: 1; min-height: 0; overflow-y: auto; padding: 10px 12px 28px; scrollbar-width: thin; }
+.panelHead > *, .panelBody > * { max-width: 920px; margin-inline: auto; }
 
 .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 4px 4px 10px; font-size: 11.5px; color: var(--txt-dim); }
 .legend span { display: inline-flex; align-items: center; gap: 5px; }
@@ -110,7 +112,7 @@
 .stepper button { width: 30px; height: 30px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); }
 
 .gallery { display: flex; flex-direction: column; gap: 6px; }
-.mainPhoto { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 16px; background: var(--card-2); border: 1px solid var(--line); }
+.mainPhoto { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 440px; overflow: hidden; border-radius: 16px; background: var(--card-2); border: 1px solid var(--line); }
 .mainPhoto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s var(--ease-out); }
 .mainPhoto:hover img { transform: scale(1.03); }
 .photoCount { position: absolute; bottom: 8px; left: 8px; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 800; background: #000a; color: #fff; }
@@ -282,6 +284,8 @@ button.findTitle { color: var(--teal); }
 }
 .cartouche strong { font-family: Georgia, "Frank Ruhl Libre", serif; font-size: 17px; letter-spacing: 0.06em; color: var(--lm-ink); }
 .cartouche span { font-size: 11px; color: var(--txt-dim); }
+/* the map is a narrow strip now; the sheet switch already names the sheet */
+.cartouche { display: none; }
 .controls { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .sheetSwitch { display: inline-flex; padding: 3px; border-radius: 999px; background: color-mix(in srgb, var(--sheet) 88%, transparent); border: 1px solid var(--line); box-shadow: var(--shadow); }
 .sheetSwitch button { padding: 6px 13px; border-radius: 999px; font-size: 13px; font-weight: 800; color: var(--txt-dim); }
@@ -300,10 +304,10 @@ button.findTitle { color: var(--teal); }
 /* ------------------------------------------------------------------ phone */
 @media (max-width: 860px) {
   .page { display: flex; flex-direction: column; height: auto; min-height: 0; }
-  .mapArea { order: -1; position: sticky; top: 61px; z-index: 5; height: 46vh; min-height: 300px; border-bottom: 1px solid var(--line); }
+  .mapArea { order: -1; position: sticky; top: 61px; z-index: 5; height: 30vh; min-height: 200px; border-bottom: 1px solid var(--line); }
   .panel { border: 0; }
   .panelBody { overflow: visible; }
-  .groupHead { top: calc(61px + 46vh); }
+  .groupHead { top: calc(61px + max(30vh, 200px)); }
   .cartouche { display: none; }
   .controls { top: 8px; left: 8px; }
 }
