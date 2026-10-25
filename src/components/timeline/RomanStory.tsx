@@ -58,7 +58,7 @@ export function RomanStory({renderPerson}: {renderPerson: (id: string) => ReactN
         return {id:relation.id,path,label,labelX:(ax+bx)/2,labelY:rail-5,ax,bx,y:y-3,kind:relation.kind,from:relation.from,to:relation.to};
       }).filter((line): line is Line => Boolean(line));
       const stops=Array.from(element.querySelectorAll("[data-story-stop]")).map(node=>{const rect=node.getBoundingClientRect();return {x:rect.left-root.left+rect.width/2,y:rect.top-root.top+rect.height/2};});
-      const spine=stops.length?"M "+stops[0].x+" "+stops[0].y+" V "+stops[stops.length-1].y:"";
+      const spine=stops.length?"M "+root.width/2+" "+stops[0].y+" V "+stops[stops.length-1].y:"";
       const next={lines,spine,height:Math.ceil(root.height),width:Math.ceil(root.width)};
       setDrawing(current=>JSON.stringify(current)===JSON.stringify(next)?current:next);
     }
@@ -111,7 +111,7 @@ export function RomanStory({renderPerson}: {renderPerson: (id: string) => ReactN
     </dialog>
 
     <div ref={canvas} className={s.canvas}>
-      <svg className={s.connections} width={drawing.width||"100%"} height={drawing.height||"100%"} aria-hidden="true"><path className={s.stream} d={drawing.spine}/><g data-story-lines>{shown.map(line=><g key={line.id} data-story-connection={line.id} data-from={line.from} data-to={line.to} data-kind={line.kind} data-selected={Boolean(active)}><path d={line.path}/><circle cx={line.ax} cy={line.y} r="2"/><circle cx={line.bx} cy={line.y} r="2"/><rect x={line.labelX-34} y={line.labelY-11} width="68" height="15" rx="3"/><text x={line.labelX} y={line.labelY} textAnchor="middle" direction="rtl">{line.label}</text></g>)}</g></svg>
+      <svg className={s.connections} width={drawing.width||"100%"} height={drawing.height||"100%"} aria-hidden="true"><path data-story-axis className={s.stream} d={drawing.spine}/><g data-story-lines>{shown.map(line=><g key={line.id} data-story-connection={line.id} data-from={line.from} data-to={line.to} data-kind={line.kind} data-selected={Boolean(active)}><path d={line.path}/><circle cx={line.ax} cy={line.y} r="2"/><circle cx={line.bx} cy={line.y} r="2"/><rect x={line.labelX-34} y={line.labelY-11} width="68" height="15" rx="3"/><text x={line.labelX} y={line.labelY} textAnchor="middle" direction="rtl">{line.label}</text></g>)}</g></svg>
       {STORY_CHAPTERS.map((chapter,chapterIndex)=><section className={s.chapter} key={chapter.id} data-story-chapter={chapter.id} data-era={chapter.era} id={"story-"+chapter.id} tabIndex={-1}>
         <header className={s.chapterHeading} data-story-reveal="ready"><small>{chapter.range}</small><h3>{chapter.title}</h3></header>
         {chapter.rows.map((row,rowIndex)=><div className={s.row} key={row.year} data-story-year={row.year}>

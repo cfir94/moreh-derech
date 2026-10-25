@@ -190,6 +190,23 @@ try {
     for (const theme of ["light","dark"]) {
       await page.evaluate(value => {document.documentElement.dataset.theme=value;},theme);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "story overflow: "+width+", "+theme).toBe(true);
+      await expect(page.locator("[data-roman-people]")).toHaveCSS("background-color","rgb(255, 255, 255)");
+      await expect(page.locator("[data-roman-people]")).toHaveCSS("background-image","none");
+      const centered=await page.locator("[data-roman-story]").evaluate(root=>{
+        const axis=root.querySelector("[data-story-axis]"),canvas=axis.parentElement.getBoundingClientRect();
+        const middle=canvas.left+canvas.width/2;
+        const pointX=Number((axis.getAttribute("d")||"").split(" ")[1]);
+        const stops=Array.from(root.querySelectorAll("[data-story-stop]")).map(node=>{const box=node.getBoundingClientRect();return Math.abs(box.left+box.width/2-middle);});
+        const figures=Array.from(root.querySelectorAll("[data-story-year]")).map(row=>{
+          const points=Array.from(row.querySelectorAll("[data-story-portrait]")).map(node=>{const b=node.getBoundingClientRect();return b.left+b.width/2;});
+          return Math.abs((Math.min(...points)+Math.max(...points))/2-middle);
+        });
+        return {spine:Math.abs(pointX-canvas.width/2),stops:Math.max(...stops),figures:Math.max(...figures)};
+      });
+      expect(centered.spine,"centered main line at "+width).toBeLessThanOrEqual(1);
+      expect(centered.stops,"centered stops at "+width).toBeLessThanOrEqual(1);
+      expect(centered.figures,"centered portraits at "+width).toBeLessThanOrEqual(1);
+
     }
   }
   await page.locator('[data-story-person="titus"]').click();
