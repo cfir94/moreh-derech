@@ -73,3 +73,40 @@ test("היסטוריה לא תקינה נדחית", () => {
   assert.equal(validContents([{ role: "user", parts: [{ inlineData: {} }] }]), null);
   assert.ok(validContents(hi));
 });
+
+test("מודל עמוס (503) — עוברים למודל Flash אחר מרשימת המודלים, ושומרים אותו", async () => {
+  const { geminiGenerate, rankFlashModels } = await import("../src/worker/chat.ts");
+  assert.deepEqual(
+    rankFlashModels([
+      { name: "models/gemini-3.5-flash-lite", supportedGenerationMethods: ["generateContent"] },
+      { name: "models/gemini-3.5-flash", supportedGenerationMethods: ["generateContent"] },
+      { name: "models/gemini-4.0-flash-preview", supportedGenerationMethods: ["generateContent"] },
+      { name: "models/gemini-3.8-flash-live", supportedGenerationMethods: ["bidiGenerateContent"] },
+    ]),
+    ["gemini-3.5-flash", "gemini-4.0-flash-preview", "gemini-3.5-flash-lite"],
+  );
+  const store = new Map<string, string>();
+  const env = {
+    GEMINI_API_KEY: "k",
+    GEMINI_CHAT_MODEL: "gemini-flash-latest",
+    SESSIONS: { get: async (k: string) => store.get(k) ?? null, put: async (k: string, v: string) => void store.set(k, v) },
+  } as unknown as Env;
+  const calls: string[] = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = (async (url: string) => {
+    calls.push(url.replace("https://generativelanguage.googleapis.com/v1beta/", ""));
+    if (url.includes("gemini-flash-latest")) return new Response("overloaded", { status: 503 });
+    if (url.endsWith("/models?pageSize=200")) {
+      return Response.json({ models: [{ name: "models/gemini-3.5-flash", supportedGenerationMethods: ["generateContent"] }] });
+    }
+    return Response.json({ candidates: [{ content: { parts: [{ text: "שלום" }] } }] });
+  }) as unknown as typeof fetch;
+  try {
+    const { parts } = await geminiGenerate(env, {});
+    assert.deepEqual(parts, [{ text: "שלום" }]);
+    assert.deepEqual(calls, ["models/gemini-flash-latest:generateContent", "models?pageSize=200", "models/gemini-3.5-flash:generateContent"]);
+    assert.equal(store.get("chat-model"), "gemini-3.5-flash");
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
