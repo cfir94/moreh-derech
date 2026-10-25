@@ -61,9 +61,9 @@ const MESSAGES: Record<ErrorCode, [number, string, string]> = {
   gemini_unavailable: [502, "Gemini לא זמין כרגע. נסה שוב בעוד כמה דקות.", "Gemini is unavailable right now."],
 };
 
-export function errorResponse(code: ErrorCode, headers: HeadersInit = {}): Response {
+export function errorResponse(code: ErrorCode, headers: HeadersInit = {}, detail?: string): Response {
   const [status, messageHe, messageEn] = MESSAGES[code];
-  return Response.json({ error: code, messageHe, messageEn }, { status, headers });
+  return Response.json({ error: code, messageHe, messageEn, ...(detail ? { detail } : {}) }, { status, headers });
 }
 
 export const intVar = (v: string | undefined, fallback: number) => {

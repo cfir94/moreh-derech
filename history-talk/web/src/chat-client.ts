@@ -44,18 +44,25 @@ export class ChatClient {
 
   /** הודעה מהתלמיד → התשובה בטקסט. ההודעה הראשונה צריכה אסימון Turnstile. */
   async send(text: string, turnstileToken?: string): Promise<string> {
-    this.history.push({ role: "user", parts: [{ text: text.slice(0, 2000) }] });
-    for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
-      const parts = await this.request(turnstileToken);
-      turnstileToken = undefined;
-      if (!parts.length) return "…";
-      this.history.push({ role: "model", parts });
-      const calls = parts.filter((p): p is Extract<Part, { functionCall: unknown }> => "functionCall" in p);
-      if (!calls.length) return parts.map((p) => ("text" in p ? p.text : "")).join("").trim();
-      const responses = await Promise.all(calls.map((c) => this.runTool(c.functionCall.name, c.functionCall.args ?? {})));
-      this.history.push({ role: "user", parts: responses });
+    // אם משהו נכשל באמצע (גם אחרי סבב כלים) — ההיסטוריה חוזרת למצבה לפני ההודעה, ואפשר לשלוח שוב.
+    const mark = this.history.length;
+    try {
+      this.history.push({ role: "user", parts: [{ text: text.slice(0, 2000) }] });
+      for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
+        const parts = await this.request(turnstileToken);
+        turnstileToken = undefined;
+        if (!parts.length) return "…";
+        this.history.push({ role: "model", parts });
+        const calls = parts.filter((p): p is Extract<Part, { functionCall: unknown }> => "functionCall" in p);
+        if (!calls.length) return parts.map((p) => ("text" in p ? p.text : "")).join("").trim();
+        const responses = await Promise.all(calls.map((c) => this.runTool(c.functionCall.name, c.functionCall.args ?? {})));
+        this.history.push({ role: "user", parts: responses });
+      }
+      return "רגע, הסתבכתי בחיפוש. אפשר לנסח את השאלה שוב?";
+    } catch (err) {
+      this.history.length = mark;
+      throw err;
     }
-    return "רגע, הסתבכתי בחיפוש. אפשר לנסח את השאלה שוב?";
   }
 
   private trimmed(): Content[] {
@@ -77,10 +84,10 @@ export class ChatClient {
     } catch {
       throw new ApiError("network", "אין חיבור לשרת. בדוק את האינטרנט ונסה שוב.");
     }
-    const data = (await res.json().catch(() => ({}))) as { chatId?: string; parts?: Part[]; error?: string; messageHe?: string };
+    const data = (await res.json().catch(() => ({}))) as { chatId?: string; parts?: Part[]; error?: string; messageHe?: string; detail?: string };
     if (!res.ok) {
-      this.history.pop(); // ההודעה לא נענתה — אפשר לשלוח אותה שוב
-      throw new ApiError(data.error ?? "server", data.messageHe ?? "משהו השתבש. נסה שוב.");
+      const message = data.messageHe ?? "משהו השתבש. נסה שוב.";
+      throw new ApiError(data.error ?? "server", data.detail ? `${message} (${data.detail})` : message);
     }
     this.chatId = data.chatId;
     return data.parts ?? [];

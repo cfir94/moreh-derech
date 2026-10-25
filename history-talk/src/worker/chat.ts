@@ -75,16 +75,57 @@ export function chatRequestBody(character: ServerCharacter, contents: Content[])
   };
 }
 
-export const geminiGenerate: GenerateFn = async (env, body) => {
-  const model = env.GEMINI_CHAT_MODEL || "gemini-flash-latest";
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+export class GeminiError extends Error {
+  readonly status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+const API = "https://generativelanguage.googleapis.com/v1beta";
+
+/**
+ * מודל Flash שזמין למפתח: שמות המודלים מתחלפים, ולכן כשהמודל שהוגדר לא קיים (404) או אינו
+ * תומך ב-generateContent (400) — בוחרים מתוך רשימת המודלים של המפתח, ושומרים את הבחירה ליום.
+ */
+export function pickFlashModel(models: { name: string; supportedGenerationMethods?: string[] }[]): string | undefined {
+  const usable = models
+    .filter((m) => m.supportedGenerationMethods?.includes("generateContent"))
+    .map((m) => m.name.replace(/^models\//, ""))
+    .filter((n) => /flash/.test(n) && !/(live|tts|image|audio|embed|thinking|exp|lite)/.test(n));
+  const version = (n: string) => Number(n.match(/gemini-(\d+(?:\.\d+)?)/)?.[1] ?? 0);
+  // קודם יציב (בלי preview) ומהגרסה הגבוהה, ואז preview.
+  usable.sort((a, b) => Number(/preview/.test(a)) - Number(/preview/.test(b)) || version(b) - version(a));
+  return usable[0];
+}
+
+async function callModel(env: Env, model: string, body: object): Promise<Part[]> {
+  const res = await fetch(`${API}/models/${model}:generateContent`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`gemini ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  if (!res.ok) throw new GeminiError(res.status, `${model} ${res.status}: ${(await res.text()).slice(0, 300)}`);
   const data = (await res.json()) as { candidates?: { content?: { parts?: Part[] } }[] };
-  return { parts: data.candidates?.[0]?.content?.parts ?? [] };
+  return data.candidates?.[0]?.content?.parts ?? [];
+}
+
+export const geminiGenerate: GenerateFn = async (env, body) => {
+  const configured = env.GEMINI_CHAT_MODEL || "gemini-flash-latest";
+  const cached = await env.SESSIONS.get("chat-model");
+  try {
+    return { parts: await callModel(env, cached || configured, body) };
+  } catch (err) {
+    if (!(err instanceof GeminiError) || (err.status !== 404 && err.status !== 400)) throw err;
+    console.error(JSON.stringify({ event: "chat_model_fallback", message: err.message }));
+  }
+  const list = await fetch(`${API}/models?pageSize=200`, { headers: { "x-goog-api-key": env.GEMINI_API_KEY } });
+  if (!list.ok) throw new GeminiError(list.status, `list models ${list.status}`);
+  const model = pickFlashModel(((await list.json()) as { models?: { name: string }[] }).models ?? []);
+  if (!model) throw new GeminiError(404, "no flash model available");
+  await env.SESSIONS.put("chat-model", model, { expirationTtl: 86_400 });
+  return { parts: await callModel(env, model, body) };
 };
 
 interface ChatBody {
@@ -139,7 +180,9 @@ export async function handleChat(
     ({ parts } = await deps.generate(env, chatRequestBody(character, contents)));
   } catch (err) {
     console.error(JSON.stringify({ event: "chat_error", message: (err as Error).message?.slice(0, 300) }));
-    return errorResponse("gemini_unavailable", cors);
+    const status = err instanceof GeminiError ? err.status : 0;
+    // 429 = מכסת הקצב של Gemini; הקוד מוצג בהודעה כדי שאפשר יהיה לאבחן תקלה.
+    return errorResponse(status === 429 ? "rate_limited" : "gemini_unavailable", cors, status ? `Gemini ${status}` : undefined);
   }
   chat = { ...chat, calls: chat.calls + 1 };
   await env.SESSIONS.put(`chat:${chatId}`, JSON.stringify(chat), { expirationTtl: CHAT_HOURS * 3600 });

@@ -101,13 +101,16 @@ function addTranscript(who: "user" | "model", text: string, characterName: strin
     const li = document.createElement("li");
     li.className = who;
     const label = document.createElement("strong");
-    label.textContent = who === "user" ? "את/ה: " : `${characterName}: `;
+    label.textContent = who === "user" ? "את/ה: " : `${characterName.split(",")[0]}: `;
     li.append(label, document.createTextNode(""));
     ui.transcript.append(li);
     currentLine = { who, el: li };
   }
   currentLine.el.lastChild!.textContent += text;
   ui.transcript.scrollTop = ui.transcript.scrollHeight;
+  // בתצוגה המוקטנת הגלילה היא של כל הלוח הצדדי.
+  const side = ui.transcript.parentElement!;
+  side.scrollTop = side.scrollHeight;
 }
 
 const mentioned = new Set<string>();
@@ -261,6 +264,10 @@ async function main() {
   setTranscriptVisible(settings.showTranscript !== false);
   ui.toggleTranscript.addEventListener("click", () => setTranscriptVisible(ui.transcript.hidden));
 
+  // משפט הפתיחה מוצג כבר לפני השיחה, כדי שהתלמיד יידע עם מי הוא מדבר ומה אפשר לבקש.
+  addTranscript("model", c.openingLineHe, c.nameHe);
+  currentLine = undefined;
+
   const search = new SourceSearch(`/data/${c.id}/index.json`);
   const bank = c.quiz ? new QuizBank(`/data/${c.id}/questions.json`) : undefined;
 
@@ -334,6 +341,8 @@ async function main() {
         clearError();
       } catch (err) {
         showError(err instanceof ApiError ? err.message : "משהו השתבש. נסה שוב.");
+        // אסימון Turnstile משמש פעם אחת: אם הצ'אט עוד לא נפתח, צריך אסימון חדש לניסיון הבא.
+        if (!chat?.started) turnstile.reset();
         if (err instanceof ApiError && err.code === "chat_ended") teardown();
       } finally {
         ui.typeInput.disabled = false;
