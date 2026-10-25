@@ -51,3 +51,21 @@ test("comparisons and image credits all resolve", () => {
   assert.equal(PORTRAITS.theodosius1.file, "Gold Solidus of Theodosius I, 379-383.jpg");
   assert.ok(PORTRAITS.quietus.note.includes("אין בו דיוקן אישי ודאי"));
 });
+
+
+import { ROMAN_TENURES, TENURE_SOURCES } from "../src/data/roman-tenures.ts";
+test("every person and Herodian companion has sourced, role-specific tenure information", () => {
+  for (const id of [...ROMAN_PEOPLE.map(p => p.id), "herod-great", "antipas", "agrippa1"]) {
+    const t = ROMAN_TENURES[id];
+    assert.ok(t?.label && t.period && t.duration, id);
+    assert.ok(t.sources.every(key => TENURE_SOURCES[key]?.href.startsWith("https://")), id);
+    if (!["pompey", "antony", "helena", "eudocia"].includes(id)) assert.ok(t.sources.length, id);
+  }
+  assert.match(ROMAN_TENURES.augustus.duration, /40/);
+  assert.match(ROMAN_TENURES.antipas.duration, /42/);
+  assert.match(ROMAN_TENURES.caracalla.period, /198/);
+  assert.match(ROMAN_TENURES.caracalla.note, /211/);
+  assert.match(ROMAN_TENURES.constantine.note, /324/);
+  assert.match(ROMAN_TENURES.quirinius.duration, /אינו ודאי/);
+  assert.match(ROMAN_TENURES.titus.period, /79–81/);
+});

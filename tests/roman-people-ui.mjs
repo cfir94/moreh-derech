@@ -44,6 +44,7 @@ try {
   const personIds = await page.locator("[data-person-button]").evaluateAll(buttons => buttons.map(button => button.dataset.personButton));
   for (const id of personIds) {
     await page.locator(`[data-person-button="${id}"]`).click();
+    await expect(page.locator(`[data-person-detail="${id}"] [data-tenure="${id}"]`)).toBeVisible();
     const portrait = page.locator(`[data-person-detail="${id}"] [data-portrait]`);
     if (id === "florus") {
       await expect(portrait.locator("img")).toHaveCount(0);
@@ -58,7 +59,7 @@ try {
   }
   await page.locator('[data-person-button="pompey"]').click();
   await expect(page.locator('[data-person-button="pompey"]')).toBeVisible();
-  await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 4 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
+  await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 3 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
   await expect(page.getByRole("button", { name: "הדמות הקודמת", exact: true })).toBeDisabled();
   await page.getByRole("button", { name: "הדמות הבאה", exact: true }).click();
   await expect(page.locator('[data-person-detail="antony"]')).toBeVisible();
@@ -66,7 +67,7 @@ try {
   await stage.focus();
   await page.keyboard.press("ArrowLeft");
   await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
-  await expect(page.getByText("אוקטביאנוס → אקטיום → אוגוסטוס. שלושה עוגנים, אדם אחד.", { exact: true })).toBeVisible();
+  await expect(page.getByText("אוקטביאנוס ← אקטיום ← אוגוסטוס. שלושה עוגנים, אדם אחד.", { exact: true })).toBeVisible();
   await expect(page.locator('[data-person-detail="augustus"] [class*="trap"]')).toBeVisible();
   const textSize = await page.locator('[data-person-detail="augustus"] [class*="action"]').evaluate(node => parseFloat(getComputedStyle(node).fontSize));
   expect(textSize).toBeGreaterThanOrEqual(17);
@@ -90,8 +91,10 @@ try {
   await page.getByRole("button", { name: /לבדוק מה זכרתי/ }).click();
   await expect(page.getByText("כרטיס 1 מתוך 1", { exact: true })).toBeVisible();
   await expect(page.locator('[class*="answerIdentity"]')).toHaveCount(0);
+  await expect(page.locator('[class*="practice"] [data-tenure]')).toHaveCount(0);
   await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
   await expect(page.getByRole("heading", { name: "פומפיוס", exact: true })).toBeVisible();
+  await expect(page.locator('[data-tenure="pompey"]')).toContainText("לא מלך");
   await page.getByRole("button", { name: /צריך חיזוק/ }).click();
   await expect(page.getByRole("heading", { name: "הסבב הושלם" })).toBeVisible();
   await expect(page.getByText("זכרת 0 מתוך 1 דמויות.", { exact: true })).toBeVisible();
@@ -131,6 +134,22 @@ try {
   await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
   await page.getByRole("button", { name: /זכרתי ✓/ }).click();
   await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "byzantine");
+  await page.getByRole("button", { name: /להכיר את הדמויות/ }).click();
+  await page.getByRole("button", { name: /ניקוי הסינון/ }).click();
+  // A short round is optional; the complete filtered deck remains available.
+  await page.getByRole("button", { name: /אתגר של 5 דמויות/ }).click();
+  await expect(page.getByText("כרטיס 1 מתוך 5", { exact: true })).toBeVisible();
+  for (let i = 0; i < 5; i++) {
+    await page.getByRole("button", { name: "לחשוף את התשובה" }).click();
+    await page.getByRole("button", { name: /זכרתי ✓/ }).click();
+  }
+  await expect(page.getByText("זכרת 5 מתוך 5 דמויות.", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /אתגר של 5 דמויות/ }).click();
+  await expect(page.getByText("כרטיס 1 מתוך 5", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /להכיר את הדמויות/ }).click();
+  await page.getByRole("button", { name: /להכיר את אוגוסטוס/, exact: true }).click();
+  await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
+
   expect(errors).toEqual([]);
   console.log("Roman people: navigation, alias/era/role/core filters, comparison, recall/retry, mobile, dark mode and zero page errors passed");
 } finally { await browser.close(); await new Promise(done => server.close(done)); }
