@@ -61,6 +61,10 @@ try {
   await page.goto(base + "/map/learn/#beit-alfa");
   await expect(page.getByRole("heading", { name: "בית הכנסת בבית אלפא" })).toBeVisible();
   await expect(page.getByText("עקדת יצחק", { exact: false }).first()).toBeVisible();
+  // the architecture notes from the classical-architecture unit, linked to the glossary
+  await expect(page.getByRole("heading", { name: /אדריכלות — מה לזכור/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "גלגל המזלות בבתי הכנסת" })).toHaveAttribute("href", /classical-architecture\/#t-zodiac$/);
+
   // the photo leaves room for the facts: "who built it" is visible without scrolling
   await expect(page.getByRole("heading", { name: "מי בנה ומתי" })).toBeInViewport();
   await page.keyboard.press("Escape");
@@ -84,6 +88,17 @@ try {
   await page.waitForTimeout(500);
   await page.getByRole("button", { name: /^ירושלים — \d+ אתרים/ }).click();
   await expect(page.getByRole("tab", { name: "ירושלים" })).toHaveAttribute("aria-selected", "true");
+
+  // filter by religion and by an architecture topic
+  await page.getByRole("tab", { name: "אתרים" }).click();
+  await page.getByRole("button", { name: "נצרות" }).click();
+  await expect(rows.filter({ hasText: "כורסי" })).toHaveCount(1);
+  await expect(rows.filter({ hasText: "מצדה" })).toHaveCount(0);
+  await page.getByRole("button", { name: "כל הדתות" }).click();
+  await page.getByLabel("נושא באדריכלות").selectOption("entertainment");
+  await expect(rows.filter({ hasText: "בית גוברין" })).toHaveCount(1);
+  await expect(rows.filter({ hasText: "כורסי" })).toHaveCount(0);
+  await page.getByLabel("נושא באדריכלות").selectOption("all");
 
   // the map's own light/dark switch flips the whole page
   const themeBefore = await page.evaluate(() => document.documentElement.dataset.theme);

@@ -7,6 +7,8 @@ import { BUILDER_BY_ID, PERIOD_BY_ID, type MapSite } from "@/data/learning-map";
 import { sitePhotos } from "@/data/learning-map/photo-index";
 import type { SitePhoto } from "@/data/learning-map/photo-types";
 import type { CourseLink } from "@/data/learning-map/refs";
+import type { ArchLink } from "@/data/learning-map/arch-links";
+import { RELIGION_BY_ID, SITE_RELIGIONS } from "@/data/learning-map/religions";
 import { setMark, siteStatus, type SiteStat } from "@/lib/learningMapProgress";
 import { withBasePath } from "@/lib/basePath";
 import styles from "./LearningMap.module.css";
@@ -87,6 +89,7 @@ type Props = {
   site: MapSite;
   activeLayerId?: string;
   links: CourseLink[];
+  arch: ArchLink[];
   stat?: SiteStat;
   colorOf: (period: keyof typeof PERIOD_BY_ID) => string;
   onClose: () => void;
@@ -99,7 +102,7 @@ type Props = {
  * לזכירה — כך שהמידע נראה מיד, בלי לגלול מעבר לתמונה ענקית. אחריהם הממצאים,
  * ההסבר, ניסוחי המבחן והקישורים.
  */
-export function SiteCard({ site, activeLayerId, links, stat, colorOf, onClose, onStep, position }: Props) {
+export function SiteCard({ site, activeLayerId, links, arch, stat, colorOf, onClose, onStep, position }: Props) {
   const [photoIndex, setPhotoIndex] = useState(0);
   const photos = sitePhotos(site);
   // a find picked below jumps the gallery to its photo
@@ -117,6 +120,9 @@ export function SiteCard({ site, activeLayerId, links, stat, colorOf, onClose, o
           <div className={styles.periodTags}>
             {periods.map((p) => (
               <span key={p} style={{ ["--c" as string]: colorOf(p) }}>{PERIOD_BY_ID[p].title}</span>
+            ))}
+            {(SITE_RELIGIONS[site.id] ?? []).map((id) => (
+              <span key={id} className={styles.religionTag} title={RELIGION_BY_ID[id].note}>{RELIGION_BY_ID[id].symbol} {RELIGION_BY_ID[id].title}</span>
             ))}
             {site.extra && <span className={styles.extraTag}>השלמה</span>}
           </div>
@@ -182,6 +188,29 @@ export function SiteCard({ site, activeLayerId, links, stat, colorOf, onClose, o
           </div>
         </div>
 
+        {arch.length > 0 && (
+          <section className={`${styles.block} ${styles.archBlock}`}>
+            <h3>🏛 אדריכלות — מה לזכור</h3>
+            <ul className={styles.arch}>
+              {arch.map((a) => (
+                <li key={a.id}>
+                  <div className={styles.archHead}>
+                    <Link href={a.href} className={styles.archTerm} title="לפתוח במילון האדריכלות">{a.term}</Link>
+                    {a.latin && <span className={styles.archLatin} dir="ltr">{a.latin}</span>}
+                    <span className={styles.archChapter}>{a.chapterTitle}</span>
+                    {a.extra && <span className={styles.extraTag}>השלמה</span>}
+                  </div>
+                  <p>{a.note}</p>
+                  <details>
+                    <summary>מה זה {a.term}?</summary>
+                    <p className={styles.archDef}>{a.text}</p>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {site.finds && site.finds.length > 0 && (
           <section className={styles.block}>
             <h3>מה רואים באתר</h3>
@@ -241,7 +270,7 @@ export function SiteCard({ site, activeLayerId, links, stat, colorOf, onClose, o
         <p className={styles.provenance}>
           {site.extra
             ? "האתר כולו הוא השלמה מידע כללי — אינו מופיע בחומר הקורס שבאתר."
-            : "מבוסס על חומר הקורס שבאתר (צירי הזמן ומבחני הקורס). פרטים שמסומנים 'השלמה' הם ידע כללי."}
+            : "מבוסס על חומר הקורס שבאתר (צירי הזמן, מבחני הקורס ויחידת האדריכלות הקלאסית). פרטים שמסומנים 'השלמה' הם ידע כללי."}
         </p>
       </div>
     </article>
