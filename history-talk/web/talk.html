@@ -36,10 +36,6 @@
             <span>אני מעל גיל 18 ומבין/ה שזו דמות מבוססת בינה מלאכותית ושהשמע או הטקסט נשלחים לעיבוד אצל Google.</span>
           </label>
           <div id="turnstile" class="turnstile"></div>
-          <div class="start-row">
-            <button type="button" class="btn primary big" id="start">🎙 שיחה קולית</button>
-            <button type="button" class="btn ghost big" id="start-chat">💬 צ'אט בכתב</button>
-          </div>
         </div>
 
         <div class="controls" id="controls" hidden>
@@ -49,10 +45,12 @@
 
         <div class="samples" id="samples" aria-label="שאלות לדוגמה"></div>
 
-        <form class="type" id="type-form" hidden>
-          <label for="type-input" class="visually-hidden">כתוב במקום לדבר</label>
-          <input id="type-input" type="text" autocomplete="off" maxlength="500" placeholder="כתוב במקום לדבר…" />
+        <!-- שורת כתיבה אחת: כתיבה פותחת צ'אט, והמיקרופון פותח שיחה קולית (ולחיצה נוספת מסיימת אותה). -->
+        <form class="type" id="type-form">
+          <label for="type-input" class="visually-hidden">כתוב הודעה</label>
+          <input id="type-input" type="text" autocomplete="off" maxlength="500" placeholder="כתוב הודעה…" />
           <button type="submit" class="btn primary">שלח</button>
+          <button type="button" class="btn mic-btn" id="mic-btn" aria-pressed="false" aria-label="שיחה קולית" title="שיחה קולית">🎙</button>
         </form>
       </section>
 

@@ -31,8 +31,7 @@ const ui = {
   consent: $<HTMLInputElement>("consent"),
   consentRow: $("consent-row"),
   turnstile: $("turnstile"),
-  start: $<HTMLButtonElement>("start"),
-  startChat: $<HTMLButtonElement>("start-chat"),
+  micBtn: $<HTMLButtonElement>("mic-btn"),
   controls: $("controls"),
   mute: $<HTMLButtonElement>("mute"),
   end: $<HTMLButtonElement>("end"),
@@ -74,7 +73,6 @@ let player: Player | undefined;
 let avatar: Avatar | undefined;
 let timerHandle: number | undefined;
 let levelHandle: number | undefined;
-let textOnlyMode = false;
 let maxMinutes = 12;
 const turnstile = new Turnstile();
 
@@ -191,6 +189,7 @@ function stopTimer() {
 }
 
 function teardown() {
+  client = undefined;
   stopTimer();
   if (levelHandle) cancelAnimationFrame(levelHandle);
   levelHandle = undefined;
@@ -201,11 +200,11 @@ function teardown() {
   avatar?.setSpeaking(false);
   avatar?.setLevel(0);
   ui.controls.hidden = true;
-  ui.typeForm.hidden = true;
   ui.warning.hidden = true;
   ui.prestart.hidden = false;
-  ui.start.disabled = false;
-  ui.startChat.disabled = false;
+  ui.micBtn.disabled = false;
+  ui.micBtn.setAttribute("aria-pressed", "false");
+  ui.micBtn.title = ui.micBtn.ariaLabel = "שיחה קולית";
   chat = undefined;
   document.documentElement.classList.remove("started", "chatting");
   turnstile.reset();
@@ -390,8 +389,6 @@ async function main() {
     ui.prestart.hidden = true;
     ui.controls.hidden = false;
     ui.mute.hidden = true;
-    ui.typeForm.hidden = false;
-    ui.typeInput.placeholder = "כתוב הודעה…";
     ui.samples.hidden = false;
     ui.typeInput.focus();
   }
@@ -408,10 +405,10 @@ async function main() {
       showError("השרת לא זמין כרגע. נסה שוב בעוד כמה דקות.");
       return;
     }
-    ui.start.disabled = true;
-    ui.startChat.disabled = true;
+    ui.micBtn.disabled = true;
+    chat = undefined;
+    document.documentElement.classList.remove("chatting");
     document.documentElement.classList.add("started");
-    ui.typeInput.placeholder = "כתוב במקום לדבר…";
     ui.transcript.replaceChildren();
     ui.quizCards.replaceChildren();
     ui.quizPanel.hidden = true;
@@ -430,7 +427,7 @@ async function main() {
     };
     glow();
 
-    if (!textOnlyMode) {
+    {
       setStatus("mic");
       mic = new Mic();
       try {
@@ -448,7 +445,7 @@ async function main() {
               ? "הדפדפן חוסם את המיקרופון בתוך המסגרת. אפשר לפתוח את השיחה בחלון חדש, או להמשיך בכתיבה."
               : "אין הרשאה למיקרופון. אפשר לאשר אותה בהגדרות הדפדפן, או להמשיך בכתיבה."
             : "לא נמצא מיקרופון. אפשר לחבר מיקרופון, או להמשיך בכתיבה.",
-          { openWindow: blocked && inFrame, textOnly: true },
+          { openWindow: blocked && inFrame },
         );
         return;
       }
@@ -472,9 +469,11 @@ async function main() {
       startTimer(info.startedAt);
       ui.prestart.hidden = true;
       ui.controls.hidden = false;
-      ui.typeForm.hidden = false;
       ui.samples.hidden = false;
-      ui.mute.hidden = textOnlyMode;
+      ui.mute.hidden = false;
+      ui.micBtn.disabled = false;
+      ui.micBtn.setAttribute("aria-pressed", "true");
+      ui.micBtn.title = ui.micBtn.ariaLabel = "סיום השיחה הקולית";
     } catch (err) {
       teardown();
       setStatus("idle");
@@ -482,13 +481,12 @@ async function main() {
     }
   }
 
-  ui.start.addEventListener("click", () => void start());
-  ui.startChat.addEventListener("click", startChat);
-  ui.textOnly.addEventListener("click", () => {
-    textOnlyMode = true;
-    clearError();
-    void start();
+  // המיקרופון: פותח שיחה קולית, ובזמן שיחה — מסיים אותה. צ'אט פתוח מתחלף לשיחה קולית.
+  ui.micBtn.addEventListener("click", () => {
+    if (client) client.close();
+    else void start();
   });
+  ui.textOnly.addEventListener("click", startChat);
   ui.end.addEventListener("click", () => {
     if (chat) {
       teardown();
@@ -504,7 +502,12 @@ async function main() {
   ui.typeForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = ui.typeInput.value.trim();
-    if (!text || (!client && !chat) || ui.typeInput.disabled) return;
+    if (!text || ui.typeInput.disabled) return;
+    // בלי שיחה פתוחה — ההודעה הראשונה פותחת צ'אט.
+    if (!client && !chat) {
+      startChat();
+      if (!chat) return;
+    }
     ui.typeInput.value = "";
     void sendUser(text);
   });
