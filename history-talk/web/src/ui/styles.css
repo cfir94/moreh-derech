@@ -745,9 +745,10 @@ a {
 /* ---- שורת הכתיבה: טקסט, שליחה ומיקרופון ---- */
 .mic-btn {
   flex: none;
+  display: inline-grid;
+  place-items: center;
   min-width: 46px;
   padding-inline: 12px;
-  font-size: 1.15rem;
 }
 
 .mic-btn[aria-pressed="true"] {
@@ -775,6 +776,8 @@ a {
 
 .compact .topbar,
 .compact .disclaimer,
+.compact .stage h1,
+.compact:not(.started) #status,
 .compact #char-meta,
 .compact .portrait-credit,
 .compact .side-head,
@@ -783,11 +786,13 @@ a {
   display: none;
 }
 
+/* החלונית כולה בגובה המסגרת: ההודעות ממלאות את האמצע ושורת הכתיבה צמודה לתחתית. */
 .compact .talk {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin: 0;
+  height: calc(100vh - 8px);
 }
 
 .compact section.stage {
@@ -821,10 +826,9 @@ a {
 .compact .side {
   order: 2;
   padding: 8px;
-}
-
-.compact:not(.started) .side {
-  display: none;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .compact .samples {
@@ -860,5 +864,6 @@ a {
 }
 
 .compact .transcript {
-  max-height: 270px;
+  max-height: none;
+  overflow: visible;
 }
