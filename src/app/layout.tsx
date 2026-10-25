@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
+import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
 import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <UserProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
+          <MotiButton />
         </UserProvider>
       </body>
     </html>
