@@ -1,10 +1,14 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {SECOND_TEMPLE_ATLAS as C,ordinal,historical,zoomWindow,clampWindow,buildGroups,levelFor,intersects} from "../src/data/history-atlas/index.ts";
+import {SECOND_TEMPLE_ATLAS as C,ordinal,historical,intersects,levelFor,clampWindow,zoomAround,panBy,centerAt,fitRange,lerpView,ticks,layoutStage,relatedIds,chronology,xOf,yearAt,MIN_SPAN} from "../src/data/history-atlas/index.ts";
 const raw=JSON.parse(readFileSync(new URL("../src/data/second-temple/research.json",import.meta.url),"utf8"));
 const byId=new Map(C.nodes.map(n=>[n.id,n]));
-const base={from:ordinal(C.from),to:ordinal(C.to)};
+const bounds={from:ordinal(C.contextFrom)-12,to:ordinal(C.contextTo)+16};
+const home=fitRange(ordinal(C.from),ordinal(C.to)+1,bounds,.03);
+const desk={width:1440,height:700},phone={width:390,height:560};
+const ids=layout=>[...layout.people,...layout.events].map(p=>p.node.id);
+const counted=layout=>new Set([...ids(layout),...layout.clusters.flatMap(c=>c.ids)]);
 test("adapts the canonical course without inventing or dropping records",()=>{
  assert.equal(C.nodes.filter(n=>n.kind==="event").length,88);assert.equal(C.nodes.filter(n=>n.kind==="person").length,78);
  assert.equal(new Set(C.nodes.map(n=>n.id)).size,C.nodes.length);
@@ -21,19 +25,78 @@ test("keeps chronology, no year zero, and source uncertainty",()=>{
  assert(byId.get("ST-036").caution.includes("160"));assert(byId.get("ST-085").date.includes("כנראה"));
  const atDestruction={from:70,to:70};for(const id of ["P-051","P-053","P-065"])assert(!intersects(byId.get(id),atDestruction),id);
 });
-test("semantic zoom reveals detail and keeps context outside the default period",()=>{
- const broad=buildGroups(C,base);assert.equal(levelFor(base),"overview");assert(!broad.some(g=>["background","aftermath"].includes(g.id)));
- const flat=broad.flatMap(g=>g.nodes);for(const id of ["P-008","P-033","P-043","P-044","P-051","ST-058","ST-082"])assert(flat.some(n=>n.id===id),id);
- assert(!flat.some(n=>n.mentionOnly||n.unplaced));
- const context=buildGroups(C,{from:ordinal(C.contextFrom),to:ordinal(C.contextTo)},"all",true);assert(context.some(g=>g.id==="background"));assert(context.some(g=>g.id==="aftermath"));
- const detail=buildGroups(C,{from:ordinal(-170),to:ordinal(-140)});assert.equal(levelFor({from:-169,to:-139}),"detail");assert(detail.flatMap(g=>g.nodes).some(n=>n.id==="ST-036"));
- assert(buildGroups(C,base,"person").every(g=>g.nodes.every(n=>n.kind==="person")));assert(buildGroups(C,base,"event").every(g=>g.nodes.every(n=>n.kind==="event")));
- for(const window of [base,{from:ordinal(-170),to:ordinal(-140)},{from:1,to:70}])assert(!buildGroups(C,window).flatMap(g=>g.nodes).some(n=>n.mentionOnly||n.unplaced));
+test("the camera zooms around the pointer, pans, and stays inside the period",()=>{
+ const anchor=-200,next=zoomAround(home,2,anchor,bounds);
+ assert.equal(levelFor(home),"overview");
+ assert(Math.abs((next.to-next.from)-(home.to-home.from)/2)<1e-9);
+ assert(Math.abs(xOf(anchor,next,1000)-xOf(anchor,home,1000))<1e-6,"the year under the cursor does not move");
+ assert.equal(zoomAround(home,1e6,0,bounds).to-zoomAround(home,1e6,0,bounds).from,MIN_SPAN);
+ assert.deepEqual(zoomAround(home,1e-6,0,bounds),bounds);
+ const panned=panBy(home,1e5,bounds);assert.equal(panned.to,bounds.to);assert(Math.abs((panned.to-panned.from)-(home.to-home.from))<1e-9);
+ assert.deepEqual(clampWindow({from:-1000,to:-900},bounds,MIN_SPAN),{from:bounds.from,to:bounds.from+100});
+ const centred=centerAt(-100,50,300,600,bounds);assert(Math.abs(xOf(-100,centred,600)-300)<1e-9);
+ assert(Math.abs(yearAt(xOf(-123.4,home,777),home,777)+123.4)<1e-9);
+ assert(xOf(-500,home,1000)>xOf(50,home,1000),"earlier years sit to the right");
+ for(const [t,v] of [[0,home],[1,next]]){const at=lerpView(home,next,t);assert(Math.abs(at.from-v.from)<1e-9&&Math.abs(at.to-v.to)<1e-9);}
 });
-test("zoom and pan clamp to bounds without changing requested span",()=>{
- const next=zoomWindow(base,2,-100,base);assert.equal(next.to-next.from,(base.to-base.from)/2);assert(next.from>=base.from&&next.to<=base.to);
- assert.deepEqual(clampWindow({from:-1000,to:-900},base),{from:base.from,to:base.from+100});
- assert.deepEqual(zoomWindow(base,.5,0,base),base);assert.equal(clampWindow({from:10,to:11},base).to-clampWindow({from:10,to:11},base).from,4);
+test("ticks are round historical years with no year zero",()=>{
+ for(const [view,width] of [[home,1440],[{from:ordinal(-12),to:ordinal(9)},1440],[{from:ordinal(-170),to:ordinal(-140)},390]]){
+  const t=ticks(view,width);assert(t.major.length>=1);
+  for(const m of t.major){assert.notEqual(m.year,0);assert(m.year%t.step===0);assert.equal(m.at,ordinal(m.year));}
+  const per=width/(view.to-view.from);for(let i=1;i<t.major.length;i++)assert((t.major[i].at-t.major[i-1].at)*per>=80);
+ }
+ assert(ticks({from:ordinal(-4),to:ordinal(3)},1440).major.every(m=>m.label!=="0 לספירה"));
+});
+test("semantic zoom: key figures from afar, everything up close",()=>{
+ const far=layoutStage(C,home,desk);
+ assert.equal(far.level,"overview");
+ for(const p of [...far.people,...far.events])assert.equal(p.node.rank,1,p.node.id+" is not a key item");
+ for(const id of ["P-008","P-033","P-044","P-051","ST-007","ST-028","ST-082"])assert(ids(far).includes(id),id);
+ const middle=layoutStage(C,{from:ordinal(-170),to:ordinal(-60)},desk);
+ assert.equal(middle.level,"context");assert(ids(middle).some(id=>byId.get(id).rank===2));
+ const near=layoutStage(C,{from:ordinal(-168),to:ordinal(-158)},desk);
+ assert.equal(near.level,"detail");assert(counted(near).has("ST-036"));assert(ids(near).some(id=>byId.get(id).rank===3));
+ for(const layout of [far,middle,near,layoutStage(C,home,phone)])for(const id of counted(layout)){const n=byId.get(id);assert(!n.mentionOnly&&!n.unplaced,id);}
+});
+test("cards never overlap inside a lane, and what does not fit is counted",()=>{
+ for(const [view,size] of [[home,desk],[home,phone],[{from:ordinal(-170),to:ordinal(-60)},desk],[{from:ordinal(-40),to:ordinal(75)},desk],[{from:ordinal(64),to:ordinal(72)},phone]]){
+  const layout=layoutStage(C,view,size);
+  for(const zone of [layout.people,layout.events]){
+   const lanes=new Map();
+   for(const p of zone){
+    assert(p.lane<(p.node.kind==="person"?layout.geometry.personLanes:layout.geometry.eventLanes));
+    const extent=p.mode==="full"?p.node.kind==="person"?[Math.min(p.end,p.right-p.width),Math.max(p.start,p.right)]:[p.right-p.width,p.shifted?p.right:Math.max(p.start,p.right)]:[p.right-p.width,p.right];
+    if(p.shifted)assert(p.right-p.width>=p.end-4&&p.right<=p.start,p.node.id+" slid off its own span");
+    for(const other of lanes.get(p.lane)??[])assert(extent[1]<=other[0]||extent[0]>=other[1],p.node.id+" overlaps in lane "+p.lane);
+    lanes.set(p.lane,[...(lanes.get(p.lane)??[]),extent]);
+   }
+  }
+  const visible=layout.people.length+layout.events.length;assert(visible>0);
+  assert.equal(new Set(ids(layout)).size,ids(layout).length);
+  for(const c of layout.clusters){assert(c.x>=0&&c.x<=size.width);for(const id of c.ids)assert(!ids(layout).includes(id));}
+ }
+});
+test("selecting an item pulls it and its relations into view",()=>{
+ const focus=relatedIds(C,"P-033");
+ for(const id of ["P-032","P-037","ST-029","ST-033"])assert(focus.has(id),id);
+ assert(relatedIds(C,"P-032").has("P-033"),"relations work both ways");
+ assert(relatedIds(C,"ST-033").has("P-033"),"an event knows the people that point at it");
+ const hidden=C.nodes.find(n=>n.kind==="person"&&n.rank===3&&n.from>=home.from&&n.to<=home.to&&!n.mentionOnly&&!n.unplaced);
+ assert(hidden,"a minor figure exists to select");
+ assert(!ids(layoutStage(C,home,desk)).includes(hidden.id));
+ assert(ids(layoutStage(C,home,desk,{selected:hidden.id})).includes(hidden.id));
+ const chosen=layoutStage(C,home,desk,{selected:"P-033",focus});
+ for(const id of ["P-032","P-037"])assert(ids(chosen).includes(id),id);
+});
+test("filters and the chronological tour",()=>{
+ const people=layoutStage(C,home,desk,{kind:"person"}),events=layoutStage(C,home,desk,{kind:"event"});
+ assert.equal(people.events.length,0);assert.equal(people.dots.length,0);assert(people.people.length>0);
+ assert.equal(events.people.length,0);assert(events.events.length>0);
+ assert(people.geometry.personLanes>layoutStage(C,home,desk).geometry.personLanes);
+ const order=chronology(C,"all");
+ assert.equal(order.length,C.nodes.filter(n=>!n.mentionOnly&&!n.unplaced).length);
+ for(let i=1;i<order.length;i++)assert(order[i-1].from<=order[i].from);
+ assert(chronology(C,"event").every(n=>n.kind==="event"));
 });
 test("portraits have provenance and do not present contextual photos as likenesses",()=>{
  for(const n of C.nodes.filter(n=>n.image)){assert(n.image.localSrc.startsWith("/moreh-derech/images/"));assert(n.image.sourceUrl.startsWith("https://"));assert(n.image.caption&&n.image.credit&&n.image.license&&n.image.licenseUrl);}
