@@ -6,12 +6,6 @@
     "alt": "מבט אוויר על רחבת הר הבית וחומותיה"
   },
   {
-    "id": "temple-mount-western-wall",
-    "wiki": "he:הכותל המערבי",
-    "caption": "הכותל המערבי — קיר התמך של הורדוס. בנדבכים התחתונים: אבני גזית עם זיז.",
-    "alt": "הכותל המערבי ורחבת התפילה"
-  },
-  {
     "id": "temple-mount-huldah",
     "search": "Huldah Gates southern wall Temple Mount",
     "caption": "הכותל הדרומי של הר הבית, ממזרח לפינה הדרום־מערבית.",
@@ -43,7 +37,7 @@
   },
   {
     "id": "tower-of-david-tower",
-    "search": "Phasael tower Tower of David citadel Herodian",
+    "search": "Phasael tower",
     "caption": "בסיס המגדל ההרודיאני במצודת מגדל דוד.",
     "alt": "מגדל מאבני גזית גדולות"
   },
@@ -60,34 +54,22 @@
     "alt": "שרידי קירות אבן בחפירה ארכאולוגית"
   },
   {
-    "id": "siloam",
-    "search": "Pilgrimage Road stepped street City of David",
-    "caption": "הרחוב המדורג בעיר דוד — דרך עולי הרגל.",
-    "alt": "רחוב מרוצף באבנים גדולות במנהרה חפורה"
-  },
-  {
     "id": "siloam-pool",
     "search": "Pool of Siloam steps excavation Jerusalem",
     "caption": "מדרגות בריכת השילוח שנחשפו ב־2004.",
     "alt": "מדרגות אבן רחבות בחפירה"
   },
   {
-    "id": "burnt-house",
-    "wiki": "he:הבית השרוף",
-    "caption": "הבית השרוף ברובע היהודי.",
-    "alt": "חדר חפור עם כלי אבן וחרס"
-  },
-  {
     "id": "burnt-house-katros",
-    "search": "Bar Kathros stone weight Burnt House",
+    "search": "Bar Kathros",
     "caption": "משקולת האבן עם הכתובת 'בר קתרס'.",
     "alt": "משקולת אבן עגולה עם כתובת"
   },
   {
     "id": "tombs-of-the-kings",
-    "search": "Tombs of the Kings Jerusalem courtyard",
-    "caption": "החצר החצובה בקברות המלכים.",
-    "alt": "חזית חצובה בסלע ומדרגות"
+    "search": "Tomb of the Kings Jerusalem",
+    "caption": "אבן הגולל בפתח קברות המלכים — צילום היסטורי.",
+    "alt": "אבן עגולה בפתח קבר חצוב"
   },
   {
     "id": "third-wall",
@@ -103,7 +85,7 @@
   },
   {
     "id": "binyanei-hauma-stamp",
-    "search": "Legio X Fretensis roof tile stamp",
+    "search": "Legio X Fretensis tile",
     "caption": "רעף עם חותמת הלגיון העשירי פרטנסיס.",
     "alt": "רעף חרס עם אותיות לטיניות מוטבעות"
   },
@@ -126,12 +108,6 @@
     "alt": "קירות וקמרון אבן עתיקים"
   },
   {
-    "id": "nea-inscription",
-    "search": "Nea church inscription Justinian Jerusalem",
-    "caption": "כתובת ההקדשה של יוסטיניאנוס מבור המים שמתחת לניאה.",
-    "alt": "לוח כתובת יוונית"
-  },
-  {
     "id": "cardo",
     "file": "Cardo jerusalem2.jpg",
     "caption": "הקרדו ברובע היהודי — הקטע הביזנטי, עם העמודים המשוחזרים.",
@@ -139,15 +115,9 @@
   },
   {
     "id": "cardo-madaba-copy",
-    "search": "Madaba map replica Cardo Jerusalem",
+    "search": "Cardo Madaba map",
     "caption": "העתק מפת מידבא בקרדו.",
     "alt": "פסיפס מפה על קיר"
-  },
-  {
-    "id": "st-stephen",
-    "search": "Saint Stephen Basilica Jerusalem Ecole Biblique",
-    "caption": "בסיליקת סנט אטיין מצפון לשער שכם.",
-    "alt": "חזית כנסייה ופעמון"
   },
   {
     "id": "mount-zion",
@@ -169,7 +139,7 @@
   },
   {
     "id": "ramat-rachel-yehud",
-    "search": "Yehud stamp impression jar handle",
+    "search": "Yehud stamp",
     "caption": "טביעת 'יהוד' על ידית קנקן.",
     "alt": "ידית חרס עם חותם"
   },
@@ -193,21 +163,15 @@
   },
   {
     "id": "sebastia",
-    "search": "Sebastia Roman theatre ruins",
+    "search": "Sebastia ruins",
     "caption": "שרידים רומיים בסבסטיה.",
     "alt": "שרידי תיאטרון אבן"
   },
   {
     "id": "gerizim-church",
-    "search": "Mount Gerizim Theotokos church octagonal",
+    "search": "Mount Gerizim church",
     "caption": "יסודות הכנסייה המתומנת של זנון.",
     "alt": "יסודות מבנה מתומן"
-  },
-  {
-    "id": "legio",
-    "search": "Megiddo church mosaic Kefar Othnay",
-    "caption": "פסיפס אולם התפילה בכפר עותנאי.",
-    "alt": "פסיפס רצפה עם דגים וכתובת"
   },
   {
     "id": "beit-shearim",
@@ -252,12 +216,6 @@
     "alt": "חומות ונמל על הים"
   },
   {
-    "id": "tiberias",
-    "search": "Tiberias ancient Roman city excavations",
-    "caption": "שרידי טבריה העתיקה.",
-    "alt": "שרידי עיר עתיקה ליד הכנרת"
-  },
-  {
     "id": "hamat-tiberias-zodiac",
     "file": "Hamat Tiberias zodiac mosaic.jpg",
     "caption": "גלגל המזלות בחמת טבריה, ובמרכזו הליוס.",
@@ -289,7 +247,7 @@
   },
   {
     "id": "hippos",
-    "search": "Hippos Sussita excavations",
+    "search": "Hippos Sussita",
     "caption": "האתר של סוסיתא מעל הכנרת.",
     "alt": "שרידים על רכס ומאחור אגם"
   },
@@ -307,7 +265,7 @@
   },
   {
     "id": "banias-pan",
-    "search": "Banias Pan grotto niches",
+    "search": "Banias Pan cave",
     "caption": "מערת פאן והגומחות החצובות בבניאס.",
     "alt": "מערה וגומחות חצובות בצוק"
   },
@@ -319,21 +277,15 @@
   },
   {
     "id": "beit-alfa-akedah",
-    "search": "Beth Alpha synagogue mosaic Binding of Isaac",
-    "caption": "עקדת יצחק בפסיפס בית אלפא.",
-    "alt": "פסיפס עממי של אברהם, יצחק ואיל"
+    "search": "Beit Alpha Isaac",
+    "caption": "רצפת בית הכנסת בבית אלפא — עקדת יצחק בלוח הקרוב לכניסה (בתחתית).",
+    "alt": "רצפת פסיפס עם גלגל מזלות ולוח עקדה"
   },
   {
     "id": "beit-alfa-zodiac",
     "file": "Bet Alfa Synagogue Floor.jpg",
     "caption": "רצפת בית הכנסת בבית אלפא — גלגל המזלות במרכז, ומעליו לוח ארון הקודש.",
     "alt": "רצפת פסיפס עם גלגל מזלות"
-  },
-  {
-    "id": "beit-alfa-ark",
-    "search": "Beth Alpha synagogue mosaic Torah ark menorah",
-    "caption": "לוח ארון הקודש בין המנורות בבית אלפא.",
-    "alt": "פסיפס של ארון קודש ומנורות"
   },
   {
     "id": "beit-shean-palladius",
@@ -355,7 +307,7 @@
   },
   {
     "id": "hamat-gader",
-    "search": "Hamat Gader Roman baths ruins",
+    "search": "Hamat Gader Roman baths",
     "caption": "המרחצאות הרומיים בחמת גדר.",
     "alt": "בריכות אבן וקשתות"
   },
@@ -396,12 +348,6 @@
     "alt": "תל עם שרידי קירות בשחור־לבן"
   },
   {
-    "id": "betar",
-    "search": "Khirbet al-Yahud Betar Battir",
-    "caption": "חורבת ביתר מעל בתיר.",
-    "alt": "רכס עם טרסות"
-  },
-  {
     "id": "nativity-mosaics",
     "search": "Church of the Nativity Constantinian mosaic floor",
     "caption": "פסיפס הכנסייה הקונסטנטינית מתחת לרצפה בכנסיית המולד.",
@@ -427,7 +373,7 @@
   },
   {
     "id": "herodium-palace",
-    "search": "Herodium upper palace fortress",
+    "search": "Herodium palace",
     "caption": "הארמון העגול בפסגת הרודיון.",
     "alt": "חומה עגולה ומבנים בפנים"
   },
@@ -444,12 +390,6 @@
     "alt": "מנהרה חצובה"
   },
   {
-    "id": "mamre",
-    "search": "Mamre Ramat el-Khalil enclosure",
-    "caption": "שרידי המתחם באלוני ממרא.",
-    "alt": "קירות אבן גדולים"
-  },
-  {
     "id": "machpelah",
     "file": "Hebron Cave of the Patriarchs.jpg",
     "caption": "המתחם ההרודיאני של מערת המכפלה.",
@@ -460,12 +400,6 @@
     "search": "Susya synagogue",
     "caption": "שרידי היישוב העתיק בסוסיא.",
     "alt": "שרידי קירות אבן בשטח הררי"
-  },
-  {
-    "id": "theodosius",
-    "search": "Monastery of Saint Theodosius Judean desert",
-    "caption": "מנזר תאודוסיוס.",
-    "alt": "מנזר במדבר"
   },
   {
     "id": "mar-saba",
@@ -487,7 +421,7 @@
   },
   {
     "id": "chariton",
-    "search": "Chariton Pharan lavra Ein Prat monastery",
+    "search": "Chariton monastery",
     "caption": "מנזר חריטון בנחל פרת.",
     "alt": "מבנה על צלע נחל"
   },
@@ -505,7 +439,7 @@
   },
   {
     "id": "gerasimos",
-    "search": "Deir Hajla monastery Saint Gerasimos",
+    "search": "Deir Hajla",
     "caption": "מנזר גרסימוס בדיר חג׳לה.",
     "alt": "מנזר בבקעה"
   },
@@ -541,7 +475,7 @@
   },
   {
     "id": "nahal-hever-letter",
-    "search": "Bar Kokhba letter papyrus",
+    "search": "Bar Kokhba letter",
     "caption": "אגרת בר כוסבה.",
     "alt": "פפירוס עם כתב עברי"
   },
@@ -577,7 +511,7 @@
   },
   {
     "id": "nitzana",
-    "search": "Nitzana Nessana ancient ruins",
+    "search": "Nitzana ruins",
     "caption": "שרידי ניצנה העתיקה.",
     "alt": "שרידים על גבעה במדבר"
   },
@@ -622,5 +556,17 @@
     "file": "Katharinenkloster Sinai BW 2.jpg",
     "caption": "מנזר סנטה קתרינה למרגלות הר משה.",
     "alt": "מנזר מבוצר בעמק הררי"
+  },
+  {
+    "id": "gerizim",
+    "search": "Mount Gerizim",
+    "caption": "האתר הארכאולוגי על פסגת הר גריזים.",
+    "alt": "שרידי קירות על פסגת הר"
+  },
+  {
+    "id": "masada-ramp",
+    "search": "Masada siege ramp",
+    "caption": "הסוללה הרומית במצדה.",
+    "alt": "סוללה עולה אל ראש מצוק"
   }
 ]
