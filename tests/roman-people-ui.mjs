@@ -67,7 +67,7 @@ try {
   await stage.focus();
   await page.keyboard.press("ArrowLeft");
   await expect(page.locator('[data-person-detail="augustus"]')).toBeVisible();
-  await expect(page.getByText("אוקטביאנוס → אקטיום → אוגוסטוס. שלושה עוגנים, אדם אחד.", { exact: true })).toBeVisible();
+  await expect(page.getByText("אוקטביאנוס ← אקטיום ← אוגוסטוס. שלושה עוגנים, אדם אחד.", { exact: true })).toBeVisible();
   await expect(page.locator('[data-person-detail="augustus"] [class*="trap"]')).toBeVisible();
   const textSize = await page.locator('[data-person-detail="augustus"] [class*="action"]').evaluate(node => parseFloat(getComputedStyle(node).fontSize));
   expect(textSize).toBeGreaterThanOrEqual(17);
