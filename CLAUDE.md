@@ -350,6 +350,11 @@ Cloudflare Worker אחד שמגיש גם את הלקוח (Vite + TypeScript, ב�
   דיוקן: `history-talk/docs/add-character.md`.
 - `TALK_CHARACTERS` ב-`src/data/history-talk.ts` חייב להתאים ל-`history-talk/characters/` (בדיקה ב-
   `tests/history-talk-characters.test.mjs`).
+- **עמרם, מורה הדרך הוותיק** (`characters/guide`, `kind: "guide"`): דמות בדויה בת זמננו שמשוחחת בחופשיות
+  ובוחנת על כל חומר האתר. כללים משלו (`GUIDE_RULES` ב-`src/worker/prompt.ts`) וכלי נוסף, `quiz_questions`,
+  שנענה בדפדפן מ-`questions.json` (`web/src/quiz.ts`). מאגר הידע והשאלות **נוצרים מהאתר**:
+  `node --import ./tests/register-ts.mjs tools/export_guide_knowledge.mjs` — להריץ מחדש כשהחומר באתר משתנה.
+  אין לו עדיין דיוקן (מונוגרמה בהילה).
 - ערכת הצבעים נקראת פעם אחת בטעינה ונשלחת כ-`?theme=` — שינוי `src` היה טוען את המסגרת מחדש
   וקוטע שיחה באמצע.
 

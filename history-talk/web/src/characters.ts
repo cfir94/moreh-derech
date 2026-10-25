@@ -15,6 +15,10 @@ export interface PublicCharacter {
   sources: { title: string; translator: string; url: string; license: string }[];
   /** קרדיט לדיוקן (רישיון חופשי מוויקישיתוף), מוצג מתחת לדמות. */
   portraitCredit?: { alt: string; text: string; url: string; license: string; licenseUrl: string };
+  /** "guide" — מורה הדרך: בן זמננו שמשוחח על כל חומר האתר ובוחן. */
+  kind?: "guide";
+  /** יש מאגר שאלות לבוחן (data/<id>/questions.json). */
+  quiz?: boolean;
   media: {
     portrait: string | null;
     idle: string | null;

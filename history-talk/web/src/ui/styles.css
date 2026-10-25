@@ -686,6 +686,45 @@ a {
   border-inline-start: 3px solid var(--accent);
 }
 
+.quiz-hint {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  color: var(--txt-dim);
+}
+
+.quiz-cards {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.quiz-cards details {
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+  background: var(--card-2);
+  border-inline-start: 3px solid var(--accent);
+}
+
+.quiz-cards summary {
+  cursor: pointer;
+  color: var(--txt-dim);
+}
+
+.quiz-cards p {
+  margin: 6px 0 4px;
+  font-weight: 600;
+}
+
+.quiz-cards ol {
+  margin: 0;
+  padding-inline-start: 22px;
+  list-style-type: hebrew;
+}
+
 .sources,
 .all-sources ul {
   margin: 0;
