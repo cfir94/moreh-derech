@@ -1,7 +1,7 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync,existsSync} from "node:fs";
-import {SECOND_TEMPLE_ATLAS as C,ordinal,historical,intersects,clampWindow,zoomAround,panBy,centerAt,fitRange,lerpView,timeScale,toV,toYear,layoutTree,levelOf,relatedIds,chronology,isPlaced,TREE_KINDS,CARD,MIN_SPAN} from "../src/data/history-atlas/index.ts";
+import {SECOND_TEMPLE_ATLAS as C,ordinal,historical,intersects,clampWindow,zoomAround,panBy,centerAt,fitRange,lerpView,timeScale,toV,toYear,layoutTree,levelOf,relatedIds,chronology,isPlaced,artYear,TREE_KINDS,LABEL,GAP,SHIFT,MIN_SPAN} from "../src/data/history-atlas/index.ts";
 const raw=JSON.parse(readFileSync(new URL("../src/data/second-temple/research.json",import.meta.url),"utf8"));
 const byId=new Map(C.nodes.map(n=>[n.id,n]));
 const S=timeScale(C);
@@ -9,7 +9,8 @@ const bounds={from:toV(S,ordinal(C.contextFrom))-24,to:toV(S,ordinal(C.contextTo
 const home=fitRange(toV(S,ordinal(C.from)),toV(S,ordinal(C.to)+1),bounds,.015);
 const phaseView=id=>{const g=S.segments.find(s=>s.phase.id===id);return fitRange(g.start,g.end,bounds,.04);};
 const desk={width:1440,height:717},phone={width:390,height:560};
-const ids=L=>[...L.people,...L.events].map(p=>p.node.id);
+const ids=L=>[...L.people,...L.events,...L.vignettes].map(p=>p.node.id);
+const views=[home,...S.segments.map(s=>phaseView(s.phase.id)),zoomAround(phaseView("revolt"),3,toV(S,ordinal(66)+.5),bounds),zoomAround(phaseView("hasmonean"),2.5,toV(S,ordinal(-167)),bounds)];
 const counted=L=>new Set([...ids(L),...L.clusters.flatMap(c=>c.ids)]);
 
 test("adapts the canonical course without inventing or dropping records",()=>{
@@ -75,7 +76,7 @@ test("every placed figure has a column, and no column holds two figures at once"
 test("semantic zoom: key figures and events from afar, the family trees up close",()=>{
  const far=layoutTree(C,S,home,desk);
  assert.equal(far.level,"overview");
- for(const p of [...far.people,...far.events])assert.equal(p.node.rank,1,p.node.id+" is not a key item");
+ for(const p of [...far.people,...far.events,...far.vignettes])assert.equal(p.node.rank,1,p.node.id+" is not a key item");
  for(const id of ["P-008","P-033","P-051","ST-007","ST-028","ST-082"])assert(ids(far).includes(id),id);
  const hasmonean=layoutTree(C,S,phaseView("hasmonean"),desk);
  assert.equal(hasmonean.level,"context");
@@ -84,24 +85,59 @@ test("semantic zoom: key figures and events from afar, the family trees up close
  const herod=layoutTree(C,S,phaseView("herod"),desk);
  assert.equal(herod.level,"detail");
  for(const id of ["P-051","P-054","P-055","P-056","P-057","P-058","P-059","ST-055","ST-057","ST-058"])assert(ids(herod).includes(id),id);
- assert(herod.events.find(e=>e.node.id==="ST-058").illustrated,"the rebuilt Temple shows its drawing");
+ assert(herod.vignettes.some(v=>v.node.id==="ST-058"),"the rebuilt Temple shows its drawing");
  assert(ids(layoutTree(C,S,phaseView("revolt"),desk)).some(id=>byId.get(id).rank===3));
  for(const L of [far,hasmonean,herod,layoutTree(C,S,home,phone)])for(const id of counted(L)){const n=byId.get(id);assert(isPlaced(n),id);}
 });
 
-test("nothing overlaps, and every card stays near its own time",()=>{
- const views=[home,...S.segments.map(s=>phaseView(s.phase.id)),zoomAround(phaseView("revolt"),3,toV(S,ordinal(66)+.5),bounds)];
- for(const size of [desk,phone])for(const view of views){
-  const L=layoutTree(C,S,view,size);
+test("nothing overlaps, and every title stays near its own time",()=>{
+ for(const size of [desk,phone])for(const lane of [true,false])for(const view of views){
+  const L=layoutTree(C,S,view,size,{lane}),where=`${size.width}px ${lane?"open":"closed"} ${Math.round(view.from)}: `;
   const slots=new Map();
-  for(const p of L.people){for(const q of slots.get(p.slot)??[])assert(p.bottom<=q.top||p.top>=q.bottom,p.node.id+" overlaps "+q.node.id);slots.set(p.slot,[...(slots.get(p.slot)??[]),p]);}
-  const cards=[...L.events].sort((a,b)=>a.top-b.top);
-  for(let i=1;i<cards.length;i++)assert(cards[i].top>=cards[i-1].top+cards[i-1].height,cards[i].node.id+" overlaps "+cards[i-1].node.id);
-  for(const e of L.events)assert(e.top>=e.y-e.height/2-CARD.shift-1&&e.top<=e.y1-e.height/2+CARD.shift+1,e.node.id+" strays from its time");
-  for(const c of L.clusters)for(const id of c.ids)assert(!ids(L).includes(id));
+  for(const p of L.people){for(const q of slots.get(p.slot)??[])assert(p.bottom<=q.top||p.top>=q.bottom,where+p.node.id+" overlaps "+q.node.id);slots.set(p.slot,[...(slots.get(p.slot)??[]),p]);}
+  const titles=[...L.events].sort((a,b)=>a.top-b.top);
+  for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id+" overlaps "+titles[i-1].node.id);
+  for(const e of L.events){
+   assert(e.top>=e.y-e.height/2-LABEL.shift-1&&e.top<=e.y1-e.height/2+LABEL.shift+1,where+e.node.id+" strays from its time");
+   for(const v of L.vignettes)assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" lies on the drawing of "+v.node.id);
+  }
+  for(let i=1;i<L.vignettes.length;i++)assert(L.vignettes[i].top>=L.vignettes[i-1].bottom||Math.abs(L.vignettes[i].x-L.vignettes[i-1].x)>=L.vignettes[i].size,where+"two drawings overlap");
+  for(const c of L.clusters)for(const id of c.ids)assert(!ids(L).includes(id),where+id);
   for(const t of L.ticks)assert.notEqual(t.year,0);
-  assert.equal(new Set(ids(L)).size,ids(L).length);
+  assert.equal(new Set(ids(L)).size,ids(L).length,where+"an item is drawn twice");
  }
+});
+
+test("parents stand above their children, and nobody is drawn far from their time",()=>{
+ const family=C.relations.filter(r=>r.kind==="parent"||r.kind==="grandparent");
+ for(const size of [desk,phone])for(const view of views){
+  const L=layoutTree(C,S,view,size),usable=size.height-48,span=view.to-view.from,px=years=>years*usable/span;
+  const at=new Map(L.people.map(p=>[p.node.id,p]));
+  for(const r of family){const a=at.get(r.from),b=at.get(r.to);if(a&&b)assert(b.top>=a.bottom+GAP.generation-.5,`${r.from} above ${r.to} at ${Math.round(view.from)}`);}
+  for(const p of L.people){
+   assert(p.shift<=Math.max(SHIFT.latePx,px(toV(S,p.node.from+SHIFT.lateYears)-toV(S,p.node.from)))+.5,p.node.id+" comes in too late: "+p.shift);
+   assert(p.shift>=-px(toV(S,p.node.from)-toV(S,p.node.from-SHIFT.earlyYears))-.5,p.node.id+" is drawn too early: "+p.shift);
+  }
+ }
+ // The case that started it: Mattathias and his sons come in the same year, and he stands above them.
+ const revolt=layoutTree(C,S,phaseView("hasmonean"),desk),find=id=>revolt.people.find(p=>p.node.id===id);
+ for(const son of ["P-033","P-037","P-039"])assert(find("P-032").bottom<find(son).top,"Mattathias above "+son);
+ assert(find("P-032").shift<0,"the father is drawn a little earlier, not the sons later");
+ assert(revolt.connectors.some(c=>c.id==="P-032-P-033"&&c.path.includes("Q")),"the line drops from father to son");
+});
+
+test("drawings sit on their own year at every zoom level, with the lane open or closed",()=>{
+ for(const size of [desk,phone])for(const lane of [true,false])for(const view of [home,phaseView("herod"),phaseView("successors"),phaseView("revolt"),zoomAround(phaseView("revolt"),3,toV(S,ordinal(70)+.5),bounds)]){
+  const L=layoutTree(C,S,view,size,{lane}),usable=size.height-48,span=view.to-view.from;
+  for(const [id,art] of Object.entries(C.illustrations)){
+   const n=byId.get(id),y=48+(toV(S,artYear(art,n))-view.from)/span*usable;
+   const v=L.vignettes.find(v=>v.node.id===id);
+   if(y>60&&y<size.height-20){assert(v,id+" is missing at "+Math.round(view.from));assert(Math.abs(v.y-y)<1e-6,id+" is off its year");assert.equal(v.inLane,lane);}
+   if(v&&!lane)assert(v.x+v.size/2<=L.peopleRight+1&&v.x-v.size/2>=0,id+" leaves the tree area");
+  }
+ }
+ assert.equal(artYear(C.illustrations["ST-082"],byId.get("ST-082")),ordinal(70)+.5,"the burning of the Temple sits on 70");
+ assert(Math.abs(artYear(C.illustrations["ST-058"],byId.get("ST-058"))-(ordinal(-20)+.5))<1e-9,"the rebuilt Temple sits in the middle of Herod's reign");
 });
 
 test("choosing an item pulls it and its relations in, and names only the ties the tree does not draw",()=>{
@@ -117,16 +153,18 @@ test("choosing an item pulls it and its relations in, and names only the ties th
  for(const l of chosen.links){const r=C.relations.find(r=>(r.from==="P-033"&&r.to===l.id)||(r.to==="P-033"&&r.from===l.id));if(r&&TREE_KINDS.has(r.kind))assert(!l.label,l.id);if(r&&!TREE_KINDS.has(r.kind))assert.equal(l.label,r.label);}
 });
 
-test("filters, sideways scrolling and the chronological tour",()=>{
- const people=layoutTree(C,S,home,desk,{kind:"person"}),events=layoutTree(C,S,home,desk,{kind:"event"});
- assert.equal(people.events.length,0);assert(people.people.length>0);
- assert.equal(events.people.length,0);assert.equal(events.columns.length,0);assert(events.events.length>0);
- const narrow=layoutTree(C,S,phaseView("hasmonean"),phone,{pan:0}),moved=layoutTree(C,S,phaseView("hasmonean"),phone,{pan:1e6}),centred=layoutTree(C,S,phaseView("hasmonean"),phone);
+test("the lane of event titles opens and closes, sideways scrolling and the chronological tour",()=>{
+ const open=layoutTree(C,S,home,desk,{lane:true}),closed=layoutTree(C,S,home,desk,{lane:false});
+ assert(open.events.length>5);assert.equal(closed.events.length,0,"closed, the events are dots on the spine");assert(closed.dots.length>=open.events.length);
+ assert(closed.peopleRight>open.peopleRight,"the tree takes the room the lane leaves");assert(!open.lane.overlay);
+ const phoneOpen=layoutTree(C,S,home,phone,{lane:true}),phoneClosed=layoutTree(C,S,home,phone,{lane:false});
+ assert(phoneOpen.lane.overlay,"on a phone the lane opens over the tree");assert.equal(phoneOpen.peopleRight,phoneClosed.peopleRight);assert(phoneOpen.events.length>3);
+ const narrow=layoutTree(C,S,phaseView("hasmonean"),phone,{pan:0,lane:false}),moved=layoutTree(C,S,phaseView("hasmonean"),phone,{pan:1e6,lane:false}),centred=layoutTree(C,S,phaseView("hasmonean"),phone,{lane:false});
  assert(centred.pan>0&&centred.pan<narrow.panMax,"on a phone the tree starts centred on Judea");
  assert(centred.people.some(p=>p.node.id==="P-039"&&p.x>0&&p.x<centred.peopleRight),"Simon is in view");
  assert(narrow.panMax>0);assert.equal(moved.pan,narrow.panMax);
  const p0=narrow.people.find(p=>p.node.id==="P-032"),p1=moved.people.find(p=>p.node.id==="P-032")??{x:p0.x+narrow.panMax};assert(Math.abs(p1.x-p0.x-narrow.panMax)<1e-9);
- const order=chronology(C,"all");
+ const order=chronology(C);
  assert.equal(order.length,C.nodes.filter(isPlaced).length);
  for(let i=1;i<order.length;i++)assert(order[i-1].from<=order[i].from);
  assert(chronology(C,"event").every(n=>n.kind==="event"));

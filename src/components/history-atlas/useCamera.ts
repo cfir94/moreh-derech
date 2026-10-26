@@ -5,17 +5,18 @@ import {MIN_SPAN,clampWindow,easeInOut,lerpView,panBy,zoomAround,type AtlasWindo
 const reduced=()=>window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * The view over time, with three ways to move it: `jump` (drag, pinch — the
- * finger is the animation), `fly` (an eased trip to a target) and `zoomBy`,
- * which collects wheel steps and eases into them around a fixed year so the
- * point under the cursor stays put. `glide` carries a drag's momentum.
+ * The view over time, with four ways to move it: `jump` (drag, pinch — the
+ * finger is the animation), `fly` (an eased trip to a target), `scrollBy`,
+ * which collects wheel steps and eases through them like a page scrolling,
+ * and `zoomBy`, which does the same for zoom around a fixed year so the point
+ * under the cursor stays put. `glide` carries a drag's momentum.
  */
 export function useCamera(bounds:AtlasWindow,initial:AtlasWindow){
  const [view,setView]=useState(initial);
- const live=useRef(initial),frame=useRef(0),mode=useRef<"fly"|"zoom"|"glide"|null>(null),zoom=useRef({amount:0,anchor:0});
+ const live=useRef(initial),frame=useRef(0),mode=useRef<"fly"|"zoom"|"scroll"|"glide"|null>(null),zoom=useRef({amount:0,anchor:0}),scroll=useRef(0);
  const commit=useCallback((next:AtlasWindow)=>{live.current=clampWindow(next,bounds,MIN_SPAN);setView(live.current);},[bounds]);
- const stop=useCallback(()=>{cancelAnimationFrame(frame.current);frame.current=0;mode.current=null;zoom.current.amount=0;},[]);
- const run=useCallback((kind:"fly"|"zoom"|"glide",step:(now:number)=>boolean)=>{
+ const stop=useCallback(()=>{cancelAnimationFrame(frame.current);frame.current=0;mode.current=null;zoom.current.amount=0;scroll.current=0;},[]);
+ const run=useCallback((kind:"fly"|"zoom"|"scroll"|"glide",step:(now:number)=>boolean)=>{
   cancelAnimationFrame(frame.current);mode.current=kind;
   const tick=(now:number)=>{if(step(now))frame.current=requestAnimationFrame(tick);else{frame.current=0;mode.current=null;}};
   frame.current=requestAnimationFrame(tick);
@@ -41,6 +42,18 @@ export function useCamera(bounds:AtlasWindow,initial:AtlasWindow){
    return z.amount!==0;
   });
  },[bounds,commit,run,stop]);
+ /** `amount` is in the camera's units; a run of wheel steps adds up and eases out. */
+ const scrollBy=useCallback((amount:number)=>{
+  if(mode.current!=="scroll")stop();
+  if(reduced()){commit(panBy(live.current,amount,bounds));return;}
+  scroll.current+=amount;
+  if(mode.current==="scroll")return;
+  run("scroll",()=>{
+   const span=live.current.to-live.current.from,part=Math.abs(scroll.current)<span*.0008?scroll.current:scroll.current*.24;
+   scroll.current-=part;commit(panBy(live.current,part,bounds));
+   return scroll.current!==0;
+  });
+ },[bounds,commit,run,stop]);
  /** `velocity` is in years per millisecond. */
  const glide=useCallback((velocity:number)=>{
   stop();
@@ -55,6 +68,6 @@ export function useCamera(bounds:AtlasWindow,initial:AtlasWindow){
  /** The view as of this instant, for event handlers; `view` is the rendered one. */
  const read=useCallback(()=>live.current,[]);
  useEffect(()=>()=>cancelAnimationFrame(frame.current),[]);
- return useMemo(()=>({view,read,jump,fly,zoomBy,glide,stop}),[view,read,jump,fly,zoomBy,glide,stop]);
+ return useMemo(()=>({view,read,jump,fly,zoomBy,scrollBy,glide,stop}),[view,read,jump,fly,zoomBy,scrollBy,glide,stop]);
 }
 export type Camera=ReturnType<typeof useCamera>;

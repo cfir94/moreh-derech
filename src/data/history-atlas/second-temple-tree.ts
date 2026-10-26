@@ -102,11 +102,13 @@ export const SLOTS:Record<string,AtlasSlot>={
 
 /**
  * Illustrations for the turning points, in the hand-drawn vignette style the
- * owner chose. Each file is a transparent WebP in public/images/history-atlas/.
+ * owner chose. They sit on the axis at their own year at every zoom level.
+ * Each file is a transparent WebP in public/images/history-atlas/.
  * docs/history-atlas-illustrations.md lists the ones still to be drawn.
  */
 const IMAGE="/moreh-derech/images/history-atlas/";
 export const ILLUSTRATIONS:Record<string,AtlasIllustration>={
- "ST-058":{src:IMAGE+"ST-058.webp",alt:"המקדש בהר הבית המורחב, בין ברושים, מעל חומת אבני גזית.",caption:"המקדש לאחר הבנייה מחדש בימי הורדוס — המחשה אמנותית."},
+ // The source dates the rebuilding to Herod's reign, 37–4 BCE, so the drawing sits in the middle of it.
+ "ST-058":{src:IMAGE+"ST-058.webp",alt:"המקדש בהר הבית המורחב, בין ברושים, מעל חומת אבני גזית.",caption:"המקדש לאחר הבנייה מחדש בימי הורדוס — המחשה אמנותית.",at:-20},
  "ST-082":{src:IMAGE+"ST-082.webp",alt:"המקדש עולה באש ועשן, וחומות הר הבית קורסות.",caption:"שריפת בית המקדש השני — המחשה אמנותית."},
 };

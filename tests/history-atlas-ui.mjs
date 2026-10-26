@@ -26,38 +26,54 @@ try{
  const atlas=page.locator("[data-history-atlas]"),stage=page.locator("[data-atlas-chart]"),detail=page.locator("[data-atlas-detail]"),range=page.locator("[data-atlas-range]");
  const rangeText=()=>range.textContent(),node=id=>page.locator(`[data-atlas-node="${id}"]`);
  await expect(page.getByRole("heading",{name:"אטלס הזמן",exact:true})).toBeVisible();await expect(atlas).toHaveAttribute("data-level","overview");
+ // The page opens at the return from Babylon, zoomed close enough that the wheel walks down through the period.
+ for(const id of ["P-008","P-014","ST-007"])await expect(node(id)).toHaveCount(1);
+ const box=await stage.boundingBox(),startRange=await rangeText();
+ await page.mouse.move(box.x+box.width/2,box.y+box.height/2);
+ for(let i=0;i<4;i++)await page.mouse.wheel(0,250);
+ await expect.poll(rangeText).not.toBe(startRange);await expect(atlas).toHaveAttribute("data-level","overview");
+ await page.keyboard.down("Control");await page.mouse.wheel(0,-400);await page.mouse.wheel(0,-400);await page.keyboard.up("Control");
+ await expect(atlas).not.toHaveAttribute("data-level","overview");
+ await page.locator('[data-atlas-level="overview"]').click();await expect(atlas).toHaveAttribute("data-level","overview");
  for(const id of ["P-008","P-033","P-051","ST-007","ST-082"])await expect(node(id)).toHaveCount(1);
  expect(await page.locator('[data-atlas-node][data-rank="2"],[data-atlas-node][data-rank="3"]').count()).toBe(0);
  if(!process.env.ATLAS_PREVIEW)for(const id of ["P-008","P-033"]){const img=node(id).locator("img");await expect.poll(()=>img.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);}
 
  // Nothing on the tree covers anything else (the tree is clipped to its own area, so only the visible part counts).
- const overlaps=()=>stage.evaluate(el=>{const clip=(r,c)=>({left:Math.max(r.left,c.left),right:Math.min(r.right,c.right),top:Math.max(r.top,c.top),bottom:Math.min(r.bottom,c.bottom)});const boxes=[...el.querySelectorAll("[data-atlas-node]")].map(n=>({id:n.dataset.atlasNode,r:clip(n.getBoundingClientRect(),n.parentElement.getBoundingClientRect())}));const bad=[];for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){const a=boxes[i].r,b=boxes[j].r,w=Math.min(a.right,b.right)-Math.max(a.left,b.left),h=Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top);if(w>2&&h>2)bad.push(boxes[i].id+"/"+boxes[j].id);}return bad;});
+ // Drawings outside the lane are drawn beneath the tree on purpose, so they are left out.
+ const overlaps=()=>stage.evaluate(el=>{const clip=(r,c)=>({left:Math.max(r.left,c.left),right:Math.min(r.right,c.right),top:Math.max(r.top,c.top),bottom:Math.min(r.bottom,c.bottom)});const boxes=[...el.querySelectorAll("[data-atlas-node]:not([data-illustrated]:not([data-in-lane]))")].map(n=>({id:n.dataset.atlasNode,r:clip(n.getBoundingClientRect(),n.parentElement.getBoundingClientRect())}));const bad=[];for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){const a=boxes[i].r,b=boxes[j].r,w=Math.min(a.right,b.right)-Math.max(a.left,b.left),h=Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top);if(w>2&&h>2)bad.push(boxes[i].id+"/"+boxes[j].id);}return bad;});
  expect(await overlaps()).toEqual([]);
 
- await page.locator('[data-atlas-kind="event"]').click();expect(await page.locator('[data-atlas-node][data-kind="person"]').count()).toBe(0);expect(await page.locator('[data-atlas-node][data-kind="event"]').count()).toBeGreaterThan(5);
- await page.locator('[data-atlas-kind="person"]').click();expect(await page.locator('[data-atlas-node][data-kind="event"]').count()).toBe(0);expect(await page.locator('[data-atlas-node][data-kind="person"]').count()).toBeGreaterThan(5);
- await page.locator('[data-atlas-kind="all"]').click();
+ // The lane of event titles closes into dots on the spine, and opens again; the drawings stay either way.
+ const titles=page.locator('[data-atlas-node][data-kind="event"]:not([data-illustrated])');
+ expect(await titles.count()).toBeGreaterThan(5);
+ await page.locator('[data-atlas-lane="close"]').click();await expect(titles).toHaveCount(0);
+ expect(await page.locator("[data-atlas-dot]").count()).toBeGreaterThan(20);await expect(node("ST-082")).toHaveCount(1);
+ await page.locator('[data-atlas-dot="ST-007"]').dispatchEvent("click");await expect(detail.locator("h2")).toHaveText(/כורש/);await page.keyboard.press("Escape");
+ await page.locator('[data-atlas-lane="open"]').click();expect(await titles.count()).toBeGreaterThan(5);
 
  // The Hasmonean family tree: Mattathias and his sons, joined by lines.
  let before=await rangeText();
  await page.locator('[data-atlas-phase="hasmonean"]').click();await expect(atlas).toHaveAttribute("data-level","context");
  expect(await rangeText()).not.toBe(before);
  for(const id of ["P-032","P-033","P-037","P-039","P-040","P-043","P-044"])await expect(node(id)).toHaveCount(1);
+ // A father stands above his sons, even though they come in the same year.
+ const below=async(parent,child)=>{const a=await node(parent).boundingBox(),b=await node(child).boundingBox();return a.y+a.height<=b.y;};
+ for(const son of ["P-033","P-037","P-039"])expect(await below("P-032",son)).toBe(true);
+ expect(await below("P-039","P-040")).toBe(true);expect(await below("P-044","P-045")).toBe(true);
  expect(await stage.locator("path[data-kind='parent']").count()).toBeGreaterThan(3);expect(await stage.locator("path[data-kind='succession']").count()).toBeGreaterThan(1);
  expect(await overlaps()).toEqual([]);
  before=await rangeText();
  await page.getByRole("button",{name:"התקרבות בזמן",exact:true}).click();await expect(atlas).toHaveAttribute("data-level","detail");expect(await rangeText()).not.toBe(before);
- const box=await stage.boundingBox();
  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);before=await rangeText();
  for(let i=0;i<6;i++)await page.mouse.wheel(0,200);
- await expect.poll(rangeText).not.toBe(before);await expect(atlas).not.toHaveAttribute("data-level","detail");
- await page.locator('[data-atlas-level="detail"]').click();await expect(atlas).toHaveAttribute("data-level","detail");
+ await expect.poll(rangeText).not.toBe(before);await expect(atlas).toHaveAttribute("data-level","detail");
  await page.locator('[data-atlas-level="overview"]').click();await expect(atlas).toHaveAttribute("data-level","overview");
 
  // Herod's reign: the building projects spread along it, and the rebuilt Temple shows its drawing.
  await page.locator('[data-atlas-phase="herod"]').click();
  for(const id of ["P-051","P-054","P-058","ST-055","ST-057"])await expect(node(id)).toHaveCount(1);
- const temple=page.locator('[data-atlas-node="ST-058"][data-illustrated] img');await expect(temple).toHaveCount(1);
+ const temple=page.locator('[data-atlas-node="ST-058"][data-illustrated][data-in-lane] img');await expect(temple).toHaveCount(1);
  if(!process.env.ATLAS_PREVIEW)await expect.poll(()=>temple.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
  expect(await overlaps()).toEqual([]);
 
@@ -98,15 +114,20 @@ try{
  await page.locator('[data-atlas-index="P-018"]').click();await expect(detail.locator("h2")).toContainText("נחמיה");await page.keyboard.press("Escape");
 
  for(const width of [320,390,768,1440])for(const theme of ["light","dark"]){
-  await page.setViewportSize({width,height:width<500?780:900});await page.evaluate(t=>{document.documentElement.dataset.theme=t;},theme);await page.locator('[data-atlas-level="overview"]').click();await page.locator('[data-atlas-phase="hasmonean"]').click();
+  // A fresh page each time: once the lane is opened or closed by hand, that choice stays when the window is resized.
+  await page.setViewportSize({width,height:width<500?780:900});await page.goto(base+"/timelines/history-atlas/",{waitUntil:"networkidle"});
+  await page.evaluate(t=>{document.documentElement.dataset.theme=t;},theme);await page.locator('[data-atlas-level="overview"]').click();await page.locator('[data-atlas-phase="hasmonean"]').click();
   const m=await atlas.evaluate(el=>{const s=el.querySelector("[data-atlas-chart]").getBoundingClientRect();return {background:getComputedStyle(el).backgroundImage,overflow:document.documentElement.scrollWidth>innerWidth+1,bottom:el.getBoundingClientRect().bottom,height:innerHeight,stage:s.toJSON(),
-   people:[...el.querySelectorAll('[data-atlas-node][data-kind="person"]')].filter(n=>{const r=n.getBoundingClientRect();return r.right>s.left&&r.left<s.right&&r.bottom>s.top&&r.top<s.bottom;}).length,events:el.querySelectorAll('[data-atlas-node][data-kind="event"]').length};});
+   people:[...el.querySelectorAll('[data-atlas-node][data-kind="person"]')].filter(n=>{const r=n.getBoundingClientRect();return r.right>s.left&&r.left<s.right&&r.bottom>s.top&&r.top<s.bottom;}).length,events:el.querySelectorAll("[data-atlas-dot]").length,lane:el.querySelector("[data-atlas-chart]").dataset.lane};});
   expect(m.overflow).toBe(false);expect(m.bottom).toBeLessThanOrEqual(m.height+1);expect(m.stage.height).toBeGreaterThan(300);expect(m.people).toBeGreaterThan(1);expect(m.events).toBeGreaterThan(3);
+  // The lane starts open beside the tree on a wide screen and closed on a phone, where it opens over the tree.
+  expect(m.lane).toBe(width>=900?"open":"closed");
+  if(width<640){await page.locator('[data-atlas-lane="open"]').click();await expect(stage).toHaveAttribute("data-lane","overlay");expect(await titles.count()).toBeGreaterThan(3);await page.locator('[data-atlas-lane="close"]').click();await expect(stage).toHaveAttribute("data-lane","closed");}
   expect(m.background).toContain(theme==="dark"?"rgb(11, 21, 35)":"rgb(246, 241, 231)");
   expect(await overlaps()).toEqual([]);
  }
  await page.setViewportSize({width:1440,height:900});
  await page.goto(base+"/timelines/history-atlas/#ST-082",{waitUntil:"networkidle"});await expect(detail).toBeVisible();await expect(detail.locator("h2")).toContainText("המקדש");
  const art=detail.locator("figure img");await expect(art).toHaveCount(1);if(!process.env.ATLAS_PREVIEW)await expect.poll(()=>art.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
- expect(errors).toEqual([]);console.log("History atlas: vertical tree, semantic zoom, family lines, illustrations, wheel/drag/keyboard/minimap, filters, counts, cards with relations and tour, index, deep links and responsive themes passed.");
+ expect(errors).toEqual([]);console.log("History atlas: vertical tree with parents above children, wheel scrolling and Ctrl-zoom, semantic zoom, family lines, drawings on their year, the events lane, drag/keyboard/minimap, counts, cards with relations and tour, index, deep links and responsive themes passed.");
 }finally{await browser.close();await new Promise(done=>server.close(done));}
