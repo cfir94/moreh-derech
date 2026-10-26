@@ -35,7 +35,8 @@ try{
  await page.keyboard.down("Control");await page.mouse.wheel(0,-400);await page.mouse.wheel(0,-400);await page.keyboard.up("Control");
  await expect(atlas).not.toHaveAttribute("data-level","overview");
  await page.locator('[data-atlas-level="overview"]').click();await expect(atlas).toHaveAttribute("data-level","overview");
- for(const id of ["P-008","P-033","P-051","ST-007","ST-082"])await expect(node(id)).toHaveCount(1);
+ for(const id of ["P-008","P-033","P-051","ST-007","L-13"])await expect(node(id)).toHaveCount(1);
+ expect(await page.locator("[data-atlas-node][data-illustrated]").count()).toBeGreaterThan(1);
  expect(await page.locator('[data-atlas-node][data-rank="2"],[data-atlas-node][data-rank="3"]').count()).toBe(0);
  if(!process.env.ATLAS_PREVIEW)for(const id of ["P-008","P-033"]){const img=node(id).locator("img");await expect.poll(()=>img.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);}
 
@@ -48,7 +49,7 @@ try{
  const titles=page.locator('[data-atlas-node][data-kind="event"]:not([data-illustrated])');
  expect(await titles.count()).toBeGreaterThan(5);
  await page.locator('[data-atlas-lane="close"]').click();await expect(titles).toHaveCount(0);
- expect(await page.locator("[data-atlas-dot]").count()).toBeGreaterThan(20);await expect(node("ST-082")).toHaveCount(1);
+ expect(await page.locator("[data-atlas-dot]").count()).toBeGreaterThan(20);expect(await page.locator("[data-atlas-node][data-illustrated]").count()).toBeGreaterThan(1);
  await page.locator('[data-atlas-dot="ST-007"]').dispatchEvent("click");await expect(detail.locator("h2")).toHaveText(/כורש/);await page.keyboard.press("Escape");
  await page.locator('[data-atlas-lane="open"]').click();expect(await titles.count()).toBeGreaterThan(5);
 
@@ -110,7 +111,7 @@ try{
 
  // The index reaches every item, including those without a place on the axis.
  await page.getByRole("button",{name:"כל הדמויות והאירועים",exact:true}).click();
- await expect(page.locator("[data-atlas-index]")).toHaveCount(166);
+ expect(await page.locator("[data-atlas-index]").count()).toBeGreaterThan(250);await expect(page.locator('[data-atlas-index="BY-044"]')).toHaveCount(1);
  await page.locator('[data-atlas-index="P-018"]').click();await expect(detail.locator("h2")).toContainText("נחמיה");await page.keyboard.press("Escape");
 
  for(const width of [320,390,768,1440])for(const theme of ["light","dark"]){

@@ -175,3 +175,41 @@ test("portraits and illustrations have provenance and exist",()=>{
  for(const id of ["P-029","P-030","P-069","P-071"])assert(!byId.get(id).image);
  for(const [id,art] of Object.entries(C.illustrations)){assert(byId.get(id)?.kind==="event",id);assert(art.alt&&art.caption.includes("המחשה"));assert(existsSync(new URL("../public"+art.src.replace("/moreh-derech",""),import.meta.url)),art.src);}
 });
+
+test("after Titus: the Roman and Byzantine periods continue the same axis",async()=>{
+ const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
+ const {LATE_RELATIONS}=await import("../src/data/history-atlas/late-antiquity.ts");
+ const text=readFileSync(new URL("../src/data/roman/index.ts",import.meta.url),"utf8")+readFileSync(new URL("../src/data/byzantine/index.ts",import.meta.url),"utf8");
+ const all=new Map(H.nodes.map(n=>[n.id,n]));
+ assert.equal(all.size,H.nodes.length,"no id twice");
+ for(let i=1;i<H.phases.length;i++)assert.equal(H.phases[i].from,H.phases[i-1].to,H.phases[i].id+" follows "+H.phases[i-1].id);
+ assert.equal(H.phases.at(-1).to,641);
+ for(const n of H.nodes){assert(H.phases.some(p=>p.id===n.phase),n.id);assert(n.from<=n.to,n.id);for(const id of n.related)assert(all.has(id),n.id+" -> "+id);}
+ for(const id of ["RO-020","RO-031","RO-033","RO-036","RO-047","BY-003","BY-007","BY-033","BY-044","ST-065"])assert(all.has(id),id);
+ for(const id of ["RO-019","RO-023","BY-001"])assert(!all.has(id),id+" is already in the Second Temple");
+ assert.equal(all.get("ST-065").rank,1,"the crucifixion shows from afar");
+ // Family ties after Titus quote the sentence that states them.
+ for(const r of LATE_RELATIONS.filter(r=>["parent","grandparent","spouse","sibling"].includes(r.kind)))assert(r.quote&&text.includes(r.quote),r.from+"-"+r.to);
+ for(const r of H.relations)assert(all.has(r.from)&&all.has(r.to),r.from+"-"+r.to);
+ const bySlot=new Map();
+ for(const n of H.nodes.filter(n=>n.kind==="person"&&isPlaced(n))){const s=H.slots[n.id];assert(s,n.id+" has no column");const key=s.group+s.slot;bySlot.set(key,[...(bySlot.get(key)??[]),n]);}
+ for(const [key,nodes] of bySlot){nodes.sort((a,b)=>a.from-b.from);for(let i=1;i<nodes.length;i++)assert(nodes[i].from>=nodes[i-1].to,key+": "+nodes[i-1].id+" and "+nodes[i].id);}
+ for(const [id,art] of Object.entries(H.illustrations)){assert.equal(all.get(id)?.kind,"event",id);assert(art.caption.includes("המחשה"));assert(existsSync(new URL("../public"+art.src.replace("/moreh-derech",""),import.meta.url)),art.src);}
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const family=H.relations.filter(r=>r.kind==="parent"||r.kind==="grandparent");
+ const hviews=[fitRange(toV(HS,ordinal(H.from)),toV(HS,ordinal(H.to)+1),hb,.015),...HS.segments.map(g=>fitRange(g.start,g.end,hb,.04))];
+ for(const size of [desk,phone])for(const lane of [true,false])for(const view of hviews){
+  const L=layoutTree(H,HS,view,size,{lane}),where=`${size.width} ${lane} ${Math.round(view.from)}: `;
+  const at=new Map(L.people.map(p=>[p.node.id,p]));
+  for(const r of family){const a=at.get(r.from),b=at.get(r.to);if(a&&b)assert(b.top>=a.bottom+GAP.generation-.5,where+r.from+" above "+r.to);}
+  const titles=[...L.events].sort((a,b)=>a.top-b.top);
+  for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id);
+  for(const e of L.events)for(const v of L.vignettes)assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" on "+v.node.id);
+  assert.equal(new Set(ids(L)).size,ids(L).length,where);
+  const drawn=[...L.vignettes].sort((a,b)=>a.top-b.top);
+  for(let i=1;i<drawn.length;i++)assert(drawn[i].top>=drawn[i-1].bottom||Math.abs(drawn[i].x-drawn[i-1].x)>=Math.min(drawn[i].size,drawn[i-1].size),where+drawn[i].node.id+" on "+drawn[i-1].node.id);
+ }
+ const constantine=layoutTree(H,HS,fitRange(toV(HS,ordinal(300)),toV(HS,ordinal(340)),hb,.04),desk);
+ assert(constantine.people.some(p=>p.node.id==="L-13"),"Constantine is in his years");
+ assert(constantine.vignettes.some(v=>v.node.id==="BY-007"),"the church drawing sits in 335");
+});

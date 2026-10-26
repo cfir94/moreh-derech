@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import {useCallback,useEffect,useMemo,useRef,useState,type KeyboardEvent} from "react";
-import {SECOND_TEMPLE_ATLAS as C,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,zoomAround,type AtlasLevel,type AtlasNode,type Cluster,type TreeLayout} from "@/data/history-atlas";
+import {HISTORY_ATLAS as C,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,zoomAround,type AtlasLevel,type AtlasNode,type Cluster,type TreeLayout} from "@/data/history-atlas";
 import {AtlasMinimap} from "./AtlasMinimap";
 import {AtlasPanel} from "./AtlasPanel";
 import {AtlasStage,spanLabel} from "./AtlasStage";
