@@ -7,7 +7,8 @@ export type AtlasRelation={from:string;to:string;label:string;kind:AtlasRelation
 /** A column group on the tree, such as the leadership in Judea or the foreign powers. */
 export type AtlasGroup={id:string;title:string;note:string;slots:number};
 export type AtlasSlot={group:string;slot:number};
-export type AtlasIllustration={src:string;alt:string;caption:string};
+/** A drawing for an event. `at` is the year the picture is placed on (historical, negative = BCE); left out, the middle of the event. */
+export type AtlasIllustration={src:string;alt:string;caption:string;at?:number};
 export type AtlasCollection={id:string;title:string;subtitle:string;from:number;to:number;contextFrom:number;contextTo:number;phases:AtlasPhase[];nodes:AtlasNode[];relations:AtlasRelation[];groups:AtlasGroup[];slots:Record<string,AtlasSlot>;illustrations:Record<string,AtlasIllustration>;sourceHref:string};
 export type AtlasWindow={from:number;to:number};
 export type AtlasLevel="overview"|"context"|"detail";

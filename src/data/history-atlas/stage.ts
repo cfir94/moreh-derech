@@ -1,11 +1,13 @@
 import {clampWindow,historical,ordinal,yearLabel} from "./time";
-import type {AtlasCollection,AtlasLevel,AtlasNode,AtlasPhase,AtlasRelationKind,AtlasWindow} from "./types";
+import type {AtlasCollection,AtlasIllustration,AtlasLevel,AtlasNode,AtlasPhase,AtlasRelationKind,AtlasWindow} from "./types";
 
 /*
  * The atlas is a tree on a vertical time axis: earliest at the top, a ruler
- * on the right, the events beside it, and the figures arranged as a family
- * tree in column groups to its left. Everything here is pure, so node:test
- * can drive it; the component handles gestures and paints the result.
+ * on the right with the events on its spine, a lane of event titles that
+ * opens and closes beside it, and the figures arranged as a family tree in
+ * column groups to its left. Drawings sit on the axis at their own year.
+ * Everything here is pure, so node:test can drive it; the component handles
+ * gestures and paints the result.
  *
  * Time is not drawn at one rate. Each phase gets its years plus a share for
  * every item in it, so the dense revolt (four years, twenty events) has room
@@ -15,7 +17,7 @@ import type {AtlasCollection,AtlasLevel,AtlasNode,AtlasPhase,AtlasRelationKind,A
  * The camera works in these "virtual" units. Semantic zoom has two layers:
  * the span decides which ranks may appear, and then items compete for room
  * by priority — a figure that does not fit shrinks to its portrait, an event
- * to a one-line chip, and what still does not fit is counted in a "+N".
+ * title to one line, and what still does not fit is counted in a "+N".
  */
 
 export type AtlasKind="all"|"person"|"event";
@@ -26,7 +28,9 @@ export const MIN_SPAN=40;
 export const RANK_LIMIT:Record<AtlasLevel,number>={overview:1,context:2,detail:3};
 /** The widest span (virtual units) at which a level still shows. */
 export const LEVEL_SPAN:Record<AtlasLevel,number>={overview:Infinity,context:900,detail:260};
-export const levelOf=(span:number):AtlasLevel=>span>LEVEL_SPAN.context?"overview":span>LEVEL_SPAN.detail?"context":"detail";
+/** The spans above are for a stage this many px tall. A shorter screen reaches each level at a shorter span, so a phone shows what a desktop shows at the same density. */
+export const LEVEL_HEIGHT=670;
+export const levelOf=(span:number,usable=LEVEL_HEIGHT):AtlasLevel=>{const s=span*LEVEL_HEIGHT/Math.max(1,usable);return s>LEVEL_SPAN.context?"overview":s>LEVEL_SPAN.detail?"context":"detail";};
 
 /** Zoom by `factor` (>1 = closer) while `anchor` stays at the same place on screen. */
 export function zoomAround(view:AtlasWindow,factor:number,anchor:number,bounds:AtlasWindow,minSpan=MIN_SPAN):AtlasWindow{
@@ -84,56 +88,73 @@ export function relatedIds(collection:AtlasCollection,id:string){
  return ids;
 }
 /** The chronological order used by the panel's previous/next tour. */
-export function chronology(collection:AtlasCollection,kind:AtlasKind){
+export function chronology(collection:AtlasCollection,kind:AtlasKind="all"){
  return collection.nodes.filter(n=>isPlaced(n)&&(kind==="all"||n.kind===kind)).sort((a,b)=>a.from-b.from||(a.kind===b.kind?0:a.kind==="event"?-1:1)||a.to-b.to||a.id.localeCompare(b.id));
 }
 /** These relations are the tree itself and are always drawn; the others appear when a figure is chosen. */
 export const TREE_KINDS=new Set<AtlasRelationKind>(["parent","spouse","sibling","succession"]);
 
 // ── Layout ─────────────────────────────────────────────────────────────
-export type PersonPlacement={node:AtlasNode;x:number;y:number;r:number;top:number;bottom:number;lineEnd:number;mode:AtlasMode;slot:string};
-/** `y`–`y1` is the event's own time on the ruler (equal for a single year); `top` is where its card sits. */
-export type EventPlacement={node:AtlasNode;y:number;y1:number;top:number;height:number;mode:AtlasMode;illustrated:boolean};
-/** Items with no room, counted on a nearby `host` (a card or a portrait) at its corner `x`,`y`. */
+/** `shift` is how far the portrait was moved off its own year to keep parents above children (+ = later). */
+export type PersonPlacement={node:AtlasNode;x:number;y:number;r:number;top:number;bottom:number;lineEnd:number;mode:AtlasMode;slot:string;shift:number};
+/** An event's title in the lane. `y`–`y1` is the event's own time on the ruler (equal for a single year); `top` is where the title sits. */
+export type EventPlacement={node:AtlasNode;y:number;y1:number;top:number;height:number;mode:AtlasMode};
+/** A drawing on the axis, centred on its own year `y`, with its caption below. */
+export type Vignette={node:AtlasNode;art:AtlasIllustration;x:number;y:number;size:number;top:number;bottom:number;inLane:boolean};
+/** Items with no room, counted on a nearby `host` (a title or a portrait) at its corner `x`,`y`. */
 export type Cluster={zone:"person"|"event";host:string;x:number;y:number;ids:string[]};
 export type Connector={id:string;kind:AtlasRelationKind;path:string;from:string;to:string};
 export type Link={id:string;kind:AtlasRelationKind|"event";path:string;label?:string;lx:number;ly:number};
 export type Band={phase:AtlasPhase;index:number;top:number;bottom:number};
 export type Tick={year:number;y:number;label:string};
-export type Dot={id:string;y:number;y1:number;phase:string;rank:number};
+export type Dot={id:string;y:number;y1:number;phase:string;rank:number;illustrated:boolean};
 export type ColumnHead={id:string;title:string;note:string;left:number;right:number};
+/** The lane of event titles. On a wide screen it takes its own room; on a phone it opens over the tree. */
+export type Lane={open:boolean;overlay:boolean;left:number;right:number};
 export type TreeLayout={
- level:AtlasLevel;width:number;height:number;header:number;rulerW:number;spine:number;eventsLeft:number;eventsRight:number;peopleRight:number;slotW:number;
- pan:number;panMax:number;columns:ColumnHead[];bands:Band[];ticks:Tick[];people:PersonPlacement[];events:EventPlacement[];dots:Dot[];
+ level:AtlasLevel;width:number;height:number;header:number;rulerW:number;spine:number;lane:Lane;peopleRight:number;slotW:number;
+ pan:number;panMax:number;columns:ColumnHead[];bands:Band[];ticks:Tick[];people:PersonPlacement[];events:EventPlacement[];vignettes:Vignette[];dots:Dot[];
  clusters:Cluster[];connectors:Connector[];links:Link[];phase:AtlasPhase|null;
 };
-/** `pan` moves the tree sideways when it is wider than its area; left out, the first group is centred. */
-export type TreeOptions={kind?:AtlasKind;selected?:string|null;focus?:Set<string>;pan?:number};
+/** `lane` opens the event titles; `pan` moves the tree sideways when it is wider than its area (left out, the first group is centred). */
+export type TreeOptions={lane?:boolean;selected?:string|null;focus?:Set<string>;pan?:number};
 
 const STEPS=[1,2,5,10,20,25,50,100,200,500];
 /** Height of the row of column titles at the top of the stage. */
 export const HEADER=48;
-export const NODE={full:78,detail:94,compact:36,radius:22,small:17};
-export const CARD={plain:60,illustrated:112,compact:28,gap:6,shift:96};
+/** A full figure is a portrait with its name below in up to two lines; a compact one, a smaller portrait and one line. */
+export const NODE={full:78,detail:94,compact:46,radius:22,small:16};
+/** Room between a parent's name and a child's portrait, and between two figures in one column. */
+export const GAP={generation:12,column:8};
+/** How far a figure may be drawn off the year it comes in: a parent up to a generation earlier, anyone a few years late (or a few pixels, from afar). */
+export const SHIFT={earlyYears:30,lateYears:6,latePx:26};
+/** Event titles in the lane; a title may sit up to `shift` px off its year to make room. */
+export const LABEL={full:42,compact:24,gap:4,shift:90};
+/** Drawing sizes per level, on a wide screen and a narrow one, and the caption below them. */
+export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:132,narrow:100},context:{wide:176,narrow:124},detail:{wide:216,narrow:152}};
+export const ART_CAPTION=34;
+/** Where a drawing sits: the year the picture shows if one is given, else the middle of the event. */
+export const artYear=(art:AtlasIllustration,node:AtlasNode)=>art.at!==undefined?ordinal(art.at)+.5:(node.from+node.to+1)/2;
 
 export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:AtlasWindow,size:{width:number;height:number},options:TreeOptions={}):TreeLayout{
- const {kind="all",selected=null,focus=new Set<string>(),pan}=options;
- const {width,height}=size,level=levelOf(view.to-view.from),detail=level==="detail",narrow=width<640;
- const header=HEADER,usable=Math.max(1,height-header),span=view.to-view.from;
+ const {lane:open=true,selected=null,focus=new Set<string>(),pan}=options;
+ const {width,height}=size,header=HEADER,usable=Math.max(1,height-header),span=view.to-view.from;
+ const level=levelOf(span,usable),detail=level==="detail",narrow=width<640;
  const y=(v:number)=>header+(v-view.from)/span*usable,yearY=(year:number)=>y(toV(scale,year));
+ const inView=(top:number,bottom:number,margin:number)=>bottom>=header-margin&&top<=height+margin;
 
- // Columns, right to left: ruler, events, then the groups of the tree.
- const rulerW=narrow?66:86,spine=width-rulerW+12;
- const eventsW=kind==="person"?0:kind==="event"?Math.min(620,width-rulerW-24):Math.round(narrow?Math.max(130,Math.min(178,width*.4)):Math.min(310,Math.max(236,width*.21)));
- const eventsRight=spine-16,eventsLeft=width-rulerW-eventsW+6;
- const peopleRight=width-rulerW-eventsW-(kind==="person"?8:20),room=peopleRight-8,groupGap=20;
+ // Right to left: the ruler, the lane of event titles when it is open, then the groups of the tree.
+ const rulerW=narrow?68:80,spine=width-rulerW+(narrow?8:12),overlay=narrow,laneRight=width-rulerW-6;
+ const laneW=overlay?Math.round(Math.min(300,width-rulerW-40)):Math.round(Math.min(320,Math.max(236,width*.2)));
+ const lane:Lane={open,overlay,left:laneRight-laneW,right:laneRight};
+ const peopleRight=open&&!overlay?lane.left-14:width-rulerW-12,room=peopleRight-8,groupGap=20;
  const slotsTotal=collection.groups.reduce((n,g)=>n+g.slots,0),gaps=(collection.groups.length-1)*groupGap;
- const slotW=kind==="event"?0:Math.max(86,Math.min(136,(room-gaps)/slotsTotal));
- const panMax=kind==="event"?0:Math.max(0,slotsTotal*slotW+gaps-room),first=collection.groups[0];
+ const slotW=Math.max(86,Math.min(136,(room-gaps)/slotsTotal));
+ const panMax=Math.max(0,slotsTotal*slotW+gaps-room),first=collection.groups[0];
  const shift=Math.max(0,Math.min(panMax,pan??(first?room/2-(peopleRight-first.slots/2*slotW):0)));
  const offsets=new Map<string,number>();
  let offset=0;
- const columns:ColumnHead[]=kind==="event"?[]:collection.groups.map(g=>{
+ const columns:ColumnHead[]=collection.groups.map(g=>{
   offsets.set(g.id,offset);
   const right=peopleRight-offset+shift,head={id:g.id,title:g.title,note:g.note,left:right-g.slots*slotW,right};
   offset+=g.slots*slotW+groupGap;return head;
@@ -164,81 +185,147 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const allowed=(n:AtlasNode)=>isPlaced(n)&&(n.rank<=limit||n.id===selected||focus.has(n.id));
  const byPriority=(a:AtlasNode,b:AtlasNode)=>priority(b)-priority(a)||a.from-b.from||a.id.localeCompare(b.id);
 
- // Figures: each keeps its column; within a column, higher priority claims the space first.
- const people:PersonPlacement[]=[],clusters:Cluster[]=[];
- if(kind!=="event"){
-  const slots=new Map<string,AtlasNode[]>();
-  for(const n of collection.nodes){
-   const slot=collection.slots[n.id];if(n.kind!=="person"||!slot||!allowed(n))continue;
-   const top=yearY(n.from),end=yearY(n.to+1);if(end<header-60||top>height+60)continue;
-   const key=slot.group+":"+slot.slot;slots.set(key,[...(slots.get(key)??[]),n]);
-  }
-  for(const [key,nodes] of slots){
-   const placed:PersonPlacement[]=[],hidden:{id:string;y:number}[]=[],[group,index]=key.split(":");
+ // Figures. The whole tree is laid out at once, not just what is in view, so nothing jumps while scrolling.
+ const placed:PersonPlacement[]=[],clusters:Cluster[]=[];
+ const hiddenPeople:{id:string;y:number;key:string}[]=[];
+ {
+  const sizeOf=(mode:AtlasMode)=>mode==="full"?{r:NODE.radius,h:detail?NODE.detail:NODE.full}:{r:NODE.small,h:NODE.compact};
+  const columnsOf=new Map<string,AtlasNode[]>();
+  for(const n of collection.nodes){const slot=collection.slots[n.id];if(n.kind==="person"&&slot&&allowed(n)){const key=slot.group+":"+slot.slot;columnsOf.set(key,[...(columnsOf.get(key)??[]),n]);}}
+  type Chosen={node:AtlasNode;key:string;x:number;at:number;mode:AtlasMode;r:number;h:number;t:number};
+  let chosen:Chosen[]=[];
+  // Within a column, higher priority claims its years first; a figure without room shrinks to its portrait, then waits for a closer zoom.
+  for(const [key,nodes] of columnsOf){
+   const [group,index]=key.split(":"),x=slotX(group,Number(index)),taken:{top:number;bottom:number}[]=[];
    for(const n of nodes.sort(byPriority)){
-    const my=yearY(n.from),x=slotX(group,Number(index));
-    const fit=(["full","compact"] as const).map(mode=>{const r=mode==="full"?NODE.radius:NODE.small,top=my-r-2;return {mode,r,top,bottom:top+(mode==="compact"?NODE.compact:detail?NODE.detail:NODE.full)};})
-     .find(f=>placed.every(p=>f.bottom+6<=p.top||f.top>=p.bottom+6));
-    if(fit)placed.push({node:n,x,y:my,r:fit.r,top:fit.top,bottom:fit.bottom,lineEnd:yearY(n.to+1),mode:fit.mode,slot:key});
-    else if(my>=header&&my<=height)hidden.push({id:n.id,y:my});
-   }
-   placed.sort((a,b)=>a.top-b.top).forEach((p,i,all)=>{if(all[i+1])p.lineEnd=Math.min(p.lineEnd,all[i+1].top-8);});
-   people.push(...placed);
-   // What did not fit is counted on the nearest portrait in the same column.
-   for(const h of hidden){
-    const host=placed.reduce<PersonPlacement|null>((best,p)=>!best||Math.abs(p.y-h.y)<Math.abs(best.y-h.y)?p:best,null);
-    const found=clusters.find(c=>c.host===(host?.node.id??key));
-    if(found)found.ids.push(h.id);else clusters.push({zone:"person",host:host?.node.id??key,x:host?host.x-host.r:slotX(group,Number(index)),y:host?host.y-host.r:h.y,ids:[h.id]});
+    const at=yearY(n.from);
+    const fit=(["full","compact"] as const).map(mode=>{const {r,h}=sizeOf(mode),top=at-r-2;return {mode,r,h,top,bottom:top+h};}).find(f=>taken.every(p=>f.bottom+GAP.column<=p.top||f.top>=p.bottom+GAP.column));
+    if(fit){taken.push(fit);chosen.push({node:n,key,x,at,mode:fit.mode,r:fit.r,h:fit.h,t:fit.top});}
+    else hiddenPeople.push({id:n.id,y:at,key});
    }
   }
+  // Parents stand above their children. A parent who comes in with a child (Mattathias and his sons) is drawn
+  // earlier, by up to a generation — the parent was there first. Whatever still collides is pushed down: a child
+  // below its parents, and the figures of one column in their order.
+  const years=(n:AtlasNode,count:number)=>Math.abs(yearY(n.from+count)-yearY(n.from));
+  const solve=()=>{
+   const by=new Map(chosen.map(c=>[c.node.id,c])),top=new Map(chosen.map(c=>[c.node.id,c.t])),blocker=new Map<string,string>();
+   const family=collection.relations.filter(r=>(r.kind==="parent"||r.kind==="grandparent")&&by.has(r.from)&&by.has(r.to));
+   for(const c of [...chosen].sort((a,b)=>b.t-a.t)){
+    const kids=family.filter(r=>r.from===c.node.id).map(r=>top.get(r.to)!);
+    if(kids.length)top.set(c.node.id,Math.min(c.t,Math.max(Math.min(...kids)-GAP.generation-c.h,c.t-years(c.node,-SHIFT.earlyYears))));
+   }
+   const rules:[string,string,number][]=family.map(r=>[r.from,r.to,GAP.generation]);
+   for(const key of columnsOf.keys()){
+    const list=chosen.filter(c=>c.key===key).sort((a,b)=>top.get(a.node.id)!-top.get(b.node.id)!);
+    for(let i=1;i<list.length;i++)rules.push([list[i-1].node.id,list[i].node.id,GAP.column]);
+   }
+   for(let pass=0;pass<60;pass++){
+    let moved=false;
+    for(const [a,b,gap] of rules){const need=top.get(a)!+by.get(a)!.h+gap;if(top.get(b)!<need-.01){top.set(b,need);blocker.set(b,a);moved=true;}}
+    if(!moved)break;
+   }
+   return {top,blocker};
+  };
+  // A figure may come a few years late, no more. When one is pushed further, the figure above it shrinks to its
+  // portrait; if it already has, the less important of the two waits for a closer zoom. From afar a parent
+  // drawn much earlier than it comes in shrinks too, rather than float over the events before it.
+  const shrink=(c:Chosen)=>{c.mode="compact";c.r=NODE.small;c.h=NODE.compact;c.t=c.at-c.r-2;};
+  let solved=solve();
+  for(let round=0;round<24;round++){
+   const late=chosen.map(c=>({c,over:solved.top.get(c.node.id)!-c.t-Math.max(SHIFT.latePx,years(c.node,SHIFT.lateYears))})).filter(x=>x.over>0).sort((a,b)=>b.over-a.over)[0]?.c;
+   const early=level==="overview"?chosen.find(c=>c.mode==="full"&&c.t-solved.top.get(c.node.id)!>years(c.node,-8)):undefined;
+   if(!late&&!early)break;
+   if(late){
+    const cause=chosen.find(c=>c.node.id===solved.blocker.get(late.node.id));
+    if(cause&&cause.mode==="full")shrink(cause);
+    else{const out=cause&&priority(cause.node)<priority(late.node)?cause:late;chosen=chosen.filter(c=>c!==out);hiddenPeople.push({id:out.node.id,y:out.at,key:out.key});}
+   }else if(early)shrink(early);
+   solved=solve();
+  }
+  for(const c of chosen){const t=solved.top.get(c.node.id)!;placed.push({node:c.node,x:c.x,y:t+c.r+2,r:c.r,top:t,bottom:t+c.h,lineEnd:yearY(c.node.to+1),mode:c.mode,slot:c.key,shift:t-c.t});}
+  // A life line runs down to the year the figure leaves, but stops above the next portrait in its column.
+  for(const key of columnsOf.keys()){const list=placed.filter(p=>p.slot===key).sort((a,b)=>a.top-b.top);list.forEach((p,i)=>{if(list[i+1])p.lineEnd=Math.min(p.lineEnd,list[i+1].top-8);});}
+ }
+ const people=placed.filter(p=>inView(p.top,Math.max(p.bottom,p.lineEnd),60));
+ // What did not fit is counted on the nearest portrait in view in its column.
+ for(const h of hiddenPeople){
+  if(h.y<header||h.y>height)continue;
+  const host=people.filter(p=>p.slot===h.key).reduce<PersonPlacement|null>((best,p)=>!best||Math.abs(p.y-h.y)<Math.abs(best.y-h.y)?p:best,null);
+  const [group,index]=h.key.split(":"),found=clusters.find(c=>c.host===(host?.node.id??h.key));
+  if(found)found.ids.push(h.id);else clusters.push({zone:"person",host:host?.node.id??h.key,x:host?host.x-host.r:slotX(group,Number(index)),y:host?host.y-host.r:h.y,ids:[h.id]});
  }
 
- // Events: cards beside the ruler. A card may move a little off its year to make room; an event that
- // spans years may sit anywhere along its span, and is drawn as a bracket on the ruler.
+ // Drawings sit on their own year at every level: in the lane when it is open, otherwise in the nearest free
+ // spot of the tree beside the ruler.
+ const vignettes:Vignette[]=[];
+ const artSize=Math.round(Math.min(narrow?ART[level].narrow:ART[level].wide,open?laneW-16:Infinity));
+ const boxes=placed.map(p=>({left:p.x-slotW/2+4,right:p.x+slotW/2-4,top:p.top,bottom:p.bottom}));
+ for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>a.from-b.from)){
+  const art=collection.illustrations[n.id],at=yearY(artYear(art,n)),top=at-artSize/2,bottom=at+artSize/2+ART_CAPTION;
+  if(!inView(top,bottom,40))continue;
+  let x=(lane.left+lane.right)/2;
+  if(!open){
+   const taken=[...boxes,...vignettes.map(v=>({left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom}))];
+   const covered=(right:number)=>taken.reduce((sum,b)=>sum+Math.max(0,Math.min(right,b.right)-Math.max(right-artSize,b.left))*Math.max(0,Math.min(bottom,b.bottom)-Math.max(top,b.top)),0);
+   const spots=Array.from({length:12},(_,i)=>peopleRight-4-i*slotW/2).filter(right=>right-artSize>=4);
+   const best=spots.find(right=>covered(right)===0)??spots.reduce((a,b)=>covered(b)<covered(a)?b:a,spots[0]??peopleRight-4);
+   x=best-artSize/2;
+  }
+  vignettes.push({node:n,art,x,y:at,size:artSize,top,bottom,inLane:open});
+ }
+
+ // Event titles in the lane. A title may move a little off its year to make room, never over a drawing; an
+ // event that spans years may sit anywhere along its span, and is drawn as a bracket on the ruler.
  const events:EventPlacement[]=[];
- if(kind!=="person"){
-  const wide=eventsRight-eventsLeft>=220;
-  const pool=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)).map(n=>{
+ if(open){
+  const obstacles=vignettes.map(v=>({top:v.top-6,bottom:v.bottom+6})).sort((a,b)=>a.top-b.top);
+  const pool=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)&&!collection.illustrations[n.id]).map(n=>{
    const y=yearY(n.from+.5),y1=n.to>n.from?yearY(n.to+1):y;
    return {node:n,y,y1,aim:n.to>n.from?(Math.max(y,header)+Math.min(y1,height))/2:y};
   }).filter(e=>e.y1>=header-40&&e.y<=height+40).sort((a,b)=>byPriority(a.node,b.node));
   type Item=(typeof pool)[number]&{mode:AtlasMode};
-  const heightOf=(n:AtlasNode,mode:AtlasMode)=>mode==="compact"?CARD.compact:collection.illustrations[n.id]&&wide?CARD.illustrated:CARD.plain;
-  // Pack the cards as high as their tolerance allows, then let each settle back toward where it wants
-  // to be without passing the card below. Returns null when something cannot stay near its time.
+  // Pack the titles as high as their tolerance allows, skipping the drawings, then let each settle back toward
+  // where it wants to be without passing the next one. Returns null when something cannot stay near its time.
   const arrange=(list:Item[])=>{
    const out:EventPlacement[]=[],wanted:number[]=[];let cursor=header+4;
    for(const e of [...list].sort((a,b)=>a.aim-b.aim||a.node.from-b.node.from)){
-    const h=heightOf(e.node,e.mode),top=Math.max(e.y-h/2-CARD.shift,cursor);
-    if(top>e.y1-h/2+CARD.shift)return null;
-    out.push({node:e.node,y:e.y,y1:e.y1,top,height:h,mode:e.mode,illustrated:Boolean(collection.illustrations[e.node.id]&&wide&&e.mode==="full")});
-    wanted.push(e.aim-h/2);cursor=top+h+CARD.gap;
+    const h=LABEL[e.mode];let top=Math.max(e.y-h/2-LABEL.shift,cursor);
+    for(const o of obstacles)if(top<o.bottom&&top+h>o.top)top=o.bottom;
+    if(top>e.y1-h/2+LABEL.shift)return null;
+    out.push({node:e.node,y:e.y,y1:e.y1,top,height:h,mode:e.mode});
+    wanted.push(e.aim-h/2);cursor=top+h+LABEL.gap;
    }
-   for(let i=out.length-1;i>=0;i--){const below=out[i+1]?out[i+1].top-out[i].height-CARD.gap:Infinity;out[i].top=Math.max(out[i].top,Math.min(wanted[i],below));}
+   for(let i=out.length-1;i>=0;i--){
+    const o=out[i];let below=out[i+1]?out[i+1].top-o.height-LABEL.gap:Infinity;
+    for(const b of obstacles)if(b.top>=o.top+o.height)below=Math.min(below,b.top-o.height);
+    o.top=Math.max(o.top,Math.min(wanted[i],below));
+   }
    return out;
   };
-  // First make room for as many events as possible as one-line chips, then open them into cards by priority.
+  // First make room for as many events as possible as one line, then open them up by priority.
   const chosen:Item[]=[],hidden:{id:string;y:number}[]=[];
   for(const e of pool){if(arrange([...chosen,{...e,mode:"compact"}]))chosen.push({...e,mode:"compact"});else if(e.y>=header&&e.y<=height)hidden.push({id:e.node.id,y:e.y});}
   for(const e of chosen){e.mode="full";if(!arrange(chosen))e.mode="compact";}
   events.push(...(arrange(chosen)??[]));
-  // What did not fit is counted on the nearest card.
+  // What did not fit is counted on the nearest title.
   for(const h of hidden){
    const host=events.reduce<EventPlacement|null>((best,e)=>!best||Math.abs(e.top+e.height/2-h.y)<Math.abs(best.top+best.height/2-h.y)?e:best,null);
    const found=clusters.find(c=>c.zone==="event"&&c.host===(host?.node.id??"none"));
-   if(found)found.ids.push(h.id);else clusters.push({zone:"event",host:host?.node.id??"none",x:eventsLeft,y:host?host.top:h.y,ids:[h.id]});
+   if(found)found.ids.push(h.id);else clusters.push({zone:"event",host:host?.node.id??"none",x:lane.left,y:host?host.top:h.y,ids:[h.id]});
   }
  }
- const dots=collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)).map(n=>({id:n.id,y:yearY(n.from+.5),y1:n.to>n.from?yearY(n.to+1):yearY(n.from+.5),phase:n.phase,rank:n.rank})).filter(d=>d.y1>=header&&d.y<=height);
+ const dots=collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)).map(n=>({id:n.id,y:yearY(n.from+.5),y1:n.to>n.from?yearY(n.to+1):yearY(n.from+.5),phase:n.phase,rank:n.rank,illustrated:Boolean(collection.illustrations[n.id])})).filter(d=>d.y1>=header&&d.y<=height);
 
  // The tree: parent and succession lines drop from one figure to the next; spouses and siblings join side by side.
- const at=new Map(people.map(p=>[p.node.id,p]));
+ const at=new Map(placed.map(p=>[p.node.id,p]));
  const connectors:Connector[]=[];
  for(const r of collection.relations){
   if(!TREE_KINDS.has(r.kind))continue;
   const a=at.get(r.from),b=at.get(r.to);if(!a||!b)continue;
-  const [first,second]=a.y<=b.y?[a,b]:[b,a];
-  connectors.push({id:r.from+"-"+r.to,kind:r.kind,from:r.from,to:r.to,path:r.kind==="spouse"||r.kind==="sibling"||second.y-second.r-first.bottom<20?side(first,second):drop(first,second)});
+  const [first,second]=a.top<=b.top?[a,b]:[b,a];
+  if(!inView(first.top,Math.max(second.bottom,first.lineEnd),40))continue;
+  connectors.push({id:r.from+"-"+r.to,kind:r.kind,from:r.from,to:r.to,path:r.kind==="spouse"||r.kind==="sibling"||second.top-first.bottom<GAP.generation-1?side(first,second):drop(first,second)});
  }
 
  // When a figure or event is chosen, lines reach out to everything it is tied to. Ties already drawn by the
@@ -246,7 +333,8 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const links:Link[]=[];
  const anchor=(id:string)=>{
   const p=at.get(id);if(p)return {x:p.x,y:p.y};
-  const e=events.find(e=>e.node.id===id);if(e)return {x:eventsLeft,y:e.top+e.height/2};
+  const v=vignettes.find(v=>v.node.id===id);if(v)return {x:v.x,y:v.y};
+  const e=events.find(e=>e.node.id===id);if(e)return {x:lane.left,y:e.top+e.height/2};
   const d=dots.find(d=>d.id===id);return d?{x:spine,y:d.y}:null;
  };
  const origin=selected?anchor(selected):null;
@@ -258,14 +346,14 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   links.push({id,kind:relation?.kind??(at.has(id)?"contact":"event"),path,label:relation&&!TREE_KINDS.has(relation.kind)?relation.label:undefined,lx:mx-bend*.75,ly:(origin.y+to.y)/2});
  }
 
- return {level,width,height,header,rulerW,spine,eventsLeft,eventsRight,peopleRight,slotW,pan:shift,panMax,columns,bands,ticks:spaced,people,events,dots,clusters,connectors,links,phase:current?.phase??null};
+ return {level,width,height,header,rulerW,spine,lane,peopleRight,slotW,pan:shift,panMax,columns,bands,ticks:spaced,people,events,vignettes,dots,clusters,connectors,links,phase:current?.phase??null};
 }
 
-/** A rounded elbow from below one figure's card down to just above the next. */
+/** A rounded elbow from below one figure's name down to just above the next portrait. */
 function drop(a:PersonPlacement,b:PersonPlacement){
  const top=b.y-b.r,start=a.bottom;
  if(Math.abs(a.x-b.x)<1)return `M${a.x} ${start} V${top}`;
- const level=top-12,s=Math.sign(b.x-a.x),r=Math.max(0,Math.min(9,Math.abs(b.x-a.x)/2,(level-start)/2));
+ const level=top-Math.min(12,(top-start)/2),s=Math.sign(b.x-a.x),r=Math.max(0,Math.min(9,Math.abs(b.x-a.x)/2,(level-start)/2,(top-level)));
  return `M${a.x} ${start} V${level-r} Q${a.x} ${level} ${a.x+s*r} ${level} H${b.x-s*r} Q${b.x} ${level} ${b.x} ${level+r} V${top}`;
 }
 /** Side by side: from the earlier figure's portrait (or its life line) across to the later one's portrait. */

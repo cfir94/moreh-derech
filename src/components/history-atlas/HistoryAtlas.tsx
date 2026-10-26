@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import {useCallback,useEffect,useMemo,useRef,useState,type KeyboardEvent} from "react";
-import {SECOND_TEMPLE_ATLAS as C,ATLAS_SOURCES,HEADER,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,zoomAround,type AtlasKind,type AtlasLevel,type AtlasNode,type Cluster,type TreeLayout} from "@/data/history-atlas";
+import {SECOND_TEMPLE_ATLAS as C,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,zoomAround,type AtlasLevel,type AtlasNode,type Cluster,type TreeLayout} from "@/data/history-atlas";
 import {AtlasMinimap} from "./AtlasMinimap";
 import {AtlasPanel} from "./AtlasPanel";
 import {AtlasStage,spanLabel} from "./AtlasStage";
@@ -13,30 +13,38 @@ const BY_ID=new Map(C.nodes.map(n=>[n.id,n]));
 const SCALE=timeScale(C);
 const BOUNDS={from:toV(SCALE,ordinal(C.contextFrom))-24,to:toV(SCALE,ordinal(C.contextTo)+1)+24};
 const HOME=fitRange(toV(SCALE,ordinal(C.from)),toV(SCALE,ordinal(C.to)+1),BOUNDS,.015);
+/** Spans are set for a desktop stage; a shorter one gets proportionally less, so a phone sees the same density. */
+const fitTo=(span:number,height:number)=>span*Math.max(240,height-HEADER)/LEVEL_HEIGHT;
+/** The page opens at the return from Babylon, close enough that scrolling down walks through the period. */
+const startFor=(height:number)=>centerAt(toV(SCALE,ordinal(C.from)),fitTo(980,height),.05,BOUNDS);
+const START=startFor(LEVEL_HEIGHT+HEADER);
 const LEVELS:Record<AtlasLevel,{title:string;note:string;span:number}>={
  overview:{title:"מבט על",note:"רק דמויות המפתח והאירועים המכוננים",span:HOME.to-HOME.from},
  context:{title:"הקשר",note:"נוספות דמויות ואירועים משניים",span:560},
  detail:{title:"פירוט מלא",note:"כל הדמויות והאירועים בחלון",span:170},
 };
-const KINDS:[AtlasKind,string][]=[["all","הכול"],["person","דמויות"],["event","אירועים"]];
 const MAX_LOG=Math.log((BOUNDS.to-BOUNDS.from)/MIN_SPAN);
 const meterOf=(span:number)=>Math.round(Math.log((BOUNDS.to-BOUNDS.from)/span)/MAX_LOG*1000);
 const spanOf=(meter:number)=>(BOUNDS.to-BOUNDS.from)/Math.exp(meter/1000*MAX_LOG);
 const years=(view:{from:number;to:number})=>rangeLabel({from:toYear(SCALE,Math.max(0,view.from)),to:toYear(SCALE,Math.min(SCALE.total,view.to))});
 const normalize=(text:string)=>text.normalize("NFKD").replace(/[֑-ׇ]/g,"").replace(/["'״׳]/g,"").toLowerCase();
+/** From this width the lane of event titles opens beside the tree; below it, it starts closed. */
+const WIDE_LANE=900;
 /** Below this width the card opens as a sheet over the lower part of the stage instead of beside it. */
 const sheet=()=>window.matchMedia("(max-width: 1099px)").matches;
 const placeOf=(node:AtlasNode)=>toV(SCALE,node.kind==="event"?node.from+.5:node.from);
 
 export function HistoryAtlas(){
- const camera=useCamera(BOUNDS,HOME),{view,read,fly,jump,zoomBy}=camera;
- const [size,setSize]=useState({width:0,height:0}),[kind,setKind]=useState<AtlasKind>("all"),[selected,setSelected]=useState<string|null>(null);
+ const camera=useCamera(BOUNDS,START),{view,read,fly,jump,zoomBy}=camera;
+ const [size,setSize]=useState({width:0,height:0}),[lane,setLane]=useState<boolean|undefined>(undefined),[selected,setSelected]=useState<string|null>(null);
  const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[pan,setPan]=useState<number|undefined>(undefined);
  const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false),latest=useRef<TreeLayout|null>(null);
  const focus=useMemo(()=>selected?relatedIds(C,selected):new Set<string>(),[selected]);
- const layout=useMemo(()=>layoutTree(C,SCALE,view,size,{kind,selected,focus,pan}),[view,size,kind,selected,focus,pan]);
- const level=levelOf(view.to-view.from),active=selected?BY_ID.get(selected)??null:null;
- const order=useMemo(()=>chronology(C,kind),[kind]);
+ // The lane of event titles starts open where there is room for it beside the tree, and closed on a phone.
+ const laneOpen=lane??size.width>=WIDE_LANE;
+ const layout=useMemo(()=>layoutTree(C,SCALE,view,size,{lane:laneOpen,selected,focus,pan}),[view,size,laneOpen,selected,focus,pan]);
+ const level=levelOf(view.to-view.from,size.height?size.height-HEADER:LEVEL_HEIGHT),active=selected?BY_ID.get(selected)??null:null;
+ const order=useMemo(()=>chronology(C),[]);
  const step=active?order.findIndex(n=>n.id===active.id):-1;
  const results=useMemo(()=>{const q=normalize(query.trim());return q?C.nodes.filter(n=>normalize(n.title+" "+n.subtitle+" "+n.summary).includes(q)).sort((a,b)=>Number(!normalize(a.title).includes(q))-Number(!normalize(b.title).includes(q))).slice(0,8):[];},[query]);
  useEffect(()=>{latest.current=layout;},[layout]);
@@ -57,7 +65,8 @@ export function HistoryAtlas(){
   const now=read(),span=now.to-now.from,v=placeOf(node),length=toV(SCALE,node.to+1)-toV(SCALE,node.from),at=sheet()?.2:.4;
   if(how==="keep"){const f=(v-now.from)/span;if(f<.06||f>(sheet()?.32:.94))fly(centerAt(v,span,at,BOUNDS));return;}
   // Zoom in only as far as the item's own level, so its peers appear around it.
-  const wanted=how==="focus"?Math.min(LEVEL_SPAN.detail*.9,Math.max(MIN_SPAN*2,length*1.4+60)):Math.min(span,LEVEL_SPAN[node.rank===1?"overview":node.rank===2?"context":"detail"]*.9);
+  const fit=(value:number)=>fitTo(value,sizeRef.current.height);
+  const wanted=how==="focus"?Math.min(fit(LEVEL_SPAN.detail)*.9,Math.max(MIN_SPAN*2,length*1.4+60)):Math.min(span,fit(LEVEL_SPAN[node.rank===1?"overview":node.rank===2?"context":"detail"])*.9);
   fly(centerAt(v,wanted,at,BOUNDS));
  },[read,fly]);
 
@@ -78,8 +87,8 @@ export function HistoryAtlas(){
  useEffect(()=>{window.addEventListener("hashchange",fromHash);return()=>window.removeEventListener("hashchange",fromHash);},[fromHash]);
  const resize=useCallback((next:{width:number;height:number})=>{
   sizeRef.current=next;setSize(next);
-  if(!sized.current&&next.width){sized.current=true;requestAnimationFrame(fromHash);}
- },[fromHash]);
+  if(!sized.current&&next.width){sized.current=true;if(!window.location.hash)jump(startFor(next.height));requestAnimationFrame(fromHash);}
+ },[fromHash,jump]);
 
  useEffect(()=>{
   const escape=(event:globalThis.KeyboardEvent)=>{if(event.key==="Escape"&&!index.current?.open&&selected)close();};
@@ -94,7 +103,7 @@ export function HistoryAtlas(){
  function goLevel(target:AtlasLevel){
   setHint(false);
   if(target==="overview"){fly(HOME);return;}
-  fly(centerAt(active&&isPlaced(active)?placeOf(active):visibleCenter(),LEVELS[target].span,selected&&sheet()?.25:.5,BOUNDS));
+  fly(centerAt(active&&isPlaced(active)?placeOf(active):visibleCenter(),fitTo(LEVELS[target].span,sizeRef.current.height),selected&&sheet()?.25:.5,BOUNDS));
  }
  function phase(id:string){const seg=SCALE.segments.find(g=>g.phase.id===id);if(seg){setHint(false);fly(fitRange(seg.start,seg.end,BOUNDS,.04));}}
  function cluster(c:Cluster){const now=read(),h=Math.max(1,sizeRef.current.height-HEADER);fly(zoomAround(now,2.6,now.from+(c.y-HEADER)/h*(now.to-now.from),BOUNDS));}
@@ -109,8 +118,8 @@ export function HistoryAtlas(){
   event.preventDefault();setHint(false);
  }
 
- const shown=layout.people.length+layout.events.length;
- return <div className={s.atlas} dir="rtl" data-history-atlas data-level={level} data-kind={kind}>
+ const shown=layout.people.length+layout.events.length+layout.vignettes.length;
+ return <div className={s.atlas} dir="rtl" data-history-atlas data-level={level}>
   <header className={s.hud}>
    <div className={s.brand}>
     <Link href="/timelines" className={s.back}>עזרי למידה</Link>
@@ -129,14 +138,13 @@ export function HistoryAtlas(){
      </button>):<p>לא נמצאה התאמה. נסו שם או מושג אחר.</p>}
     </div>}
    </div>
-   <div className={s.segment} role="group" aria-label="סוג תוכן">{KINDS.map(([id,label])=><button key={id} type="button" data-atlas-kind={id} aria-pressed={kind===id} onClick={()=>setKind(id)}>{label}</button>)}</div>
    <button type="button" className={s.indexButton} aria-label="כל הדמויות והאירועים" onClick={()=>index.current?.showModal()}><span aria-hidden>☰</span><span className={s.indexLabel}>כל הפריטים</span></button>
   </header>
 
   <div className={s.body}>
    <div className={s.stageWrap}>
     <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint}
-     onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onPan={sideways} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
+     onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onPan={sideways} onLane={setLane} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
     <div key={level} className={s.levelToast} aria-hidden><b>{LEVELS[level].title}</b><span>{LEVELS[level].note}</span></div>
    </div>
    <AtlasPanel collection={C} sources={ATLAS_SOURCES} node={active} previous={step>0?order[step-1]:null} next={step>=0&&step<order.length-1?order[step+1]:null} position={step>=0?`${step+1} מתוך ${order.length}`:""}
