@@ -231,14 +231,17 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   // portrait; if it already has, the less important of the two waits for a closer zoom. From afar a parent
   // drawn much earlier than it comes in shrinks too, rather than float over the events before it.
   const shrink=(c:Chosen)=>{c.mode="compact";c.r=NODE.small;c.h=NODE.compact;c.t=c.at-c.r-2;};
+  // A chosen item and its relations always stay: between two of them, a late portrait is accepted.
+  const kept=(c?:Chosen)=>Boolean(c&&(c.node.id===selected||focus.has(c.node.id))),accepted=new Set<string>();
   let solved=solve();
   for(let round=0;round<24;round++){
-   const late=chosen.map(c=>({c,over:solved.top.get(c.node.id)!-c.t-Math.max(SHIFT.latePx,years(c.node,SHIFT.lateYears))})).filter(x=>x.over>0).sort((a,b)=>b.over-a.over)[0]?.c;
+   const late=chosen.filter(c=>!accepted.has(c.node.id)).map(c=>({c,over:solved.top.get(c.node.id)!-c.t-Math.max(SHIFT.latePx,years(c.node,SHIFT.lateYears))})).filter(x=>x.over>0).sort((a,b)=>b.over-a.over)[0]?.c;
    const early=level==="overview"?chosen.find(c=>c.mode==="full"&&c.t-solved.top.get(c.node.id)!>years(c.node,-8)):undefined;
    if(!late&&!early)break;
    if(late){
     const cause=chosen.find(c=>c.node.id===solved.blocker.get(late.node.id));
     if(cause&&cause.mode==="full")shrink(cause);
+    else if(kept(late)&&kept(cause)){accepted.add(late.node.id);continue;}
     else{const out=cause&&priority(cause.node)<priority(late.node)?cause:late;chosen=chosen.filter(c=>c!==out);hiddenPeople.push({id:out.node.id,y:out.at,key:out.key});}
    }else if(early)shrink(early);
    solved=solve();
@@ -262,17 +265,22 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const artSize=Math.round(Math.min(narrow?ART[level].narrow:ART[level].wide,open?laneW-16:Infinity));
  const boxes=placed.map(p=>({left:p.x-slotW/2+4,right:p.x+slotW/2-4,top:p.top,bottom:p.bottom}));
  for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>a.from-b.from)){
-  const art=collection.illustrations[n.id],at=yearY(artYear(art,n)),top=at-artSize/2,bottom=at+artSize/2+ART_CAPTION;
+  const art=collection.illustrations[n.id],at=yearY(artYear(art,n));
+  // From afar two drawings can fall on nearly the same height: the later one shrinks, and if it still
+  // does not fit beside the one before, it waits for a closer zoom.
+  const size=[artSize,Math.round(artSize*.7)].find(size=>!vignettes.some(v=>at-size/2<v.bottom+6&&at+size/2+ART_CAPTION>v.top-6));
+  if(!size)continue;
+  const top=at-size/2,bottom=at+size/2+ART_CAPTION;
   if(!inView(top,bottom,40))continue;
   let x=(lane.left+lane.right)/2;
   if(!open){
    const taken=[...boxes,...vignettes.map(v=>({left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom}))];
-   const covered=(right:number)=>taken.reduce((sum,b)=>sum+Math.max(0,Math.min(right,b.right)-Math.max(right-artSize,b.left))*Math.max(0,Math.min(bottom,b.bottom)-Math.max(top,b.top)),0);
-   const spots=Array.from({length:12},(_,i)=>peopleRight-4-i*slotW/2).filter(right=>right-artSize>=4);
+   const covered=(right:number)=>taken.reduce((sum,b)=>sum+Math.max(0,Math.min(right,b.right)-Math.max(right-size,b.left))*Math.max(0,Math.min(bottom,b.bottom)-Math.max(top,b.top)),0);
+   const spots=Array.from({length:12},(_,i)=>peopleRight-4-i*slotW/2).filter(right=>right-size>=4);
    const best=spots.find(right=>covered(right)===0)??spots.reduce((a,b)=>covered(b)<covered(a)?b:a,spots[0]??peopleRight-4);
-   x=best-artSize/2;
+   x=best-size/2;
   }
-  vignettes.push({node:n,art,x,y:at,size:artSize,top,bottom,inLane:open});
+  vignettes.push({node:n,art,x,y:at,size,top,bottom,inLane:open});
  }
 
  // Event titles in the lane. A title may move a little off its year to make room, never over a drawing; an
