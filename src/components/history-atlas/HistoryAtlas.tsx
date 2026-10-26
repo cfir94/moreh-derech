@@ -1,53 +1,64 @@
 "use client";
 import Link from "next/link";
 import {useCallback,useEffect,useMemo,useRef,useState,type KeyboardEvent} from "react";
-import {SECOND_TEMPLE_ATLAS as C,ATLAS_SOURCES,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutStage,levelFor,ordinal,panBy,rangeLabel,relatedIds,xOf,yearAt,zoomAround,type AtlasKind,type AtlasLevel,type AtlasNode,type Cluster} from "@/data/history-atlas";
+import {SECOND_TEMPLE_ATLAS as C,ATLAS_SOURCES,HEADER,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,zoomAround,type AtlasKind,type AtlasLevel,type AtlasNode,type Cluster,type TreeLayout} from "@/data/history-atlas";
 import {AtlasMinimap} from "./AtlasMinimap";
 import {AtlasPanel} from "./AtlasPanel";
 import {AtlasStage,spanLabel} from "./AtlasStage";
-import {Face,textMeasure,tint} from "./shared";
+import {Face,tint} from "./shared";
 import {useCamera} from "./useCamera";
 import s from "./HistoryAtlas.module.css";
 
 const BY_ID=new Map(C.nodes.map(n=>[n.id,n]));
-const BOUNDS={from:ordinal(C.contextFrom)-12,to:ordinal(C.contextTo)+16};
-const HOME=fitRange(ordinal(C.from),ordinal(C.to)+1,BOUNDS,.03);
+const SCALE=timeScale(C);
+const BOUNDS={from:toV(SCALE,ordinal(C.contextFrom))-24,to:toV(SCALE,ordinal(C.contextTo)+1)+24};
+const HOME=fitRange(toV(SCALE,ordinal(C.from)),toV(SCALE,ordinal(C.to)+1),BOUNDS,.015);
 const LEVELS:Record<AtlasLevel,{title:string;note:string;span:number}>={
  overview:{title:"מבט על",note:"רק דמויות המפתח והאירועים המכוננים",span:HOME.to-HOME.from},
- context:{title:"הקשר",note:"נוספות דמויות ואירועים משניים",span:200},
- detail:{title:"פירוט מלא",note:"כל הדמויות והאירועים בחלון",span:40},
+ context:{title:"הקשר",note:"נוספות דמויות ואירועים משניים",span:560},
+ detail:{title:"פירוט מלא",note:"כל הדמויות והאירועים בחלון",span:170},
 };
 const KINDS:[AtlasKind,string][]=[["all","הכול"],["person","דמויות"],["event","אירועים"]];
 const MAX_LOG=Math.log((BOUNDS.to-BOUNDS.from)/MIN_SPAN);
 const meterOf=(span:number)=>Math.round(Math.log((BOUNDS.to-BOUNDS.from)/span)/MAX_LOG*1000);
 const spanOf=(meter:number)=>(BOUNDS.to-BOUNDS.from)/Math.exp(meter/1000*MAX_LOG);
+const years=(view:{from:number;to:number})=>rangeLabel({from:toYear(SCALE,Math.max(0,view.from)),to:toYear(SCALE,Math.min(SCALE.total,view.to))});
 const normalize=(text:string)=>text.normalize("NFKD").replace(/[֑-ׇ]/g,"").replace(/["'״׳]/g,"").toLowerCase();
-const panelInset=()=>window.matchMedia("(min-width: 960px)").matches?412:0;
+/** Below this width the card opens as a sheet over the lower part of the stage instead of beside it. */
+const sheet=()=>window.matchMedia("(max-width: 1099px)").matches;
+const placeOf=(node:AtlasNode)=>toV(SCALE,node.kind==="event"?node.from+.5:node.from);
 
 export function HistoryAtlas(){
  const camera=useCamera(BOUNDS,HOME),{view,read,fly,jump,zoomBy}=camera;
  const [size,setSize]=useState({width:0,height:0}),[kind,setKind]=useState<AtlasKind>("all"),[selected,setSelected]=useState<string|null>(null);
- const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[fonts,setFonts]=useState(0);
- const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false);
- // Re-measured once the web font has loaded, so cards are sized for Heebo and not its fallback.
- const measure=useMemo(()=>{void fonts;return textMeasure();},[fonts]);
+ const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[pan,setPan]=useState<number|undefined>(undefined);
+ const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false),latest=useRef<TreeLayout|null>(null);
  const focus=useMemo(()=>selected?relatedIds(C,selected):new Set<string>(),[selected]);
- const layout=useMemo(()=>layoutStage(C,view,size,{kind,selected,focus,measure}),[view,size,kind,selected,focus,measure]);
- const level=levelFor(view),active=selected?BY_ID.get(selected)??null:null;
+ const layout=useMemo(()=>layoutTree(C,SCALE,view,size,{kind,selected,focus,pan}),[view,size,kind,selected,focus,pan]);
+ const level=levelOf(view.to-view.from),active=selected?BY_ID.get(selected)??null:null;
  const order=useMemo(()=>chronology(C,kind),[kind]);
  const step=active?order.findIndex(n=>n.id===active.id):-1;
  const results=useMemo(()=>{const q=normalize(query.trim());return q?C.nodes.filter(n=>normalize(n.title+" "+n.subtitle+" "+n.summary).includes(q)).sort((a,b)=>Number(!normalize(a.title).includes(q))-Number(!normalize(b.title).includes(q))).slice(0,8):[];},[query]);
+ useEffect(()=>{latest.current=layout;},[layout]);
 
- useEffect(()=>{document.fonts?.ready.then(()=>setFonts(1));},[]);
+ // A chosen figure in a column that is scrolled away brings the tree sideways to it.
+ useEffect(()=>{
+  if(!selected||!C.slots[selected])return;
+  const frame=requestAnimationFrame(()=>{
+   const L=latest.current,slot=C.slots[selected],column=L?.columns.find(c=>c.id===slot.group);if(!L||!column)return;
+   const x=column.right-slot.slot*L.slotW-L.slotW/2,edge=L.peopleRight-L.slotW*.6;
+   if(x<L.slotW*.75)setPan(Math.min(L.panMax,L.pan+L.slotW*.75-x));else if(x>edge)setPan(Math.max(0,L.pan-(x-edge)));
+  });
+  return()=>cancelAnimationFrame(frame);
+ },[selected,layout.slotW,layout.width]);
 
  const reveal=useCallback((node:AtlasNode,how:"keep"|"reveal"|"focus")=>{
-  const {width}=sizeRef.current;
-  if(!isPlaced(node)||!width)return;
-  const now=read(),span=now.to-now.from,inset=panelInset(),at=(width-inset)/2,mid=(node.from+node.to+1)/2,range=node.to+1-node.from;
-  if(how==="keep"){const x=xOf(node.from+.5,now,width);if(x>48&&x<width-inset-48)return;fly(centerAt(mid,span,at,width,BOUNDS));return;}
+  if(!isPlaced(node)||!sizeRef.current.height)return;
+  const now=read(),span=now.to-now.from,v=placeOf(node),length=toV(SCALE,node.to+1)-toV(SCALE,node.from),at=sheet()?.2:.4;
+  if(how==="keep"){const f=(v-now.from)/span;if(f<.06||f>(sheet()?.32:.94))fly(centerAt(v,span,at,BOUNDS));return;}
   // Zoom in only as far as the item's own level, so its peers appear around it.
-  const wanted=how==="focus"?Math.max(18,range*1.35+8):Math.min(span,LEVEL_SPAN[node.rank===1?"overview":node.rank===2?"context":"detail"]*.92);
-  fly(centerAt(mid,Math.max(wanted,Math.min(range*1.25+10,BOUNDS.to-BOUNDS.from)),at,width,BOUNDS));
+  const wanted=how==="focus"?Math.min(LEVEL_SPAN.detail*.9,Math.max(MIN_SPAN*2,length*1.4+60)):Math.min(span,LEVEL_SPAN[node.rank===1?"overview":node.rank===2?"context":"detail"]*.9);
+  fly(centerAt(v,wanted,at,BOUNDS));
  },[read,fly]);
 
  const open=useCallback((id:string,how:"keep"|"reveal"|"focus"="reveal",from?:HTMLElement)=>{
@@ -76,20 +87,21 @@ export function HistoryAtlas(){
  },[selected,close]);
 
  const quiet=useCallback(()=>setHint(false),[]);
- const visibleCenter=()=>{const {width}=sizeRef.current;return width?yearAt((width-(selected?panelInset():0))/2,read(),width):(read().from+read().to)/2;};
+ // Until the tree is moved sideways by hand it stays centred on the leadership in Judea (on a phone only part fits).
+ const sideways=useCallback((dx:number)=>setPan(p=>Math.max(0,Math.min(latest.current?.panMax??0,(p??latest.current?.pan??0)+dx))),[]);
+ const visibleCenter=()=>{const now=read();return now.from+(now.to-now.from)*(selected&&sheet()?.25:.5);};
  function zoom(direction:1|-1){setHint(false);zoomBy(direction*Math.log(2),visibleCenter());}
  function goLevel(target:AtlasLevel){
   setHint(false);
   if(target==="overview"){fly(HOME);return;}
-  const {width}=sizeRef.current,middle=active&&isPlaced(active)?(active.from+active.to+1)/2:visibleCenter();
-  fly(centerAt(middle,LEVELS[target].span,(width-(selected?panelInset():0))/2,width||1,BOUNDS));
+  fly(centerAt(active&&isPlaced(active)?placeOf(active):visibleCenter(),LEVELS[target].span,selected&&sheet()?.25:.5,BOUNDS));
  }
- function phase(id:string){const p=C.phases.find(p=>p.id===id);if(p){setHint(false);fly(fitRange(ordinal(p.from),ordinal(p.to),BOUNDS,.05));}}
- function cluster(c:Cluster){fly(zoomAround(read(),2.6,c.year,BOUNDS));}
+ function phase(id:string){const seg=SCALE.segments.find(g=>g.phase.id===id);if(seg){setHint(false);fly(fitRange(seg.start,seg.end,BOUNDS,.04));}}
+ function cluster(c:Cluster){const now=read(),h=Math.max(1,sizeRef.current.height-HEADER);fly(zoomAround(now,2.6,now.from+(c.y-HEADER)/h*(now.to-now.from),BOUNDS));}
  function keys(event:KeyboardEvent<HTMLDivElement>){
-  const now=read(),span=now.to-now.from;
-  if(event.key==="ArrowRight")fly(panBy(now,-span*.2,BOUNDS),320);
-  else if(event.key==="ArrowLeft")fly(panBy(now,span*.2,BOUNDS),320);
+  const now=read(),span=now.to-now.from,move={ArrowUp:-.2,ArrowDown:.2,PageUp:-.8,PageDown:.8}[event.key];
+  if(move!==undefined)fly(panBy(now,span*move,BOUNDS),320);
+  else if(event.key==="ArrowLeft"||event.key==="ArrowRight")sideways((event.key==="ArrowLeft"?1:-1)*layout.slotW*2);
   else if(event.key==="+"||event.key==="=")zoom(1);
   else if(event.key==="-"||event.key==="_")zoom(-1);
   else if(event.key==="0"||event.key==="Home")fly(HOME);
@@ -122,16 +134,18 @@ export function HistoryAtlas(){
   </header>
 
   <div className={s.body}>
-   <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint}
-    onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
-   <div key={level} className={s.levelToast} aria-hidden><b>{LEVELS[level].title}</b><span>{LEVELS[level].note}</span></div>
+   <div className={s.stageWrap}>
+    <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint}
+     onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onPan={sideways} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
+    <div key={level} className={s.levelToast} aria-hidden><b>{LEVELS[level].title}</b><span>{LEVELS[level].note}</span></div>
+   </div>
    <AtlasPanel collection={C} sources={ATLAS_SOURCES} node={active} previous={step>0?order[step-1]:null} next={step>=0&&step<order.length-1?order[step+1]:null} position={step>=0?`${step+1} מתוך ${order.length}`:""}
     onOpen={id=>open(id)} onFocusTime={()=>active&&reveal(active,"focus")} onClose={close}/>
   </div>
 
   <footer className={s.dock}>
-   <div className={s.readout}><span>{LEVELS[level].title}</span><b data-atlas-range>{rangeLabel(view)}</b><small>{shown} פריטים בתצוגה</small></div>
-   <AtlasMinimap collection={C} bounds={BOUNDS} view={view} camera={camera}/>
+   <div className={s.readout}><span>{LEVELS[level].title}</span><b data-atlas-range>{years(view)}</b><small>{shown} פריטים בתצוגה</small></div>
+   <AtlasMinimap collection={C} scale={SCALE} bounds={BOUNDS} view={view} label={years(view)} camera={camera}/>
    <div className={s.levels}>
     <div className={s.levelRow}>
      <div className={s.segment} role="group" aria-label="רמת פירוט">{(Object.keys(LEVELS) as AtlasLevel[]).map(id=><button key={id} type="button" data-atlas-level={id} aria-pressed={level===id} onClick={()=>goLevel(id)}>{LEVELS[id].title}</button>)}</div>

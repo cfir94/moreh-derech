@@ -1,25 +1,26 @@
 "use client";
-import {useEffect,useRef,useState,type KeyboardEvent,type PointerEvent} from "react";
-import {eventLaneTop,panBy,personLaneY,yearAt,zoomAround,type AtlasCollection,type AtlasWindow,type Cluster,type StageLayout} from "@/data/history-atlas";
+import {useEffect,useRef,useState,type CSSProperties,type KeyboardEvent,type PointerEvent} from "react";
+import {HEADER,panBy,shortName,zoomAround,type AtlasCollection,type AtlasNode,type AtlasWindow,type Cluster,type TreeLayout} from "@/data/history-atlas";
 import type {Camera} from "./useCamera";
 import {Face,tint} from "./shared";
 import s from "./HistoryAtlas.module.css";
 
 type Point={x:number;y:number};
 type Props={
- collection:AtlasCollection;layout:StageLayout;bounds:AtlasWindow;camera:Camera;selected:string|null;focus:Set<string>;hint:boolean;
- onOpen:(id:string,trigger?:HTMLElement)=>void;onCluster:(cluster:Cluster)=>void;onPhase:(id:string)=>void;
+ collection:AtlasCollection;layout:TreeLayout;bounds:AtlasWindow;camera:Camera;selected:string|null;focus:Set<string>;hint:boolean;
+ onOpen:(id:string,trigger?:HTMLElement)=>void;onCluster:(cluster:Cluster)=>void;onPhase:(id:string)=>void;onPan:(dx:number)=>void;
  onResize:(size:{width:number;height:number})=>void;onKeyDown:(event:KeyboardEvent<HTMLDivElement>)=>void;onInteract:()=>void;
 };
 
 export const spanLabel=(from:number,to:number)=>from<0&&to<0?`${-from}–${-to} לפנה״ס`:from>0?`${from}–${to} לספירה`:`${-from} לפנה״ס–${to} לספירה`;
+const LEGEND=[["parent","הורה וילד"],["spouse","בני זוג"],["succession","רצף הנהגה"],["sibling","אחים"]] as const;
 
-export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,onOpen,onCluster,onPhase,onResize,onKeyDown,onInteract}:Props){
+export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,onOpen,onCluster,onPhase,onPan,onResize,onKeyDown,onInteract}:Props){
  const stage=useRef<HTMLDivElement>(null),pointers=useRef(new Map<number,Point>());
  const drag=useRef({moved:false,start:{x:0,y:0},velocity:0,last:0,suppress:false});
  const [dragging,setDragging]=useState(false),[hover,setHover]=useState<string|null>(null),[pile,setPile]=useState<string|null>(null);
  const {read,jump,zoomBy,glide,stop}=camera;
- const g=layout.geometry,width=g.width,detail=layout.level==="detail",axisY=(g.axisTop+g.axisBottom)/2;
+ const L=layout,usable=Math.max(1,L.height-L.header),detail=L.level==="detail";
 
  useEffect(()=>{
   const el=stage.current;if(!el)return;
@@ -27,21 +28,22 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   observer.observe(el);return()=>observer.disconnect();
  },[onResize]);
 
- // Wheel zooms around the year under the cursor; a sideways swipe or Shift+wheel pans.
+ // Wheel zooms around the moment under the cursor; a sideways swipe moves along the tree.
  useEffect(()=>{
   const el=stage.current;if(!el)return;
   const wheel=(event:WheelEvent)=>{
    event.preventDefault();onInteract();setPile(null);
    const box=el.getBoundingClientRect(),unit=event.deltaMode===1?16:event.deltaMode===2?box.height:1,view=read(),span=view.to-view.from;
-   const dx=event.deltaX*unit,dy=event.deltaY*unit,anchor=yearAt(event.clientX-box.left,view,box.width);
+   const dx=event.deltaX*unit,dy=event.deltaY*unit,anchor=view.from+(event.clientY-box.top-HEADER)/(box.height-HEADER)*span;
    if(event.ctrlKey){zoomBy(-dy*.012,anchor);return;}
-   if(event.shiftKey||Math.abs(dx)>Math.abs(dy)){jump(panBy(view,-(event.shiftKey?dy:dx)/box.width*span,bounds));return;}
+   if(event.shiftKey){jump(panBy(view,dy/(box.height-HEADER)*span,bounds));return;}
+   if(Math.abs(dx)>Math.abs(dy)){onPan(-dx);return;}
    zoomBy(-dy*.0024,anchor);
   };
   el.addEventListener("wheel",wheel,{passive:false});return()=>el.removeEventListener("wheel",wheel);
- },[read,jump,zoomBy,bounds,onInteract]);
+ },[read,jump,zoomBy,bounds,onInteract,onPan]);
 
- function local(event:PointerEvent<HTMLDivElement>){const box=event.currentTarget.getBoundingClientRect();return {x:event.clientX-box.left,y:event.clientY-box.top,width:box.width};}
+ function local(event:PointerEvent<HTMLDivElement>){const box=event.currentTarget.getBoundingClientRect();return {x:event.clientX-box.left,y:event.clientY-box.top};}
  function down(event:PointerEvent<HTMLDivElement>){
   if(event.pointerType==="mouse"&&event.button!==0)return;
   if(!(event.target as HTMLElement).closest("[data-pile],[data-zone]"))setPile(null);
@@ -58,17 +60,18 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
    const other=[...pointers.current.entries()].find(([id])=>id!==event.pointerId)![1];
    const before=Math.hypot(previous.x-other.x,previous.y-other.y),after=Math.hypot(p.x-other.x,p.y-other.y);
    if(before<8)return;
-   const from=(previous.x+other.x)/2,to=(p.x+other.x)/2,zoomed=zoomAround(view,after/before,yearAt(from,view,p.width),bounds);
-   jump(panBy(zoomed,(to-from)/p.width*(zoomed.to-zoomed.from),bounds));return;
+   const from=(previous.y+other.y)/2,to=(p.y+other.y)/2,zoomed=zoomAround(view,after/before,view.from+(from-L.header)/usable*span,bounds);
+   jump(panBy(zoomed,-(to-from)/usable*(zoomed.to-zoomed.from),bounds));return;
   }
   if(!g.moved){
    if(Math.hypot(p.x-g.start.x,p.y-g.start.y)<5)return;
    // Capture only once this is a drag, so a plain click still reaches the card under it.
    g.moved=true;event.currentTarget.setPointerCapture(event.pointerId);setDragging(true);
   }
-  const years=(p.x-previous.x)/p.width*span,dt=Math.max(1,event.timeStamp-g.last);
-  g.velocity=g.velocity*.5+years/dt*.5;g.last=event.timeStamp;
-  jump(panBy(view,years,bounds));
+  const amount=-(p.y-previous.y)/usable*span,dt=Math.max(1,event.timeStamp-g.last);
+  g.velocity=g.velocity*.5+amount/dt*.5;g.last=event.timeStamp;
+  if(p.x!==previous.x)onPan(p.x-previous.x);
+  jump(panBy(view,amount,bounds));
  }
  function up(event:PointerEvent<HTMLDivElement>){
   if(!pointers.current.delete(event.pointerId))return;
@@ -77,70 +80,82 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   if(g.moved){g.suppress=true;setDragging(false);if(event.timeStamp-g.last<90)glide(g.velocity);}
  }
 
- const faces=new Map<string,Point>(),marks=new Map<string,Point>();
- for(const p of layout.people)faces.set(p.node.id,{x:p.right-(p.mode==="compact"?20:21),y:personLaneY(g,p.lane)});
- for(const d of layout.dots)marks.set(d.id,{x:d.x,y:axisY});
- const at=(id:string)=>faces.get(id)??marks.get(id);
- const origin=selected?at(selected):undefined;
- const links=origin?[...focus].map(id=>({id,to:at(id),label:collection.relations.find(r=>(r.from===selected&&r.to===id)||(r.to===selected&&r.from===id))?.label})).filter((l):l is {id:string;to:Point;label:string|undefined}=>Boolean(l.to)):[];
  const byId=(id:string)=>collection.nodes.find(n=>n.id===id);
- const hovered=hover?byId(hover):undefined,hoverAt=hover?at(hover)??layout.events.filter(e=>e.node.id===hover).map(e=>({x:e.right-12,y:eventLaneTop(g,e.lane)}))[0]:undefined;
  const state=(id:string)=>id===selected?s.selected:focus.has(id)?s.related:"";
- const hoverProps=(id:string)=>({onPointerEnter:()=>setHover(id),onPointerLeave:()=>setHover(null),onFocus:()=>setHover(id),onBlur:()=>setHover(null)});
- const clip=(x:number)=>Math.max(-24,Math.min(width+24,x));
- const pileKey=(c:Cluster)=>c.zone+c.ids[0],opened=layout.clusters.find(c=>pileKey(c)===pile);
+ // Hover names only follow a mouse; on touch the tap opens the card instead.
+ const hoverProps=(id:string)=>({onPointerEnter:(e:PointerEvent<HTMLElement>)=>{if(e.pointerType==='mouse')setHover(id);},onPointerLeave:()=>setHover(null),onFocus:()=>setHover(id),onBlur:()=>setHover(null)});
+ const pileKey=(c:Cluster)=>c.zone+c.ids[0],opened=L.clusters.find(c=>pileKey(c)===pile);
+ const hovered=hover?byId(hover):undefined,hoveredPerson=hover?L.people.find(p=>p.node.id===hover):undefined,hoveredEvent=hover?L.events.find(e=>e.node.id===hover):undefined;
+ const tip:Point|null=hoveredPerson?{x:hoveredPerson.x,y:hoveredPerson.top}:hoveredEvent?{x:(L.eventsLeft+L.eventsRight)/2,y:hoveredEvent.top}:null;
+ const clipY=(v:number)=>Math.max(L.header-20,Math.min(L.height+20,v));
 
- return <div ref={stage} className={s.stage} tabIndex={0} role="application" aria-roledescription="מפת זמן" aria-label="מפת הזמן: גלגלת או צביטה לזום, גרירה או חיצים לתזוזה, פלוס ומינוס לשינוי רמת הפירוט" aria-describedby="atlas-help"
-  data-atlas-chart data-dragging={dragging||undefined} data-focus={selected?"":undefined} data-level={layout.level}
+ return <div ref={stage} className={s.stage} tabIndex={0} role="application" aria-roledescription="אילן הזמן" aria-label="אילן הזמן: גלגלת או צביטה לזום, גרירה או חיצים לתנועה בזמן, פלוס ומינוס לשינוי רמת הפירוט" aria-describedby="atlas-help"
+  data-atlas-chart data-dragging={dragging||undefined} data-focus={selected?"":undefined} data-level={L.level}
   onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onKeyDown={event=>{if(event.key==="Escape"&&opened){setPile(null);return;}onKeyDown(event);}}
   onClickCapture={event=>{if(drag.current.suppress){event.stopPropagation();event.preventDefault();drag.current.suppress=false;}}}>
-  {layout.bands.map(b=>{const left=clip(b.left),right=clip(b.right),wide=right-left,mark=Math.min(92,(wide-40)/(b.phase.title.length*.62));return <div key={b.phase.id} className={s.band} data-context={b.phase.context||undefined} style={{...tint(b.phase.id,b.index),transform:`translateX(${left}px)`,width:wide}}>
-   {mark>=34&&<span className={s.watermark} style={{fontSize:mark}} aria-hidden>{b.phase.title}</span>}
-  </div>;})}
-  {layout.era!==null&&<div className={s.era} style={{transform:`translateX(${layout.era}px)`}} aria-hidden><span>לספירה</span><span>לפנה״ס</span></div>}
 
-  <svg className={s.links} width={width} height={g.height} aria-hidden>
-   {origin&&links.map(l=>{const lift=Math.min(130,Math.abs(origin.x-l.to.x)*.28)+18,cx=(origin.x+l.to.x)/2,cy=Math.min(origin.y,l.to.y)-lift;return <g key={l.id}>
-    <path d={`M${origin.x} ${origin.y} Q${cx} ${cy} ${l.to.x} ${l.to.y}`} pathLength={1}/>
-    {l.label&&<text x={(origin.x+l.to.x)/4+cx/2} y={(origin.y+l.to.y)/4+cy/2-5}>{l.label}</text>}
-   </g>;})}
+  {L.bands.map(b=><div key={b.phase.id} className={s.band} data-context={b.phase.context||undefined} style={{...tint(b.phase.id,b.index),top:clipY(b.top),height:Math.max(0,clipY(b.bottom)-clipY(b.top))}}/>)}
+  {L.columns.length>0&&<div className={s.divider} style={{left:L.peopleRight+12}} aria-hidden/>}
+
+  {/* The tree is clipped to its own area, so columns scrolled sideways never slide under the events. */}
+  {L.columns.length>0&&<div className={s.tree0} style={{width:L.peopleRight+12}}>
+   <svg className={s.lines} width={L.width} height={L.height} aria-hidden>
+    {L.people.filter(p=>p.lineEnd>p.bottom+4).map(p=><line key={"life-"+p.node.id} className={`${s.life} ${state(p.node.id)}`} style={tint(p.node.phase)} x1={p.x} x2={p.x} y1={p.bottom+2} y2={p.lineEnd}/>)}
+    {L.connectors.map(c=><g key={c.id}>{c.kind==="spouse"&&<path className={s.tree} data-kind="spouse-outer" d={c.path} data-on={c.from===selected||c.to===selected||undefined}/>}<path className={s.tree} data-kind={c.kind} d={c.path} data-on={c.kind!=="spouse"&&(c.from===selected||c.to===selected)||undefined}/></g>)}
+   </svg>
+   {L.people.map(p=>{const n=p.node;return <button key={n.id} type="button" className={`${s.person} ${state(n.id)}`} data-atlas-node={n.id} data-kind="person" data-mode={p.mode} data-rank={n.rank}
+    style={{...tint(n.phase),left:p.x-L.slotW/2+3,width:L.slotW-6,top:p.top}} aria-label={`${n.title} · ${n.subtitle}`} onClick={e=>onOpen(n.id,e.currentTarget)} {...hoverProps(n.id)}>
+    <Face image={n.image} name={n.title}/>
+    {p.mode==="full"&&<span className={s.name}><strong>{shortName(n.title)}</strong>{detail&&<small>{n.subtitle}</small>}</span>}
+   </button>;})}
+  </div>}
+  <svg className={s.lines} width={L.width} height={L.height} aria-hidden>
+   {L.events.map(e=>{const mid=e.top+e.height/2,from=Math.max(e.y,Math.min(e.y1,mid));return <path key={"tie-"+e.node.id} className={`${s.tie} ${state(e.node.id)}`} style={tint(e.node.phase)} d={`M${L.spine} ${from} C${L.spine-10} ${from} ${L.eventsRight+12} ${mid} ${L.eventsRight} ${mid}`}/>;})}
   </svg>
 
-  <div className={s.axis} style={{top:g.axisTop,height:g.axisBottom-g.axisTop}} aria-hidden>
-   {layout.ticks.minor.map(x=><i key={x} className={s.minor} style={{transform:`translateX(${x}px)`}}/>)}
-   {layout.ticks.major.map(t=><span key={t.year} className={s.tick} style={{transform:`translateX(${t.x}px)`}}><b>{t.label}</b></span>)}
-   {layout.dots.map(d=><i key={d.id} className={s.dot} data-rank={d.rank} data-on={d.id===selected||focus.has(d.id)||undefined} style={{...tint(d.phase),transform:`translateX(${d.x}px)`}}/>)}
+  <div className={s.ruler} style={{width:L.rulerW}}>
+   {L.bands.map(b=>{const top=clipY(b.top),h=clipY(b.bottom)-top;return h>2&&<button key={b.phase.id} type="button" className={s.period} data-atlas-phase={b.phase.id} style={{...tint(b.phase.id,b.index),top,height:h,"--h":h-16+"px"} as CSSProperties} aria-label={`התקרבות אל ${b.phase.title}`} title={`${b.phase.title} · ${spanLabel(b.phase.from,b.phase.to)}`} onClick={()=>onPhase(b.phase.id)}>{h>90&&<span>{b.phase.title}</span>}</button>;})}
+   {L.ticks.map(t=><span key={t.year} className={s.tick} style={{top:t.y}}><b>{Math.abs(t.year)}<small>{t.year<0?"לפנה״ס":"לספירה"}</small></b></span>)}
   </div>
+  <span className={s.spine} style={{left:L.spine}} aria-hidden/>
+  {L.dots.filter(d=>d.y1-d.y>3).map(d=><i key={"span-"+d.id} className={s.span} data-on={d.id===selected||focus.has(d.id)||undefined} style={{...tint(d.phase),left:L.spine,top:d.y,height:d.y1-d.y}} aria-hidden/>)}
+  {L.dots.map(d=><i key={d.id} className={s.dot} data-rank={d.rank} data-on={d.id===selected||focus.has(d.id)||undefined} style={{...tint(d.phase),left:L.spine,top:d.y}} aria-hidden/>)}
 
-  {layout.people.filter(p=>p.mode==="full").map(p=><span key={"bar-"+p.node.id} className={`${s.lifeBar} ${state(p.node.id)}`} style={{...tint(p.node.phase),transform:`translateX(${clip(p.end)}px)`,width:Math.max(3,clip(p.start)-clip(p.end)),top:personLaneY(g,p.lane)-2}} aria-hidden/>)}
-  {layout.people.map(p=>{const n=p.node,h=p.mode==="compact"?36:detail?50:40;return <button key={n.id} type="button" className={`${s.person} ${state(n.id)}`} data-atlas-node={n.id} data-kind="person" data-mode={p.mode} data-rank={n.rank}
-   style={{...tint(n.phase),width:p.width,height:h,top:personLaneY(g,p.lane)-h/2,transform:`translateX(${p.right-p.width}px)`}} aria-label={`${n.title} · ${n.subtitle}`} onClick={e=>onOpen(n.id,e.currentTarget)} {...hoverProps(n.id)}>
-   <Face image={n.image} name={n.title}/>
-   {p.mode==="full"&&<span className={s.label}><strong>{n.title}</strong>{detail&&<small>{n.subtitle}</small>}</span>}
-  </button>;})}
-
-  {layout.events.map(p=>{const top=eventLaneTop(g,p.lane),stem=!p.shifted&&p.point>=0&&p.point<=width;return <span key={"stem-"+p.node.id} className={`${s.stem} ${state(p.node.id)}`} style={{...tint(p.node.phase),transform:`translateX(${p.point}px)`,top:axisY,height:stem?top-axisY+(p.mode==="compact"?12:2):0}} aria-hidden/>;})}
-  {layout.events.filter(p=>p.mode==="full"&&p.node.to>p.node.from).map(p=><span key={"span-"+p.node.id} className={`${s.span} ${state(p.node.id)}`} style={{...tint(p.node.phase),transform:`translateX(${clip(p.end)}px)`,width:Math.max(3,clip(p.start)-clip(p.end)),top:eventLaneTop(g,p.lane)-5}} aria-hidden/>)}
-  {layout.events.map(p=>{const n=p.node,top=eventLaneTop(g,p.lane);
-   if(p.mode==="compact")return <button key={n.id} type="button" className={`${s.marker} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode="compact" data-rank={n.rank} style={{...tint(n.phase),top:top+2,transform:`translateX(${p.right-p.width}px)`}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(n.id,e.currentTarget)} {...hoverProps(n.id)}/>;
-   return <button key={n.id} type="button" className={`${s.event} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode="full" data-rank={n.rank} style={{...tint(n.phase),width:p.width,height:g.eventLane-10,top,transform:`translateX(${p.right-p.width}px)`}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(n.id,e.currentTarget)}>
-    <span className={s.cardDate}>{n.date}</span><strong className={s.cardTitle}>{n.title}</strong>{detail&&<span className={s.cardSummary}>{n.summary}</span>}
+  {L.events.map(e=>{const n=e.node;
+   if(e.mode==="compact")return <button key={n.id} type="button" className={`${s.chip} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode="compact" data-rank={n.rank} style={{...tint(n.phase),left:L.eventsLeft,width:L.eventsRight-L.eventsLeft,top:e.top,height:e.height}} aria-label={`${n.title} · ${n.date}`} onClick={ev=>onOpen(n.id,ev.currentTarget)} {...hoverProps(n.id)}><i aria-hidden/><span>{n.title}</span></button>;
+   const art=collection.illustrations[n.id];
+   return <button key={n.id} type="button" className={`${s.card} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode="full" data-rank={n.rank} data-illustrated={e.illustrated||undefined} style={{...tint(n.phase),left:L.eventsLeft,width:L.eventsRight-L.eventsLeft,top:e.top,height:e.height}} aria-label={`${n.title} · ${n.date}`} onClick={ev=>onOpen(n.id,ev.currentTarget)}>
+    {e.illustrated&&art&&<img src={art.src} alt="" width={96} height={96} loading="lazy" draggable={false}/>}{/* eslint-disable-line @next/next/no-img-element */}
+    <span><small>{n.date}</small><strong>{n.title}</strong>{e.illustrated&&<em>{n.summary}</em>}</span>
    </button>;
   })}
 
-  {layout.clusters.map(c=><button key={c.zone+c.ids[0]} type="button" className={s.cluster} data-zone={c.zone} style={{top:c.zone==="person"?g.personClusterY:g.eventClusterY,transform:`translateX(${c.x-19}px)`}} aria-label={`עוד ${c.ids.length} ${c.zone==="person"?"דמויות":"אירועים"} כאן`} aria-expanded={pileKey(c)===pile} onClick={()=>setPile(pileKey(c))}>+{c.ids.length}</button>)}
-  {opened&&<div className={s.pile} data-pile data-zone-list={opened.zone} role="group" aria-label="פריטים שאין להם מקום בתצוגה" style={{transform:`translateX(${Math.max(136,Math.min(width-136,opened.x))}px)`,top:opened.zone==="person"?g.personClusterY+30:g.eventClusterY-6}}>
+  <svg className={s.links} width={L.width} height={L.height} aria-hidden>
+   {L.links.map(l=><g key={l.id} data-kind={l.kind}><path d={l.path} pathLength={1}/>{l.label&&<text x={l.lx} y={l.ly}>{l.label}</text>}</g>)}
+  </svg>
+
+  {L.clusters.filter(c=>c.zone==="event"||(L.level!=="overview"&&c.x<=L.peopleRight)).map(c=><button key={pileKey(c)} type="button" className={s.cluster} data-zone={c.zone} style={{left:c.x-15,top:c.y-10}} aria-label={`עוד ${c.ids.length} ${c.zone==="person"?"דמויות":"אירועים"} כאן`} aria-expanded={pileKey(c)===pile} onClick={()=>setPile(pileKey(c))}>+{c.ids.length}</button>)}
+  {opened&&<div className={s.pile} data-pile role="group" aria-label="פריטים שאין להם מקום בתצוגה" style={{left:Math.max(8,Math.min(L.width-272,opened.x-132)),top:Math.max(L.header+4,Math.min(opened.y+16,L.height-220))}}>
    <p><span>{opened.ids.length} {opened.zone==="person"?"דמויות":"אירועים"} כאן</span><button type="button" onClick={()=>{setPile(null);onCluster(opened);}}>להתקרב לכאן ⌕</button></p>
-   {opened.ids.map(byId).filter((n):n is AtlasCollection["nodes"][number]=>Boolean(n)).sort((a,b)=>a.from-b.from).map(n=><button key={n.id} type="button" style={tint(n.phase)} onClick={event=>{setPile(null);onOpen(n.id,event.currentTarget);}}>{n.kind==="person"?<Face image={n.image} name={n.title}/>:<i aria-hidden/>}<span><strong>{n.title}</strong><small>{n.kind==="person"?n.subtitle:n.date}</small></span></button>)}
+   {opened.ids.map(byId).filter((n):n is AtlasNode=>Boolean(n)).sort((a,b)=>a.from-b.from).map(n=><button key={n.id} type="button" style={tint(n.phase)} onClick={event=>{setPile(null);onOpen(n.id,event.currentTarget);}}>{n.kind==="person"?<Face image={n.image} name={n.title}/>:<i aria-hidden/>}<span><strong>{n.title}</strong><small>{n.kind==="person"?n.subtitle:n.date}</small></span></button>)}
   </div>}
 
-  <div className={s.heads}>{layout.bands.map(b=>{const left=Math.max(b.left,4),right=Math.min(b.right,width-4),wide=right-left;return wide>10&&<button key={b.phase.id} type="button" className={s.head} data-narrow={wide<96||undefined} data-atlas-phase={b.phase.id} style={{...tint(b.phase.id,b.index),transform:`translateX(${left}px)`,width:wide}} aria-label={`התקרבות אל ${b.phase.title}`} title={b.phase.note} onClick={()=>onPhase(b.phase.id)}>
-   <strong>{b.phase.title}</strong><small>{spanLabel(b.phase.from,b.phase.to)}</small>
-  </button>;})}</div>
+  <div className={s.heads} style={{height:L.header}}>
+   <div className={s.headRuler} style={{width:L.rulerW,...(L.phase?tint(L.phase.id):{})}}>{L.phase&&<><i aria-hidden/><strong>{L.phase.title}</strong></>}</div>
+   {L.eventsRight>L.eventsLeft&&<div className={s.headEvents} style={{left:L.eventsLeft,width:L.eventsRight-L.eventsLeft}}><strong>אירועים</strong><small>לפי סדר הזמן</small></div>}
+   {L.columns.length>0&&<div className={s.headClip} style={{width:L.peopleRight+12}}>{L.columns.map(c=><div key={c.id} className={s.headGroup} data-group={c.id} style={{left:c.left,width:c.right-c.left}}><strong>{c.title}</strong><small>{c.note}</small></div>)}</div>}
+  </div>
 
-  {hovered&&hoverAt&&<div className={s.tooltip} style={{...tint(hovered.phase),transform:`translate(${Math.max(130,Math.min(width-130,hoverAt.x))}px,${hoverAt.y}px)`}} data-below={hoverAt.y<g.header+90||undefined} role="presentation">
-   <strong>{hovered.title}</strong><small>{hovered.kind==="person"?hovered.subtitle:hovered.date}</small>{hovered.kind==="person"&&<small>{hovered.date}</small>}
+  {hovered&&tip&&(hoveredPerson?.mode==="compact"||hoveredEvent?.mode==="compact")&&<div className={s.tooltip} style={{...tint(hovered.phase),left:Math.max(130,Math.min(L.width-130,tip.x)),top:tip.y}} data-below={tip.y<L.header+90||undefined} role="presentation">
+   <strong>{hovered.title}</strong><small>{hovered.kind==="person"?hovered.subtitle:hovered.date}</small>
   </div>}
-  <p id="atlas-help" className={s.hint} data-hidden={!hint||undefined}><span>גלגלת / צביטה — זום</span><span>גרירה — תזוזה בזמן</span><span>לחיצה — כרטיס מלא</span></p>
+  {L.columns.length>0&&<details className={s.legend} onPointerDown={e=>e.stopPropagation()}>
+   <summary>מקרא</summary>
+   <ul aria-label="מקרא הקווים">{LEGEND.map(([kind,label])=><li key={kind}><svg width="26" height="10" aria-hidden>{kind==="spouse"&&<path className={s.tree} data-kind="spouse-outer" d="M2 5 H24"/>}<path className={s.tree} data-kind={kind} d="M2 5 H24"/></svg>{label}</li>)}
+    <li><svg width="26" height="10" aria-hidden><line className={s.life} style={tint("hasmonean")} x1="2" x2="24" y1="5" y2="5"/></svg>תקופת פעילות</li>
+    <li><svg width="26" height="10" aria-hidden><path d="M2 5 H24" stroke="#e5534b" strokeWidth="1.8" fill="none"/></svg>יריבות (בבחירת דמות)</li></ul>
+   <p>הקצב משתנה לפי תקופה: תקופות צפופות באירועים מקבלות יותר מקום. השנים בסרגל מימין.</p>
+  </details>}
+  <p id="atlas-help" className={s.hint} data-hidden={!hint||undefined}><span>גלגלת / צביטה — זום</span><span>גרירה — תנועה בזמן</span><span>לחיצה — כרטיס מלא</span></p>
  </div>;
 }
