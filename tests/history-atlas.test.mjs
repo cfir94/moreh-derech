@@ -99,7 +99,7 @@ test("nothing overlaps, and every title stays near its own time",()=>{
   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id+" overlaps "+titles[i-1].node.id);
   for(const e of L.events){
    assert(e.top>=e.y-e.height/2-LABEL.shift-1&&e.top<=e.y1-e.height/2+LABEL.shift+1,where+e.node.id+" strays from its time");
-   for(const v of L.vignettes)assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" lies on the drawing of "+v.node.id);
+   for(const v of L.vignettes.filter(v=>v.inLane))assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" lies on the drawing of "+v.node.id);
   }
   for(let i=1;i<L.vignettes.length;i++)assert(L.vignettes[i].top>=L.vignettes[i-1].bottom||Math.abs(L.vignettes[i].x-L.vignettes[i-1].x)>=L.vignettes[i].size,where+"two drawings overlap");
   for(const c of L.clusters)for(const id of c.ids)assert(!ids(L).includes(id),where+id);
@@ -132,8 +132,10 @@ test("drawings sit on their own year at every zoom level, with the lane open or 
   for(const [id,art] of Object.entries(C.illustrations)){
    const n=byId.get(id),y=48+(toV(S,artYear(art,n))-view.from)/span*usable;
    const v=L.vignettes.find(v=>v.node.id===id);
-   if(y>60&&y<size.height-20){assert(v,id+" is missing at "+Math.round(view.from));assert(Math.abs(v.y-y)<1e-6,id+" is off its year");assert.equal(v.inLane,lane);}
-   if(v&&!lane)assert(v.x+v.size/2<=L.peopleRight+1&&v.x-v.size/2>=0,id+" leaves the tree area");
+   // On a phone the open list covers the tree; a drawing that would hide a key title there leaves its title instead.
+   if(!v&&lane&&size===phone&&y>60&&y<size.height-20){assert(L.events.some(e=>e.node.id===id),id+" has neither drawing nor title");continue;}
+   if(y>60&&y<size.height-20){assert(v,id+" is missing at "+Math.round(view.from));assert(Math.abs(v.y-y)<1e-6,id+" is off its year");if(!lane)assert.equal(v.inLane,false);}
+   if(v&&!v.inLane)assert(v.x+v.size/2<=L.peopleRight+1&&v.x-v.size/2>=0,id+" leaves the tree area");
   }
  }
  assert.equal(artYear(C.illustrations["ST-082"],byId.get("ST-082")),ordinal(70)+.5,"the burning of the Temple sits on 70");
@@ -211,8 +213,9 @@ test("the whole axis: the Bronze Age and the First Temple before, Rome and Byzan
   for(const r of family){const a=at.get(r.from),b=at.get(r.to);if(a&&b)assert(b.top>=a.bottom+GAP.generation-.5,where+r.from+" above "+r.to);}
   const titles=[...L.events].sort((a,b)=>a.top-b.top);
   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id);
-  for(const e of L.events)for(const v of L.vignettes)assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" on "+v.node.id);
+  for(const e of L.events)for(const v of L.vignettes.filter(v=>v.inLane))assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" on "+v.node.id);
   assert.equal(new Set(ids(L)).size,ids(L).length,where);
+  for(const v of L.vignettes){const n=v.node,y=yr=>48+(toV(HS,yr)-view.from)/(view.to-view.from)*(size.height-48),aim=y(artYear(H.illustrations[n.id],n));assert(Math.abs(v.y-aim)<1e-6||(v.y>=y(n.from+.5)-.5&&v.y<=y(n.to+.5)+.5),where+n.id+" leaves its own years");}
   const drawn=[...L.vignettes].sort((a,b)=>a.top-b.top);
   for(let i=1;i<drawn.length;i++)assert(drawn[i].top>=drawn[i-1].bottom||Math.abs(drawn[i].x-drawn[i-1].x)>=Math.min(drawn[i].size,drawn[i-1].size),where+drawn[i].node.id+" on "+drawn[i-1].node.id);
  }

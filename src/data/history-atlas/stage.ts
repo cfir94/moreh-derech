@@ -266,31 +266,44 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const vignettes:Vignette[]=[];
  const artSize=Math.round(Math.min(narrow?ART[level].narrow:ART[level].wide,open?laneW-16:Infinity));
  const boxes=placed.map(p=>({left:p.x-slotW/2+4,right:p.x+slotW/2-4,top:p.top,bottom:p.bottom}));
- for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>a.from-b.from)){
-  const art=collection.illustrations[n.id],at=yearY(artYear(art,n));
-  // From afar two drawings can fall on nearly the same height: the later one shrinks, and if it still
-  // does not fit beside the one before, it waits for a closer zoom.
-  const size=[artSize,Math.round(artSize*.7)].find(size=>!vignettes.some(v=>at-size/2<v.bottom+6&&at+size/2+ART_CAPTION>v.top-6));
-  if(!size)continue;
-  const top=at-size/2,bottom=at+size/2+ART_CAPTION;
+ // Drawings fixed to one year go first; those free to move along a span then fit around them.
+ const loose=(n:AtlasNode)=>n.to>n.from&&collection.illustrations[n.id].at===undefined;
+ const keys=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)&&(n.rank===1||n.id===selected||focus.has(n.id))).map(n=>({node:n,y:yearY(n.from+.5)}));
+ for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>Number(loose(a))-Number(loose(b))||a.from-b.from)){
+  const art=collection.illustrations[n.id],aim=yearY(artYear(art,n));
+  // Two drawings can fall on nearly the same height. One of an event that spans years may sit anywhere along
+  // its span; otherwise the later one shrinks, and if it still does not fit it waits for a closer zoom.
+  // In the lane a drawing may not hide the title of another key event: titles come first, and the drawing
+  // moves into the tree beside the ruler, still on its year.
+  const clash=(at:number,size:number,inLane:boolean)=>vignettes.some(v=>v.inLane===inLane&&at-size/2<v.bottom+6&&at+size/2+ART_CAPTION>v.top-6);
+  const hides=(at:number,size:number)=>keys.some(k=>k.node!==n&&!vignettes.some(v=>v.node===k.node)&&k.y>at-size/2-6&&k.y<at+size/2+ART_CAPTION+6);
+  const first=yearY(n.from+.5),last=yearY(n.to+.5),spots=[aim];
+  if(n.to>n.from)for(let d=artSize/3;d<=last-first;d+=artSize/3)spots.push(aim+d,aim-d);
+  const fits=[artSize,Math.round(artSize*.7)].flatMap(size=>spots.filter(at=>at>=Math.min(aim,first)-.5&&at<=Math.max(aim,last)+.5).map(at=>({at,size})));
+  // On a phone the open lane covers the tree, so there the drawing waits instead.
+  const lanes=open?fits.filter(f=>!clash(f.at,f.size,true)&&!hides(f.at,f.size)):[],inLane=lanes.length>0;
+  const fit=inLane?lanes[0]:open&&overlay?undefined:fits.find(f=>!clash(f.at,f.size,false));
+  if(!fit)continue;
+  const {at,size}=fit,top=at-size/2,bottom=at+size/2+ART_CAPTION;
   if(!inView(top,bottom,40))continue;
   let x=(lane.left+lane.right)/2;
-  if(!open){
+  if(!inLane){
    const taken=[...boxes,...vignettes.map(v=>({left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom}))];
    const covered=(right:number)=>taken.reduce((sum,b)=>sum+Math.max(0,Math.min(right,b.right)-Math.max(right-size,b.left))*Math.max(0,Math.min(bottom,b.bottom)-Math.max(top,b.top)),0);
    const spots=Array.from({length:12},(_,i)=>peopleRight-4-i*slotW/2).filter(right=>right-size>=4);
    const best=spots.find(right=>covered(right)===0)??spots.reduce((a,b)=>covered(b)<covered(a)?b:a,spots[0]??peopleRight-4);
    x=best-size/2;
   }
-  vignettes.push({node:n,art,x,y:at,size,top,bottom,inLane:open});
+  vignettes.push({node:n,art,x,y:at,size,top,bottom,inLane});
  }
 
  // Event titles in the lane. A title may move a little off its year to make room, never over a drawing; an
  // event that spans years may sit anywhere along its span, and is drawn as a bracket on the ruler.
- const events:EventPlacement[]=[];
+ // A drawing that waits for a closer zoom leaves its event a plain title meanwhile.
+ const events:EventPlacement[]=[],drawn=new Set(vignettes.map(v=>v.node.id));
  if(open){
-  const obstacles=vignettes.map(v=>({top:v.top-6,bottom:v.bottom+6})).sort((a,b)=>a.top-b.top);
-  const pool=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)&&!collection.illustrations[n.id]).map(n=>{
+  const obstacles=vignettes.filter(v=>v.inLane).map(v=>({top:v.top-6,bottom:v.bottom+6})).sort((a,b)=>a.top-b.top);
+  const pool=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)&&!drawn.has(n.id)).map(n=>{
    const y=yearY(n.from+.5),y1=n.to>n.from?yearY(n.to+1):y;
    return {node:n,y,y1,aim:n.to>n.from?(Math.max(y,header)+Math.min(y1,height))/2:y};
   }).filter(e=>e.y1>=header-40&&e.y<=height+40).sort((a,b)=>byPriority(a.node,b.node));

@@ -1,6 +1,7 @@
 import {SECOND_TEMPLE_ATLAS} from "./second-temple";
 import {EARLY_NODES,EARLY_PHASES,EARLY_RELATIONS,EARLY_SLOTS} from "./first-temple";
 import {LATE_GROUPS,LATE_ILLUSTRATIONS,LATE_NODES,LATE_PHASES,LATE_RELATIONS,LATE_SLOTS} from "./late-antiquity";
+import {MORE_ILLUSTRATIONS} from "./illustrations";
 import type {AtlasCollection,AtlasRelation} from "./types";
 
 /**
@@ -20,5 +21,5 @@ export const HISTORY_ATLAS:AtlasCollection={
  relations:[...EARLY_RELATIONS.map(plain),...ST.relations,...LATE_RELATIONS.map(plain)],
  groups:LATE_GROUPS,
  slots:{...EARLY_SLOTS,...ST.slots,...LATE_SLOTS},
- illustrations:{...ST.illustrations,...LATE_ILLUSTRATIONS},
+ illustrations:{...ST.illustrations,...LATE_ILLUSTRATIONS,...MORE_ILLUSTRATIONS},
 };
