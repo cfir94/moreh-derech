@@ -41,7 +41,7 @@ test("every exam MC and fill item can enter review with its original ID", () => 
   const review = reviewQuestions(state, [courseBank, pastExams], EXAMS);
   assert.equal(review.unavailable, 0);
   assert.equal(review.questions.length, Object.keys(questions).length);
-  assert.equal(review.questions.filter(q => q.kind === "fill").length, 277);
+  assert.equal(review.questions.filter(q => q.kind === "fill").length, 309);
   assert.equal(review.questions.find(q => q.id === 20001).sourceQuiz, "course-bank");
   assert.equal(review.questions.find(q => q.id === 12001).kind, "fill");
   for (const q of review.questions) assert.equal(q.kind === "fill" ? !!q.answerText : q.answers.length === 4, true);
