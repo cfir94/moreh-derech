@@ -27,10 +27,11 @@ interface ChatRecord {
   calls: number;
 }
 
-type Part =
+type Part = (
   | { text: string }
-  | { functionCall: { name: string; args?: Record<string, unknown> } }
-  | { functionResponse: { name: string; response: Record<string, unknown> } };
+  | { functionCall: { name: string; args?: Record<string, unknown>; id?: string } }
+  | { functionResponse: { name: string; response: Record<string, unknown>; id?: string } }
+) & { thoughtSignature?: string };
 
 export interface Content {
   role: "user" | "model";
@@ -59,6 +60,14 @@ export function validContents(raw: unknown): Content[] | null {
       } else if (p?.functionResponse && typeof p.functionResponse.name === "string" && typeof p.functionResponse.response === "object") {
         parts.push({ functionResponse: { name: p.functionResponse.name, response: p.functionResponse.response } });
       } else return null;
+      // Gemini 3+ דורש להחזיר את החתימה המקורית אחרי קריאה לכלי.
+      if (p.thoughtSignature !== undefined) {
+        if (typeof p.thoughtSignature !== "string" || c.role !== "model") return null;
+        parts[parts.length - 1].thoughtSignature = p.thoughtSignature;
+      }
+      const part = parts[parts.length - 1];
+      if ("functionCall" in part && typeof p.functionCall.id === "string") part.functionCall.id = p.functionCall.id;
+      if ("functionResponse" in part && typeof p.functionResponse.id === "string") part.functionResponse.id = p.functionResponse.id;
     }
     out.push({ role: c.role, parts });
   }
@@ -85,6 +94,22 @@ export class GeminiError extends Error {
 
 const API = "https://generativelanguage.googleapis.com/v1beta";
 
+/** כולל קריאת גוף התשובה: ספק שאינו משלים תשובה לא מעכב את כל ניסיונות הגיבוי. */
+export async function geminiJson(url: string, init: RequestInit, timeoutMs = 10_000): Promise<unknown> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...init, signal: controller.signal });
+    if (!res.ok) throw new GeminiError(res.status, `Gemini ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    if (controller.signal.aborted) throw new GeminiError(504, "Gemini response timed out");
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 /**
  * מודלי Flash שזמינים למפתח, לפי סדר עדיפות: יציב לפני preview, גרסה גבוהה לפני נמוכה,
  * ו-Flash מלא לפני Flash-Lite (שנשאר גיבוי כשהמודלים הגדולים עמוסים).
@@ -100,28 +125,31 @@ export function rankFlashModels(models: { name: string; supportedGenerationMetho
 }
 
 async function callModel(env: Env, model: string, body: object): Promise<Part[]> {
-  const res = await fetch(`${API}/models/${model}:generateContent`, {
+  const data = await geminiJson(`${API}/models/${model}:generateContent`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
     body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new GeminiError(res.status, `${model} ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const data = (await res.json()) as { candidates?: { content?: { parts?: Part[] } }[] };
-  return data.candidates?.[0]?.content?.parts ?? [];
+  }) as { candidates?: { content?: { parts?: Part[] } }[] };
+  const parts = data.candidates?.[0]?.content?.parts ?? [];
+  if (!parts.some(p => "functionCall" in p || ("text" in p && !(p as { thought?: boolean }).thought && p.text.trim()))) {
+    throw new GeminiError(502, "Gemini returned no reply");
+  }
+  return parts;
 }
 
 /** עומס זמני או מודל שאינו זמין: כדאי לנסות מודל אחר. */
-const RETRY = new Set([400, 404, 429, 500, 503]);
+const RETRY = new Set([404, 429, 500, 502, 503, 504]);
 const MAX_MODELS = 3;
 
 /**
  * קודם המודל שנבחר בפעם הקודמת (או זה שהוגדר). אם הוא עמוס (503/500/429) או לא קיים (404/400) —
- * עוברים למודלי Flash אחרים מתוך רשימת המודלים של המפתח, עד שלושה ניסיונות. מודל שעבד נשמר לשעה.
+ * מנסים קודם Flash-Lite ואז מודל נוסף מהרשימה, עד שלושה ניסיונות עם זמן קצוב. מודל שעבד נשמר לשעה.
  */
 export const geminiGenerate: GenerateFn = async (env, body) => {
   const first = (await env.SESSIONS.get("chat-model")) || env.GEMINI_CHAT_MODEL || "gemini-flash-latest";
   const tried: string[] = [];
-  let queue = [first];
+  // גיבוי ממשפחה קלה לפני רשימת גרסאות Flash שעלולות להפנות לאותו מודל עמוס.
+  let queue = [first, "gemini-flash-lite-latest"];
   let listed = false;
   let lastError: unknown;
   while (tried.length < MAX_MODELS) {
@@ -129,9 +157,12 @@ export const geminiGenerate: GenerateFn = async (env, body) => {
     if (!model) {
       if (listed) break;
       listed = true;
-      const list = await fetch(`${API}/models?pageSize=200`, { headers: { "x-goog-api-key": env.GEMINI_API_KEY } });
-      if (!list.ok) break;
-      queue = rankFlashModels(((await list.json()) as { models?: { name: string }[] }).models ?? []);
+      try {
+        const list = await geminiJson(`${API}/models?pageSize=200`, { headers: { "x-goog-api-key": env.GEMINI_API_KEY } }, 3_000) as { models?: { name: string }[] };
+        queue = rankFlashModels(list.models ?? []);
+      } catch {
+        break;
+      }
       continue;
     }
     tried.push(model);
@@ -142,7 +173,7 @@ export const geminiGenerate: GenerateFn = async (env, body) => {
     } catch (err) {
       lastError = err;
       if (!(err instanceof GeminiError) || !RETRY.has(err.status)) throw err;
-      console.error(JSON.stringify({ event: "chat_model_retry", message: err.message }));
+      console.error(JSON.stringify({ event: "chat_model_retry", model, status: err.status }));
     }
   }
   throw lastError ?? new GeminiError(503, "no flash model available");

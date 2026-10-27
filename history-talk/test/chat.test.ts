@@ -74,7 +74,7 @@ test("היסטוריה לא תקינה נדחית", () => {
   assert.ok(validContents(hi));
 });
 
-test("מודל עמוס (503) — עוברים למודל Flash אחר מרשימת המודלים, ושומרים אותו", async () => {
+test("מודל עמוס (503) — עוברים מיד ל־Flash-Lite ושומרים את הגיבוי שעבד", async () => {
   const { geminiGenerate, rankFlashModels } = await import("../src/worker/chat.ts");
   assert.deepEqual(
     rankFlashModels([
@@ -104,9 +104,42 @@ test("מודל עמוס (503) — עוברים למודל Flash אחר מרשי�
   try {
     const { parts } = await geminiGenerate(env, {});
     assert.deepEqual(parts, [{ text: "שלום" }]);
-    assert.deepEqual(calls, ["models/gemini-flash-latest:generateContent", "models?pageSize=200", "models/gemini-3.5-flash:generateContent"]);
-    assert.equal(store.get("chat-model"), "gemini-3.5-flash");
+    assert.deepEqual(calls, ["models/gemini-flash-latest:generateContent", "models/gemini-flash-lite-latest:generateContent"]);
+    assert.equal(store.get("chat-model"), "gemini-flash-lite-latest");
   } finally {
     globalThis.fetch = realFetch;
   }
+});
+
+test("חתימות Gemini ומזהי כלים נשמרים אחרי חיפוש ובתשובת השרת", async () => {
+  const signed = { functionCall: { name: "search_sources", args: { query: "הורדוס" }, id: "call-1" }, thoughtSignature: "original-encrypted-signature" };
+  const history = [...hi, { role: "model", parts: [signed] }, { role: "user", parts: [{ functionResponse: { name: "search_sources", id: "call-1", response: { results: [] } } }] }];
+  assert.deepEqual(validContents(history), history);
+  const { call, sent } = setup();
+  assert.equal((await call({ characterId: "guide", turnstileToken: "t", contents: history })).status, 200);
+  assert.deepEqual(sent[0].contents[1].parts[0], signed);
+  assert.equal(validContents([{ role: "user", parts: [{ text: "x", thoughtSignature: "fake" }] }]), null);
+});
+
+test("תגובה שלא מגיעה נעצרת בזמן, גם בקריאת הגוף", async () => {
+  const { geminiJson, GeminiError } = await import("../src/worker/chat.ts");
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = (async (_url: string, init: RequestInit) => {
+    return await new Promise((_resolve, reject) => init.signal!.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError")), { once: true }));
+  }) as typeof fetch;
+  try {
+    await assert.rejects(geminiJson("https://example.test", {}, 5), (err: unknown) => err instanceof GeminiError && err.status === 504);
+  } finally { globalThis.fetch = realFetch; }
+});
+
+test("שגיאת בקשה אינה גוררת החלפת מודלים והמתנה נוספת", async () => {
+  const { geminiGenerate, GeminiError } = await import("../src/worker/chat.ts");
+  const realFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = (async () => { calls++; return new Response("bad history", { status: 400 }); }) as typeof fetch;
+  try {
+    const env = { GEMINI_API_KEY: "k", SESSIONS: { get: async () => null } } as unknown as Env;
+    await assert.rejects(geminiGenerate(env, {}), (err: unknown) => err instanceof GeminiError && err.status === 400);
+    assert.equal(calls, 1);
+  } finally { globalThis.fetch = realFetch; }
 });

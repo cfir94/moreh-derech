@@ -68,14 +68,16 @@
             הסתר
           </button>
         </div>
-        <ol class="transcript" id="transcript" aria-live="polite"></ol>
+        <ol class="transcript" id="transcript" aria-label="הודעות ותמלול השיחה" aria-live="polite" tabindex="0"></ol>
         <section id="quiz-panel" hidden>
           <h2>שאלות הבוחן</h2>
           <p class="quiz-hint">כדי לראות שאלה כתובה — לפתוח אותה. התשובה לא מוצגת.</p>
           <ol class="quiz-cards" id="quiz-cards"></ol>
         </section>
-        <h2>מקורות שהוזכרו</h2>
-        <ul class="sources" id="sources"></ul>
+        <details class="mentioned-sources" id="mentioned-sources" hidden>
+          <summary>מקורות שהוזכרו</summary>
+          <ul class="sources" id="sources"></ul>
+        </details>
         <details class="all-sources">
           <summary>כל המקורות של הדמות</summary>
           <ul id="all-sources"></ul>

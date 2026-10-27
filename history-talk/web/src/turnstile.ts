@@ -29,6 +29,7 @@ export class Turnstile {
   private id?: string;
   private api?: TurnstileApi;
   private token?: string;
+  private error?: Error;
   private waiters: ((t: string) => void)[] = [];
   private failers: ((e: Error) => void)[] = [];
 
@@ -39,41 +40,52 @@ export class Turnstile {
       appearance: "interaction-only",
       language: "he",
       callback: (t: string) => {
+        this.error = undefined;
         this.token = t;
         this.waiters.splice(0).forEach((w) => w(t));
         this.failers = [];
       },
       "expired-callback": () => this.reset(),
       "error-callback": () => {
-        this.failers.splice(0).forEach((f) => f(new Error("turnstile")));
+        this.error = new Error("turnstile");
+        this.failers.splice(0).forEach((f) => f(this.error!));
         this.waiters = [];
       },
     });
   }
 
   /** אסימון חד-פעמי; אחרי השימוש מבקשים חדש (reset) לשיחה הבאה. */
-  take(timeoutMs = 30_000): Promise<string> {
+  take(timeoutMs = 15_000): Promise<string> {
+    if (this.error) return Promise.reject(this.error);
     if (this.token) {
       const t = this.token;
       this.token = undefined;
       return Promise.resolve(t);
     }
     return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error("turnstile timeout")), timeoutMs);
-      this.waiters.push((t) => {
+      const cleanup = () => {
         clearTimeout(timer);
+        this.waiters = this.waiters.filter(w => w !== success);
+        this.failers = this.failers.filter(f => f !== failure);
+      };
+      const success = (t: string) => {
+        cleanup();
         this.token = undefined;
         resolve(t);
-      });
-      this.failers.push((e) => {
-        clearTimeout(timer);
+      };
+      const failure = (e: Error) => {
+        cleanup();
         reject(e);
-      });
+      };
+      const timer = setTimeout(() => failure(new Error("turnstile timeout")), timeoutMs);
+      this.waiters.push(success);
+      this.failers.push(failure);
     });
   }
 
   reset(): void {
     this.token = undefined;
+    this.error = undefined;
     if (this.api && this.id) this.api.reset(this.id);
   }
 }
