@@ -93,16 +93,17 @@ export function relatedIds(collection:AtlasCollection,id:string){
 export function chronology(collection:AtlasCollection,kind:AtlasKind="all"){
  return collection.nodes.filter(n=>isPlaced(n)&&(kind==="all"||n.kind===kind)).sort((a,b)=>a.from-b.from||(a.kind===b.kind?0:a.kind==="event"?-1:1)||a.to-b.to||a.id.localeCompare(b.id));
 }
-/** These relations are the tree itself and are always drawn; the others appear when a figure is chosen. */
-export const TREE_KINDS=new Set<AtlasRelationKind>(["parent","spouse","sibling","succession"]);
+/** These relations are the tree itself and are always drawn; the others appear when a figure is chosen. A grandparent
+ * line skips a generation the atlas does not show (Ruth to David, Hezekiah to Josiah). */
+export const TREE_KINDS=new Set<AtlasRelationKind>(["parent","grandparent","spouse","sibling","succession"]);
 
 // ── Layout ─────────────────────────────────────────────────────────────
 /** `shift` is how far the portrait was moved off its own year to keep parents above children (+ = later). */
 export type PersonPlacement={node:AtlasNode;x:number;y:number;r:number;top:number;bottom:number;lineEnd:number;mode:AtlasMode;slot:string;shift:number};
 /** An event's title in the lane. `y`–`y1` is the event's own time on the ruler (equal for a single year); `top` is where the title sits. */
 export type EventPlacement={node:AtlasNode;y:number;y1:number;top:number;height:number;mode:AtlasMode};
-/** A drawing on the axis, centred on its own year `y`, with its caption below. */
-export type Vignette={node:AtlasNode;art:AtlasIllustration;x:number;y:number;size:number;top:number;bottom:number;inLane:boolean};
+/** A drawing in the tree, centred on its own year `y` with its caption below, beside the figure `owner` when it has one. */
+export type Vignette={node:AtlasNode;art:AtlasIllustration;x:number;y:number;size:number;top:number;bottom:number;owner?:string};
 /** Items with no room, counted on a nearby `host` (a title or a portrait) at its corner `x`,`y`. */
 export type Cluster={zone:"person"|"event";host:string;x:number;y:number;ids:string[]};
 export type Connector={id:string;kind:AtlasRelationKind;path:string;from:string;to:string};
@@ -133,7 +134,7 @@ export const SHIFT={earlyYears:30,lateYears:6,latePx:26};
 /** Event titles in the lane; a title may sit up to `shift` px off its year to make room. */
 export const LABEL={full:42,compact:24,gap:4,shift:90};
 /** Drawing sizes per level, on a wide screen and a narrow one, and the caption below them. */
-export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:132,narrow:100},context:{wide:176,narrow:124},detail:{wide:216,narrow:152}};
+export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:124,narrow:96},context:{wide:160,narrow:116},detail:{wide:196,narrow:140}};
 export const ART_CAPTION=34;
 /** Where a drawing sits: the year the picture shows if one is given, else the middle of the event. */
 export const artYear=(art:AtlasIllustration,node:AtlasNode)=>art.at!==undefined?ordinal(art.at)+.5:(node.from+node.to+1)/2;
@@ -179,11 +180,13 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  ticks.sort((a,b)=>a.y-b.y);
  const spaced=ticks.filter((t,i,all)=>i===0||t.y-all[i-1].y>=22);
 
- const limit=RANK_LIMIT[level],featured=new Set(collection.phases.flatMap(p=>p.featured??[]));
+ // A phase's featured items stand out; the first of them (Judah Maccabee for the revolt) most of all.
+ const limit=RANK_LIMIT[level],featured=new Map<string,number>();
+ for(const p of collection.phases)(p.featured??[]).forEach((id,i)=>featured.set(id,Math.min(i,featured.get(id)??i)));
  const degree=new Map<string,number>();
  for(const n of collection.nodes)for(const id of [n.id,...n.related])degree.set(id,(degree.get(id)??0)+1);
  for(const r of collection.relations)for(const id of [r.from,r.to])degree.set(id,(degree.get(id)??0)+2);
- const priority=(n:AtlasNode)=>(n.id===selected?1e4:0)+(focus.has(n.id)?5e3:0)+(4-n.rank)*100+(featured.has(n.id)?40:0)+(collection.illustrations[n.id]?20:0)+Math.min(30,(degree.get(n.id)??0)*2)+(n.image?5:0);
+ const priority=(n:AtlasNode)=>(n.id===selected?1e4:0)+(focus.has(n.id)?5e3:0)+(4-n.rank)*100+(featured.has(n.id)?featured.get(n.id)===0?60:40:0)+(collection.illustrations[n.id]?20:0)+Math.min(30,(degree.get(n.id)??0)*2)+(n.image?5:0);
  const allowed=(n:AtlasNode)=>isPlaced(n)&&(n.rank<=limit||n.id===selected||focus.has(n.id));
  const byPriority=(a:AtlasNode,b:AtlasNode)=>priority(b)-priority(a)||a.from-b.from||a.id.localeCompare(b.id);
 
@@ -261,67 +264,73 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   if(found)found.ids.push(h.id);else clusters.push({zone:"person",host:host?.node.id??h.key,x:host?host.x-host.r:slotX(group,Number(index)),y:host?host.y-host.r:h.y,ids:[h.id]});
  }
 
- // Drawings sit on their own year at every level: in the lane when it is open, otherwise in the nearest free
- // spot of the tree beside the ruler.
+ // Drawings stand in the tree at their own year, beside the figure the event belongs to (the crucifixion beside
+ // Jesus, the burning of the Temple beside Titus), in a spot clear of portraits and of other drawings. An event that
+ // spans years may slide along its span to find room, a smaller size is tried next, and a drawing that still has no
+ // room waits for a closer zoom. The lane keeps every title, so a drawing never pushes one out.
  const vignettes:Vignette[]=[];
- const artSize=Math.round(Math.min(narrow?ART[level].narrow:ART[level].wide,open?laneW-16:Infinity));
+ const artSize=Math.round(narrow?ART[level].narrow:ART[level].wide);
  const boxes=placed.map(p=>({left:p.x-slotW/2+4,right:p.x+slotW/2-4,top:p.top,bottom:p.bottom}));
  // Drawings fixed to one year go first; those free to move along a span then fit around them.
  const loose=(n:AtlasNode)=>n.to>n.from&&collection.illustrations[n.id].at===undefined;
- const keys=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)&&(n.rank===1||n.id===selected||focus.has(n.id))).map(n=>({node:n,y:yearY(n.from+.5)}));
  for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>Number(loose(a))-Number(loose(b))||a.from-b.from)){
   const art=collection.illustrations[n.id],aim=yearY(artYear(art,n));
-  // Two drawings can fall on nearly the same height. One of an event that spans years may sit anywhere along
-  // its span; otherwise the later one shrinks, and if it still does not fit it waits for a closer zoom.
-  // In the lane a drawing may not hide the title of another key event: titles come first, and the drawing
-  // moves into the tree beside the ruler, still on its year.
-  const clash=(at:number,size:number,inLane:boolean)=>vignettes.some(v=>v.inLane===inLane&&at-size/2<v.bottom+6&&at+size/2+ART_CAPTION>v.top-6);
-  const hides=(at:number,size:number)=>keys.some(k=>k.node!==n&&!vignettes.some(v=>v.node===k.node)&&k.y>at-size/2-6&&k.y<at+size/2+ART_CAPTION+6);
-  const first=yearY(n.from+.5),last=yearY(n.to+.5),spots=[aim];
-  if(n.to>n.from)for(let d=artSize/3;d<=last-first;d+=artSize/3)spots.push(aim+d,aim-d);
-  const fits=[artSize,Math.round(artSize*.7)].flatMap(size=>spots.filter(at=>at>=Math.min(aim,first)-.5&&at<=Math.max(aim,last)+.5).map(at=>({at,size})));
-  // On a phone the open lane covers the tree, so there the drawing waits instead.
-  const lanes=open?fits.filter(f=>!clash(f.at,f.size,true)&&!hides(f.at,f.size)):[],inLane=lanes.length>0;
-  const fit=inLane?lanes[0]:open&&overlay?undefined:fits.find(f=>!clash(f.at,f.size,false));
-  if(!fit)continue;
-  const {at,size}=fit,top=at-size/2,bottom=at+size/2+ART_CAPTION;
-  if(!inView(top,bottom,40))continue;
-  let x=(lane.left+lane.right)/2;
-  if(!inLane){
-   const taken=[...boxes,...vignettes.map(v=>({left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom}))];
-   const covered=(right:number)=>taken.reduce((sum,b)=>sum+Math.max(0,Math.min(right,b.right)-Math.max(right-size,b.left))*Math.max(0,Math.min(bottom,b.bottom)-Math.max(top,b.top)),0);
-   const spots=Array.from({length:12},(_,i)=>peopleRight-4-i*slotW/2).filter(right=>right-size>=4);
-   const best=spots.find(right=>covered(right)===0)??spots.reduce((a,b)=>covered(b)<covered(a)?b:a,spots[0]??peopleRight-4);
-   x=best-size/2;
+  const first=yearY(n.from+.5),last=yearY(n.to+.5),ys=[aim];
+  if(loose(n))for(let d=artSize/3;d<=last-first;d+=artSize/3)ys.push(aim+d,aim-d);
+  const spots=ys.filter(at=>at>=Math.min(aim,first)-.5&&at<=Math.max(aim,last)+.5);
+  // Far outside the screen a drawing cannot meet one in view, so it is not worked out.
+  if(!inView(Math.min(...spots)-artSize,Math.max(...spots)+artSize,height))continue;
+  // The figure to stand beside: one whose column is on screen, who is alive at the drawing's year, the more central
+  // first (Jesus before Pilate at the crucifixion), and otherwise the nearest in time.
+  const away=(p:PersonPlacement)=>aim<p.top?p.top-aim:aim>p.lineEnd?aim-p.lineEnd:0,ties=(p:PersonPlacement)=>p.node.related.length+(degree.get(p.node.id)??0);
+  const owners=placed.filter(p=>p.node.related.includes(n.id)||n.related.includes(p.node.id)).sort((a,b)=>Number(a.x<0||a.x>peopleRight)-Number(b.x<0||b.x>peopleRight)||Number(away(a)>0)-Number(away(b)>0)||a.node.rank-b.node.rank||ties(b)-ties(a)||away(a)-away(b)).slice(0,3);
+  const band=(b:{top:number;bottom:number})=>b.bottom>Math.min(...spots)-artSize-ART_CAPTION&&b.top<Math.max(...spots)+artSize+ART_CAPTION;
+  const near=boxes.filter(band),drawings=vignettes.map(v=>({left:v.x-v.size/2-6,right:v.x+v.size/2+6,top:v.top-6,bottom:v.bottom+6})).filter(band);
+  const area=(list:typeof near,x:number,size:number,top:number,bottom:number)=>list.reduce((sum,b)=>sum+Math.max(0,Math.min(x+size/2,b.right)-Math.max(x-size/2,b.left))*Math.max(0,Math.min(bottom,b.bottom)-Math.max(top,b.top)),0);
+  // Two drawings never touch; a portrait may be grazed only as a last resort.
+  const covered=(x:number,size:number,top:number,bottom:number)=>area(drawings,x,size,top,bottom)>0?Infinity:area(near,x,size,top,bottom);
+  let fit:{x:number;at:number;size:number;owner?:PersonPlacement}|null=null,least:{x:number;at:number;size:number;c:number;owner?:PersonPlacement}|null=null;
+  // Beside the figure, half a column at a time to either side and no more than two and a half columns away; when
+  // there is no room beside the first figure, beside the next one (Mattathias for Modiin, when the king's column is
+  // full). With no figure, from the ruler inward.
+  search:for(const owner of owners.length?owners:[undefined])for(const size of [artSize,Math.round(artSize*.75),Math.round(artSize*.55)]){
+   const lo=size/2+4,hi=peopleRight-size/2-4;if(hi<lo)continue;
+   const home=owner?owner.x:hi,xs=owner?Array.from({length:5},(_,i)=>[home+(i+1)*slotW/2,home-(i+1)*slotW/2]).flat():Array.from({length:24},(_,i)=>home-i*slotW/2);
+   for(const at of spots)for(const x of xs.map(x=>Math.max(lo,Math.min(hi,x)))){
+    const top=at-size/2,bottom=at+size/2+ART_CAPTION,c=covered(x,size,top,bottom);
+    if(c===0){fit={x,at,size,owner};break search;}
+    if(size===artSize&&at===aim&&owner===owners[0]&&(!least||c<least.c))least={x,at,size,c,owner};
+   }
   }
-  vignettes.push({node:n,art,x,y:at,size,top,bottom,inLane});
+  // A drawing may lie a little over a portrait or a caption when there is no clear spot at all.
+  if(!fit&&least&&least.c<=.12*artSize*artSize)fit=least;
+  if(!fit)continue;
+  const {x,at,size}=fit,top=at-size/2,bottom=at+size/2+ART_CAPTION;
+  if(!inView(top,bottom,40))continue;
+  vignettes.push({node:n,art,x,y:at,size,top,bottom,owner:fit.owner?.node.id});
  }
 
- // Event titles in the lane. A title may move a little off its year to make room, never over a drawing; an
- // event that spans years may sit anywhere along its span, and is drawn as a bracket on the ruler.
- // A drawing that waits for a closer zoom leaves its event a plain title meanwhile.
- const events:EventPlacement[]=[],drawn=new Set(vignettes.map(v=>v.node.id));
+ // Event titles in the lane. A title may move a little off its year to make room; an event that spans years may
+ // sit anywhere along its span, and is drawn as a bracket on the ruler.
+ const events:EventPlacement[]=[];
  if(open){
-  const obstacles=vignettes.filter(v=>v.inLane).map(v=>({top:v.top-6,bottom:v.bottom+6})).sort((a,b)=>a.top-b.top);
-  const pool=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)&&!drawn.has(n.id)).map(n=>{
+  const pool=collection.nodes.filter(n=>n.kind==="event"&&allowed(n)).map(n=>{
    const y=yearY(n.from+.5),y1=n.to>n.from?yearY(n.to+1):y;
    return {node:n,y,y1,aim:n.to>n.from?(Math.max(y,header)+Math.min(y1,height))/2:y};
   }).filter(e=>e.y1>=header-40&&e.y<=height+40).sort((a,b)=>byPriority(a.node,b.node));
   type Item=(typeof pool)[number]&{mode:AtlasMode};
-  // Pack the titles as high as their tolerance allows, skipping the drawings, then let each settle back toward
+  // Pack the titles as high as their tolerance allows, then let each settle back toward
   // where it wants to be without passing the next one. Returns null when something cannot stay near its time.
   const arrange=(list:Item[])=>{
    const out:EventPlacement[]=[],wanted:number[]=[];let cursor=header+4;
    for(const e of [...list].sort((a,b)=>a.aim-b.aim||a.node.from-b.node.from)){
-    const h=LABEL[e.mode];let top=Math.max(e.y-h/2-LABEL.shift,cursor);
-    for(const o of obstacles)if(top<o.bottom&&top+h>o.top)top=o.bottom;
+    const h=LABEL[e.mode];const top=Math.max(e.y-h/2-LABEL.shift,cursor);
     if(top>e.y1-h/2+LABEL.shift)return null;
     out.push({node:e.node,y:e.y,y1:e.y1,top,height:h,mode:e.mode});
     wanted.push(e.aim-h/2);cursor=top+h+LABEL.gap;
    }
    for(let i=out.length-1;i>=0;i--){
-    const o=out[i];let below=out[i+1]?out[i+1].top-o.height-LABEL.gap:Infinity;
-    for(const b of obstacles)if(b.top>=o.top+o.height)below=Math.min(below,b.top-o.height);
+    const o=out[i];const below=out[i+1]?out[i+1].top-o.height-LABEL.gap:Infinity;
     o.top=Math.max(o.top,Math.min(wanted[i],below));
    }
    return out;
@@ -352,7 +361,8 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  }
 
  // When a figure or event is chosen, lines reach out to everything it is tied to. Ties already drawn by the
- // tree need no caption; the others (rivals, patrons) are named on the line.
+ // tree need no caption; the others (rivals, patrons) are named on the line, and so is the generation a grandparent
+ // line skips.
  const links:Link[]=[];
  const anchor=(id:string)=>{
   const p=at.get(id);if(p)return {x:p.x,y:p.y};
@@ -366,7 +376,7 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   const relation=collection.relations.find(r=>(r.from===selected&&r.to===id)||(r.to===selected&&r.from===id));
   const mx=(origin.x+to.x)/2,dy=Math.abs(origin.y-to.y),bend=Math.abs(origin.x-to.x)<4?Math.min(90,dy*.4)+30:0;
   const path=`M${origin.x} ${origin.y} C${mx-bend} ${origin.y} ${mx-bend} ${to.y} ${to.x} ${to.y}`;
-  links.push({id,kind:relation?.kind??(at.has(id)?"contact":"event"),path,label:relation&&!TREE_KINDS.has(relation.kind)?relation.label:undefined,lx:mx-bend*.75,ly:(origin.y+to.y)/2});
+  links.push({id,kind:relation?.kind??(at.has(id)?"contact":"event"),path,label:relation&&(!TREE_KINDS.has(relation.kind)||relation.kind==="grandparent")?relation.label:undefined,lx:mx-bend*.75,ly:(origin.y+to.y)/2});
  }
 
  return {level,width,height,header,rulerW,spine,lane,peopleRight,slotW,pan:shift,panMax,columns,bands,ticks:spaced,people,events,vignettes,dots,clusters,connectors,links,phase:current?.phase??null};

@@ -3,6 +3,7 @@ import whoAmIPortraits from "../who-am-i/portraits.json";
 import egyptCanaan from "../timelines/egypt-canaan";
 import {TIMELINE_SETS} from "../timelines/drag-sets";
 import {ordinal} from "./time";
+import {TOLD} from "./told";
 import type {AtlasImage,AtlasNode,AtlasPhase,AtlasRelation,AtlasSlot} from "./types";
 
 /*
@@ -11,7 +12,8 @@ import type {AtlasImage,AtlasNode,AtlasPhase,AtlasRelation,AtlasSlot} from "./ty
  * - the events are the course's own timeline exercises (src/data/timelines/
  *   drag-sets.ts — the dates as taught) and the Egypt–Canaan timeline;
  * - the figures are the Iron Age figures of "Who Am I?" (src/data/who-am-i),
- *   with their course clues, cautions and portraits.
+ *   with their course clues retold in the third person (told.ts), cautions
+ *   and portraits.
  * The figures' years place them on the axis; for the kings they are the
  * conventional reigns the course uses, and each card says they are
  * approximate and quotes the date as the course gives it. The patriarchs,
@@ -153,7 +155,9 @@ const FIGURES:Figure[]=[
 const year=(y:number)=>y<0?`${-y} לפנה״ס`:`${y} לספירה`;
 const figures:AtlasNode[]=FIGURES.map(f=>{
  const r=f.source?raw(f.source):undefined,title=f.title??r!.name,role=f.role??r!.role;
- const summary=f.summary??r!.clues.join(" ");
+ // The game's clues speak in the first person; the atlas tells about the figure (told.ts).
+ const summary=f.summary??TOLD[f.source!];
+ if(!summary)throw new Error("No third-person summary for "+f.source);
  return {id:f.id,kind:"person",title,subtitle:role,date:r?.date??`${year(f.from)}–${year(f.to)} בקירוב`,phase:phaseOf(f.from),from:ordinal(f.from),to:ordinal(f.to),rank:f.rank,summary,
   fields:[{label:"תפקיד והקשר",text:role+(r?` · ${r.date}`:"")},{label:"בחומר הנלמד",text:summary},...(r?.distinction?[{label:"לא להתבלבל",text:r.distinction}]:[])],
   source:r?r.sources.map(s=>s.label).join(" · ")||"מי אני? — דמויות הקורס":`ציר הזמן באתר: ${ec.title}.`,

@@ -3,3 +3,4 @@ export * from "./types";
 export * from "./time";
 export * from "./stage";
 export {HISTORY_ATLAS} from "./atlas";
+export {TOPICS,topicsOf,type AtlasTopic} from "./topics";
