@@ -11,8 +11,10 @@ import type {AtlasCollection,AtlasIllustration,AtlasLevel,AtlasNode,AtlasPhase,A
  *
  * Time is not drawn at one rate. Each phase gets its years plus a share for
  * every item in it, so the dense revolt (four years, twenty events) has room
- * and the quiet Persian centuries do not swallow the screen. Within a phase
- * the scale is linear, and the ruler labels the real years.
+ * and the quiet Persian centuries do not swallow the screen. A phase can also
+ * set a `pace` below 1, so the long, thinly told Bronze Age millennia take a
+ * fraction of their years. Within a phase the scale is linear, and the ruler
+ * labels the real years.
  *
  * The camera works in these "virtual" units. Semantic zoom has two layers:
  * the span decides which ranks may appear, and then items compete for room
@@ -61,7 +63,7 @@ export function timeScale(collection:AtlasCollection,density=DENSITY):TimeScale{
  let start=0;
  const segments=collection.phases.map((phase,index)=>{
   const from=ordinal(phase.from),to=ordinal(phase.to),count=collection.nodes.filter(n=>isPlaced(n)&&n.phase===phase.id).length;
-  const segment={phase,index,from,to,start,end:start+(to-from)+density*count};
+  const segment={phase,index,from,to,start,end:start+(to-from)*(phase.pace??1)+density*count};
   start=segment.end;return segment;
  });
  return {segments,total:start};

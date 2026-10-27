@@ -15,6 +15,70 @@
 
 ---
 
+## תקופת הברונזה ובית ראשון
+
+### FT-06 · דוד כובש את יבוס ומייסד את עיר דוד (סביב 1000 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: a small walled hill town on a narrow ridge above a spring in a deep valley (the City of David), stepped stone terraces on its slope, and a band of warriors climbing up from the spring.
+```
+
+### FT-07 · שלמה בונה את המקדש (סביב 960 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: a modest rectangular Iron Age temple with two free-standing bronze pillars at its entrance, on a hilltop above a small walled city, workers carrying cedar beams. Plain and archaic — NOT the later golden Herodian temple.
+```
+
+### EC-merneptah · מרנפתח ומצבת ישראל (בערך 1208 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: a tall rounded-top Egyptian granite stele carved with a pharaoh and gods in relief, standing in the sand, with a small Egyptian chariot column passing by in the distance toward Canaanite hills. No readable writing.
+```
+
+### EC-megiddo · תחותמס השלישי וקרב מגידו (בערך 1457 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: Egyptian chariots emerging from a narrow pass onto a plain before a fortified Canaanite mound-city with a mudbrick gate.
+```
+
+### FT-08 · פילוג הממלכה (928 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: two hilltop capitals facing each other across a valley, a road splitting in two, each side with its own banner of a different color; small crowds gathering at each gate.
+```
+
+### FT-11 · קרב קרקר (853 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: Assyrian chariots and archers clashing with a coalition army with many chariots on a river plain in Syria.
+```
+
+### FT-19 · כתובת השילוח ונקבת חזקיהו (705–701 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: a cut-away view of a narrow winding rock tunnel carrying water under a hill, two teams of stonecutters with picks meeting in the middle by lamplight.
+```
+
+### FT-20 · מסע סנחריב ומצור לכיש (701 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: an Assyrian army besieging a fortified city on a mound, a great earthen siege ramp up to the walls, battering rams and archers, defenders on the towers.
+```
+
+### FT-24 · קרב מגידו ומות יאשיהו (609 לפנה״ס)
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: an Egyptian army marching north past the mound of Megiddo, a small Judean chariot force meeting it at the pass.
+```
+
+### F-33 · אליהו בכרמל
+```
+Hand-drawn ink-and-watercolor vignette in the style of a vintage illustrated history atlas. A single compact isometric scene floating on a fully transparent background (no ground plane beyond the scene, no frame, no text, no letters). Warm palette — sand, ochre and honey limestone — with olive and cypress greenery, crisp dark-brown outlines and soft watercolor shading. Figures, if any, are small and seen from a distance, without detailed faces. Square 1:1, PNG with transparent background.
+Scene: two stone altars on a mountain ridge above the sea, fire descending on one of them, a small crowd watching.
+```
+
+---
+
 ## בית שני
 
 ### ST-065 · משפט ישוע וצליבתו (סביב 30 לספירה)

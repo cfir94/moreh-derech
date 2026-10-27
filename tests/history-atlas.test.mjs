@@ -176,9 +176,11 @@ test("portraits and illustrations have provenance and exist",()=>{
  for(const [id,art] of Object.entries(C.illustrations)){assert(byId.get(id)?.kind==="event",id);assert(art.alt&&art.caption.includes("המחשה"));assert(existsSync(new URL("../public"+art.src.replace("/moreh-derech",""),import.meta.url)),art.src);}
 });
 
-test("after Titus: the Roman and Byzantine periods continue the same axis",async()=>{
+test("the whole axis: the Bronze Age and the First Temple before, Rome and Byzantium after",async()=>{
  const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
  const {LATE_RELATIONS}=await import("../src/data/history-atlas/late-antiquity.ts");
+ const {EARLY_RELATIONS}=await import("../src/data/history-atlas/first-temple.ts");
+ const early=readFileSync(new URL("../src/data/who-am-i/people.json",import.meta.url),"utf8")+readFileSync(new URL("../src/data/timelines/egypt-canaan.ts",import.meta.url),"utf8");
  const text=readFileSync(new URL("../src/data/roman/index.ts",import.meta.url),"utf8")+readFileSync(new URL("../src/data/byzantine/index.ts",import.meta.url),"utf8");
  const all=new Map(H.nodes.map(n=>[n.id,n]));
  assert.equal(all.size,H.nodes.length,"no id twice");
@@ -190,6 +192,11 @@ test("after Titus: the Roman and Byzantine periods continue the same axis",async
  assert.equal(all.get("ST-065").rank,1,"the crucifixion shows from afar");
  // Family ties after Titus quote the sentence that states them.
  for(const r of LATE_RELATIONS.filter(r=>["parent","grandparent","spouse","sibling"].includes(r.kind)))assert(r.quote&&text.includes(r.quote),r.from+"-"+r.to);
+ // Before the return, every tie quotes the course text (Who Am I?, Egypt–Canaan) that states it.
+ for(const r of EARLY_RELATIONS)assert(r.quote&&early.includes(r.quote),r.from+"-"+r.to+": "+r.quote);
+ assert.equal(H.phases[0].from,-3300,"the axis opens with the Early Bronze Age");
+ for(const id of ["F-01","F-09","F-21","F-23","F-24","F-31","F-47","F-54","EC-merneptah","FT-07","FT-20"])assert(all.has(id),id);
+ for(const id of ["F-01","F-08","F-23","F-24","F-29","F-30","F-40","F-45"])assert(H.relations.some(r=>r.kind==="parent"&&r.from===id),id+" is a parent");
  for(const r of H.relations)assert(all.has(r.from)&&all.has(r.to),r.from+"-"+r.to);
  const bySlot=new Map();
  for(const n of H.nodes.filter(n=>n.kind==="person"&&isPlaced(n))){const s=H.slots[n.id];assert(s,n.id+" has no column");const key=s.group+s.slot;bySlot.set(key,[...(bySlot.get(key)??[]),n]);}
@@ -209,6 +216,8 @@ test("after Titus: the Roman and Byzantine periods continue the same axis",async
   const drawn=[...L.vignettes].sort((a,b)=>a.top-b.top);
   for(let i=1;i<drawn.length;i++)assert(drawn[i].top>=drawn[i-1].bottom||Math.abs(drawn[i].x-drawn[i-1].x)>=Math.min(drawn[i].size,drawn[i-1].size),where+drawn[i].node.id+" on "+drawn[i-1].node.id);
  }
+ const kings=layoutTree(H,HS,fitRange(toV(HS,ordinal(-1004)),toV(HS,ordinal(-900)),hb,.04),desk),k=id=>kings.people.find(p=>p.node.id===id);
+ assert(k("F-23")&&k("F-24")&&k("F-23").bottom<k("F-24").top,"David stands above Solomon");
  const constantine=layoutTree(H,HS,fitRange(toV(HS,ordinal(300)),toV(HS,ordinal(340)),hb,.04),desk);
  assert(constantine.people.some(p=>p.node.id==="L-13"),"Constantine is in his years");
  assert(constantine.vignettes.some(v=>v.node.id==="BY-007"),"the church drawing sits in 335");

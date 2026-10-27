@@ -26,8 +26,9 @@ try{
  const atlas=page.locator("[data-history-atlas]"),stage=page.locator("[data-atlas-chart]"),detail=page.locator("[data-atlas-detail]"),range=page.locator("[data-atlas-range]");
  const rangeText=()=>range.textContent(),node=id=>page.locator(`[data-atlas-node="${id}"]`);
  await expect(page.getByRole("heading",{name:"אטלס הזמן",exact:true})).toBeVisible();await expect(atlas).toHaveAttribute("data-level","overview");
- // The page opens at the return from Babylon, zoomed close enough that the wheel walks down through the period.
- for(const id of ["P-008","P-014","ST-007"])await expect(node(id)).toHaveCount(1);
+ // The page opens at the top of the axis, the Bronze Age, zoomed close enough that the wheel walks down through the periods.
+ for(const id of ["F-01","F-10","EC-merneptah"])await expect(node(id)).toHaveCount(1);
+ expect(await page.locator(".legend, details:has(> summary[aria-label=\"מקרא\"])").first().evaluate(el=>Boolean(el.closest("footer")))).toBe(true);
  const box=await stage.boundingBox(),startRange=await rangeText();
  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);
  for(let i=0;i<4;i++)await page.mouse.wheel(0,250);

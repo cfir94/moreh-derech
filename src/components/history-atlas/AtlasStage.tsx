@@ -162,17 +162,23 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   {hovered&&tip&&<div className={s.tooltip} style={{...tint(hovered.phase),left:Math.max(130,Math.min(L.width-130,tip.x)),top:tip.y}} data-below={tip.y<L.header+90||undefined} role="presentation">
    <strong>{hovered.title}</strong><small>{hovered.kind==="person"?hovered.subtitle:hovered.date}</small>
   </div>}
-  <details className={s.legend} onPointerDown={e=>e.stopPropagation()}>
-   <summary>מקרא</summary>
-   <ul aria-label="מקרא הקווים">{LEGEND.map(([kind,label])=><li key={kind}><svg width="26" height="10" aria-hidden>{kind==="spouse"&&<path className={s.tree} data-kind="spouse-outer" d="M2 5 H24"/>}<path className={s.tree} data-kind={kind} d="M2 5 H24"/></svg>{label}</li>)}
-    <li><svg width="26" height="10" aria-hidden><line className={s.life} style={tint("hasmonean")} x1="2" x2="24" y1="5" y2="5"/></svg>תקופת פעילות</li>
-    <li><svg width="26" height="10" aria-hidden><path d="M2 5 H24" stroke="#e5534b" strokeWidth="1.8" fill="none"/></svg>יריבות (בבחירת דמות)</li></ul>
-   <p>הורה עומד תמיד מעל ילדיו: כשהם נכנסים לתמונה יחד, ההורה מצויר מעט קודם. הקצב משתנה לפי תקופה, והשנים בסרגל מימין.</p>
-  </details>
   <p id="atlas-help" className={s.hint} data-hidden={!hint||undefined}>
    <span data-pointer="fine">גלילה — תנועה בזמן</span><span data-pointer="fine">Ctrl + גלגלת — זום</span>
    <span data-pointer="coarse">החלקה — תנועה בזמן</span><span data-pointer="coarse">צביטה — זום</span>
    <span>לחיצה — כרטיס מלא</span>
   </p>
  </div>;
+}
+
+/** The key to the lines. It lives in the bottom bar, so it never covers a figure on the stage. */
+export function AtlasLegend(){
+ return <details className={s.legend}>
+  <summary aria-label="מקרא">מקרא</summary>
+  <div className={s.legendBody}>
+   <ul aria-label="מקרא הקווים">{LEGEND.map(([kind,label])=><li key={kind}><svg width="26" height="10" aria-hidden>{kind==="spouse"&&<path className={s.tree} data-kind="spouse-outer" d="M2 5 H24"/>}<path className={s.tree} data-kind={kind} d="M2 5 H24"/></svg>{label}</li>)}
+    <li><svg width="26" height="10" aria-hidden><line className={s.life} style={tint("hasmonean")} x1="2" x2="24" y1="5" y2="5"/></svg>תקופת פעילות</li>
+    <li><svg width="26" height="10" aria-hidden><path d="M2 5 H24" stroke="#e5534b" strokeWidth="1.8" fill="none"/></svg>יריבות (בבחירת דמות)</li></ul>
+   <p>הורה עומד תמיד מעל ילדיו: כשהם נכנסים לתמונה יחד, ההורה מצויר מעט קודם. הקצב משתנה לפי תקופה: תקופות ארוכות ודלילות, כמו הברונזה, מקבלות פחות מקום. השנים בסרגל מימין.</p>
+  </div>
+ </details>;
 }

@@ -4,18 +4,19 @@ import {useCallback,useEffect,useMemo,useRef,useState,type KeyboardEvent} from "
 import {HISTORY_ATLAS as C,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,zoomAround,type AtlasLevel,type AtlasNode,type Cluster,type TreeLayout} from "@/data/history-atlas";
 import {AtlasMinimap} from "./AtlasMinimap";
 import {AtlasPanel} from "./AtlasPanel";
-import {AtlasStage,spanLabel} from "./AtlasStage";
+import {AtlasLegend,AtlasStage,spanLabel} from "./AtlasStage";
 import {Face,tint} from "./shared";
 import {useCamera} from "./useCamera";
 import s from "./HistoryAtlas.module.css";
 
 const BY_ID=new Map(C.nodes.map(n=>[n.id,n]));
 const SCALE=timeScale(C);
-const BOUNDS={from:toV(SCALE,ordinal(C.contextFrom))-24,to:toV(SCALE,ordinal(C.contextTo)+1)+24};
+/** A little room past both ends, so the first and last items can scroll clear of the bars. */
+const BOUNDS={from:toV(SCALE,ordinal(C.contextFrom))-24,to:toV(SCALE,ordinal(C.contextTo)+1)+70};
 const HOME=fitRange(toV(SCALE,ordinal(C.from)),toV(SCALE,ordinal(C.to)+1),BOUNDS,.015);
 /** Spans are set for a desktop stage; a shorter one gets proportionally less, so a phone sees the same density. */
 const fitTo=(span:number,height:number)=>span*Math.max(240,height-HEADER)/LEVEL_HEIGHT;
-/** The page opens at the return from Babylon, close enough that scrolling down walks through the period. */
+/** The page opens at the top of the axis, the Bronze Age, close enough that scrolling down walks through the periods. */
 const startFor=(height:number)=>centerAt(toV(SCALE,ordinal(C.from)),fitTo(980,height),.05,BOUNDS);
 const START=startFor(LEVEL_HEIGHT+HEADER);
 const LEVELS:Record<AtlasLevel,{title:string;note:string;span:number}>={
@@ -162,6 +163,7 @@ export function HistoryAtlas(){
       <button type="button" aria-label="התרחקות בזמן" title="התרחקות (−)" onClick={()=>zoom(-1)} disabled={view.to-view.from>=BOUNDS.to-BOUNDS.from-.01}>−</button>
       <button type="button" aria-label="מבט על כל התקופה" title="מבט על (0)" onClick={()=>goLevel("overview")}>⤢</button>
      </div>
+     <AtlasLegend/>
     </div>
     <input className={s.meter} type="range" min={0} max={1000} value={meterOf(view.to-view.from)} aria-label="רמת זום" aria-valuetext={LEVELS[level].title}
      onChange={e=>{const middle=visibleCenter(),span=spanOf(Number(e.target.value)),now=read();setHint(false);jump(zoomAround(now,(now.to-now.from)/span,middle,BOUNDS));}}/>
