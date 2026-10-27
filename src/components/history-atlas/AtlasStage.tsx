@@ -6,16 +6,18 @@ import {Face,tint} from "./shared";
 import s from "./HistoryAtlas.module.css";
 
 type Point={x:number;y:number};
+/** A topic's focus button on the stage, at the top of its years (`top`), its right edge at `right` px from the stage's right. */
+export type TopicChip={id:string;title:string;top:number;right:number};
 type Props={
- collection:AtlasCollection;layout:TreeLayout;bounds:AtlasWindow;camera:Camera;selected:string|null;focus:Set<string>;hint:boolean;
+ collection:AtlasCollection;layout:TreeLayout;bounds:AtlasWindow;camera:Camera;selected:string|null;focus:Set<string>;hint:boolean;chips:TopicChip[];onTopic:(id:string)=>void;
  onOpen:(id:string,trigger?:HTMLElement)=>void;onCluster:(cluster:Cluster)=>void;onPhase:(id:string)=>void;onPan:(dx:number)=>void;onLane:(open:boolean)=>void;
  onResize:(size:{width:number;height:number})=>void;onKeyDown:(event:KeyboardEvent<HTMLDivElement>)=>void;onInteract:()=>void;
 };
 
 export const spanLabel=(from:number,to:number)=>from<0&&to<0?`${-from}–${-to} לפנה״ס`:from>0?`${from}–${to} לספירה`:`${-from} לפנה״ס–${to} לספירה`;
-const LEGEND=[["parent","הורה וילד"],["spouse","בני זוג"],["succession","רצף הנהגה"],["sibling","אחים"]] as const;
+const LEGEND=[["parent","הורה וילד"],["grandparent","סב ונכד (דילוג על דור)"],["spouse","בני זוג"],["succession","רצף הנהגה"],["sibling","אחים"]] as const;
 
-export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,onOpen,onCluster,onPhase,onPan,onLane,onResize,onKeyDown,onInteract}:Props){
+export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,chips,onTopic,onOpen,onCluster,onPhase,onPan,onLane,onResize,onKeyDown,onInteract}:Props){
  const stage=useRef<HTMLDivElement>(null),pointers=useRef(new Map<number,Point>());
  const drag=useRef({moved:false,start:{x:0,y:0},velocity:0,last:0,suppress:false});
  const [dragging,setDragging]=useState(false),[hover,setHover]=useState<string|null>(null),[pile,setPile]=useState<string|null>(null);
@@ -112,12 +114,17 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
     <Face image={n.image} name={n.title}/>
     <span className={s.name}><strong>{shortName(n.title)}</strong>{detail&&p.mode==="full"&&<small>{n.subtitle}</small>}</span>
    </button>;})}
+   {/* Drawings stand in the tree beside the figure their event belongs to; the lane keeps the titles. */}
+   {L.vignettes.map(v=>{const n=v.node;return <button key={"art-"+n.id} type="button" className={`${s.vignette} ${state(n.id)}`} data-atlas-art={n.id} data-kind="event" data-illustrated data-rank={n.rank} data-owner={v.owner}
+    style={{...tint(n.phase),left:v.x-v.size/2,top:v.top,width:v.size}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(n.id,e.currentTarget)}>
+    <img src={v.art.src} alt="" width={v.size} height={v.size} loading="lazy" draggable={false}/>{/* eslint-disable-line @next/next/no-img-element */}
+    <span>{n.title}</span>
+   </button>;})}
   </div>
 
   {lane.open&&<div className={s.laneSheet} data-overlay={lane.overlay||undefined} style={{left:lane.left-8,width:L.width-L.rulerW-lane.left+8}} aria-hidden/>}
   <svg className={s.lines} data-layer="ties" width={L.width} height={L.height} aria-hidden>
    {L.events.map(e=>tie(e.node.id,e.node.phase,lane.right,e.top+e.height/2))}
-   {L.vignettes.map(v=>tie(v.node.id,v.node.phase,v.x+v.size/2-6,v.y))}
   </svg>
 
   <div className={s.ruler} style={{width:L.rulerW}}>
@@ -130,11 +137,6 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   {L.dots.map(d=>{const n=byId(d.id)!;return <button key={d.id} type="button" className={s.dot} data-atlas-dot={d.id} data-rank={d.rank} data-illustrated={d.illustrated||undefined} data-on={d.id===selected||focus.has(d.id)||undefined} tabIndex={lane.open?-1:0}
    style={{...tint(d.phase),left:L.spine,top:d.y}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(d.id,e.currentTarget)} {...hoverProps(d.id)}/>;})}
 
-  {L.vignettes.map(v=>{const n=v.node;return <button key={n.id} type="button" className={`${s.vignette} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-illustrated data-rank={n.rank} data-in-lane={v.inLane||undefined}
-   style={{...tint(n.phase),left:v.x-v.size/2,top:v.top,width:v.size}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(n.id,e.currentTarget)}>
-   <img src={v.art.src} alt="" width={v.size} height={v.size} loading="lazy" draggable={false}/>{/* eslint-disable-line @next/next/no-img-element */}
-   <span>{n.title}</span>
-  </button>;})}
   {L.events.map(e=>{const n=e.node;return <button key={n.id} type="button" className={`${s.label} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode={e.mode} data-rank={n.rank}
    style={{...tint(n.phase),left:lane.left,width:lane.right-lane.left,top:e.top,height:e.height}} aria-label={`${n.title} · ${n.date}`} onClick={ev=>onOpen(n.id,ev.currentTarget)} {...hoverProps(n.id)}>
    <i aria-hidden/><span><strong>{n.title}</strong>{e.mode==="full"&&<small>{n.date}</small>}</span>
@@ -144,6 +146,8 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
    {L.links.map(l=><g key={l.id} data-kind={l.kind}><path d={l.path} pathLength={1}/>{l.label&&<text x={l.lx} y={l.ly}>{l.label}</text>}</g>)}
   </svg>
 
+  {/* The topics in these years: each opens its own dimension of the atlas. */}
+  {chips.map(c=><button key={c.id} type="button" className={s.topicChip} data-atlas-topic-chip={c.id} style={{top:c.top,right:c.right}} aria-label={"להתמקד בנושא: "+c.title} title={"להתמקד בנושא: "+c.title} onClick={()=>onTopic(c.id)}><span aria-hidden>⌕</span>{c.title}</button>)}
   {L.clusters.filter(c=>c.zone==="event"||(L.level!=="overview"&&c.x<=L.peopleRight&&!(lane.open&&lane.overlay&&c.x>=lane.left))).map(c=><button key={pileKey(c)} type="button" className={s.cluster} data-zone={c.zone} style={{left:c.x-15,top:c.y-10}} aria-label={`עוד ${c.ids.length} ${c.zone==="person"?"דמויות":"אירועים"} כאן`} aria-expanded={pileKey(c)===pile} onClick={()=>setPile(pileKey(c))}>+{c.ids.length}</button>)}
   {opened&&<div className={s.pile} data-pile role="group" aria-label="פריטים שאין להם מקום בתצוגה" style={{left:Math.max(8,Math.min(L.width-272,opened.x-132)),top:Math.max(L.header+4,Math.min(opened.y+16,L.height-220))}}>
    <p><span>{opened.ids.length} {opened.zone==="person"?"דמויות":"אירועים"} כאן</span><button type="button" onClick={()=>{setPile(null);onCluster(opened);}}>להתקרב לכאן ⌕</button></p>

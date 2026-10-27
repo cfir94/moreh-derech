@@ -1,6 +1,7 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync,existsSync} from "node:fs";
+import {KINSHIP} from "../src/data/history-atlas/kinship.ts";
 import {SECOND_TEMPLE_ATLAS as C,ordinal,historical,intersects,clampWindow,zoomAround,panBy,centerAt,fitRange,lerpView,timeScale,toV,toYear,layoutTree,levelOf,relatedIds,chronology,isPlaced,artYear,TREE_KINDS,LABEL,GAP,SHIFT,MIN_SPAN} from "../src/data/history-atlas/index.ts";
 const raw=JSON.parse(readFileSync(new URL("../src/data/second-temple/research.json",import.meta.url),"utf8"));
 const byId=new Map(C.nodes.map(n=>[n.id,n]));
@@ -9,7 +10,10 @@ const bounds={from:toV(S,ordinal(C.contextFrom))-24,to:toV(S,ordinal(C.contextTo
 const home=fitRange(toV(S,ordinal(C.from)),toV(S,ordinal(C.to)+1),bounds,.015);
 const phaseView=id=>{const g=S.segments.find(s=>s.phase.id===id);return fitRange(g.start,g.end,bounds,.04);};
 const desk={width:1440,height:717},phone={width:390,height:560};
-const ids=L=>[...L.people,...L.events,...L.vignettes].map(p=>p.node.id);
+// A drawn event also keeps its title in the lane, so items are people, titles and drawings that have no title in view.
+const ids=L=>[...L.people,...L.events,...L.vignettes.filter(v=>!L.events.some(e=>e.node===v.node))].map(p=>p.node.id);
+const clash=(a,b)=>a.top<b.bottom&&b.top<a.bottom&&a.x-a.size/2<b.x+b.size/2&&b.x-b.size/2<a.x+a.size/2;
+const noClash=(L,where)=>{for(let i=0;i<L.vignettes.length;i++)for(let j=0;j<i;j++)assert(!clash(L.vignettes[i],L.vignettes[j]),where+L.vignettes[i].node.id+" on "+L.vignettes[j].node.id);};
 const views=[home,...S.segments.map(s=>phaseView(s.phase.id)),zoomAround(phaseView("revolt"),3,toV(S,ordinal(66)+.5),bounds),zoomAround(phaseView("hasmonean"),2.5,toV(S,ordinal(-167)),bounds)];
 const counted=L=>new Set([...ids(L),...L.clusters.flatMap(c=>c.ids)]);
 
@@ -99,9 +103,8 @@ test("nothing overlaps, and every title stays near its own time",()=>{
   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id+" overlaps "+titles[i-1].node.id);
   for(const e of L.events){
    assert(e.top>=e.y-e.height/2-LABEL.shift-1&&e.top<=e.y1-e.height/2+LABEL.shift+1,where+e.node.id+" strays from its time");
-   for(const v of L.vignettes.filter(v=>v.inLane))assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" lies on the drawing of "+v.node.id);
   }
-  for(let i=1;i<L.vignettes.length;i++)assert(L.vignettes[i].top>=L.vignettes[i-1].bottom||Math.abs(L.vignettes[i].x-L.vignettes[i-1].x)>=L.vignettes[i].size,where+"two drawings overlap");
+  noClash(L,where);
   for(const c of L.clusters)for(const id of c.ids)assert(!ids(L).includes(id),where+id);
   for(const t of L.ticks)assert.notEqual(t.year,0);
   assert.equal(new Set(ids(L)).size,ids(L).length,where+"an item is drawn twice");
@@ -126,17 +129,21 @@ test("parents stand above their children, and nobody is drawn far from their tim
  assert(revolt.connectors.some(c=>c.id==="P-032-P-033"&&c.path.includes("Q")),"the line drops from father to son");
 });
 
-test("drawings sit on their own year at every zoom level, with the lane open or closed",()=>{
+test("drawings stand in the tree on their own year, beside their figure, with the lane open or closed",()=>{
  for(const size of [desk,phone])for(const lane of [true,false])for(const view of [home,phaseView("herod"),phaseView("successors"),phaseView("revolt"),zoomAround(phaseView("revolt"),3,toV(S,ordinal(70)+.5),bounds)]){
-  const L=layoutTree(C,S,view,size,{lane}),usable=size.height-48,span=view.to-view.from;
+  const L=layoutTree(C,S,view,size,{lane}),usable=size.height-48,span=view.to-view.from,where=`${size.width} ${lane} ${Math.round(view.from)}: `;
   for(const [id,art] of Object.entries(C.illustrations)){
    const n=byId.get(id),y=48+(toV(S,artYear(art,n))-view.from)/span*usable;
    const v=L.vignettes.find(v=>v.node.id===id);
-   // On a phone the open list covers the tree; a drawing that would hide a key title there leaves its title instead.
-   if(!v&&lane&&size===phone&&y>60&&y<size.height-20){assert(L.events.some(e=>e.node.id===id),id+" has neither drawing nor title");continue;}
-   if(y>60&&y<size.height-20){assert(v,id+" is missing at "+Math.round(view.from));assert(Math.abs(v.y-y)<1e-6,id+" is off its year");if(!lane)assert.equal(v.inLane,false);}
-   if(v&&!v.inLane)assert(v.x+v.size/2<=L.peopleRight+1&&v.x-v.size/2>=0,id+" leaves the tree area");
+   if(y>60&&y<size.height-20){assert(v,where+id+" is missing");assert(Math.abs(v.y-y)<1e-6,id+" is off its year");}
+   if(!v)continue;
+   assert(v.x+v.size/2<=L.peopleRight+1&&v.x-v.size/2>=0,where+id+" leaves the tree area");
+   // Beside its figure: within a few columns of it, and not on its portrait (when the figure's column is on screen).
+   const owner=L.people.find(p=>p.node.id===v.owner&&p.x>0&&p.x<L.peopleRight);
+   if(owner){assert(Math.abs(owner.x-v.x)<=v.size/2+L.slotW*2.5,where+id+" is far from "+owner.node.id);assert(!(Math.abs(owner.x-v.x)<v.size/2&&owner.top<v.bottom&&owner.bottom>v.top),where+id+" covers "+owner.node.id);}
   }
+  // The lane keeps every title, drawn or not.
+  if(lane)for(const v of L.vignettes)if(v.y>80&&v.y<size.height-40&&v.node.rank===1)assert(L.events.some(e=>e.node===v.node)||L.clusters.some(c=>c.ids.includes(v.node.id)),where+v.node.id+" lost its title");
  }
  assert.equal(artYear(C.illustrations["ST-082"],byId.get("ST-082")),ordinal(70)+.5,"the burning of the Temple sits on 70");
  assert(Math.abs(artYear(C.illustrations["ST-058"],byId.get("ST-058"))-(ordinal(-20)+.5))<1e-9,"the rebuilt Temple sits in the middle of Herod's reign");
@@ -152,7 +159,7 @@ test("choosing an item pulls it and its relations in, and names only the ties th
  assert(ids(layoutTree(C,S,home,desk,{selected:minor.id})).includes(minor.id));
  const chosen=layoutTree(C,S,phaseView("hasmonean"),desk,{selected:"P-033",focus});
  assert(chosen.links.length>3);
- for(const l of chosen.links){const r=C.relations.find(r=>(r.from==="P-033"&&r.to===l.id)||(r.to==="P-033"&&r.from===l.id));if(r&&TREE_KINDS.has(r.kind))assert(!l.label,l.id);if(r&&!TREE_KINDS.has(r.kind))assert.equal(l.label,r.label);}
+ for(const l of chosen.links){const r=C.relations.find(r=>(r.from==="P-033"&&r.to===l.id)||(r.to==="P-033"&&r.from===l.id));if(r&&TREE_KINDS.has(r.kind)&&r.kind!=="grandparent")assert(!l.label,l.id);if(r&&!TREE_KINDS.has(r.kind))assert.equal(l.label,r.label);}
 });
 
 test("the lane of event titles opens and closes, sideways scrolling and the chronological tour",()=>{
@@ -213,15 +220,104 @@ test("the whole axis: the Bronze Age and the First Temple before, Rome and Byzan
   for(const r of family){const a=at.get(r.from),b=at.get(r.to);if(a&&b)assert(b.top>=a.bottom+GAP.generation-.5,where+r.from+" above "+r.to);}
   const titles=[...L.events].sort((a,b)=>a.top-b.top);
   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id);
-  for(const e of L.events)for(const v of L.vignettes.filter(v=>v.inLane))assert(e.top+e.height<=v.top||e.top>=v.bottom,where+e.node.id+" on "+v.node.id);
   assert.equal(new Set(ids(L)).size,ids(L).length,where);
   for(const v of L.vignettes){const n=v.node,y=yr=>48+(toV(HS,yr)-view.from)/(view.to-view.from)*(size.height-48),aim=y(artYear(H.illustrations[n.id],n));assert(Math.abs(v.y-aim)<1e-6||(v.y>=y(n.from+.5)-.5&&v.y<=y(n.to+.5)+.5),where+n.id+" leaves its own years");}
-  const drawn=[...L.vignettes].sort((a,b)=>a.top-b.top);
-  for(let i=1;i<drawn.length;i++)assert(drawn[i].top>=drawn[i-1].bottom||Math.abs(drawn[i].x-drawn[i-1].x)>=Math.min(drawn[i].size,drawn[i-1].size),where+drawn[i].node.id+" on "+drawn[i-1].node.id);
+  noClash(L,where);
  }
  const kings=layoutTree(H,HS,fitRange(toV(HS,ordinal(-1004)),toV(HS,ordinal(-900)),hb,.04),desk),k=id=>kings.people.find(p=>p.node.id===id);
  assert(k("F-23")&&k("F-24")&&k("F-23").bottom<k("F-24").top,"David stands above Solomon");
  const constantine=layoutTree(H,HS,fitRange(toV(HS,ordinal(300)),toV(HS,ordinal(340)),hb,.04),desk);
  assert(constantine.people.some(p=>p.node.id==="L-13"),"Constantine is in his years");
  assert(constantine.vignettes.some(v=>v.node.id==="BY-007"),"the church drawing sits in 335");
+});
+
+test("the family tree: every tie the sources state is drawn, with its source",async()=>{
+ const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
+ const course=readFileSync(new URL("../src/data/who-am-i/people.json",import.meta.url),"utf8");
+ const all=new Map(H.nodes.map(n=>[n.id,n]));
+ for(const k of KINSHIP){
+  assert(all.has(k.from)&&all.has(k.to),k.from+"-"+k.to);
+  assert(k.quote||k.cite,k.from+"-"+k.to+" has no source");
+  if(k.quote)assert(course.includes(k.quote),k.from+"-"+k.to+": "+k.quote);
+  // A biblical source quotes the verse in «»; the others name the work and where in it.
+  if(k.cite)assert(/«.+»|\d|אגרת|[א-ת]{1,3}, [א-ת]{1,3}/.test(k.cite),k.cite);
+ }
+ const tie=(from,to,kind)=>H.relations.some(r=>r.from===from&&r.to===to&&r.kind===kind);
+ // The gaps the owner found or that an audit turned up: mothers, fathers and the kings' line.
+ for(const [from,to] of [["F-19","F-20"],["F-02","F-03"],["F-02","F-04"],["F-28","F-30"],["F-37","F-39"],["F-32","F-36"],["F-52","F-54"],["P-040","P-042"],["P-040","P-043"],["P-043","P-045"],["P-043","P-046"],["P-065","P-067"],["L-09","L-10"]])assert(tie(from,to,"parent"),from+"→"+to);
+ for(const [from,to] of [["F-16","F-23"],["F-47","F-52"],["F-52","P-003"],["P-003","P-014"],["P-054","P-065"],["L-17","L-20"]])assert(tie(from,to,"grandparent"),from+"→"+to);
+ // No two lines between the same two figures, and a family tie wins over a succession line.
+ const pairs=H.relations.filter(r=>TREE_KINDS.has(r.kind)).map(r=>[r.from,r.to].sort().join("|"));
+ assert.equal(new Set(pairs).size,pairs.length,"one tree line per pair");
+ assert(!tie("P-040","P-042","succession"));
+ // Hannah's line to Samuel is on the tree when both are in view.
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const judges=layoutTree(H,HS,fitRange(toV(HS,ordinal(-1080)),toV(HS,ordinal(-1040)),hb,.04),desk,{lane:false});
+ assert(judges.connectors.some(c=>c.from==="F-19"&&c.to==="F-20"&&c.kind==="parent"),"Hannah above Samuel");
+ const a=judges.people.find(p=>p.node.id==="F-19"),b=judges.people.find(p=>p.node.id==="F-20");
+ assert(a&&b&&a.bottom<=b.top,"the mother stands above her son");
+});
+
+test("the figures are told about in the third person",async()=>{
+ const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
+ const {EARLY_SOURCES}=await import("../src/data/history-atlas/first-temple.ts");
+ const {TOLD}=await import("../src/data/history-atlas/told.ts");
+ for(const source of Object.values(EARLY_SOURCES))assert(TOLD[source],source+" has no third-person summary");
+ // The first person of the game's clues: "אני", "הייתי", "שלי", or a past verb ending in תי with no subject of its own.
+ const first=/(^|[\s,;.(])(אני|הייתי|שלי|אותי|עליי|ממני|בניי|אשתי|בעלי|עריי|מלכתי|בניתי|כבשתי|יצאתי|נולדתי|קיבלתי|ייסדתי|עליתי|נשאתי|נקברתי|התפללתי|נשלחתי|ניבאתי|הנהגתי|משחתי|הוכחתי|הזהרתי|מרדתי|הרגתי)(?=[\s,;.:)]|$)/;
+ for(const n of H.nodes)for(const text of [n.summary,...n.fields.map(f=>f.text)])assert(!first.test(text),n.id+": "+text.slice(0,80));
+});
+
+test("the main axis carries no more than twenty drawings, of the great turning points",async()=>{
+ const {HISTORY_ATLAS:H,DRAWINGS}=await import("../src/data/history-atlas/atlas.ts");
+ const {AXIS_DRAWINGS}=await import("../src/data/history-atlas/illustrations.ts");
+ assert(AXIS_DRAWINGS.length<=20);
+ assert(Object.keys(H.illustrations).every(id=>AXIS_DRAWINGS.includes(id)));
+ const prompts=readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8");
+ for(const id of AXIS_DRAWINGS){
+  assert(H.nodes.some(n=>n.id===id&&n.kind==="event"),id);
+  // A turning point with no drawing yet is asked for in the prompts for ChatGPT.
+  if(!DRAWINGS[id])assert(prompts.includes(id+" —"),id+" has neither a drawing nor a prompt");
+ }
+});
+
+test("topics: each opens as a sound atlas of its own, with sourced ties and room for everything",async()=>{
+ const {TOPICS,topicsOf,HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
+ const {JESUS_TIES}=await import("../src/data/history-atlas/topic-jesus.ts");
+ // The verses carry vowels; the maqaf joins words, so it becomes a space before the marks are dropped.
+ const plain=t=>t.replace(/\u05BE/g," ").replace(/[\u0591-\u05C7]/g,"");
+ const sources=plain(readFileSync(new URL("../src/data/who-am-i/people.json",import.meta.url),"utf8")+readFileSync(new URL("../src/data/timelines/biblical.ts",import.meta.url),"utf8"));
+ for(const k of JESUS_TIES){assert(k.quote||k.cite,k.from+"-"+k.to);if(k.quote)assert(sources.includes(k.quote),k.from+"-"+k.to+": "+k.quote);}
+ assert(TOPICS.length>=8);
+ for(const id of ["jesus","prophets","hasmonean","herod"])assert(TOPICS.some(t=>t.id===id),id);
+ for(const t of TOPICS){
+  const C=t.collection,all=new Map(C.nodes.map(n=>[n.id,n])),where=t.id+": ";
+  assert.equal(all.size,C.nodes.length,where+"no id twice");
+  for(let i=1;i<C.phases.length;i++)assert.equal(C.phases[i].from,C.phases[i-1].to,where+C.phases[i].id);
+  for(const n of C.nodes){assert(C.phases.some(p=>p.id===n.phase),where+n.id+" phase");assert(n.from<=n.to,where+n.id);assert(n.rank<=2,where+n.id+" shows inside its topic");}
+  for(const r of C.relations)assert(all.has(r.from)&&all.has(r.to),where+r.from+"-"+r.to);
+  for(const id of Object.keys(C.illustrations))assert.equal(all.get(id)?.kind,"event",where+id);
+  // Columns: every figure has one, and two figures of one column never share a year.
+  const bySlot=new Map();
+  for(const n of C.nodes.filter(n=>n.kind==="person")){const s=C.slots[n.id];assert(s,where+n.id+" has no column");assert(C.groups.some(g=>g.id===s.group&&s.slot<g.slots),where+n.id);const key=s.group+s.slot;bySlot.set(key,[...(bySlot.get(key)??[]),n]);}
+  for(const [key,nodes] of bySlot){nodes.sort((a,b)=>a.from-b.from);for(let i=1;i<nodes.length;i++)assert(nodes[i].from>nodes[i-1].to,where+key+": "+nodes[i-1].id+" and "+nodes[i].id);}
+  // The opening view of the topic: nothing overlaps, and parents stand above their children.
+  const TS=timeScale(C),b={from:toV(TS,ordinal(C.contextFrom))-24,to:toV(TS,ordinal(C.contextTo)+1)+70};
+  const home=fitRange(toV(TS,ordinal(C.from)),toV(TS,ordinal(C.to)+1),b,.015);
+  for(const size of [desk,phone]){
+   const L=layoutTree(C,TS,home,size,{lane:size===desk}),at=new Map(L.people.map(p=>[p.node.id,p]));
+   for(const r of C.relations.filter(r=>r.kind==="parent")){const a=at.get(r.from),c=at.get(r.to);if(a&&c)assert(c.top>=a.bottom+GAP.generation-.5,where+r.from+" above "+r.to);}
+   const titles=[...L.events].sort((a,c)=>a.top-c.top);
+   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id);
+   for(let i=0;i<L.vignettes.length;i++)for(let j=0;j<i;j++){const a=L.vignettes[i],c=L.vignettes[j];assert(!(a.top<c.bottom&&c.top<a.bottom&&a.x-a.size/2<c.x+c.size/2&&c.x-c.size/2<a.x+a.size/2),where+a.node.id+" on "+c.node.id);}
+   assert(L.people.length>=4&&L.dots.length>=5,where+"opens with its figures and events");
+  }
+ }
+ // The axis knows which topics an item belongs to; a topic's own items are not on the axis.
+ assert(topicsOf("P-063").some(t=>t.id==="jesus"));assert(topicsOf("F-20").some(t=>t.id==="prophets"));assert(topicsOf("P-033").some(t=>t.id==="hasmonean"));
+ assert(!H.nodes.some(n=>n.id.startsWith("JS-")||n.id.startsWith("NT-")||n.id.startsWith("PR-")));
+ // Jesus' life: mother above son, John's parents above him, the crucifixion with its drawing.
+ const J=TOPICS.find(t=>t.id==="jesus").collection,tie=(f,to,kind)=>J.relations.some(r=>r.from===f&&r.to===to&&r.kind===kind);
+ assert(tie("NT-01","P-063","parent")&&tie("NT-03","P-064","parent")&&tie("NT-04","P-064","parent")&&tie("P-063","NT-18","sibling"));
+ const cross=J.nodes.find(n=>n.title.includes("הצליבה"));assert(cross&&J.illustrations[cross.id],"the crucifixion carries its drawing");
 });

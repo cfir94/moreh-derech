@@ -37,20 +37,20 @@ try{
  await expect(atlas).not.toHaveAttribute("data-level","overview");
  await page.locator('[data-atlas-level="overview"]').click();await expect(atlas).toHaveAttribute("data-level","overview");
  for(const id of ["P-008","P-033","P-051","ST-007","L-13"])await expect(node(id)).toHaveCount(1);
- expect(await page.locator("[data-atlas-node][data-illustrated]").count()).toBeGreaterThan(1);
+ expect(await page.locator("[data-atlas-art]").count()).toBeGreaterThan(1);
  expect(await page.locator('[data-atlas-node][data-rank="2"],[data-atlas-node][data-rank="3"]').count()).toBe(0);
  if(!process.env.ATLAS_PREVIEW)for(const id of ["P-008","P-033"]){const img=node(id).locator("img");await expect.poll(()=>img.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);}
 
  // Nothing on the tree covers anything else (the tree is clipped to its own area, so only the visible part counts).
- // Drawings outside the lane are drawn beneath the tree on purpose, so they are left out.
- const overlaps=()=>stage.evaluate(el=>{const clip=(r,c)=>({left:Math.max(r.left,c.left),right:Math.min(r.right,c.right),top:Math.max(r.top,c.top),bottom:Math.min(r.bottom,c.bottom)});const boxes=[...el.querySelectorAll("[data-atlas-node]:not([data-illustrated]:not([data-in-lane]))")].map(n=>({id:n.dataset.atlasNode,r:clip(n.getBoundingClientRect(),n.parentElement.getBoundingClientRect())}));const bad=[];for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){const a=boxes[i].r,b=boxes[j].r,w=Math.min(a.right,b.right)-Math.max(a.left,b.left),h=Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top);if(w>2&&h>2)bad.push(boxes[i].id+"/"+boxes[j].id);}return bad;});
+ // Drawings stand in the tree beneath the portraits on purpose, so they are left out.
+ const overlaps=()=>stage.evaluate(el=>{const clip=(r,c)=>({left:Math.max(r.left,c.left),right:Math.min(r.right,c.right),top:Math.max(r.top,c.top),bottom:Math.min(r.bottom,c.bottom)});const boxes=[...el.querySelectorAll("[data-atlas-node]")].map(n=>({id:n.dataset.atlasNode,r:clip(n.getBoundingClientRect(),n.parentElement.getBoundingClientRect())}));const bad=[];for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){const a=boxes[i].r,b=boxes[j].r,w=Math.min(a.right,b.right)-Math.max(a.left,b.left),h=Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top);if(w>2&&h>2)bad.push(boxes[i].id+"/"+boxes[j].id);}return bad;});
  expect(await overlaps()).toEqual([]);
 
- // The lane of event titles closes into dots on the spine, and opens again; the drawings stay either way.
- const titles=page.locator('[data-atlas-node][data-kind="event"]:not([data-illustrated])');
+ // The lane of event titles closes into dots on the spine, and opens again; the drawings in the tree stay either way.
+ const titles=page.locator('[data-atlas-node][data-kind="event"]');
  expect(await titles.count()).toBeGreaterThan(5);
  await page.locator('[data-atlas-lane="close"]').click();await expect(titles).toHaveCount(0);
- expect(await page.locator("[data-atlas-dot]").count()).toBeGreaterThan(20);expect(await page.locator("[data-atlas-node][data-illustrated]").count()).toBeGreaterThan(1);
+ expect(await page.locator("[data-atlas-dot]").count()).toBeGreaterThan(20);expect(await page.locator("[data-atlas-art]").count()).toBeGreaterThan(1);
  await page.locator('[data-atlas-dot="ST-007"]').dispatchEvent("click");await expect(detail.locator("h2")).toHaveText(/כורש/);await page.keyboard.press("Escape");
  await page.locator('[data-atlas-lane="open"]').click();expect(await titles.count()).toBeGreaterThan(5);
 
@@ -72,10 +72,11 @@ try{
  await expect.poll(rangeText).not.toBe(before);await expect(atlas).toHaveAttribute("data-level","detail");
  await page.locator('[data-atlas-level="overview"]').click();await expect(atlas).toHaveAttribute("data-level","overview");
 
- // Herod's reign: the building projects spread along it, and the rebuilt Temple shows its drawing.
+ // Herod's reign: the building projects in the lane, and the rebuilt Temple's drawing in the tree, beside Herod.
  await page.locator('[data-atlas-phase="herod"]').click();
- for(const id of ["P-051","P-054","P-058","ST-055","ST-057"])await expect(node(id)).toHaveCount(1);
- const temple=page.locator('[data-atlas-node="ST-058"][data-illustrated][data-in-lane] img');await expect(temple).toHaveCount(1);
+ for(const id of ["P-051","P-054","P-058","ST-055","ST-057","ST-058"])await expect(node(id)).toHaveCount(1);
+ const temple=page.locator('[data-atlas-art="ST-058"] img');await expect(temple).toHaveCount(1);
+ expect(await temple.evaluate(i=>Boolean(i.closest("[data-atlas-chart]")&&!i.closest("[data-atlas-art]").matches("[data-in-lane]")))).toBe(true);
  if(!process.env.ATLAS_PREVIEW)await expect.poll(()=>temple.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
  expect(await overlaps()).toEqual([]);
 
@@ -104,11 +105,37 @@ try{
  const title=await detail.locator("h2").textContent();await detail.getByRole("button",{name:/^הבא בזמן/}).click();await expect(detail.locator("h2")).not.toHaveText(title);
  await page.keyboard.press("Escape");await expect(detail).not.toBeVisible();
  await search.fill("נחמיה");await page.locator('[data-atlas-result="P-018"]').click();await expect(detail).toContainText("שנת העלייה דורשת בירור");await page.keyboard.press("Escape");
- await search.fill("אגריפס השני");await page.locator('[data-atlas-result="P-067"]').click();await expect(detail).toContainText("אזכור בלבד");await expect(detail.getByRole("button",{name:"להתמקד בזמן הזה ←",exact:true})).toHaveCount(0);await page.keyboard.press("Escape");
+ // Agrippa II has his own place below his father, and the cards tell about the figures in the third person.
+ await search.fill("אגריפס השני");await page.locator('[data-atlas-result="P-067"]').click();await expect(detail).toContainText("בנו של אגריפס הראשון");await expect(detail.getByRole("button",{name:"להתמקד בזמן הזה ←",exact:true})).toHaveCount(1);await page.keyboard.press("Escape");
+ await search.fill("חנה המקראית");await page.locator('[data-atlas-result="F-19"]').click();await expect(detail).toContainText("אם ובן");await expect(detail).toContainText("שמואל הנביא");await expect(detail).toContainText("התפללה בלחש");await page.keyboard.press("Escape");
  await page.locator('[data-atlas-level="overview"]').click();
  await node("P-051").click();await expect(detail.locator("h2")).toContainText("הורדוס");
  await detail.getByRole("button",{name:"להתמקד בזמן הזה ←",exact:true}).click();await expect(atlas).toHaveAttribute("data-level","detail");
  await detail.getByRole("button",{name:"סגירת פריט האטלס",exact:true}).click();await expect(detail).not.toBeVisible();
+
+ // Topics open as dimensions of their own, and close back to the same place on the axis.
+ await page.locator('[data-atlas-level="overview"]').click();await page.locator('[data-atlas-phase="hasmonean"]').click();
+ const chip=page.locator('[data-atlas-topic-chip="hasmonean"]');await expect(chip).toBeVisible();before=await rangeText();
+ await chip.click();await expect(atlas).toHaveAttribute("data-topic","hasmonean");await expect(page.locator('[data-atlas-topic="hasmonean"]')).toContainText("מרד החשמונאים");
+ for(const id of ["P-032","P-033","ST-028"])await expect(node(id)).toHaveCount(1);await expect(page.locator('[data-atlas-art="ST-028"]')).toHaveCount(1);
+ expect(await page.evaluate(()=>location.hash)).toBe("#hasmonean");
+ await page.keyboard.press("Escape");await expect(atlas).not.toHaveAttribute("data-topic",/.+/);await expect.poll(rangeText).toBe(before);
+ // From a card: Jesus on the axis opens the topic of his life, with the crucifixion's drawing beside him.
+ await search.fill("ישוע הנוצרי");await page.locator('[data-atlas-result="P-063"]').click();
+ await detail.locator('[data-atlas-card-topic="jesus"]').click();await expect(atlas).toHaveAttribute("data-topic","jesus");await expect(detail.locator("h2")).toContainText("ישוע");
+ expect(await page.evaluate(()=>location.hash)).toBe("#jesus/P-063");
+ await expect(detail.locator('a[href*="/timelines/"]')).toHaveCount(0);
+ await search.fill("הצליבה");await page.locator('[data-atlas-result="JS-26"]').click();await expect(detail.locator("h2")).toContainText("הצליבה");
+ await expect(page.locator('[data-atlas-art="JS-26"]')).toHaveCount(1);
+ await expect.poll(()=>page.locator('[data-atlas-art="JS-26"]').evaluate(el=>{const owner=el.dataset.owner;return owner==="P-063"||owner==="NT-01";})).toBe(true);
+ await detail.locator("[data-atlas-card-axis]").count().then(n=>expect(n).toBe(0));
+ await page.locator("[data-atlas-exit]").click();await expect(atlas).not.toHaveAttribute("data-topic",/.+/);
+ // The menu in the bottom bar lists every topic.
+ await page.locator('[data-atlas-topics] summary').click();await page.locator('[data-atlas-topic-item="prophets"]').click();await expect(atlas).toHaveAttribute("data-topic","prophets");
+ for(const id of ["F-20","F-33","F-44"])await expect(page.locator(`[data-atlas-index="${id}"]`)).toHaveCount(1);
+ await page.goto(base+"/timelines/history-atlas/#prophets/F-51",{waitUntil:"networkidle"});await expect(atlas).toHaveAttribute("data-topic","prophets");await expect(detail.locator("h2")).toContainText("ירמיהו");
+ await detail.locator("[data-atlas-card-axis]").click();await expect(atlas).not.toHaveAttribute("data-topic",/.+/);await expect(detail.locator("h2")).toContainText("ירמיהו");
+ await page.keyboard.press("Escape");
 
  // The index reaches every item, including those without a place on the axis.
  await page.getByRole("button",{name:"כל הדמויות והאירועים",exact:true}).click();

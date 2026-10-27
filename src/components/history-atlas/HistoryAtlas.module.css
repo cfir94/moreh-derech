@@ -56,6 +56,11 @@
 /* ── Stage: the tree on a vertical time axis ─────────── */
 .body{position:relative;flex:1;min-height:0;display:flex}
 .stageWrap{position:relative;flex:1;min-width:0}
+/* A topic's focus button sits at the top of its years, at the inner edge of the tree. */
+.topicChip{position:absolute;z-index:6;display:inline-flex;align-items:center;gap:6px;height:30px;max-width:220px;padding:0 12px 0 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--a-gold-1) 55%,var(--a-line));background:color-mix(in srgb,var(--a-card-hover) 92%,transparent);box-shadow:0 6px 18px rgba(0,0,0,.18);color:var(--a-ink);font:inherit;font-size:12.5px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;backdrop-filter:blur(6px);transition:transform .2s var(--a-ease),border-color .2s}
+.topicChip span{color:var(--a-gold-1);font-size:15px}
+.topicChip:hover,.topicChip:focus-visible{transform:translateX(-3px);border-color:var(--a-gold-1)}
+.topicChip:active{transform:scale(.95)}
 .stage{position:absolute;inset:0;overflow:hidden;overflow:clip;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;outline:none}
 .stage[data-dragging]{cursor:grabbing}
 .stage[data-dragging] *{cursor:grabbing}
@@ -96,6 +101,7 @@
 .life{stroke:color-mix(in srgb,var(--pc) 55%,transparent);stroke-width:3;stroke-linecap:round;transition:opacity .25s}
 .tree{fill:none;stroke:var(--a-tree);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:opacity .25s,stroke .2s}
 .tree[data-kind="succession"]{stroke-dasharray:6 5}
+.tree[data-kind="grandparent"]{stroke-dasharray:12 4 2 4;opacity:.8}
 .tree[data-kind="sibling"]{stroke-dasharray:1.5 4.5;stroke-width:2.2}
 .tree[data-kind="spouse-outer"]{stroke-width:5}
 .tree[data-kind="spouse"]{stroke:var(--a-bg);stroke-width:1.6}
@@ -126,10 +132,9 @@
 .label.selected{background:color-mix(in srgb,var(--pc) 20%,var(--a-card-hover));box-shadow:0 0 0 2px var(--pc),0 0 24px color-mix(in srgb,var(--pc) 45%,transparent)}
 
 /* Drawings sit on the axis at their own year, at every zoom level. */
-.vignette{z-index:6;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;border:0;background:none;text-align:center;transition:opacity .25s;animation:pop .45s var(--a-ease) backwards}
+.vignette{z-index:2;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;border:0;background:none;text-align:center;transition:opacity .25s;animation:pop .45s var(--a-ease) backwards}
 .vignette img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 12px 16px rgba(40,25,0,.28));transition:scale .3s var(--a-ease);pointer-events:none}
 .vignette>span{max-width:100%;padding:2px 9px;border-radius:9px;font-size:12px;font-weight:900;line-height:1.3;background:color-mix(in srgb,var(--a-bg) 80%,transparent);box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--pc) 60%,transparent);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.vignette:not([data-in-lane]){z-index:3}
 .vignette:hover img,.vignette:focus-visible img{scale:1.05}
 .vignette.selected img{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--pc) 70%,transparent)) drop-shadow(0 12px 16px rgba(40,25,0,.28))}
 :global(:root[data-theme="dark"]) .vignette img{filter:drop-shadow(0 0 22px rgba(255,214,140,.16)) drop-shadow(0 12px 18px rgba(0,0,0,.6))}
@@ -181,6 +186,22 @@
 .tooltip strong{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tooltip small{font-size:11.5px;color:var(--a-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .legend{position:relative;font-size:11.5px;color:var(--a-dim)}
+/* The topics: a list in the bottom bar, opening upward like the legend. */
+.topicMenu{position:relative;font-size:12px}
+.topicMenu summary{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;border:1px solid color-mix(in srgb,var(--a-gold-1) 55%,var(--a-line));background:color-mix(in srgb,var(--a-gold-1) 10%,transparent);font-weight:900;cursor:pointer;list-style:none}
+.topicMenu summary::-webkit-details-marker{display:none}
+.topicMenu summary::before{content:"⌕";color:var(--a-gold-1);font-size:15px}
+.topicMenu ul{display:grid;gap:2px;margin:0;padding:8px;list-style:none;max-height:min(60vh,420px);overflow:auto}
+.topicMenu button{display:flex;width:100%;justify-content:space-between;align-items:baseline;gap:10px;padding:7px 10px;border:0;border-radius:10px;background:none;color:var(--a-ink);font:inherit;text-align:start;cursor:pointer}
+.topicMenu button:hover,.topicMenu button[aria-current]{background:color-mix(in srgb,var(--a-gold-1) 14%,transparent)}
+.topicMenu button b{font-weight:900}
+.topicMenu button small{color:var(--a-dim);white-space:nowrap}
+/* Inside a topic, its name and the way back sit in the bar at the top. */
+.topicBar{display:inline-flex;align-items:center;gap:10px;min-width:0}
+.topicBar b{display:inline-flex;gap:6px;font-size:15px;font-weight:900;white-space:nowrap}
+.topicBar b span{color:var(--a-gold-1)}
+.topicBar small{font-size:12px;color:var(--a-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topicBar button{height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--a-gold-1);background:color-mix(in srgb,var(--a-gold-1) 14%,transparent);color:var(--a-ink);font:inherit;font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer}
 .legend summary{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--a-line);background:color-mix(in srgb,var(--a-ink) 6%,transparent);font-size:12px;font-weight:800;color:var(--a-ink);cursor:pointer;list-style:none;white-space:nowrap}
 .legend summary::-webkit-details-marker{display:none}
 .legend summary::before{content:"ⓘ";margin-inline-end:6px;color:var(--a-gold-1)}
@@ -222,7 +243,9 @@
 .panelActions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
 .panelActions>*{display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;font-size:12.5px;font-weight:800;border:1px solid var(--a-line);background:none}
 .panelActions>button{border-color:transparent;background:var(--pc);color:#fff;box-shadow:0 8px 18px -10px var(--pc)}
-.panelActions>a:hover{background:color-mix(in srgb,var(--a-ink) 7%,transparent)}
+.panelActions>button[data-variant]{gap:4px;border-color:color-mix(in srgb,var(--a-gold-1) 55%,var(--a-line));background:none;color:var(--a-ink);box-shadow:none}
+.panelActions>button[data-variant]:hover{background:color-mix(in srgb,var(--a-gold-1) 12%,transparent)}
+.panelActions>button[data-variant] span{color:var(--a-gold-1)}
 .links2{margin:0 0 14px}
 .links2 h3,.fields h3{margin:0 0 6px;font-size:12px;font-weight:800;color:var(--a-dim)}
 .links2 button{margin-bottom:5px;border:1px solid var(--a-line)}
@@ -299,7 +322,13 @@
  .hud{flex-wrap:wrap;gap:8px;padding:8px 12px}
  .brand{flex:1 1 auto}
  .brand h1{font-size:19px}
- .collection,.indexLabel{display:none}
+ .collection,.indexLabel,.topicBar small,.exitLong{display:none}
+ .atlas[data-topic] .back{display:none}
+ .topicBar{gap:6px}
+ .topicBar b{font-size:13px;max-width:42vw;overflow:hidden;text-overflow:ellipsis}
+ .topicBar button{padding:0 10px}
+ .topicMenu summary{padding:0 9px;font-size:0}
+ .topicMenu summary::before{font-size:15px}
  .indexButton{order:2;width:34px;height:34px;padding:0;justify-content:center}
  .search{order:3;flex:1 1 170px;max-width:none;margin:0}
  .search input{height:34px;font-size:13px}

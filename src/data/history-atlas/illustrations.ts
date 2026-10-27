@@ -2,12 +2,13 @@ import type {AtlasIllustration} from "./types";
 
 /*
  * The second batch of drawings ChatGPT made for the atlas, in the same
- * hand-drawn vignette style (docs/chatgpt-illustration-prompts.md lists the
- * prompts). They belong to the whole axis, not to the Second Temple
- * collection on its own, so they are joined in atlas.ts. `alt` says what the
- * picture shows; `caption` names the event and says it is an illustration.
- * An event that spans years may show its drawing anywhere along the span, so
- * Herod's building projects spread out instead of stacking on one year.
+ * hand-drawn vignette style. `alt` says what the picture shows; `caption`
+ * names the event and says it is an illustration. An event that spans years
+ * may show its drawing anywhere along the span.
+ *
+ * The main axis shows only the great turning points — at most twenty
+ * drawings for the whole of it (AXIS_DRAWINGS). The other drawings belong to
+ * the topics: they appear when one of them is opened (topics.ts).
  */
 const IMAGE="/moreh-derech/images/history-atlas/";
 const art=(id:string,alt:string,caption:string,at?:number):[string,AtlasIllustration]=>[id,{src:IMAGE+id+".webp",alt,caption:caption+" — המחשה אמנותית.",...(at!==undefined?{at}:{})}];
@@ -49,3 +50,10 @@ export const MORE_ILLUSTRATIONS:Record<string,AtlasIllustration>=Object.fromEntr
  art("BY-041","קיסר נושא צלב גדול דרך שער ירושלים, ותהלוכת כמרים אחריו.","הרקליוס משיב את הצלב"),
  art("BY-043","קרב על רמה מעל ערוץ עמוק: פרשים על סוסים וגמלים מול חיל רגלים ביזנטי.","קרב ירמוך"),
 ]);
+
+/**
+ * The twenty turning points that carry a drawing on the main axis, in order. Those without a drawing yet are
+ * asked for in docs/chatgpt-illustration-prompts.md (David's Jerusalem, Solomon's Temple, the split of the
+ * kingdom, the fall of Samaria and the siege of Lachish); until then they show as titles.
+ */
+export const AXIS_DRAWINGS=["FT-06","FT-07","FT-08","ST-002","FT-20","ST-004","ST-007","ST-017","ST-033","ST-049","ST-058","ST-065","ST-082","ST-085","RO-031","RO-036","BY-007","BY-033","BY-039","BY-044"];

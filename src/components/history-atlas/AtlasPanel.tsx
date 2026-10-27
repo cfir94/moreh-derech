@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import {useEffect,useRef} from "react";
 import {isPlaced,type AtlasCollection,type AtlasNode,type AtlasRelationKind} from "@/data/history-atlas";
 import {Face,tint} from "./shared";
@@ -9,13 +8,15 @@ type Props={
  collection:AtlasCollection;sources:{id:string;title:string;type:string}[];node:AtlasNode|null;
  previous:AtlasNode|null;next:AtlasNode|null;position:string;
  onOpen:(id:string)=>void;onFocusTime:()=>void;onClose:()=>void;
+ /** The topics the item belongs to (on the whole axis), and the way back to the axis (inside a topic). */
+ topics:{id:string;title:string}[];onTopic:(id:string)=>void;onAxis?:()=>void;
 };
 
 const ORDER:AtlasRelationKind[]=["parent","grandparent","spouse","sibling","succession","patron","parallel","rival","contact"];
 const KIND_LABEL:Record<AtlasRelationKind,string>={parent:"משפחה",grandparent:"משפחה",spouse:"משפחה",sibling:"משפחה",succession:"רצף",patron:"חסות",parallel:"לצד",rival:"יריבות",contact:"מגע"};
 
 /** The card beside the tree (a sheet from below on narrow screens). It stays mounted and slides. */
-export function AtlasPanel({collection,sources,node,previous,next,position,onOpen,onFocusTime,onClose}:Props){
+export function AtlasPanel({collection,sources,node,previous,next,position,onOpen,onFocusTime,onClose,topics,onTopic,onAxis}:Props){
  const close=useRef<HTMLButtonElement>(null),scroll=useRef<HTMLDivElement>(null),open=Boolean(node);
  useEffect(()=>{if(node){scroll.current?.scrollTo({top:0});close.current?.focus({preventScroll:true});}},[node]);
  const byId=(id:string)=>collection.nodes.find(n=>n.id===id);
@@ -41,7 +42,9 @@ export function AtlasPanel({collection,sources,node,previous,next,position,onOpe
     {node.caution&&<p className={s.caution}>{node.caution}</p>}
     <div className={s.panelActions}>
      {isPlaced(node)&&<button type="button" onClick={onFocusTime}>להתמקד בזמן הזה ←</button>}
-     <Link href={node.originalHref}>לציר המפורט ←</Link>
+     {/* Everything stays in the atlas: a topic opens as its own dimension, and from inside one the item is found on the whole axis. */}
+     {topics.map(t=><button key={t.id} type="button" data-atlas-card-topic={t.id} data-variant="topic" onClick={()=>onTopic(t.id)}><span aria-hidden>⌕</span> {t.title}</button>)}
+     {onAxis&&<button type="button" data-atlas-card-axis data-variant="axis" onClick={onAxis}>בציר המלא ←</button>}
     </div>
     {relations.length>0&&<section className={s.links2}><h3>קשרים לדמויות</h3>{relations.map(r=><button key={r.other.id+r.kind} type="button" data-relation={r.kind} style={tint(r.other.phase)} onClick={()=>onOpen(r.other.id)}><Face image={r.other.image} name={r.other.title}/><span><small>{r.label}</small><strong>{r.other.title}</strong></span><b>{KIND_LABEL[r.kind]}</b></button>)}</section>}
     {related.length>0&&<section className={s.links2}><h3>{node.kind==="person"?"אירועים קשורים":"דמויות ואירועים קשורים"}</h3>{related.map(n=><button key={n.id} type="button" style={tint(n.phase)} onClick={()=>onOpen(n.id)}>{n.kind==="person"?<Face image={n.image} name={n.title}/>:<i aria-hidden/>}<span><small>{n.date}</small><strong>{n.title}</strong></span></button>)}</section>}
