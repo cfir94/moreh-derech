@@ -20,6 +20,9 @@ import temple2 from "@/data/exams/course/temple-2";
 import temple3 from "@/data/exams/course/temple-3";
 import temple4 from "@/data/exams/course/temple-4";
 import temple5 from "@/data/exams/course/temple-5";
+import temple6 from "@/data/exams/course/temple-6";
+import temple7 from "@/data/exams/course/temple-7";
+import temple8 from "@/data/exams/course/temple-8";
 
 /** The course's own practice exams, newest set last. */
-export const COURSE_EXAMS: Exam[] = [practice1, practice2, practice3, practice4, practice5, focus1, focus2, focus3, focus4, focus5, topic1, topic2, topic3, topic4, topic5, temple1, temple2, temple3, temple4, temple5];
+export const COURSE_EXAMS: Exam[] = [practice1, practice2, practice3, practice4, practice5, focus1, focus2, focus3, focus4, focus5, topic1, topic2, topic3, topic4, topic5, temple1, temple2, temple3, temple4, temple5, temple6, temple7, temple8];
