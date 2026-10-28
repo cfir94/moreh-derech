@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import {useCallback,useEffect,useMemo,useRef,useState,type KeyboardEvent} from "react";
-import {HISTORY_ATLAS,TOPICS,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitRange,isPlaced,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,topicsOf,zoomAround,type AtlasCollection,type AtlasLevel,type AtlasNode,type AtlasTopic,type AtlasWindow,type Cluster,type TimeScale,type TreeLayout} from "@/data/history-atlas";
+import {useCallback,useEffect,useMemo,useRef,useState,type CSSProperties,type KeyboardEvent} from "react";
+import {HISTORY_ATLAS,TOPICS,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitWhole,fitWithRoom,withHome,isPlaced,roomyBounds,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,topicsOf,zoomAround,type AtlasCollection,type AtlasLevel,type AtlasNode,type AtlasTopic,type AtlasWindow,type Cluster,type TimeScale,type TreeLayout} from "@/data/history-atlas";
 import {AtlasMinimap} from "./AtlasMinimap";
 import {AtlasPanel} from "./AtlasPanel";
 import {AtlasLegend,AtlasStage,spanLabel,type TopicChip} from "./AtlasStage";
@@ -14,19 +14,21 @@ import s from "./HistoryAtlas.module.css";
  * collection, time scale and camera bounds; the component switches between them and keeps the axis's view to
  * come back to.
  */
-type World={C:AtlasCollection;topic:AtlasTopic|null;byId:Map<string,AtlasNode>;scale:TimeScale;bounds:AtlasWindow;home:AtlasWindow;order:AtlasNode[]};
+type World={C:AtlasCollection;topic:AtlasTopic|null;byId:Map<string,AtlasNode>;scale:TimeScale;bounds:AtlasWindow;first:number;last:number;order:AtlasNode[]};
 function worldOf(C:AtlasCollection,topic:AtlasTopic|null):World{
  const scale=timeScale(C);
  /** A little room past both ends, so the first and last items can scroll clear of the bars. */
- const bounds={from:toV(scale,ordinal(C.contextFrom))-24,to:toV(scale,ordinal(C.contextTo)+1)+70};
- return {C,topic,byId:new Map(C.nodes.map(n=>[n.id,n])),scale,bounds,home:fitRange(toV(scale,ordinal(C.from)),toV(scale,ordinal(C.to)+1),bounds,.015),order:chronology(C)};
+ const first=toV(scale,ordinal(C.from)),last=toV(scale,ordinal(C.to)+1);
+ return {C,topic,byId:new Map(C.nodes.map(n=>[n.id,n])),scale,bounds:roomyBounds(toV(scale,ordinal(C.contextFrom)),toV(scale,ordinal(C.contextTo)+1)),first,last,order:chronology(C)};
 }
 const AXIS=worldOf(HISTORY_ATLAS,null);
 const WORLDS=new Map(TOPICS.map(t=>[t.id,worldOf(t.collection,t)]));
 /** Spans are set for a desktop stage; a shorter one gets proportionally less, so a phone sees the same density. */
 const fitTo=(span:number,height:number)=>span*Math.max(240,height-HEADER)/LEVEL_HEIGHT;
 /** The axis opens at its top, the Bronze Age, close enough that scrolling down walks through the periods; a topic opens whole. */
-const startFor=(w:World,height:number)=>w.topic?w.home:centerAt(toV(w.scale,ordinal(w.C.from)),fitTo(980,height),.05,w.bounds);
+/** The whole of a world, with room for the first portraits and the last names (stage.ts, `fitWithRoom`). */
+const homeFor=(w:World,height:number,width=1280)=>fitWhole(w.C,w.scale,w.bounds,{width,height},{lane:width>=WIDE_LANE});
+const startFor=(w:World,height:number,width?:number)=>w.topic?homeFor(w,height,width):centerAt(toV(w.scale,ordinal(w.C.from)),fitTo(980,height),.05,w.bounds);
 const START=startFor(AXIS,LEVEL_HEIGHT+HEADER);
 const LEVEL_TEXT:Record<AtlasLevel,{title:string;note:string}>={
  overview:{title:"מבט על",note:"רק דמויות המפתח והאירועים המכוננים"},
@@ -44,13 +46,18 @@ const parseHash=(hash:string)=>{const [a,b]=decodeURIComponent(hash.replace(/^#/
 
 export function HistoryAtlas(){
  const [topicId,setTopicId]=useState<string|null>(null);
- const W=useMemo(()=>(topicId&&WORLDS.get(topicId))||AXIS,[topicId]),{C,scale:SCALE,bounds:BOUNDS}=W;
+ const W=useMemo(()=>(topicId&&WORLDS.get(topicId))||AXIS,[topicId]),{C,scale:SCALE}=W;
+ const [size,setSize]=useState({width:0,height:0});
+ // The camera may go as far as the opening view, which makes room for the first and last figures.
+ const BOUNDS=useMemo(()=>withHome(W.bounds,homeFor(W,size.height||LEVEL_HEIGHT+HEADER,size.width||1280)),[W,size.height,size.width]);
  const camera=useCamera(BOUNDS,START),{view,read,fly,jump,zoomBy}=camera;
- const [size,setSize]=useState({width:0,height:0}),[lane,setLane]=useState<boolean|undefined>(undefined),[selected,setSelected]=useState<string|null>(null);
+ const [lane,setLane]=useState<boolean|undefined>(undefined),[selected,setSelected]=useState<string|null>(null);
  const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[pan,setPan]=useState<number|undefined>(undefined);
  const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false),latest=useRef<TreeLayout|null>(null);
  // Switching worlds: the view to land on once the new world's bounds are in place, and the axis's view to return to.
  const landing=useRef<{view:AtlasWindow;open:string|null}|null>(null),axisView=useRef<AtlasWindow|null>(null);
+ // The passage between worlds: into a topic the stage zooms in from where it was opened, back out to the axis it zooms out.
+ const [warp,setWarp]=useState<{n:number;dir:"in"|"out";title:string;x:number;y:number}|null>(null);
  const focus=useMemo(()=>selected?relatedIds(C,selected):new Set<string>(),[C,selected]);
  // The lane of event titles starts open where there is room for it beside the tree, and closed on a phone.
  const laneOpen=lane??size.width>=WIDE_LANE;
@@ -99,13 +106,17 @@ export function HistoryAtlas(){
   trigger.current?.focus({preventScroll:true});
  },[hashFor]);
 
- /** Opens a topic (or, with null, goes back to the whole axis), optionally with one of its items chosen. */
- const enter=useCallback((id:string|null,item:string|null=null)=>{
+ /**
+  * Opens a topic (or, with null, goes back to the whole axis), optionally with one of its items chosen.
+  * `origin` is where on the stage it was opened from, in fractions of its width and height: the zoom grows from there.
+  */
+ const enter=useCallback((id:string|null,item:string|null=null,origin?:{x:number;y:number})=>{
   if(id===topicId){if(item)open(item);return;}
   const target=id?WORLDS.get(id):AXIS;if(!target)return;
+  setWarp(w=>({n:(w?.n??0)+1,dir:id?"in":"out",title:target.topic?.title??"הציר המלא",x:origin?.x??.5,y:origin?.y??.45}));
   if(!topicId)axisView.current=read();
   const height=sizeRef.current.height||LEVEL_HEIGHT+HEADER;
-  landing.current={view:id?startFor(target,height):axisView.current??startFor(AXIS,height),open:item};
+  landing.current={view:id?startFor(target,height,sizeRef.current.width||undefined):axisView.current??startFor(AXIS,height),open:item};
   setSelected(null);setPan(undefined);setQuery("");setHint(false);index.current?.close();
   setTopicId(id);
   window.history.replaceState(null,"",window.location.pathname+window.location.search+(id?"#"+id+(item?"/"+item:""):item?"#"+item:""));
@@ -144,10 +155,10 @@ export function HistoryAtlas(){
  function zoom(direction:1|-1){setHint(false);zoomBy(direction*Math.log(2),visibleCenter());}
  function goLevel(target:AtlasLevel){
   setHint(false);
-  if(target==="overview"){fly(W.home);return;}
+  if(target==="overview"){fly(homeFor(W,sizeRef.current.height,sizeRef.current.width));return;}
   fly(centerAt(active&&isPlaced(active)?placeOf(active):visibleCenter(),fitTo(LEVEL_SPANS[target],sizeRef.current.height),selected&&sheet()?.25:.5,BOUNDS));
  }
- function phase(id:string){const seg=SCALE.segments.find(g=>g.phase.id===id);if(seg){setHint(false);fly(fitRange(seg.start,seg.end,BOUNDS,.04));}}
+ function phase(id:string){const seg=SCALE.segments.find(g=>g.phase.id===id);if(seg){setHint(false);fly(fitWithRoom(seg.start,seg.end,BOUNDS,Math.max(240,sizeRef.current.height-HEADER)));}}
  function cluster(c:Cluster){const now=read(),h=Math.max(1,sizeRef.current.height-HEADER);fly(zoomAround(now,2.6,now.from+(c.y-HEADER)/h*(now.to-now.from),BOUNDS));}
  function keys(event:KeyboardEvent<HTMLDivElement>){
   const now=read(),span=now.to-now.from,move={ArrowUp:-.2,ArrowDown:.2,PageUp:-.8,PageDown:.8}[event.key];
@@ -155,7 +166,7 @@ export function HistoryAtlas(){
   else if(event.key==="ArrowLeft"||event.key==="ArrowRight")sideways((event.key==="ArrowLeft"?1:-1)*layout.slotW*2);
   else if(event.key==="+"||event.key==="=")zoom(1);
   else if(event.key==="-"||event.key==="_")zoom(-1);
-  else if(event.key==="0"||event.key==="Home")fly(W.home);
+  else if(event.key==="0"||event.key==="Home")fly(homeFor(W,sizeRef.current.height,sizeRef.current.width));
   else return;
   event.preventDefault();setHint(false);
  }
@@ -182,9 +193,13 @@ export function HistoryAtlas(){
    <div className={s.brand}>
     <Link href="/timelines" className={s.back}>עזרי למידה</Link>
     <h1>אטלס הזמן</h1>
-    {topic?<span className={s.topicBar} data-atlas-topic={topic.id}><b><span aria-hidden>⌕</span>{topic.title}</b><small>{topic.note} · {spanLabel(topic.from,topic.to)}</small>
-     <button type="button" data-atlas-exit aria-label="חזרה לציר המלא" onClick={()=>enter(null)}>↩<span className={s.exitLong}> חזרה לציר המלא</span></button></span>
+    {topic?<div className={s.dimension} data-atlas-topic={topic.id}>
+      <p className={s.dimKicker}><span>מימד</span>{spanLabel(topic.from,topic.to)}</p>
+      <h2 className={s.dimTitle}>{topic.title}</h2>
+      <p className={s.dimNote}>{topic.note}</p>
+     </div>
      :<span className={s.collection}>{C.title} · {spanLabel(C.from,C.to)}</span>}
+    {topic&&<button type="button" className={s.exit} data-atlas-exit aria-label="חזרה לציר המלא" onClick={()=>enter(null)}><span aria-hidden>↩</span><span className={s.exitLong}>חזרה לציר המלא</span></button>}
    </div>
    <div className={s.search}>
     <label htmlFor="atlas-search" className={s.srOnly}>חיפוש דמות או אירוע</label>
@@ -203,8 +218,13 @@ export function HistoryAtlas(){
 
   <div className={s.body}>
    <div className={s.stageWrap}>
-    <AtlasStage key={topicId??"axis"} collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint} chips={chips} onTopic={id=>enter(id)}
+    <div key={topicId??"axis"} className={s.world} data-warp={warp?.dir} style={warp?{"--ox":warp.x*100+"%","--oy":warp.y*100+"%"} as CSSProperties:undefined}>
+    <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint} chips={chips} onTopic={id=>{const c=chips.find(x=>x.id===id),w=sizeRef.current.width||1,h=sizeRef.current.height||1;enter(id,null,c&&{x:Math.max(0,1-(c.right+70)/w),y:Math.min(1,(c.top+15)/h)});}}
      onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onPan={sideways} onLane={setLane} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
+    </div>
+    {warp&&<div key={warp.n} className={s.warp} data-dir={warp.dir} style={{"--ox":warp.x*100+"%","--oy":warp.y*100+"%"} as CSSProperties} aria-hidden onAnimationEnd={e=>{if(e.target===e.currentTarget)setWarp(null);}}>
+     <b><small>{warp.dir==="in"?"נכנסים למימד":"חוזרים אל"}</small>{warp.title}</b>
+    </div>}
     <div key={level} className={s.levelToast} aria-hidden><b>{LEVEL_TEXT[level].title}</b><span>{LEVEL_TEXT[level].note}</span></div>
    </div>
    <AtlasPanel collection={C} sources={ATLAS_SOURCES} node={active} previous={step>0?W.order[step-1]:null} next={step>=0&&step<W.order.length-1?W.order[step+1]:null} position={step>=0?`${step+1} מתוך ${W.order.length}`:""}

@@ -43,6 +43,19 @@ export function zoomAround(view:AtlasWindow,factor:number,anchor:number,bounds:A
 export function panBy(view:AtlasWindow,amount:number,bounds:AtlasWindow){return clampWindow({from:view.from+amount,to:view.to+amount},bounds,MIN_SPAN);}
 /** A window of `span` that puts `value` at fraction `at` of the screen (0 = top). */
 export function centerAt(value:number,span:number,at:number,bounds:AtlasWindow){const from=value-at*span;return clampWindow({from,to:from+span},bounds,MIN_SPAN);}
+/**
+ * A window that shows `from`–`to` whole on a stage `usable` px tall, with room in pixels at both ends: above the
+ * first year for a portrait (and a parent drawn a little earlier), below the last for a name. A window in years
+ * alone cuts the first figures off under the column titles.
+ */
+export const ROOM={top:120,bottom:110};
+export function fitWithRoom(from:number,to:number,bounds:AtlasWindow,usable:number){
+ const share=Math.min(.6,(ROOM.top+ROOM.bottom)/Math.max(1,usable)),span=Math.max(MIN_SPAN,(to-from)/(1-share));
+ const start=from-ROOM.top/Math.max(1,usable)*span;
+ return clampWindow({from:start,to:start+span},bounds,MIN_SPAN);
+}
+/** Camera bounds with room past both ends of the axis, enough for `fitWithRoom` and for scrolling the last items clear. */
+export function roomyBounds(from:number,to:number){const pad=Math.max(60,(to-from)*.25);return {from:from-pad,to:to+pad};}
 export function fitRange(from:number,to:number,bounds:AtlasWindow,pad=.06){const span=Math.max(MIN_SPAN,to-from);return clampWindow({from:from-span*pad,to:to+span*pad},bounds,MIN_SPAN);}
 /** Interpolates the centre linearly and the span geometrically, so a long zoom feels even. */
 export function lerpView(a:AtlasWindow,b:AtlasWindow,t:number):AtlasWindow{
@@ -398,3 +411,25 @@ function side(a:PersonPlacement,b:PersonPlacement){
  const mid=(x1+x2)/2;
  return `M${x1} ${y1} C${mid} ${y1} ${mid} ${b.y} ${x2} ${b.y}`;
 }
+
+/**
+ * The opening view of a whole collection: `fitWithRoom`, then widened until no figure is cut by the column titles
+ * above or the edge below. A parent drawn earlier than its own year (Zechariah and Elizabeth above John, Helena
+ * above Constantine) needs more room than any fixed margin gives. The window may reach past `bounds`; the camera's
+ * bounds are widened to hold it (`withHome`).
+ */
+export function fitWhole(collection:AtlasCollection,scale:TimeScale,bounds:AtlasWindow,size:{width:number;height:number},options:TreeOptions={}):AtlasWindow{
+ const first=toV(scale,ordinal(collection.from)),last=toV(scale,ordinal(collection.to)+1),usable=Math.max(240,size.height-HEADER);
+ let view=fitWithRoom(first,last,bounds,usable);
+ for(let round=0;round<10;round++){
+  const L=layoutTree(collection,scale,view,size,options);
+  const over=Math.max(0,HEADER+6-Math.min(Infinity,...L.people.map(p=>p.top))),under=Math.max(0,Math.max(-Infinity,...L.people.map(p=>p.bottom))-(size.height-6));
+  if(!over&&!under)break;
+  // A little more than what is missing: a wider view shrinks the drawing, and the lift above a child changes with it.
+  const per=(view.to-view.from)/usable,from=view.from-(over?over+16:0)*per,to=view.to+(under?under+16:0)*per;
+  view={from,to};
+ }
+ return view;
+}
+/** Camera bounds that also hold the opening view. */
+export const withHome=(bounds:AtlasWindow,home:AtlasWindow):AtlasWindow=>({from:Math.min(bounds.from,home.from),to:Math.max(bounds.to,home.to)});

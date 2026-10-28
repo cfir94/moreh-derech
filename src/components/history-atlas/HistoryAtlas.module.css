@@ -197,11 +197,50 @@
 .topicMenu button b{font-weight:900}
 .topicMenu button small{color:var(--a-dim);white-space:nowrap}
 /* Inside a topic, its name and the way back sit in the bar at the top. */
-.topicBar{display:inline-flex;align-items:center;gap:10px;min-width:0}
-.topicBar b{display:inline-flex;gap:6px;font-size:15px;font-weight:900;white-space:nowrap}
-.topicBar b span{color:var(--a-gold-1)}
-.topicBar small{font-size:12px;color:var(--a-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topicBar button{height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--a-gold-1);background:color-mix(in srgb,var(--a-gold-1) 14%,transparent);color:var(--a-ink);font:inherit;font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer}
+/*
+ * Inside a topic ("a dimension") the bar says so loudly: the atlas's name shrinks to a breadcrumb, the topic's
+ * title takes its place in large gold, the bar and the stage get a gold rim, and the way back glows.
+ */
+.atlas[data-topic] .brand{align-items:center}
+.atlas[data-topic] .brand h1{font-size:13px;opacity:.75}
+.atlas[data-topic] .brand h1::after{content:"›";margin-inline-start:8px;-webkit-text-fill-color:var(--a-faint)}
+.atlas[data-topic] .hud{border-bottom-color:color-mix(in srgb,var(--a-gold-1) 60%,var(--a-line));box-shadow:0 1px 0 color-mix(in srgb,var(--a-gold-1) 45%,transparent),0 10px 34px -16px var(--a-gold-1)}
+.atlas[data-topic] .stageWrap::after{content:"";position:absolute;inset:0;z-index:7;pointer-events:none;border-radius:2px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--a-gold-1) 45%,transparent),inset 0 0 90px -30px color-mix(in srgb,var(--a-gold-1) 55%,transparent)}
+.dimension{display:grid;min-width:0;animation:dimIn .7s var(--a-ease) both}
+.dimKicker{display:flex;align-items:center;gap:8px;margin:0;font-size:11.5px;font-weight:800;color:var(--a-dim);white-space:nowrap}
+.dimKicker span{padding:1px 9px;border-radius:999px;background:linear-gradient(120deg,var(--a-gold-1),var(--a-gold-2));color:#1b1205;font-size:11px;font-weight:900;letter-spacing:.06em;box-shadow:0 0 14px -2px color-mix(in srgb,var(--a-gold-1) 70%,transparent)}
+.dimTitle{margin:1px 0 0;font-size:27px;line-height:1.12;font-weight:900;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:linear-gradient(120deg,var(--a-gold-1),var(--a-gold-2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 10px color-mix(in srgb,var(--a-gold-1) 35%,transparent))}
+.dimNote{margin:1px 0 0;font-size:12px;color:var(--a-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exit{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 15px;border-radius:999px;border:1px solid var(--a-gold-1);background:color-mix(in srgb,var(--a-gold-1) 16%,var(--a-card-hover));color:var(--a-ink);font-size:13px;font-weight:900;white-space:nowrap}
+.exit span[aria-hidden]{font-size:16px;color:var(--a-gold-1)}
+
+/*
+ * The buttons that open a topic, and the one that leads back, breathe: a soft gold glow that swells and a
+ * slight grow and shrink, so they read as doors. `scale` is its own property, so it adds to a hover's
+ * transform instead of fighting it.
+ */
+.topicChip,.topicMenu summary,.panelActions>button[data-variant],.exit{animation:beckon 2.8s ease-in-out infinite}
+.topicChip:nth-of-type(2n){animation-delay:-.9s}
+.topicChip:nth-of-type(3n){animation-delay:-1.7s}
+.topicChip:hover,.topicMenu summary:hover,.panelActions>button[data-variant]:hover,.exit:hover{animation-play-state:paused;box-shadow:0 0 0 3px color-mix(in srgb,var(--a-gold-1) 30%,transparent),0 0 26px 4px color-mix(in srgb,var(--a-gold-1) 50%,transparent)}
+
+/*
+ * The passage between the axis and a topic: the new world zooms in from the button that opened it (or, going
+ * back, settles from close up into the whole axis), while a gold rush of light sweeps over the stage with the
+ * name of where one arrives.
+ */
+.world{position:absolute;inset:0}
+.world[data-warp="in"]{transform-origin:var(--ox,50%) var(--oy,45%);animation:zoomIn .85s var(--a-ease) both}
+.world[data-warp="out"]{transform-origin:var(--ox,50%) var(--oy,45%);animation:zoomOut .85s var(--a-ease) both}
+.warp{position:absolute;inset:0;z-index:30;display:grid;place-items:center;pointer-events:none;overflow:hidden;animation:warpFade 1.15s ease-out both}
+.warp::before{content:"";position:absolute;left:var(--ox,50%);top:var(--oy,45%);width:240vmax;height:240vmax;translate:-50% -50%;border-radius:50%;
+ background:radial-gradient(circle,color-mix(in srgb,var(--a-gold-1) 55%,transparent) 0,color-mix(in srgb,var(--a-gold-2) 22%,transparent) 14%,transparent 34%),
+  repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--a-gold-1) 30%,transparent) 0deg 1.2deg,transparent 1.2deg 9deg);
+ -webkit-mask:radial-gradient(circle,transparent 0,#000 6%,#000 30%,transparent 46%);mask:radial-gradient(circle,transparent 0,#000 6%,#000 30%,transparent 46%);
+ animation:rush 1.05s var(--a-ease) both}
+.warp[data-dir="out"]::before{animation-name:rushOut}
+.warp b{position:relative;display:grid;justify-items:center;gap:4px;padding:14px 28px;border-radius:22px;background:color-mix(in srgb,var(--a-hud) 80%,transparent);backdrop-filter:blur(8px);box-shadow:0 0 0 1px color-mix(in srgb,var(--a-gold-1) 55%,transparent),0 0 60px -10px var(--a-gold-1);font-size:clamp(22px,4vw,38px);font-weight:900;letter-spacing:-.02em;text-align:center;animation:warpTitle 1.1s var(--a-ease) both}
+.warp b small{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--a-gold-1)}
 .legend summary{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--a-line);background:color-mix(in srgb,var(--a-ink) 6%,transparent);font-size:12px;font-weight:800;color:var(--a-ink);cursor:pointer;list-style:none;white-space:nowrap}
 .legend summary::-webkit-details-marker{display:none}
 .legend summary::before{content:"ⓘ";margin-inline-end:6px;color:var(--a-gold-1)}
@@ -233,6 +272,11 @@
 .hero h2{margin:0;font-size:24px;line-height:1.2;font-weight:900}
 .heroDate{margin:5px 0 0;font-size:13px;font-weight:800;color:color-mix(in srgb,var(--pc) 75%,var(--a-ink))}
 .heroRole{margin:2px 0 0;font-size:12.5px;line-height:1.5;color:var(--a-dim)}
+/* A figure's years, active years and end: three short rows under the name, before the story. */
+.life{margin:0 0 12px;display:grid;gap:5px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--pc) 9%,transparent);border:1px solid color-mix(in srgb,var(--pc) 24%,transparent)}
+.life div{display:grid;grid-template-columns:5.6em 1fr;gap:8px;align-items:baseline}
+.life dt{font-size:11.5px;font-weight:900;letter-spacing:.02em;color:color-mix(in srgb,var(--pc) 70%,var(--a-ink))}
+.life dd{margin:0;font-size:13.5px;line-height:1.55}
 .faceLarge{flex:none;display:grid;place-items:center;width:94px;height:112px;border-radius:18px;overflow:hidden;font-size:30px;font-weight:900;color:#fff;background:color-mix(in srgb,var(--pc) 70%,#20242c);box-shadow:0 0 0 2px var(--pc),0 16px 30px -16px var(--pc)}
 .art{margin:2px 0 8px;text-align:center}
 .art img{display:block;width:100%;max-width:280px;height:auto;margin:0 auto;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(40,25,0,.28))}
@@ -307,6 +351,14 @@
 .indexBody .face{width:30px;height:30px;font-size:10px;box-shadow:0 0 0 2px var(--pc)}
 
 @keyframes pop{from{opacity:0;scale:.82}to{opacity:1;scale:1}}
+@keyframes beckon{0%,100%{scale:1;box-shadow:0 0 0 0 color-mix(in srgb,var(--a-gold-1) 0%,transparent),0 0 10px 0 color-mix(in srgb,var(--a-gold-1) 28%,transparent)}50%{scale:1.06;box-shadow:0 0 0 4px color-mix(in srgb,var(--a-gold-1) 16%,transparent),0 0 24px 4px color-mix(in srgb,var(--a-gold-1) 55%,transparent)}}
+@keyframes dimIn{from{opacity:0;translate:0 -8px;scale:.94}}
+@keyframes zoomIn{from{opacity:0;scale:.45;filter:blur(14px)}55%{opacity:1;filter:blur(2px)}to{opacity:1;scale:1;filter:none}}
+@keyframes zoomOut{from{opacity:0;scale:1.7;filter:blur(14px)}55%{opacity:1;filter:blur(2px)}to{opacity:1;scale:1;filter:none}}
+@keyframes rush{from{scale:.05;opacity:1;rotate:0deg}to{scale:1.3;opacity:0;rotate:24deg}}
+@keyframes rushOut{from{scale:1.3;opacity:.9;rotate:24deg}to{scale:.05;opacity:0;rotate:0deg}}
+@keyframes warpFade{0%,70%{opacity:1}to{opacity:0}}
+@keyframes warpTitle{from{opacity:0;scale:.6}30%{opacity:1;scale:1.04}60%{scale:1}to{opacity:0;scale:1.08}}
 @keyframes slide{from{opacity:0;translate:24px 0}}
 @keyframes fade{from{opacity:0}}
 @keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
@@ -322,11 +374,10 @@
  .hud{flex-wrap:wrap;gap:8px;padding:8px 12px}
  .brand{flex:1 1 auto}
  .brand h1{font-size:19px}
- .collection,.indexLabel,.topicBar small,.exitLong{display:none}
- .atlas[data-topic] .back{display:none}
- .topicBar{gap:6px}
- .topicBar b{font-size:13px;max-width:42vw;overflow:hidden;text-overflow:ellipsis}
- .topicBar button{padding:0 10px}
+ .collection,.indexLabel,.exitLong,.dimNote{display:none}
+ .atlas[data-topic] .back,.atlas[data-topic] .brand h1{display:none}
+ .dimTitle{font-size:20px;max-width:calc(100vw - 150px)}
+ .exit{height:34px;padding:0 12px}
  .topicMenu summary{padding:0 9px;font-size:0}
  .topicMenu summary::before{font-size:15px}
  .indexButton{order:2;width:34px;height:34px;padding:0;justify-content:center}
@@ -350,5 +401,5 @@
 }
 @media (prefers-reduced-motion:reduce){
  .atlas *,.atlas *::before,.atlas *::after{animation:none!important;transition:none!important}
- .levelToast{display:none}
+ .levelToast,.warp{display:none}
 }

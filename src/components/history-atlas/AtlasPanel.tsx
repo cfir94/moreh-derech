@@ -35,10 +35,16 @@ export function AtlasPanel({collection,sources,node,previous,next,position,onOpe
     {art&&<figure className={s.art}><img src={art.src} alt={art.alt} width={480} height={480}/><figcaption>{art.caption}</figcaption></figure>}{/* eslint-disable-line @next/next/no-img-element */}
     <div className={s.hero}>
      {node.kind==="person"?<Face key={node.id} image={node.image} name={node.title} large/>:!art&&<span className={s.heroMark} aria-hidden/>}
-     <div><h2 id="atlas-detail-title">{node.title}</h2><p className={s.heroDate}>{node.date}</p>{node.kind==="person"&&!node.date.startsWith(node.subtitle)&&<p className={s.heroRole}>{node.subtitle}</p>}</div>
+     <div><h2 id="atlas-detail-title">{node.title}</h2>{node.life?<p className={s.heroDate}>{node.subtitle}</p>:<><p className={s.heroDate}>{node.date}</p>{node.kind==="person"&&!node.date.startsWith(node.subtitle)&&<p className={s.heroRole}>{node.subtitle}</p>}</>}</div>
     </div>
+    {/* A figure's years, its active years and its end come first: they are what the card is opened for. */}
+    {node.life&&<dl className={s.life} data-atlas-life>
+     <div><dt>שנות חיים</dt><dd>{node.life.lived}</dd></div>
+     <div><dt>שנות פעילות</dt><dd>{node.life.active}</dd></div>
+     <div><dt>מוות</dt><dd>{node.life.death}</dd></div>
+    </dl>}
     <p className={s.lead}>{node.summary}</p>
-    {node.mentionOnly&&<p className={s.caution}><b>אזכור בלבד · אינו אירוע מתוארך</b></p>}
+    {node.mentionOnly&&<p className={s.caution}><b>{node.kind==="person"?"אזכור בחומר בלי תאריך · אינו מוצב על הציר":"אזכור בלבד · אינו אירוע מתוארך"}</b></p>}
     {node.caution&&<p className={s.caution}>{node.caution}</p>}
     <div className={s.panelActions}>
      {isPlaced(node)&&<button type="button" onClick={onFocusTime}>להתמקד בזמן הזה ←</button>}
