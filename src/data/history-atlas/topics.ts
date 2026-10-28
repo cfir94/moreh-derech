@@ -2,6 +2,7 @@ import {DRAWINGS,HISTORY_ATLAS as H} from "./atlas";
 import {ordinal} from "./time";
 import {familyColumns} from "./family-columns";
 import {isPlaced} from "./stage";
+import {withBio} from "./bios";
 import {JESUS_AXIS_EVENTS,JESUS_EVENTS,JESUS_FROM_AXIS,JESUS_GROUP_OF,JESUS_PEOPLE,JESUS_PHASES,JESUS_TIES,jesusEvent} from "./topic-jesus";
 import {PROPHET_EVENTS,PROPHET_PEOPLE,PROPHET_SCENES} from "./topic-prophets";
 import {JUDGE_EVENTS,JUDGE_PEOPLE,JUDGE_SCENES} from "./topic-judges";
@@ -47,7 +48,7 @@ function build(spec:Spec):AtlasTopic{
   // Inside a topic everything it holds may show from its first view; a figure who came in earlier starts at its top.
   const from=Math.max(start,Math.min(shaped.from,end)),to=Math.max(from,Math.min(shaped.to,end));
   return {...shaped,from,to,phase:phaseOf(from),rank:shaped.rank===3?2:shaped.rank,mentionOnly:false,unplaced:false};
- }).concat((spec.extra??[]).map(n=>({...n,phase:n.phase||phaseOf(n.from)})));
+ }).concat((spec.extra??[]).map(n=>withBio({...n,phase:n.phase||phaseOf(n.from)})));
  const ids=new Set(nodes.map(n=>n.id));
  const relations=[...H.relations.filter(r=>ids.has(r.from)&&ids.has(r.to)),...(spec.ties??[]).map(({from,to,label,kind})=>({from,to,label,kind}))];
  // Columns: the main groups (or the topic's), each packed to as few slots as its figures need.
@@ -97,7 +98,7 @@ const TOPIC_SPECS:Spec[]=[
  {id:"hasmonean",title:"מרד החשמונאים",note:"מן הגזרות ועד עצמאות יהודה",from:-175,to:-134,
   events:range("ST-",24,41),people:["P-027","P-028","P-029","P-030","P-031","P-032","P-033","P-035","P-036","P-037","P-038","P-039","P-040","P-041"],drawings:same(["ST-028","ST-033"])},
  {id:"herod",title:"בית הורדוס",note:"מכיבוש פומפיוס ועד אגריפס",from:-67,to:44,
-  events:[...range("ST-",48,63),"ST-069"],people:["P-045","P-046","P-047","P-048","P-049","P-050","P-051","P-052","P-053","P-054","P-055","P-056","P-057","P-058","P-059","P-060","P-065","P-066"],drawings:same(["ST-049","ST-055","ST-057","ST-058"])},
+  events:[...range("ST-",48,63),"ST-069"],people:["P-045","P-046","P-047","X-01","P-048","P-049","P-050","P-051","P-052","P-053","P-054","P-055","P-056","P-057","P-058","P-059","P-060","P-065","P-066"],drawings:same(["ST-049","ST-055","ST-057","ST-058"])},
  jesus,
  {id:"revolt",title:"המרד הגדול",note:"מקיסריה ועד מצדה",from:64,to:74,
   events:[...range("ST-",71,85),"ST-089","RO-020","RO-021"],people:["P-067","P-069","P-071","P-072","P-073","P-074","P-075","P-076","L-01"],drawings:same(["ST-080","ST-082","ST-085","RO-020","RO-021"])},

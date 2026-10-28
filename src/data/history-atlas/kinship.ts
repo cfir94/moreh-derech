@@ -64,4 +64,6 @@ export const KINSHIP:Kinship[]=[
  {from:"L-15",to:"L-16",label:"בן דודו ויורשו",kind:"succession",cite:"אמיאנוס מרקלינוס, ספרים כא–כב (יוליאנוס, בן אחיו של קונסטנטינוס, יורש את קונסטנטיוס)"},
  {from:"L-22",to:"L-25",label:"מורה ותלמיד",kind:"succession",cite:"ציר התקופה הביזנטית באתר: «תלמידיו, ובהם סבס»"},
  {from:"L-17",to:"L-20",label:"סב ונכד, דרך ארקדיוס",kind:"grandparent",quote:"תיאודוסיוס השני הוא נכדו של הראשון"},
+ // ── Julius Caesar, the one supplement outside the course (atlas.ts) ──
+ {from:"X-01",to:"P-053",label:"אב מאמץ ובן",kind:"parent",cite:"סואטוניוס, חיי הקיסרים, אוגוסטוס 8: בצוואתו אימץ קיסר את אוקטביאנוס, נכד אחותו"},
 ];

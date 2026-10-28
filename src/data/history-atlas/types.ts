@@ -1,5 +1,7 @@
 export type AtlasImage={localSrc:string;alt:string;caption:string;sourceUrl:string;credit:string;license:string;licenseUrl:string;note?:string};
-export type AtlasNode={id:string;kind:"person"|"event";title:string;subtitle:string;date:string;phase:string;from:number;to:number;rank:1|2|3;summary:string;fields:{label:string;text:string}[];source:string;caution?:string;mentionOnly?:boolean;unplaced?:boolean;related:string[];image?:AtlasImage;originalHref:string};
+export type AtlasNode={id:string;kind:"person"|"event";title:string;subtitle:string;date:string;phase:string;from:number;to:number;rank:1|2|3;summary:string;fields:{label:string;text:string}[];source:string;caution?:string;mentionOnly?:boolean;unplaced?:boolean;related:string[];image?:AtlasImage;originalHref:string;
+ /** A figure's years and end, shown at the top of its card (lives.ts). */
+ life?:{lived:string;active:string;death:string}};
 /** `pace` (default 1) scales the years a phase takes on the axis; long, thinly told ages use less. */
 export type AtlasPhase={id:string;title:string;from:number;to:number;note:string;context?:boolean;featured?:string[];pace?:number};
 /** Family, spouse, sibling and succession draw the tree; the rest appear when a figure is chosen. */

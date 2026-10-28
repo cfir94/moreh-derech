@@ -5,7 +5,9 @@ import {AXIS_DRAWINGS,MORE_ILLUSTRATIONS} from "./illustrations";
 import {KINSHIP} from "./kinship";
 import {familyColumns} from "./family-columns";
 import {ordinal} from "./time";
+import {isPlaced} from "./stage";
 import {TOLD} from "./told";
+import {BIOS,withBio} from "./bios";
 import whoAmIPortraits from "../who-am-i/portraits.json";
 import type {AtlasCollection,AtlasIllustration,AtlasImage,AtlasNode,AtlasRelation} from "./types";
 
@@ -32,15 +34,32 @@ const PLACED:Record<string,Partial<AtlasNode>>={"P-067":{mentionOnly:false,unpla
  summary:TOLD.agrippa2,fields:[{label:"תפקיד והקשר",text:"מלך מבית הורדוס · 66 לספירה, ראשית המרד"},{label:"בחומר הנלמד",text:TOLD.agrippa2},{label:"לא להתבלבל",text:"אגריפס הראשון הוא שקיבל את יהודה ב־41; אגריפס השני, בנו, מלך בצפון ובעבר הירדן."}],
  caution:"השנים בקירוב, לפי הכרונולוגיה המקובלת: מלך משנות ה־50 ועד סוף המאה ה־1 לספירה.",image:PORTRAITS.agrippa2}};
 const place=(n:AtlasNode)=>PLACED[n.id]?{...n,...PLACED[n.id]}:n;
+/**
+ * Julius Caesar is not in the course material. The owner asked for him alone — no further figures or events —
+ * because he helps to remember Pompey, his rival. His card says it is a supplement; his text is in bios.ts.
+ */
+const CAESAR:AtlasNode={id:"X-01",kind:"person",title:"יוליוס קיסר",subtitle:"",date:"",phase:"roman",from:ordinal(-49),to:ordinal(-44),rank:2,summary:"",fields:[],
+ source:"השלמה מחוץ לחומר הקורס: יוסף בן מתתיהו, קדמוניות היהודים, ספר יד, פרקים ח–י; סואטוניוס, חיי הקיסרים: יוליוס.",
+ caution:"השלמה — אינו חלק מחומר הקורס. נוסף כדי לעזור לזכור את פומפיוס, יריבו.",related:[],originalHref:"/timelines/roman"};
+const CAESAR_TIES:AtlasRelation[]=[
+ {from:"P-047",to:"X-01",label:"יריבים במלחמת האזרחים",kind:"rival"},
+ {from:"X-01",to:"P-048",label:"אנטיפטר סייע לו במצרים, והוא מינה אותו לנציב יהודה",kind:"patron"},
+];
 /** Every drawing there is. The axis shows the twenty of AXIS_DRAWINGS; the topics draw on the rest. */
 export const DRAWINGS:Record<string,AtlasIllustration>={...ST.illustrations,...LATE_ILLUSTRATIONS,...MORE_ILLUSTRATIONS};
-const NODES=[...EARLY_NODES,...ST.nodes.map(place),...LATE_NODES];
-const RELATIONS=joined([...EARLY_RELATIONS.map(plain),...ST.relations,...LATE_RELATIONS.map(plain)]);
+/**
+ * Each figure's card tells who it was (bios.ts). A Second Temple figure's card no longer borrows the caution of
+ * its events, which speaks of dating an event, not of the person; a figure with no date says why it is off the axis.
+ * Rabban Yochanan ben Zakkai is in both collections (P-077, a mention; L-01, at Yavne): the axis keeps L-01.
+ */
+const told=(n:AtlasNode)=>{const t=withBio(n);return n.id.startsWith("P-")&&BIOS[n.id]?{...t,caution:isPlaced(n)?undefined:"החומר אינו נותן לדמות הזו תאריך, ולכן היא אינה מוצבת על הציר."}:t;};
+const NODES=[...EARLY_NODES,...ST.nodes.filter(n=>n.id!=="P-077").map(place),CAESAR,...LATE_NODES].map(told);
+const RELATIONS=joined([...EARLY_RELATIONS.map(plain),...ST.relations,...CAESAR_TIES,...LATE_RELATIONS.map(plain)]);
 export const HISTORY_ATLAS:AtlasCollection={
  ...ST,id:"history",title:"מן הברונזה ועד ביזנטיון",subtitle:"מן הערים הכנעניות ועד הכיבוש המוסלמי",from:-3300,contextFrom:-3300,to:641,contextTo:641,
  phases:[...EARLY_PHASES,...ST.phases.filter(p=>p.id!=="aftermath").map(p=>p.id==="background"?{...p,title:"סוף בית ראשון",note:"אשור, בבל וחורבן בית ראשון",context:undefined}:p.id==="roman"?{...p,featured:["P-047","P-045","P-046","P-050","ST-049","ST-051"]}:p),...LATE_PHASES],
  nodes:NODES,relations:RELATIONS,groups:LATE_GROUPS,
  // Children stand below their parents (family-columns.ts); the hand-set columns are the starting point.
- slots:familyColumns(NODES,RELATIONS,{...EARLY_SLOTS,...ST.slots,...LATE_SLOTS,"P-067":{group:"judea",slot:4}},g=>LATE_GROUPS.find(x=>x.id===g)?.slots??0),
+ slots:familyColumns(NODES,RELATIONS,{...EARLY_SLOTS,...ST.slots,...LATE_SLOTS,"P-067":{group:"judea",slot:4},"X-01":{group:"powers",slot:0}},g=>LATE_GROUPS.find(x=>x.id===g)?.slots??0),
  illustrations:Object.fromEntries(AXIS_DRAWINGS.filter(id=>id in DRAWINGS).map(id=>[id,DRAWINGS[id]])),
 };

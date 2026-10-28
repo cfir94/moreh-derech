@@ -354,3 +354,54 @@ test("a mother and her son in one column both show, the son straight below",asyn
   }
  }
 });
+
+test("the opening view of the axis and of every topic cuts no figure at the top or the bottom",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS,fitWhole,roomyBounds,withHome,HEADER}=await import("../src/data/history-atlas/index.ts");
+ for(const C of [H,...TOPICS.map(t=>t.collection)]){
+  const TS=timeScale(C),b=roomyBounds(toV(TS,ordinal(C.contextFrom)),toV(TS,ordinal(C.contextTo)+1));
+  for(const size of [desk,phone,{width:1440,height:900},{width:390,height:780}]){
+   const options={lane:size.width>=900},home=fitWhole(C,TS,b,size,options),L=layoutTree(C,TS,home,size,options),where=C.id+" "+size.width+"x"+size.height+": ";
+   const camera=withHome(b,home);assert(home.from>=camera.from&&home.to<=camera.to,where+"the camera reaches the opening view");
+   for(const p of L.people){assert(p.top>=HEADER-1,where+p.node.id+" is cut at the top");assert(p.bottom<=size.height+1,where+p.node.id+" is cut at the bottom");}
+  }
+ }
+});
+
+test("every figure's card says who it was, in words for the reader, not the notebook's working notes",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ const {BIOS}=await import("../src/data/history-atlas/bios.ts");
+ // The notebook's notes to itself: gaps, transcripts, record ids, "the chat mixed them up".
+ const working=/פער|בתמלול|הצ׳אט|בדיקת שמע|רשומת אירוע|יעד לימוד|אזכור בלבד|ST-\d|RO-\d|BY-\d/;
+ const people=new Map();
+ for(const C of [H,...TOPICS.map(t=>t.collection)])for(const n of C.nodes)if(n.kind==="person")people.set(n.id,n);
+ for(const n of people.values()){
+  // Two or three sentences at least: who, what, and where in the story.
+  assert(n.summary.length>=130,n.id+" says too little: "+n.summary);
+  assert(n.summary.split(/[.!?]["״]?(\s|$)/).filter(x=>x.trim().length>12).length>=2,n.id+" is a single line");
+  for(const text of [n.subtitle,n.date,n.summary,...n.fields.map(f=>f.text),n.caution??""])assert(!working.test(text),n.id+": "+text);
+  // The head is a role, not a stray date or a note; no field repeats the lead.
+  assert(!/^\d/.test(n.subtitle)&&!/בחומר|לפי ההרצאה/.test(n.subtitle),n.id+" role: "+n.subtitle);
+  assert(!n.fields.some(f=>f.text===n.summary),n.id+" repeats its lead");
+ }
+ // Every Second Temple and late figure on the axis has a written bio.
+ for(const n of H.nodes)if(n.kind==="person"&&/^(P|L)-/.test(n.id))assert(BIOS[n.id],n.id+" has no bio");
+ // The case that started it: James son of Zebedee is told as the apostle he was.
+ const james=people.get("P-068");
+ assert(/שליח/.test(james.summary)&&/אגריפס/.test(james.summary)&&/יוחנן/.test(james.summary));
+});
+
+test("every figure's card opens with its years of life, its active years and how it died",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ const {LIVES}=await import("../src/data/history-atlas/lives.ts");
+ const ids=new Set();
+ for(const C of [H,...TOPICS.map(t=>t.collection)])for(const n of C.nodes)if(n.kind==="person"){
+  ids.add(n.id);
+  assert(n.life,n.id+" has no years and end");
+  for(const k of ["lived","active","death"])assert(n.life[k]&&n.life[k].trim().length>=6,n.id+" "+k);
+ }
+ // No line for a figure the atlas does not show.
+ for(const id of Object.keys(LIVES))assert(ids.has(id),id+" is not in the atlas");
+ // A biblical death is told as the Bible tells it.
+ assert(/לפי המקרא/.test(LIVES["F-21"].death)&&/הגלבוע/.test(LIVES["F-21"].death));
+ assert(/אגריפס/.test(LIVES["P-068"].death));
+});

@@ -66,7 +66,9 @@ try{
  expect(await stage.locator("path[data-kind='parent']").count()).toBeGreaterThan(3);expect(await stage.locator("path[data-kind='succession']").count()).toBeGreaterThan(1);
  expect(await overlaps()).toEqual([]);
  before=await rangeText();
- await page.getByRole("button",{name:"התקרבות בזמן",exact:true}).click();await expect(atlas).toHaveAttribute("data-level","detail");expect(await rangeText()).not.toBe(before);
+ // A period opens with room for its first and last figures, so full detail may take a second step in.
+ for(let i=0;i<3&&await atlas.getAttribute("data-level")!=="detail";i++){await page.getByRole("button",{name:"התקרבות בזמן",exact:true}).click();await page.waitForTimeout(450);}
+ await expect(atlas).toHaveAttribute("data-level","detail");expect(await rangeText()).not.toBe(before);
  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);before=await rangeText();
  for(let i=0;i<6;i++)await page.mouse.wheel(0,200);
  await expect.poll(rangeText).not.toBe(before);await expect(atlas).toHaveAttribute("data-level","detail");
