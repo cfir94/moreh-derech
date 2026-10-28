@@ -3,6 +3,7 @@ import {EARLY_NODES,EARLY_PHASES,EARLY_RELATIONS,EARLY_SLOTS} from "./first-temp
 import {LATE_GROUPS,LATE_ILLUSTRATIONS,LATE_NODES,LATE_PHASES,LATE_RELATIONS,LATE_SLOTS} from "./late-antiquity";
 import {AXIS_DRAWINGS,MORE_ILLUSTRATIONS} from "./illustrations";
 import {KINSHIP} from "./kinship";
+import {familyColumns} from "./family-columns";
 import {ordinal} from "./time";
 import {TOLD} from "./told";
 import whoAmIPortraits from "../who-am-i/portraits.json";
@@ -33,12 +34,13 @@ const PLACED:Record<string,Partial<AtlasNode>>={"P-067":{mentionOnly:false,unpla
 const place=(n:AtlasNode)=>PLACED[n.id]?{...n,...PLACED[n.id]}:n;
 /** Every drawing there is. The axis shows the twenty of AXIS_DRAWINGS; the topics draw on the rest. */
 export const DRAWINGS:Record<string,AtlasIllustration>={...ST.illustrations,...LATE_ILLUSTRATIONS,...MORE_ILLUSTRATIONS};
+const NODES=[...EARLY_NODES,...ST.nodes.map(place),...LATE_NODES];
+const RELATIONS=joined([...EARLY_RELATIONS.map(plain),...ST.relations,...LATE_RELATIONS.map(plain)]);
 export const HISTORY_ATLAS:AtlasCollection={
  ...ST,id:"history",title:"מן הברונזה ועד ביזנטיון",subtitle:"מן הערים הכנעניות ועד הכיבוש המוסלמי",from:-3300,contextFrom:-3300,to:641,contextTo:641,
  phases:[...EARLY_PHASES,...ST.phases.filter(p=>p.id!=="aftermath").map(p=>p.id==="background"?{...p,title:"סוף בית ראשון",note:"אשור, בבל וחורבן בית ראשון",context:undefined}:p.id==="roman"?{...p,featured:["P-047","P-045","P-046","P-050","ST-049","ST-051"]}:p),...LATE_PHASES],
- nodes:[...EARLY_NODES,...ST.nodes.map(place),...LATE_NODES],
- relations:joined([...EARLY_RELATIONS.map(plain),...ST.relations,...LATE_RELATIONS.map(plain)]),
- groups:LATE_GROUPS,
- slots:{...EARLY_SLOTS,...ST.slots,...LATE_SLOTS,"P-067":{group:"judea",slot:4}},
+ nodes:NODES,relations:RELATIONS,groups:LATE_GROUPS,
+ // Children stand below their parents (family-columns.ts); the hand-set columns are the starting point.
+ slots:familyColumns(NODES,RELATIONS,{...EARLY_SLOTS,...ST.slots,...LATE_SLOTS,"P-067":{group:"judea",slot:4}},g=>LATE_GROUPS.find(x=>x.id===g)?.slots??0),
  illustrations:Object.fromEntries(AXIS_DRAWINGS.filter(id=>id in DRAWINGS).map(id=>[id,DRAWINGS[id]])),
 };

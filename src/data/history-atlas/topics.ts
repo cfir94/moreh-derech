@@ -1,8 +1,10 @@
 import {DRAWINGS,HISTORY_ATLAS as H} from "./atlas";
 import {ordinal} from "./time";
+import {familyColumns} from "./family-columns";
 import {isPlaced} from "./stage";
 import {JESUS_AXIS_EVENTS,JESUS_EVENTS,JESUS_FROM_AXIS,JESUS_GROUP_OF,JESUS_PEOPLE,JESUS_PHASES,JESUS_TIES,jesusEvent} from "./topic-jesus";
 import {PROPHET_EVENTS,PROPHET_PEOPLE,PROPHET_SCENES} from "./topic-prophets";
+import {JUDGE_EVENTS,JUDGE_PEOPLE,JUDGE_SCENES} from "./topic-judges";
 import type {Kinship} from "./kinship";
 import type {AtlasCollection,AtlasGroup,AtlasNode,AtlasPhase,AtlasSlot} from "./types";
 
@@ -15,7 +17,8 @@ import type {AtlasCollection,AtlasGroup,AtlasNode,AtlasPhase,AtlasSlot} from "./
  *
  * Most topics are cut from the main axis (the Hasmonean revolt, Herod's
  * house); two add material of their own from the site: Jesus' life
- * (topic-jesus.ts) and the First Temple prophets (topic-prophets.ts).
+ * (topic-jesus.ts), the judges (topic-judges.ts) and the First Temple
+ * prophets (topic-prophets.ts).
  */
 export type AtlasTopic={id:string;title:string;note:string;from:number;to:number;collection:AtlasCollection};
 
@@ -52,14 +55,19 @@ function build(spec:Spec):AtlasTopic{
  const people=nodes.filter(n=>n.kind==="person").sort((a,b)=>(H.slots[a.id]?.slot??9)-(H.slots[b.id]?.slot??9)||a.from-b.from);
  for(const p of people){
   const group=spec.groupOf?.[p.id]??H.slots[p.id]?.group??groups[0].id,columns=used.get(group)??[];
-  // Years are inclusive: two figures of the same single year need two columns.
-  let slot=columns.findIndex(column=>column.every(q=>p.from>q.to||q.from>p.to));
+  // One figure may come in the year another leaves, never the year it comes in.
+  // A child is tried first in its parent's column, so it stands straight below (Samuel under Hannah).
+  const fits=(column:AtlasNode[])=>column.every(q=>p.from!==q.from&&(p.from>=q.to||q.from>=p.to));
+  const parentColumn=relations.filter(r=>r.kind==="parent"&&r.to===p.id).map(r=>slots[r.from]).find(x=>x&&x.group===group&&fits(columns[x.slot]));
+  let slot=parentColumn?parentColumn.slot:columns.findIndex(fits);
   if(slot<0){slot=columns.length;columns.push([]);}
   columns[slot].push(p);used.set(group,columns);slots[p.id]={group,slot};
  }
+ // Then each child moves under its parent where the column is free (Samuel under Hannah).
+ const placed=familyColumns(nodes,relations,slots,g=>used.get(g)?.length??0);
  const illustrations=Object.fromEntries(Object.entries(spec.drawings??{}).filter(([id,art])=>ids.has(id)&&DRAWINGS[art]).map(([id,art])=>[id,DRAWINGS[art]]));
  const collection:AtlasCollection={id:"topic-"+spec.id,title:spec.title,subtitle:spec.note,from:spec.from,to:spec.to,contextFrom:spec.from,contextTo:spec.to,phases,nodes,relations,
-  groups:groups.filter(g=>used.has(g.id)).map(g=>({...g,slots:used.get(g.id)!.length})),slots,illustrations,sourceHref:H.sourceHref};
+  groups:groups.filter(g=>used.has(g.id)).map(g=>({...g,slots:used.get(g.id)!.length})),slots:placed,illustrations,sourceHref:H.sourceHref};
  return {id:spec.id,title:spec.title,note:spec.note,from:spec.from,to:spec.to,collection};
 }
 
@@ -75,7 +83,14 @@ const prophets:Spec={
  id:"prophets",title:"נביאי בית ראשון",note:"שמואל, אליהו ואלישע, ישעיהו וירמיהו — והמלכים שמולם",from:-1070,to:-586,
  events:PROPHET_EVENTS,people:PROPHET_PEOPLE,extra:PROPHET_SCENES,drawings:{...same(["FT-20","ST-002"]),"ST-004":"ST-004"},
 };
+const judges:Spec={
+ id:"judges",title:"תקופת השופטים",note:"מיהושע ועד שאול: עתניאל, אהוד, דבורה, גדעון, שמשון, עלי ושמואל",from:-1230,to:-1000,
+ // The book's years are spread evenly here; on the main axis this age is drawn at a slower pace.
+ phases:[{id:"late-bronze",title:"הכניסה לארץ",from:-1230,to:-1200,note:"יהושע וההתנחלות"},{id:"iron1",title:"ימי השופטים",from:-1200,to:-1000,note:"מעתניאל ועד שמואל ושאול"}],
+ events:JUDGE_EVENTS,people:JUDGE_PEOPLE,extra:JUDGE_SCENES,drawings:{"FT-06":"FT-06"},
+};
 const TOPIC_SPECS:Spec[]=[
+ judges,
  prophets,
  {id:"return",title:"שיבת ציון",note:"מהצהרת כורש ועד עזרא ונחמיה",from:-539,to:-400,
   events:range("ST-",6,16),people:["P-008","P-009","P-011","P-013","P-014","P-015","P-016","P-017","P-018"],drawings:same(["ST-007","ST-012","ST-015"])},
