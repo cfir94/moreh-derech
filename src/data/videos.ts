@@ -147,6 +147,13 @@ const rawVideoGroups: VideoGroup[] = [
         "PLVA6iCeBK_XJFxrHWdB-ExkN0byV4oN9w",
         "יד ושם",
       ),
+      video(
+        "legend-of-destruction",
+        "אגדת חורבן | הסרט המלא",
+        "סרט מלא של כאן 11, שנבחר להרחבה על חורבן ירושלים בימי הבית השני.",
+        "96PXvR8MJJY",
+        "כאן 11 - תאגיד השידור הישראלי",
+      ),
     ],
   },
   {
@@ -595,6 +602,12 @@ const subtopicsByVideoId: Record<string, VideoSubtopic> = {
     "teal",
   ),
   "jerusalem-myth-history-reality": subtopic(
+    "jerusalem",
+    "ירושלים לדורותיה",
+    "העיר, שכבותיה ואתרי המפתח שלה.",
+    "gold",
+  ),
+  "legend-of-destruction": subtopic(
     "jerusalem",
     "ירושלים לדורותיה",
     "העיר, שכבותיה ואתרי המפתח שלה.",
