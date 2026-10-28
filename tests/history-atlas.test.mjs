@@ -300,7 +300,7 @@ test("topics: each opens as a sound atlas of its own, with sourced ties and room
   // Columns: every figure has one, and two figures of one column never share a year.
   const bySlot=new Map();
   for(const n of C.nodes.filter(n=>n.kind==="person")){const s=C.slots[n.id];assert(s,where+n.id+" has no column");assert(C.groups.some(g=>g.id===s.group&&s.slot<g.slots),where+n.id);const key=s.group+s.slot;bySlot.set(key,[...(bySlot.get(key)??[]),n]);}
-  for(const [key,nodes] of bySlot){nodes.sort((a,b)=>a.from-b.from);for(let i=1;i<nodes.length;i++)assert(nodes[i].from>nodes[i-1].to,where+key+": "+nodes[i-1].id+" and "+nodes[i].id);}
+  for(const [key,nodes] of bySlot){nodes.sort((a,b)=>a.from-b.from);for(let i=1;i<nodes.length;i++)assert(nodes[i].from>=nodes[i-1].to&&nodes[i].from!==nodes[i-1].from,where+key+": "+nodes[i-1].id+" and "+nodes[i].id);}
   // The opening view of the topic: nothing overlaps, and parents stand above their children.
   const TS=timeScale(C),b={from:toV(TS,ordinal(C.contextFrom))-24,to:toV(TS,ordinal(C.contextTo)+1)+70};
   const home=fitRange(toV(TS,ordinal(C.from)),toV(TS,ordinal(C.to)+1),b,.015);
@@ -320,4 +320,37 @@ test("topics: each opens as a sound atlas of its own, with sourced ties and room
  const J=TOPICS.find(t=>t.id==="jesus").collection,tie=(f,to,kind)=>J.relations.some(r=>r.from===f&&r.to===to&&r.kind===kind);
  assert(tie("NT-01","P-063","parent")&&tie("NT-03","P-064","parent")&&tie("NT-04","P-064","parent")&&tie("P-063","NT-18","sibling"));
  const cross=J.nodes.find(n=>n.title.includes("הצליבה"));assert(cross&&J.illustrations[cross.id],"the crucifixion carries its drawing");
+});
+
+test("children stand below or beside their parents, never two columns away when a nearer column is free",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ for(const C of [H,...TOPICS.map(t=>t.collection)]){
+  const placed=C.nodes.filter(n=>n.kind==="person"&&C.slots[n.id]),width=g=>C.groups.find(x=>x.id===g)?.slots??0;
+  const free=(n,group,slot)=>placed.every(o=>o===n||C.slots[o.id].group!==group||C.slots[o.id].slot!==slot||(n.from!==o.from&&(n.from>=o.to||o.from>=n.to)));
+  for(const child of placed){
+   const own=C.slots[child.id],parents=C.relations.filter(r=>r.kind==="parent"&&r.to===child.id).map(r=>C.slots[r.from]).filter(p=>p&&p.group===own.group);
+   if(!parents.length||Math.min(...parents.map(p=>Math.abs(p.slot-own.slot)))<=1)continue;
+   const partners=C.relations.filter(r=>(r.kind==="sibling"||r.kind==="spouse")&&(r.from===child.id||r.to===child.id)).map(r=>C.slots[r.from===child.id?r.to:r.from]).filter(p=>p&&p.group===own.group);
+   const d=slot=>Math.min(...parents.map(p=>Math.abs(p.slot-slot)))+(partners.length?Math.min(...partners.map(p=>Math.abs(p.slot-slot))):0);
+   const sibs=C.relations.filter(r=>r.kind==="parent"&&r.to!==child.id&&C.relations.some(q=>q.kind==="parent"&&q.to===child.id&&q.from===r.from)).map(r=>C.slots[r.to]).filter(Boolean);
+   for(let slot=0;slot<width(own.group);slot++)if(d(slot)<d(own.slot)&&!sibs.some(x=>x.group===own.group&&x.slot===slot))assert(!free(child,own.group,slot),C.id+": "+child.id+" could stand nearer its parent, in column "+slot);
+  }
+ }
+ // The case the owner found: Samuel straight below his mother Hannah, on the axis and in the topics.
+ for(const C of [H,...TOPICS.filter(t=>["judges","prophets"].includes(t.id)).map(t=>t.collection)])assert.deepEqual(C.slots["F-20"],C.slots["F-19"],C.id+": Samuel under Hannah");
+ const J=TOPICS.find(t=>t.id==="judges").collection;
+ for(const id of ["F-12","F-13","F-14","F-15","F-17","F-18","F-19","F-20","JD-03","JD-06"])assert(J.nodes.some(n=>n.id===id),id);
+});
+
+test("a mother and her son in one column both show, the son straight below",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ const J=TOPICS.find(t=>t.id==="judges").collection;
+ for(const [C,from,to] of [[H,-1090,-1030],[J,-1230,-1000],[J,-1100,-1040]]){
+  const TS=timeScale(C),b={from:toV(TS,ordinal(C.contextFrom))-24,to:toV(TS,ordinal(C.contextTo)+1)+70};
+  for(const size of [desk,phone]){
+   const L=layoutTree(C,TS,fitRange(toV(TS,ordinal(from)),toV(TS,ordinal(to)),b,.04),size,{lane:size===desk});
+   const hannah=L.people.find(p=>p.node.id==="F-19"),samuel=L.people.find(p=>p.node.id==="F-20"),where=C.id+" "+from+" "+size.width+": ";
+   assert(hannah&&samuel,where+"both show");assert.equal(hannah.x,samuel.x,where+"one column");assert(hannah.bottom<=samuel.top,where+"the son below");
+  }
+ }
 });

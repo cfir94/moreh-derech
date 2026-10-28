@@ -133,6 +133,8 @@ try{
  // The menu in the bottom bar lists every topic.
  await page.locator('[data-atlas-topics] summary').click();await page.locator('[data-atlas-topic-item="prophets"]').click();await expect(atlas).toHaveAttribute("data-topic","prophets");
  for(const id of ["F-20","F-33","F-44"])await expect(page.locator(`[data-atlas-index="${id}"]`)).toHaveCount(1);
+ await page.locator('[data-atlas-topics] summary').click();await page.locator('[data-atlas-topic-item="judges"]').click();await expect(atlas).toHaveAttribute("data-topic","judges");
+ for(const id of ["F-14","F-17","JD-03"])await expect(page.locator(`[data-atlas-index="${id}"]`)).toHaveCount(1);
  await page.goto(base+"/timelines/history-atlas/#prophets/F-51",{waitUntil:"networkidle"});await expect(atlas).toHaveAttribute("data-topic","prophets");await expect(detail.locator("h2")).toContainText("ירמיהו");
  await detail.locator("[data-atlas-card-axis]").click();await expect(atlas).not.toHaveAttribute("data-topic",/.+/);await expect(detail.locator("h2")).toContainText("ירמיהו");
  await page.keyboard.press("Escape");

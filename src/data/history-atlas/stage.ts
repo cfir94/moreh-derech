@@ -201,11 +201,14 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   let chosen:Chosen[]=[];
   // Within a column, higher priority claims its years first; a figure without room shrinks to its portrait, then waits for a closer zoom.
   for(const [key,nodes] of columnsOf){
-   const [group,index]=key.split(":"),x=slotX(group,Number(index)),taken:{top:number;bottom:number}[]=[];
+   const [group,index]=key.split(":"),x=slotX(group,Number(index)),taken:{id:string;top:number;bottom:number}[]=[];
+   // A parent and its child in one column (Hannah and Samuel) never crowd each other out: the child is pushed
+   // below the parent by the family rule further down, as far as a figure may come late.
+   const kin=(a:string,b:string)=>collection.relations.some(r=>r.kind==="parent"&&((r.from===a&&r.to===b)||(r.from===b&&r.to===a)));
    for(const n of nodes.sort(byPriority)){
     const at=yearY(n.from);
-    const fit=(["full","compact"] as const).map(mode=>{const {r,h}=sizeOf(mode),top=at-r-2;return {mode,r,h,top,bottom:top+h};}).find(f=>taken.every(p=>f.bottom+GAP.column<=p.top||f.top>=p.bottom+GAP.column));
-    if(fit){taken.push(fit);chosen.push({node:n,key,x,at,mode:fit.mode,r:fit.r,h:fit.h,t:fit.top});}
+    const fit=(["full","compact"] as const).map(mode=>{const {r,h}=sizeOf(mode),top=at-r-2;return {mode,r,h,top,bottom:top+h};}).find(f=>taken.every(p=>kin(p.id,n.id)||f.bottom+GAP.column<=p.top||f.top>=p.bottom+GAP.column));
+    if(fit){taken.push({id:n.id,...fit});chosen.push({node:n,key,x,at,mode:fit.mode,r:fit.r,h:fit.h,t:fit.top});}
     else hiddenPeople.push({id:n.id,y:at,key});
    }
   }
