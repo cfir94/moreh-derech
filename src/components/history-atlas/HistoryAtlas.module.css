@@ -82,6 +82,8 @@
 .tick::before{content:"";position:absolute;left:0;top:-.5px;width:7px;height:1px;background:var(--a-axis)}
 .tick b{position:absolute;right:0;top:-8px;display:flex;flex-direction:column;align-items:flex-end;font-size:12px;font-weight:800;line-height:1;color:var(--a-ink);white-space:nowrap}
 .tick b small{font-size:9px;font-weight:700;color:var(--a-dim)}
+/* Deep time ("500 אלף", "1.5 מיל׳") is wider than a year, so it is set a size smaller to fit the ruler. */
+.tick b[data-deep]{font-size:10px}
 .spine{top:48px;bottom:0;z-index:3;width:2px;margin-left:-1px;background:linear-gradient(180deg,var(--a-axis),color-mix(in srgb,var(--a-axis) 40%,transparent));opacity:.5}
 .dot{z-index:4;width:8px;height:8px;margin:-4px 0 0 -4px;padding:0;border:0;border-radius:50%;background:var(--pc);box-shadow:0 0 0 2px var(--a-bg);opacity:.75;transition:scale .3s,opacity .3s}
 .dot::after{content:"";position:absolute;inset:-8px;border-radius:50%}
@@ -396,6 +398,7 @@
  .tick{left:6px;right:20px}
  .tick b{font-size:11px}
  .tick b small{font-size:8.5px}
+ .tick b[data-deep]{font-size:9.5px}
  .hint{max-width:calc(100% - 24px);bottom:10px}
  .hint span{font-size:11px;padding:5px 9px}
 }

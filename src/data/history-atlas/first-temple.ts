@@ -21,10 +21,10 @@ import type {AtlasImage,AtlasNode,AtlasPhase,AtlasRelation,AtlasSlot} from "./ty
  */
 
 export const EARLY_PHASES:AtlasPhase[]=[
- {id:"early-bronze",title:"ברונזה קדומה",from:-3300,to:-2300,note:"ערים ראשונות בכנען",pace:.06},
- {id:"intermediate-bronze",title:"ברונזה ביניימית",from:-2300,to:-2000,note:"התמוטטות הערים",pace:.08},
- {id:"middle-bronze",title:"ברונזה תיכונה",from:-2000,to:-1550,note:"ערי מדינה כנעניות · תקופת האבות במסורת",pace:.16,featured:["FT-01","F-01"]},
- {id:"late-bronze",title:"ברונזה מאוחרת",from:-1550,to:-1200,note:"השלטון המצרי בכנען",pace:.3,featured:["EC-merneptah","F-08"]},
+ {id:"early-bronze",title:"ברונזה קדומה",from:-3500,to:-2200,note:"הערים הראשונות והכתב",pace:.06,featured:["BR-01","BR-03"]},
+ {id:"intermediate-bronze",title:"ברונזה ביניימית",from:-2200,to:-2000,note:"ההפסקה העירונית: רועים ודולמנים",pace:.08,featured:["BR-07"]},
+ {id:"middle-bronze",title:"ברונזה תיכונה",from:-2000,to:-1550,note:"ערי מדינה כנעניות · תקופת האבות במסורת",pace:.16,featured:["BR-08","F-01","BR-13"]},
+ {id:"late-bronze",title:"ברונזה מאוחרת",from:-1550,to:-1200,note:"השלטון המצרי בכנען",pace:.3,featured:["EC-merneptah","F-08","B-06"]},
  {id:"iron1",title:"ברזל א׳ — השופטים",from:-1200,to:-1000,note:"ההתנחלות, השופטים ושאול",pace:.6,featured:["FT-05","F-21"]},
  {id:"united",title:"הממלכה המאוחדת",from:-1000,to:-928,note:"דוד ושלמה",featured:["FT-07","F-23","F-24"]},
  {id:"divided",title:"ישראל ויהודה",from:-928,to:-732,note:"שתי ממלכות מול ארם ואשור",featured:["FT-08","FT-11","F-31"]},

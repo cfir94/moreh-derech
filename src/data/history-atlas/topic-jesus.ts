@@ -80,6 +80,8 @@ const FIGURES:Figure[]=[
  {id:"NT-19",source:"paul",from:34,to:62,rank:1,group:"voices",events:["tl5_ev3","tl5_ev5","tl5_ev7","tl5_ev8"]},
  {id:"NT-20",source:"caiaphas",from:18,to:36,rank:1,group:"powers",events:["tl3_ev6"]},
  {id:"NT-21",source:"tiberius",from:14,to:37,rank:2,group:"powers",events:[],title:"טיבריוס"},
+ {id:"NT-22",source:"mark",from:44,to:62,rank:2,group:"voices",events:[]},
+ {id:"NT-23",source:"luke",from:49,to:62,rank:2,group:"voices",events:["tl5_ev8"]},
 ];
 const year=(y:number)=>y<0?`${Math.ceil(-y)} לפנה״ס`:`${Math.floor(y)} לספירה`;
 export const JESUS_PEOPLE:AtlasNode[]=FIGURES.map(f=>{
@@ -132,6 +134,7 @@ export const JESUS_TIES:Kinship[]=[
  {from:"NT-21",to:"P-062",label:"הקיסר בימי פילאטוס",kind:"patron",quote:"שלטתי ברומא בזמן שפילאטוס ניהל את יהודה"},
  {from:"NT-07",to:"NT-19",label:"ועידת השליחים",kind:"contact",quote:"ועידת השליחים"},
  {from:"NT-18",to:"NT-19",label:"ההכרעה על קבלת גויים",kind:"contact",quote:"השתתפתי בהכרעה על התנאים לקבלת גויים לקהילה"},
+ {from:"NT-23",to:"NT-19",label:"ליווה אותו במסעותיו",kind:"contact",quote:"הייתי רופא שנלווה למסעות פאולוס"},
  {from:"NT-05",to:"P-063",label:"בירך את התינוק במקדש",kind:"contact",quote:"אחזתי בתינוק שהובא למקדש"},
  {from:"NT-06",to:"P-063",label:"הודתה כשהובא למקדש",kind:"contact",quote:"הודיתי לאל כשהובא לשם התינוק"},
 ];

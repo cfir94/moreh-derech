@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useRef,useState,type CSSProperties,type KeyboardEvent,type PointerEvent} from "react";
-import {HEADER,panBy,shortName,zoomAround,type AtlasCollection,type AtlasNode,type AtlasWindow,type Cluster,type TreeLayout} from "@/data/history-atlas";
+import {HEADER,panBy,shortName,spanLabel,yearParts,zoomAround,type AtlasCollection,type AtlasNode,type AtlasWindow,type Cluster,type TreeLayout} from "@/data/history-atlas";
 import type {Camera} from "./useCamera";
 import {Face,tint} from "./shared";
 import s from "./HistoryAtlas.module.css";
@@ -14,7 +14,7 @@ type Props={
  onResize:(size:{width:number;height:number})=>void;onKeyDown:(event:KeyboardEvent<HTMLDivElement>)=>void;onInteract:()=>void;
 };
 
-export const spanLabel=(from:number,to:number)=>from<0&&to<0?`${-from}–${-to} לפנה״ס`:from>0?`${from}–${to} לספירה`:`${-from} לפנה״ס–${to} לספירה`;
+export {spanLabel};
 const LEGEND=[["parent","הורה וילד"],["grandparent","סב ונכד (דילוג על דור)"],["spouse","בני זוג"],["succession","רצף הנהגה"],["sibling","אחים"]] as const;
 
 export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,chips,onTopic,onOpen,onCluster,onPhase,onPan,onLane,onResize,onKeyDown,onInteract}:Props){
@@ -129,7 +129,7 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
 
   <div className={s.ruler} style={{width:L.rulerW}}>
    {L.bands.map(b=>{const top=clipY(b.top),h=clipY(b.bottom)-top;return h>2&&<button key={b.phase.id} type="button" className={s.period} data-atlas-phase={b.phase.id} style={{...tint(b.phase.id,b.index),top,height:h,"--h":h-16+"px"} as CSSProperties} aria-label={`התקרבות אל ${b.phase.title}`} title={`${b.phase.title} · ${spanLabel(b.phase.from,b.phase.to)}`} onClick={()=>onPhase(b.phase.id)}>{h>90&&<span>{b.phase.title}</span>}</button>;})}
-   {L.ticks.map(t=><span key={t.year} className={s.tick} style={{top:t.y}}><b>{Math.abs(t.year)}<small>{t.year<0?"לפנה״ס":"לספירה"}</small></b></span>)}
+   {L.ticks.map(t=>{const p=yearParts(t.year);return <span key={t.year} className={s.tick} style={{top:t.y}}><b data-deep={p.deep||undefined}>{p.n}<small>{p.era}</small></b></span>;})}
   </div>
   <span className={s.spine} style={{left:L.spine}} aria-hidden/>
   {L.dots.filter(d=>d.y1-d.y>3).map(d=><i key={"span-"+d.id} className={s.span} data-on={d.id===selected||focus.has(d.id)||undefined} style={{...tint(d.phase),left:L.spine,top:d.y,height:d.y1-d.y}} aria-hidden/>)}
