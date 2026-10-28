@@ -1,4 +1,4 @@
-import {clampWindow,historical,ordinal,yearLabel} from "./time";
+import {DEEP_TIME,bpOf,clampWindow,fromBP,historical,ordinal,yearLabel} from "./time";
 import type {AtlasCollection,AtlasIllustration,AtlasLevel,AtlasNode,AtlasPhase,AtlasRelationKind,AtlasWindow} from "./types";
 
 /*
@@ -54,8 +54,8 @@ export function fitWithRoom(from:number,to:number,bounds:AtlasWindow,usable:numb
  const start=from-ROOM.top/Math.max(1,usable)*span;
  return clampWindow({from:start,to:start+span},bounds,MIN_SPAN);
 }
-/** Camera bounds with room past both ends of the axis, enough for `fitWithRoom` and for scrolling the last items clear. */
-export function roomyBounds(from:number,to:number){const pad=Math.max(60,(to-from)*.25);return {from:from-pad,to:to+pad};}
+/** Camera bounds with room past both ends of the axis, enough for `fitWithRoom` and for scrolling the last items clear — but not a screenful of empty years (the opening view widens them where it needs to, `withHome`). */
+export function roomyBounds(from:number,to:number){const pad=Math.max(60,Math.min(400,(to-from)*.25));return {from:from-pad,to:to+pad};}
 export function fitRange(from:number,to:number,bounds:AtlasWindow,pad=.06){const span=Math.max(MIN_SPAN,to-from);return clampWindow({from:from-span*pad,to:to+span*pad},bounds,MIN_SPAN);}
 /** Interpolates the centre linearly and the span geometrically, so a long zoom feels even. */
 export function lerpView(a:AtlasWindow,b:AtlasWindow,t:number):AtlasWindow{
@@ -135,7 +135,7 @@ export type TreeLayout={
 /** `lane` opens the event titles; `pan` moves the tree sideways when it is wider than its area (left out, the first group is centred). */
 export type TreeOptions={lane?:boolean;selected?:string|null;focus?:Set<string>;pan?:number};
 
-const STEPS=[1,2,5,10,20,25,50,100,200,500];
+const STEPS=[1,2,5,10,20,25,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000];
 /** Height of the row of column titles at the top of the stage. */
 export const HEADER=48;
 /** A full figure is a portrait with its name below in up to two lines; a compact one, a smaller portrait and one line. */
@@ -170,22 +170,26 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const shift=Math.max(0,Math.min(panMax,pan??(first?room/2-(peopleRight-first.slots/2*slotW):0)));
  const offsets=new Map<string,number>();
  let offset=0;
+ // The phase at the top of the view names the columns (a group may have older names, `ages`).
+ const current=scale.segments.find(s=>y(s.end)>header+8)??null;
  const columns:ColumnHead[]=collection.groups.map(g=>{
   offsets.set(g.id,offset);
-  const right=peopleRight-offset+shift,head={id:g.id,title:g.title,note:g.note,left:right-g.slots*slotW,right};
+  const age=current?g.ages?.find(a=>current.phase.from<a.until):undefined;
+  const right=peopleRight-offset+shift,head={id:g.id,title:age?.title??g.title,note:age?.note??g.note,left:right-g.slots*slotW,right};
   offset+=g.slots*slotW+groupGap;return head;
  });
  const slotX=(group:string,slot:number)=>peopleRight-(offsets.get(group)??0)-slot*slotW-slotW/2+shift;
 
  const bands=scale.segments.map(s=>({phase:s.phase,index:s.index,top:y(s.start),bottom:y(s.end)})).filter(b=>b.bottom>header&&b.top<height);
- const current=scale.segments.find(s=>y(s.end)>header+8)??null;
 
  // The ruler: a step per phase that leaves room for a label, never a year 0.
  const ticks:Tick[]=[];
  for(const s of scale.segments){
   const top=y(s.start),bottom=y(s.end);if(bottom<header-20||top>height+20)continue;
   const perYear=(bottom-top)/(s.to-s.from),step=STEPS.find(n=>n*perYear>=30)??STEPS[STEPS.length-1];
-  for(let year=Math.ceil(historical(s.from)/step)*step;year<=historical(s.to-1);year+=step){
+  // In prehistory the round numbers are of years before the present (500,000, 250,000…), not of years BCE.
+  const deep=historical(s.from)<=DEEP_TIME,first=deep?fromBP(Math.floor(bpOf(historical(s.from))/step)*step):Math.ceil(historical(s.from)/step)*step;
+  for(let year=first;year<=historical(s.to-1);year+=step){
    const at=ordinal(year);if(year===0||at<s.from||at>=s.to)continue;
    const ty=yearY(at);if(ty>=header-10&&ty<=height+10)ticks.push({year,y:ty,label:yearLabel(year)});
   }

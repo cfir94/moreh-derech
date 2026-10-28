@@ -26,8 +26,12 @@ try{
  const atlas=page.locator("[data-history-atlas]"),stage=page.locator("[data-atlas-chart]"),detail=page.locator("[data-atlas-detail]"),range=page.locator("[data-atlas-range]");
  const rangeText=()=>range.textContent(),node=id=>page.locator(`[data-atlas-node="${id}"]`);
  await expect(page.getByRole("heading",{name:"אטלס הזמן",exact:true})).toBeVisible();await expect(atlas).toHaveAttribute("data-level","overview");
- // The page opens at the top of the axis, the Bronze Age, zoomed close enough that the wheel walks down through the periods.
- for(const id of ["F-01","F-10","EC-merneptah"])await expect(node(id)).toHaveCount(1);
+ // The page opens at the top of the axis, the first humans, zoomed close enough that the wheel walks down through the periods.
+ // The ruler counts in years before the present there, and the leaders' column holds the human species.
+ for(const id of ["H-02","H-03","PH-02","PH-05"])await expect(node(id)).toHaveCount(1);
+ await expect(page.locator('[data-group="judea"]')).toContainText("מיני האדם");
+ await expect(page.locator('[data-atlas-topic-chip="prehistory"]')).toHaveCount(1);
+ await expect(stage).toContainText("לפני זמננו");
  expect(await page.locator(".legend, details:has(> summary[aria-label=\"מקרא\"])").first().evaluate(el=>Boolean(el.closest("footer")))).toBe(true);
  const box=await stage.boundingBox(),startRange=await rangeText();
  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);

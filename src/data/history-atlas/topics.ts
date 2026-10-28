@@ -6,6 +6,8 @@ import {withBio} from "./bios";
 import {JESUS_AXIS_EVENTS,JESUS_EVENTS,JESUS_FROM_AXIS,JESUS_GROUP_OF,JESUS_PEOPLE,JESUS_PHASES,JESUS_TIES,jesusEvent} from "./topic-jesus";
 import {PROPHET_EVENTS,PROPHET_PEOPLE,PROPHET_SCENES} from "./topic-prophets";
 import {JUDGE_EVENTS,JUDGE_PEOPLE,JUDGE_SCENES} from "./topic-judges";
+import {PREHISTORY_EVENTS,PREHISTORY_GROUP_OF,PREHISTORY_GROUPS,PREHISTORY_PEOPLE,PREHISTORY_PHASES} from "./prehistory";
+import {BRONZE_EVENTS,BRONZE_PEOPLE} from "./bronze";
 import type {Kinship} from "./kinship";
 import type {AtlasCollection,AtlasGroup,AtlasNode,AtlasPhase,AtlasSlot} from "./types";
 
@@ -16,8 +18,8 @@ import type {AtlasCollection,AtlasGroup,AtlasNode,AtlasPhase,AtlasSlot} from "./
  * it — until it is closed again. A topic is an ordinary AtlasCollection, so
  * the same stage, card and tests work inside it.
  *
- * Most topics are cut from the main axis (the Hasmonean revolt, Herod's
- * house); two add material of their own from the site: Jesus' life
+ * Most topics are cut from the main axis (prehistory, the Bronze Age, the
+ * Hasmonean revolt, Herod's house); three add material of their own from the site: Jesus' life
  * (topic-jesus.ts), the judges (topic-judges.ts) and the First Temple
  * prophets (topic-prophets.ts).
  */
@@ -82,32 +84,47 @@ const jesus:Spec={
 };
 const prophets:Spec={
  id:"prophets",title:"נביאי בית ראשון",note:"שמואל, אליהו ואלישע, ישעיהו וירמיהו — והמלכים שמולם",from:-1070,to:-586,
- events:PROPHET_EVENTS,people:PROPHET_PEOPLE,extra:PROPHET_SCENES,drawings:{...same(["FT-20","ST-002"]),"ST-004":"ST-004"},
+ events:PROPHET_EVENTS,people:[...PROPHET_PEOPLE,"I-01"],extra:PROPHET_SCENES,drawings:{...same(["FT-20","ST-002"]),"ST-004":"ST-004"},
 };
 const judges:Spec={
  id:"judges",title:"תקופת השופטים",note:"מיהושע ועד שאול: עתניאל, אהוד, דבורה, גדעון, שמשון, עלי ושמואל",from:-1230,to:-1000,
  // The book's years are spread evenly here; on the main axis this age is drawn at a slower pace.
  phases:[{id:"late-bronze",title:"הכניסה לארץ",from:-1230,to:-1200,note:"יהושע וההתנחלות"},{id:"iron1",title:"ימי השופטים",from:-1200,to:-1000,note:"מעתניאל ועד שמואל ושאול"}],
- events:JUDGE_EVENTS,people:JUDGE_PEOPLE,extra:JUDGE_SCENES,drawings:{"FT-06":"FT-06"},
+ events:[...JUDGE_EVENTS,"IR-01","IR-02","IR-03"],people:JUDGE_PEOPLE,extra:JUDGE_SCENES,drawings:{"FT-06":"FT-06"},
+};
+const ids=(nodes:AtlasNode[])=>nodes.map(n=>n.id);
+const prehistory:Spec={
+ id:"prehistory",title:"האדם הקדום",note:"מיני האדם, האש, הקבורה הראשונה, הנטופים והמהפכה החקלאית",from:PREHISTORY_PHASES[0].from,to:-3500,
+ events:ids(PREHISTORY_EVENTS),people:ids(PREHISTORY_PEOPLE),groups:PREHISTORY_GROUPS,groupOf:PREHISTORY_GROUP_OF,
+};
+/** The main axis's phases between two years, with paces of the topic's own (the axis draws the long early ages slowly). */
+const clip=(from:number,to:number,pace:Record<string,number>)=>H.phases.filter(p=>p.from<to&&p.to>from).map(p=>({...p,from:Math.max(p.from,from),to:Math.min(p.to,to),featured:undefined,context:undefined,pace:pace[p.id]??p.pace}));
+const bronze:Spec={
+ id:"bronze",title:"כנען בתקופת הברונזה",note:"הערים הראשונות, ערי המדינה הכנעניות, השלטון המצרי והקריסה",from:-3500,to:-1140,
+ phases:clip(-3500,-1140,{"early-bronze":.16,"intermediate-bronze":.35,"middle-bronze":.4,"late-bronze":.55,iron1:1}),
+ events:[...ids(BRONZE_EVENTS),"FT-01","FT-02","EC-megiddo","EC-amenhotep","EC-amarna","EC-ramses","EC-exodus","EC-merneptah","EC-highlands"],
+ people:[...ids(BRONZE_PEOPLE),"F-01","F-02","F-03","F-04","F-05","F-06","F-07","F-08","F-09","F-10","F-11"],
 };
 const TOPIC_SPECS:Spec[]=[
+ prehistory,
+ bronze,
  judges,
  prophets,
  {id:"return",title:"שיבת ציון",note:"מהצהרת כורש ועד עזרא ונחמיה",from:-539,to:-400,
-  events:range("ST-",6,16),people:["P-008","P-009","P-011","P-013","P-014","P-015","P-016","P-017","P-018"],drawings:same(["ST-007","ST-012","ST-015"])},
+  events:[...range("ST-",6,16),"SE-01","SE-02","SE-03"],people:["P-008","P-009","P-010","P-011","P-013","P-014","P-015","P-016","P-017","P-018","M-02","M-03"],drawings:same(["ST-007","ST-012","ST-015"])},
  {id:"hasmonean",title:"מרד החשמונאים",note:"מן הגזרות ועד עצמאות יהודה",from:-175,to:-134,
   events:range("ST-",24,41),people:["P-027","P-028","P-029","P-030","P-031","P-032","P-033","P-035","P-036","P-037","P-038","P-039","P-040","P-041"],drawings:same(["ST-028","ST-033"])},
  {id:"herod",title:"בית הורדוס",note:"מכיבוש פומפיוס ועד אגריפס",from:-67,to:44,
-  events:[...range("ST-",48,63),"ST-069"],people:["P-045","P-046","P-047","X-01","P-048","P-049","P-050","P-051","P-052","P-053","P-054","P-055","P-056","P-057","P-058","P-059","P-060","P-065","P-066"],drawings:same(["ST-049","ST-055","ST-057","ST-058"])},
+  events:[...range("ST-",48,63),"ST-069"],people:["P-045","P-046","P-047","X-01","P-048","P-049","P-050","P-051","P-052","P-053","P-054","P-055","P-056","P-057","P-058","P-059","P-060","P-065","P-066","M-04"],drawings:same(["ST-049","ST-055","ST-057","ST-058"])},
  jesus,
  {id:"revolt",title:"המרד הגדול",note:"מקיסריה ועד מצדה",from:64,to:74,
-  events:[...range("ST-",71,85),"ST-089","RO-020","RO-021"],people:["P-067","P-069","P-071","P-072","P-073","P-074","P-075","P-076","L-01"],drawings:same(["ST-080","ST-082","ST-085","RO-020","RO-021"])},
+  events:[...range("ST-",71,85),"ST-089","RO-020","RO-021"],people:["P-067","P-069","P-071","P-072","P-073","P-074","P-075","P-076","L-01","M-05","M-06"],drawings:same(["ST-080","ST-082","ST-085","RO-020","RO-021"])},
  {id:"bar-kokhba",title:"מרד בר כוכבא",note:"מטריאנוס ועד גזרות השמד",from:98,to:138,
-  events:range("RO-",26,34),people:["L-02","L-03","L-04","L-05","L-06"],drawings:same(["RO-026","RO-030","RO-031","RO-033"])},
+  events:range("RO-",26,34),people:["L-02","L-03","L-04","L-05","L-06","M-07","M-08"],drawings:same(["RO-026","RO-030","RO-031","RO-033"])},
  {id:"sages",title:"החכמים: מיבנה ועד התלמוד",note:"יבנה, אושא, המשנה, טבריה והתלמוד הירושלמי",from:70,to:430,
-  events:["RO-020","RO-025","RO-035","RO-036","RO-042","BY-009","BY-018","BY-019","BY-021"],people:["L-01","L-02","L-06","L-07","L-04","L-08","L-20"],drawings:same(["RO-020","RO-036"])},
+  events:["RO-020","RO-025","RO-035","RO-036","RO-042","BY-009","BY-018","BY-019","BY-021"],people:["L-01","L-02","L-06","L-07","L-04","L-08","L-20","M-08","M-09","M-16","M-17"],drawings:same(["RO-020","RO-036"])},
  {id:"christian",title:"האימפריה הנוצרית",note:"מקונסטנטינוס ועד ועידת חלקדון: כנסיות, צליינים ונזירים",from:303,to:452,
-  events:[...range("RO-",45,48),...range("BY-",2,24)],people:["L-13","L-14","L-15","L-16","L-17","L-18","L-19","L-20","L-21","L-22"],drawings:same(["RO-046","RO-047","BY-002","BY-003","BY-007","BY-011"])},
+  events:[...range("RO-",45,48),...range("BY-",2,24)],people:["L-13","L-14","L-15","L-16","L-17","L-18","L-19","L-20","L-21","L-22","M-10","M-11","M-12","M-13","M-14","M-15","M-18"],drawings:same(["RO-046","RO-047","BY-002","BY-003","BY-007","BY-011"])},
  {id:"justinian",title:"מיוסטיניאנוס ועד הכיבוש",note:"ימי הזוהר, הפרסים והכיבוש המוסלמי",from:474,to:641,
   events:range("BY-",26,45),people:["L-23","L-24","L-25","L-26","L-27","L-28"],drawings:same(["BY-026","BY-031","BY-033","BY-036","BY-039","BY-041","BY-043","BY-044"])},
 ];

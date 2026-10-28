@@ -185,7 +185,7 @@ test("portraits and illustrations have provenance and exist",()=>{
  for(const [id,art] of Object.entries(C.illustrations)){assert(byId.get(id)?.kind==="event",id);assert(art.alt&&art.caption.includes("המחשה"));assert(existsSync(new URL("../public"+art.src.replace("/moreh-derech",""),import.meta.url)),art.src);}
 });
 
-test("the whole axis: the Bronze Age and the First Temple before, Rome and Byzantium after",async()=>{
+test("the whole axis: prehistory, the Bronze Age and the First Temple before, Rome and Byzantium after",async()=>{
  const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
  const {LATE_RELATIONS}=await import("../src/data/history-atlas/late-antiquity.ts");
  const {EARLY_RELATIONS}=await import("../src/data/history-atlas/first-temple.ts");
@@ -203,7 +203,8 @@ test("the whole axis: the Bronze Age and the First Temple before, Rome and Byzan
  for(const r of LATE_RELATIONS.filter(r=>["parent","grandparent","spouse","sibling"].includes(r.kind)))assert(r.quote&&text.includes(r.quote),r.from+"-"+r.to);
  // Before the return, every tie quotes the course text (Who Am I?, Egypt–Canaan) that states it.
  for(const r of EARLY_RELATIONS)assert(r.quote&&early.includes(r.quote),r.from+"-"+r.to+": "+r.quote);
- assert.equal(H.phases[0].from,-3300,"the axis opens with the Early Bronze Age");
+ assert.equal(H.phases[0].id,"human-origins","the axis opens with the first humans");
+ assert.equal(H.phases.find(p=>p.id==="early-bronze").from,-3500,"the Early Bronze Age begins in 3500 BCE, as the course now dates it");
  for(const id of ["F-01","F-09","F-21","F-23","F-24","F-31","F-47","F-54","EC-merneptah","FT-07","FT-20"])assert(all.has(id),id);
  for(const id of ["F-01","F-08","F-23","F-24","F-29","F-30","F-40","F-45"])assert(H.relations.some(r=>r.kind==="parent"&&r.from===id),id+" is a parent");
  for(const r of H.relations)assert(all.has(r.from)&&all.has(r.to),r.from+"-"+r.to);
@@ -258,13 +259,78 @@ test("the family tree: every tie the sources state is drawn, with its source",as
  assert(a&&b&&a.bottom<=b.top,"the mother stands above her son");
 });
 
+test("prehistory and the Bronze Age: in years before the present, with their own events and column names",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS,yearLabel,yearParts,spanLabel,fromBP}=await import("../src/data/history-atlas/index.ts");
+ const {PREHISTORY_PHASES,PREHISTORY_TIES}=await import("../src/data/history-atlas/prehistory.ts");
+ const {BRONZE_TIES}=await import("../src/data/history-atlas/bronze.ts");
+ const {IRON_TIES}=await import("../src/data/history-atlas/iron.ts");
+ // The course counts prehistory in years before the present, and the Neolithic also in years BCE (11,500 = 9,500 BCE).
+ assert.equal(yearLabel(fromBP(790000)),"790,000 שנה לפני זמננו");
+ assert.equal(yearLabel(fromBP(1800000)),"1.8 מיליון שנה לפני זמננו");
+ assert.equal(yearLabel(fromBP(11500)),"9500 לפנה״ס");
+ assert.deepEqual(yearParts(fromBP(250000)),{n:"250 אלף",era:"לפני זמננו",deep:true});
+ assert.deepEqual(yearParts(fromBP(1500000)),{n:"1.5 מיל׳",era:"לפני זמננו",deep:true});
+ assert.deepEqual(yearParts(-586),{n:"586",era:"לפנה״ס"});
+ assert.equal(spanLabel(fromBP(50000),fromBP(20000)),"50,000–20,000 שנה לפני זמננו");
+ const all=new Map(H.nodes.map(n=>[n.id,n])),phase=new Map(H.phases.map(p=>[p.id,p]));
+ // Every new item sits in the phase of its own years, says something, and every age has a turning point seen from afar.
+ for(const n of H.nodes.filter(n=>/^(PH|BR|IR|H|B|I)-/.test(n.id))){
+  const p=phase.get(n.phase),year=historical(n.from);
+  assert(p&&year>=p.from&&year<p.to,n.id+" sits in "+n.phase);
+  assert(n.summary.length>=120,n.id+" says what it was");
+ }
+ for(const p of [...PREHISTORY_PHASES.map(p=>p.id),"early-bronze","intermediate-bronze","middle-bronze","late-bronze"])
+  assert(H.nodes.some(n=>n.phase===p&&n.kind==="event"&&n.rank===1),p+" has a rank-1 event");
+ for(const id of ["PH-04","PH-05","PH-19","PH-22","PH-23","PH-27","BR-01","BR-09","BR-12","BR-13","BR-15","BR-23","IR-04","IR-12","H-05","B-06","I-01"])assert(all.has(id),id);
+ // Ties: the Bronze Age ones quote the course's Bronze Age quiz; the others name their source.
+ const quiz=readFileSync(new URL("../src/data/quizzes/bronze-age.ts",import.meta.url),"utf8");
+ for(const r of BRONZE_TIES)assert(quiz.includes(r.quote),r.from+"-"+r.to+": "+r.quote);
+ const iron=readFileSync(new URL("../src/data/quizzes/iron-age.ts",import.meta.url),"utf8");
+ for(const r of [...PREHISTORY_TIES,...IRON_TIES]){assert(/«.+»|\d/.test(r.cite),r.from+"-"+r.to);const q=r.cite.match(/שאלון תקופת הברזל: «([^»]+)»/);if(q)assert(iron.includes(q[1]),q[1]);}
+ for(const r of [...PREHISTORY_TIES,...BRONZE_TIES,...IRON_TIES])assert(H.relations.some(x=>x.from===r.from&&x.to===r.to),r.from+"-"+r.to+" is drawn");
+ // The ruler counts back in round thousands, and the columns are named for the age at the top of the view.
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const at=(from,to)=>layoutTree(H,HS,fitRange(toV(HS,ordinal(from)),toV(HS,ordinal(to)),hb,.04),desk);
+ const middle=at(fromBP(250000),fromBP(50000));
+ assert(middle.ticks.length>=3&&middle.ticks.every(t=>t.label.endsWith("שנה לפני זמננו")&&(2000-t.year)%1000===0),middle.ticks.map(t=>t.label).join(" | "));
+ assert.equal(middle.columns[0].title,"מיני האדם");
+ assert(middle.people.some(p=>p.node.id==="H-04")&&middle.people.some(p=>p.node.id==="H-05"),"the Neanderthal and the modern human, side by side");
+ assert.equal(at(-1400,-1300).columns[0].title,"כנען והאבות");
+ assert.equal(at(-1400,-1300).columns[2].title,"מצרים והמעצמות");
+ assert.equal(at(-170,-130).columns[0].title,"ההנהגה היהודית");
+ for(const id of ["prehistory","bronze"])assert(TOPICS.some(t=>t.id===id),id+" topic");
+});
+
+test("coverage: the course's missing figures and Second Temple finds are on the axis, each tie with its source",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ const {ADDED_TIES}=await import("../src/data/history-atlas/additions.ts");
+ const all=new Map(H.nodes.map(n=>[n.id,n]));
+ const text=["../src/data/who-am-i/people.json","../src/data/roman/index.ts","../src/data/byzantine/index.ts"].map(f=>readFileSync(new URL(f,import.meta.url),"utf8")).join("\n");
+ for(const r of ADDED_TIES){
+  assert(r.quote||r.cite,r.from+"-"+r.to);
+  if(r.quote)assert(text.includes(r.quote),r.from+"-"+r.to+": "+r.quote);else assert(/«.+»|\d/.test(r.cite),r.from+"-"+r.to+": "+r.cite);
+  assert(all.has(r.from)&&all.has(r.to),r.from+"-"+r.to);
+ }
+ // Figures of "Who Am I?" and of the era timelines that the atlas lacked.
+ for(const [id,title] of [["M-02","אסתר"],["M-03","מרדכי"],["M-04","קלאודיוס"],["M-05","נירון"],["M-06","אלעזר בן יאיר"],["M-09","שמעון בר יוחאי"],["M-11","ליקיניוס"],["M-12","אוזביוס"],["M-17","גמליאל השישי"]])assert(all.get(id)?.title.includes(title),id);
+ // Xerxes, the proposed Ahasuerus, now stands in his years, between his father and his son.
+ const xerxes=all.get("P-010");assert(isPlaced(xerxes)&&historical(xerxes.from)===-486,"Xerxes is placed");
+ assert(H.relations.some(r=>r.from==="P-009"&&r.to==="P-010"&&r.kind==="parent")&&H.relations.some(r=>r.from==="P-010"&&r.to==="P-011"&&r.kind==="parent"));
+ // The notebook's finds and processes, each in the phase of its years.
+ for(const id of ["SE-01","SE-02","SE-07","SE-08","SE-09","SE-10"]){const n=all.get(id),p=H.phases.find(p=>p.id===n.phase);assert(p&&historical(n.from)>=p.from&&historical(n.from)<p.to,id);}
+ // Mark and Luke in the dimension of Jesus' life.
+ const J=TOPICS.find(t=>t.id==="jesus").collection;
+ for(const id of ["NT-22","NT-23"])assert(J.nodes.some(n=>n.id===id),id);
+});
+
 test("the figures are told about in the third person",async()=>{
  const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
  const {EARLY_SOURCES}=await import("../src/data/history-atlas/first-temple.ts");
  const {TOLD}=await import("../src/data/history-atlas/told.ts");
  for(const source of Object.values(EARLY_SOURCES))assert(TOLD[source],source+" has no third-person summary");
  // The first person of the game's clues: "אני", "הייתי", "שלי", or a past verb ending in תי with no subject of its own.
- const first=/(^|[\s,;.(])(אני|הייתי|שלי|אותי|עליי|ממני|בניי|אשתי|בעלי|עריי|מלכתי|בניתי|כבשתי|יצאתי|נולדתי|קיבלתי|ייסדתי|עליתי|נשאתי|נקברתי|התפללתי|נשלחתי|ניבאתי|הנהגתי|משחתי|הוכחתי|הזהרתי|מרדתי|הרגתי)(?=[\s,;.:)]|$)/;
+ // "בעלי" is "my husband", not "בעלי חיים" (animals) or "בעלי מקצוע" (craftsmen).
+ const first=/(^|[\s,;.(])(אני|הייתי|שלי|אותי|עליי|ממני|בניי|אשתי|בעלי(?! (?:חיים|מקצוע|מלאכה))|עריי|מלכתי|בניתי|כבשתי|יצאתי|נולדתי|קיבלתי|ייסדתי|עליתי|נשאתי|נקברתי|התפללתי|נשלחתי|ניבאתי|הנהגתי|משחתי|הוכחתי|הזהרתי|מרדתי|הרגתי)(?=[\s,;.:)]|$)/;
  for(const n of H.nodes)for(const text of [n.summary,...n.fields.map(f=>f.text)])assert(!first.test(text),n.id+": "+text.slice(0,80));
 });
 
