@@ -119,6 +119,15 @@ try{
  await detail.getByRole("button",{name:"להתמקד בזמן הזה ←",exact:true}).click();await expect(atlas).toHaveAttribute("data-level","detail");
  await detail.getByRole("button",{name:"סגירת פריט האטלס",exact:true}).click();await expect(detail).not.toBeVisible();
 
+ // Full screen: the atlas covers the whole window, a clear button leads out, and Esc does too.
+ await page.keyboard.press("Escape");await page.keyboard.press("Escape");
+ await page.locator('[data-atlas-fullscreen="enter"]').click();await expect(atlas).toHaveAttribute("data-full","true");
+ const exitFull=page.locator('[data-atlas-fullscreen="exit"]');await expect(exitFull).toBeVisible();await expect(exitFull).toContainText("יציאה ממסך מלא");
+ expect(await atlas.evaluate(el=>{const r=el.getBoundingClientRect();return [Math.round(r.top),Math.round(r.height)];})).toEqual([0,await page.evaluate(()=>window.innerHeight)]);
+ await exitFull.click();await expect(atlas).not.toHaveAttribute("data-full",/.+/);await expect(page.locator('[data-atlas-fullscreen="enter"]')).toBeVisible();
+ await page.locator('[data-atlas-fullscreen="enter"]').click();await expect(atlas).toHaveAttribute("data-full","true");
+ await page.keyboard.press("Escape");await expect(atlas).not.toHaveAttribute("data-full",/.+/);
+
  // Topics open as dimensions of their own, and close back to the same place on the axis.
  await page.locator('[data-atlas-level="overview"]').click();await page.locator('[data-atlas-phase="hasmonean"]').click();
  const chip=page.locator('[data-atlas-topic-chip="hasmonean"]');await expect(chip).toBeVisible();before=await rangeText();
@@ -166,5 +175,5 @@ try{
  await page.setViewportSize({width:1440,height:900});
  await page.goto(base+"/timelines/history-atlas/#ST-082",{waitUntil:"networkidle"});await expect(detail).toBeVisible();await expect(detail.locator("h2")).toContainText("המקדש");
  const art=detail.locator("figure img");await expect(art).toHaveCount(1);if(!process.env.ATLAS_PREVIEW)await expect.poll(()=>art.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
- expect(errors).toEqual([]);console.log("History atlas: vertical tree with parents above children, wheel scrolling and Ctrl-zoom, semantic zoom, family lines, drawings on their year, the events lane, drag/keyboard/minimap, counts, cards with relations and tour, index, deep links and responsive themes passed.");
+ expect(errors).toEqual([]);console.log("History atlas: vertical tree with parents above children, wheel scrolling and Ctrl-zoom, semantic zoom, family lines, drawings on their year, the events lane, drag/keyboard/minimap, counts, cards with relations and tour, index, deep links, full screen and responsive themes passed.");
 }finally{await browser.close();await new Promise(done=>server.close(done));}

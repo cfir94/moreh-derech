@@ -406,16 +406,19 @@ test("the main axis carries few drawings — twenty from the Bronze Age on, four
  const {HISTORY_ATLAS:H,DRAWINGS}=await import("../src/data/history-atlas/atlas.ts");
  const {AXIS_DRAWINGS}=await import("../src/data/history-atlas/illustrations.ts");
  assert(AXIS_DRAWINGS.length<=24);
- // Every drawing a topic waits for is asked for too.
+ // Every drawing the prehistory and Bronze Age topics name has arrived, and stands in the topic.
  const {TOPICS}=await import("../src/data/history-atlas/index.ts");
- for(const id of ["PH-03","PH-29","BR-04","BR-23","EC-megiddo"])assert(readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8").includes(id+" —"),id);
- assert(TOPICS.length>0);
+ for(const id of ["PH-03","PH-11","PH-16","PH-22","PH-24","PH-26","PH-29","PH-31","BR-04","BR-07","BR-11","BR-13","EC-megiddo","BR-16","BR-20","BR-23"]){
+  assert(DRAWINGS[id],id+" has no drawing");
+  assert(TOPICS.some(t=>t.collection.illustrations[id]),id+" stands in no topic");
+ }
  assert(Object.keys(H.illustrations).every(id=>AXIS_DRAWINGS.includes(id)));
  const prompts=readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8");
  for(const id of AXIS_DRAWINGS){
   assert(H.nodes.some(n=>n.id===id&&n.kind==="event"),id);
-  // A turning point with no drawing yet is asked for in the prompts for ChatGPT.
-  if(!DRAWINGS[id])assert(prompts.includes(id+" —"),id+" has neither a drawing nor a prompt");
+  // Every turning point on the axis has its drawing (a new one is asked for in the prompts for ChatGPT first).
+  assert(DRAWINGS[id]||prompts.includes(id+" —"),id+" has neither a drawing nor a prompt");
+  assert(H.illustrations[id],id+" is not drawn on the axis");
  }
 });
 

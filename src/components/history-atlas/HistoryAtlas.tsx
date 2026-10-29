@@ -57,6 +57,13 @@ export function HistoryAtlas(){
  const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[pan,setPan]=useState<number|undefined>(undefined);
  // The two other dimensions of zoom: how wide the columns are (the X axis), and how large everything is drawn.
  const [columns,setColumns]=useState(1),[ui,setUi]=useState(1);
+ // Full screen: the browser's own when it allows it (desktop, Android), and otherwise the atlas laid over the whole
+ // window (an iPhone has no full screen for a page). Either way a clear button inside leads out, and Esc does too.
+ const root=useRef<HTMLDivElement>(null),[full,setFull]=useState(false);
+ const enterFull=useCallback(()=>{setFull(true);const el=root.current;if(el?.requestFullscreen&&!document.fullscreenElement)el.requestFullscreen().catch(()=>{});},[]);
+ const exitFull=useCallback(()=>{setFull(false);if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});},[]);
+ useEffect(()=>{const sync=()=>{if(!document.fullscreenElement)setFull(false);};document.addEventListener("fullscreenchange",sync);return()=>document.removeEventListener("fullscreenchange",sync);},[]);
+ useEffect(()=>{if(!full)return;const html=document.documentElement,before=html.style.overflow;html.style.overflow="hidden";return()=>{html.style.overflow=before;};},[full]);
  const widen=useCallback((factor:number)=>{setHint(false);setColumns(c=>Math.max(COLUMNS.min,Math.min(COLUMNS.max,c*factor)));},[]);
  const resizeAll=useCallback((factor:number)=>{setHint(false);setUi(u=>{const next=Math.max(UI.min,Math.min(UI.max,u*factor));return Math.abs(next-1)<.03?1:next;});},[]);
  const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false),latest=useRef<TreeLayout|null>(null);
@@ -149,10 +156,10 @@ export function HistoryAtlas(){
  useEffect(()=>{
   const escape=(event:globalThis.KeyboardEvent)=>{
    if(event.key!=="Escape"||index.current?.open)return;
-   if(selected)close();else if(topicId)enter(null);
+   if(selected)close();else if(topicId)enter(null);else if(full)exitFull();
   };
   window.addEventListener("keydown",escape);return()=>window.removeEventListener("keydown",escape);
- },[selected,close,topicId,enter]);
+ },[selected,close,topicId,enter,full,exitFull]);
 
  const quiet=useCallback(()=>setHint(false),[]);
  // Until the tree is moved sideways by hand it stays centred on the first group (on a phone only part fits).
@@ -173,6 +180,7 @@ export function HistoryAtlas(){
   else if(event.key==="+"||event.key==="=")zoom(1);
   else if(event.key==="-"||event.key==="_")zoom(-1);
   else if(event.key==="0"||event.key==="Home")fly(homeFor(W,sizeRef.current.height,sizeRef.current.width));
+  else if(event.key==="f"||event.key==="F"){if(full)exitFull();else enterFull();}
   else return;
   event.preventDefault();setHint(false);
  }
@@ -186,7 +194,7 @@ export function HistoryAtlas(){
 
  const shown=layout.people.length+layout.events.length+layout.vignettes.filter(v=>!layout.events.some(e=>e.node===v.node)).length;
  const topic=W.topic,cardTopics=active&&!topic?topicsOf(active.id):[];
- return <div className={s.atlas} dir="rtl" data-history-atlas data-level={level} data-topic={topicId??undefined}>
+ return <div ref={root} className={s.atlas} dir="rtl" data-history-atlas data-level={level} data-topic={topicId??undefined} data-full={full||undefined}>
   <header className={s.hud}>
    <div className={s.brand}>
     <Link href="/timelines" className={s.back}>עזרי למידה</Link>
@@ -211,6 +219,8 @@ export function HistoryAtlas(){
      </button>):<p>לא נמצאה התאמה. נסו שם או מושג אחר.</p>}
     </div>}
    </div>
+   {full?<button type="button" className={s.exitFull} data-atlas-fullscreen="exit" title="יציאה ממסך מלא (Esc)" onClick={exitFull}><span aria-hidden>✕</span>יציאה ממסך מלא</button>
+    :<button type="button" className={s.indexButton} data-atlas-fullscreen="enter" aria-label="מסך מלא" title="מסך מלא (F)" onClick={enterFull}><span aria-hidden>⛶</span><span className={s.indexLabel}>מסך מלא</span></button>}
    <button type="button" className={s.indexButton} aria-label="כל הדמויות והאירועים" onClick={()=>index.current?.showModal()}><span aria-hidden>☰</span><span className={s.indexLabel}>כל הפריטים</span></button>
   </header>
 
