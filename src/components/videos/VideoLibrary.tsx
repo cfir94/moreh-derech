@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * עיצוב "שכבות של דרך": ניווט נושאי קודם לצפייה, נגן יחיד קומפקטי, וקרוסלת מקורות בהמשך.
- * הסדר מכוון לסריקה מהירה: קטגוריה → תת־נושא → מקור פעיל → מקורות משלימים.
+ * עיצוב "שכבות של דרך": ניווט נושאי ובחירת אוסף לפני נגן יחיד קומפקטי.
+ * הסדר מכוון לסריקה מהירה: קטגוריה → תת־נושא → אוסף נבחר → נגן → חלקי האוסף.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -259,6 +259,20 @@ export function VideoLibrary() {
     };
   }, []);
 
+  useEffect(() => {
+    const carousel = document.getElementById(`carousel-${selectedGroup.id}`);
+    const card = carousel?.querySelector<HTMLElement>(`[data-video-id="${activeVideoId}"]`);
+    if (!carousel || !card) return;
+    const bounds = carousel.getBoundingClientRect();
+    const selectedBounds = card.getBoundingClientRect();
+    if (selectedBounds.left < bounds.left || selectedBounds.right > bounds.right) {
+      carousel.scrollBy({
+        left: selectedBounds.left - bounds.left - (bounds.width - selectedBounds.width) / 2,
+        behavior: "instant",
+      });
+    }
+  }, [activeVideoId, selectedGroup.id]);
+
   function updateSelectionUrl(item: VideoItem, partId?: string) {
     const url = new URL(window.location.href);
     url.searchParams.set("video", item.id);
@@ -465,11 +479,94 @@ export function VideoLibrary() {
       </section>
       )}
 
+      <section aria-label="בחירת קורס או אוסף" aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="mb-5">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
+            <div>
+              <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
+                {isUnifiedOnline ? "כל הקורסים המקוונים" : `בחירת אוסף: ${activeSubtopic.title}`}
+              </h3>
+              <p className="mt-0.5 text-xs text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => scrollCarousel("previous")}
+              aria-label={`הצגת מקורות קודמים ב${activeSubtopic.title}`}
+              className="rounded-lg border border-line bg-card px-3 py-1.5 text-xs font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
+            >
+              הקודם
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollCarousel("next")}
+              aria-label={`הצגת מקורות נוספים ב${activeSubtopic.title}`}
+              className="rounded-lg border border-line bg-card px-3 py-1.5 text-xs font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
+            >
+              הבא
+            </button>
+          </div>
+        </div>
+
+        <div
+          id={`carousel-${selectedGroup.id}`}
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:thin]"
+        >
+          {activeSubtopicGroup.items.map((item, index) => {
+            const isSelected = item.id === activeVideo.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                data-video-id={item.id}
+                onClick={() => selectVideo(item)}
+                aria-pressed={isSelected}
+                className={`group relative flex min-h-44 w-[min(17rem,80vw)] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
+                  isSelected
+                    ? `border-transparent bg-card-2 ring-2 ${subtopicAccent.ring} shadow-[var(--shadow)]`
+                    : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
+                }`}
+              >
+                <span className={`absolute inset-y-0 right-0 w-1 ${subtopicAccent.bar}`} aria-hidden="true" />
+                <div className="mb-4 flex items-center justify-between gap-3 pl-1">
+                  <span className={`flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-bold ${subtopicAccent.chip}`}>
+                    {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
+                    {kindLabel(item)}
+                  </span>
+                  <span className={`num text-xs font-bold ${isSelected ? "text-teal" : "text-txt-dim"}`}>{isSelected ? "נבחר לצפייה" : String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <div className="mb-2">{item.recommendedByCoordinator && <CoordinatorRecommendation />}</div>
+                <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
+                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
+                {!!item.parts?.length && <span className="mt-2 text-xs font-bold text-teal">{item.parts.length} סרטונים לצפייה באתר</span>}
+                <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
+                <span
+                  className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${
+                    isSelected
+                      ? `${subtopicAccent.chip}`
+                      : "border-line text-txt-dim group-hover:border-teal/50 group-hover:bg-teal/10 group-hover:text-teal"
+                  }`}
+                  aria-hidden="true"
+                >
+                  <PlayIcon />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
       <section
         ref={playerRef}
         aria-label="הנגן הנבחר"
-        className="mx-auto mb-5 max-w-5xl scroll-mt-5 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]"
+        className="mx-auto mb-5 max-w-5xl scroll-mt-24 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]"
       >
+        <div className="border-b border-line px-4 py-3 sm:px-5" aria-live="polite">
+          <p className="text-xs font-bold text-teal">{selectedSection.title} · נבחר לצפייה</p>
+          <h2 className="mt-1 text-lg leading-snug text-txt">{activeVideo.title}</h2>
+        </div>
         <div className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)]">
           <div className="relative aspect-video min-h-[10rem] bg-[#07131c]">
             {activeVideo.embedRestricted ? (
@@ -518,7 +615,6 @@ export function VideoLibrary() {
                 {activeVideo.recommendedByCoordinator && <CoordinatorRecommendation />}
                 <span className="text-xs text-txt-dim">{activeVideo.source}</span>
               </div>
-              <h2 className="text-lg leading-snug text-txt sm:text-xl">{activeVideo.title}</h2>
               {activePart ? (
                 <div className="mt-3 border-t border-line pt-3" aria-live="polite">
                   <p className="mb-1 text-xs font-bold text-teal">סרטון {activePartIndex + 1} מתוך {activeVideo.parts?.length}</p>
@@ -562,83 +658,6 @@ export function VideoLibrary() {
         />
       )}
 
-      <section aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`}>
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
-            <div>
-              <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
-                {isUnifiedOnline ? "כל הקורסים המקוונים" : `מקורות נוספים: ${activeSubtopic.title}`}
-              </h3>
-              <p className="mt-0.5 text-xs text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => scrollCarousel("previous")}
-              aria-label={`הצגת מקורות קודמים ב${activeSubtopic.title}`}
-              className="rounded-lg border border-line bg-card px-3 py-1.5 text-xs font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
-            >
-              הקודם
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollCarousel("next")}
-              aria-label={`הצגת מקורות נוספים ב${activeSubtopic.title}`}
-              className="rounded-lg border border-line bg-card px-3 py-1.5 text-xs font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
-            >
-              הבא
-            </button>
-          </div>
-        </div>
-
-        <div
-          id={`carousel-${selectedGroup.id}`}
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:thin]"
-        >
-          {activeSubtopicGroup.items.map((item, index) => {
-            const isSelected = item.id === activeVideo.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => selectVideo(item)}
-                aria-pressed={isSelected}
-                className={`group relative flex min-h-44 w-[min(17rem,80vw)] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
-                  isSelected
-                    ? `border-transparent bg-card-2 ring-2 ${subtopicAccent.ring} shadow-[var(--shadow)]`
-                    : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
-                }`}
-              >
-                <span className={`absolute inset-y-0 right-0 w-1 ${subtopicAccent.bar}`} aria-hidden="true" />
-                <div className="mb-4 flex items-center justify-between gap-3 pl-1">
-                  <span className={`flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs font-bold ${subtopicAccent.chip}`}>
-                    {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
-                    {kindLabel(item)}
-                  </span>
-                  <span className="num text-xs font-bold text-txt-dim">{String(index + 1).padStart(2, "0")}</span>
-                </div>
-                <div className="mb-2">{item.recommendedByCoordinator && <CoordinatorRecommendation />}</div>
-                <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
-                {!!item.parts?.length && <span className="mt-2 text-xs font-bold text-teal">{item.parts.length} סרטונים לצפייה באתר</span>}
-                <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
-                <span
-                  className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${
-                    isSelected
-                      ? `${subtopicAccent.chip}`
-                      : "border-line text-txt-dim group-hover:border-teal/50 group-hover:bg-teal/10 group-hover:text-teal"
-                  }`}
-                  aria-hidden="true"
-                >
-                  <PlayIcon />
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
     </main>
   );
 }
