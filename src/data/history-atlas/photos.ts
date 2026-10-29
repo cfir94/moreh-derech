@@ -3,7 +3,7 @@ import type { AtlasImage } from "./types";
 
 export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
   "H-01": {
-    "caption": "שלד \"לוסי\" — אוסטרלופיתקוס אפרנסיס, לפני כ־3.2 מיליון שנה (העתק).",
+    "caption": "שחזור השלד של \"לוסי\" — אוסטרלופיתקוס אפרנסיס.",
     "alt": "שלד חלקי של אוסטרלופיתקוס",
     "localSrc": "/moreh-derech/images/history-atlas/H-01.jpg",
     "credit": "120",
@@ -12,7 +12,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Reconstruction_of_the_fossil_skeleton_of_%22Lucy%22_the_Australopithecus_afarensis.jpg"
   },
   "H-02": {
-    "caption": "גולגולת הומו הביליס (העתק).",
+    "caption": "גולגולת KNM-ER 1813 של הומו הביליס (העתק).",
     "alt": "גולגולת של הומו הביליס",
     "localSrc": "/moreh-derech/images/history-atlas/H-02.jpg",
     "credit": "John Hawks, Marina Elliott, Peter Schmid, Steven E. Churchill, Darryl J. de Ruiter, Eric M. Roberts, Hannah Hilbert-Wolf, Heather M. Garvin, Scott A. Williams, Lucas K. Delezene, Elen M. Feuerriegel, Patrick Randolph-Quinney, Tracy L. Kivell, Myra F. Laird, Gaokgatlhe Tawane, Jeremy M. DeSilva, Shara E. Bailey, Juliet K. Brophy, Marc R. Meyer, Matthew M. Skinner, Matthew W. Tocheri, Caroline VanSickle, Christopher S. Walker, Timothy L. Campbell, Brian Kuhn, Ashley Kruger, Steven Tucker, Alia Gurtov, Nompumelelo Hlophe, Rick Hunter, Hannah Morris, Becca Peixotto, Maropeng Ramalepa, Dirk van Rooyen, Mathabela Tsikoane, Pedro Boshoff, Paul H.G.M. Dirks, Lee R. Berger",
@@ -21,7 +21,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:KNM_ER_1813_(H._habilis).png"
   },
   "H-03": {
-    "caption": "גולגולת הומו ארקטוס (העתק).",
+    "caption": "\"איש ג׳אווה\" — הממצא הראשון של הומו ארקטוס: שן, כיפת גולגולת ועצם ירך.",
     "alt": "גולגולת של הומו ארקטוס",
     "localSrc": "/moreh-derech/images/history-atlas/H-03.jpg",
     "credit": "Eduard Pop et al.",
@@ -30,7 +30,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Java_Man_holotype.jpg"
   },
   "H-04": {
-    "caption": "הניאנדרטלי — שלד או שחזור במוזיאון.",
+    "caption": "העתק של גולגולת ניאנדרטלית לצד גולגולת אדם מודרני.",
     "alt": "שלד או שחזור של אדם ניאנדרטלי",
     "localSrc": "/moreh-derech/images/history-atlas/H-04.jpg",
     "credit": "Jacklee",
@@ -39,7 +39,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Replica_skulls_of_a_Neanderthal_(Homo_neanderthalensis)_and_a_human_(Homo_sapiens_sapiens),_Lee_Kong_Chian_Natural_History_Museum,_Singapore_-_20150808.jpg"
   },
   "H-05": {
-    "caption": "גולגולת אדם מודרני קדום ממערות הכרמל או מקפזה (העתק).",
+    "caption": "גולגולת סחול 5 ממערת הגדי בכרמל (העתק) — אדם מודרני קדום.",
     "alt": "גולגולת של אדם מודרני קדום",
     "localSrc": "/moreh-derech/images/history-atlas/H-05.jpg",
     "credit": "Rama",
@@ -48,7 +48,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Skhul_5_cast,_norma_frontalis.jpg"
   },
   "H-06": {
-    "caption": "גולגולת הומו פלורסיינסיס (\"ההוביט\"), העתק.",
+    "caption": "גולגולת הומו פלורסיינסיס (העתק).",
     "alt": "גולגולת קטנה של הומו פלורסיינסיס",
     "localSrc": "/moreh-derech/images/history-atlas/H-06.jpg",
     "credit": "Rama",
@@ -56,8 +56,17 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/fr/deed.en",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Homo_Florensiensis-MGL_95216-P5030051-white.jpg"
   },
+  "H-07": {
+    "caption": "מערת חילזון תחתית בגליל המערבי.",
+    "alt": "מערה בגליל המערבי",
+    "localSrc": "/moreh-derech/images/history-atlas/H-07.jpg",
+    "credit": "נפתלי הילגר",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:HILAZON_(334).jpg"
+  },
   "H-08": {
-    "caption": "עינן (עין מלחה) — האתר הנטופי בעמק החולה.",
+    "caption": "קבורה נטופית מעינן (עין מלחה), בתצוגה.",
     "alt": "אתר נטופי בעמק החולה",
     "localSrc": "/moreh-derech/images/history-atlas/H-08.jpg",
     "credit": "Guyassaf",
@@ -66,7 +75,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Couple_of_skeletons.jpg"
   },
   "PH-01": {
-    "caption": "עקבות לאטולי — יציקה של העקבות בני כ־3.6 מיליון שנה.",
+    "caption": "עקבות לאטולי — חתך החפירה ובו העקבות באפר הגעשי.",
     "alt": "עקבות רגליים קדומות באפר געשי",
     "localSrc": "/moreh-derech/images/history-atlas/PH-01.jpg",
     "credit": "Fidelis T Masao and colleagues",
@@ -75,7 +84,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Test-pit_L8_at_Laetoli_Site_S.jpg"
   },
   "PH-02": {
-    "caption": "כלי אבן אולדוואני — כלי הסיתות הראשונים.",
+    "caption": "כלי חיתוך מאבן — מן הכלים הפשוטים הראשונים.",
     "alt": "כלי אבן פשוט מסותת",
     "localSrc": "/moreh-derech/images/history-atlas/PH-02.jpg",
     "credit": "José-Manuel Benito Álvarez (España) —> Locutus Borg",
@@ -84,7 +93,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canto_tallado_2-Guelmim-Es_Semara.jpg"
   },
   "PH-03": {
-    "caption": "אבן יד אשלית — הכלי הסימטרי של הומו ארקטוס.",
+    "caption": "תפוצת התרבות האשלית — מאפריקה לאסיה ולאירופה (מפה).",
     "alt": "אבן יד מסותתת מצור",
     "localSrc": "/moreh-derech/images/history-atlas/PH-03.jpg",
     "credit": "Authors of the study: Alastair J. M. Key, Ivan Jarić & David L. Roberts",
@@ -93,7 +102,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Distribution_of_the_Acheulean_cultural_tradition_as_it_is_currently_understood.webp"
   },
   "PH-04": {
-    "caption": "עובדייה, בבקעת הירדן מדרום לכנרת.",
+    "caption": "אתר החפירה בעובדייה.",
     "alt": "שכבות סלע בבקעת הירדן",
     "localSrc": "/moreh-derech/images/history-atlas/PH-04.jpg",
     "credit": "Omry Barzilai",
@@ -101,17 +110,8 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Archaeological_excavation_site_of_the_Ubeidiya_prehistoric_site_in_2021,_picture_taken_by_Omry_Barzilai.jpg"
   },
-  "PH-05": {
-    "caption": "גשר בנות יעקב — אבן יד מבזלת מן האתר.",
-    "alt": "כלי בזלת מגשר בנות יעקב",
-    "localSrc": "/moreh-derech/images/history-atlas/PH-05.jpg",
-    "credit": "Bukvoed",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bnot-Yaakov-bridge-357.jpg"
-  },
   "PH-06": {
-    "caption": "הפיל ישר־החט — שלד במוזיאון.",
+    "caption": "שלד של הפיל ישר־החט.",
     "alt": "שלד של פיל קדום",
     "localSrc": "/moreh-derech/images/history-atlas/PH-06.jpg",
     "credit": "Diagram Lajard",
@@ -120,7 +120,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Elephas_antiquus_Rom_(cropped).JPG"
   },
   "PH-07": {
-    "caption": "מערת טבון בנחל מערות.",
+    "caption": "מערות נחל מערות בכרמל.",
     "alt": "פתח מערה במדרון הכרמל",
     "localSrc": "/moreh-derech/images/history-atlas/PH-07.jpg",
     "credit": "Greg Schechter from San Francisco, USA",
@@ -129,7 +129,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Israel._Nahal_Me%27arot_(15783370341).jpg"
   },
   "PH-08": {
-    "caption": "גלעין לבלואה — צורת הנתז נקבעת מראש.",
+    "caption": "חודים בשיטת לבלואה, וסכמה של הסיתות.",
     "alt": "גלעין צור מסותת",
     "localSrc": "/moreh-derech/images/history-atlas/PH-08.jpg",
     "credit": "Gary Todd",
@@ -138,7 +138,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Production_of_points_%26_spearheads_from_a_flint_stone_core,_Levallois_technique,_Mousterian_Culture,_Tabun_Cave,_250,000-50,000_BP_(detail).jpg"
   },
   "PH-09": {
-    "caption": "מערת מיסליה בכרמל.",
+    "caption": "מצוק מגדים בכרמל ומערת מיסליה.",
     "alt": "מערה בכרמל",
     "localSrc": "/moreh-derech/images/history-atlas/PH-09.jpg",
     "credit": "Hanay",
@@ -147,7 +147,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Misliya_cave_in_Megadim_Cliff,_Mount_Carmel.jpg"
   },
   "PH-11": {
-    "caption": "מערת הקפיצה (קפזה) ליד נצרת.",
+    "caption": "פתח מערת הקפיצה (קפזה).",
     "alt": "פתח מערה גדולה",
     "localSrc": "/moreh-derech/images/history-atlas/PH-11.jpg",
     "credit": "LS",
@@ -156,7 +156,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eingang_der_Qafzeh-H%C3%B6hle.jpg"
   },
   "PH-12": {
-    "caption": "מערת עמוד בנחל עמוד.",
+    "caption": "מערה בנחל עמוד (מערת זוטייה).",
     "alt": "מערה בצוק בנחל עמוד",
     "localSrc": "/moreh-derech/images/history-atlas/PH-12.jpg",
     "credit": "McKaby",
@@ -174,7 +174,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Venus_von_Willendorf_01.jpg"
   },
   "PH-14": {
-    "caption": "מערת מנות בגליל המערבי.",
+    "caption": "חפירות במערת מנות.",
     "alt": "חלל מערה עם נטיפים",
     "localSrc": "/moreh-derech/images/history-atlas/PH-14.jpg",
     "credit": "Manot Cave Expedition משלחת החפירות במערת מנות",
@@ -183,7 +183,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:MANOT_CAVE_EXCAVATION.JPG"
   },
   "PH-16": {
-    "caption": "אוהלו II על חוף הכנרת.",
+    "caption": "אוהלו II — מפת מיקום וצילום של האתר בחוף הכנרת.",
     "alt": "חוף הכנרת",
     "localSrc": "/moreh-derech/images/history-atlas/PH-16.jpg",
     "credit": "Iris Groman-Yaroslavski , Ehud Weiss, Dani Nadel",
@@ -191,17 +191,8 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Location_map_of_23,000-Years-Old_Ohalo_II,_Israel.jpg"
   },
-  "PH-18": {
-    "caption": "להבונים זעירים (מיקרוליתים) מן התרבות הכבארית.",
-    "alt": "להבונים זעירים מצור",
-    "localSrc": "/moreh-derech/images/history-atlas/PH-18.jpg",
-    "credit": "Daniel E. Platt, Marc Haber, Magda Bou Dagher-Kharrat, Bouchra Douaihy, Georges Khazen, Maziar Ashrafian Bonab, Angélique Salloum, Francis Mouzaya, Donata Luiselli, Chris Tyler-Smith, Colin Renfrew, Elizabeth Matisoo-Smith & Pierre A. Zalloua",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Climate_and_Post-Glacial_expansion_in_the_Near_East.jpg"
-  },
   "PH-19": {
-    "caption": "ממצא נטופי — להב מגל או פריט אמנות.",
+    "caption": "תפוצת התרבות הנטופית (מפה).",
     "alt": "ממצא מן התרבות הנטופית",
     "localSrc": "/moreh-derech/images/history-atlas/PH-19.jpg",
     "credit": "Crates",
@@ -210,7 +201,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:NatufianSpread.svg"
   },
   "PH-22": {
-    "caption": "חיטת אמר (כוסמת) — מן הדגנים הראשונים שבויתו.",
+    "caption": "שיבולי חיטת אמר (כוסמת) — מן הדגנים הראשונים שבויתו.",
     "alt": "שיבולי חיטה קדומה",
     "localSrc": "/moreh-derech/images/history-atlas/PH-22.jpg",
     "credit": "לא צוין",
@@ -228,7 +219,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ziko.jpg"
   },
   "PH-24": {
-    "caption": "גולגולת מכוירת מיריחו.",
+    "caption": "גולגולת מכוירת מיריחו, עם עיני צדפים.",
     "alt": "גולגולת מכוסה טיח עם עיני צדפים",
     "localSrc": "/moreh-derech/images/history-atlas/PH-24.jpg",
     "credit": "Zunkir",
@@ -237,7 +228,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Plastered_skull_from_Jericho_12741-42.jpg"
   },
   "PH-25": {
-    "caption": "עתלית־ים — שרידי הכפר הטבוע מתחת למים.",
+    "caption": "עתלית־ים — מבנה אבנים מתחת למים.",
     "alt": "שרידי אבנים מתחת למים",
     "localSrc": "/moreh-derech/images/history-atlas/PH-25.jpg",
     "credit": "Hanay",
@@ -249,13 +240,13 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "caption": "צלמית ירמוכית משער הגולן.",
     "alt": "צלמית חרס בעלת עיניים מלוכסנות",
     "localSrc": "/moreh-derech/images/history-atlas/PH-26.jpg",
-    "credit": "ד\"ר אבישי טייכר",
-    "license": "CC BY 2.5",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_18893_Dining_hall_in_Kibbutz_Shaar-_Hagolan.JPG"
+    "credit": "Hanay",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yarmukian_Culture_%E2%80%93_Woman_figurine_carved_in_soft_limstone_(3).JPG"
   },
   "PH-27": {
-    "caption": "ממצא כלקוליתי — מחבצה או כלי מתקופת הנחושת.",
+    "caption": "שרביט נחושת מעוטר ביעלים — מאוצר נחל משמר.",
     "alt": "כלי חרס כלקוליתי",
     "localSrc": "/moreh-derech/images/history-atlas/PH-27.jpg",
     "credit": "Gary Todd from Xinzheng, China",
@@ -264,7 +255,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Copper_Ibex_Scepter,_Lost_Wax_Process,_4500-3500_BC,_from_Cave_of_the_Treasures,_Judean_Desert_(42312062225).jpg"
   },
   "PH-29": {
-    "caption": "אוצר נחל משמר — חפצי נחושת כלקוליתיים.",
+    "caption": "חפצי נחושת מאוצר נחל משמר.",
     "alt": "שרביטים וחפצי נחושת עתיקים",
     "localSrc": "/moreh-derech/images/history-atlas/PH-29.jpg",
     "credit": "Hanay",
@@ -273,7 +264,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Treasure_of_Nahal_Mishmar_(8).JPG"
   },
   "PH-30": {
-    "caption": "גלוסקמה כלקוליתית מחרס.",
+    "caption": "גלוסקמה כלקוליתית מחרס (מוזיאון דגון).",
     "alt": "גלוסקמת חרס מעוטרת",
     "localSrc": "/moreh-derech/images/history-atlas/PH-30.jpg",
     "credit": "Hanay",
@@ -282,7 +273,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dagon_Museum,_ossuary_in_shape_of_silo,_Chalcolithic_Period.JPG"
   },
   "PH-31": {
-    "caption": "עפיפון מדבר ממבט אוויר.",
+    "caption": "עפיפוני מדבר — תרשימים ותצלומים.",
     "alt": "קירות אבן מתכנסים במדבר",
     "localSrc": "/moreh-derech/images/history-atlas/PH-31.jpg",
     "credit": "Rémy Crassard ,Wael Abu-Azizeh ,Olivier Barge ,Jacques Élie Brochier,Frank Preusser,Hamida Seba,Abd Errahmane Kiouche,Emmanuelle Régagnon,Juan Antonio Sánchez Priego,Thamer Almalki,Mohammad Tarawneh, RC, OB, WAA, Globalkites Project.",
@@ -291,7 +282,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Distribution_and_characterization_of_desert_kites.jpg"
   },
   "B-01": {
-    "caption": "לוח נערמר — המלך מכה את אויבו; מן השושלת הראשונה.",
+    "caption": "לוח נערמר — המלך מכה את אויבו (שני צדי הלוח). מצרים, סביב 3100 לפנה״ס.",
     "alt": "לוח אבן מגולף בתבליט",
     "localSrc": "/moreh-derech/images/history-atlas/B-01.jpg",
     "credit": "anonymous",
@@ -300,7 +291,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Narmer_Palette.jpg"
   },
   "BR-02": {
-    "caption": "לוח בכתב קדום ממסופוטמיה — מראשית הכתב.",
+    "caption": "לוח בכתב תמונות קדום מכיש שבמסופוטמיה — מראשית הכתב.",
     "alt": "לוח טין חרות בסימנים",
     "localSrc": "/moreh-derech/images/history-atlas/BR-02.jpg",
     "credit": "José-Manuel Benito",
@@ -309,16 +300,16 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tableta_con_trillo.png"
   },
   "BR-04": {
-    "caption": "תל ערד — העיר הכנענית מן הברונזה הקדומה.",
-    "alt": "שרידי עיר עתיקה במדבר",
+    "caption": "תל ערד — העיר הכנענית התחתונה מן הברונזה הקדומה.",
+    "alt": "שרידי עיר אבן במדבר",
     "localSrc": "/moreh-derech/images/history-atlas/BR-04.jpg",
-    "credit": "לא צוין",
-    "license": "Public domain",
-    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Tel_arad_fortress.JPG",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_arad_fortress.JPG"
+    "credit": "Gilabrand",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_Arad.JPG"
   },
   "BR-05": {
-    "caption": "תל מגידו.",
+    "caption": "תל מגידו ממבט אוויר.",
     "alt": "תל ארכאולוגי",
     "localSrc": "/moreh-derech/images/history-atlas/BR-05.jpg",
     "credit": "AVRAMGR",
@@ -327,16 +318,16 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:TEL_MEGIDO_AERIAL_C.JPG"
   },
   "BR-07": {
-    "caption": "דולמן בגולן — מבנה קבורה מאבנים גדולות.",
-    "alt": "שולחן אבן גדול בשדה",
+    "caption": "דולמן בגולן — מבנה קבורה מאבנים גדולות מן הברונזה הביניימית.",
+    "alt": "שולחן אבן גדול בשדה בזלת",
     "localSrc": "/moreh-derech/images/history-atlas/BR-07.jpg",
-    "credit": "Frank Chandler",
+    "credit": "שועל",
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Macro,_Liquid_drop_on_Feather,_70-300mm-Coupler_%26_reverse_Lens-213.jpg"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gamla_Dolmen_-_2.jpg"
   },
   "BR-08": {
-    "caption": "תל חצור.",
+    "caption": "תל חצור — מבנה העמודים (מתקופת הברזל) בתוך העיר העתיקה.",
     "alt": "שרידי עיר עתיקה בתל",
     "localSrc": "/moreh-derech/images/history-atlas/BR-08.jpg",
     "credit": "The Neolithic ram",
@@ -345,7 +336,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hatzor-HouseofPillars.jpg"
   },
   "BR-09": {
-    "caption": "כתבי מארות — צלמית או קערה עם שמות אויבים.",
+    "caption": "שברי כלי חרס ועליהם כתבי מארות מצריים.",
     "alt": "צלמית חרס עם כתב",
     "localSrc": "/moreh-derech/images/history-atlas/BR-09.jpg",
     "credit": "Naunakhte",
@@ -354,7 +345,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aechtungstext2.jpg"
   },
   "BR-10": {
-    "caption": "מארי — העיר שארכיונה שמר את שם חצור.",
+    "caption": "הזיקורת של מארי שבסוריה.",
     "alt": "שרידי ארמון או לוח מארי",
     "localSrc": "/moreh-derech/images/history-atlas/BR-10.jpg",
     "credit": "Heretiq",
@@ -363,7 +354,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:MariZiggurat.jpg"
   },
   "BR-11": {
-    "caption": "שער הקשת הכנעני בתל דן (\"שער אברהם\").",
+    "caption": "שער הקשת הכנעני בתל דן (\"שער אברהם\"), מלבני בוץ.",
     "alt": "שער קשת מלבני בוץ",
     "localSrc": "/moreh-derech/images/history-atlas/BR-11.jpg",
     "credit": "Hanay",
@@ -371,17 +362,8 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_Dan_Canaanite_Gate_1.jpg"
   },
-  "BR-12": {
-    "caption": "מגדל המעיין בעיר דוד.",
-    "alt": "קיר אבנים ענקיות",
-    "localSrc": "/moreh-derech/images/history-atlas/BR-12.jpg",
-    "credit": "Beyond My Ken",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trump_SoHo_tower_from_Spring_Street.jpg"
-  },
   "BR-13": {
-    "caption": "כתובת פרוטו־סינאית מסראביט אל־ח׳אדם.",
+    "caption": "כתובת פרוטו־סינאית מסראביט אל־ח׳אדם (המילה \"לבעלת\").",
     "alt": "כתובת קדומה על אבן",
     "localSrc": "/moreh-derech/images/history-atlas/BR-13.jpg",
     "credit": "unknown Uploaded by Kwamikagami at en.wikipedia",
@@ -390,7 +372,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ba%60alat.jpg"
   },
   "BR-14": {
-    "caption": "ממצא מימי החיקסוס.",
+    "caption": "שיירת \"עאמו\" — אנשים מכנען מגיעים למצרים. ציור קיר מבני חסן, המאה ה־19 לפנה״ס.",
     "alt": "ממצא מצרי",
     "localSrc": "/moreh-derech/images/history-atlas/BR-14.jpg",
     "credit": "Macquarie University",
@@ -399,7 +381,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Painting_of_foreign_delegation_in_the_tomb_of_Khnumhotep_II_circa_1900_BCE_(Detail_mentioning_%22Abisha_the_Hyksos%22_in_hieroglyphs).jpg"
   },
   "B-04": {
-    "caption": "יעחמס הראשון — דיוקן מצרי.",
+    "caption": "ראש פסל של יעחמס הראשון (מוזיאון המטרופוליטן).",
     "alt": "דיוקן של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/B-04.jpg",
     "credit": "anonymous",
@@ -408,7 +390,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Head_of_Ahmose_I_MET_DP140854.jpg"
   },
   "B-05": {
-    "caption": "ממצא הנושא את שמו של המצביא ג׳חוטי.",
+    "caption": "קערת הזהב של המצביא ג׳חוטי (מוזיאון הלובר).",
     "alt": "כלי מצרי",
     "localSrc": "/moreh-derech/images/history-atlas/B-05.jpg",
     "credit": "Aoineko",
@@ -417,7 +399,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Egypte_louvre_214_plat.jpg"
   },
   "BR-19": {
-    "caption": "קרב קדש בתבליט מצרי.",
+    "caption": "רעמסס השני בקרב — תבליט במקדש אבו סימבל.",
     "alt": "תבליט של מרכבות בקרב",
     "localSrc": "/moreh-derech/images/history-atlas/BR-19.jpg",
     "credit": "לא צוין",
@@ -426,7 +408,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Egypt_Abou_Simbel6.jpg"
   },
   "BR-20": {
-    "caption": "עמק תמנע — מקדש חתחור למרגלות \"עמודי שלמה\".",
+    "caption": "עמק תמנע — צוקי אבן החול.",
     "alt": "צוקי אבן חול אדומים",
     "localSrc": "/moreh-derech/images/history-atlas/BR-20.jpg",
     "credit": "Little Savage",
@@ -435,7 +417,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Timna_7.JPG"
   },
   "BR-23": {
-    "caption": "גויי הים בתבליט ממדינת האבו.",
+    "caption": "קרב הים בגויי הים — העתקה של תבליט ממקדש מדינת האבו.",
     "alt": "תבליט של לוחמים בכובעי נוצות",
     "localSrc": "/moreh-derech/images/history-atlas/BR-23.jpg",
     "credit": "Unknown artistUnknown artist in pay of Ramesses III",
@@ -444,7 +426,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Medinet_Habu_Ramses_III._Tempel_Nordostwand_Abzeichnung_01.jpg"
   },
   "BR-24": {
-    "caption": "קרמיקה פלשתית.",
+    "caption": "לוחם פלשתי בכובע נוצות — פרט מתבליט במדינת האבו.",
     "alt": "כלי חרס מעוטר",
     "localSrc": "/moreh-derech/images/history-atlas/BR-24.jpg",
     "credit": "Ant888nsmb2",
@@ -453,7 +435,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea_people02_upscayl_1x_remacri-4x.png"
   },
   "B-02": {
-    "caption": "סיפור סינוחה — כתב יד מצרי.",
+    "caption": "פפירוס ברלין 3022 — כתב יד של \"סיפור סינוחה\".",
     "alt": "פפירוס או אוסטרקון מצרי",
     "localSrc": "/moreh-derech/images/history-atlas/B-02.jpg",
     "credit": "Altägyptischer Schreiber; Faksimile: Georg Möller (1876-1921)",
@@ -462,7 +444,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sinuhe-Papyrus_(Papyrus_Berlin_3022).jpg"
   },
   "B-06": {
-    "caption": "אחד ממכתבי אל־עמארנה בכתב יתדות.",
+    "caption": "מכתבי אל־עמארנה בכתב יתדות, בתצוגה במוזיאון.",
     "alt": "לוח חרס בכתב יתדות",
     "localSrc": "/moreh-derech/images/history-atlas/B-06.jpg",
     "credit": "Osama Shukir Muhammed Amin FRCP(Glasg)",
@@ -471,7 +453,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Five_Amarna_letters_on_display_at_the_British_Museum,_LondonA.jpg"
   },
   "B-07": {
-    "caption": "רעמסס השלישי.",
+    "caption": "רעמסס השלישי מגיש מנחה — תבליט צבוע במקדש חונסו בכרנך.",
     "alt": "דיוקן של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/B-07.jpg",
     "credit": "Asavaa",
@@ -480,7 +462,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:KhonsuTemple-Karnak-RamessesIII-2.jpg"
   },
   "F-05": {
-    "caption": "תחותמס השלישי — פסל.",
+    "caption": "פסל של תחותמס השלישי (מוזיאון לוקסור).",
     "alt": "פסל של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/F-05.jpg",
     "credit": "ولاء",
@@ -489,7 +471,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Luxor_Museum,_Egypt_49_(trim).jpg"
   },
   "F-06": {
-    "caption": "אמנחותפ השלישי — פסל.",
+    "caption": "ראש ענק של אמנחותפ השלישי (המוזיאון הבריטי).",
     "alt": "פסל של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/F-06.jpg",
     "credit": "Photograph by A. Parrot; sculptor unknown",
@@ -498,7 +480,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colossal_Amenhotep_III_British_Museum.jpg"
   },
   "F-07": {
-    "caption": "אחנתון — פסל.",
+    "caption": "פסל של אחנתון (המוזיאון המצרי בקהיר).",
     "alt": "פסל של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/F-07.jpg",
     "credit": "לא צוין",
@@ -507,7 +489,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:GD-EG-Caire-Mus%C3%A9e061.JPG"
   },
   "F-08": {
-    "caption": "רעמסס השני — פסל.",
+    "caption": "פסל רעמסס השני (\"ממנון הצעיר\", המוזיאון הבריטי).",
     "alt": "פסל של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/F-08.jpg",
     "credit": "Pbuergler",
@@ -516,7 +498,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ramses_II_British_Museum.jpg"
   },
   "F-09": {
-    "caption": "מרנפתח — פסל.",
+    "caption": "פסל של מרנפתח, בתצוגה במוזיאון.",
     "alt": "פסל של פרעה",
     "localSrc": "/moreh-derech/images/history-atlas/F-09.jpg",
     "credit": "Hyspaosines",
@@ -534,7 +516,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Merneptah_Steli_(cropped).jpg"
   },
   "EC-ramses": {
-    "caption": "מקדש אבו סימבל של רעמסס השני.",
+    "caption": "מקדשי אבו סימבל של רעמסס השני.",
     "alt": "פסלים ענקיים בחזית מקדש",
     "localSrc": "/moreh-derech/images/history-atlas/EC-ramses.jpg",
     "credit": "youssef_alam",
@@ -543,7 +525,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ramsis,_Aswan_Governorate,_Egypt_-_panoramio.jpg"
   },
   "EC-megiddo": {
-    "caption": "קרב מגידו של תחותמס השלישי.",
+    "caption": "תחותמס השלישי מכה את אויביו — תבליט בכרנך, ובו רשימת הערים שכבש בכנען.",
     "alt": "מגידו",
     "localSrc": "/moreh-derech/images/history-atlas/EC-megiddo.jpg",
     "credit": "en:User:Markh",
@@ -552,7 +534,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Thutmose_III_at_Karnak.jpg"
   },
   "IR-01": {
-    "caption": "המבנה בהר עיבל.",
+    "caption": "המבנה בהר עיבל ממבט אוויר.",
     "alt": "מבנה אבן על הר",
     "localSrc": "/moreh-derech/images/history-atlas/IR-01.jpg",
     "credit": "zstadler",
@@ -561,7 +543,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:IHM_%D7%9E%D7%96%D7%91%D7%97_%D7%94%D7%A8_%D7%A2%D7%99%D7%91%D7%9C.jpeg"
   },
   "IR-02": {
-    "caption": "בית ארבעת המרחבים — שחזור או שרידים.",
+    "caption": "דגם של בית ארבעת המרחבים הישראלי.",
     "alt": "בית אבן עם עמודים",
     "localSrc": "/moreh-derech/images/history-atlas/IR-02.jpg",
     "credit": "Nick Laarakkers at nl.wikipedia",
@@ -570,16 +552,16 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Israelite_pillared_house.jpg"
   },
   "IR-04": {
-    "caption": "חורבת קייאפה — החומה והשער.",
-    "alt": "חומת אבנים גדולות על גבעה",
+    "caption": "חורבת קייאפה — החומה והשער מעל עמק האלה.",
+    "alt": "חומת אבנים גדולות",
     "localSrc": "/moreh-derech/images/history-atlas/IR-04.jpg",
-    "credit": "Ynhockey",
+    "credit": "ekeidar",
     "license": "CC BY-SA 3.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Israel_outline_jerusalem.png"
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:West_Gate,_Khirbet_Qeiyafa,_Ha%27Ella_Valey,_Judea,_Israel_%D7%94%D7%A9%D7%A2%D7%A8_%D7%94%D7%9E%D7%A2%D7%A8%D7%91%D7%99,_%D7%97%D7%A8%D7%91%D7%AA_%D7%A7%D7%99%D7%99%D7%90%D7%A4%D7%94,_%D7%A2%D7%9E%D7%A7_%D7%94%D7%90%D7%9C%D7%94_-_panoramio.jpg"
   },
   "IR-05": {
-    "caption": "שער שישה תאים בתל גזר.",
+    "caption": "תל גזר ממבט אוויר — אזור השער.",
     "alt": "שער אבן עם תאים",
     "localSrc": "/moreh-derech/images/history-atlas/IR-05.jpg",
     "credit": "זאב שטיין",
@@ -597,16 +579,16 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gezer_calendar_close_up.jpg"
   },
   "IR-07": {
-    "caption": "תל רחוב בעמק בית שאן.",
-    "alt": "תל בעמק",
+    "caption": "תל רחוב — הכוורות מתקופת הברזל.",
+    "alt": "כוורות חרס עתיקות",
     "localSrc": "/moreh-derech/images/history-atlas/IR-07.jpg",
-    "credit": "דניאל ונטורה",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ktovet_recov_AA.jpg"
+    "credit": "SandraLynnRichter",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sandy_Richter_Tel_Rehov.jpg"
   },
   "IR-08": {
-    "caption": "תל יזרעאל או מבני המגורים/אורוות במגידו.",
+    "caption": "תל יזרעאל.",
     "alt": "שרידי מבנה עמודים",
     "localSrc": "/moreh-derech/images/history-atlas/IR-08.jpg",
     "credit": "Ori~",
@@ -633,7 +615,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Broadwall8.jpg"
   },
   "IR-11": {
-    "caption": "תל לכיש.",
+    "caption": "שער העיר של לכיש.",
     "alt": "תל לכיש",
     "localSrc": "/moreh-derech/images/history-atlas/IR-11.jpg",
     "credit": "Wilson44691",
@@ -642,7 +624,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:LachishFrontGate.jpg"
   },
   "IR-12": {
-    "caption": "קרב כרכמיש.",
+    "caption": "קרב כרכמיש — איור דמיוני מאוחר.",
     "alt": "לוח או מפה",
     "localSrc": "/moreh-derech/images/history-atlas/IR-12.jpg",
     "credit": "Egisto C.",
@@ -660,7 +642,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:City_of_David_-_House_of_Ahiel_IMG_5858.JPG"
   },
   "I-01": {
-    "caption": "נתן הנביא — ייצוג אמנותי מאוחר.",
+    "caption": "נתן הנביא מוכיח את דוד — ציור של פלמה הצעיר, המאה ה־16 (ייצוג אמנותי).",
     "alt": "ציור של נביא",
     "localSrc": "/moreh-derech/images/history-atlas/I-01.jpg",
     "credit": "Palma il Giovane",
@@ -669,7 +651,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jacopo_Negretti,_gen._Palma_il_Giovane_und_Werkstatt_-_Prophet_Nathan_ermahnt_K%C3%B6nig_David_-_GG_3816_-_Kunsthistorisches_Museum.jpg"
   },
   "FT-11": {
-    "caption": "מונולית כורח — המונולית של שלמנאסר השלישי.",
+    "caption": "מונולית כורח של שלמנאסר השלישי — מזכיר את אחאב בקרב קרקר.",
     "alt": "אסטלה אשורית",
     "localSrc": "/moreh-derech/images/history-atlas/FT-11.jpg",
     "credit": "Yuber",
@@ -678,7 +660,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karkar.jpg"
   },
   "FT-14": {
-    "caption": "האובליסק השחור של שלמנאסר השלישי.",
+    "caption": "האובליסק השחור של שלמנאסר השלישי (המוזיאון הבריטי).",
     "alt": "אובליסק שחור מגולף",
     "localSrc": "/moreh-derech/images/history-atlas/FT-14.jpg",
     "credit": "Osama Shukir Muhammed Amin FRCP(Glasg)",
@@ -687,7 +669,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Black_Obelisk_of_Shalmaneser_III,_9th_century_BC,_from_Nimrud,_Iraq._The_British_Museum.jpg"
   },
   "FT-15": {
-    "caption": "מצבת מישע.",
+    "caption": "מצבת מישע מלך מואב (הלובר).",
     "alt": "מצבת אבן שחורה כתובה",
     "localSrc": "/moreh-derech/images/history-atlas/FT-15.jpg",
     "credit": "Unknown artistUnknown artist",
@@ -696,7 +678,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:P1120870_Louvre_st%C3%A8le_de_M%C3%A9sha_AO5066_rwk.JPG"
   },
   "FT-16": {
-    "caption": "מצבת תל דן — \"בית דוד\".",
+    "caption": "מצבת תל דן — \"בית דוד\" (מוזיאון ישראל).",
     "alt": "שברי מצבה כתובה",
     "localSrc": "/moreh-derech/images/history-atlas/FT-16.jpg",
     "credit": "Oren Rozen",
@@ -705,7 +687,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:JRSLM_300116_Tel_Dan_Stele_01.jpg"
   },
   "FT-17": {
-    "caption": "אוסטרקון משומרון.",
+    "caption": "אוסטרקוני שומרון — העתקה של הכתובות.",
     "alt": "שבר חרס כתוב",
     "localSrc": "/moreh-derech/images/history-atlas/FT-17.jpg",
     "credit": "לא צוין",
@@ -732,7 +714,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Siloam_Inscription_2.jpg"
   },
   "FT-21": {
-    "caption": "תבליטי לכיש מארמון סנחריב בנינווה.",
+    "caption": "סנחריב על כסאו מול לכיש — תבליט מארמונו בנינווה.",
     "alt": "תבליט אשורי של מצור",
     "localSrc": "/moreh-derech/images/history-atlas/FT-21.jpg",
     "credit": "User:oncenawhile",
@@ -741,7 +723,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lachish_inscription.jpeg"
   },
   "FT-22": {
-    "caption": "מנסרת סנחריב.",
+    "caption": "מנסרת סנחריב (\"מנסרת טיילור\").",
     "alt": "מנסרת חרס בכתב יתדות",
     "localSrc": "/moreh-derech/images/history-atlas/FT-22.jpg",
     "credit": "This image was produced by me, David Castor (user:dcastor). The pictures I submit to the Wikipedia Project are released to the public domain. This gives you the right to use them in any way you like, without any kind of notification. This said, I would still appreciate to be mentioned as the originator whenever you think it complies well with your use of the picture. A message to me about how it has been used would also be welcome. You are obviously not required to respond to these wishes of mine, just in a friendly manner encouraged to. (All my photos are placed in Category:Images by David Castor or a subcategory thereof.)",
@@ -759,7 +741,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kettef_Hinnom_scrolls1.jpg"
   },
   "FT-25": {
-    "caption": "מכתבי לכיש.",
+    "caption": "אוסטרקון ממכתבי לכיש.",
     "alt": "אוסטרקון כתוב בדיו",
     "localSrc": "/moreh-derech/images/history-atlas/FT-25.jpg",
     "credit": "Willem van de Poll",
@@ -768,7 +750,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Steen_met_inscriptie_in_het_Lahish_schrift,_Bestanddeelnr_255-6141.jpg"
   },
   "FT-10": {
-    "caption": "שער בובסטיס בכרנך — רשימת מסע שישק.",
+    "caption": "רשימת הערים של שישק — תבליט בכרנך.",
     "alt": "תבליט מצרי עם שמות ערים",
     "localSrc": "/moreh-derech/images/history-atlas/FT-10.jpg",
     "credit": "Olaf Tausch",
@@ -777,7 +759,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karnak_Tempel_19.jpg"
   },
   "FT-07": {
-    "caption": "שער או מקדש מימי הממלכה המאוחדת.",
+    "caption": "שחזור דמיוני של מקדש שלמה — תחריט מן המאה ה־16.",
     "alt": "מבנה עתיק",
     "localSrc": "/moreh-derech/images/history-atlas/FT-07.jpg",
     "credit": "Francois Vatable",
@@ -786,13 +768,13 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Francois_Vatable,_reconstructie_van_de_tempel_van_Salomo_(detail).jpg"
   },
   "FT-09": {
-    "caption": "הבמה בתל דן.",
-    "alt": "במת אבן",
+    "caption": "הבמה בתל דן — מקום הפולחן מימי ממלכת ישראל.",
+    "alt": "משטח אבן גדול ומזבח",
     "localSrc": "/moreh-derech/images/history-atlas/FT-09.jpg",
-    "credit": "Hanay",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_Dan_Canaanite_Gate_1.jpg"
+    "credit": "dynamosquito from France",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Xerxes_tomb_at_Naqsh-e_Rostam-_upper_register_(4614878357).jpg"
   },
   "FT-04": {
     "caption": "תל שילה.",
@@ -813,7 +795,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gilboa_096.jpg"
   },
   "FT-24": {
-    "caption": "תל מגידו.",
+    "caption": "תל מגידו ממבט אוויר.",
     "alt": "תל ממבט אוויר",
     "localSrc": "/moreh-derech/images/history-atlas/FT-24.jpg",
     "credit": "AVRAMGR",
@@ -822,7 +804,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:TEL_MEGIDO_AERIAL_C.JPG"
   },
   "FT-03": {
-    "caption": "תל יריחו.",
+    "caption": "תל יריחו (תל א־סולטן) ממבט אוויר.",
     "alt": "תל עתיק",
     "localSrc": "/moreh-derech/images/history-atlas/FT-03.jpg",
     "credit": "Fullo88 at Italian Wikipedia",
@@ -831,7 +813,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tell_es-sultan.jpg"
   },
   "ST-005": {
-    "caption": "תל א־נצבה — מצפה בזיהוי המקובל.",
+    "caption": "תל א־נצבה ממבט אוויר — מצפה בזיהוי המקובל.",
     "alt": "תל עתיק",
     "localSrc": "/moreh-derech/images/history-atlas/ST-005.jpg",
     "credit": "דניאל צבי",
@@ -849,7 +831,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cyrus_Cylinder_front.jpg"
   },
   "ST-020": {
-    "caption": "כתב יד יווני של המקרא — תרגום השבעים.",
+    "caption": "דף מכתב היד הוותיקני — תרגום השבעים.",
     "alt": "דף כתב יד יווני",
     "localSrc": "/moreh-derech/images/history-atlas/ST-020.jpg",
     "credit": "Unknown authorUnknown author",
@@ -858,7 +840,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Codex_Vaticanus_(1_Esdras_1-55_to_2-5)_(The_S.S._Teacher%27s_Edition-The_Holy_Bible).jpg"
   },
   "P-002": {
-    "caption": "סרגון השני — תבליט אשורי.",
+    "caption": "סרגון השני — תבליט אשורי (מוזיאון עיראק).",
     "alt": "תבליט של מלך אשורי",
     "localSrc": "/moreh-derech/images/history-atlas/P-002.jpg",
     "credit": "Osama Shukir Muhammed Amin FRCP(Glasg)",
@@ -867,7 +849,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sargon_II,_Iraq_Museum_in_Baghdad.jpg"
   },
   "P-003": {
-    "caption": "לוחות הקצבה של יהויכין מבבל.",
+    "caption": "לוח הקצבות של יהויכין מבבל, בכתב יתדות.",
     "alt": "לוח חרס בכתב יתדות",
     "localSrc": "/moreh-derech/images/history-atlas/P-003.jpg",
     "credit": "Scallaham",
@@ -876,7 +858,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jehoiachin_Ration_Tablet.JPG"
   },
   "P-010": {
-    "caption": "קסרקסס — תבליט מפרספוליס.",
+    "caption": "מלך פרסי על כסאו — תבליט מפרספוליס (מוזיאון איראן); מזוהה לעתים עם קסרקסס או עם אביו.",
     "alt": "תבליט פרסי",
     "localSrc": "/moreh-derech/images/history-atlas/P-010.jpg",
     "credit": "Darafsh",
@@ -885,7 +867,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:National_Museum_of_Iran_Darafsh_(785).JPG"
   },
   "P-011": {
-    "caption": "ארתחשסתא הראשון.",
+    "caption": "ארתחשסתא הראשון — תבליט מקברו בנקש־י רוסתם.",
     "alt": "תבליט או קבר פרסי",
     "localSrc": "/moreh-derech/images/history-atlas/P-011.jpg",
     "credit": "Diego Delso",
@@ -894,7 +876,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Relief_of_Artaxerxes_I,_from_his_tomb_in_Naqsh-e_Rustam.jpg"
   },
   "P-023": {
-    "caption": "פפירוס מארכיון זנון.",
+    "caption": "פפירוס יווני מארכיון זנון, בענייני מסים.",
     "alt": "פפירוס יווני",
     "localSrc": "/moreh-derech/images/history-atlas/P-023.jpg",
     "credit": "Tilemahos Efthimiadis from Athens, Greece",
@@ -903,7 +885,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Papyrus_in_Greek_regarding_tax_issues_(3rd_ca._BC.)_(3210586934).jpg"
   },
   "P-025": {
-    "caption": "מטבע של סלאוקוס הרביעי.",
+    "caption": "מטבע כסף של סלאוקוס הרביעי.",
     "alt": "מטבע עתיק עם דיוקן",
     "localSrc": "/moreh-derech/images/history-atlas/P-025.jpg",
     "credit": "CNG Coins",
@@ -921,7 +903,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coin_of_Diodotus_Tryphon_(cropped),_Antioch_on_the_Orontes_mint.jpg"
   },
   "P-041": {
-    "caption": "מטבע של אנטיוכוס השביעי.",
+    "caption": "מטבע כסף של אנטיוכוס השביעי.",
     "alt": "מטבע עתיק עם דיוקן",
     "localSrc": "/moreh-derech/images/history-atlas/P-041.jpg",
     "credit": "Unknown authorUnknown author",
@@ -929,17 +911,8 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://commons.wikimedia.org/wiki/File:Coin_of_Antiochus_VII_Euergetes.jpg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Coin_of_Antiochus_VII_Euergetes.jpg"
   },
-  "P-049": {
-    "caption": "מבצר קיפרוס מעל יריחו — נקרא על שמה.",
-    "alt": "שרידי מבצר על גבעה",
-    "localSrc": "/moreh-derech/images/history-atlas/P-049.jpg",
-    "credit": "Internet Archive Book Images",
-    "license": "No restrictions",
-    "licenseUrl": "https://www.flickr.com/commons/usage/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Holy_Land_and_the_Bible;_(1888)_(14781522122).jpg"
-  },
   "X-01": {
-    "caption": "דיוקן יוליוס קיסר (\"פסל טוסקולום\").",
+    "caption": "ראש פסל של יוליוס קיסר.",
     "alt": "פסל ראש של יוליוס קיסר",
     "localSrc": "/moreh-derech/images/history-atlas/X-01.jpg",
     "credit": "Ángel M. Felicísimo from Mérida, España",
@@ -957,7 +930,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Papyrus_narrating_the_story_of_the_wise_chancellor_Ahiqar._Aramaic_script._5th_century_BCE._From_Elephantine,_Egypt._Neues_Museum.jpg"
   },
   "SE-05": {
-    "caption": "פפירוסי שומרון מוואדי דליה.",
+    "caption": "מערה בוואדי דליה.",
     "alt": "פפירוס או מערה",
     "localSrc": "/moreh-derech/images/history-atlas/SE-05.jpg",
     "credit": "Bukvoed",
@@ -966,7 +939,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wadi-Daliya-KWD-904.jpg"
   },
   "SE-01": {
-    "caption": "לוח מתעודות אל־יהודו.",
+    "caption": "לוחות מתעודות אל־יהודו בתצוגה.",
     "alt": "לוח חרס בכתב יתדות",
     "localSrc": "/moreh-derech/images/history-atlas/SE-01.jpg",
     "credit": "עמית אבידן",
@@ -975,7 +948,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Al-Yahudu_Tablets2.jpg"
   },
   "L-06": {
-    "caption": "קבר רבי עקיבא בטבריה.",
+    "caption": "רבי עקיבא — חיתוך עץ מאוחר (ייצוג דמיוני).",
     "alt": "מבנה קבר",
     "localSrc": "/moreh-derech/images/history-atlas/L-06.jpg",
     "credit": "Unknown authorUnknown author",
@@ -984,22 +957,13 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Akiva.png"
   },
   "L-11": {
-    "caption": "אוריגנס — תחריט מאוחר.",
+    "caption": "אוריגנס — איור מכתב יד מימי הביניים.",
     "alt": "תחריט של חכם",
     "localSrc": "/moreh-derech/images/history-atlas/L-11.jpg",
     "credit": "לא צוין",
     "license": "Public domain",
     "licenseUrl": "https://commons.wikimedia.org/wiki/File:Origen3.jpg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Origen3.jpg"
-  },
-  "L-18": {
-    "caption": "אגריה — מתוך כתב היד או תיאור מסעה.",
-    "alt": "כתב יד",
-    "localSrc": "/moreh-derech/images/history-atlas/L-18.jpg",
-    "credit": "Xan Carrizo",
-    "license": "Public domain",
-    "licenseUrl": "https://commons.wikimedia.org/wiki/File:EXERIA.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:EXERIA.jpg"
   },
   "L-26": {
     "caption": "מטבע זהב של הקיסר זנון.",
@@ -1011,7 +975,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Semissis_of_Zeno.png"
   },
   "RO-021": {
-    "caption": "שער טיטוס ברומא.",
+    "caption": "שער טיטוס בפורום הרומי.",
     "alt": "שער ניצחון רומי",
     "localSrc": "/moreh-derech/images/history-atlas/RO-021.jpg",
     "credit": "Jebulon",
@@ -1020,7 +984,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arch_Titus,_Forum_Romanum,_Rome,_Italy.jpg"
   },
   "RO-028": {
-    "caption": "לגיו — מחנה הלגיון ליד מגידו.",
+    "caption": "חפירות מחנה הלגיון השישי בלגיו, ליד מגידו.",
     "alt": "שרידי מחנה צבאי",
     "localSrc": "/moreh-derech/images/history-atlas/RO-028.jpg",
     "credit": "Oren Rozen",
@@ -1029,7 +993,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Legion_VI_Megiddo_070715_02.jpg"
   },
   "RO-033": {
-    "caption": "ביתר — חורבת אל־יהוד ליד בתיר.",
+    "caption": "ביתר — הגבעה ושרידיה ליד בתיר.",
     "alt": "גבעה עם שרידים",
     "localSrc": "/moreh-derech/images/history-atlas/RO-033.jpg",
     "credit": "Bukvoed",
@@ -1038,7 +1002,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beitar-169.jpg"
   },
   "RO-043": {
-    "caption": "זנוביה מתדמור — מטבע.",
+    "caption": "מטבע של זנוביה מלכת תדמור.",
     "alt": "מטבע עם דיוקן מלכה",
     "localSrc": "/moreh-derech/images/history-atlas/RO-043.jpg",
     "credit": "CNG",
@@ -1047,7 +1011,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Antoninianus_of_Zenobia_(obverse).png"
   },
   "RO-046": {
-    "caption": "קרב הגשר המולוויאני — ייצוג אמנותי מאוחר.",
+    "caption": "קרב הגשר המולוויאני — ציור קיר מבית המלאכה של רפאל בוותיקן (ייצוג אמנותי).",
     "alt": "ציור קרב",
     "localSrc": "/moreh-derech/images/history-atlas/RO-046.jpg",
     "credit": "Giulio Romano",
@@ -1056,7 +1020,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Battle_of_the_Milvian_Bridge_by_Giulio_Romano,_1520-24.jpg"
   },
   "BY-002": {
-    "caption": "ועידת ניקיאה — איקונין מאוחר.",
+    "caption": "ועידת ניקיאה — איקונין.",
     "alt": "איקונין של ועידה",
     "localSrc": "/moreh-derech/images/history-atlas/BY-002.jpg",
     "credit": "C messier",
@@ -1065,7 +1029,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:%CE%9C%CE%B9%CF%87%CE%B1%CE%AE%CE%BB_%CE%94%CE%B1%CE%BC%CE%B1%CF%83%CE%BA%CE%B7%CE%BD%CF%8C%CF%82_-_%CE%91%CE%84_%CE%9F%CE%B9%CE%BA%CE%BF%CF%85%CE%BC%CE%B5%CE%BD%CE%B9%CE%BA%CE%AE_%CE%A3%CF%8D%CE%BD%CE%BF%CE%B4%CE%BF%CF%82_7741.jpg"
   },
   "BY-011": {
-    "caption": "מטבע של הקיסר יוליאנוס.",
+    "caption": "מטבע זהב (סולידוס) של הקיסר יוליאנוס.",
     "alt": "מטבע עם דיוקן",
     "localSrc": "/moreh-derech/images/history-atlas/BY-011.jpg",
     "credit": "Classical Numismatic Group",
@@ -1083,7 +1047,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nazareth_Verk%C3%BCndigungbasilika_Church_of_Annunciation_(34257296024).jpg"
   },
   "JS-10": {
-    "caption": "קאסר אל־יהוד — אתר הטבילה המסורתי בירדן.",
+    "caption": "אתר הטבילה על הירדן (בצד הירדני).",
     "alt": "גדת הירדן",
     "localSrc": "/moreh-derech/images/history-atlas/JS-10.jpg",
     "credit": "Freedom's Falcon",
@@ -1092,7 +1056,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baptism_Site_of_Jesus_Christ_JO_5.JPG"
   },
   "JS-19": {
-    "caption": "קבר אלעזר המסורתי בבית עניה.",
+    "caption": "בית עניה — מקום קבר אלעזר המסורתי.",
     "alt": "פתח קבר",
     "localSrc": "/moreh-derech/images/history-atlas/JS-19.jpg",
     "credit": "israel zeller",
@@ -1101,7 +1065,7 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_63833_the_place_of_st_lazarus39s_burial.jpg"
   },
   "JD-03": {
-    "caption": "הר תבור — מקום כינוס צבא ברק ודבורה.",
+    "caption": "הר תבור.",
     "alt": "הר עגול מעל עמק",
     "localSrc": "/moreh-derech/images/history-atlas/JD-03.jpg",
     "credit": "Noamdahary",
@@ -1110,16 +1074,16 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg"
   },
   "JD-04": {
-    "caption": "מעיין חרוד, למרגלות הגלבוע.",
-    "alt": "מעיין למרגלות הר",
+    "caption": "מעיין חרוד למרגלות הגלבוע.",
+    "alt": "מעיין ובריכה למרגלות הר",
     "localSrc": "/moreh-derech/images/history-atlas/JD-04.jpg",
-    "credit": "Zoltan Kluger",
+    "credit": "Almog",
     "license": "Public domain",
-    "licenseUrl": "https://commons.wikimedia.org/wiki/File:%D7%A2%D7%99%D7%9F_%D7%97%D7%A8%D7%95%D7%93_-_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%90%D7%95%D7%99%D7%A8-JNF009515.jpeg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D7%A2%D7%99%D7%9F_%D7%97%D7%A8%D7%95%D7%93_-_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%90%D7%95%D7%99%D7%A8-JNF009515.jpeg"
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Maayan_harod.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maayan_harod.jpg"
   },
   "PR-02": {
-    "caption": "המוחרקה בכרמל — מקום מסורתי לעימות אליהו ונביאי הבעל.",
+    "caption": "מנזר המוחרקה בכרמל.",
     "alt": "מנזר על פסגת הכרמל",
     "localSrc": "/moreh-derech/images/history-atlas/PR-02.jpg",
     "credit": "James Emery",
