@@ -124,6 +124,8 @@ export type Link={id:string;kind:AtlasRelationKind|"event";path:string;label?:st
 export type Band={phase:AtlasPhase;index:number;top:number;bottom:number};
 export type Tick={year:number;y:number;label:string};
 export type Dot={id:string;y:number;y1:number;phase:string;rank:number;illustrated:boolean};
+/** A faint mark where a figure waits for a closer zoom. */
+export type Ghost={id:string;x:number;y:number;phase:string};
 export type ColumnHead={id:string;title:string;note:string;left:number;right:number};
 /** The lane of event titles. On a wide screen it takes its own room; on a phone it opens over the tree. */
 export type Lane={open:boolean;overlay:boolean;left:number;right:number};
@@ -131,11 +133,20 @@ export type TreeLayout={
  level:AtlasLevel;width:number;height:number;header:number;rulerW:number;spine:number;lane:Lane;peopleRight:number;slotW:number;
  pan:number;panMax:number;columns:ColumnHead[];bands:Band[];ticks:Tick[];people:PersonPlacement[];events:EventPlacement[];vignettes:Vignette[];dots:Dot[];
  clusters:Cluster[];connectors:Connector[];links:Link[];phase:AtlasPhase|null;
+ /** Figures kept back for a closer zoom, and how many figures and event titles in these years are not shown. */
+ ghosts:Ghost[];hidden:{people:number;events:number};
 };
 /** `lane` opens the event titles; `pan` moves the tree sideways when it is wider than its area (left out, the first group is centred). */
-export type TreeOptions={lane?:boolean;selected?:string|null;focus?:Set<string>;pan?:number};
+export type TreeOptions={lane?:boolean;selected?:string|null;focus?:Set<string>;pan?:number;
+ /** Column width, as a share of the natural width: below 1 the columns draw together, so figures of different
+  * groups who lived at the same time fit on one screen (on a phone, the leaders and the foreign powers side by side). */
+ columns?:number};
+/** How far the columns may be drawn together or spread apart, and the narrowest a column may get (a portrait). */
+export const COLUMNS={min:.4,max:1.8,narrowest:34};
 
 const STEPS=[1,2,5,10,20,25,50,100,200,500,1000,2000,5000,10000,20000,50000,100000,200000,500000,1000000];
+/** Room between the tree and the stage's left edge, and between the tree and the lane (wide screens). */
+export const EDGE={left:36,right:10};
 /** Height of the row of column titles at the top of the stage. */
 export const HEADER=48;
 /** A full figure is a portrait with its name below in up to two lines; a compact one, a smaller portrait and one line. */
@@ -147,13 +158,13 @@ export const SHIFT={earlyYears:30,lateYears:6,latePx:26};
 /** Event titles in the lane; a title may sit up to `shift` px off its year to make room. */
 export const LABEL={full:42,compact:24,gap:4,shift:90};
 /** Drawing sizes per level, on a wide screen and a narrow one, and the caption below them. */
-export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:124,narrow:96},context:{wide:160,narrow:116},detail:{wide:196,narrow:140}};
+export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:108,narrow:84},context:{wide:136,narrow:100},detail:{wide:168,narrow:120}};
 export const ART_CAPTION=34;
 /** Where a drawing sits: the year the picture shows if one is given, else the middle of the event. */
 export const artYear=(art:AtlasIllustration,node:AtlasNode)=>art.at!==undefined?ordinal(art.at)+.5:(node.from+node.to+1)/2;
 
 export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:AtlasWindow,size:{width:number;height:number},options:TreeOptions={}):TreeLayout{
- const {lane:open=true,selected=null,focus=new Set<string>(),pan}=options;
+ const {lane:open=true,selected=null,focus=new Set<string>(),pan,columns:spread=1}=options;
  const {width,height}=size,header=HEADER,usable=Math.max(1,height-header),span=view.to-view.from;
  const level=levelOf(span,usable),detail=level==="detail",narrow=width<640;
  const y=(v:number)=>header+(v-view.from)/span*usable,yearY=(year:number)=>y(toV(scale,year));
@@ -163,9 +174,10 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const rulerW=narrow?68:80,spine=width-rulerW+(narrow?8:12),overlay=narrow,laneRight=width-rulerW-6;
  const laneW=overlay?Math.round(Math.min(300,width-rulerW-40)):Math.round(Math.min(320,Math.max(236,width*.2)));
  const lane:Lane={open,overlay,left:laneRight-laneW,right:laneRight};
- const peopleRight=open&&!overlay?lane.left-14:width-rulerW-12,room=peopleRight-8,groupGap=20;
+ // The tree keeps a margin from the stage's edge, so the outermost figures never sit on it.
+ const peopleRight=(open&&!overlay?lane.left-14:width-rulerW-12)-(narrow?0:EDGE.right),room=peopleRight-(narrow?8:EDGE.left),groupGap=Math.round(20*Math.max(.4,Math.min(1,spread)));
  const slotsTotal=collection.groups.reduce((n,g)=>n+g.slots,0),gaps=(collection.groups.length-1)*groupGap;
- const slotW=Math.max(86,Math.min(136,(room-gaps)/slotsTotal));
+ const slotW=Math.max(COLUMNS.narrowest,Math.max(86,Math.min(136,(room-gaps)/slotsTotal))*Math.max(COLUMNS.min,Math.min(COLUMNS.max,spread)));
  const panMax=Math.max(0,slotsTotal*slotW+gaps-room),first=collection.groups[0];
  const shift=Math.max(0,Math.min(panMax,pan??(first?room/2-(peopleRight-first.slots/2*slotW):0)));
  const offsets=new Map<string,number>();
@@ -224,7 +236,8 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
    const kin=(a:string,b:string)=>collection.relations.some(r=>r.kind==="parent"&&((r.from===a&&r.to===b)||(r.from===b&&r.to===a)));
    for(const n of nodes.sort(byPriority)){
     const at=yearY(n.from);
-    const fit=(["full","compact"] as const).map(mode=>{const {r,h}=sizeOf(mode),top=at-r-2;return {mode,r,h,top,bottom:top+h};}).find(f=>taken.every(p=>kin(p.id,n.id)||f.bottom+GAP.column<=p.top||f.top>=p.bottom+GAP.column));
+    // In columns drawn narrower than a full figure, every figure is its small portrait.
+    const fit=(slotW<56?(["compact"] as const):(["full","compact"] as const)).map(mode=>{const {r,h}=sizeOf(mode),top=at-r-2;return {mode,r,h,top,bottom:top+h};}).find(f=>taken.every(p=>kin(p.id,n.id)||f.bottom+GAP.column<=p.top||f.top>=p.bottom+GAP.column));
     if(fit){taken.push({id:n.id,...fit});chosen.push({node:n,key,x,at,mode:fit.mode,r:fit.r,h:fit.h,t:fit.top});}
     else hiddenPeople.push({id:n.id,y:at,key});
    }
@@ -289,11 +302,15 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  // spans years may slide along its span to find room, a smaller size is tried next, and a drawing that still has no
  // room waits for a closer zoom. The lane keeps every title, so a drawing never pushes one out.
  const vignettes:Vignette[]=[];
- const artSize=Math.round(narrow?ART[level].narrow:ART[level].wide);
+ // Drawn-together columns take smaller drawings, so a drawing still stands beside its figure and not over three columns.
+ const artSize=Math.round((narrow?ART[level].narrow:ART[level].wide)*Math.max(.6,Math.min(1,spread)));
  const boxes=placed.map(p=>({left:p.x-slotW/2+4,right:p.x+slotW/2-4,top:p.top,bottom:p.bottom}));
  // Drawings fixed to one year go first; those free to move along a span then fit around them.
  const loose=(n:AtlasNode)=>n.to>n.from&&collection.illustrations[n.id].at===undefined;
- for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>Number(loose(a))-Number(loose(b))||a.from-b.from)){
+ // The more important drawing claims its room first and is drawn larger (the burning of the Temple before the fall of
+ // Masada), so the sizes on the stage follow the events' weight, not which drawing happened to find space.
+ const SCALE:Record<number,number>={1:1,2:.84,3:.72};
+ for(const n of collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)&&collection.illustrations[n.id]).sort((a,b)=>a.rank-b.rank||Number(loose(a))-Number(loose(b))||a.from-b.from)){
   const art=collection.illustrations[n.id],aim=yearY(artYear(art,n));
   const first=yearY(n.from+.5),last=yearY(n.to+.5),ys=[aim];
   if(loose(n))for(let d=artSize/3;d<=last-first;d+=artSize/3)ys.push(aim+d,aim-d);
@@ -313,13 +330,14 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   // Beside the figure, half a column at a time to either side and no more than two and a half columns away; when
   // there is no room beside the first figure, beside the next one (Mattathias for Modiin, when the king's column is
   // full). With no figure, from the ruler inward.
-  search:for(const owner of owners.length?owners:[undefined])for(const size of [artSize,Math.round(artSize*.75),Math.round(artSize*.55)]){
+  const base=Math.round(artSize*(SCALE[n.rank]??.72));
+  search:for(const owner of owners.length?owners:[undefined])for(const size of [base,Math.round(base*.82)]){
    const lo=size/2+4,hi=peopleRight-size/2-4;if(hi<lo)continue;
    const home=owner?owner.x:hi,xs=owner?Array.from({length:5},(_,i)=>[home+(i+1)*slotW/2,home-(i+1)*slotW/2]).flat():Array.from({length:24},(_,i)=>home-i*slotW/2);
    for(const at of spots)for(const x of xs.map(x=>Math.max(lo,Math.min(hi,x)))){
     const top=at-size/2,bottom=at+size/2+ART_CAPTION,c=covered(x,size,top,bottom);
     if(c===0){fit={x,at,size,owner};break search;}
-    if(size===artSize&&at===aim&&owner===owners[0]&&(!least||c<least.c))least={x,at,size,c,owner};
+    if(size===base&&at===aim&&owner===owners[0]&&(!least||c<least.c))least={x,at,size,c,owner};
    }
   }
   // A drawing may lie a little over a portrait or a caption when there is no clear spot at all.
@@ -367,6 +385,24 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
    if(found)found.ids.push(h.id);else clusters.push({zone:"event",host:host?.node.id??"none",x:lane.left,y:host?host.top:h.y,ids:[h.id]});
   }
  }
+ // What this view leaves out. A figure kept back for a closer zoom leaves a faint mark in its column at its year,
+ // and the stage counts what is hidden, so a sparse first view never looks like all there is.
+ const shownIds=new Set([...people.map(p=>p.node.id),...events.map(e=>e.node.id),...vignettes.map(v=>v.node.id)]);
+ const clustered=new Set(clusters.flatMap(c=>c.ids)),ghosts:Ghost[]=[];
+ const visibleYear=(n:AtlasNode)=>{const y=yearY(n.from+.5),y1=yearY(n.to+1);return y1>=header&&y<=height;};
+ const hidden={people:0,events:0};
+ for(const n of collection.nodes){
+  if(!isPlaced(n)||shownIds.has(n.id)||!visibleYear(n))continue;
+  if(n.kind==="event"){if(open)hidden.events++;continue;}
+  hidden.people++;
+  const slot=collection.slots[n.id];if(!slot||clustered.has(n.id))continue;
+  const x=slotX(slot.group,slot.slot),y=Math.max(header+10,yearY(n.from));
+  if(y>height-6||x<4||x>peopleRight)continue;
+  if(placed.some(p=>Math.abs(p.x-x)<slotW/2&&y>p.top-8&&y<p.bottom+8))continue;
+  if(vignettes.some(v=>Math.abs(v.x-x)<v.size/2+6&&y>v.top-6&&y<v.bottom+6))continue;
+  if(ghosts.some(g=>Math.abs(g.x-x)<2&&Math.abs(g.y-y)<14))continue;
+  ghosts.push({id:n.id,x,y,phase:n.phase});
+ }
  const dots=collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)).map(n=>({id:n.id,y:yearY(n.from+.5),y1:n.to>n.from?yearY(n.to+1):yearY(n.from+.5),phase:n.phase,rank:n.rank,illustrated:Boolean(collection.illustrations[n.id])})).filter(d=>d.y1>=header&&d.y<=height);
 
  // The tree: parent and succession lines drop from one figure to the next; spouses and siblings join side by side.
@@ -399,7 +435,40 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   links.push({id,kind:relation?.kind??(at.has(id)?"contact":"event"),path,label:relation&&(!TREE_KINDS.has(relation.kind)||relation.kind==="grandparent")?relation.label:undefined,lx:mx-bend*.75,ly:(origin.y+to.y)/2});
  }
 
- return {level,width,height,header,rulerW,spine,lane,peopleRight,slotW,pan:shift,panMax,columns,bands,ticks:spaced,people,events,vignettes,dots,clusters,connectors,links,phase:current?.phase??null};
+ return {level,width,height,header,rulerW,spine,lane,peopleRight,slotW,pan:shift,panMax,columns,bands,ticks:spaced,people,events,vignettes,dots,clusters,connectors,links,ghosts,hidden,phase:current?.phase??null};
+}
+
+/**
+ * The topic buttons on the main axis, each at the top of its years beside the lane. A button never covers a figure,
+ * a drawing, a "+N" or another button: it slides down within its topic's years to the first free spot, and where
+ * there is none it shrinks to a round ⌕ that still opens the topic (its name is in the tooltip).
+ */
+export type ChipPlacement={id:string;title:string;top:number;right:number;compact:boolean};
+export const CHIP={height:30,gap:6,round:32,charW:7.4,pad:46,max:220};
+export function placeChips(L:TreeLayout,topics:{id:string;title:string;top:number;bottom:number}[]):ChipPlacement[]{
+ const right=L.width-(L.lane.open&&!L.lane.overlay?L.lane.left-10:L.width-L.rulerW-10),edge=L.width-right;
+ const boxes=[
+  ...L.people.map(p=>({left:p.x-L.slotW/2+3,right:p.x+L.slotW/2-3,top:p.top,bottom:p.bottom})),
+  ...L.vignettes.map(v=>({left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom})),
+  ...L.clusters.map(c=>({left:c.x-16,right:c.x+16,top:c.y-11,bottom:c.y+13})),
+ ];
+ const out:(ChipPlacement&{left:number})[]=[];
+ const clear=(left:number,top:number)=>[...boxes,...out.map(c=>({left:c.left,right:edge-(c.right-right),top:c.top,bottom:c.top+CHIP.height}))]
+  .every(b=>b.right<left-4||b.left>edge+4||b.bottom<top-CHIP.gap||b.top>top+CHIP.height+CHIP.gap);
+ for(const t of topics){
+  if(t.bottom<L.header+44||t.top>L.height-40)continue;
+  const from=Math.max(L.header+8,t.top),to=Math.min(t.bottom-CHIP.height,L.height-CHIP.height-6);
+  const wide=Math.min(CHIP.max,CHIP.pad+t.title.length*CHIP.charW);
+  let spot:{top:number;compact:boolean}|null=null;
+  for(const [w,compact] of [[wide,false],[CHIP.round,true]] as const){
+   for(let top=from;top<=Math.max(from,to);top+=6)if(clear(edge-w,top)){spot={top,compact};break;}
+   if(spot)break;
+  }
+  // Nowhere free at all: the round button at the top of its years, beside the ruler.
+  spot??={top:from,compact:true};
+  out.push({id:t.id,title:t.title,top:spot.top,right,compact:spot.compact,left:edge-(spot.compact?CHIP.round:wide)});
+ }
+ return out.map(({left,...c})=>{void left;return c;});
 }
 
 /** A rounded elbow from below one figure's name down to just above the next portrait. */

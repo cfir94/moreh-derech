@@ -7,9 +7,11 @@ import s from "./HistoryAtlas.module.css";
 
 type Point={x:number;y:number};
 /** A topic's focus button on the stage, at the top of its years (`top`), its right edge at `right` px from the stage's right. */
-export type TopicChip={id:string;title:string;top:number;right:number};
+export type TopicChip={id:string;title:string;top:number;right:number;compact?:boolean};
 type Props={
- collection:AtlasCollection;layout:TreeLayout;bounds:AtlasWindow;camera:Camera;selected:string|null;focus:Set<string>;hint:boolean;chips:TopicChip[];onTopic:(id:string)=>void;
+ collection:AtlasCollection;layout:TreeLayout;bounds:AtlasWindow;camera:Camera;selected:string|null;focus:Set<string>;hint:boolean;chips:TopicChip[];onTopic:(id:string)=>void;onReveal:()=>void;
+ /** The whole stage drawn smaller or larger (1 = natural); the layout is computed for the stage's size divided by it. */
+ ui:number;onColumns:(factor:number)=>void;onScale:(factor:number)=>void;
  onOpen:(id:string,trigger?:HTMLElement)=>void;onCluster:(cluster:Cluster)=>void;onPhase:(id:string)=>void;onPan:(dx:number)=>void;onLane:(open:boolean)=>void;
  onResize:(size:{width:number;height:number})=>void;onKeyDown:(event:KeyboardEvent<HTMLDivElement>)=>void;onInteract:()=>void;
 };
@@ -17,7 +19,7 @@ type Props={
 export {spanLabel};
 const LEGEND=[["parent","הורה וילד"],["grandparent","סב ונכד (דילוג על דור)"],["spouse","בני זוג"],["succession","רצף הנהגה"],["sibling","אחים"]] as const;
 
-export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,chips,onTopic,onOpen,onCluster,onPhase,onPan,onLane,onResize,onKeyDown,onInteract}:Props){
+export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,chips,onTopic,onReveal,ui,onColumns,onScale,onOpen,onCluster,onPhase,onPan,onLane,onResize,onKeyDown,onInteract}:Props){
  const stage=useRef<HTMLDivElement>(null),pointers=useRef(new Map<number,Point>());
  const drag=useRef({moved:false,start:{x:0,y:0},velocity:0,last:0,suppress:false});
  const [dragging,setDragging]=useState(false),[hover,setHover]=useState<string|null>(null),[pile,setPile]=useState<string|null>(null);
@@ -32,22 +34,28 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
 
  // The wheel scrolls through time like a page; Ctrl + wheel (and a trackpad pinch, which arrives the same way)
  // zooms around the moment under the cursor. A sideways swipe, or Shift + wheel, moves along the tree.
+ // Alt + wheel draws the columns together or apart; Ctrl + Alt + wheel makes everything smaller or larger.
  useEffect(()=>{
   const el=stage.current;if(!el)return;
   const wheel=(event:WheelEvent)=>{
    if((event.target as HTMLElement).closest("[data-pile]"))return;
    event.preventDefault();onInteract();setPile(null);
    const box=el.getBoundingClientRect(),unit=event.deltaMode===1?32:event.deltaMode===2?box.height:1,view=read(),span=view.to-view.from;
-   const dx=event.deltaX*unit,dy=event.deltaY*unit;
-   if(event.ctrlKey||event.metaKey){zoomBy(-Math.sign(dy)*Math.min(.5,Math.abs(dy)*.01),view.from+(event.clientY-box.top-HEADER)/(box.height-HEADER)*span);return;}
+   const dx=event.deltaX*unit,dy=event.deltaY*unit,height=box.height/ui,at=(event.clientY-box.top)/ui;
+   // Some systems turn Alt/Shift + wheel into a sideways scroll, so the larger of the two deltas counts.
+   const step=Math.abs(dy)>=Math.abs(dx)?dy:dx;
+   if(event.altKey&&(event.ctrlKey||event.metaKey)){onScale(Math.exp(-Math.sign(step)*Math.min(.25,Math.abs(step)*.0025)));return;}
+   if(event.altKey){onColumns(Math.exp(-Math.sign(step)*Math.min(.25,Math.abs(step)*.0025)));return;}
+   if(event.ctrlKey||event.metaKey){zoomBy(-Math.sign(dy)*Math.min(.5,Math.abs(dy)*.01),view.from+(at-HEADER)/(height-HEADER)*span);return;}
    if(event.shiftKey&&!dx){onPan(-dy);return;}
    if(Math.abs(dx)>Math.abs(dy)){onPan(-dx);return;}
-   scrollBy(dy/(box.height-HEADER)*span);
+   scrollBy(dy/(height-HEADER)*span);
   };
   el.addEventListener("wheel",wheel,{passive:false});return()=>el.removeEventListener("wheel",wheel);
- },[read,zoomBy,scrollBy,onInteract,onPan]);
+ },[read,zoomBy,scrollBy,onInteract,onPan,onColumns,onScale,ui]);
 
- function local(event:PointerEvent<HTMLDivElement>){const box=event.currentTarget.getBoundingClientRect();return {x:event.clientX-box.left,y:event.clientY-box.top};}
+ // Pointer positions in the stage's own (unscaled) pixels, which the layout is computed in.
+ function local(event:PointerEvent<HTMLDivElement>){const box=event.currentTarget.getBoundingClientRect();return {x:(event.clientX-box.left)/ui,y:(event.clientY-box.top)/ui};}
  function down(event:PointerEvent<HTMLDivElement>){
   if(event.pointerType==="mouse"&&event.button!==0)return;
   if(!(event.target as HTMLElement).closest("[data-pile],[data-zone]"))setPile(null);
@@ -64,6 +72,9 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
    const other=[...pointers.current.entries()].find(([id])=>id!==event.pointerId)![1];
    const before=Math.hypot(previous.x-other.x,previous.y-other.y),after=Math.hypot(p.x-other.x,p.y-other.y);
    if(before<8)return;
+   // Fingers spreading sideways draw the columns apart (or together); up and down, they zoom in time.
+   const wideBefore=Math.abs(previous.x-other.x),wideAfter=Math.abs(p.x-other.x),tallBefore=Math.abs(previous.y-other.y),tallAfter=Math.abs(p.y-other.y);
+   if(wideBefore>24&&Math.abs(wideAfter-wideBefore)>1.3*Math.abs(tallAfter-tallBefore)){onColumns(wideAfter/wideBefore);return;}
    const from=(previous.y+other.y)/2,to=(p.y+other.y)/2,zoomed=zoomAround(view,after/before,view.from+(from-L.header)/usable*span,bounds);
    jump(panBy(zoomed,-(to-from)/usable*(zoomed.to-zoomed.from),bounds));return;
   }
@@ -85,6 +96,9 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
  }
 
  const byId=(id:string)=>collection.nodes.find(n=>n.id===id);
+ // What this view keeps back, said once at the foot of the stage: a sparse first view is not all there is.
+ const count=(n:number,one:string,many:string)=>n===1?one:`${n} ${many}`;
+ const more=[L.hidden.people&&count(L.hidden.people,"דמות אחת","דמויות"),L.hidden.events&&count(L.hidden.events,"אירוע אחד","אירועים")].filter(Boolean).join(" ו־").replace(/^(.+)$/,"עוד $1 בתצוגה הזו");
  const state=(id:string)=>id===selected?s.selected:focus.has(id)?s.related:"";
  // Hover names only follow a mouse; on touch the tap opens the card instead.
  const hoverProps=(id:string)=>({onPointerEnter:(e:PointerEvent<HTMLElement>)=>{if(e.pointerType==="mouse")setHover(id);},onPointerLeave:()=>setHover(null),onFocus:()=>setHover(id),onBlur:()=>setHover(null)});
@@ -97,7 +111,8 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
  const tie=(id:string,phase:string,x:number,mid:number)=>{const d=dotY(id),from=d?Math.max(d.y,Math.min(d.y1,mid)):mid;return <path key={"tie-"+id} className={`${s.tie} ${state(id)}`} style={tint(phase)} d={`M${L.spine} ${from} C${L.spine-12} ${from} ${x+14} ${mid} ${x} ${mid}`}/>;};
 
  return <div ref={stage} className={s.stage} tabIndex={0} role="application" aria-roledescription="אילן הזמן" aria-label="אילן הזמן: גלילה או גרירה לתנועה בזמן, Ctrl עם גלגלת או צביטה לזום, פלוס ומינוס לשינוי רמת הפירוט" aria-describedby="atlas-help"
-  data-atlas-chart data-dragging={dragging||undefined} data-focus={selected?"":undefined} data-level={L.level} data-lane={lane.open?(lane.overlay?"overlay":"open"):"closed"}
+  data-atlas-chart data-narrow-columns={L.slotW<72||undefined} data-dragging={dragging||undefined}
+  style={ui!==1?{inset:"auto",left:0,top:0,width:`${100/ui}%`,height:`${100/ui}%`,transform:`scale(${ui})`,transformOrigin:"0 0"}:undefined} data-focus={selected?"":undefined} data-level={L.level} data-lane={lane.open?(lane.overlay?"overlay":"open"):"closed"}
   onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onKeyDown={event=>{if(event.key==="Escape"&&opened){setPile(null);return;}onKeyDown(event);}}
   onClickCapture={event=>{if(drag.current.suppress){event.stopPropagation();event.preventDefault();drag.current.suppress=false;}}}>
 
@@ -114,6 +129,8 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
     <Face image={n.image} name={n.title}/>
     <span className={s.name}><strong>{shortName(n.title)}</strong>{detail&&p.mode==="full"&&<small>{n.subtitle}</small>}</span>
    </button>;})}
+   {/* A faint mark where a figure waits for a closer zoom. */}
+   {L.ghosts.map(g=><i key={"ghost-"+g.id} className={s.ghost} data-atlas-ghost={g.id} style={{...tint(g.phase),left:g.x,top:g.y}} aria-hidden/>)}
    {/* Drawings stand in the tree beside the figure their event belongs to; the lane keeps the titles. */}
    {L.vignettes.map(v=>{const n=v.node;return <button key={"art-"+n.id} type="button" className={`${s.vignette} ${state(n.id)}`} data-atlas-art={n.id} data-kind="event" data-illustrated data-rank={n.rank} data-owner={v.owner}
     style={{...tint(n.phase),left:v.x-v.size/2,top:v.top,width:v.size}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(n.id,e.currentTarget)}>
@@ -147,7 +164,7 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   </svg>
 
   {/* The topics in these years: each opens its own dimension of the atlas. */}
-  {chips.map(c=><button key={c.id} type="button" className={s.topicChip} data-atlas-topic-chip={c.id} style={{top:c.top,right:c.right}} aria-label={"להתמקד בנושא: "+c.title} title={"להתמקד בנושא: "+c.title} onClick={()=>onTopic(c.id)}><span aria-hidden>⌕</span>{c.title}</button>)}
+  {chips.map(c=><button key={c.id} type="button" className={s.topicChip} data-atlas-topic-chip={c.id} data-compact={c.compact||undefined} style={{top:c.top,right:c.right}} aria-label={"להתמקד בנושא: "+c.title} title={"להתמקד בנושא: "+c.title} onClick={()=>onTopic(c.id)}><span aria-hidden>⌕</span>{!c.compact&&c.title}</button>)}
   {L.clusters.filter(c=>c.zone==="event"||(L.level!=="overview"&&c.x<=L.peopleRight&&!(lane.open&&lane.overlay&&c.x>=lane.left))).map(c=><button key={pileKey(c)} type="button" className={s.cluster} data-zone={c.zone} style={{left:c.x-15,top:c.y-10}} aria-label={`עוד ${c.ids.length} ${c.zone==="person"?"דמויות":"אירועים"} כאן`} aria-expanded={pileKey(c)===pile} onClick={()=>setPile(pileKey(c))}>+{c.ids.length}</button>)}
   {opened&&<div className={s.pile} data-pile role="group" aria-label="פריטים שאין להם מקום בתצוגה" style={{left:Math.max(8,Math.min(L.width-272,opened.x-132)),top:Math.max(L.header+4,Math.min(opened.y+16,L.height-220))}}>
    <p><span>{opened.ids.length} {opened.zone==="person"?"דמויות":"אירועים"} כאן</span><button type="button" onClick={()=>{setPile(null);onCluster(opened);}}>להתקרב לכאן ⌕</button></p>
@@ -166,9 +183,11 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   {hovered&&tip&&<div className={s.tooltip} style={{...tint(hovered.phase),left:Math.max(130,Math.min(L.width-130,tip.x)),top:tip.y}} data-below={tip.y<L.header+90||undefined} role="presentation">
    <strong>{hovered.title}</strong><small>{hovered.kind==="person"?hovered.subtitle:hovered.date}</small>
   </div>}
+  {more&&<button type="button" className={s.more} data-atlas-more data-raised={hint||undefined} onClick={onReveal} aria-label={more+" — התקרבות"}><span aria-hidden>⊕</span>{more}<small>התקרבו לראות</small></button>}
   <p id="atlas-help" className={s.hint} data-hidden={!hint||undefined}>
    <span data-pointer="fine">גלילה — תנועה בזמן</span><span data-pointer="fine">Ctrl + גלגלת — זום</span>
-   <span data-pointer="coarse">החלקה — תנועה בזמן</span><span data-pointer="coarse">צביטה — זום</span>
+   <span data-pointer="fine">Alt + גלגלת — רוחב</span>
+   <span data-pointer="coarse">החלקה — תנועה בזמן</span><span data-pointer="coarse">צביטה — זום</span><span data-pointer="coarse">צביטה לצדדים — רוחב</span>
    <span>לחיצה — כרטיס מלא</span>
   </p>
  </div>;

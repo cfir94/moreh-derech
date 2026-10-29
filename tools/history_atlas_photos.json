@@ -1,0 +1,1435 @@
+[
+ {
+  "id": "H-01",
+  "wiki": [
+   "en:Lucy (Australopithecus)"
+  ],
+  "search": [
+   "Lucy Australopithecus skeleton cast"
+  ],
+  "caption": "שלד \"לוסי\" — אוסטרלופיתקוס אפרנסיס, לפני כ־3.2 מיליון שנה (העתק).",
+  "alt": "שלד חלקי של אוסטרלופיתקוס"
+ },
+ {
+  "id": "H-02",
+  "wiki": [
+   "en:Homo habilis"
+  ],
+  "search": [
+   "Homo habilis skull KNM-ER 1813"
+  ],
+  "caption": "גולגולת הומו הביליס (העתק).",
+  "alt": "גולגולת של הומו הביליס"
+ },
+ {
+  "id": "H-03",
+  "wiki": [
+   "en:Homo erectus"
+  ],
+  "search": [
+   "Homo erectus skull replica"
+  ],
+  "caption": "גולגולת הומו ארקטוס (העתק).",
+  "alt": "גולגולת של הומו ארקטוס"
+ },
+ {
+  "id": "H-04",
+  "wiki": [
+   "en:Neanderthal"
+  ],
+  "search": [
+   "Neanderthal skull La Chapelle"
+  ],
+  "caption": "הניאנדרטלי — שלד או שחזור במוזיאון.",
+  "alt": "שלד או שחזור של אדם ניאנדרטלי"
+ },
+ {
+  "id": "H-05",
+  "wiki": [
+   "en:Skhul and Qafzeh hominins"
+  ],
+  "search": [
+   "Qafzeh skull",
+   "Skhul V skull"
+  ],
+  "caption": "גולגולת אדם מודרני קדום ממערות הכרמל או מקפזה (העתק).",
+  "alt": "גולגולת של אדם מודרני קדום"
+ },
+ {
+  "id": "H-06",
+  "wiki": [
+   "en:Homo floresiensis"
+  ],
+  "search": [
+   "Homo floresiensis skull LB1"
+  ],
+  "caption": "גולגולת הומו פלורסיינסיס (\"ההוביט\"), העתק.",
+  "alt": "גולגולת קטנה של הומו פלורסיינסיס"
+ },
+ {
+  "id": "H-07",
+  "wiki": [
+   "en:Hilazon Tachtit"
+  ],
+  "search": [
+   "Hilazon Tachtit cave"
+  ],
+  "caption": "מערת חילזון תחתית בגליל המערבי.",
+  "alt": "מערה בגליל המערבי"
+ },
+ {
+  "id": "H-08",
+  "wiki": [
+   "en:Ain Mallaha"
+  ],
+  "search": [
+   "Ain Mallaha Natufian"
+  ],
+  "caption": "עינן (עין מלחה) — האתר הנטופי בעמק החולה.",
+  "alt": "אתר נטופי בעמק החולה"
+ },
+ {
+  "id": "PH-01",
+  "wiki": [
+   "en:Laetoli"
+  ],
+  "search": [
+   "Laetoli footprints cast"
+  ],
+  "caption": "עקבות לאטולי — יציקה של העקבות בני כ־3.6 מיליון שנה.",
+  "alt": "עקבות רגליים קדומות באפר געשי"
+ },
+ {
+  "id": "PH-02",
+  "wiki": [
+   "en:Oldowan"
+  ],
+  "search": [
+   "Oldowan chopper"
+  ],
+  "caption": "כלי אבן אולדוואני — כלי הסיתות הראשונים.",
+  "alt": "כלי אבן פשוט מסותת"
+ },
+ {
+  "id": "PH-03",
+  "wiki": [
+   "en:Acheulean"
+  ],
+  "search": [
+   "Acheulean handaxe"
+  ],
+  "caption": "אבן יד אשלית — הכלי הסימטרי של הומו ארקטוס.",
+  "alt": "אבן יד מסותתת מצור"
+ },
+ {
+  "id": "PH-04",
+  "wiki": [
+   "en:Ubeidiya prehistoric site"
+  ],
+  "search": [
+   "Ubeidiya"
+  ],
+  "caption": "עובדייה, בבקעת הירדן מדרום לכנרת.",
+  "alt": "שכבות סלע בבקעת הירדן"
+ },
+ {
+  "id": "PH-05",
+  "wiki": [
+   "en:Gesher Benot Ya'aqov"
+  ],
+  "search": [
+   "Gesher Benot Yaakov handaxe",
+   "Gesher Benot Yaakov"
+  ],
+  "caption": "גשר בנות יעקב — אבן יד מבזלת מן האתר.",
+  "alt": "כלי בזלת מגשר בנות יעקב"
+ },
+ {
+  "id": "PH-06",
+  "wiki": [
+   "en:Straight-tusked elephant"
+  ],
+  "search": [
+   "Palaeoloxodon antiquus skeleton"
+  ],
+  "caption": "הפיל ישר־החט — שלד במוזיאון.",
+  "alt": "שלד של פיל קדום"
+ },
+ {
+  "id": "PH-07",
+  "wiki": [
+   "en:Tabun Cave"
+  ],
+  "search": [
+   "Tabun Cave Nahal Me'arot"
+  ],
+  "caption": "מערת טבון בנחל מערות.",
+  "alt": "פתח מערה במדרון הכרמל"
+ },
+ {
+  "id": "PH-08",
+  "wiki": [
+   "en:Levallois technique"
+  ],
+  "search": [
+   "Levallois core"
+  ],
+  "caption": "גלעין לבלואה — צורת הנתז נקבעת מראש.",
+  "alt": "גלעין צור מסותת"
+ },
+ {
+  "id": "PH-09",
+  "wiki": [
+   "en:Misliya Cave"
+  ],
+  "search": [
+   "Misliya Cave"
+  ],
+  "caption": "מערת מיסליה בכרמל.",
+  "alt": "מערה בכרמל"
+ },
+ {
+  "id": "PH-11",
+  "wiki": [
+   "en:Qafzeh Cave"
+  ],
+  "search": [
+   "Qafzeh cave Nazareth"
+  ],
+  "caption": "מערת הקפיצה (קפזה) ליד נצרת.",
+  "alt": "פתח מערה גדולה"
+ },
+ {
+  "id": "PH-12",
+  "wiki": [
+   "en:Amud Cave"
+  ],
+  "search": [
+   "Amud cave Nahal Amud"
+  ],
+  "caption": "מערת עמוד בנחל עמוד.",
+  "alt": "מערה בצוק בנחל עמוד"
+ },
+ {
+  "id": "PH-13",
+  "wiki": [
+   "en:Venus of Willendorf"
+  ],
+  "search": [
+   "Venus of Willendorf"
+  ],
+  "caption": "\"ונוס מווילנדורף\" — צלמית מן הפליאולית העליון באירופה.",
+  "alt": "צלמית אבן קטנה של אישה"
+ },
+ {
+  "id": "PH-14",
+  "wiki": [
+   "en:Manot Cave"
+  ],
+  "search": [
+   "Manot cave"
+  ],
+  "caption": "מערת מנות בגליל המערבי.",
+  "alt": "חלל מערה עם נטיפים"
+ },
+ {
+  "id": "PH-16",
+  "wiki": [
+   "en:Ohalo II"
+  ],
+  "search": [
+   "Ohalo II Sea of Galilee"
+  ],
+  "caption": "אוהלו II על חוף הכנרת.",
+  "alt": "חוף הכנרת"
+ },
+ {
+  "id": "PH-18",
+  "wiki": [
+   "en:Kebaran culture"
+  ],
+  "search": [
+   "Kebaran microliths"
+  ],
+  "caption": "להבונים זעירים (מיקרוליתים) מן התרבות הכבארית.",
+  "alt": "להבונים זעירים מצור"
+ },
+ {
+  "id": "PH-19",
+  "wiki": [
+   "en:Natufian culture"
+  ],
+  "search": [
+   "Natufian sickle"
+  ],
+  "caption": "ממצא נטופי — להב מגל או פריט אמנות.",
+  "alt": "ממצא מן התרבות הנטופית"
+ },
+ {
+  "id": "PH-22",
+  "wiki": [
+   "en:Emmer"
+  ],
+  "search": [
+   "Emmer wheat Triticum dicoccum"
+  ],
+  "caption": "חיטת אמר (כוסמת) — מן הדגנים הראשונים שבויתו.",
+  "alt": "שיבולי חיטה קדומה"
+ },
+ {
+  "id": "PH-23",
+  "wiki": [
+   "en:Tower of Jericho"
+  ],
+  "search": [
+   "Tower of Jericho"
+  ],
+  "caption": "המגדל הניאוליתי בתל יריחו.",
+  "alt": "מגדל אבן עגול בתוך חפירה"
+ },
+ {
+  "id": "PH-24",
+  "wiki": [
+   "en:Plastered human skulls"
+  ],
+  "search": [
+   "Jericho plastered skull"
+  ],
+  "caption": "גולגולת מכוירת מיריחו.",
+  "alt": "גולגולת מכוסה טיח עם עיני צדפים"
+ },
+ {
+  "id": "PH-25",
+  "wiki": [
+   "en:Atlit Yam"
+  ],
+  "search": [
+   "Atlit Yam"
+  ],
+  "caption": "עתלית־ים — שרידי הכפר הטבוע מתחת למים.",
+  "alt": "שרידי אבנים מתחת למים"
+ },
+ {
+  "id": "PH-26",
+  "wiki": [
+   "en:Sha'ar HaGolan"
+  ],
+  "search": [
+   "Yarmukian figurine"
+  ],
+  "caption": "צלמית ירמוכית משער הגולן.",
+  "alt": "צלמית חרס בעלת עיניים מלוכסנות"
+ },
+ {
+  "id": "PH-27",
+  "wiki": [
+   "en:Ghassulian"
+  ],
+  "search": [
+   "Chalcolithic churn"
+  ],
+  "caption": "ממצא כלקוליתי — מחבצה או כלי מתקופת הנחושת.",
+  "alt": "כלי חרס כלקוליתי"
+ },
+ {
+  "id": "PH-28",
+  "wiki": [
+   "en:Tel Tsaf"
+  ],
+  "search": [
+   "Tel Tsaf"
+  ],
+  "caption": "תל צף בעמק בית שאן.",
+  "alt": "תל בעמק"
+ },
+ {
+  "id": "PH-29",
+  "wiki": [
+   "en:Nahal Mishmar hoard"
+  ],
+  "search": [
+   "Nahal Mishmar hoard"
+  ],
+  "caption": "אוצר נחל משמר — חפצי נחושת כלקוליתיים.",
+  "alt": "שרביטים וחפצי נחושת עתיקים"
+ },
+ {
+  "id": "PH-30",
+  "wiki": [
+   "en:Peki'in Cave"
+  ],
+  "search": [
+   "Chalcolithic ossuary"
+  ],
+  "caption": "גלוסקמה כלקוליתית מחרס.",
+  "alt": "גלוסקמת חרס מעוטרת"
+ },
+ {
+  "id": "PH-31",
+  "wiki": [
+   "en:Desert kite"
+  ],
+  "search": [
+   "desert kite aerial"
+  ],
+  "caption": "עפיפון מדבר ממבט אוויר.",
+  "alt": "קירות אבן מתכנסים במדבר"
+ },
+ {
+  "id": "B-01",
+  "wiki": [
+   "en:Narmer Palette"
+  ],
+  "search": [
+   "Narmer Palette"
+  ],
+  "caption": "לוח נערמר — המלך מכה את אויבו; מן השושלת הראשונה.",
+  "alt": "לוח אבן מגולף בתבליט"
+ },
+ {
+  "id": "BR-02",
+  "wiki": [
+   "en:Kish tablet"
+  ],
+  "search": [
+   "proto-cuneiform tablet"
+  ],
+  "caption": "לוח בכתב קדום ממסופוטמיה — מראשית הכתב.",
+  "alt": "לוח טין חרות בסימנים"
+ },
+ {
+  "id": "BR-04",
+  "wiki": [
+   "en:Tel Arad"
+  ],
+  "search": [
+   "Tel Arad Early Bronze"
+  ],
+  "caption": "תל ערד — העיר הכנענית מן הברונזה הקדומה.",
+  "alt": "שרידי עיר עתיקה במדבר"
+ },
+ {
+  "id": "BR-05",
+  "wiki": [
+   "en:Tel Megiddo"
+  ],
+  "search": [
+   "Megiddo round altar"
+  ],
+  "caption": "תל מגידו.",
+  "alt": "תל ארכאולוגי"
+ },
+ {
+  "id": "BR-07",
+  "wiki": [
+   "en:Dolmen"
+  ],
+  "search": [
+   "dolmen Golan Heights"
+  ],
+  "caption": "דולמן בגולן — מבנה קבורה מאבנים גדולות.",
+  "alt": "שולחן אבן גדול בשדה"
+ },
+ {
+  "id": "BR-08",
+  "wiki": [
+   "en:Tel Hazor"
+  ],
+  "search": [
+   "Tel Hazor"
+  ],
+  "caption": "תל חצור.",
+  "alt": "שרידי עיר עתיקה בתל"
+ },
+ {
+  "id": "BR-09",
+  "wiki": [
+   "en:Execration texts"
+  ],
+  "search": [
+   "execration figurine"
+  ],
+  "caption": "כתבי מארות — צלמית או קערה עם שמות אויבים.",
+  "alt": "צלמית חרס עם כתב"
+ },
+ {
+  "id": "BR-10",
+  "wiki": [
+   "en:Mari, Syria"
+  ],
+  "search": [
+   "Mari tablet"
+  ],
+  "caption": "מארי — העיר שארכיונה שמר את שם חצור.",
+  "alt": "שרידי ארמון או לוח מארי"
+ },
+ {
+  "id": "BR-11",
+  "wiki": [
+   "en:Tel Dan"
+  ],
+  "search": [
+   "Tel Dan Canaanite gate",
+   "Abraham's Gate Tel Dan"
+  ],
+  "caption": "שער הקשת הכנעני בתל דן (\"שער אברהם\").",
+  "alt": "שער קשת מלבני בוץ"
+ },
+ {
+  "id": "BR-12",
+  "wiki": [
+   "en:Spring Tower"
+  ],
+  "search": [
+   "Spring Tower City of David"
+  ],
+  "caption": "מגדל המעיין בעיר דוד.",
+  "alt": "קיר אבנים ענקיות"
+ },
+ {
+  "id": "BR-13",
+  "wiki": [
+   "en:Proto-Sinaitic script"
+  ],
+  "search": [
+   "Sinai Sphinx proto-Sinaitic"
+  ],
+  "caption": "כתובת פרוטו־סינאית מסראביט אל־ח׳אדם.",
+  "alt": "כתובת קדומה על אבן"
+ },
+ {
+  "id": "BR-14",
+  "wiki": [
+   "en:Hyksos"
+  ],
+  "search": [
+   "Hyksos scarab"
+  ],
+  "caption": "ממצא מימי החיקסוס.",
+  "alt": "ממצא מצרי"
+ },
+ {
+  "id": "B-04",
+  "wiki": [
+   "en:Ahmose I"
+  ],
+  "search": [
+   "Ahmose I statue"
+  ],
+  "caption": "יעחמס הראשון — דיוקן מצרי.",
+  "alt": "דיוקן של פרעה"
+ },
+ {
+  "id": "B-05",
+  "wiki": [
+   "en:Djehuty (general)"
+  ],
+  "search": [
+   "Djehuty general bowl"
+  ],
+  "caption": "ממצא הנושא את שמו של המצביא ג׳חוטי.",
+  "alt": "כלי מצרי"
+ },
+ {
+  "id": "BR-19",
+  "wiki": [
+   "en:Battle of Kadesh"
+  ],
+  "search": [
+   "Battle of Kadesh relief"
+  ],
+  "caption": "קרב קדש בתבליט מצרי.",
+  "alt": "תבליט של מרכבות בקרב"
+ },
+ {
+  "id": "BR-20",
+  "wiki": [
+   "en:Timna Valley"
+  ],
+  "search": [
+   "Timna Hathor temple"
+  ],
+  "caption": "עמק תמנע — מקדש חתחור למרגלות \"עמודי שלמה\".",
+  "alt": "צוקי אבן חול אדומים"
+ },
+ {
+  "id": "BR-21",
+  "wiki": [
+   "en:Hazor"
+  ],
+  "search": [
+   "Hazor stelae temple Israel Museum"
+  ],
+  "caption": "מצבות בזלת מחצור.",
+  "alt": "שורת מצבות אבן"
+ },
+ {
+  "id": "BR-23",
+  "wiki": [
+   "en:Sea Peoples"
+  ],
+  "search": [
+   "Medinet Habu Sea Peoples relief"
+  ],
+  "caption": "גויי הים בתבליט ממדינת האבו.",
+  "alt": "תבליט של לוחמים בכובעי נוצות"
+ },
+ {
+  "id": "BR-24",
+  "wiki": [
+   "en:Philistines"
+  ],
+  "search": [
+   "Philistine pottery bichrome"
+  ],
+  "caption": "קרמיקה פלשתית.",
+  "alt": "כלי חרס מעוטר"
+ },
+ {
+  "id": "B-02",
+  "wiki": [
+   "en:Story of Sinuhe"
+  ],
+  "search": [
+   "Sinuhe papyrus"
+  ],
+  "caption": "סיפור סינוחה — כתב יד מצרי.",
+  "alt": "פפירוס או אוסטרקון מצרי"
+ },
+ {
+  "id": "B-06",
+  "wiki": [
+   "en:Amarna letters"
+  ],
+  "search": [
+   "Amarna letter EA"
+  ],
+  "caption": "אחד ממכתבי אל־עמארנה בכתב יתדות.",
+  "alt": "לוח חרס בכתב יתדות"
+ },
+ {
+  "id": "B-07",
+  "wiki": [
+   "en:Ramesses III"
+  ],
+  "search": [
+   "Ramesses III relief"
+  ],
+  "caption": "רעמסס השלישי.",
+  "alt": "דיוקן של פרעה"
+ },
+ {
+  "id": "F-05",
+  "wiki": [
+   "en:Thutmose III"
+  ],
+  "search": [
+   "Thutmose III statue"
+  ],
+  "caption": "תחותמס השלישי — פסל.",
+  "alt": "פסל של פרעה"
+ },
+ {
+  "id": "F-06",
+  "wiki": [
+   "en:Amenhotep III"
+  ],
+  "search": [
+   "Amenhotep III statue"
+  ],
+  "caption": "אמנחותפ השלישי — פסל.",
+  "alt": "פסל של פרעה"
+ },
+ {
+  "id": "F-07",
+  "wiki": [
+   "en:Akhenaten"
+  ],
+  "search": [
+   "Akhenaten bust"
+  ],
+  "caption": "אחנתון — פסל.",
+  "alt": "פסל של פרעה"
+ },
+ {
+  "id": "F-08",
+  "wiki": [
+   "en:Ramesses II"
+  ],
+  "search": [
+   "Ramesses II statue"
+  ],
+  "caption": "רעמסס השני — פסל.",
+  "alt": "פסל של פרעה"
+ },
+ {
+  "id": "F-09",
+  "wiki": [
+   "en:Merneptah"
+  ],
+  "search": [
+   "Merneptah statue"
+  ],
+  "caption": "מרנפתח — פסל.",
+  "alt": "פסל של פרעה"
+ },
+ {
+  "id": "EC-merneptah",
+  "wiki": [
+   "en:Merneptah Stele"
+  ],
+  "search": [
+   "Merneptah Stele"
+  ],
+  "caption": "מצבת מרנפתח (\"מצבת ישראל\").",
+  "alt": "מצבת אבן גבוהה בכתב הירוגליפי"
+ },
+ {
+  "id": "EC-ramses",
+  "wiki": [
+   "en:Abu Simbel"
+  ],
+  "search": [
+   "Abu Simbel"
+  ],
+  "caption": "מקדש אבו סימבל של רעמסס השני.",
+  "alt": "פסלים ענקיים בחזית מקדש"
+ },
+ {
+  "id": "EC-megiddo",
+  "wiki": [
+   "en:Battle of Megiddo (15th century BC)"
+  ],
+  "search": [
+   "Megiddo Thutmose"
+  ],
+  "caption": "קרב מגידו של תחותמס השלישי.",
+  "alt": "מגידו"
+ },
+ {
+  "id": "IR-01",
+  "wiki": [
+   "en:Mount Ebal site"
+  ],
+  "search": [
+   "Mount Ebal altar Zertal"
+  ],
+  "caption": "המבנה בהר עיבל.",
+  "alt": "מבנה אבן על הר"
+ },
+ {
+  "id": "IR-02",
+  "wiki": [
+   "en:Four room house"
+  ],
+  "search": [
+   "four-room house"
+  ],
+  "caption": "בית ארבעת המרחבים — שחזור או שרידים.",
+  "alt": "בית אבן עם עמודים"
+ },
+ {
+  "id": "IR-03",
+  "wiki": [
+   "en:Izbet Sartah"
+  ],
+  "search": [
+   "Izbet Sartah ostracon"
+  ],
+  "caption": "עזבת צרטה.",
+  "alt": "אוסטרקון או אתר"
+ },
+ {
+  "id": "IR-04",
+  "wiki": [
+   "en:Khirbet Qeiyafa"
+  ],
+  "search": [
+   "Khirbet Qeiyafa"
+  ],
+  "caption": "חורבת קייאפה — החומה והשער.",
+  "alt": "חומת אבנים גדולות על גבעה"
+ },
+ {
+  "id": "IR-05",
+  "wiki": [
+   "en:Tel Gezer"
+  ],
+  "search": [
+   "Gezer six chambered gate"
+  ],
+  "caption": "שער שישה תאים בתל גזר.",
+  "alt": "שער אבן עם תאים"
+ },
+ {
+  "id": "IR-06",
+  "wiki": [
+   "en:Gezer calendar"
+  ],
+  "search": [
+   "Gezer calendar"
+  ],
+  "caption": "כתובת גזר (\"לוח גזר\").",
+  "alt": "לוח אבן קטן חרות"
+ },
+ {
+  "id": "IR-07",
+  "wiki": [
+   "en:Tel Rehov"
+  ],
+  "search": [
+   "Tel Rehov"
+  ],
+  "caption": "תל רחוב בעמק בית שאן.",
+  "alt": "תל בעמק"
+ },
+ {
+  "id": "IR-08",
+  "wiki": [
+   "en:Tel Jezreel"
+  ],
+  "search": [
+   "Megiddo stables"
+  ],
+  "caption": "תל יזרעאל או מבני המגורים/אורוות במגידו.",
+  "alt": "שרידי מבנה עמודים"
+ },
+ {
+  "id": "IR-09",
+  "wiki": [
+   "en:Tell es-Safi"
+  ],
+  "search": [
+   "Tell es-Safi Gath"
+  ],
+  "caption": "תל צפית — גת הפלשתית.",
+  "alt": "תל גבוה"
+ },
+ {
+  "id": "IR-10",
+  "wiki": [
+   "en:Broad Wall (Jerusalem)"
+  ],
+  "search": [
+   "Broad Wall Jerusalem"
+  ],
+  "caption": "החומה הרחבה ברובע היהודי.",
+  "alt": "קיר אבנים עבה"
+ },
+ {
+  "id": "IR-11",
+  "wiki": [
+   "en:Tel Lachish"
+  ],
+  "search": [
+   "Lachish gate shrine"
+  ],
+  "caption": "תל לכיש.",
+  "alt": "תל לכיש"
+ },
+ {
+  "id": "IR-12",
+  "wiki": [
+   "en:Battle of Carchemish"
+  ],
+  "search": [
+   "Babylonian Chronicle Carchemish"
+  ],
+  "caption": "קרב כרכמיש.",
+  "alt": "לוח או מפה"
+ },
+ {
+  "id": "IR-13",
+  "wiki": [
+   "en:House of Ahiel"
+  ],
+  "search": [
+   "House of Ahiel City of David"
+  ],
+  "caption": "בית אחיאל בעיר דוד.",
+  "alt": "שרידי בית אבן"
+ },
+ {
+  "id": "I-01",
+  "wiki": [
+   "en:Nathan (prophet)"
+  ],
+  "search": [
+   "Nathan the prophet painting"
+  ],
+  "caption": "נתן הנביא — ייצוג אמנותי מאוחר.",
+  "alt": "ציור של נביא"
+ },
+ {
+  "id": "FT-11",
+  "wiki": [
+   "en:Kurkh Monoliths"
+  ],
+  "search": [
+   "Kurkh Monolith"
+  ],
+  "caption": "מונולית כורח — המונולית של שלמנאסר השלישי.",
+  "alt": "אסטלה אשורית"
+ },
+ {
+  "id": "FT-14",
+  "wiki": [
+   "en:Black Obelisk of Shalmaneser III"
+  ],
+  "search": [
+   "Black Obelisk Shalmaneser"
+  ],
+  "caption": "האובליסק השחור של שלמנאסר השלישי.",
+  "alt": "אובליסק שחור מגולף"
+ },
+ {
+  "id": "FT-15",
+  "wiki": [
+   "en:Mesha Stele"
+  ],
+  "search": [
+   "Mesha Stele"
+  ],
+  "caption": "מצבת מישע.",
+  "alt": "מצבת אבן שחורה כתובה"
+ },
+ {
+  "id": "FT-16",
+  "wiki": [
+   "en:Tel Dan stele"
+  ],
+  "search": [
+   "Tel Dan Stele"
+  ],
+  "caption": "מצבת תל דן — \"בית דוד\".",
+  "alt": "שברי מצבה כתובה"
+ },
+ {
+  "id": "FT-17",
+  "wiki": [
+   "en:Samaria ostraca"
+  ],
+  "search": [
+   "Samaria ostracon"
+  ],
+  "caption": "אוסטרקון משומרון.",
+  "alt": "שבר חרס כתוב"
+ },
+ {
+  "id": "FT-18",
+  "wiki": [
+   "en:Hezekiah's Tunnel"
+  ],
+  "search": [
+   "Hezekiah's Tunnel"
+  ],
+  "caption": "נקבת השילוח (נקבת חזקיהו).",
+  "alt": "מנהרה חצובה בסלע"
+ },
+ {
+  "id": "FT-19",
+  "wiki": [
+   "en:Siloam inscription"
+  ],
+  "search": [
+   "Siloam inscription"
+  ],
+  "caption": "כתובת השילוח.",
+  "alt": "כתובת עברית קדומה על אבן"
+ },
+ {
+  "id": "FT-21",
+  "wiki": [
+   "en:Lachish relief"
+  ],
+  "search": [
+   "Lachish relief"
+  ],
+  "caption": "תבליטי לכיש מארמון סנחריב בנינווה.",
+  "alt": "תבליט אשורי של מצור"
+ },
+ {
+  "id": "FT-22",
+  "wiki": [
+   "en:Sennacherib's Annals"
+  ],
+  "search": [
+   "Taylor Prism"
+  ],
+  "caption": "מנסרת סנחריב.",
+  "alt": "מנסרת חרס בכתב יתדות"
+ },
+ {
+  "id": "FT-23",
+  "wiki": [
+   "en:Ketef Hinnom scrolls"
+  ],
+  "search": [
+   "Ketef Hinnom scroll"
+  ],
+  "caption": "קמעות הכסף מכתף הינום.",
+  "alt": "מגילת כסף זעירה"
+ },
+ {
+  "id": "FT-25",
+  "wiki": [
+   "en:Lachish letters"
+  ],
+  "search": [
+   "Lachish letters ostracon"
+  ],
+  "caption": "מכתבי לכיש.",
+  "alt": "אוסטרקון כתוב בדיו"
+ },
+ {
+  "id": "FT-10",
+  "wiki": [
+   "en:Bubastite Portal"
+  ],
+  "search": [
+   "Bubastite Portal Karnak"
+  ],
+  "caption": "שער בובסטיס בכרנך — רשימת מסע שישק.",
+  "alt": "תבליט מצרי עם שמות ערים"
+ },
+ {
+  "id": "FT-07",
+  "wiki": [
+   "en:Solomon's Temple"
+  ],
+  "search": [
+   "Megiddo Solomonic gate"
+  ],
+  "caption": "שער או מקדש מימי הממלכה המאוחדת.",
+  "alt": "מבנה עתיק"
+ },
+ {
+  "id": "FT-09",
+  "wiki": [
+   "en:Tel Dan"
+  ],
+  "search": [
+   "Tel Dan altar"
+  ],
+  "caption": "הבמה בתל דן.",
+  "alt": "במת אבן"
+ },
+ {
+  "id": "FT-04",
+  "wiki": [
+   "en:Tel Shiloh"
+  ],
+  "search": [
+   "Tel Shiloh"
+  ],
+  "caption": "תל שילה.",
+  "alt": "תל בהרי אפרים"
+ },
+ {
+  "id": "FT-05",
+  "wiki": [
+   "en:Mount Gilboa"
+  ],
+  "search": [
+   "Mount Gilboa"
+  ],
+  "caption": "הר הגלבוע.",
+  "alt": "רכס הרים"
+ },
+ {
+  "id": "FT-24",
+  "wiki": [
+   "en:Tel Megiddo"
+  ],
+  "search": [
+   "Tel Megiddo aerial"
+  ],
+  "caption": "תל מגידו.",
+  "alt": "תל ממבט אוויר"
+ },
+ {
+  "id": "FT-03",
+  "wiki": [
+   "en:Tell es-Sultan"
+  ],
+  "search": [
+   "Tell es-Sultan Jericho"
+  ],
+  "caption": "תל יריחו.",
+  "alt": "תל עתיק"
+ },
+ {
+  "id": "ST-005",
+  "wiki": [
+   "en:Tell en-Nasbeh"
+  ],
+  "search": [
+   "Tell en-Nasbeh"
+  ],
+  "caption": "תל א־נצבה — מצפה בזיהוי המקובל.",
+  "alt": "תל עתיק"
+ },
+ {
+  "id": "ST-007",
+  "wiki": [
+   "en:Cyrus Cylinder"
+  ],
+  "search": [
+   "Cyrus Cylinder"
+  ],
+  "caption": "גליל כורש.",
+  "alt": "גליל חרס בכתב יתדות"
+ },
+ {
+  "id": "ST-020",
+  "wiki": [
+   "en:Septuagint"
+  ],
+  "search": [
+   "Codex Vaticanus"
+  ],
+  "caption": "כתב יד יווני של המקרא — תרגום השבעים.",
+  "alt": "דף כתב יד יווני"
+ },
+ {
+  "id": "P-002",
+  "wiki": [
+   "en:Sargon II"
+  ],
+  "search": [
+   "Sargon II relief"
+  ],
+  "caption": "סרגון השני — תבליט אשורי.",
+  "alt": "תבליט של מלך אשורי"
+ },
+ {
+  "id": "P-003",
+  "wiki": [
+   "en:Jehoiachin's Rations Tablets"
+  ],
+  "search": [
+   "Jehoiachin ration tablet"
+  ],
+  "caption": "לוחות הקצבה של יהויכין מבבל.",
+  "alt": "לוח חרס בכתב יתדות"
+ },
+ {
+  "id": "P-010",
+  "wiki": [
+   "en:Xerxes I"
+  ],
+  "search": [
+   "Xerxes Persepolis relief"
+  ],
+  "caption": "קסרקסס — תבליט מפרספוליס.",
+  "alt": "תבליט פרסי"
+ },
+ {
+  "id": "P-011",
+  "wiki": [
+   "en:Artaxerxes I"
+  ],
+  "search": [
+   "Artaxerxes I tomb"
+  ],
+  "caption": "ארתחשסתא הראשון.",
+  "alt": "תבליט או קבר פרסי"
+ },
+ {
+  "id": "P-020",
+  "wiki": [
+   "en:Tomb of Simeon the Just"
+  ],
+  "search": [
+   "Tomb of Simeon the Just"
+  ],
+  "caption": "קבר שמעון הצדיק המסורתי בירושלים.",
+  "alt": "מערת קבורה"
+ },
+ {
+  "id": "P-023",
+  "wiki": [
+   "en:Zenon Papyri"
+  ],
+  "search": [
+   "Zenon papyrus"
+  ],
+  "caption": "פפירוס מארכיון זנון.",
+  "alt": "פפירוס יווני"
+ },
+ {
+  "id": "P-025",
+  "wiki": [
+   "en:Seleucus IV Philopator"
+  ],
+  "search": [
+   "Seleucus IV coin"
+  ],
+  "caption": "מטבע של סלאוקוס הרביעי.",
+  "alt": "מטבע עתיק עם דיוקן"
+ },
+ {
+  "id": "P-038",
+  "wiki": [
+   "en:Diodotus Tryphon"
+  ],
+  "search": [
+   "Tryphon coin"
+  ],
+  "caption": "מטבע של טריפון.",
+  "alt": "מטבע עתיק עם דיוקן"
+ },
+ {
+  "id": "P-041",
+  "wiki": [
+   "en:Antiochus VII Sidetes"
+  ],
+  "search": [
+   "Antiochus VII coin"
+  ],
+  "caption": "מטבע של אנטיוכוס השביעי.",
+  "alt": "מטבע עתיק עם דיוקן"
+ },
+ {
+  "id": "P-049",
+  "wiki": [
+   "en:Cypros (fortress)"
+  ],
+  "search": [
+   "Kypros fortress Jericho"
+  ],
+  "caption": "מבצר קיפרוס מעל יריחו — נקרא על שמה.",
+  "alt": "שרידי מבצר על גבעה"
+ },
+ {
+  "id": "X-01",
+  "wiki": [
+   "en:Julius Caesar"
+  ],
+  "search": [
+   "Tusculum portrait Caesar"
+  ],
+  "caption": "דיוקן יוליוס קיסר (\"פסל טוסקולום\").",
+  "alt": "פסל ראש של יוליוס קיסר"
+ },
+ {
+  "id": "SE-02",
+  "wiki": [
+   "en:Elephantine papyri"
+  ],
+  "search": [
+   "Elephantine papyrus"
+  ],
+  "caption": "פפירוס ארמי מיב.",
+  "alt": "פפירוס בכתב ארמי"
+ },
+ {
+  "id": "SE-05",
+  "wiki": [
+   "en:Samaria Papyri"
+  ],
+  "search": [
+   "Wadi Daliyeh"
+  ],
+  "caption": "פפירוסי שומרון מוואדי דליה.",
+  "alt": "פפירוס או מערה"
+ },
+ {
+  "id": "SE-01",
+  "wiki": [
+   "en:Al-Yahudu tablets"
+  ],
+  "search": [
+   "Al-Yahudu tablet"
+  ],
+  "caption": "לוח מתעודות אל־יהודו.",
+  "alt": "לוח חרס בכתב יתדות"
+ },
+ {
+  "id": "L-06",
+  "wiki": [
+   "en:Rabbi Akiva"
+  ],
+  "search": [
+   "Tomb of Rabbi Akiva Tiberias"
+  ],
+  "caption": "קבר רבי עקיבא בטבריה.",
+  "alt": "מבנה קבר"
+ },
+ {
+  "id": "L-11",
+  "wiki": [
+   "en:Origen"
+  ],
+  "search": [
+   "Origen engraving"
+  ],
+  "caption": "אוריגנס — תחריט מאוחר.",
+  "alt": "תחריט של חכם"
+ },
+ {
+  "id": "L-18",
+  "wiki": [
+   "en:Egeria (pilgrim)"
+  ],
+  "search": [
+   "Itinerarium Egeriae"
+  ],
+  "caption": "אגריה — מתוך כתב היד או תיאור מסעה.",
+  "alt": "כתב יד"
+ },
+ {
+  "id": "L-26",
+  "wiki": [
+   "en:Zeno (emperor)"
+  ],
+  "search": [
+   "Zeno solidus"
+  ],
+  "caption": "מטבע זהב של הקיסר זנון.",
+  "alt": "מטבע זהב עם דיוקן"
+ },
+ {
+  "id": "RO-021",
+  "wiki": [
+   "en:Arch of Titus"
+  ],
+  "search": [
+   "Arch of Titus menorah relief"
+  ],
+  "caption": "שער טיטוס ברומא.",
+  "alt": "שער ניצחון רומי"
+ },
+ {
+  "id": "RO-028",
+  "wiki": [
+   "en:Legio"
+  ],
+  "search": [
+   "Legio Megiddo"
+  ],
+  "caption": "לגיו — מחנה הלגיון ליד מגידו.",
+  "alt": "שרידי מחנה צבאי"
+ },
+ {
+  "id": "RO-033",
+  "wiki": [
+   "en:Betar (fortress)"
+  ],
+  "search": [
+   "Battir Betar"
+  ],
+  "caption": "ביתר — חורבת אל־יהוד ליד בתיר.",
+  "alt": "גבעה עם שרידים"
+ },
+ {
+  "id": "RO-043",
+  "wiki": [
+   "en:Zenobia"
+  ],
+  "search": [
+   "Zenobia coin"
+  ],
+  "caption": "זנוביה מתדמור — מטבע.",
+  "alt": "מטבע עם דיוקן מלכה"
+ },
+ {
+  "id": "RO-046",
+  "wiki": [
+   "en:Battle of the Milvian Bridge"
+  ],
+  "search": [
+   "Battle of the Milvian Bridge"
+  ],
+  "caption": "קרב הגשר המולוויאני — ייצוג אמנותי מאוחר.",
+  "alt": "ציור קרב"
+ },
+ {
+  "id": "BY-002",
+  "wiki": [
+   "en:First Council of Nicaea"
+  ],
+  "search": [
+   "First Council of Nicaea icon"
+  ],
+  "caption": "ועידת ניקיאה — איקונין מאוחר.",
+  "alt": "איקונין של ועידה"
+ },
+ {
+  "id": "BY-011",
+  "wiki": [
+   "en:Julian (emperor)"
+  ],
+  "search": [
+   "Julian solidus"
+  ],
+  "caption": "מטבע של הקיסר יוליאנוס.",
+  "alt": "מטבע עם דיוקן"
+ },
+ {
+  "id": "JS-01",
+  "wiki": [
+   "en:Basilica of the Annunciation"
+  ],
+  "search": [
+   "Basilica of the Annunciation Nazareth"
+  ],
+  "caption": "כנסיית הבשורה בנצרת.",
+  "alt": "כנסייה בנצרת"
+ },
+ {
+  "id": "JS-10",
+  "wiki": [
+   "en:Qasr al-Yahud"
+  ],
+  "search": [
+   "Qasr al-Yahud"
+  ],
+  "caption": "קאסר אל־יהוד — אתר הטבילה המסורתי בירדן.",
+  "alt": "גדת הירדן"
+ },
+ {
+  "id": "JS-19",
+  "wiki": [
+   "en:Tomb of Lazarus"
+  ],
+  "search": [
+   "Tomb of Lazarus Bethany"
+  ],
+  "caption": "קבר אלעזר המסורתי בבית עניה.",
+  "alt": "פתח קבר"
+ },
+ {
+  "id": "JD-03",
+  "wiki": [
+   "en:Mount Tabor"
+  ],
+  "search": [
+   "Mount Tabor"
+  ],
+  "caption": "הר תבור — מקום כינוס צבא ברק ודבורה.",
+  "alt": "הר עגול מעל עמק"
+ },
+ {
+  "id": "JD-04",
+  "wiki": [
+   "en:Ein Harod"
+  ],
+  "search": [
+   "Harod spring"
+  ],
+  "caption": "מעיין חרוד, למרגלות הגלבוע.",
+  "alt": "מעיין למרגלות הר"
+ },
+ {
+  "id": "PR-02",
+  "wiki": [
+   "en:Muhraka"
+  ],
+  "search": [
+   "Muhraka Carmel"
+  ],
+  "caption": "המוחרקה בכרמל — מקום מסורתי לעימות אליהו ונביאי הבעל.",
+  "alt": "מנזר על פסגת הכרמל"
+ }
+]

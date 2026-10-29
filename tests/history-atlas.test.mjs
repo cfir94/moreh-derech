@@ -323,6 +323,53 @@ test("coverage: the course's missing figures and Second Temple finds are on the 
  for(const id of ["NT-22","NT-23"])assert(J.nodes.some(n=>n.id===id),id);
 });
 
+test("room for everything: margins, topic buttons clear of figures, drawings sized by weight, and a sign of what is hidden",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS,placeChips,EDGE,ART}=await import("../src/data/history-atlas/index.ts");
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const wide={width:2000,height:960};
+ const views=[[-40,140],[60,140],[-175,-120],[-1100,-900],[300,460],[-600,-400]].map(([a,b])=>fitRange(toV(HS,ordinal(a)),toV(HS,ordinal(b)),hb,.04));
+ for(const size of [wide,desk,phone])for(const view of views){
+  const L=layoutTree(H,HS,view,size,{lane:size!==phone}),where=`${size.width} ${Math.round(view.from)}: `;
+  // On a screen wide enough for the whole tree, no column touches the stage's left edge.
+  if(L.panMax===0&&size.width>=640)assert(Math.min(...L.columns.map(c=>c.left))>=EDGE.left-1,where+"left margin");
+  // Topic buttons never cover a figure, a drawing or another button.
+  const y=year=>L.header+(toV(HS,ordinal(year))-view.from)/(view.to-view.from)*(L.height-L.header);
+  const chips=placeChips(L,TOPICS.map(t=>({id:t.id,title:t.title,top:y(t.from),bottom:y(t.to)})));
+  const box=c=>{const w=c.compact?32:Math.min(220,46+c.title.length*7.4);return {left:L.width-c.right-w,right:L.width-c.right,top:c.top,bottom:c.top+30};};
+  const hit=(a,b)=>a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom;
+  for(const c of chips){
+   const a=box(c);
+   for(const p of L.people)assert(!hit(a,{left:p.x-L.slotW/2+3,right:p.x+L.slotW/2-3,top:p.top,bottom:p.bottom})||c.top===Math.max(L.header+8,c.top)&&c.compact,where+c.id+" covers "+p.node.id);
+   for(const v of L.vignettes)assert(!hit(a,{left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom})||c.compact,where+c.id+" covers "+v.node.id);
+  }
+  // A drawing is never larger than a drawing of a more important event in the same view.
+  for(const a of L.vignettes)for(const b of L.vignettes)if(a.node.rank<b.node.rank)assert(a.size>=b.size,where+a.node.id+" smaller than "+b.node.id);
+ }
+ // The judges' dimension opens with a few figures; the rest leave a mark, and the stage says how many are waiting.
+ const {fitWhole,roomyBounds}=await import("../src/data/history-atlas/index.ts");
+ const J=TOPICS.find(t=>t.id==="judges").collection,JS=timeScale(J),jb=roomyBounds(toV(JS,ordinal(J.contextFrom)),toV(JS,ordinal(J.contextTo)+1));
+ const opening={width:1440,height:760},far=layoutTree(J,JS,fitWhole(J,JS,jb,opening,{lane:true}),opening,{lane:true});
+ assert(far.hidden.people+far.hidden.events>0,"what the first view keeps back is counted");
+ for(const g of far.ghosts)assert(!far.people.some(p=>Math.abs(p.x-g.x)<far.slotW/2&&g.y>p.top-8&&g.y<p.bottom+8),"a mark sits on a portrait");
+ assert(ART.overview.wide<=110,"drawings are modest");
+});
+
+test("zoom on the X axis and of the whole view: columns draw together, and a phone can see every group at once",async()=>{
+ const {HISTORY_ATLAS:H,COLUMNS}=await import("../src/data/history-atlas/index.ts");
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const view=fitRange(toV(HS,ordinal(-40)),toV(HS,ordinal(70)),hb,.04);
+ const normal=layoutTree(H,HS,view,phone,{lane:false}),narrow=layoutTree(H,HS,view,phone,{lane:false,columns:.5});
+ assert(narrow.slotW<normal.slotW&&narrow.panMax<normal.panMax,"narrower columns need less sideways scrolling");
+ assert(narrow.slotW>=COLUMNS.narrowest);
+ // Narrow columns hold small portraits only, and nothing overlaps.
+ assert(narrow.people.every(p=>p.mode==="compact"||narrow.slotW>=56));
+ // Drawn at 55% (the layout gets the phone's size divided by the scale) with narrow columns, the whole tree fits.
+ const small={width:Math.round(390/.55),height:Math.round(560/.55)};
+ const all=layoutTree(H,HS,view,small,{lane:false,columns:.5});
+ assert.equal(all.panMax,0,"every group on one screen");
+ for(let i=0;i<all.people.length;i++)for(let j=0;j<i;j++){const a=all.people[i],b=all.people[j];if(a.slot===b.slot)assert(a.bottom<=b.top||b.bottom<=a.top,a.node.id+" on "+b.node.id);}
+});
+
 test("the figures are told about in the third person",async()=>{
  const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
  const {EARLY_SOURCES}=await import("../src/data/history-atlas/first-temple.ts");

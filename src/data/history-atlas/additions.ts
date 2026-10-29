@@ -53,6 +53,10 @@ const FIGURES:Figure[]=[
  {id:"M-17",title:"רבן גמליאל השישי",from:400,to:425,rank:2,slot:at("judea",2),related:["BY-021"],source:WHO_AM_I,image:WHO.gamaliel6,href:"/games/who-am-i",caution:"השנים בקירוב: החומר אומר \"ראשית המאה ה־5\", ואין לקבוע שמת דווקא ב־429."},
  {id:"M-18",title:"גרסימוס",from:451,to:475,rank:3,slot:at("voices",1),related:["BY-020"],source:WHO_AM_I,image:WHO.gerasimus,href:"/games/who-am-i",caution:"השנים בקירוב: החומר אומר \"המאה ה־5\"."},
  {id:"M-19",title:"מרטיריוס",from:457,to:486,rank:3,slot:at("voices",0),related:["BY-020"],source:WHO_AM_I,image:WHO.martyrius,href:"/games/who-am-i",caution:"השנים בקירוב: החומר אומר \"המאה ה־5\"."},
+ // The three prophets of the return, one record in the course's notebook (P-016), each a figure of their own here.
+ {id:"P-016-1",title:"חגי הנביא",from:-520,to:-519,rank:2,slot:at("voices",0),related:["ST-011","ST-012"],source:WHO_AM_I+"; מחברת הקורס על בית שני; ספר חגי.",image:WHO.haggai,href:"/games/who-am-i"},
+ {id:"P-016-2",title:"זכריה הנביא",from:-520,to:-518,rank:2,slot:at("voices",1),related:["ST-011","ST-012"],source:WHO_AM_I+"; מחברת הקורס על בית שני; ספר זכריה.",image:WHO.zechariah,href:"/games/who-am-i"},
+ {id:"P-016-3",title:"מלאכי",from:-460,to:-440,rank:2,slot:at("voices",0),related:["ST-016"],source:"מחברת הקורס על בית שני; ספר מלאכי.",href:"/timelines/history-atlas",caution:"השנים בקירוב: החומר אומר \"מאוחר יותר, במאה ה־5\"; הספר אינו מתוארך."},
 ];
 export const ADDED_PEOPLE:AtlasNode[]=FIGURES.map(f=>({id:f.id,kind:"person",title:f.title,subtitle:"",date:"",phase:phaseOf(f.from),from:ordinal(f.from),to:ordinal(f.to),rank:f.rank,summary:"",fields:[],
  source:f.source,caution:f.caution??"השנים על הציר בקירוב, לפי הכרונולוגיה המקובלת.",related:f.related,image:f.image,originalHref:f.href}));
@@ -64,6 +68,11 @@ export const ADDED_SLOTS:Record<string,AtlasSlot>=Object.fromEntries(FIGURES.map
  */
 export const ADDED_TIES:(AtlasRelation&{quote?:string;cite?:string})[]=[
  {from:"F-03",to:"M-01",label:"בני זוג",kind:"spouse",cite:"בראשית כט, כח: «ויתן לו את רחל בתו לו לאשה»"},
+ {from:"P-016-1",to:"P-016-2",label:"ניבאו יחד לחידוש הבנייה",kind:"parallel",cite:"עזרא ה, א: «והתנבי חגי נביאה וזכריה בר עדוא נביאיא»"},
+ {from:"P-016-1",to:"P-014",label:"קרא לו לחדש את בניית הבית",kind:"contact",cite:"חגי א, א: «ביד חגי הנביא אל זרבבל בן שאלתיאל פחת יהודה»"},
+ {from:"P-016-2",to:"P-015",label:"ראה אותו בחזון",kind:"contact",cite:"זכריה ג, א: «ויראני את יהושע הכהן הגדול»"},
+ {from:"P-016-2",to:"P-016-3",label:"האחרונים בנביאים",kind:"parallel",cite:"בבלי יומא ט, ב: «משמתו נביאים האחרונים חגי זכריה ומלאכי נסתלקה רוח הקודש מישראל»"},
+ {from:"P-016-3",to:"P-017",label:"לפי מסורת אחת בתלמוד — הוא עזרא",kind:"contact",cite:"בבלי מגילה טו, א: «מלאכי זה עזרא»"},
  {from:"M-03",to:"M-02",label:"בן דודה, שגידל אותה",kind:"patron",cite:"אסתר ב, ז: «ויהי אמן את הדסה היא אסתר בת דדו»"},
  {from:"P-010",to:"M-02",label:"המלך ואשתו, לפי המגילה",kind:"spouse",cite:"אסתר ב, יז: «ויאהב המלך את אסתר מכל הנשים»"},
  {from:"P-066",to:"M-04",label:"ירש אותו",kind:"succession",cite:"סואטוניוס, חיי הקיסרים: קלאודיוס 10"},

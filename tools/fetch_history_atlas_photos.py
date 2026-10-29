@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""Fetch the photos of the time atlas (/timelines/history-atlas) from Wikimedia Commons.
+
+Reads tools/history_atlas_photos.json — a list of {id, caption, alt} where `id`
+is the atlas item the photo belongs to (a figure or an event), with one way to
+find the picture, as in tools/fetch_learning_map_photos.py:
+
+  "file":   a Commons file name;
+  "wiki":   "he:<title>" / "en:<title>" — the lead image of that Wikipedia article;
+  "search": a Commons search; the first freely-licensed photo wins.
+
+Several may be given; the first that resolves wins. The file each entry
+resolved to is pinned in tools/history_atlas_photos.lock.json, so a photo that
+was checked by eye never changes silently. To replace one, give it an explicit
+"file" or delete its lock entry.
+
+Saves an 800px JPEG to public/images/history-atlas/<id>.jpg and writes
+src/data/history-atlas/photos.ts (generated — do not edit) with the
+attribution every CC licence asks for. It runs on GitHub's runners
+(.github/workflows/fetch-history-atlas-photos.yml), because upload.wikimedia.org
+throttles the build containers.
+
+Photos the site already holds — the learning map's and the architecture
+studio's — are not fetched again: src/data/history-atlas/photo-map.ts points
+atlas items at them.
+
+  python3 tools/fetch_history_atlas_photos.py            # fetch what is missing
+  python3 tools/fetch_history_atlas_photos.py --refresh  # re-download everything
+"""
+import io
+import json
+import sys
+import time
+from pathlib import Path
+
+from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fetch_learning_map_photos import ALLOWED, curl, image_info, lead_image, plain, search  # noqa: E402
+
+ROOT = Path(__file__).resolve().parent.parent
+MANIFEST = ROOT / "tools" / "history_atlas_photos.json"
+LOCK = ROOT / "tools" / "history_atlas_photos.lock.json"
+OUT_DIR = ROOT / "public" / "images" / "history-atlas"
+DATA = ROOT / "src" / "data" / "history-atlas" / "photos.ts"
+SIZE = 800
+
+
+def resolve(item: dict, lock: dict[str, str]) -> str | None:
+    if item.get("file"):
+        return item["file"]
+    if lock.get(item["id"]):
+        return lock[item["id"]]
+    for key, find in (("wiki", lead_image), ("search", search)):
+        for query in ([item[key]] if isinstance(item.get(key), str) else item.get(key) or []):
+            try:
+                name = find(query)
+            except RuntimeError as error:
+                print(f"{item['id']:12} — {error}", flush=True)
+                name = None
+            if name:
+                return name
+    return None
+
+
+def main() -> None:
+    refresh = "--refresh" in sys.argv
+    items = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    lock: dict[str, str] = json.loads(LOCK.read_text(encoding="utf-8")) if LOCK.exists() else {}
+
+    chosen: dict[str, str] = {}
+    for item in items:
+        name = resolve(item, lock)
+        if name:
+            chosen[item["id"]] = name.replace("_", " ")
+        else:
+            print(f"{item['id']:12} — nothing found", flush=True)
+
+    info = image_info(sorted(set(chosen.values())))
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    rows, missing = [], []
+    for item in items:
+        name = chosen.get(item["id"])
+        meta = info.get(name or "")
+        if not meta:
+            missing.append(item["id"])
+            continue
+        ext = meta.get("extmetadata", {})
+        license_name = plain(ext.get("LicenseShortName", {}).get("value", ""))
+        if not ALLOWED.match(license_name):
+            print(f"{item['id']:12} — licence '{license_name}' is not one we can reuse ({name})", flush=True)
+            missing.append(item["id"])
+            continue
+        target = OUT_DIR / f"{item['id']}.jpg"
+        if refresh or not target.exists() or lock.get(item["id"]) != name:
+            try:
+                image = Image.open(io.BytesIO(curl(meta.get("thumburl", meta["url"])))).convert("RGB")
+            except RuntimeError as error:
+                print(f"{item['id']:12} — {error}", flush=True)
+                missing.append(item["id"])
+                continue
+            image.thumbnail((SIZE, SIZE))
+            image.save(target, "JPEG", quality=80, optimize=True, progressive=True)
+            time.sleep(2)
+        lock[item["id"]] = name
+        rows.append({
+            "id": item["id"], "caption": item["caption"], "alt": item["alt"],
+            "localSrc": f"/moreh-derech/images/history-atlas/{item['id']}.jpg",
+            "credit": plain(ext.get("Artist", {}).get("value", "")) or "לא צוין",
+            "license": license_name, "licenseUrl": plain(ext.get("LicenseUrl", {}).get("value", "")) or meta["descriptionurl"],
+            "sourceUrl": meta["descriptionurl"],
+        })
+        print(f"{item['id']:12} {license_name:14} {name}", flush=True)
+
+    LOCK.write_text(json.dumps(dict(sorted(lock.items())), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    DATA.write_text(
+        "// Generated by tools/fetch_history_atlas_photos.py from tools/history_atlas_photos.json — do not edit by hand.\n"
+        "import type { AtlasImage } from \"./types\";\n\n"
+        f"export const ATLAS_PHOTOS: Record<string, AtlasImage> = {json.dumps({r.pop('id'): r for r in rows}, ensure_ascii=False, indent=2)};\n",
+        encoding="utf-8",
+    )
+    print(f"wrote {len(rows)} photos; missing: {', '.join(missing) or 'none'}")
+
+
+if __name__ == "__main__":
+    main()

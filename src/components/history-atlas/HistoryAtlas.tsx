@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import {useCallback,useEffect,useMemo,useRef,useState,type CSSProperties,type KeyboardEvent} from "react";
-import {HISTORY_ATLAS,TOPICS,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitWhole,fitWithRoom,withHome,isPlaced,roomyBounds,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,topicsOf,zoomAround,type AtlasCollection,type AtlasLevel,type AtlasNode,type AtlasTopic,type AtlasWindow,type Cluster,type TimeScale,type TreeLayout} from "@/data/history-atlas";
+import {HISTORY_ATLAS,TOPICS,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitWhole,placeChips,COLUMNS,fitWithRoom,withHome,isPlaced,roomyBounds,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,topicsOf,zoomAround,type AtlasCollection,type AtlasLevel,type AtlasNode,type AtlasTopic,type AtlasWindow,type Cluster,type TimeScale,type TreeLayout} from "@/data/history-atlas";
 import {AtlasMinimap} from "./AtlasMinimap";
 import {AtlasPanel} from "./AtlasPanel";
 import {AtlasLegend,AtlasStage,spanLabel,type TopicChip} from "./AtlasStage";
@@ -37,6 +37,8 @@ const LEVEL_TEXT:Record<AtlasLevel,{title:string;note:string}>={
 };
 const LEVEL_SPANS:Record<Exclude<AtlasLevel,"overview">,number>={context:560,detail:170};
 const normalize=(text:string)=>text.normalize("NFKD").replace(/[֑-ׇ]/g,"").replace(/["'״׳]/g,"").toLowerCase();
+/** How much smaller or larger the whole stage may be drawn. */
+const UI={min:.55,max:1.35};
 /** From this width the lane of event titles opens beside the tree; below it, it starts closed. */
 const WIDE_LANE=900;
 /** Below this width the card opens as a sheet over the lower part of the stage instead of beside it. */
@@ -53,6 +55,10 @@ export function HistoryAtlas(){
  const camera=useCamera(BOUNDS,START),{view,read,fly,jump,zoomBy}=camera;
  const [lane,setLane]=useState<boolean|undefined>(undefined),[selected,setSelected]=useState<string|null>(null);
  const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[pan,setPan]=useState<number|undefined>(undefined);
+ // The two other dimensions of zoom: how wide the columns are (the X axis), and how large everything is drawn.
+ const [columns,setColumns]=useState(1),[ui,setUi]=useState(1);
+ const widen=useCallback((factor:number)=>{setHint(false);setColumns(c=>Math.max(COLUMNS.min,Math.min(COLUMNS.max,c*factor)));},[]);
+ const resizeAll=useCallback((factor:number)=>{setHint(false);setUi(u=>{const next=Math.max(UI.min,Math.min(UI.max,u*factor));return Math.abs(next-1)<.03?1:next;});},[]);
  const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false),latest=useRef<TreeLayout|null>(null);
  // Switching worlds: the view to land on once the new world's bounds are in place, and the axis's view to return to.
  const landing=useRef<{view:AtlasWindow;open:string|null}|null>(null),axisView=useRef<AtlasWindow|null>(null);
@@ -61,7 +67,7 @@ export function HistoryAtlas(){
  const focus=useMemo(()=>selected?relatedIds(C,selected):new Set<string>(),[C,selected]);
  // The lane of event titles starts open where there is room for it beside the tree, and closed on a phone.
  const laneOpen=lane??size.width>=WIDE_LANE;
- const layout=useMemo(()=>layoutTree(C,SCALE,view,size,{lane:laneOpen,selected,focus,pan}),[C,SCALE,view,size,laneOpen,selected,focus,pan]);
+ const layout=useMemo(()=>layoutTree(C,SCALE,view,size,{lane:laneOpen,selected,focus,pan,columns}),[C,SCALE,view,size,laneOpen,selected,focus,pan,columns]);
  const level=levelOf(view.to-view.from,size.height?size.height-HEADER:LEVEL_HEIGHT),active=selected?W.byId.get(selected)??null:null;
  const step=active?W.order.findIndex(n=>n.id===active.id):-1;
  const results=useMemo(()=>{const q=normalize(query.trim());return q?C.nodes.filter(n=>normalize(n.title+" "+n.subtitle+" "+n.summary).includes(q)).sort((a,b)=>Number(!normalize(a.title).includes(q))-Number(!normalize(b.title).includes(q))).slice(0,8):[];},[C,query]);
@@ -171,19 +177,11 @@ export function HistoryAtlas(){
   event.preventDefault();setHint(false);
  }
 
- // On the whole axis, each topic has a focus button at the top of its years; buttons of overlapping topics stack.
+ // On the whole axis, each topic has a focus button at the top of its years, in a spot clear of the figures (placeChips).
  const chips=useMemo<TopicChip[]>(()=>{
   if(topicId||!size.height)return [];
   const L=layout,usable=Math.max(1,L.height-L.header),y=(year:number)=>L.header+(toV(SCALE,ordinal(year))-view.from)/(view.to-view.from)*usable;
-  const right=L.width-(L.lane.open&&!L.lane.overlay?L.lane.left-10:L.width-L.rulerW-10),out:TopicChip[]=[];
-  for(const t of TOPICS){
-   const top=y(t.from),bottom=y(t.to);
-   if(bottom<L.header+44||top>L.height-40)continue;
-   let at=Math.max(L.header+8,Math.min(top,bottom-36));
-   for(const c of out)if(Math.abs(c.top-at)<36)at=c.top+36;
-   if(at<L.height-36)out.push({id:t.id,title:t.title,top:at,right});
-  }
-  return out;
+  return placeChips(L,TOPICS.map(t=>({id:t.id,title:t.title,top:y(t.from),bottom:y(t.to)})));
  },[topicId,size.height,layout,SCALE,view]);
 
  const shown=layout.people.length+layout.events.length+layout.vignettes.filter(v=>!layout.events.some(e=>e.node===v.node)).length;
@@ -219,7 +217,7 @@ export function HistoryAtlas(){
   <div className={s.body}>
    <div className={s.stageWrap}>
     <div key={topicId??"axis"} className={s.world} data-warp={warp?.dir} style={warp?{"--ox":warp.x*100+"%","--oy":warp.y*100+"%"} as CSSProperties:undefined}>
-    <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint} chips={chips} onTopic={id=>{const c=chips.find(x=>x.id===id),w=sizeRef.current.width||1,h=sizeRef.current.height||1;enter(id,null,c&&{x:Math.max(0,1-(c.right+70)/w),y:Math.min(1,(c.top+15)/h)});}}
+    <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint} chips={chips} onReveal={()=>zoom(1)} ui={ui} onColumns={widen} onScale={resizeAll} onTopic={id=>{const c=chips.find(x=>x.id===id),w=sizeRef.current.width||1,h=sizeRef.current.height||1;enter(id,null,c&&{x:Math.max(0,1-(c.right+70)/w),y:Math.min(1,(c.top+15)/h)});}}
      onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onPan={sideways} onLane={setLane} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
     </div>
     {warp&&<div key={warp.n} className={s.warp} data-dir={warp.dir} style={{"--ox":warp.x*100+"%","--oy":warp.y*100+"%"} as CSSProperties} aria-hidden onAnimationEnd={e=>{if(e.target===e.currentTarget)setWarp(null);}}>
@@ -248,6 +246,20 @@ export function HistoryAtlas(){
       <div className={s.legendBody}>
        <ul>{topic&&<li><button type="button" onClick={e=>{e.currentTarget.closest("details")?.removeAttribute("open");enter(null);}}>↩ הציר המלא</button></li>}
         {TOPICS.map(t=><li key={t.id}><button type="button" data-atlas-topic-item={t.id} aria-current={t.id===topicId||undefined} onClick={e=>{e.currentTarget.closest("details")?.removeAttribute("open");enter(t.id);}}><b>{t.title}</b><small>{spanLabel(t.from,t.to)}</small></button></li>)}</ul>
+      </div>
+     </details>
+     <details className={s.topicMenu} data-atlas-view>
+      <summary aria-label="תצוגה: רוחב וגודל">תצוגה</summary>
+      <div className={`${s.legendBody} ${s.viewBody}`}>
+       <div role="group" aria-label="רוחב העמודות"><span><b>רוחב</b><small>Alt + גלגלת · צביטה לצדדים</small></span>
+        <button type="button" data-atlas-columns="narrow" aria-label="לצמצם את העמודות" onClick={()=>widen(1/1.2)} disabled={columns<=COLUMNS.min+.001}>→←</button>
+        <output>{Math.round(columns*100)}%</output>
+        <button type="button" data-atlas-columns="wide" aria-label="להרחיב את העמודות" onClick={()=>widen(1.2)} disabled={columns>=COLUMNS.max-.001}>←→</button></div>
+       <div role="group" aria-label="גודל התצוגה"><span><b>גודל הכול</b><small>Ctrl + Alt + גלגלת</small></span>
+        <button type="button" data-atlas-ui="smaller" aria-label="להקטין הכול" onClick={()=>resizeAll(1/1.15)} disabled={ui<=UI.min+.001}>−</button>
+        <output>{Math.round(ui*100)}%</output>
+        <button type="button" data-atlas-ui="larger" aria-label="להגדיל הכול" onClick={()=>resizeAll(1.15)} disabled={ui>=UI.max-.001}>+</button></div>
+       <button type="button" className={s.viewReset} onClick={()=>{setColumns(1);setUi(1);}} disabled={columns===1&&ui===1}>חזרה לגודל הרגיל</button>
       </div>
      </details>
      <AtlasLegend/>
