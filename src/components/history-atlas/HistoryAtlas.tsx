@@ -59,9 +59,10 @@ export function HistoryAtlas(){
  const [columns,setColumns]=useState(1),[ui,setUi]=useState(1);
  // Full screen: the browser's own when it allows it (desktop, Android), and otherwise the atlas laid over the whole
  // window (an iPhone has no full screen for a page). Either way a clear button inside leads out, and Esc does too.
- const root=useRef<HTMLDivElement>(null),[full,setFull]=useState(false);
- const enterFull=useCallback(()=>{setFull(true);const el=root.current;if(el?.requestFullscreen&&!document.fullscreenElement)el.requestFullscreen().catch(()=>{});},[]);
- const exitFull=useCallback(()=>{setFull(false);if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});},[]);
+ const root=useRef<HTMLDivElement>(null),[full,setFull]=useState(false),asking=useRef<Promise<void>|null>(null);
+ const enterFull=useCallback(()=>{setFull(true);const el=root.current;if(el?.requestFullscreen&&!document.fullscreenElement)asking.current=el.requestFullscreen().catch(()=>{});},[]);
+ // Leaving waits for a request still on its way, so a quick Esc cannot leave the browser in full screen with the button gone.
+ const exitFull=useCallback(()=>{setFull(false);Promise.resolve(asking.current).then(()=>{asking.current=null;if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});});},[]);
  useEffect(()=>{const sync=()=>{if(!document.fullscreenElement)setFull(false);};document.addEventListener("fullscreenchange",sync);return()=>document.removeEventListener("fullscreenchange",sync);},[]);
  useEffect(()=>{if(!full)return;const html=document.documentElement,before=html.style.overflow;html.style.overflow="hidden";return()=>{html.style.overflow=before;};},[full]);
  const widen=useCallback((factor:number)=>{setHint(false);setColumns(c=>Math.max(COLUMNS.min,Math.min(COLUMNS.max,c*factor)));},[]);

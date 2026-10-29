@@ -53,6 +53,8 @@ const FIGURES:Figure[]=[
  {id:"M-17",title:"רבן גמליאל השישי",from:400,to:425,rank:2,slot:at("judea",2),related:["BY-021"],source:WHO_AM_I,image:WHO.gamaliel6,href:"/games/who-am-i",caution:"השנים בקירוב: החומר אומר \"ראשית המאה ה־5\", ואין לקבוע שמת דווקא ב־429."},
  {id:"M-18",title:"גרסימוס",from:451,to:475,rank:3,slot:at("voices",1),related:["BY-020"],source:WHO_AM_I,image:WHO.gerasimus,href:"/games/who-am-i",caution:"השנים בקירוב: החומר אומר \"המאה ה־5\"."},
  {id:"M-19",title:"מרטיריוס",from:457,to:486,rank:3,slot:at("voices",0),related:["BY-020"],source:WHO_AM_I,image:WHO.martyrius,href:"/games/who-am-i",caution:"השנים בקירוב: החומר אומר \"המאה ה־5\"."},
+ {id:"M-20",title:"ברניקי",from:48,to:79,rank:2,slot:at("judea",5),related:["ST-072"],source:"מבחני הקורס: בית שני 7, שאלה 12; יוסף בן מתתיהו, מלחמת היהודים ב, טו; סואטוניוס, חיי טיטוס 7.",href:"/exams/course-temple-7",caution:"שנות הקו הן שנות פעילותה הציבורית, מנישואיה למלך כלקיס ועד שעזבה את רומא."},
+ {id:"M-21",title:"בן בטיח (אבא סקרא)",from:68,to:70,rank:3,slot:at("voices",0),related:["ST-078"],source:"בבלי גיטין נו, א; איכה רבה א, לא.",href:"/timelines/history-atlas",caution:"דמות מן האגדה: ידוע רק ממקורות חז״ל, ולא מיוסף בן מתתיהו. השנים הן שנות המצור, שבהן מסופר עליו."},
  // The three prophets of the return, one record in the course's notebook (P-016), each a figure of their own here.
  {id:"P-016-1",title:"חגי הנביא",from:-520,to:-519,rank:2,slot:at("voices",0),related:["ST-011","ST-012"],source:WHO_AM_I+"; מחברת הקורס על בית שני; ספר חגי.",image:WHO.haggai,href:"/games/who-am-i"},
  {id:"P-016-2",title:"זכריה הנביא",from:-520,to:-518,rank:2,slot:at("voices",1),related:["ST-011","ST-012"],source:WHO_AM_I+"; מחברת הקורס על בית שני; ספר זכריה.",image:WHO.zechariah,href:"/games/who-am-i"},
@@ -85,6 +87,10 @@ export const ADDED_TIES:(AtlasRelation&{quote?:string;cite?:string})[]=[
  {from:"L-13",to:"M-11",label:"שותפו לצו מילאנו, ויריבו",kind:"rival",quote:"ניצחון על ליקיניוס"},
  {from:"L-15",to:"M-15",label:"מינה אותו לקיסר המשנה במזרח",kind:"patron",cite:"אמיאנוס מרקלינוס, ספר 14"},
  {from:"M-15",to:"L-16",label:"אחים למחצה",kind:"sibling",cite:"אמיאנוס מרקלינוס, ספר 14, 11; יוליאנוס, איגרת לאתונאים 270"},
+ {from:"P-065",to:"M-20",label:"בתו",kind:"parent",cite:"מבחני הקורס, בית שני 7: «בת אגריפס הראשון, שהייתה מאהבתו של טיטוס»"},
+ {from:"P-067",to:"M-20",label:"אחים",kind:"sibling",cite:"מבחני הקורס, בית שני 7: «ברניקי, אחות אגריפס השני, ניהלה רומן עם טיטוס בזמן המרד»"},
+ {from:"M-20",to:"P-075",label:"אהבתו; הגיעה איתו לרומא, ונשלחה ממנה כשנעשה קיסר",kind:"contact",cite:"סואטוניוס, חיי טיטוס 7; מבחני הקורס, בית שני 7: «והגיעה איתו לרומא»"},
+ {from:"L-01",to:"M-21",label:"בן אחותו; הוציא אותו מן העיר בארון",kind:"contact",cite:"בבלי גיטין נו, א: «אבא סקרא ריש בריוני דירושלים בר אחתיה דרבן יוחנן בן זכאי הוה»"},
 ];
 
 // ── Second Temple events from the course's notebook ──
