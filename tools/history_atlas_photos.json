@@ -382,15 +382,6 @@
   "alt": "לוח טין חרות בסימנים"
  },
  {
-  "id": "BR-04",
-  "search": [
-   "Arad Early Bronze Age city wall",
-   "Tel Arad lower city"
-  ],
-  "caption": "תל ערד — העיר הכנענית התחתונה מן הברונזה הקדומה.",
-  "alt": "שרידי עיר אבן במדבר"
- },
- {
   "id": "BR-05",
   "wiki": [
    "en:Tel Megiddo"
@@ -740,15 +731,6 @@
   "alt": "לוח אבן קטן חרות"
  },
  {
-  "id": "IR-07",
-  "search": [
-   "Tel Rehov apiary beehives",
-   "Tel Rehov excavation"
-  ],
-  "caption": "תל רחוב — הכוורות מתקופת הברזל.",
-  "alt": "כוורות חרס עתיקות"
- },
- {
   "id": "IR-08",
   "wiki": [
    "en:Tel Jezreel"
@@ -967,15 +949,6 @@
   ],
   "caption": "שחזור דמיוני של מקדש שלמה — תחריט מן המאה ה־16.",
   "alt": "מבנה עתיק"
- },
- {
-  "id": "FT-09",
-  "search": [
-   "Tel Dan high place altar",
-   "Tel Dan bamah"
-  ],
-  "caption": "הבמה בתל דן — מקום הפולחן מימי ממלכת ישראל.",
-  "alt": "משטח אבן גדול ומזבח"
  },
  {
   "id": "FT-04",
@@ -1350,15 +1323,6 @@
   ],
   "caption": "הר תבור.",
   "alt": "הר עגול מעל עמק"
- },
- {
-  "id": "JD-04",
-  "search": [
-   "Ma'ayan Harod spring",
-   "Harod spring Gilboa"
-  ],
-  "caption": "מעיין חרוד למרגלות הגלבוע.",
-  "alt": "מעיין ובריכה למרגלות הר"
  },
  {
   "id": "PR-02",

@@ -299,15 +299,6 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://commons.wikimedia.org/wiki/File:Tableta_con_trillo.png",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tableta_con_trillo.png"
   },
-  "BR-04": {
-    "caption": "תל ערד — העיר הכנענית התחתונה מן הברונזה הקדומה.",
-    "alt": "שרידי עיר אבן במדבר",
-    "localSrc": "/moreh-derech/images/history-atlas/BR-04.jpg",
-    "credit": "Gilabrand",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_Arad.JPG"
-  },
   "BR-05": {
     "caption": "תל מגידו ממבט אוויר.",
     "alt": "תל ארכאולוגי",
@@ -578,15 +569,6 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gezer_calendar_close_up.jpg"
   },
-  "IR-07": {
-    "caption": "תל רחוב — הכוורות מתקופת הברזל.",
-    "alt": "כוורות חרס עתיקות",
-    "localSrc": "/moreh-derech/images/history-atlas/IR-07.jpg",
-    "credit": "SandraLynnRichter",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sandy_Richter_Tel_Rehov.jpg"
-  },
   "IR-08": {
     "caption": "תל יזרעאל.",
     "alt": "שרידי מבנה עמודים",
@@ -766,15 +748,6 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "license": "Public domain",
     "licenseUrl": "https://commons.wikimedia.org/wiki/File:Francois_Vatable,_reconstructie_van_de_tempel_van_Salomo_(detail).jpg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Francois_Vatable,_reconstructie_van_de_tempel_van_Salomo_(detail).jpg"
-  },
-  "FT-09": {
-    "caption": "הבמה בתל דן — מקום הפולחן מימי ממלכת ישראל.",
-    "alt": "משטח אבן גדול ומזבח",
-    "localSrc": "/moreh-derech/images/history-atlas/FT-09.jpg",
-    "credit": "dynamosquito from France",
-    "license": "CC BY-SA 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Xerxes_tomb_at_Naqsh-e_Rostam-_upper_register_(4614878357).jpg"
   },
   "FT-04": {
     "caption": "תל שילה.",
@@ -1072,15 +1045,6 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg"
-  },
-  "JD-04": {
-    "caption": "מעיין חרוד למרגלות הגלבוע.",
-    "alt": "מעיין ובריכה למרגלות הר",
-    "localSrc": "/moreh-derech/images/history-atlas/JD-04.jpg",
-    "credit": "Almog",
-    "license": "Public domain",
-    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Maayan_harod.jpg",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maayan_harod.jpg"
   },
   "PR-02": {
     "caption": "מנזר המוחרקה בכרמל.",

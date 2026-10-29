@@ -186,7 +186,7 @@ test("portraits and illustrations have provenance and exist",()=>{
 });
 
 test("the whole axis: prehistory, the Bronze Age and the First Temple before, Rome and Byzantium after",async()=>{
- const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
+ const {HISTORY_ATLAS:H,ART}=await import("../src/data/history-atlas/index.ts");
  const {LATE_RELATIONS}=await import("../src/data/history-atlas/late-antiquity.ts");
  const {EARLY_RELATIONS}=await import("../src/data/history-atlas/first-temple.ts");
  const early=readFileSync(new URL("../src/data/who-am-i/people.json",import.meta.url),"utf8")+readFileSync(new URL("../src/data/timelines/egypt-canaan.ts",import.meta.url),"utf8");
@@ -222,7 +222,9 @@ test("the whole axis: prehistory, the Bronze Age and the First Temple before, Ro
   const titles=[...L.events].sort((a,b)=>a.top-b.top);
   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id);
   assert.equal(new Set(ids(L)).size,ids(L).length,where);
-  for(const v of L.vignettes){const n=v.node,y=yr=>48+(toV(HS,yr)-view.from)/(view.to-view.from)*(size.height-48),aim=y(artYear(H.illustrations[n.id],n));assert(Math.abs(v.y-aim)<1e-6||(v.y>=y(n.from+.5)-.5&&v.y<=y(n.to+.5)+.5),where+n.id+" leaves its own years");}
+  // A drawing stands at its year, along its span, or as a last resort up to two thirds of its size off its year.
+  const nudge=ART[L.level][size.width<640?"narrow":"wide"]*2/3+.5;
+  for(const v of L.vignettes){const n=v.node,y=yr=>48+(toV(HS,yr)-view.from)/(view.to-view.from)*(size.height-48),aim=y(artYear(H.illustrations[n.id],n));assert(Math.abs(v.y-aim)<=nudge||(v.y>=y(n.from+.5)-.5&&v.y<=y(n.to+.5)+.5),where+n.id+" leaves its own years");}
   noClash(L,where);
  }
  const kings=layoutTree(H,HS,fitRange(toV(HS,ordinal(-1004)),toV(HS,ordinal(-900)),hb,.04),desk),k=id=>kings.people.find(p=>p.node.id===id);

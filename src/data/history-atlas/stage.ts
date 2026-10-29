@@ -316,6 +316,9 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   const first=yearY(n.from+.5),last=yearY(n.to+.5),ys=[aim];
   if(loose(n))for(let d=artSize/3;d<=last-first;d+=artSize/3)ys.push(aim+d,aim-d);
   const spots=ys.filter(at=>at>=Math.min(aim,first)-.5&&at<=Math.max(aim,last)+.5);
+  // Last of all, a drawing may stand a little above or below its year (the crucifixion, when the disciples crowd the
+  // years beside Jesus) rather than wait for a closer zoom.
+  const nudged=[artSize/3,artSize*2/3].flatMap(d=>[aim-d,aim+d]);
   // Far outside the screen a drawing cannot meet one in view, so it is not worked out.
   if(!inView(Math.min(...spots)-artSize,Math.max(...spots)+artSize,height))continue;
   // The figure to stand beside: one whose column is on screen, who is alive at the drawing's year, the more central
@@ -332,10 +335,10 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   // there is no room beside the first figure, beside the next one (Mattathias for Modiin, when the king's column is
   // full). With no figure, from the ruler inward.
   const base=Math.round(artSize*(SCALE[n.rank]??.72));
-  search:for(const owner of owners.length?owners:[undefined])for(const size of [base,Math.round(base*.82)]){
+  search:for(const pass of [spots,nudged])for(const owner of owners.length?owners:[undefined])for(const size of [base,Math.round(base*.82)]){
    const lo=size/2+4,hi=peopleRight-size/2-4;if(hi<lo)continue;
    const home=owner?owner.x:hi,xs=owner?Array.from({length:5},(_,i)=>[home+(i+1)*slotW/2,home-(i+1)*slotW/2]).flat():Array.from({length:24},(_,i)=>home-i*slotW/2);
-   for(const at of spots)for(const x of xs.map(x=>Math.max(lo,Math.min(hi,x)))){
+   for(const at of pass)for(const x of xs.map(x=>Math.max(lo,Math.min(hi,x)))){
     const top=at-size/2,bottom=at+size/2+ART_CAPTION,c=covered(x,size,top,bottom);
     if(c===0){fit={x,at,size,owner};break search;}
     if(size===base&&at===aim&&owner===owners[0]&&(!least||c<least.c))least={x,at,size,c,owner};
