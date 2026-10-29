@@ -124,9 +124,10 @@ try{
  await page.locator('[data-atlas-fullscreen="enter"]').click();await expect(atlas).toHaveAttribute("data-full","true");
  const exitFull=page.locator('[data-atlas-fullscreen="exit"]');await expect(exitFull).toBeVisible();await expect(exitFull).toContainText("יציאה ממסך מלא");
  expect(await atlas.evaluate(el=>{const r=el.getBoundingClientRect();return [Math.round(r.top),Math.round(r.height)];})).toEqual([0,await page.evaluate(()=>window.innerHeight)]);
- await exitFull.click();await expect(atlas).not.toHaveAttribute("data-full",/.+/);await expect(page.locator('[data-atlas-fullscreen="enter"]')).toBeVisible();
+ const native=()=>page.evaluate(()=>Boolean(document.fullscreenElement));
+ await exitFull.click();await expect(atlas).not.toHaveAttribute("data-full",/.+/);await expect.poll(native).toBe(false);await expect(page.locator('[data-atlas-fullscreen="enter"]')).toBeVisible();
  await page.locator('[data-atlas-fullscreen="enter"]').click();await expect(atlas).toHaveAttribute("data-full","true");
- await page.keyboard.press("Escape");await expect(atlas).not.toHaveAttribute("data-full",/.+/);
+ await page.keyboard.press("Escape");await expect(atlas).not.toHaveAttribute("data-full",/.+/);await expect.poll(native).toBe(false);
 
  // Topics open as dimensions of their own, and close back to the same place on the axis.
  await page.locator('[data-atlas-level="overview"]').click();await page.locator('[data-atlas-phase="hasmonean"]').click();

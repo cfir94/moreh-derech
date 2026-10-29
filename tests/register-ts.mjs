@@ -17,7 +17,8 @@ registerHooks({
   load(url, context, next) {
     if (url.endsWith("/src/lib/cloudAuth.ts")) return { format: "module", shortCircuit: true, source:
       'export const AUTH_EVENT="auth-changed"; export const readSession=()=>globalThis.__testSession; export const supabaseRequest=(...args)=>globalThis.__testSupabase(...args); export const authenticatedSupabaseRequest=supabaseRequest;' };
-    if (url.endsWith(".json")) return { format: "module", shortCircuit: true,
+    // The project's own JSON imports become modules; a package's package.json (Playwright require()s its own) stays with Node.
+    if (url.endsWith(".json") && !url.includes("/node_modules/")) return { format: "module", shortCircuit: true,
       source: `export default ${readFileSync(new URL(url), "utf8")};` };
     if (url.endsWith(".ts")) return { format: "module", shortCircuit: true,
       source: stripTypeScriptTypes(readFileSync(new URL(url), "utf8")) };
