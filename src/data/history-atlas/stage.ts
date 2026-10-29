@@ -179,7 +179,8 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const slotsTotal=collection.groups.reduce((n,g)=>n+g.slots,0),gaps=(collection.groups.length-1)*groupGap;
  const slotW=Math.max(COLUMNS.narrowest,Math.max(86,Math.min(136,(room-gaps)/slotsTotal))*Math.max(COLUMNS.min,Math.min(COLUMNS.max,spread)));
  const panMax=Math.max(0,slotsTotal*slotW+gaps-room),first=collection.groups[0];
- const shift=Math.max(0,Math.min(panMax,pan??(first?room/2-(peopleRight-first.slots/2*slotW):0)));
+ // A tree narrower than its area (columns drawn together) stands in the middle of it, not against the lane.
+ const total=slotsTotal*slotW+gaps,shift=total<room?-(room-total)/2:Math.max(0,Math.min(panMax,pan??(first?room/2-(peopleRight-first.slots/2*slotW):0)));
  const offsets=new Map<string,number>();
  let offset=0;
  // The phase at the top of the view names the columns (a group may have older names, `ages`).

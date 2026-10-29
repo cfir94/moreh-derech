@@ -248,7 +248,7 @@ export function HistoryAtlas(){
         {TOPICS.map(t=><li key={t.id}><button type="button" data-atlas-topic-item={t.id} aria-current={t.id===topicId||undefined} onClick={e=>{e.currentTarget.closest("details")?.removeAttribute("open");enter(t.id);}}><b>{t.title}</b><small>{spanLabel(t.from,t.to)}</small></button></li>)}</ul>
       </div>
      </details>
-     <details className={s.topicMenu} data-atlas-view>
+     <details className={`${s.topicMenu} ${s.viewMenu}`} data-atlas-view>
       <summary aria-label="תצוגה: רוחב וגודל">תצוגה</summary>
       <div className={`${s.legendBody} ${s.viewBody}`}>
        <div role="group" aria-label="רוחב העמודות"><span><b>רוחב</b><small>Alt + גלגלת · צביטה לצדדים</small></span>

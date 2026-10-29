@@ -44,8 +44,8 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
    const dx=event.deltaX*unit,dy=event.deltaY*unit,height=box.height/ui,at=(event.clientY-box.top)/ui;
    // Some systems turn Alt/Shift + wheel into a sideways scroll, so the larger of the two deltas counts.
    const step=Math.abs(dy)>=Math.abs(dx)?dy:dx;
-   if(event.altKey&&(event.ctrlKey||event.metaKey)){onScale(Math.exp(-Math.sign(step)*Math.min(.25,Math.abs(step)*.0025)));return;}
-   if(event.altKey){onColumns(Math.exp(-Math.sign(step)*Math.min(.25,Math.abs(step)*.0025)));return;}
+   if(event.altKey&&(event.ctrlKey||event.metaKey)){onScale(Math.exp(-Math.sign(step)*Math.min(.12,Math.abs(step)*.0012)));return;}
+   if(event.altKey){onColumns(Math.exp(-Math.sign(step)*Math.min(.12,Math.abs(step)*.0012)));return;}
    if(event.ctrlKey||event.metaKey){zoomBy(-Math.sign(dy)*Math.min(.5,Math.abs(dy)*.01),view.from+(at-HEADER)/(height-HEADER)*span);return;}
    if(event.shiftKey&&!dx){onPan(-dy);return;}
    if(Math.abs(dx)>Math.abs(dy)){onPan(-dx);return;}
@@ -157,6 +157,7 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   {L.events.map(e=>{const n=e.node;return <button key={n.id} type="button" className={`${s.label} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode={e.mode} data-rank={n.rank}
    style={{...tint(n.phase),left:lane.left,width:lane.right-lane.left,top:e.top,height:e.height}} aria-label={`${n.title} · ${n.date}`} onClick={ev=>onOpen(n.id,ev.currentTarget)} {...hoverProps(n.id)}>
    <i aria-hidden/><span><strong>{n.title}</strong>{e.mode==="full"&&<small>{n.date}</small>}</span>
+   {e.mode==="full"&&n.image&&<img className={s.thumb} src={n.image.localSrc} alt="" width={34} height={34} loading="lazy" draggable={false}/>}{/* eslint-disable-line @next/next/no-img-element */}
   </button>;})}
 
   <svg className={s.links} width={L.width} height={L.height} aria-hidden>

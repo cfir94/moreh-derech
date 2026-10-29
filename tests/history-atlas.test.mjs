@@ -370,6 +370,25 @@ test("zoom on the X axis and of the whole view: columns draw together, and a pho
  for(let i=0;i<all.people.length;i++)for(let j=0;j<i;j++){const a=all.people[i],b=all.people[j];if(a.slot===b.slot)assert(a.bottom<=b.top||b.bottom<=a.top,a.node.id+" on "+b.node.id);}
 });
 
+test("photos: every figure and event that has one shows it, with its credit, licence and a file on the site",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ const {REUSE,photoOf}=await import("../src/data/history-atlas/photo-map.ts");
+ const {ATLAS_PHOTOS}=await import("../src/data/history-atlas/photos.ts");
+ for(const [id,ref] of Object.entries(REUSE))assert(photoOf(id),id+" → "+ref+" resolves to no photo");
+ const all=new Map();for(const C of [H,...TOPICS.map(t=>t.collection)])for(const n of C.nodes)all.set(n.id,n);
+ for(const id of Object.keys(ATLAS_PHOTOS))assert(all.has(id),id+" is not an atlas item");
+ let shown=0;
+ for(const n of all.values()){
+  if(!n.image)continue;shown++;
+  assert(n.image.localSrc.startsWith("/moreh-derech/"),n.id);
+  assert(existsSync(new URL("../public"+n.image.localSrc.replace("/moreh-derech",""),import.meta.url)),n.id+": "+n.image.localSrc);
+  assert(n.image.caption&&n.image.credit&&n.image.license&&n.image.sourceUrl.startsWith("https://"),n.id+" provenance");
+ }
+ // Most of the atlas has a picture: figures, and the events of every period.
+ assert(shown>=250,shown+" items with a photo");
+ for(const id of ["H-05","B-01","F-08","P-003","FT-19","EC-merneptah","ST-058","SE-08","RO-021","BY-036","JS-24"])assert(all.get(id)?.image,id+" has a photo");
+});
+
 test("the figures are told about in the third person",async()=>{
  const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
  const {EARLY_SOURCES}=await import("../src/data/history-atlas/first-temple.ts");
@@ -381,10 +400,14 @@ test("the figures are told about in the third person",async()=>{
  for(const n of H.nodes)for(const text of [n.summary,...n.fields.map(f=>f.text)])assert(!first.test(text),n.id+": "+text.slice(0,80));
 });
 
-test("the main axis carries no more than twenty drawings, of the great turning points",async()=>{
+test("the main axis carries few drawings — twenty from the Bronze Age on, four for prehistory and Canaan — of the great turning points",async()=>{
  const {HISTORY_ATLAS:H,DRAWINGS}=await import("../src/data/history-atlas/atlas.ts");
  const {AXIS_DRAWINGS}=await import("../src/data/history-atlas/illustrations.ts");
- assert(AXIS_DRAWINGS.length<=20);
+ assert(AXIS_DRAWINGS.length<=24);
+ // Every drawing a topic waits for is asked for too.
+ const {TOPICS}=await import("../src/data/history-atlas/index.ts");
+ for(const id of ["PH-03","PH-29","BR-04","BR-23","EC-megiddo"])assert(readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8").includes(id+" —"),id);
+ assert(TOPICS.length>0);
  assert(Object.keys(H.illustrations).every(id=>AXIS_DRAWINGS.includes(id)));
  const prompts=readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8");
  for(const id of AXIS_DRAWINGS){
