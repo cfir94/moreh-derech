@@ -9,7 +9,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Catholic_monks_in_Jerusalem_2006.jpg",
-  "file": "Catholic_monks_in_Jerusalem_2006.jpg"
+  "file": "Catholic_monks_in_Jerusalem_2006.jpg",
+  "caption": "נזירים פרנציסקנים בתהלוכה בכנסיית הקבר — גלימה חומה וחבל לבן במותניים",
+  "alt": "נזירים פרנציסקנים בתהלוכה בכנסיית הקבר — גלימה חומה וחבל לבן במותניים",
+  "focus": [
+   40,
+   78,
+   2.4
+  ]
  },
  {
   "id": "franciscan-02",
@@ -21,31 +28,10 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2022_(1)_P281_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg",
-  "file": "Holy_Land_2022_(1)_P281_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg"
- },
- {
-  "id": "franciscan-03",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-03.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Fallaner",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2022_(1)_P280_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg",
-  "file": "Holy_Land_2022_(1)_P280_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg"
- },
- {
-  "id": "franciscan-04",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-04.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Fallaner",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2022_(1)_P282_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg",
-  "file": "Holy_Land_2022_(1)_P282_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg"
+  "file": "Holy_Land_2022_(1)_P281_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg",
+  "caption": "תהלוכת הפרנציסקנים היומית בכנסיית הקבר",
+  "alt": "תהלוכת הפרנציסקנים היומית בכנסיית הקבר",
+  "hard": true
  },
  {
   "id": "franciscan-05",
@@ -57,31 +43,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2019_(1)_P097_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg",
-  "file": "Holy_Land_2019_(1)_P097_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg"
- },
- {
-  "id": "franciscan-06",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-06.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Fallaner",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2019_(1)_P096_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg",
-  "file": "Holy_Land_2019_(1)_P096_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg"
- },
- {
-  "id": "franciscan-07",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-07.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Fallaner",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2019_(1)_P098_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg",
-  "file": "Holy_Land_2019_(1)_P098_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg"
+  "file": "Holy_Land_2019_(1)_P097_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg",
+  "caption": "תהלוכה פרנציסקנית ברחבת כנסיית הקבר",
+  "alt": "תהלוכה פרנציסקנית ברחבת כנסיית הקבר",
+  "focus": [
+   20,
+   72,
+   2
+  ]
  },
  {
   "id": "franciscan-08",
@@ -93,7 +62,14 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Terrazzo,_Franciscan_Monks_in_Old_Jerusalem.jpg",
-  "file": "Terrazzo,_Franciscan_Monks_in_Old_Jerusalem.jpg"
+  "file": "Terrazzo,_Franciscan_Monks_in_Old_Jerusalem.jpg",
+  "caption": "נזירים פרנציסקנים ברחוב הפטריארכיה היוונית-קתולית, ולפניהם קוואסים (שומרי כבוד בתלבושת עות'מאנית)",
+  "alt": "נזירים פרנציסקנים ברחוב הפטריארכיה היוונית-קתולית, ולפניהם קוואסים (שומרי כבוד בתלבושת עות'מאנית)",
+  "focus": [
+   33,
+   55,
+   1.8
+  ]
  },
  {
   "id": "franciscan-09",
@@ -105,7 +81,14 @@
   "license": "CC BY 2.5",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
   "source": "https://commons.wikimedia.org/wiki/File:107056_figures_in_jerusalem_-_a_franciscan_monk_in_the_ol_PikiWiki_Israel.jpg",
-  "file": "107056_figures_in_jerusalem_-_a_franciscan_monk_in_the_ol_PikiWiki_Israel.jpg"
+  "file": "107056_figures_in_jerusalem_-_a_franciscan_monk_in_the_ol_PikiWiki_Israel.jpg",
+  "caption": "נזיר פרנציסקני ברובע הנוצרי — הברדס, הגלימה החומה והחבל עם הקשרים",
+  "alt": "נזיר פרנציסקני ברובע הנוצרי — הברדס, הגלימה החומה והחבל עם הקשרים",
+  "focus": [
+   40,
+   78,
+   2.6
+  ]
  },
  {
   "id": "franciscan-10",
@@ -117,7 +100,10 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Old_Jerusalem_Franciscan_Procession_on_Via_Dolorosa_Ninth_Station.jpg",
-  "file": "Old_Jerusalem_Franciscan_Procession_on_Via_Dolorosa_Ninth_Station.jpg"
+  "file": "Old_Jerusalem_Franciscan_Procession_on_Via_Dolorosa_Ninth_Station.jpg",
+  "caption": "תהלוכת הפרנציסקנים בוויה דולורוזה, ליד התחנה התשיעית והמנזר הקופטי",
+  "alt": "תהלוכת הפרנציסקנים בוויה דולורוזה, ליד התחנה התשיעית והמנזר הקופטי",
+  "hard": true
  },
  {
   "id": "franciscan-11",
@@ -129,55 +115,24 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Francesco_Patton,_2016.jpg",
-  "file": "Francesco_Patton,_2016.jpg"
+  "file": "Francesco_Patton,_2016.jpg",
+  "caption": "פרה פרנצ'סקו פטון, הקוסטוס — ראש משמורת ארץ הקודש: הברדס החום מעל גלימת טקס לבנה",
+  "alt": "פרה פרנצ'סקו פטון, הקוסטוס — ראש משמורת ארץ הקודש: הברדס החום מעל גלימת טקס לבנה",
+  "hard": true
  },
  {
-  "id": "franciscan-12",
+  "id": "franciscan-16",
   "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-12.webp",
+  "src": "/images/christian-dress/franciscan-16.webp",
   "width": 1200,
-  "height": 800,
-  "author": "Fallaner",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2016_P0183_Jerusalem_palm_procession.jpg",
-  "file": "Holy_Land_2016_P0183_Jerusalem_palm_procession.jpg"
- },
- {
-  "id": "franciscan-13",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-13.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "James Emery from Douglasville, United States",
+  "height": 677,
+  "author": "RonAlmog from Israel (ישראל)",
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Capharnaum-_The_Town_of_Jesus_0930_(507863855).jpg",
-  "file": "Capharnaum-_The_Town_of_Jesus_0930_(507863855).jpg"
- },
- {
-  "id": "franciscan-14",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-14.webp",
-  "width": 1200,
-  "height": 800,
-  "author": "https://www.flickr.com/people/69061470@N05",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_Government_Press_Office_(GPO)_-_A_NUN_AND_A_PRIEST_POSING_WITH_POLICEMEN_IN_JERUSALEM_DURING_CHRISTMAS..jpg",
-  "file": "Flickr_-_Government_Press_Office_(GPO)_-_A_NUN_AND_A_PRIEST_POSING_WITH_POLICEMEN_IN_JERUSALEM_DURING_CHRISTMAS..jpg"
- },
- {
-  "id": "franciscan-15",
-  "group": "franciscan",
-  "src": "/images/christian-dress/franciscan-15.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Bukvoed",
-  "license": "CC BY 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Jerusalem-old-city-RIH-093834.jpg",
-  "file": "Jerusalem-old-city-RIH-093834.jpg"
+  "source": "https://commons.wikimedia.org/wiki/File:Old_City_of_Jerusalem_(4432617202).jpg",
+  "file": "Old_City_of_Jerusalem_(4432617202).jpg",
+  "caption": "תהלוכת הפרנציסקנים בדרך לתחנה התשיעית; מימין — המנזר הקופטי עם התריסים הירוקים",
+  "alt": "תהלוכת הפרנציסקנים בדרך לתחנה התשיעית"
  },
  {
   "id": "greek-orthodox-01",
@@ -189,7 +144,9 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Priest_Jerusalem_2017.jpg",
-  "file": "Priest_Jerusalem_2017.jpg"
+  "file": "Priest_Jerusalem_2017.jpg",
+  "caption": "כומר יווני-אורתודוקסי ברחוב בעיר העתיקה",
+  "alt": "כומר יווני-אורתודוקסי ברחוב בעיר העתיקה"
  },
  {
   "id": "greek-orthodox-02",
@@ -201,19 +158,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Greek_Orthodox_IMG_0457.jpg",
-  "file": "Greek_Orthodox_IMG_0457.jpg"
- },
- {
-  "id": "greek-orthodox-03",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-03.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Deror avi",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Greek_Orthodox_IMG_0458.jpg",
-  "file": "Greek_Orthodox_IMG_0458.jpg"
+  "file": "Greek_Orthodox_IMG_0457.jpg",
+  "caption": "תהלוכה יוונית-אורתודוקסית ברחוב הפטריארכיה היוונית ברובע הנוצרי",
+  "alt": "תהלוכה יוונית-אורתודוקסית ברחוב הפטריארכיה היוונית ברובע הנוצרי",
+  "focus": [
+   55,
+   40,
+   2
+  ]
  },
  {
   "id": "greek-orthodox-04",
@@ -225,43 +177,10 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_Government_Press_Office_(GPO)_-_Greek_orthodox_clergy_waiting_for_their_patriarch.jpg",
-  "file": "Flickr_-_Government_Press_Office_(GPO)_-_Greek_orthodox_clergy_waiting_for_their_patriarch.jpg"
- },
- {
-  "id": "greek-orthodox-05",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-05.webp",
-  "width": 762,
-  "height": 1200,
-  "author": "David Shankbone",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-  "source": "https://commons.wikimedia.org/wiki/File:Eastern_Orthodox_man_in_Jerusalem_by_David_Shankbone.jpg",
-  "file": "Eastern_Orthodox_man_in_Jerusalem_by_David_Shankbone.jpg"
- },
- {
-  "id": "greek-orthodox-06",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-06.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "User:Mattes",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_Batch_1_(948).jpg",
-  "file": "Jerusalem_Batch_1_(948).jpg"
- },
- {
-  "id": "greek-orthodox-07",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-07.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "User:Mattes",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_Batch_1_(692).jpg",
-  "file": "Jerusalem_Batch_1_(692).jpg"
+  "file": "Flickr_-_Government_Press_Office_(GPO)_-_Greek_orthodox_clergy_waiting_for_their_patriarch.jpg",
+  "caption": "כמרים יוונים-אורתודוקסים בבגדי טקס מחכים לפטריארך בחג המולד בבית לחם (1999)",
+  "alt": "כמרים יוונים-אורתודוקסים בבגדי טקס מחכים לפטריארך בחג המולד בבית לחם (1999)",
+  "hard": true
  },
  {
   "id": "greek-orthodox-08",
@@ -273,7 +192,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Holy_Sepulchre10.jpg",
-  "file": "Holy_Sepulchre10.jpg"
+  "file": "Holy_Sepulchre10.jpg",
+  "caption": "כומר יווני-אורתודוקסי ברחבת כנסיית הקבר — הכובע הגלילי הישר",
+  "alt": "כומר יווני-אורתודוקסי ברחבת כנסיית הקבר — הכובע הגלילי הישר",
+  "focus": [
+   38,
+   20,
+   2.2
+  ]
  },
  {
   "id": "greek-orthodox-09",
@@ -285,19 +211,10 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Holy_Sepulchre_P1010598.JPG",
-  "file": "Holy_Sepulchre_P1010598.JPG"
- },
- {
-  "id": "greek-orthodox-10",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-10.webp",
-  "width": 800,
-  "height": 541,
-  "author": "Thomas Salmon",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Xgreekpriests.jpg",
-  "file": "Xgreekpriests.jpg"
+  "file": "Holy_Sepulchre_P1010598.JPG",
+  "caption": "כמרים יוונים ליד האדיקולה בכנסיית הקבר",
+  "alt": "כמרים יוונים ליד האדיקולה בכנסיית הקבר",
+  "hard": true
  },
  {
   "id": "greek-orthodox-11",
@@ -309,19 +226,14 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Patriarch_Theophilos_III_of_Jerusalem_2021.jpg",
-  "file": "Patriarch_Theophilos_III_of_Jerusalem_2021.jpg"
- },
- {
-  "id": "greek-orthodox-12",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-12.webp",
-  "width": 798,
-  "height": 1200,
-  "author": "רחל שרוני",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_57356_patriarch_on_st._georgian_feast.jpg",
-  "file": "PikiWiki_Israel_57356_patriarch_on_st._georgian_feast.jpg"
+  "file": "Patriarch_Theophilos_III_of_Jerusalem_2021.jpg",
+  "caption": "תאופילוס השלישי, הפטריארך היווני-אורתודוקסי של ירושלים: צעיף שחור מעל הכובע ואנגלפיון על החזה",
+  "alt": "תאופילוס השלישי, הפטריארך היווני-אורתודוקסי של ירושלים: צעיף שחור מעל הכובע ואנגלפיון על החזה",
+  "focus": [
+   50,
+   20,
+   2.2
+  ]
  },
  {
   "id": "greek-orthodox-13",
@@ -333,19 +245,10 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:%27Greek_Orthodox_Monks%27_in_the_%27Church_of_Holy_Sepulchre%27.JPG",
-  "file": "'Greek_Orthodox_Monks'_in_the_'Church_of_Holy_Sepulchre'.JPG"
- },
- {
-  "id": "greek-orthodox-14",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-14.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Rudolph.A.furtado",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:%27greek_Orthodox_church%27_doing_the_%27Stations_of_the_Cross%27_inside_%27Holy_sepulchre_church%27.jpg",
-  "file": "'greek_Orthodox_church'_doing_the_'Stations_of_the_Cross'_inside_'Holy_sepulchre_church'.jpg"
+  "file": "'Greek_Orthodox_Monks'_in_the_'Church_of_Holy_Sepulchre'.JPG",
+  "caption": "נזיר יווני-אורתודוקסי בקפלת המלאך בכנסיית הקבר",
+  "alt": "נזיר יווני-אורתודוקסי בקפלת המלאך בכנסיית הקבר",
+  "hard": true
  },
  {
   "id": "greek-orthodox-15",
@@ -357,7 +260,10 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:%CE%A3%CF%85%CE%BC%CE%BC%CE%B5%CF%84%CE%BF%CF%87%CE%AE_%CE%A5%CE%A6%CE%A5%CE%A0%CE%95%CE%9E_%CE%9A._%CE%93%CE%B5%CF%81%CE%BF%CE%BD%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF%CF%85_%CF%83%CF%84%CE%B7%CE%BD_%CE%A4%CE%B5%CE%BB%CE%B5%CF%84%CE%AE_%CE%91%CF%86%CE%AE%CF%82_%CF%84%CE%BF%CF%85_%CE%91%CE%B3%CE%AF%CE%BF%CF%85_%CE%A6%CF%89%CF%84%CF%8C%CF%82.jpg",
-  "file": "Συμμετοχή_ΥΦΥΠΕΞ_Κ._Γεροντόπουλου_στην_Τελετή_Αφής_του_Αγίου_Φωτός.jpg"
+  "file": "Συμμετοχή_ΥΦΥΠΕΞ_Κ._Γεροντόπουλου_στην_Τελετή_Αφής_του_Αγίου_Φωτός.jpg",
+  "caption": "טקס האש הקדושה בכנסיית הקבר: הפטריארך היווני ואנשי הכמורה",
+  "alt": "טקס האש הקדושה בכנסיית הקבר: הפטריארך היווני ואנשי הכמורה",
+  "hard": true
  },
  {
   "id": "greek-orthodox-16",
@@ -369,55 +275,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Priest_with_a_black_hat_in_Greece.jpg",
-  "file": "Priest_with_a_black_hat_in_Greece.jpg"
- },
- {
-  "id": "greek-orthodox-17",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-17.webp",
-  "width": 1200,
-  "height": 898,
-  "author": "Original uploader was Asgozzi at en.wikipedia",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-  "source": "https://commons.wikimedia.org/wiki/File:Monk_walking_in_Vatopedi_monastery_court_2006.jpg",
-  "file": "Monk_walking_in_Vatopedi_monastery_court_2006.jpg"
- },
- {
-  "id": "greek-orthodox-18",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-18.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Israel Defense Forces",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_Israel_Defense_Forces_-_Meeting_with_the_Patriarchs_and_Heads_of_the_Church_in_Honor_of_Christmas.jpg",
-  "file": "Flickr_-_Israel_Defense_Forces_-_Meeting_with_the_Patriarchs_and_Heads_of_the_Church_in_Honor_of_Christmas.jpg"
- },
- {
-  "id": "greek-orthodox-19",
-  "group": "greek-orthodox",
-  "src": "/images/christian-dress/greek-orthodox-19.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Hebrew Lion",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_theofilos.jpg",
-  "file": "Jerusalem_theofilos.jpg"
- },
- {
-  "id": "armenian-01",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-01.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "AdrianAbdulBaha",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Armenian_Priests.jpg",
-  "file": "Armenian_Priests.jpg"
+  "file": "Priest_with_a_black_hat_in_Greece.jpg",
+  "caption": "כומר יווני (ביוון): הכובע הגלילי, והשיער הארוך אסוף מאחור",
+  "alt": "כומר יווני (ביוון): הכובע הגלילי, והשיער הארוך אסוף מאחור",
+  "focus": [
+   45,
+   28,
+   1.8
+  ]
  },
  {
   "id": "armenian-02",
@@ -429,19 +294,14 @@
   "license": "No restrictions",
   "licenseUrl": "https://www.flickr.com/commons/usage/",
   "source": "https://commons.wikimedia.org/wiki/File:(An_Armenian_priest_reading_from_the_scriptures,_Church_of_the_Holy_Sepulchre,_Jerusalem)_(Frank_Hurley)_(15128712338).jpg",
-  "file": "(An_Armenian_priest_reading_from_the_scriptures,_Church_of_the_Holy_Sepulchre,_Jerusalem)_(Frank_Hurley)_(15128712338).jpg"
- },
- {
-  "id": "armenian-03",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-03.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "שלמה רודד",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:113815_prayer_in_the_jerusalem_armenian_church_PikiWiki_Israel.jpg",
-  "file": "113815_prayer_in_the_jerusalem_armenian_church_PikiWiki_Israel.jpg"
+  "file": "(An_Armenian_priest_reading_from_the_scriptures,_Church_of_the_Holy_Sepulchre,_Jerusalem)_(Frank_Hurley)_(15128712338).jpg",
+  "caption": "כומר ארמני קורא בכתבי הקודש בכנסיית הקבר, בימי מלחמת העולם הראשונה (צילום: פרנק הארלי)",
+  "alt": "כומר ארמני קורא בכתבי הקודש בכנסיית הקבר, בימי מלחמת העולם הראשונה (צילום: פרנק הארלי)",
+  "focus": [
+   38,
+   32,
+   2
+  ]
  },
  {
   "id": "armenian-04",
@@ -453,31 +313,14 @@
   "license": "CC BY 2.5",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
   "source": "https://commons.wikimedia.org/wiki/File:113810_prayer_in_the_armenian_church-jerusalem_PikiWiki_Israel.jpg",
-  "file": "113810_prayer_in_the_armenian_church-jerusalem_PikiWiki_Israel.jpg"
- },
- {
-  "id": "armenian-05",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-05.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "שלמה רודד",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:113816_prayer_in_the_armenian_church-jerusalem_PikiWiki_Israel.jpg",
-  "file": "113816_prayer_in_the_armenian_church-jerusalem_PikiWiki_Israel.jpg"
- },
- {
-  "id": "armenian-06",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-06.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "שלמה רודד",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:113817_prayer_in_the_armenian_church_PikiWiki_Israel.jpg",
-  "file": "113817_prayer_in_the_armenian_church_PikiWiki_Israel.jpg"
+  "file": "113810_prayer_in_the_armenian_church-jerusalem_PikiWiki_Israel.jpg",
+  "caption": "תפילה בכנסייה הארמנית בירושלים — הברדס המחודד מאחור",
+  "alt": "תפילה בכנסייה הארמנית בירושלים — הברדס המחודד מאחור",
+  "focus": [
+   52,
+   34,
+   2.4
+  ]
  },
  {
   "id": "armenian-07",
@@ -489,31 +332,10 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Armenian_Church_in_ER_priest_and_deakon.JPG",
-  "file": "Armenian_Church_in_ER_priest_and_deakon.JPG"
- },
- {
-  "id": "armenian-08",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-08.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Own work",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Armenian_Church_in_ER_priest.JPG",
-  "file": "Armenian_Church_in_ER_priest.JPG"
- },
- {
-  "id": "armenian-09",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-09.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Lantuszka",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Ju_IMG_1141.JPG",
-  "file": "Ju_IMG_1141.JPG"
+  "file": "Armenian_Church_in_ER_priest_and_deakon.JPG",
+  "caption": "כמרים ארמנים בטקס בירושלים",
+  "alt": "כמרים ארמנים בטקס בירושלים",
+  "hard": true
  },
  {
   "id": "armenian-10",
@@ -525,7 +347,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_77337_armenian_patriarch.jpg",
-  "file": "PikiWiki_Israel_77337_armenian_patriarch.jpg"
+  "file": "PikiWiki_Israel_77337_armenian_patriarch.jpg",
+  "caption": "פטריארך ארמני של ירושלים, צילום מן המאה ה-19",
+  "alt": "פטריארך ארמני של ירושלים, צילום מן המאה ה-19",
+  "focus": [
+   50,
+   18,
+   2
+  ]
  },
  {
   "id": "armenian-11",
@@ -537,7 +366,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Armenian_Patriarch.jpg",
-  "file": "Armenian_Patriarch.jpg"
+  "file": "Armenian_Patriarch.jpg",
+  "caption": "הפטריארך הארמני גוריג השני ישראליאן, ירושלים 1948",
+  "alt": "הפטריארך הארמני גוריג השני ישראליאן, ירושלים 1948",
+  "focus": [
+   52,
+   22,
+   1.8
+  ]
  },
  {
   "id": "armenian-12",
@@ -549,43 +385,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:%D0%9F%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%B8%D1%8F_%D0%90%D1%80%D0%BC%D1%8F%D0%BD%D1%81%D0%BA%D0%BE%D0%B9_%D0%BF%D0%B0%D1%82%D1%80%D0%B8%D0%B0%D1%80%D1%85%D0%B8%D0%B8_%D0%98%D0%B5%D1%80%D1%83%D1%81%D0%B0%D0%BB%D0%B8%D0%BC%D0%B0_%D1%81_%D0%BA%D0%BB%D1%8E%D1%87%D0%BE%D0%BC_%D0%BE%D1%82_%D1%85%D1%80%D0%B0%D0%BC%D0%B0_%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%81%D0%B5%D0%BD%D0%B8%D1%8F._2009.jpg",
-  "file": "Процессия_Армянской_патриархии_Иерусалима_с_ключом_от_храма_Воскресения._2009.jpg"
- },
- {
-  "id": "armenian-13",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-13.webp",
-  "width": 1200,
-  "height": 797,
-  "author": "Jorge Láscar from Australia",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Armenian_Patriarchate_of_Jerusalem_(10805002993).jpg",
-  "file": "Armenian_Patriarchate_of_Jerusalem_(10805002993).jpg"
- },
- {
-  "id": "armenian-14",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-14.webp",
-  "width": 1200,
-  "height": 797,
-  "author": "Jorge Láscar from Australia",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Armenian_Patriarchate_of_Jerusalem_(10805292235).jpg",
-  "file": "Armenian_Patriarchate_of_Jerusalem_(10805292235).jpg"
- },
- {
-  "id": "armenian-15",
-  "group": "armenian",
-  "src": "/images/christian-dress/armenian-15.webp",
-  "width": 1200,
-  "height": 797,
-  "author": "Jorge Láscar from Australia",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Armenian_Patriarchate_of_Jerusalem_Armenian_Quarter_(10804744755).jpg",
-  "file": "Armenian_Patriarchate_of_Jerusalem_Armenian_Quarter_(10804744755).jpg"
+  "file": "Процессия_Армянской_патриархии_Иерусалима_с_ключом_от_храма_Воскресения._2009.jpg",
+  "caption": "תהלוכת הפטריארכיה הארמנית עם מפתח כנסיית הקבר, 2009",
+  "alt": "תהלוכת הפטריארכיה הארמנית עם מפתח כנסיית הקבר, 2009",
+  "focus": [
+   48,
+   40,
+   2.4
+  ]
  },
  {
   "id": "coptic-01",
@@ -597,43 +404,10 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Coptic_monks.jpg",
-  "file": "Coptic_monks.jpg"
- },
- {
-  "id": "coptic-02",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-02.webp",
-  "width": 800,
-  "height": 1200,
-  "author": "Zoltan Kluger",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:A_MONK_AT_PRAYER_IN_THE_COPTIC_MONASTERY_IN_JERUSALEM._%D7%A0%D7%96%D7%99%D7%A8_%D7%9E%D7%AA%D7%A4%D7%9C%D7%9C_%D7%91%D7%9E%D7%A0%D7%96%D7%A8_%D7%94%D7%A7%D7%95%D7%A4%D7%98%D7%99_%D7%91%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D.D11-062.jpg",
-  "file": "A_MONK_AT_PRAYER_IN_THE_COPTIC_MONASTERY_IN_JERUSALEM._נזיר_מתפלל_במנזר_הקופטי_בירושלים.D11-062.jpg"
- },
- {
-  "id": "coptic-03",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-03.webp",
-  "width": 800,
-  "height": 1200,
-  "author": "Zoltan Kluger",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:A_MONK_AT_PRAYER_IN_THE_COPTIC_MONASTERY_IN_JERUSALEM._%D7%A0%D7%96%D7%99%D7%A8_%D7%9E%D7%AA%D7%A4%D7%9C%D7%9C_%D7%91%D7%9E%D7%A0%D7%96%D7%A8_%D7%94%D7%A7%D7%95%D7%A4%D7%98%D7%99_%D7%91%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D.D11-063.jpg",
-  "file": "A_MONK_AT_PRAYER_IN_THE_COPTIC_MONASTERY_IN_JERUSALEM._נזיר_מתפלל_במנזר_הקופטי_בירושלים.D11-063.jpg"
- },
- {
-  "id": "coptic-04",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-04.webp",
-  "width": 800,
-  "height": 1200,
-  "author": "https://www.flickr.com/people/69061470@N05",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_Government_Press_Office_(GPO)_-_A_Monk_at_the_Coptic_Monastery.jpg",
-  "file": "Flickr_-_Government_Press_Office_(GPO)_-_A_Monk_at_the_Coptic_Monastery.jpg"
+  "file": "Coptic_monks.jpg",
+  "caption": "נזירים קופטים בירושלים, צילום של המושבה האמריקנית מראשית המאה ה-20",
+  "alt": "נזירים קופטים בירושלים, צילום של המושבה האמריקנית מראשית המאה ה-20",
+  "hard": true
  },
  {
   "id": "coptic-05",
@@ -645,7 +419,10 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Church_of_the_Holy_Sepulchre_-_Coptic_monks_(1).jpg",
-  "file": "Church_of_the_Holy_Sepulchre_-_Coptic_monks_(1).jpg"
+  "file": "Church_of_the_Holy_Sepulchre_-_Coptic_monks_(1).jpg",
+  "caption": "נזירים קופטים בכנסיית הקבר, בגלימות טקס",
+  "alt": "נזירים קופטים בכנסיית הקבר, בגלימות טקס",
+  "hard": true
  },
  {
   "id": "coptic-06",
@@ -657,43 +434,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Church_of_the_Holy_Sepulchre_-_Coptic_monks_(2).jpg",
-  "file": "Church_of_the_Holy_Sepulchre_-_Coptic_monks_(2).jpg"
- },
- {
-  "id": "coptic-07",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-07.webp",
-  "width": 1200,
-  "height": 677,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Old_City_of_Jerusalem_(4432617202).jpg",
-  "file": "Old_City_of_Jerusalem_(4432617202).jpg"
- },
- {
-  "id": "coptic-08",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-08.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Deror avi",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:HS_IMG_0551.JPG",
-  "file": "HS_IMG_0551.JPG"
- },
- {
-  "id": "coptic-09",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-09.webp",
-  "width": 800,
-  "height": 1200,
-  "author": "Mark Fischer",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Saint_Bishoy_Monk_at_gate.jpg",
-  "file": "Saint_Bishoy_Monk_at_gate.jpg"
+  "file": "Church_of_the_Holy_Sepulchre_-_Coptic_monks_(2).jpg",
+  "caption": "נזירים קופטים בכנסיית הקבר — בטקס הכיפה הצמודה (קלנסווה) לבנה",
+  "alt": "נזירים קופטים בכנסיית הקבר — בטקס הכיפה הצמודה (קלנסווה) לבנה",
+  "focus": [
+   30,
+   25,
+   2.6
+  ]
  },
  {
   "id": "coptic-10",
@@ -705,7 +453,14 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Monastery_of_Saint_Bishoy_monk_with_cross.jpg",
-  "file": "Monastery_of_Saint_Bishoy_monk_with_cross.jpg"
+  "file": "Monastery_of_Saint_Bishoy_monk_with_cross.jpg",
+  "caption": "נזיר קופטי במנזר בישוי במצרים, עם צלב יד",
+  "alt": "נזיר קופטי במנזר בישוי במצרים, עם צלב יד",
+  "focus": [
+   45,
+   12,
+   2.2
+  ]
  },
  {
   "id": "coptic-11",
@@ -717,7 +472,14 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Egypt._Coptic_Ortohodox_(9200944184).jpg",
-  "file": "Egypt._Coptic_Ortohodox_(9200944184).jpg"
+  "file": "Egypt._Coptic_Ortohodox_(9200944184).jpg",
+  "caption": "נזיר קופטי במנזר בישוי — הצלבים הרקומים על הכיפה הצמודה",
+  "alt": "נזיר קופטי במנזר בישוי — הצלבים הרקומים על הכיפה הצמודה",
+  "focus": [
+   50,
+   25,
+   1.7
+  ]
  },
  {
   "id": "coptic-12",
@@ -729,7 +491,14 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Egypt._Coptic_Ortohodox_(9200967550).jpg",
-  "file": "Egypt._Coptic_Ortohodox_(9200967550).jpg"
+  "file": "Egypt._Coptic_Ortohodox_(9200967550).jpg",
+  "caption": "נזיר קופטי במנזר בישוי במצרים",
+  "alt": "נזיר קופטי במנזר בישוי במצרים",
+  "focus": [
+   55,
+   20,
+   2
+  ]
  },
  {
   "id": "coptic-13",
@@ -741,7 +510,14 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Egypt.Portret_(9200944852).jpg",
-  "file": "Egypt.Portret_(9200944852).jpg"
+  "file": "Egypt.Portret_(9200944852).jpg",
+  "caption": "נזיר קופטי במנזר אנטוניוס הקדוש במצרים",
+  "alt": "נזיר קופטי במנזר אנטוניוס הקדוש במצרים",
+  "focus": [
+   52,
+   26,
+   2.4
+  ]
  },
  {
   "id": "coptic-14",
@@ -753,43 +529,10 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Fr._Bishoy_in_Church_Service.jpg",
-  "file": "Fr._Bishoy_in_Church_Service.jpg"
- },
- {
-  "id": "coptic-15",
-  "group": "coptic",
-  "src": "/images/christian-dress/coptic-15.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Beshoy Makram Zaki",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Egyptian_coptic_priest_pray_in_the_church.jpg",
-  "file": "Egyptian_coptic_priest_pray_in_the_church.jpg"
- },
- {
-  "id": "syriac-01",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-01.webp",
-  "width": 874,
-  "height": 1200,
-  "author": "The Illustrated London News",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Athanasius_Stephanos,_Syriac_Orthodox_bishop.jpg",
-  "file": "Athanasius_Stephanos,_Syriac_Orthodox_bishop.jpg"
- },
- {
-  "id": "syriac-02",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-02.webp",
-  "width": 495,
-  "height": 576,
-  "author": "OrthoArchitectDU",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Syriac_Orthodox_Priest-Monk.png",
-  "file": "Syriac_Orthodox_Priest-Monk.png"
+  "file": "Fr._Bishoy_in_Church_Service.jpg",
+  "caption": "כומר קופטי בתפילה בכנסייה",
+  "alt": "כומר קופטי בתפילה בכנסייה",
+  "hard": true
  },
  {
   "id": "syriac-03",
@@ -797,11 +540,14 @@
   "src": "/images/christian-dress/syriac-03.webp",
   "width": 354,
   "height": 472,
-  "author": "Unknown authorUnknown author",
+  "author": "Unknown author",
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Gregorios_Boulus_Behnam,_Syriac_Orthodox_Archbishop_of_Mosul.jpg",
-  "file": "Gregorios_Boulus_Behnam,_Syriac_Orthodox_Archbishop_of_Mosul.jpg"
+  "file": "Gregorios_Boulus_Behnam,_Syriac_Orthodox_Archbishop_of_Mosul.jpg",
+  "caption": "בהנאם בולוס, הארכיבישוף הסורי-אורתודוקסי של מוסול",
+  "alt": "בהנאם בולוס, הארכיבישוף הסורי-אורתודוקסי של מוסול",
+  "hard": true
  },
  {
   "id": "syriac-04",
@@ -813,7 +559,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Mor_Julius_Yeshu_%C3%87i%C3%A7ek.jpg",
-  "file": "Mor_Julius_Yeshu_Çiçek.jpg"
+  "file": "Mor_Julius_Yeshu_Çiçek.jpg",
+  "caption": "מור יוליוס ישוע צ'יצ'ק, בישוף סורי-אורתודוקסי, בהולנד",
+  "alt": "מור יוליוס ישוע צ'יצ'ק, בישוף סורי-אורתודוקסי, בהולנד",
+  "focus": [
+   48,
+   16,
+   2
+  ]
  },
  {
   "id": "syriac-05",
@@ -825,103 +578,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Mor_Timothy_Mosa_Alshamany.jpg",
-  "file": "Mor_Timothy_Mosa_Alshamany.jpg"
- },
- {
-  "id": "syriac-06",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-06.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "brionv from San Francisco, United States",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_Syrian_Orthodox_church_(6035860205).jpg",
-  "file": "Jerusalem_Syrian_Orthodox_church_(6035860205).jpg"
- },
- {
-  "id": "syriac-07",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-07.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Alistair from Montreal, Canada",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:East_Jerusalem_2009_(4158048821).jpg",
-  "file": "East_Jerusalem_2009_(4158048821).jpg"
- },
- {
-  "id": "syriac-08",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-08.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Alistair from Montreal, Canada",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:East_Jerusalem_2009_(4158816478).jpg",
-  "file": "East_Jerusalem_2009_(4158816478).jpg"
- },
- {
-  "id": "syriac-09",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-09.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Alistair from Montreal, Canada",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:St._Mark_Church,_Jerusalem,_2009_(4158820308).jpg",
-  "file": "St._Mark_Church,_Jerusalem,_2009_(4158820308).jpg"
- },
- {
-  "id": "syriac-10",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-10.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "שלמה רודד",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:147843_jerusalem_-_old_city_-_st._marks_church_PikiWiki_Israel.jpg",
-  "file": "147843_jerusalem_-_old_city_-_st._marks_church_PikiWiki_Israel.jpg"
- },
- {
-  "id": "syriac-11",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-11.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "שלמה רודד",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:147830_jerusalem_-_old_city_-_st._marks_church_PikiWiki_Israel.jpg",
-  "file": "147830_jerusalem_-_old_city_-_st._marks_church_PikiWiki_Israel.jpg"
- },
- {
-  "id": "syriac-12",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-12.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "שלמה רודד",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:117810_jerusalem_-_st._marks_church_and_monaster_PikiWiki_Israel.jpg",
-  "file": "117810_jerusalem_-_st._marks_church_and_monaster_PikiWiki_Israel.jpg"
- },
- {
-  "id": "syriac-13",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-13.webp",
-  "width": 1200,
-  "height": 858,
-  "author": "Episcopal Diocese of Southwest Florida",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_Street_Scenes_(9076191798).jpg",
-  "file": "Jerusalem_Street_Scenes_(9076191798).jpg"
+  "file": "Mor_Timothy_Mosa_Alshamany.jpg",
+  "caption": "מור טימותיוס מוסא אלשמאני, הארכיבישוף הסורי-אורתודוקסי של מנזר מר מתי בעיראק — ברדס עם צלבים",
+  "alt": "מור טימותיוס מוסא אלשמאני, הארכיבישוף הסורי-אורתודוקסי של מנזר מר מתי בעיראק — ברדס עם צלבים",
+  "focus": [
+   52,
+   12,
+   2.6
+  ]
  },
  {
   "id": "syriac-14",
@@ -929,23 +593,14 @@
   "src": "/images/christian-dress/syriac-14.webp",
   "width": 1200,
   "height": 836,
-  "author": "Unknown authorUnknown author",
+  "author": "Unknown author",
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Assyrian_priests_of_the_Syriac_Orthodox_Church_with_Archbishop_Mor_Timotheos_Touma_Aras.jpg",
-  "file": "Assyrian_priests_of_the_Syriac_Orthodox_Church_with_Archbishop_Mor_Timotheos_Touma_Aras.jpg"
- },
- {
-  "id": "syriac-15",
-  "group": "syriac",
-  "src": "/images/christian-dress/syriac-15.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Lijujacobk",
-  "license": "CC BY 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Syriac_Orthodox_ranks_and_robes.jpg",
-  "file": "Syriac_Orthodox_ranks_and_robes.jpg"
+  "file": "Assyrian_priests_of_the_Syriac_Orthodox_Church_with_Archbishop_Mor_Timotheos_Touma_Aras.jpg",
+  "caption": "כמרים סורים-אורתודוקסים עם הארכיבישוף בדיארבקיר שבטורקיה, 1939",
+  "alt": "כמרים סורים-אורתודוקסים עם הארכיבישוף בדיארבקיר שבטורקיה, 1939",
+  "hard": true
  },
  {
   "id": "ethiopian-01",
@@ -957,7 +612,14 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Monks_at_Ethiopian_Monastery_-_Old_City_-_Jerusalem_-_(5680813429).jpg",
-  "file": "Monks_at_Ethiopian_Monastery_-_Old_City_-_Jerusalem_-_(5680813429).jpg"
+  "file": "Monks_at_Ethiopian_Monastery_-_Old_City_-_Jerusalem_-_(5680813429).jpg",
+  "caption": "אנשי דת אתיופים בדיר א-סולטאן, על גג כנסיית הקבר — טורבן וצעיף לבנים",
+  "alt": "אנשי דת אתיופים בדיר א-סולטאן, על גג כנסיית הקבר — טורבן וצעיף לבנים",
+  "focus": [
+   52,
+   28,
+   2.4
+  ]
  },
  {
   "id": "ethiopian-02",
@@ -969,7 +631,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_monks.jpg",
-  "file": "Ethiopian_monks.jpg"
+  "file": "Ethiopian_monks.jpg",
+  "caption": "נזירים אתיופים בסמטת דיר א-סולטאן",
+  "alt": "נזירים אתיופים בסמטת דיר א-סולטאן",
+  "focus": [
+   57,
+   28,
+   2.4
+  ]
  },
  {
   "id": "ethiopian-03",
@@ -981,19 +650,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_monk_1.jpg",
-  "file": "Ethiopian_monk_1.jpg"
- },
- {
-  "id": "ethiopian-04",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-04.webp",
-  "width": 800,
-  "height": 1200,
-  "author": "Adam Jones from Kelowna, BC, Canada",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Courtyard_of_Ethiopian_Monastery_with_Cross_and_Monks_-_Old_City_-_Jerusalem_-_(5681382756).jpg",
-  "file": "Courtyard_of_Ethiopian_Monastery_with_Cross_and_Monks_-_Old_City_-_Jerusalem_-_(5681382756).jpg"
+  "file": "Ethiopian_monk_1.jpg",
+  "caption": "נזיר אתיופי בדיר א-סולטאן — כיפה עגולה וצעיף",
+  "alt": "נזיר אתיופי בדיר א-סולטאן — כיפה עגולה וצעיף",
+  "focus": [
+   50,
+   40,
+   2.4
+  ]
  },
  {
   "id": "ethiopian-05",
@@ -1005,43 +669,14 @@
   "license": "Attribution",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_Abyssinian_Church,_Jerusalem_12.jpg",
-  "file": "Ethiopian_Abyssinian_Church,_Jerusalem_12.jpg"
- },
- {
-  "id": "ethiopian-06",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-06.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Shlomo Rodad (שלמה רודד)",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_Church_Jerusalem_Avney_Moreshet_9cce3a83.jpg",
-  "file": "Ethiopian_Church_Jerusalem_Avney_Moreshet_9cce3a83.jpg"
- },
- {
-  "id": "ethiopian-07",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-07.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Shlomo Rodad (שלמה רודד)",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_Church_Jerusalem_Avney_Moreshet_3cc3c933.jpg",
-  "file": "Ethiopian_Church_Jerusalem_Avney_Moreshet_3cc3c933.jpg"
- },
- {
-  "id": "ethiopian-08",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-08.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Shlomo Rodad (שלמה רודד)",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_Church_Jerusalem_Avney_Moreshet_b9c1273a.jpg",
-  "file": "Ethiopian_Church_Jerusalem_Avney_Moreshet_b9c1273a.jpg"
+  "file": "Ethiopian_Abyssinian_Church,_Jerusalem_12.jpg",
+  "caption": "נזיר אתיופי ליד כנסיית קידנה מהרת ברחוב האתיופים",
+  "alt": "נזיר אתיופי ליד כנסיית קידנה מהרת ברחוב האתיופים",
+  "focus": [
+   45,
+   10,
+   2
+  ]
  },
  {
   "id": "ethiopian-09",
@@ -1053,7 +688,9 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:%D7%99%D7%A8%D7%95%D7%A9%D7%9C%D7%99%D7%9D_-_Jerusalem_(4228673461).jpg",
-  "file": "ירושלים_-_Jerusalem_(4228673461).jpg"
+  "file": "ירושלים_-_Jerusalem_(4228673461).jpg",
+  "caption": "נזיר אתיופי בסביבת שער יפו",
+  "alt": "נזיר אתיופי בסביבת שער יפו"
  },
  {
   "id": "ethiopian-10",
@@ -1065,31 +702,10 @@
   "license": "CC BY 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Church-with-monks_big.jpg",
-  "file": "Church-with-monks_big.jpg"
- },
- {
-  "id": "ethiopian-11",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-11.webp",
-  "width": 1200,
-  "height": 580,
-  "author": "Flavio~ from Mazkeret Batia, Israel",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:The_Ethiopian_Monastery_of_Deir_al-Sultan_(4248176327).jpg",
-  "file": "The_Ethiopian_Monastery_of_Deir_al-Sultan_(4248176327).jpg"
- },
- {
-  "id": "ethiopian-12",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-12.webp",
-  "width": 1200,
-  "height": 901,
-  "author": "Flavio~ from Mazkeret Batia, Israel",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:The_Ethiopian_Monastery_of_Deir_al-Sultan_(4237872518).jpg",
-  "file": "The_Ethiopian_Monastery_of_Deir_al-Sultan_(4237872518).jpg"
+  "file": "Church-with-monks_big.jpg",
+  "caption": "תאי הנזירים בדיר א-סולטאן, על גג כנסיית הקבר",
+  "alt": "תאי הנזירים בדיר א-סולטאן, על גג כנסיית הקבר",
+  "hard": true
  },
  {
   "id": "ethiopian-13",
@@ -1101,7 +717,14 @@
   "license": "Attribution",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Holy_Sepulchre_IMG_0102.jpg",
-  "file": "Holy_Sepulchre_IMG_0102.jpg"
+  "file": "Holy_Sepulchre_IMG_0102.jpg",
+  "caption": "נזיר אתיופי בכנסיית הקבר — כיפה עגולה וצעיף עם פסים אדומים",
+  "alt": "נזיר אתיופי בכנסיית הקבר — כיפה עגולה וצעיף עם פסים אדומים",
+  "focus": [
+   32,
+   22,
+   2
+  ]
  },
  {
   "id": "ethiopian-14",
@@ -1113,7 +736,9 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:%D7%9B%D7%95%D7%9E%D7%A8_%D7%90%D7%AA%D7%99%D7%95%D7%A4%D7%99_%D7%91%D7%A8%D7%97%D7%91%D7%AA_%D7%9B%D7%A0%D7%A1%D7%99%D7%99%D7%AA_%D7%94%D7%A7%D7%91%D7%A8.jpg",
-  "file": "כומר_אתיופי_ברחבת_כנסיית_הקבר.jpg"
+  "file": "כומר_אתיופי_ברחבת_כנסיית_הקבר.jpg",
+  "caption": "נזיר אתיופי ברחבת כנסיית הקבר",
+  "alt": "נזיר אתיופי ברחבת כנסיית הקבר"
  },
  {
   "id": "ethiopian-15",
@@ -1125,7 +750,10 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_Priest_near_Coptic_Patriarchate_(Jerusalem,_2013)_(8682155533).jpg",
-  "file": "Ethiopian_Priest_near_Coptic_Patriarchate_(Jerusalem,_2013)_(8682155533).jpg"
+  "file": "Ethiopian_Priest_near_Coptic_Patriarchate_(Jerusalem,_2013)_(8682155533).jpg",
+  "caption": "כומר אתיופי בדיר א-סולטאן, ליד הפטריארכיה הקופטית",
+  "alt": "כומר אתיופי בדיר א-סולטאן, ליד הפטריארכיה הקופטית",
+  "hard": true
  },
  {
   "id": "ethiopian-16",
@@ -1137,7 +765,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Jerusalem_Batch_2_(77).jpg",
-  "file": "Jerusalem_Batch_2_(77).jpg"
+  "file": "Jerusalem_Batch_2_(77).jpg",
+  "caption": "כומר אתיופי בעיר העתיקה, ליד שער יפו",
+  "alt": "כומר אתיופי בעיר העתיקה, ליד שער יפו",
+  "focus": [
+   52,
+   34,
+   2.6
+  ]
  },
  {
   "id": "ethiopian-17",
@@ -1149,7 +784,10 @@
   "license": "CC0",
   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:Ethopian_Quarter_man_reading_Jerusalem_Victor_2011_-1-31.jpg",
-  "file": "Ethopian_Quarter_man_reading_Jerusalem_Victor_2011_-1-31.jpg"
+  "file": "Ethopian_Quarter_man_reading_Jerusalem_Victor_2011_-1-31.jpg",
+  "caption": "כומר אתיופי קורא בדיר א-סולטאן",
+  "alt": "כומר אתיופי קורא בדיר א-סולטאן",
+  "hard": true
  },
  {
   "id": "ethiopian-18",
@@ -1161,19 +799,14 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_Orthodox_Monk_(7555821582).jpg",
-  "file": "Ethiopian_Orthodox_Monk_(7555821582).jpg"
- },
- {
-  "id": "ethiopian-19",
-  "group": "ethiopian",
-  "src": "/images/christian-dress/ethiopian-19.webp",
-  "width": 640,
-  "height": 736,
-  "author": "Tim & Annette Gulick from Metepec, Mexico, Mexico",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Orthodox_Monks_with_Prayer_Staffs_-_Flickr_-_mexikids.jpg",
-  "file": "Orthodox_Monks_with_Prayer_Staffs_-_Flickr_-_mexikids.jpg"
+  "file": "Ethiopian_Orthodox_Monk_(7555821582).jpg",
+  "caption": "כומר אתיופי בטורבן לבן, ליד אגם טאנה באתיופיה",
+  "alt": "כומר אתיופי בטורבן לבן, ליד אגם טאנה באתיופיה",
+  "focus": [
+   50,
+   15,
+   1.6
+  ]
  },
  {
   "id": "russian-orthodox-01",
@@ -1185,7 +818,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:A_russian_orthodox_nun_Jerusalem.jpg",
-  "file": "A_russian_orthodox_nun_Jerusalem.jpg"
+  "file": "A_russian_orthodox_nun_Jerusalem.jpg",
+  "caption": "נזירה רוסית-אורתודוקסית בעיר העתיקה — מטפחת שחורה שעוטפת ראש וכתפיים",
+  "alt": "נזירה רוסית-אורתודוקסית בעיר העתיקה — מטפחת שחורה שעוטפת ראש וכתפיים",
+  "focus": [
+   50,
+   18,
+   2.2
+  ]
  },
  {
   "id": "russian-orthodox-02",
@@ -1197,7 +837,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:2_nuns_arranging_flowers.jpg",
-  "file": "2_nuns_arranging_flowers.jpg"
+  "file": "2_nuns_arranging_flowers.jpg",
+  "caption": "נזירות רוסיות מסדרות פרחים במנזר גורני בעין כרם",
+  "alt": "נזירות רוסיות מסדרות פרחים במנזר גורני בעין כרם",
+  "focus": [
+   65,
+   70,
+   2
+  ]
  },
  {
   "id": "russian-orthodox-03",
@@ -1209,19 +856,10 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Nun_flowers_black_white.JPG",
-  "file": "Nun_flowers_black_white.JPG"
- },
- {
-  "id": "russian-orthodox-04",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-04.webp",
-  "width": 487,
-  "height": 768,
-  "author": "Tiraspolsky",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%D0%A3_%D1%85%D1%80%D0%B0%D0%BC%D0%B0_%D0%93%D1%80%D0%BE%D0%B1%D0%B0_%D0%93%D0%BE%D1%81%D0%BF%D0%BE%D0%B4%D0%BD%D1%8F.jpg",
-  "file": "У_храма_Гроба_Господня.jpg"
+  "file": "Nun_flowers_black_white.JPG",
+  "caption": "נזירה מסדרת פרחים במנזר גורני בעין כרם",
+  "alt": "נזירה מסדרת פרחים במנזר גורני בעין כרם",
+  "hard": true
  },
  {
   "id": "russian-orthodox-05",
@@ -1233,7 +871,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Russian_Orthodox_nun_cleaning,_Gorny_Convent,_Ein_Kerem.JPG",
-  "file": "Russian_Orthodox_nun_cleaning,_Gorny_Convent,_Ein_Kerem.JPG"
+  "file": "Russian_Orthodox_nun_cleaning,_Gorny_Convent,_Ein_Kerem.JPG",
+  "caption": "נזירה מטאטאת את חצר מנזר גורני בעין כרם",
+  "alt": "נזירה מטאטאת את חצר מנזר גורני בעין כרם",
+  "focus": [
+   35,
+   65,
+   2
+  ]
  },
  {
   "id": "russian-orthodox-06",
@@ -1245,19 +890,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Walking_russian_orthodox_nuns_and_monk_Israel.jpg",
-  "file": "Walking_russian_orthodox_nuns_and_monk_Israel.jpg"
- },
- {
-  "id": "russian-orthodox-07",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-07.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "No machine-readable author provided. Ori229 assumed (based on copyright claims).",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-  "source": "https://commons.wikimedia.org/wiki/File:2_nun_taking_pictures.jpg",
-  "file": "2_nun_taking_pictures.jpg"
+  "file": "Walking_russian_orthodox_nuns_and_monk_Israel.jpg",
+  "caption": "נזירה רוסית וכומר רוסי ליד שער יפו",
+  "alt": "נזירה רוסית וכומר רוסי ליד שער יפו",
+  "focus": [
+   33,
+   22,
+   2.6
+  ]
  },
  {
   "id": "russian-orthodox-08",
@@ -1269,67 +909,10 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
   "source": "https://commons.wikimedia.org/wiki/File:2_priests_checking_merchandise.JPG",
-  "file": "2_priests_checking_merchandise.JPG"
- },
- {
-  "id": "russian-orthodox-09",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-09.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Videnslandskaber",
-  "license": "CC0",
-  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-  "source": "https://commons.wikimedia.org/wiki/File:Russian_Orthodox_nun_selling_monastery_products_at_VDNKh.jpg",
-  "file": "Russian_Orthodox_nun_selling_monastery_products_at_VDNKh.jpg"
- },
- {
-  "id": "russian-orthodox-10",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-10.webp",
-  "width": 767,
-  "height": 1200,
-  "author": "Unknown authorUnknown author",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Diveevo_Nun.jpg",
-  "file": "Diveevo_Nun.jpg"
- },
- {
-  "id": "russian-orthodox-11",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-11.webp",
-  "width": 698,
-  "height": 895,
-  "author": "Православный храм в Каннах from Cannes, France (Максим Массалитин)",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Mark_(Arndt).jpg",
-  "file": "Mark_(Arndt).jpg"
- },
- {
-  "id": "russian-orthodox-12",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-12.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "Matti",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Archbishop_Mark_Golovkov.JPG",
-  "file": "Archbishop_Mark_Golovkov.JPG"
- },
- {
-  "id": "russian-orthodox-13",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-13.webp",
-  "width": 803,
-  "height": 1200,
-  "author": "israel zeller",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_67340_jerusalem.jpg",
-  "file": "PikiWiki_Israel_67340_jerusalem.jpg"
+  "file": "2_priests_checking_merchandise.JPG",
+  "caption": "שני נזירים רוסים במנזר גורני בעין כרם",
+  "alt": "שני נזירים רוסים במנזר גורני בעין כרם",
+  "hard": true
  },
  {
   "id": "russian-orthodox-14",
@@ -1341,91 +924,10 @@
   "license": "CC BY 2.5",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
   "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_67344_jerusalem.jpg",
-  "file": "PikiWiki_Israel_67344_jerusalem.jpg"
- },
- {
-  "id": "russian-orthodox-15",
-  "group": "russian-orthodox",
-  "src": "/images/christian-dress/russian-orthodox-15.webp",
-  "width": 803,
-  "height": 1200,
-  "author": "israel zeller",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_67329_jerusalem.jpg",
-  "file": "PikiWiki_Israel_67329_jerusalem.jpg"
- },
- {
-  "id": "dominican-01",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-01.webp",
-  "width": 1200,
-  "height": 911,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5251806657).jpg",
-  "file": "École_Biblique,_Jerusalem_(5251806657).jpg"
- },
- {
-  "id": "dominican-02",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-02.webp",
-  "width": 1200,
-  "height": 753,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5252429332).jpg",
-  "file": "École_Biblique,_Jerusalem_(5252429332).jpg"
- },
- {
-  "id": "dominican-03",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-03.webp",
-  "width": 1200,
-  "height": 753,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5251814503).jpg",
-  "file": "École_Biblique,_Jerusalem_(5251814503).jpg"
- },
- {
-  "id": "dominican-04",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-04.webp",
-  "width": 1200,
-  "height": 509,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5252453440).jpg",
-  "file": "École_Biblique,_Jerusalem_(5252453440).jpg"
- },
- {
-  "id": "dominican-05",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-05.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5251838509).jpg",
-  "file": "École_Biblique,_Jerusalem_(5251838509).jpg"
- },
- {
-  "id": "dominican-06",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-06.webp",
-  "width": 900,
-  "height": 1200,
-  "author": "RonAlmog from Israel (ישראל)",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Biblique,_Jerusalem_(5252437574).jpg",
-  "file": "École_Biblique,_Jerusalem_(5252437574).jpg"
+  "file": "PikiWiki_Israel_67344_jerusalem.jpg",
+  "caption": "טקס בכנסיית מריה מגדלנה בהר הזיתים; מימין — הכובע הרוסי שמתרחב כלפי מעלה",
+  "alt": "טקס בכנסיית מריה מגדלנה בהר הזיתים; מימין — הכובע הרוסי שמתרחב כלפי מעלה",
+  "hard": true
  },
  {
   "id": "dominican-07",
@@ -1437,7 +939,10 @@
   "license": "CC0",
   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:Monnik_in_kruisgang_van_de_%C3%89cole_biblique_et_arch%C3%A9ologique_fran%C3%A7aise_de_J%C3%A9rusale,_Bestanddeelnr_255-5370.jpg",
-  "file": "Monnik_in_kruisgang_van_de_École_biblique_et_archéologique_française_de_Jérusale,_Bestanddeelnr_255-5370.jpg"
+  "file": "Monnik_in_kruisgang_van_de_École_biblique_et_archéologique_française_de_Jérusale,_Bestanddeelnr_255-5370.jpg",
+  "caption": "נזיר דומיניקני בגלימה לבנה בחצר האקול ביבליק, ירושלים 1953",
+  "alt": "נזיר דומיניקני בגלימה לבנה בחצר האקול ביבליק, ירושלים 1953",
+  "hard": true
  },
  {
   "id": "dominican-08",
@@ -1449,7 +954,10 @@
   "license": "CC0",
   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:Monnik_in_kruisgang_van_de_%C3%89cole_biblique_et_arch%C3%A9ologique_fran%C3%A7aise_de_J%C3%A9rusale,_Bestanddeelnr_255-5369.jpg",
-  "file": "Monnik_in_kruisgang_van_de_École_biblique_et_archéologique_française_de_Jérusale,_Bestanddeelnr_255-5369.jpg"
+  "file": "Monnik_in_kruisgang_van_de_École_biblique_et_archéologique_française_de_Jérusale,_Bestanddeelnr_255-5369.jpg",
+  "caption": "נזיר דומיניקני במנזר האקול ביבליק, ירושלים 1953",
+  "alt": "נזיר דומיניקני במנזר האקול ביבליק, ירושלים 1953",
+  "hard": true
  },
  {
   "id": "dominican-09",
@@ -1461,7 +969,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:DominicanFriars.jpg",
-  "file": "DominicanFriars.jpg"
+  "file": "DominicanFriars.jpg",
+  "caption": "נזירים דומיניקנים: גלימה לבנה, ומעליה גלימה שחורה עם ברדס",
+  "alt": "נזירים דומיניקנים: גלימה לבנה, ומעליה גלימה שחורה עם ברדס",
+  "focus": [
+   50,
+   55,
+   1.8
+  ]
  },
  {
   "id": "dominican-10",
@@ -1473,19 +988,14 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Dominican.jpg",
-  "file": "Dominican.jpg"
- },
- {
-  "id": "dominican-11",
-  "group": "dominican",
-  "src": "/images/christian-dress/dominican-11.webp",
-  "width": 1200,
-  "height": 805,
-  "author": "Soleil bleu",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:R._F%C3%A9ger_et_le_fr%C3%A8re_D._Vernay_(fr%C3%A8re,_Dominicains,_Nice).jpg",
-  "file": "R._Féger_et_le_frère_D._Vernay_(frère,_Dominicains,_Nice).jpg"
+  "file": "Dominican.jpg",
+  "caption": "נזיר דומיניקני — הסקפולר הלבן והגלימה השחורה (קאפה) מעליו",
+  "alt": "נזיר דומיניקני — הסקפולר הלבן והגלימה השחורה (קאפה) מעליו",
+  "focus": [
+   50,
+   40,
+   1.8
+  ]
  },
  {
   "id": "dominican-12",
@@ -1497,31 +1007,10 @@
   "license": "CC0",
   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:The_Hillbilly_Thomists_01.jpg",
-  "file": "The_Hillbilly_Thomists_01.jpg"
- },
- {
-  "id": "benedictine-01",
-  "group": "benedictine",
-  "src": "/images/christian-dress/benedictine-01.webp",
-  "width": 384,
-  "height": 737,
-  "author": "F. A. Gasquet",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Benedictine_monk.jpg",
-  "file": "Benedictine_monk.jpg"
- },
- {
-  "id": "benedictine-02",
-  "group": "benedictine",
-  "src": "/images/christian-dress/benedictine-02.webp",
-  "width": 200,
-  "height": 430,
-  "author": "Unknown authorUnknown author",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Benediktin_monk.jpg",
-  "file": "Benediktin_monk.jpg"
+  "file": "The_Hillbilly_Thomists_01.jpg",
+  "caption": "נזירים דומיניקנים בגלימות הלבנות מנגנים בעלייה לרגל בוושינגטון",
+  "alt": "נזירים דומיניקנים בגלימות הלבנות מנגנים בעלייה לרגל בוושינגטון",
+  "hard": true
  },
  {
   "id": "benedictine-03",
@@ -1533,7 +1022,10 @@
   "license": "CC BY 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Benediktinerm%C3%B6nche_auf_dem_Sommerfest.jpg",
-  "file": "Benediktinermönche_auf_dem_Sommerfest.jpg"
+  "file": "Benediktinermönche_auf_dem_Sommerfest.jpg",
+  "caption": "שני נזירים בנדיקטינים בגלימות השחורות, בברלין",
+  "alt": "שני נזירים בנדיקטינים בגלימות השחורות, בברלין",
+  "hard": true
  },
  {
   "id": "benedictine-04",
@@ -1545,19 +1037,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Two_monks_in_the_snow.jpg",
-  "file": "Two_monks_in_the_snow.jpg"
- },
- {
-  "id": "benedictine-05",
-  "group": "benedictine",
-  "src": "/images/christian-dress/benedictine-05.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Lisandrew",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:The_monks_eat_with_those_on_retreat_in_the_refectory.jpg",
-  "file": "The_monks_eat_with_those_on_retreat_in_the_refectory.jpg"
+  "file": "Two_monks_in_the_snow.jpg",
+  "caption": "נזירים בנדיקטינים של מנזר צ'ילוורת' באנגליה — גלימה וברדס שחורים",
+  "alt": "נזירים בנדיקטינים של מנזר צ'ילוורת' באנגליה — גלימה וברדס שחורים",
+  "focus": [
+   80,
+   25,
+   2
+  ]
  },
  {
   "id": "benedictine-06",
@@ -1569,31 +1056,10 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Moines_b%C3%A9n%C3%A9dictins_de_Kergonan,_monast%C3%A8re_breton_dans_la_presqu%27ile_de_Quiberon,_Carnac.jpg",
-  "file": "Moines_bénédictins_de_Kergonan,_monastère_breton_dans_la_presqu'ile_de_Quiberon,_Carnac.jpg"
- },
- {
-  "id": "benedictine-07",
-  "group": "benedictine",
-  "src": "/images/christian-dress/benedictine-07.webp",
-  "width": 1200,
-  "height": 803,
-  "author": "Ressfich",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Monastere_Sainte_Anne_de_Kergonan,_moines_b%C3%A9n%C3%A9dictins_%C3%A0_plouharnel_(Morbihan,_abbaye_bretonne).jpg",
-  "file": "Monastere_Sainte_Anne_de_Kergonan,_moines_bénédictins_à_plouharnel_(Morbihan,_abbaye_bretonne).jpg"
- },
- {
-  "id": "benedictine-08",
-  "group": "benedictine",
-  "src": "/images/christian-dress/benedictine-08.webp",
-  "width": 1200,
-  "height": 822,
-  "author": "Unbekannt.",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Gem%C3%BCsegarten.jpg",
-  "file": "Gemüsegarten.jpg"
+  "file": "Moines_bénédictins_de_Kergonan,_monastère_breton_dans_la_presqu'ile_de_Quiberon,_Carnac.jpg",
+  "caption": "נזירים בנדיקטינים על חוף הים בבריטני",
+  "alt": "נזירים בנדיקטינים על חוף הים בבריטני",
+  "hard": true
  },
  {
   "id": "benedictine-09",
@@ -1605,7 +1071,10 @@
   "license": "CC BY 2.5",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
   "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_49047_Benedictine_monastery_in_Abu_Ghosh.JPG",
-  "file": "PikiWiki_Israel_49047_Benedictine_monastery_in_Abu_Ghosh.JPG"
+  "file": "PikiWiki_Israel_49047_Benedictine_monastery_in_Abu_Ghosh.JPG",
+  "caption": "האח אוליבייה במנזר הבנדיקטיני באבו גוש — שם, אצל האוליבטנים, הגלימה בהירה",
+  "alt": "האח אוליבייה במנזר הבנדיקטיני באבו גוש — שם, אצל האוליבטנים, הגלימה בהירה",
+  "hard": true
  },
  {
   "id": "white-fathers-01",
@@ -1617,31 +1086,10 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:P%C3%A8re_blanc_Afrique_%C3%A9quatoriale.jpg",
-  "file": "Père_blanc_Afrique_équatoriale.jpg"
- },
- {
-  "id": "white-fathers-02",
-  "group": "white-fathers",
-  "src": "/images/christian-dress/white-fathers-02.webp",
-  "width": 622,
-  "height": 423,
-  "author": "White fathers",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:B%C3%A9n%C3%A9diction_p%C3%A8res_blancs.jpg",
-  "file": "Bénédiction_pères_blancs.jpg"
- },
- {
-  "id": "white-fathers-03",
-  "group": "white-fathers",
-  "src": "/images/christian-dress/white-fathers-03.webp",
-  "width": 844,
-  "height": 1200,
-  "author": "Unknown authorUnknown author",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Le_P%C3%A8lerin_Sim%C3%A9on_Lourdel.jpg",
-  "file": "Le_Pèlerin_Siméon_Lourdel.jpg"
+  "file": "Père_blanc_Afrique_équatoriale.jpg",
+  "caption": "אחד האבות הלבנים מלמד ילדים באפריקה המשוונית, גלויה משנות ה-30",
+  "alt": "אחד האבות הלבנים מלמד ילדים באפריקה המשוונית, גלויה משנות ה-30",
+  "hard": true
  },
  {
   "id": "white-fathers-04",
@@ -1653,7 +1101,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Lourdel_1853-1890.jpg",
-  "file": "Lourdel_1853-1890.jpg"
+  "file": "Lourdel_1853-1890.jpg",
+  "caption": "האב סימאון לורדל מן האבות הלבנים, המאה ה-19 — המחרוזת על הצוואר",
+  "alt": "האב סימאון לורדל מן האבות הלבנים, המאה ה-19 — המחרוזת על הצוואר",
+  "focus": [
+   42,
+   30,
+   2
+  ]
  },
  {
   "id": "white-fathers-05",
@@ -1665,19 +1120,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:P%C3%A8re_Delattre.jpg",
-  "file": "Père_Delattre.jpg"
- },
- {
-  "id": "white-fathers-06",
-  "group": "white-fathers",
-  "src": "/images/christian-dress/white-fathers-06.webp",
-  "width": 1000,
-  "height": 639,
-  "author": "The White Fathers",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Joseph_Sweens_blesses_the_children_of_Ukerewe_1910_Kakunguli_Catholic_mission.jpg",
-  "file": "Joseph_Sweens_blesses_the_children_of_Ukerewe_1910_Kakunguli_Catholic_mission.jpg"
+  "file": "Père_Delattre.jpg",
+  "caption": "האב אלפרד-לואי דלאטר, ארכאולוג מן האבות הלבנים — גלימה ומחרוזת סביב הצוואר",
+  "alt": "האב אלפרד-לואי דלאטר, ארכאולוג מן האבות הלבנים — גלימה ומחרוזת סביב הצוואר",
+  "focus": [
+   45,
+   70,
+   1.8
+  ]
  },
  {
   "id": "white-fathers-07",
@@ -1689,7 +1139,9 @@
   "license": "CC0",
   "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:Etienne_(II)_AWeng_(1880-1951).jpg",
-  "file": "Etienne_(II)_AWeng_(1880-1951).jpg"
+  "file": "Etienne_(II)_AWeng_(1880-1951).jpg",
+  "caption": "האב אטיין וונג מן האבות הלבנים, בערך 1940",
+  "alt": "האב אטיין וונג מן האבות הלבנים, בערך 1940"
  },
  {
   "id": "white-fathers-08",
@@ -1701,7 +1153,10 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Afrique_%C3%89quatoriale_P%C3%A8re_Blanc.jpg",
-  "file": "Afrique_Équatoriale_Père_Blanc.jpg"
+  "file": "Afrique_Équatoriale_Père_Blanc.jpg",
+  "caption": "תפילה במיסיון של האבות הלבנים באפריקה המשוונית, גלויה משנות ה-30",
+  "alt": "תפילה במיסיון של האבות הלבנים באפריקה המשוונית, גלויה משנות ה-30",
+  "hard": true
  },
  {
   "id": "carmelite-01",
@@ -1713,31 +1168,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Carmes_D%C3%A9chaux_de_Paris_2015.JPG",
-  "file": "Carmes_Déchaux_de_Paris_2015.JPG"
- },
- {
-  "id": "carmelite-02",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-02.webp",
-  "width": 375,
-  "height": 700,
-  "author": "Francis Aidan Gasquet",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Carmelite_friar.jpg",
-  "file": "Carmelite_friar.jpg"
- },
- {
-  "id": "carmelite-03",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-03.webp",
-  "width": 640,
-  "height": 480,
-  "author": "David Hawgood",
-  "license": "CC BY-SA 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Carmelite_Friars_community,_Finchley_-_geograph.org.uk_-_65921.jpg",
-  "file": "Carmelite_Friars_community,_Finchley_-_geograph.org.uk_-_65921.jpg"
+  "file": "Carmes_Déchaux_de_Paris_2015.JPG",
+  "caption": "קהילת הכרמליתים היחפים בפריז — גלימה וסקפולר חומים",
+  "alt": "קהילת הכרמליתים היחפים בפריז — גלימה וסקפולר חומים",
+  "focus": [
+   50,
+   55,
+   1.8
+  ]
  },
  {
   "id": "carmelite-04",
@@ -1749,79 +1187,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Carmelites_students.jpg",
-  "file": "Carmelites_students.jpg"
- },
- {
-  "id": "carmelite-05",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-05.webp",
-  "width": 1200,
-  "height": 675,
-  "author": "Jekicen",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Carmelite_friars_and_priests_at_Lembah_Karmel_Cikanyere.jpg",
-  "file": "Carmelite_friars_and_priests_at_Lembah_Karmel_Cikanyere.jpg"
- },
- {
-  "id": "carmelite-06",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-06.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "British Province of Carmelites",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Carmelite_Friars_Welcomed_Back_to_the_North_East_(53381361011).jpg",
-  "file": "Carmelite_Friars_Welcomed_Back_to_the_North_East_(53381361011).jpg"
- },
- {
-  "id": "carmelite-07",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-07.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "British Province of Carmelites",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Carmelite_Friars_Welcomed_Back_to_the_North_East_(53381681554).jpg",
-  "file": "Carmelite_Friars_Welcomed_Back_to_the_North_East_(53381681554).jpg"
- },
- {
-  "id": "carmelite-08",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-08.webp",
-  "width": 675,
-  "height": 1200,
-  "author": "Jekicen",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Two_Carmelite_friars_leading_praise_at_Lembah_Karmel_Cikanyere.jpg",
-  "file": "Two_Carmelite_friars_leading_praise_at_Lembah_Karmel_Cikanyere.jpg"
- },
- {
-  "id": "carmelite-09",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-09.webp",
-  "width": 1200,
-  "height": 675,
-  "author": "Jekicen",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Carmelite_friars_and_nuns_in_the_choir_at_Lembah_Karmel_Cikanyere.jpg",
-  "file": "Carmelite_friars_and_nuns_in_the_choir_at_Lembah_Karmel_Cikanyere.jpg"
- },
- {
-  "id": "carmelite-10",
-  "group": "carmelite",
-  "src": "/images/christian-dress/carmelite-10.webp",
-  "width": 420,
-  "height": 268,
-  "author": "Unknown authorUnknown author",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Ks._Boles%C5%82aw_Sztobryn_-_kapelan.JPG",
-  "file": "Ks._Bolesław_Sztobryn_-_kapelan.JPG"
+  "file": "Carmelites_students.jpg",
+  "caption": "נזירים כרמליתים במעיל הלבן מעל הגלימה החומה",
+  "alt": "נזירים כרמליתים במעיל הלבן מעל הגלימה החומה",
+  "focus": [
+   45,
+   60,
+   2
+  ]
  },
  {
   "id": "carmelite-11",
@@ -1833,7 +1206,9 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Carmelitas_Descalzas_de_Tlacopac_-_M%C3%A9xico_DF.jpg",
-  "file": "Carmelitas_Descalzas_de_Tlacopac_-_México_DF.jpg"
+  "file": "Carmelitas_Descalzas_de_Tlacopac_-_México_DF.jpg",
+  "caption": "נזירות כרמליתיות יחפות במקסיקו: חום, מעיל לבן וצעיף שחור",
+  "alt": "נזירות כרמליתיות יחפות במקסיקו: חום, מעיל לבן וצעיף שחור"
  },
  {
   "id": "trappist-01",
@@ -1845,79 +1220,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:LATRUN_MONASTERY_and_its_Monks.JPG",
-  "file": "LATRUN_MONASTERY_and_its_Monks.JPG"
- },
- {
-  "id": "trappist-02",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-02.webp",
-  "width": 1200,
-  "height": 675,
-  "author": "israel zeller ישראל זלר",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:97814_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg",
-  "file": "97814_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg"
- },
- {
-  "id": "trappist-03",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-03.webp",
-  "width": 1200,
-  "height": 676,
-  "author": "israel zeller ישראל זלר",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:97828_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg",
-  "file": "97828_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg"
- },
- {
-  "id": "trappist-04",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-04.webp",
-  "width": 1200,
-  "height": 675,
-  "author": "israel zeller ישראל זלר",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:97815_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg",
-  "file": "97815_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg"
- },
- {
-  "id": "trappist-05",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-05.webp",
-  "width": 1200,
-  "height": 676,
-  "author": "israel zeller ישראל זלר",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:97829_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg",
-  "file": "97829_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg"
- },
- {
-  "id": "trappist-06",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-06.webp",
-  "width": 1200,
-  "height": 676,
-  "author": "israel zeller ישראל זלר",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:97833_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg",
-  "file": "97833_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg"
- },
- {
-  "id": "trappist-07",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-07.webp",
-  "width": 1200,
-  "height": 675,
-  "author": "israel zeller ישראל זלר",
-  "license": "CC BY 2.5",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:97816_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg",
-  "file": "97816_letron_church_of_the_silent_monastery_PikiWiki_Israel.jpg"
+  "file": "LATRUN_MONASTERY_and_its_Monks.JPG",
+  "caption": "ראשי מסדר הטרפיסטים מול דגם מנזר לטרון ב\"מיני ישראל\" (2000)",
+  "alt": "ראשי מסדר הטרפיסטים מול דגם מנזר לטרון ב\"מיני ישראל\" (2000)",
+  "focus": [
+   80,
+   18,
+   1
+  ]
  },
  {
   "id": "trappist-08",
@@ -1929,7 +1239,10 @@
   "license": "CC BY 2.0 de",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/de/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:Trappist_praying_2007-08-20_dti.jpg",
-  "file": "Trappist_praying_2007-08-20_dti.jpg"
+  "file": "Trappist_praying_2007-08-20_dti.jpg",
+  "caption": "נזיר טרפיסטי מתפלל בתאו, בגלימה הרחבה עם הברדס",
+  "alt": "נזיר טרפיסטי מתפלל בתאו, בגלימה הרחבה עם הברדס",
+  "hard": true
  },
  {
   "id": "trappist-09",
@@ -1941,7 +1254,10 @@
   "license": "CC BY 2.0 de",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/de/deed.en",
   "source": "https://commons.wikimedia.org/wiki/File:Mariawald_zelle_lectio_2007-08-20_bmd.jpg",
-  "file": "Mariawald_zelle_lectio_2007-08-20_bmd.jpg"
+  "file": "Mariawald_zelle_lectio_2007-08-20_bmd.jpg",
+  "caption": "נזיר טרפיסטי קורא בתאו",
+  "alt": "נזיר טרפיסטי קורא בתאו",
+  "hard": true
  },
  {
   "id": "trappist-10",
@@ -1953,43 +1269,14 @@
   "license": "CC BY-SA 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Terce_at_the_Church_of_the_Monastery_of_Saint_Mary_Rawaseneng_1.jpg",
-  "file": "Terce_at_the_Church_of_the_Monastery_of_Saint_Mary_Rawaseneng_1.jpg"
- },
- {
-  "id": "trappist-11",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-11.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Ign christian",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Terce_at_the_Church_of_the_Monastery_of_Saint_Mary_Rawaseneng_4.jpg",
-  "file": "Terce_at_the_Church_of_the_Monastery_of_Saint_Mary_Rawaseneng_4.jpg"
- },
- {
-  "id": "trappist-12",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-12.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Jordiferrer",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Monestir_de_Poblet_-_Juliol_2015_-_03_Monjos.JPG",
-  "file": "Monestir_de_Poblet_-_Juliol_2015_-_03_Monjos.JPG"
- },
- {
-  "id": "trappist-13",
-  "group": "trappist",
-  "src": "/images/christian-dress/trappist-13.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Jordiferrer",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Monestir_de_Poblet_-_Juliol_2015_-_02_Monjos.JPG",
-  "file": "Monestir_de_Poblet_-_Juliol_2015_-_02_Monjos.JPG"
+  "file": "Terce_at_the_Church_of_the_Monastery_of_Saint_Mary_Rawaseneng_1.jpg",
+  "caption": "נזירים טרפיסטים בתפילת הצהריים במנזר באינדונזיה — לבן וסקפולר שחור",
+  "alt": "נזירים טרפיסטים בתפילת הצהריים במנזר באינדונזיה — לבן וסקפולר שחור",
+  "focus": [
+   55,
+   55,
+   2.2
+  ]
  },
  {
   "id": "missionaries-charity-01",
@@ -2001,7 +1288,9 @@
   "license": "CC BY-SA 3.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "source": "https://commons.wikimedia.org/wiki/File:Missionaries_of_Charity_in_Haiti.jpg",
-  "file": "Missionaries_of_Charity_in_Haiti.jpg"
+  "file": "Missionaries_of_Charity_in_Haiti.jpg",
+  "caption": "אחיות המיסיונריות של הצדקה בתהלוכה בהאיטי",
+  "alt": "אחיות המיסיונריות של הצדקה בתהלוכה בהאיטי"
  },
  {
   "id": "missionaries-charity-02",
@@ -2013,7 +1302,14 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Sisters_of_Charity.jpg",
-  "file": "Sisters_of_Charity.jpg"
+  "file": "Sisters_of_Charity.jpg",
+  "caption": "אחיות המיסיונריות של הצדקה בכנס בארצות הברית",
+  "alt": "אחיות המיסיונריות של הצדקה בכנס בארצות הברית",
+  "focus": [
+   55,
+   30,
+   2
+  ]
  },
  {
   "id": "missionaries-charity-03",
@@ -2025,19 +1321,9 @@
   "license": "Public domain",
   "licenseUrl": "",
   "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_Official_U.S._Navy_Imagery_-_Sisters_from_Missionaries_of_Charity_of_Jamaica_sing_hymns_during_church_service..jpg",
-  "file": "Flickr_-_Official_U.S._Navy_Imagery_-_Sisters_from_Missionaries_of_Charity_of_Jamaica_sing_hymns_during_church_service..jpg"
- },
- {
-  "id": "missionaries-charity-04",
-  "group": "missionaries-charity",
-  "src": "/images/christian-dress/missionaries-charity-04.webp",
-  "width": 1200,
-  "height": 857,
-  "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Jonathen E. Davis",
-  "license": "Public domain",
-  "licenseUrl": "",
-  "source": "https://commons.wikimedia.org/wiki/File:US_Navy_110417-N-RM525-264_Sisters_from_the_Missionaries_of_Charity_of_Jamaica_sing_hymns_from_the_Bible_during_afternoon_church_services_on_Palm_S.jpg",
-  "file": "US_Navy_110417-N-RM525-264_Sisters_from_the_Missionaries_of_Charity_of_Jamaica_sing_hymns_from_the_Bible_during_afternoon_church_services_on_Palm_S.jpg"
+  "file": "Flickr_-_Official_U.S._Navy_Imagery_-_Sisters_from_Missionaries_of_Charity_of_Jamaica_sing_hymns_during_church_service..jpg",
+  "caption": "אחיות המיסיונריות של הצדקה שרות בתפילה, ג'מייקה",
+  "alt": "אחיות המיסיונריות של הצדקה שרות בתפילה, ג'מייקה"
  },
  {
   "id": "missionaries-charity-05",
@@ -2049,19 +1335,14 @@
   "license": "CC BY 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Sister_Mary_Prema_and_Sister_Mary_Joseph_at_the_Vatican_(cropped).jpg",
-  "file": "Sister_Mary_Prema_and_Sister_Mary_Joseph_at_the_Vatican_(cropped).jpg"
- },
- {
-  "id": "missionaries-charity-07",
-  "group": "missionaries-charity",
-  "src": "/images/christian-dress/missionaries-charity-07.webp",
-  "width": 1200,
-  "height": 900,
-  "author": "Fallaner",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Holy_Land_2019_(2)_P129_Jerusalem_Ramparts_walk_Monastery_of_the_Missionaries_of_Charity_sign.jpg",
-  "file": "Holy_Land_2019_(2)_P129_Jerusalem_Ramparts_walk_Monastery_of_the_Missionaries_of_Charity_sign.jpg"
+  "file": "Sister_Mary_Prema_and_Sister_Mary_Joseph_at_the_Vatican_(cropped).jpg",
+  "caption": "האחות מרי פרמה, ראש המסדר, ואחות נוספת — הסארי הלבן עם הפסים הכחולים",
+  "alt": "האחות מרי פרמה, ראש המסדר, ואחות נוספת — הסארי הלבן עם הפסים הכחולים",
+  "focus": [
+   35,
+   25,
+   2
+  ]
  },
  {
   "id": "protestant-01",
@@ -2073,7 +1354,14 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Munib_Younan_2015.jpg",
-  "file": "Munib_Younan_2015.jpg"
+  "file": "Munib_Younan_2015.jpg",
+  "caption": "הבישוף הלותרני מוניב יונאן — חולצה סגולה, צווארון לבן וצלב",
+  "alt": "הבישוף הלותרני מוניב יונאן — חולצה סגולה, צווארון לבן וצלב",
+  "focus": [
+   55,
+   42,
+   2.2
+  ]
  },
  {
   "id": "protestant-02",
@@ -2085,7 +1373,10 @@
   "license": "CC BY 2.5",
   "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
   "source": "https://commons.wikimedia.org/wiki/File:Munib_Younan.jpg",
-  "file": "Munib_Younan.jpg"
+  "file": "Munib_Younan.jpg",
+  "caption": "הבישוף הלותרני מוניב יונאן נואם",
+  "alt": "הבישוף הלותרני מוניב יונאן נואם",
+  "hard": true
  },
  {
   "id": "protestant-03",
@@ -2097,31 +1388,14 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Archbishop_Suheil_Dawani_and_Dean_Hosam_Naoum_(34019363365).jpg",
-  "file": "Archbishop_Suheil_Dawani_and_Dean_Hosam_Naoum_(34019363365).jpg"
- },
- {
-  "id": "protestant-04",
-  "group": "protestant",
-  "src": "/images/christian-dress/protestant-04.webp",
-  "width": 800,
-  "height": 600,
-  "author": "David Lisbona",
-  "license": "CC BY 2.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Arab_Anglican_bishop_Jerusalem.jpg",
-  "file": "Arab_Anglican_bishop_Jerusalem.jpg"
- },
- {
-  "id": "protestant-05",
-  "group": "protestant",
-  "src": "/images/christian-dress/protestant-05.webp",
-  "width": 930,
-  "height": 1200,
-  "author": "Halahaddad1957",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Rt._Rev._Bishop_Faik_Ibrahim_Haddad,_Anglican_Bishop_in_Jerusalem.jpg",
-  "file": "Rt._Rev._Bishop_Faik_Ibrahim_Haddad,_Anglican_Bishop_in_Jerusalem.jpg"
+  "file": "Archbishop_Suheil_Dawani_and_Dean_Hosam_Naoum_(34019363365).jpg",
+  "caption": "הארכיבישוף האנגליקני סוהייל דוואני (מימין) והדיקן חוסאם נאום (במרכז) בירושלים",
+  "alt": "הארכיבישוף האנגליקני סוהייל דוואני (מימין) והדיקן חוסאם נאום (במרכז) בירושלים",
+  "focus": [
+   60,
+   40,
+   1.8
+  ]
  },
  {
   "id": "protestant-06",
@@ -2133,19 +1407,10 @@
   "license": "CC BY 4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
   "source": "https://commons.wikimedia.org/wiki/File:Elections_of_new_Anglican_Bishops_in_Jerusalem_(FL45772748).jpg",
-  "file": "Elections_of_new_Anglican_Bishops_in_Jerusalem_(FL45772748).jpg"
- },
- {
-  "id": "protestant-07",
-  "group": "protestant",
-  "src": "/images/christian-dress/protestant-07.webp",
-  "width": 1200,
-  "height": 721,
-  "author": "IPPA photographer",
-  "license": "CC BY 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Elections_of_new_Anglican_Bishops_in_Jerusalem_(FL62106855).jpg",
-  "file": "Elections_of_new_Anglican_Bishops_in_Jerusalem_(FL62106855).jpg"
+  "file": "Elections_of_new_Anglican_Bishops_in_Jerusalem_(FL45772748).jpg",
+  "caption": "בחירת בישופים אנגליקנים בירושלים, 1974",
+  "alt": "בחירת בישופים אנגליקנים בירושלים, 1974",
+  "hard": true
  },
  {
   "id": "protestant-08",
@@ -2157,30 +1422,9 @@
   "license": "CC BY-SA 2.0",
   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
   "source": "https://commons.wikimedia.org/wiki/File:Saeimas_priek%C5%A1s%C4%93d%C4%93t%C4%81ja_tiekas_ar_Pasaules_Luter%C4%81%C5%86u_feder%C4%81cijas_prezidentu_(16395089762).jpg",
-  "file": "Saeimas_priekšsēdētāja_tiekas_ar_Pasaules_Luterāņu_federācijas_prezidentu_(16395089762).jpg"
- },
- {
-  "id": "protestant-09",
-  "group": "protestant",
-  "src": "/images/christian-dress/protestant-09.webp",
-  "width": 1200,
-  "height": 623,
-  "author": "Haim Zach",
-  "license": "CC BY-SA 3.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Reuven_Rivlin_at_the_traditional_the_new_civil_year_event_for_the_heads_of_the_Christian_communities_in_Israel_online,_December_2020_(GPOHA1_7371).jpg",
-  "file": "Reuven_Rivlin_at_the_traditional_the_new_civil_year_event_for_the_heads_of_the_Christian_communities_in_Israel_online,_December_2020_(GPOHA1_7371).jpg"
- },
- {
-  "id": "protestant-10",
-  "group": "protestant",
-  "src": "/images/christian-dress/protestant-10.webp",
-  "width": 1200,
-  "height": 832,
-  "author": "Anton Croos",
-  "license": "CC BY-SA 4.0",
-  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Lutheran_Church_of_the_Redeemer_(2008).JPG",
-  "file": "Lutheran_Church_of_the_Redeemer_(2008).JPG"
+  "file": "Saeimas_priekšsēdētāja_tiekas_ar_Pasaules_Luterāņu_federācijas_prezidentu_(16395089762).jpg",
+  "caption": "הבישוף מוניב יונאן (מימין) והארכיבישוף הלותרני של לטביה — שניהם בחולצה סגולה וצווארון לבן",
+  "alt": "הבישוף מוניב יונאן (מימין) והארכיבישוף הלותרני של לטביה — שניהם בחולצה סגולה וצווארון לבן",
+  "hard": true
  }
 ]

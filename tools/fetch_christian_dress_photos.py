@@ -102,7 +102,7 @@ def main() -> None:
         row = {
             "id": item["id"], "group": item["group"],
             "src": f"/images/christian-dress/{item['id']}.webp", "width": width, "height": height,
-            "author": plain(ext.get("Artist", {}).get("value", "")) or "לא צוין",
+            "author": re.sub(r"(Unknown author)+", "Unknown author", plain(ext.get("Artist", {}).get("value", ""))) or "לא צוין",
             "license": license_name, "licenseUrl": plain(ext.get("LicenseUrl", {}).get("value", "")),
             "source": meta["descriptionurl"], "file": item["file"],
         }
