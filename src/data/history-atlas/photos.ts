@@ -1054,5 +1054,167 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "license": "CC BY 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:St_Elias_Church_at_the_Muhraka_Monastery_0651.jpg"
+  },
+  "PH-32": {
+    "caption": "אבן יד אשלית — כלי צור סימטרי שסותת משני צדיו.",
+    "alt": "אבן יד מצור",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-32.jpg",
+    "credit": "John Frere",
+    "license": "Public domain",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Handaxe_by_John_Frere.png",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Handaxe_by_John_Frere.png"
+  },
+  "PH-37": {
+    "caption": "ציור קיר במערת לסקו שבצרפת — בעלי חיים מן הפליאולית העליון.",
+    "alt": "ציור מערה של בעלי חיים",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-37.jpg",
+    "credit": "EU",
+    "license": "Public domain",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Lascaux_painting.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lascaux_painting.jpg"
+  },
+  "PH-42": {
+    "caption": "משקעי אגם הלשון — שכבות דקות שהשקיע האגם הקדום בבקע ים המלח.",
+    "alt": "שכבות משקע בהירות",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-42.jpg",
+    "credit": "עוזי פז",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:138115_lisan_formation_PikiWiki_Israel.jpg"
+  },
+  "PH-46": {
+    "caption": "בתי הכפר הניאוליתי בביידה שבירדן — מן הניאולית הקדם־קרמי ב׳.",
+    "alt": "יסודות אבן של בתים קדומים",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-46.jpg",
+    "credit": "Michael Gunther",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jordan1517.jpg"
+  },
+  "PH-48": {
+    "caption": "אובסידיאן — זכוכית געשית שהגיעה מאנטוליה בסחר.",
+    "alt": "גוש אובסידיאן שחור",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-48.jpg",
+    "credit": "Ji-Elle It feels nice and warm It feels like a love storm",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lipari-Obsidienne_(5).jpg"
+  },
+  "PH-49": {
+    "caption": "מחבצה כלקוליתית — כלי חרס לניעור חלב לחמאה.",
+    "alt": "כלי חרס סגלגל",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-49.jpg",
+    "credit": "Hanay",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Small_Chalcolithic_churn_%E2%80%93_Beersheba_Culture_%E2%80%93_found_in_Israel_-1.JPG"
+  },
+  "PH-50": {
+    "caption": "עץ זית עתיק — הזית בוית בתקופה הכלקוליתית.",
+    "alt": "עץ זית",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-50.jpg",
+    "credit": "ישראל פרקר Israel Preker",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_72830_ancient_olive_tree.jpg"
+  },
+  "PH-51": {
+    "caption": "טלילאת אל־ע׳סול — האתר שנתן את שמו לתרבות הע׳סולית.",
+    "alt": "שרידי אתר עתיק",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-51.jpg",
+    "credit": "Marsupium",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Star_of_Ghassul_-_Teleilat_Ghassul_-_late_Chalcolithic_period_-_Rockefeller_Museum.jpg"
+  },
+  "BR-26": {
+    "caption": "טרסות חקלאיות בהרי יהודה.",
+    "alt": "מדרגות אבן במדרון",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-26.jpg",
+    "credit": "Sydney Carline",
+    "license": "Public domain",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Title_notes-_%27Jan._Tuesday_28,_1919...In_the_afternoon_returning_a_little_way_we_got_our_oil_boxes_out_of_the_car_%26_both_set_to_paint_a_sudy_of_the_hilly_landscape._The_Hill_of_Judea_are_roling_(sic)_hills,_almost_like_Art.IWMART4560.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Title_notes-_%27Jan._Tuesday_28,_1919...In_the_afternoon_returning_a_little_way_we_got_our_oil_boxes_out_of_the_car_%26_both_set_to_paint_a_sudy_of_the_hilly_landscape._The_Hill_of_Judea_are_roling_(sic)_hills,_almost_like_Art.IWMART4560.jpg"
+  },
+  "BR-27": {
+    "caption": "ראש ברונזה מנינווה, המיוחס לסרגון מאכד או לנכדו נרם־סין.",
+    "alt": "ראש ברונזה של מלך מזוקן",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-27.jpg",
+    "credit": "ALFGRN",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sargon_of_Akkad_on_his_victory_stele.jpg"
+  },
+  "BR-29": {
+    "caption": "לוח חימר ובו חלק מחוקי אור־נמו.",
+    "alt": "לוח חימר בכתב יתדות",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-29.jpg",
+    "credit": "Istanbul Archaeology Museums",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ur_Nammu_code_Istanbul.jpg"
+  },
+  "BR-30": {
+    "caption": "מצבת חוקי חמורבי במוזיאון הלובר.",
+    "alt": "מצבת אבן שחורה עם כתב יתדות",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-30.jpg",
+    "credit": "Mbzt",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG"
+  },
+  "BR-31": {
+    "caption": "סוללת העפר של העיר הכנענית בתל דן.",
+    "alt": "מדרון סוללה עפר",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-31.jpg",
+    "credit": "Ani Nimi (Transferred by Matanya/Originally uploaded by Ani Nimi)",
+    "license": "Public domain",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:Tel_Dan_Area_T3_and_Rampart.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tel_Dan_Area_T3_and_Rampart.jpg"
+  },
+  "BR-32": {
+    "caption": "מרכבת מלחמה מצרית מקברו של תות־ענח־אמון.",
+    "alt": "מרכבה מצרית קדומה",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-32.jpg",
+    "credit": "Unknown authorUnknown author",
+    "license": "Public domain",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/File:The_Pharaoh_Tutankhamun_destroying_his_enemies.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Pharaoh_Tutankhamun_destroying_his_enemies.jpg"
+  },
+  "BR-33": {
+    "caption": "מצבת סתי הראשון מבית שאן.",
+    "alt": "מצבת אבן מצרית",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-33.jpg",
+    "credit": "Bukvoed",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rockefeller-Museum-Jerusalem-1686-Beit-Shean-stela-of-Seti-I-1294bce.jpg"
+  },
+  "BR-34": {
+    "caption": "לוח החוזה בין מצרים לחתים — העותק החתי.",
+    "alt": "לוח חימר בכתב יתדות",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-34.jpg",
+    "credit": "Olaf Tausch",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Karnak_%C3%84gyptisch-Hethitischer_Friedensvertrag_06.jpg"
+  },
+  "BR-35": {
+    "caption": "כד מיקני מעוטר מן הברונזה המאוחרת.",
+    "alt": "כד חרס מעוטר בפסים",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-35.jpg",
+    "credit": "לא צוין",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mycenaean_%27stirrup_jar%27,_clay_-_Museo_Egizio,_Turin_S_7137_p07.jpg"
+  },
+  "BR-36": {
+    "caption": "ארונות קבורה דמויי אדם מדיר אל־בלח.",
+    "alt": "ארונות חרס עם פני אדם",
+    "localSrc": "/moreh-derech/images/history-atlas/BR-36.jpg",
+    "credit": "Golf Bravo at English Wikipedia",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anthropoid_coffin.jpg"
   }
 };
