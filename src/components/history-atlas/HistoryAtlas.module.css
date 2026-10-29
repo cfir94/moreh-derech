@@ -52,6 +52,12 @@
 .segment button[aria-pressed="true"]{background:var(--a-card-hover);color:var(--a-ink);box-shadow:0 2px 10px -3px rgba(0,0,0,.35)}
 .indexButton{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--a-line);background:color-mix(in srgb,var(--a-card) 70%,transparent);font-size:12.5px;font-weight:700;white-space:nowrap}
 .indexButton:hover{background:var(--a-card-hover)}
+/* Full screen: over the whole window (and the site's own bar and Moti), with a way out that cannot be missed. */
+.atlas[data-full]{position:fixed;inset:0;z-index:70;height:100dvh;min-height:0}
+.atlas:fullscreen{height:100%}
+.atlas .exitFull{flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;border:2px solid #fff3;background:#c23b22;color:#fff;font-size:13.5px;font-weight:900;white-space:nowrap;box-shadow:0 6px 20px -6px #c23b22}
+.exitFull span[aria-hidden]{font-size:15px}
+.exitFull:hover{filter:brightness(1.08)}
 
 /* ── Stage: the tree on a vertical time axis ─────────── */
 .body{position:relative;flex:1;min-height:0;display:flex}
@@ -395,6 +401,7 @@
  .topicMenu summary{padding:0 9px;font-size:0}
  .topicMenu summary::before{font-size:15px}
  .indexButton{order:2;width:34px;height:34px;padding:0;justify-content:center}
+ .atlas .exitFull{order:2;height:34px;padding:0 12px;font-size:12.5px}
  .search{order:3;flex:1 1 170px;max-width:none;margin:0}
  .search input{height:34px;font-size:13px}
  .segment button{padding:5px 9px;font-size:12px}
