@@ -353,7 +353,13 @@ test("room for everything: margins, topic buttons clear of figures, drawings siz
  const opening={width:1440,height:760},far=layoutTree(J,JS,fitWhole(J,JS,jb,opening,{lane:true}),opening,{lane:true});
  assert(far.hidden.people+far.hidden.events>0,"what the first view keeps back is counted");
  for(const g of far.ghosts)assert(!far.people.some(p=>Math.abs(p.x-g.x)<far.slotW/2&&g.y>p.top-8&&g.y<p.bottom+8),"a mark sits on a portrait");
- assert(ART.overview.wide<=110,"drawings are modest");
+ assert(ART.overview.wide<=95,"drawings are modest");
+ // A drawing kept back is counted and marked beside its figure, and an event whose title is left out shows hollow on the spine.
+ const R=TOPICS.find(t=>t.id==="herod").collection,RS=timeScale(R),rb=roomyBounds(toV(RS,ordinal(R.contextFrom)),toV(RS,ordinal(R.contextTo)+1));
+ const herod=layoutTree(R,RS,fitWhole(R,RS,rb,opening,{lane:true}),opening,{lane:true});
+ assert(herod.hidden.drawings>0&&herod.ghosts.some(g=>g.kind==="art"),"a drawing that waits leaves a mark");
+ for(const g of herod.ghosts.filter(g=>g.kind==="art"))assert(!herod.vignettes.some(v=>v.node.id===g.id),g.id+" is both drawn and waiting");
+ assert(far.dots.some(d=>d.hidden)===far.hidden.events>0,"hidden titles show on the spine");
 });
 
 test("zoom on the X axis and of the whole view: columns draw together, and a phone can see every group at once",async()=>{

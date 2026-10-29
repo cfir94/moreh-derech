@@ -123,9 +123,9 @@ export type Connector={id:string;kind:AtlasRelationKind;path:string;from:string;
 export type Link={id:string;kind:AtlasRelationKind|"event";path:string;label?:string;lx:number;ly:number};
 export type Band={phase:AtlasPhase;index:number;top:number;bottom:number};
 export type Tick={year:number;y:number;label:string};
-export type Dot={id:string;y:number;y1:number;phase:string;rank:number;illustrated:boolean};
+export type Dot={id:string;y:number;y1:number;phase:string;rank:number;illustrated:boolean;hidden:boolean};
 /** A faint mark where a figure waits for a closer zoom. */
-export type Ghost={id:string;x:number;y:number;phase:string};
+export type Ghost={id:string;x:number;y:number;phase:string;kind:"person"|"art"};
 export type ColumnHead={id:string;title:string;note:string;left:number;right:number};
 /** The lane of event titles. On a wide screen it takes its own room; on a phone it opens over the tree. */
 export type Lane={open:boolean;overlay:boolean;left:number;right:number};
@@ -134,7 +134,7 @@ export type TreeLayout={
  pan:number;panMax:number;columns:ColumnHead[];bands:Band[];ticks:Tick[];people:PersonPlacement[];events:EventPlacement[];vignettes:Vignette[];dots:Dot[];
  clusters:Cluster[];connectors:Connector[];links:Link[];phase:AtlasPhase|null;
  /** Figures kept back for a closer zoom, and how many figures and event titles in these years are not shown. */
- ghosts:Ghost[];hidden:{people:number;events:number};
+ ghosts:Ghost[];hidden:{people:number;events:number;drawings:number};
 };
 /** `lane` opens the event titles; `pan` moves the tree sideways when it is wider than its area (left out, the first group is centred). */
 export type TreeOptions={lane?:boolean;selected?:string|null;focus?:Set<string>;pan?:number;
@@ -158,7 +158,7 @@ export const SHIFT={earlyYears:30,lateYears:6,latePx:26};
 /** Event titles in the lane; a title may sit up to `shift` px off its year to make room. */
 export const LABEL={full:42,compact:24,gap:4,shift:90};
 /** Drawing sizes per level, on a wide screen and a narrow one, and the caption below them. */
-export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:108,narrow:84},context:{wide:136,narrow:100},detail:{wide:168,narrow:120}};
+export const ART:Record<AtlasLevel,{wide:number;narrow:number}>={overview:{wide:92,narrow:72},context:{wide:116,narrow:86},detail:{wide:144,narrow:104}};
 export const ART_CAPTION=34;
 /** Where a drawing sits: the year the picture shows if one is given, else the middle of the event. */
 export const artYear=(art:AtlasIllustration,node:AtlasNode)=>art.at!==undefined?ordinal(art.at)+.5:(node.from+node.to+1)/2;
@@ -394,7 +394,7 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
  const shownIds=new Set([...people.map(p=>p.node.id),...events.map(e=>e.node.id),...vignettes.map(v=>v.node.id)]);
  const clustered=new Set(clusters.flatMap(c=>c.ids)),ghosts:Ghost[]=[];
  const visibleYear=(n:AtlasNode)=>{const y=yearY(n.from+.5),y1=yearY(n.to+1);return y1>=header&&y<=height;};
- const hidden={people:0,events:0};
+ const hidden={people:0,events:0,drawings:0};
  for(const n of collection.nodes){
   if(!isPlaced(n)||shownIds.has(n.id)||!visibleYear(n))continue;
   if(n.kind==="event"){if(open)hidden.events++;continue;}
@@ -405,9 +405,23 @@ export function layoutTree(collection:AtlasCollection,scale:TimeScale,view:Atlas
   if(placed.some(p=>Math.abs(p.x-x)<slotW/2&&y>p.top-8&&y<p.bottom+8))continue;
   if(vignettes.some(v=>Math.abs(v.x-x)<v.size/2+6&&y>v.top-6&&y<v.bottom+6))continue;
   if(ghosts.some(g=>Math.abs(g.x-x)<2&&Math.abs(g.y-y)<14))continue;
-  ghosts.push({id:n.id,x,y,phase:n.phase});
+  ghosts.push({id:n.id,x,y,phase:n.phase,kind:"person"});
  }
- const dots=collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)).map(n=>({id:n.id,y:yearY(n.from+.5),y1:n.to>n.from?yearY(n.to+1):yearY(n.from+.5),phase:n.phase,rank:n.rank,illustrated:Boolean(collection.illustrations[n.id])})).filter(d=>d.y1>=header&&d.y<=height);
+ // A drawing that waits for a closer zoom leaves a small framed mark beside its figure at its year, and is counted.
+ const drawn=new Set(vignettes.map(v=>v.node.id));
+ for(const n of collection.nodes){
+  if(n.kind!=="event"||!isPlaced(n)||!collection.illustrations[n.id]||drawn.has(n.id))continue;
+  const y=yearY(artYear(collection.illustrations[n.id],n));
+  if(y<header+8||y>height-8)continue;
+  hidden.drawings++;
+  const owner=placed.find(p=>p.node.related.includes(n.id)||n.related.includes(p.node.id));
+  const home=owner?owner.x:peopleRight-slotW/2,xs=[home+slotW/2,home-slotW/2,home+slotW,home-slotW];
+  const clear=(x:number)=>x>8&&x<peopleRight-6&&!placed.some(p=>Math.abs(p.x-x)<p.r+10&&y>p.top-10&&y<p.bottom+10)
+   &&!vignettes.some(v=>Math.abs(v.x-x)<v.size/2+8&&y>v.top-8&&y<v.bottom+8)&&!ghosts.some(g=>Math.abs(g.x-x)<18&&Math.abs(g.y-y)<18);
+  const x=xs.find(clear);
+  if(x!==undefined)ghosts.push({id:n.id,x,y,phase:n.phase,kind:"art"});
+ }
+ const dots=collection.nodes.filter(n=>n.kind==="event"&&isPlaced(n)).map(n=>({id:n.id,y:yearY(n.from+.5),y1:n.to>n.from?yearY(n.to+1):yearY(n.from+.5),phase:n.phase,rank:n.rank,illustrated:Boolean(collection.illustrations[n.id]),hidden:open&&!shownIds.has(n.id)})).filter(d=>d.y1>=header&&d.y<=height);
 
  // The tree: parent and succession lines drop from one figure to the next; spouses and siblings join side by side.
  const at=new Map(placed.map(p=>[p.node.id,p]));

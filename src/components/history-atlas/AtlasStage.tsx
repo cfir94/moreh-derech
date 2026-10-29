@@ -98,7 +98,7 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
  const byId=(id:string)=>collection.nodes.find(n=>n.id===id);
  // What this view keeps back, said once at the foot of the stage: a sparse first view is not all there is.
  const count=(n:number,one:string,many:string)=>n===1?one:`${n} ${many}`;
- const more=[L.hidden.people&&count(L.hidden.people,"דמות אחת","דמויות"),L.hidden.events&&count(L.hidden.events,"אירוע אחד","אירועים")].filter(Boolean).join(" ו־").replace(/^(.+)$/,"עוד $1 בתצוגה הזו");
+ const more=[L.hidden.people&&count(L.hidden.people,"דמות אחת","דמויות"),L.hidden.events&&count(L.hidden.events,"אירוע אחד","אירועים"),L.hidden.drawings&&count(L.hidden.drawings,"איור אחד","איורים")].filter(Boolean).join(", ").replace(/, ([^,]+)$/," ו־$1").replace(/^(.+)$/,"עוד $1 בתצוגה הזו");
  const state=(id:string)=>id===selected?s.selected:focus.has(id)?s.related:"";
  // Hover names only follow a mouse; on touch the tap opens the card instead.
  const hoverProps=(id:string)=>({onPointerEnter:(e:PointerEvent<HTMLElement>)=>{if(e.pointerType==="mouse")setHover(id);},onPointerLeave:()=>setHover(null),onFocus:()=>setHover(id),onBlur:()=>setHover(null)});
@@ -129,8 +129,10 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
     <Face image={n.image} name={n.title}/>
     <span className={s.name}><strong>{shortName(n.title)}</strong>{detail&&p.mode==="full"&&<small>{n.subtitle}</small>}</span>
    </button>;})}
-   {/* A faint mark where a figure waits for a closer zoom. */}
-   {L.ghosts.map(g=><i key={"ghost-"+g.id} className={s.ghost} data-atlas-ghost={g.id} style={{...tint(g.phase),left:g.x,top:g.y}} aria-hidden/>)}
+   {/* A mark where a figure or a drawing waits for a closer zoom; a tap zooms in there. */}
+   {L.ghosts.map(g=><button key={"ghost-"+g.id} type="button" tabIndex={-1} className={s.ghost} data-kind={g.kind} data-atlas-ghost={g.id} style={{...tint(g.phase),left:g.x,top:g.y}}
+    aria-label={g.kind==="art"?"איור שמחכה כאן — התקרבות":"דמות שמחכה כאן — התקרבות"} title={g.kind==="art"?"יש כאן איור — התקרבו לראות":"יש כאן דמות — התקרבו לראות"}
+    onClick={()=>onCluster({zone:"person",host:g.id,x:g.x,y:g.y,ids:[g.id]})}>{g.kind==="art"&&<span aria-hidden>▣</span>}</button>)}
    {/* Drawings stand in the tree beside the figure their event belongs to; the lane keeps the titles. */}
    {L.vignettes.map(v=>{const n=v.node;return <button key={"art-"+n.id} type="button" className={`${s.vignette} ${state(n.id)}`} data-atlas-art={n.id} data-kind="event" data-illustrated data-rank={n.rank} data-owner={v.owner}
     style={{...tint(n.phase),left:v.x-v.size/2,top:v.top,width:v.size}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(n.id,e.currentTarget)}>
@@ -151,7 +153,7 @@ export function AtlasStage({collection,layout,bounds,camera,selected,focus,hint,
   <span className={s.spine} style={{left:L.spine}} aria-hidden/>
   {L.dots.filter(d=>d.y1-d.y>3).map(d=><i key={"span-"+d.id} className={s.span} data-on={d.id===selected||focus.has(d.id)||undefined} style={{...tint(d.phase),left:L.spine,top:d.y,height:d.y1-d.y}} aria-hidden/>)}
   {/* Every event is a dot on the spine; with the lane closed the dots are the way in. */}
-  {L.dots.map(d=>{const n=byId(d.id)!;return <button key={d.id} type="button" className={s.dot} data-atlas-dot={d.id} data-rank={d.rank} data-illustrated={d.illustrated||undefined} data-on={d.id===selected||focus.has(d.id)||undefined} tabIndex={lane.open?-1:0}
+  {L.dots.map(d=>{const n=byId(d.id)!;return <button key={d.id} type="button" className={s.dot} data-atlas-dot={d.id} data-rank={d.rank} data-illustrated={d.illustrated||undefined} data-hidden={d.hidden||undefined} data-on={d.id===selected||focus.has(d.id)||undefined} tabIndex={lane.open?-1:0}
    style={{...tint(d.phase),left:L.spine,top:d.y}} aria-label={`${n.title} · ${n.date}`} onClick={e=>onOpen(d.id,e.currentTarget)} {...hoverProps(d.id)}/>;})}
 
   {L.events.map(e=>{const n=e.node;return <button key={n.id} type="button" className={`${s.label} ${state(n.id)}`} data-atlas-node={n.id} data-kind="event" data-mode={e.mode} data-rank={n.rank}
