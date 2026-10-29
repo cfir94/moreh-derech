@@ -1073,6 +1073,15 @@ export const ATLAS_PHOTOS: Record<string, AtlasImage> = {
     "licenseUrl": "https://commons.wikimedia.org/wiki/File:Lascaux_painting.jpg",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lascaux_painting.jpg"
   },
+  "PH-41": {
+    "caption": "שלד של ממותה צמרירית — מבעלי החיים הגדולים שנכחדו בסוף עידן הקרח.",
+    "alt": "שלד ממותה",
+    "localSrc": "/moreh-derech/images/history-atlas/PH-41.jpg",
+    "credit": "Nattnewl",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Woolly_Mammoth_and_Native_American_Gallery_at_Discovery_Park_of_America.jpg"
+  },
   "PH-42": {
     "caption": "משקעי אגם הלשון — שכבות דקות שהשקיע האגם הקדום בבקע ים המלח.",
     "alt": "שכבות משקע בהירות",
