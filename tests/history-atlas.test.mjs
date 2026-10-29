@@ -186,7 +186,7 @@ test("portraits and illustrations have provenance and exist",()=>{
 });
 
 test("the whole axis: prehistory, the Bronze Age and the First Temple before, Rome and Byzantium after",async()=>{
- const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
+ const {HISTORY_ATLAS:H,ART}=await import("../src/data/history-atlas/index.ts");
  const {LATE_RELATIONS}=await import("../src/data/history-atlas/late-antiquity.ts");
  const {EARLY_RELATIONS}=await import("../src/data/history-atlas/first-temple.ts");
  const early=readFileSync(new URL("../src/data/who-am-i/people.json",import.meta.url),"utf8")+readFileSync(new URL("../src/data/timelines/egypt-canaan.ts",import.meta.url),"utf8");
@@ -222,7 +222,9 @@ test("the whole axis: prehistory, the Bronze Age and the First Temple before, Ro
   const titles=[...L.events].sort((a,b)=>a.top-b.top);
   for(let i=1;i<titles.length;i++)assert(titles[i].top>=titles[i-1].top+titles[i-1].height,where+titles[i].node.id);
   assert.equal(new Set(ids(L)).size,ids(L).length,where);
-  for(const v of L.vignettes){const n=v.node,y=yr=>48+(toV(HS,yr)-view.from)/(view.to-view.from)*(size.height-48),aim=y(artYear(H.illustrations[n.id],n));assert(Math.abs(v.y-aim)<1e-6||(v.y>=y(n.from+.5)-.5&&v.y<=y(n.to+.5)+.5),where+n.id+" leaves its own years");}
+  // A drawing stands at its year, along its span, or as a last resort up to two thirds of its size off its year.
+  const nudge=ART[L.level][size.width<640?"narrow":"wide"]*2/3+.5;
+  for(const v of L.vignettes){const n=v.node,y=yr=>48+(toV(HS,yr)-view.from)/(view.to-view.from)*(size.height-48),aim=y(artYear(H.illustrations[n.id],n));assert(Math.abs(v.y-aim)<=nudge||(v.y>=y(n.from+.5)-.5&&v.y<=y(n.to+.5)+.5),where+n.id+" leaves its own years");}
   noClash(L,where);
  }
  const kings=layoutTree(H,HS,fitRange(toV(HS,ordinal(-1004)),toV(HS,ordinal(-900)),hb,.04),desk),k=id=>kings.people.find(p=>p.node.id===id);
@@ -323,6 +325,72 @@ test("coverage: the course's missing figures and Second Temple finds are on the 
  for(const id of ["NT-22","NT-23"])assert(J.nodes.some(n=>n.id===id),id);
 });
 
+test("room for everything: margins, topic buttons clear of figures, drawings sized by weight, and a sign of what is hidden",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS,placeChips,EDGE,ART}=await import("../src/data/history-atlas/index.ts");
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const wide={width:2000,height:960};
+ const views=[[-40,140],[60,140],[-175,-120],[-1100,-900],[300,460],[-600,-400]].map(([a,b])=>fitRange(toV(HS,ordinal(a)),toV(HS,ordinal(b)),hb,.04));
+ for(const size of [wide,desk,phone])for(const view of views){
+  const L=layoutTree(H,HS,view,size,{lane:size!==phone}),where=`${size.width} ${Math.round(view.from)}: `;
+  // On a screen wide enough for the whole tree, no column touches the stage's left edge.
+  if(L.panMax===0&&size.width>=640)assert(Math.min(...L.columns.map(c=>c.left))>=EDGE.left-1,where+"left margin");
+  // Topic buttons never cover a figure, a drawing or another button.
+  const y=year=>L.header+(toV(HS,ordinal(year))-view.from)/(view.to-view.from)*(L.height-L.header);
+  const chips=placeChips(L,TOPICS.map(t=>({id:t.id,title:t.title,top:y(t.from),bottom:y(t.to)})));
+  const box=c=>{const w=c.compact?32:Math.min(220,46+c.title.length*7.4);return {left:L.width-c.right-w,right:L.width-c.right,top:c.top,bottom:c.top+30};};
+  const hit=(a,b)=>a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom;
+  for(const c of chips){
+   const a=box(c);
+   for(const p of L.people)assert(!hit(a,{left:p.x-L.slotW/2+3,right:p.x+L.slotW/2-3,top:p.top,bottom:p.bottom})||c.top===Math.max(L.header+8,c.top)&&c.compact,where+c.id+" covers "+p.node.id);
+   for(const v of L.vignettes)assert(!hit(a,{left:v.x-v.size/2,right:v.x+v.size/2,top:v.top,bottom:v.bottom})||c.compact,where+c.id+" covers "+v.node.id);
+  }
+  // A drawing is never larger than a drawing of a more important event in the same view.
+  for(const a of L.vignettes)for(const b of L.vignettes)if(a.node.rank<b.node.rank)assert(a.size>=b.size,where+a.node.id+" smaller than "+b.node.id);
+ }
+ // The judges' dimension opens with a few figures; the rest leave a mark, and the stage says how many are waiting.
+ const {fitWhole,roomyBounds}=await import("../src/data/history-atlas/index.ts");
+ const J=TOPICS.find(t=>t.id==="judges").collection,JS=timeScale(J),jb=roomyBounds(toV(JS,ordinal(J.contextFrom)),toV(JS,ordinal(J.contextTo)+1));
+ const opening={width:1440,height:760},far=layoutTree(J,JS,fitWhole(J,JS,jb,opening,{lane:true}),opening,{lane:true});
+ assert(far.hidden.people+far.hidden.events>0,"what the first view keeps back is counted");
+ for(const g of far.ghosts)assert(!far.people.some(p=>Math.abs(p.x-g.x)<far.slotW/2&&g.y>p.top-8&&g.y<p.bottom+8),"a mark sits on a portrait");
+ assert(ART.overview.wide<=110,"drawings are modest");
+});
+
+test("zoom on the X axis and of the whole view: columns draw together, and a phone can see every group at once",async()=>{
+ const {HISTORY_ATLAS:H,COLUMNS}=await import("../src/data/history-atlas/index.ts");
+ const HS=timeScale(H),hb={from:toV(HS,ordinal(H.contextFrom))-24,to:toV(HS,ordinal(H.contextTo)+1)+24};
+ const view=fitRange(toV(HS,ordinal(-40)),toV(HS,ordinal(70)),hb,.04);
+ const normal=layoutTree(H,HS,view,phone,{lane:false}),narrow=layoutTree(H,HS,view,phone,{lane:false,columns:.5});
+ assert(narrow.slotW<normal.slotW&&narrow.panMax<normal.panMax,"narrower columns need less sideways scrolling");
+ assert(narrow.slotW>=COLUMNS.narrowest);
+ // Narrow columns hold small portraits only, and nothing overlaps.
+ assert(narrow.people.every(p=>p.mode==="compact"||narrow.slotW>=56));
+ // Drawn at 55% (the layout gets the phone's size divided by the scale) with narrow columns, the whole tree fits.
+ const small={width:Math.round(390/.55),height:Math.round(560/.55)};
+ const all=layoutTree(H,HS,view,small,{lane:false,columns:.5});
+ assert.equal(all.panMax,0,"every group on one screen");
+ for(let i=0;i<all.people.length;i++)for(let j=0;j<i;j++){const a=all.people[i],b=all.people[j];if(a.slot===b.slot)assert(a.bottom<=b.top||b.bottom<=a.top,a.node.id+" on "+b.node.id);}
+});
+
+test("photos: every figure and event that has one shows it, with its credit, licence and a file on the site",async()=>{
+ const {HISTORY_ATLAS:H,TOPICS}=await import("../src/data/history-atlas/index.ts");
+ const {REUSE,photoOf}=await import("../src/data/history-atlas/photo-map.ts");
+ const {ATLAS_PHOTOS}=await import("../src/data/history-atlas/photos.ts");
+ for(const [id,ref] of Object.entries(REUSE))assert(photoOf(id),id+" → "+ref+" resolves to no photo");
+ const all=new Map();for(const C of [H,...TOPICS.map(t=>t.collection)])for(const n of C.nodes)all.set(n.id,n);
+ for(const id of Object.keys(ATLAS_PHOTOS))assert(all.has(id),id+" is not an atlas item");
+ let shown=0;
+ for(const n of all.values()){
+  if(!n.image)continue;shown++;
+  assert(n.image.localSrc.startsWith("/moreh-derech/"),n.id);
+  assert(existsSync(new URL("../public"+n.image.localSrc.replace("/moreh-derech",""),import.meta.url)),n.id+": "+n.image.localSrc);
+  assert(n.image.caption&&n.image.credit&&n.image.license&&n.image.sourceUrl.startsWith("https://"),n.id+" provenance");
+ }
+ // Most of the atlas has a picture: figures, and the events of every period.
+ assert(shown>=250,shown+" items with a photo");
+ for(const id of ["H-05","B-01","F-08","P-003","FT-19","EC-merneptah","ST-058","SE-08","RO-021","BY-036","JS-24"])assert(all.get(id)?.image,id+" has a photo");
+});
+
 test("the figures are told about in the third person",async()=>{
  const {HISTORY_ATLAS:H}=await import("../src/data/history-atlas/index.ts");
  const {EARLY_SOURCES}=await import("../src/data/history-atlas/first-temple.ts");
@@ -334,10 +402,14 @@ test("the figures are told about in the third person",async()=>{
  for(const n of H.nodes)for(const text of [n.summary,...n.fields.map(f=>f.text)])assert(!first.test(text),n.id+": "+text.slice(0,80));
 });
 
-test("the main axis carries no more than twenty drawings, of the great turning points",async()=>{
+test("the main axis carries few drawings — twenty from the Bronze Age on, four for prehistory and Canaan — of the great turning points",async()=>{
  const {HISTORY_ATLAS:H,DRAWINGS}=await import("../src/data/history-atlas/atlas.ts");
  const {AXIS_DRAWINGS}=await import("../src/data/history-atlas/illustrations.ts");
- assert(AXIS_DRAWINGS.length<=20);
+ assert(AXIS_DRAWINGS.length<=24);
+ // Every drawing a topic waits for is asked for too.
+ const {TOPICS}=await import("../src/data/history-atlas/index.ts");
+ for(const id of ["PH-03","PH-29","BR-04","BR-23","EC-megiddo"])assert(readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8").includes(id+" —"),id);
+ assert(TOPICS.length>0);
  assert(Object.keys(H.illustrations).every(id=>AXIS_DRAWINGS.includes(id)));
  const prompts=readFileSync(new URL("../docs/chatgpt-illustration-prompts.md",import.meta.url),"utf8");
  for(const id of AXIS_DRAWINGS){

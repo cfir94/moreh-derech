@@ -33,8 +33,10 @@ export function AtlasPanel({collection,sources,node,previous,next,position,onOpe
    </header>
    <div ref={scroll} className={s.panelBody}>
     {art&&<figure className={s.art}><img src={art.src} alt={art.alt} width={480} height={480}/><figcaption>{art.caption}</figcaption></figure>}{/* eslint-disable-line @next/next/no-img-element */}
+    {/* An event with no drawing shows its photo: the site or the find. */}
+    {!art&&node.kind==="event"&&node.image&&<figure className={s.photo} data-atlas-photo><img src={node.image.localSrc} alt={node.image.alt} width={480} height={300} loading="lazy"/><figcaption>{node.image.caption}</figcaption></figure>}{/* eslint-disable-line @next/next/no-img-element */}
     <div className={s.hero}>
-     {node.kind==="person"?<Face key={node.id} image={node.image} name={node.title} large/>:!art&&<span className={s.heroMark} aria-hidden/>}
+     {node.kind==="person"?<Face key={node.id} image={node.image} name={node.title} large/>:!art&&!node.image&&<span className={s.heroMark} aria-hidden/>}
      <div><h2 id="atlas-detail-title">{node.title}</h2>{node.life?<p className={s.heroDate}>{node.subtitle}</p>:<><p className={s.heroDate}>{node.date}</p>{node.kind==="person"&&!node.date.startsWith(node.subtitle)&&<p className={s.heroRole}>{node.subtitle}</p>}</>}</div>
     </div>
     {/* A figure's years, its active years and its end come first: they are what the card is opened for. */}

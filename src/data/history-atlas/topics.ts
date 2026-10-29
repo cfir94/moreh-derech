@@ -3,6 +3,7 @@ import {ordinal} from "./time";
 import {familyColumns} from "./family-columns";
 import {isPlaced} from "./stage";
 import {withBio} from "./bios";
+import {withPhoto} from "./photo-map";
 import {JESUS_AXIS_EVENTS,JESUS_EVENTS,JESUS_FROM_AXIS,JESUS_GROUP_OF,JESUS_PEOPLE,JESUS_PHASES,JESUS_TIES,jesusEvent} from "./topic-jesus";
 import {PROPHET_EVENTS,PROPHET_PEOPLE,PROPHET_SCENES} from "./topic-prophets";
 import {JUDGE_EVENTS,JUDGE_PEOPLE,JUDGE_SCENES} from "./topic-judges";
@@ -50,7 +51,7 @@ function build(spec:Spec):AtlasTopic{
   // Inside a topic everything it holds may show from its first view; a figure who came in earlier starts at its top.
   const from=Math.max(start,Math.min(shaped.from,end)),to=Math.max(from,Math.min(shaped.to,end));
   return {...shaped,from,to,phase:phaseOf(from),rank:shaped.rank===3?2:shaped.rank,mentionOnly:false,unplaced:false};
- }).concat((spec.extra??[]).map(n=>withBio({...n,phase:n.phase||phaseOf(n.from)})));
+ }).concat((spec.extra??[]).map(n=>withPhoto(withBio({...n,phase:n.phase||phaseOf(n.from)}))));
  const ids=new Set(nodes.map(n=>n.id));
  const relations=[...H.relations.filter(r=>ids.has(r.from)&&ids.has(r.to)),...(spec.ties??[]).map(({from,to,label,kind})=>({from,to,label,kind}))];
  // Columns: the main groups (or the topic's), each packed to as few slots as its figures need.
@@ -96,6 +97,8 @@ const ids=(nodes:AtlasNode[])=>nodes.map(n=>n.id);
 const prehistory:Spec={
  id:"prehistory",title:"האדם הקדום",note:"מיני האדם, האש, הקבורה הראשונה, הנטופים והמהפכה החקלאית",from:PREHISTORY_PHASES[0].from,to:-3500,
  events:ids(PREHISTORY_EVENTS),people:ids(PREHISTORY_PEOPLE),groups:PREHISTORY_GROUPS,groupOf:PREHISTORY_GROUP_OF,
+ // Drawings asked for in docs/chatgpt-illustration-prompts.md; each appears once its file is in place.
+ drawings:same(["PH-03","PH-05","PH-11","PH-16","PH-19","PH-22","PH-23","PH-24","PH-26","PH-29","PH-31"]),
 };
 /** The main axis's phases between two years, with paces of the topic's own (the axis draws the long early ages slowly). */
 const clip=(from:number,to:number,pace:Record<string,number>)=>H.phases.filter(p=>p.from<to&&p.to>from).map(p=>({...p,from:Math.max(p.from,from),to:Math.min(p.to,to),featured:undefined,context:undefined,pace:pace[p.id]??p.pace}));
@@ -104,6 +107,7 @@ const bronze:Spec={
  phases:clip(-3500,-1140,{"early-bronze":.16,"intermediate-bronze":.35,"middle-bronze":.4,"late-bronze":.55,iron1:1}),
  events:[...ids(BRONZE_EVENTS),"FT-01","FT-02","EC-megiddo","EC-amenhotep","EC-amarna","EC-ramses","EC-exodus","EC-merneptah","EC-highlands"],
  people:[...ids(BRONZE_PEOPLE),"F-01","F-02","F-03","F-04","F-05","F-06","F-07","F-08","F-09","F-10","F-11"],
+ drawings:same(["BR-04","BR-07","BR-11","BR-12","BR-13","EC-megiddo","BR-16","BR-20","BR-23"]),
 };
 const TOPIC_SPECS:Spec[]=[
  prehistory,
@@ -111,7 +115,7 @@ const TOPIC_SPECS:Spec[]=[
  judges,
  prophets,
  {id:"return",title:"שיבת ציון",note:"מהצהרת כורש ועד עזרא ונחמיה",from:-539,to:-400,
-  events:[...range("ST-",6,16),"SE-01","SE-02","SE-03"],people:["P-008","P-009","P-010","P-011","P-013","P-014","P-015","P-016","P-017","P-018","M-02","M-03"],drawings:same(["ST-007","ST-012","ST-015"])},
+  events:[...range("ST-",6,16),"SE-01","SE-02","SE-03"],people:["P-008","P-009","P-010","P-011","P-013","P-014","P-015","P-016-1","P-016-2","P-016-3","P-017","P-018","M-02","M-03"],drawings:same(["ST-007","ST-012","ST-015"])},
  {id:"hasmonean",title:"מרד החשמונאים",note:"מן הגזרות ועד עצמאות יהודה",from:-175,to:-134,
   events:range("ST-",24,41),people:["P-027","P-028","P-029","P-030","P-031","P-032","P-033","P-035","P-036","P-037","P-038","P-039","P-040","P-041"],drawings:same(["ST-028","ST-033"])},
  {id:"herod",title:"בית הורדוס",note:"מכיבוש פומפיוס ועד אגריפס",from:-67,to:44,

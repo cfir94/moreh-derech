@@ -52,8 +52,9 @@ export const MORE_ILLUSTRATIONS:Record<string,AtlasIllustration>=Object.fromEntr
 ]);
 
 /**
- * The twenty turning points that carry a drawing on the main axis, in order. Those without a drawing yet are
- * asked for in docs/chatgpt-illustration-prompts.md (David's Jerusalem, Solomon's Temple, the split of the
- * kingdom, the fall of Samaria and the siege of Lachish); until then they show as titles.
+ * The turning points that carry a drawing on the main axis, in order: twenty for the Bronze Age to Byzantium, and
+ * four more since the axis begins with the first humans. Those without a drawing yet are asked for in
+ * docs/chatgpt-illustration-prompts.md (prehistory, Canaanite Jerusalem and the First Temple); until a drawing
+ * arrives they show as titles.
  */
-export const AXIS_DRAWINGS=["FT-06","FT-07","FT-08","ST-002","FT-20","ST-004","ST-007","ST-017","ST-033","ST-049","ST-058","ST-065","ST-082","ST-085","RO-031","RO-036","BY-007","BY-033","BY-039","BY-044"];
+export const AXIS_DRAWINGS=["PH-05","PH-19","PH-23","BR-12","FT-06","FT-07","FT-08","ST-002","FT-20","ST-004","ST-007","ST-017","ST-033","ST-049","ST-058","ST-065","ST-082","ST-085","RO-031","RO-036","BY-007","BY-033","BY-039","BY-044"];

@@ -12,6 +12,7 @@ import {ordinal} from "./time";
 import {isPlaced} from "./stage";
 import {TOLD} from "./told";
 import {BIOS,withBio} from "./bios";
+import {withPhoto} from "./photo-map";
 import whoAmIPortraits from "../who-am-i/portraits.json";
 import type {AtlasCollection,AtlasGroup,AtlasIllustration,AtlasImage,AtlasNode,AtlasRelation} from "./types";
 
@@ -57,9 +58,10 @@ export const DRAWINGS:Record<string,AtlasIllustration>={...ST.illustrations,...L
  * Each figure's card tells who it was (bios.ts). A Second Temple figure's card no longer borrows the caution of
  * its events, which speaks of dating an event, not of the person; a figure with no date says why it is off the axis.
  * Rabban Yochanan ben Zakkai is in both collections (P-077, a mention; L-01, at Yavne): the axis keeps L-01.
+ * Haggai, Zechariah and Malachi are one record in the notebook (P-016); the axis has each of them (additions.ts).
  */
-const told=(n:AtlasNode)=>{const t=withBio(n);return n.id.startsWith("P-")&&BIOS[n.id]?{...t,caution:isPlaced(n)?undefined:"החומר אינו נותן לדמות הזו תאריך, ולכן היא אינה מוצבת על הציר."}:t;};
-const NODES=[...PREHISTORY_EVENTS,...PREHISTORY_PEOPLE,...BRONZE_EVENTS,...BRONZE_PEOPLE,...EARLY_NODES,...IRON_EVENTS,...IRON_PEOPLE,...ST.nodes.filter(n=>n.id!=="P-077").map(place),CAESAR,...LATE_NODES,...ADDED_EVENTS,...ADDED_PEOPLE].map(told);
+const told=(n:AtlasNode)=>{const t=withPhoto(withBio(n));return n.id.startsWith("P-")&&BIOS[n.id]?{...t,caution:isPlaced(n)?undefined:"החומר אינו נותן לדמות הזו תאריך, ולכן היא אינה מוצבת על הציר."}:t;};
+const NODES=[...PREHISTORY_EVENTS,...PREHISTORY_PEOPLE,...BRONZE_EVENTS,...BRONZE_PEOPLE,...EARLY_NODES,...IRON_EVENTS,...IRON_PEOPLE,...ST.nodes.filter(n=>n.id!=="P-077"&&n.id!=="P-016").map(place),CAESAR,...LATE_NODES,...ADDED_EVENTS,...ADDED_PEOPLE].map(told);
 const RELATIONS=joined([...PREHISTORY_TIES.map(plain),...BRONZE_TIES.map(plain),...EARLY_RELATIONS.map(plain),...IRON_TIES.map(plain),...ST.relations,...CAESAR_TIES,...LATE_RELATIONS.map(plain),...ADDED_TIES.map(plain)]);
 /**
  * The three column groups run the whole axis, and in earlier ages they hold other people: the human species

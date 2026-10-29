@@ -1,0 +1,39 @@
+name: Fetch history atlas photos
+
+# Like fetch-learning-map-photos.yml: upload.wikimedia.org throttles the build
+# containers, so the atlas's photos are downloaded on GitHub's runners whenever
+# the manifest changes, and committed back to the same branch.
+on:
+  push:
+    paths:
+      - "tools/history_atlas_photos.json"
+      - "tools/fetch_history_atlas_photos.py"
+      - ".github/workflows/fetch-history-atlas-photos.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: history-atlas-photos-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - run: python3 tools/fetch_history_atlas_photos.py
+      - name: Commit the photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add public/images/history-atlas src/data/history-atlas/photos.ts tools/history_atlas_photos.lock.json
+          if git diff --cached --quiet; then echo "photos already up to date"; exit 0; fi
+          git commit -m "Fetch history atlas photos from Wikimedia Commons"
+          git push
