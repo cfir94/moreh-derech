@@ -1334,5 +1334,193 @@
   ],
   "caption": "מנזר המוחרקה בכרמל.",
   "alt": "מנזר על פסגת הכרמל"
+ },
+ {
+  "id": "PH-32",
+  "wiki": [
+   "en:Hand axe"
+  ],
+  "search": [
+   "Acheulean handaxe flint",
+   "Acheulean hand axe"
+  ],
+  "caption": "אבן יד אשלית — כלי צור סימטרי שסותת משני צדיו.",
+  "alt": "אבן יד מצור"
+ },
+ {
+  "id": "PH-37",
+  "wiki": [
+   "en:Lascaux"
+  ],
+  "search": [
+   "Lascaux cave painting"
+  ],
+  "caption": "ציור קיר במערת לסקו שבצרפת — בעלי חיים מן הפליאולית העליון.",
+  "alt": "ציור מערה של בעלי חיים"
+ },
+ {
+  "id": "PH-41",
+  "search": [
+   "Woolly mammoth skeleton museum"
+  ],
+  "caption": "שלד של ממותה צמרירית — מבעלי החיים הגדולים שנכחדו בסוף עידן הקרח.",
+  "alt": "שלד ממותה"
+ },
+ {
+  "id": "PH-42",
+  "search": [
+   "Lisan Formation Dead Sea",
+   "Lisan marl"
+  ],
+  "caption": "משקעי אגם הלשון — שכבות דקות שהשקיע האגם הקדום בבקע ים המלח.",
+  "alt": "שכבות משקע בהירות"
+ },
+ {
+  "id": "PH-46",
+  "wiki": [
+   "en:Beidha (archaeological site)"
+  ],
+  "search": [
+   "Beidha neolithic"
+  ],
+  "caption": "בתי הכפר הניאוליתי בביידה שבירדן — מן הניאולית הקדם־קרמי ב׳.",
+  "alt": "יסודות אבן של בתים קדומים"
+ },
+ {
+  "id": "PH-48",
+  "wiki": [
+   "en:Obsidian"
+  ],
+  "search": [
+   "Obsidian"
+  ],
+  "caption": "אובסידיאן — זכוכית געשית שהגיעה מאנטוליה בסחר.",
+  "alt": "גוש אובסידיאן שחור"
+ },
+ {
+  "id": "PH-49",
+  "search": [
+   "Chalcolithic churn",
+   "churn Chalcolithic Israel"
+  ],
+  "caption": "מחבצה כלקוליתית — כלי חרס לניעור חלב לחמאה.",
+  "alt": "כלי חרס סגלגל"
+ },
+ {
+  "id": "PH-50",
+  "search": [
+   "ancient olive tree Israel"
+  ],
+  "caption": "עץ זית עתיק — הזית בוית בתקופה הכלקוליתית.",
+  "alt": "עץ זית"
+ },
+ {
+  "id": "PH-51",
+  "wiki": [
+   "en:Teleilat el Ghassul"
+  ],
+  "search": [
+   "Teleilat Ghassul"
+  ],
+  "caption": "טלילאת אל־ע׳סול — האתר שנתן את שמו לתרבות הע׳סולית.",
+  "alt": "שרידי אתר עתיק"
+ },
+ {
+  "id": "BR-26",
+  "search": [
+   "agricultural terraces Judean Mountains",
+   "terraces Judean hills"
+  ],
+  "caption": "טרסות חקלאיות בהרי יהודה.",
+  "alt": "מדרגות אבן במדרון"
+ },
+ {
+  "id": "BR-27",
+  "wiki": [
+   "en:Sargon of Akkad"
+  ],
+  "search": [
+   "Mask of Sargon"
+  ],
+  "caption": "ראש ברונזה מנינווה, המיוחס לסרגון מאכד או לנכדו נרם־סין.",
+  "alt": "ראש ברונזה של מלך מזוקן"
+ },
+ {
+  "id": "BR-29",
+  "wiki": [
+   "en:Code of Ur-Nammu"
+  ],
+  "search": [
+   "Code of Ur-Nammu"
+  ],
+  "caption": "לוח חימר ובו חלק מחוקי אור־נמו.",
+  "alt": "לוח חימר בכתב יתדות"
+ },
+ {
+  "id": "BR-30",
+  "wiki": [
+   "en:Code of Hammurabi"
+  ],
+  "search": [
+   "Code of Hammurabi Louvre"
+  ],
+  "caption": "מצבת חוקי חמורבי במוזיאון הלובר.",
+  "alt": "מצבת אבן שחורה עם כתב יתדות"
+ },
+ {
+  "id": "BR-31",
+  "search": [
+   "Tel Dan rampart",
+   "Middle Bronze rampart Tel Dan"
+  ],
+  "caption": "סוללת העפר של העיר הכנענית בתל דן.",
+  "alt": "מדרון סוללה עפר"
+ },
+ {
+  "id": "BR-32",
+  "search": [
+   "Tutankhamun chariot Egyptian Museum",
+   "Tutankhamun chariot"
+  ],
+  "caption": "מרכבת מלחמה מצרית מקברו של תות־ענח־אמון.",
+  "alt": "מרכבה מצרית קדומה"
+ },
+ {
+  "id": "BR-33",
+  "search": [
+   "Seti I stele Beit Shean",
+   "Beth Shean stele Seti"
+  ],
+  "caption": "מצבת סתי הראשון מבית שאן.",
+  "alt": "מצבת אבן מצרית"
+ },
+ {
+  "id": "BR-34",
+  "wiki": [
+   "en:Egyptian–Hittite peace treaty"
+  ],
+  "search": [
+   "Kadesh peace treaty tablet Istanbul"
+  ],
+  "caption": "לוח החוזה בין מצרים לחתים — העותק החתי.",
+  "alt": "לוח חימר בכתב יתדות"
+ },
+ {
+  "id": "BR-35",
+  "search": [
+   "Mycenaean stirrup jar",
+   "Mycenaean pottery"
+  ],
+  "caption": "כד מיקני מעוטר מן הברונזה המאוחרת.",
+  "alt": "כד חרס מעוטר בפסים"
+ },
+ {
+  "id": "BR-36",
+  "search": [
+   "Deir el-Balah anthropoid coffin",
+   "anthropoid coffin Deir el-Balah"
+  ],
+  "caption": "ארונות קבורה דמויי אדם מדיר אל־בלח.",
+  "alt": "ארונות חרס עם פני אדם"
  }
 ]
