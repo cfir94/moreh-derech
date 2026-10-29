@@ -1,3 +1,4 @@
+import mosheUpcomingExam from "@/data/quizzes/moshe-upcoming-exam";
 import type { Quiz } from "@/data/quizzes/types";
 import archaeologyIntro from "@/data/quizzes/archaeology-intro";
 import bronzeAge from "@/data/quizzes/bronze-age";
@@ -19,6 +20,7 @@ import medieval from "@/data/quizzes/medieval";
 import ottoman from "@/data/quizzes/ottoman";
 
 export const QUIZZES: Quiz[] = [
+  mosheUpcomingExam,
   pastExams,
   examBank,
   courseBank,
@@ -40,6 +42,7 @@ export const QUIZZES: Quiz[] = [
 ];
 
 export const QUIZ_DESCRIPTIONS: Record<string, string> = {
+  "moshe-upcoming-exam": "שאלון זמני שהכין משה מהכיתה למבחן הקרוב — 400 שאלות השלמה ורב־ברירה, עם המפתח שלו.",
   "second-temple":
     "שיבת ציון, הלניזם וחשמונאים, כתות ומגילות, הורדוס ומפעליו, השלטון הרומי והמרד הגדול.",
   ottoman:
