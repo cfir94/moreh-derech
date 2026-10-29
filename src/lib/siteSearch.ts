@@ -26,6 +26,7 @@ import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
 import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
 import { createRequestCache } from "@/lib/requestCache";
+import { classRecordingSearchResults } from "@/lib/videoSearch";
 
 export type SearchResultKind =
   | "notebook"
@@ -221,6 +222,7 @@ function learningMapResults(): SearchResult[] {
 const baseResults: SearchResult[] = [
   ...staticNotebookResults(),
   ...videoResults(),
+  ...classRecordingSearchResults(),
   ...resourceResults(),
   ...timelineResults(),
   ...learningMapResults(),

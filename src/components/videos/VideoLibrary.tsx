@@ -11,13 +11,19 @@ import {
   type TopicTone,
   type VideoGroup,
   type VideoItem,
+  type VideoPart,
   type VideoSubtopic,
 } from "@/data/videos";
 import {
   CLASS_VIDEO_SECTIONS,
   classVideoCount,
+  classRecordingCount,
+  classVideoScanDate,
   type VideoSection,
 } from "@/data/class-videos";
+import { findVideoSelection, selectedVideoPart, videoPlayerUrl } from "@/lib/videoPlayback";
+import { LessonPlaylist } from "./LessonPlaylist";
+import { YouTubePlayer } from "./YouTubePlayer";
 
 const accentClasses = {
   teal: {
@@ -159,6 +165,7 @@ function ExternalLinkIcon() {
 
 function kindLabel(item: VideoItem) {
   if (item.externalProvider) return "סדרה";
+  if (item.parts?.length) return "אוסף סרטונים";
   return item.type === "playlist" ? "פלייליסט" : "סרטון";
 }
 
@@ -168,11 +175,6 @@ function CoordinatorRecommendation() {
       המלצת רכז הקורס
     </span>
   );
-}
-
-function playerUrl(item: VideoItem) {
-  const separator = item.embedUrl.includes("?") ? "&" : "?";
-  return `${item.embedUrl}${separator}rel=0&modestbranding=1`;
 }
 
 function firstEmbeddableItem(items: VideoItem[]) {
@@ -186,6 +188,9 @@ export function VideoLibrary() {
   const [activeSection, setActiveSection] = useState(firstSection.id);
   const [activeCategory, setActiveCategory] = useState(firstGroup.id);
   const [activeVideoId, setActiveVideoId] = useState(firstItem.id);
+  const [activePartId, setActivePartId] = useState(firstItem.parts?.[0]?.id ?? "");
+  const [autoplay, setAutoplay] = useState(false);
+  const [autoAdvance, setAutoAdvance] = useState(true);
   const [activeSubtopicByGroup, setActiveSubtopicByGroup] = useState<Record<string, string>>(
     () =>
       Object.fromEntries(
@@ -226,31 +231,49 @@ export function VideoLibrary() {
   const activeSubtopic = activeSubtopicGroup.subtopic;
   const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
   const isUnifiedOnline = selectedSection.id === "online";
+  const activePart = selectedVideoPart(activeVideo, activePartId);
+  const activePartIndex = activeVideo.parts?.findIndex((part) => part.id === activePart?.id) ?? -1;
+  const playerSource = videoPlayerUrl(activeVideo, activePartId, autoplay);
 
   useEffect(() => {
-    const requestedId = new URLSearchParams(window.location.search).get("video");
-    if (!requestedId) return;
-    let nextSelection: { section: VideoSection; group: VideoGroup; item: VideoItem } | undefined;
-    for (const section of videoSections) {
-      for (const group of section.groups) {
-        const item = group.items.find((candidate) => candidate.id === requestedId);
-        if (!item) continue;
-        nextSelection = { section, group, item };
-        break;
-      }
-      if (nextSelection) break;
+    function readSelection() {
+      const params = new URLSearchParams(window.location.search);
+      const requestedId = params.get("video");
+      if (!requestedId) return;
+      const nextSelection = findVideoSelection(videoSections, requestedId);
+      if (!nextSelection) return;
+      const { section, group, item } = nextSelection;
+      const itemSubtopic = item.subtopic ?? generalSubtopic;
+      setActiveSection(section.id);
+      setActiveCategory(group.id);
+      setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: itemSubtopic.id }));
+      setActiveVideoId(item.id);
+      setActivePartId(selectedVideoPart(item, params.get("part") ?? undefined)?.id ?? "");
+      setAutoplay(false);
     }
-    if (!nextSelection) return;
-    const timer = window.setTimeout(() => {
-        const { section, group, item } = nextSelection;
-        const itemSubtopic = item.subtopic ?? generalSubtopic;
-        setActiveSection(section.id);
-        setActiveCategory(group.id);
-        setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: itemSubtopic.id }));
-        setActiveVideoId(item.id);
-    }, 0);
-    return () => window.clearTimeout(timer);
+    const timer = window.setTimeout(readSelection, 0);
+    window.addEventListener("popstate", readSelection);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("popstate", readSelection);
+    };
   }, []);
+
+  function updateSelectionUrl(item: VideoItem, partId?: string) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("video", item.id);
+    if (partId) url.searchParams.set("part", partId);
+    else url.searchParams.delete("part");
+    window.history.replaceState(window.history.state, "", url);
+  }
+
+  function chooseItem(item: VideoItem) {
+    const partId = item.parts?.[0]?.id;
+    setActiveVideoId(item.id);
+    setActivePartId(partId ?? "");
+    setAutoplay(false);
+    updateSelectionUrl(item, partId);
+  }
 
   function selectSection(section: VideoSection) {
     const group = section.groups[0];
@@ -259,7 +282,7 @@ export function VideoLibrary() {
     setActiveSection(section.id);
     setActiveCategory(group.id);
     setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
-    setActiveVideoId(nextItem.id);
+    chooseItem(nextItem);
   }
 
   function selectCategory(group: VideoGroup) {
@@ -267,7 +290,7 @@ export function VideoLibrary() {
     const nextItem = firstEmbeddableItem(firstSubtopic.items);
     setActiveCategory(group.id);
     setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
-    setActiveVideoId(nextItem.id);
+    chooseItem(nextItem);
   }
 
   function selectSubtopic(subtopic: VideoSubtopic) {
@@ -277,7 +300,7 @@ export function VideoLibrary() {
     if (!nextSubtopicGroup) return;
 
     setActiveSubtopicByGroup((current) => ({ ...current, [selectedGroup.id]: subtopic.id }));
-    setActiveVideoId(firstEmbeddableItem(nextSubtopicGroup.items).id);
+    chooseItem(firstEmbeddableItem(nextSubtopicGroup.items));
   }
 
   function scrollToPlayer() {
@@ -302,8 +325,20 @@ export function VideoLibrary() {
   }
 
   function selectVideo(item: VideoItem) {
-    setActiveVideoId(item.id);
+    chooseItem(item);
     scrollToPlayer();
+  }
+
+  function selectPart(part: VideoPart, scroll = true) {
+    setActivePartId(part.id);
+    setAutoplay(true);
+    updateSelectionUrl(activeVideo, part.id);
+    if (scroll) scrollToPlayer();
+  }
+
+  function onPartEnded() {
+    const nextPart = activeVideo.parts?.[activePartIndex + 1];
+    if (autoAdvance && nextPart) selectPart(nextPart, false);
   }
 
   return (
@@ -318,6 +353,11 @@ export function VideoLibrary() {
           {totalVideoCount} מקורות צפייה המחברים בין הקלטות הקורס, יחידות מקוונות,
           סיורי השטח וספריית ההעשרה.
         </p>
+        <p className="mt-2 text-sm text-txt-dim">
+          ערוץ הכיתה כולל כעת {classRecordingCount} הקלטות שונות ב־{classVideoCount} אוספים.
+          כל סרטוני השיעור או הסיור זמינים לבחירה בנגן כאן באתר.
+        </p>
+        <p className="mt-1 text-xs text-txt-dim">סריקת ערוץ הכיתה: {classVideoScanDate.split("-").reverse().join(".")}</p>
       </header>
 
       <section aria-labelledby="video-sections-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
@@ -460,15 +500,11 @@ export function VideoLibrary() {
                 </a>
               </div>
             ) : (
-              <iframe
-                key={activeVideo.id}
-                src={playerUrl(activeVideo)}
-                title={activeVideo.title}
-                className="absolute inset-0 size-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
+              <YouTubePlayer
+                key={`${activeVideo.id}-${activePart?.id ?? "single"}-${autoplay}`}
+                src={playerSource}
+                title={activePart?.title ?? activeVideo.title}
+                onEnded={onPartEnded}
               />
             )}
           </div>
@@ -483,8 +519,24 @@ export function VideoLibrary() {
                 <span className="text-xs text-txt-dim">{activeVideo.source}</span>
               </div>
               <h2 className="text-lg leading-snug text-txt sm:text-xl">{activeVideo.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-txt-dim">{activeVideo.description}</p>
+              {activePart ? (
+                <div className="mt-3 border-t border-line pt-3" aria-live="polite">
+                  <p className="mb-1 text-xs font-bold text-teal">סרטון {activePartIndex + 1} מתוך {activeVideo.parts?.length}</p>
+                  <p className="text-base leading-snug text-txt">{activePart.title}</p>
+                  <p className="mt-2 text-xs text-txt-dim">בחרו סרטון אחר ברשימה שמתחת לנגן, או עברו לסרטון הבא.</p>
+                </div>
+              ) : <p className="mt-2 text-sm leading-relaxed text-txt-dim">{activeVideo.description}</p>}
             </div>
+            {activePart ? (
+              <details className="mt-4 text-xs text-txt-dim">
+                <summary className="cursor-pointer">מידע על האוסף וקישור המקור</summary>
+                <p className="mt-2 leading-relaxed">{activeVideo.description}</p>
+                <a href={activeVideo.directUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-teal underline underline-offset-4">
+                  פלייליסט המקור ביוטיוב (לא נדרש לצפייה)
+                  <ExternalLinkIcon />
+                </a>
+              </details>
+            ) : (
             <a
               href={activeVideo.directUrl}
               target="_blank"
@@ -494,9 +546,21 @@ export function VideoLibrary() {
               פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
               <ExternalLinkIcon />
             </a>
+            )}
           </div>
         </div>
       </section>
+
+      {activePart && (
+        <LessonPlaylist
+          key={activeVideo.id}
+          item={activeVideo}
+          selectedPart={activePart}
+          onSelect={selectPart}
+          autoAdvance={autoAdvance}
+          onAutoAdvanceChange={setAutoAdvance}
+        />
+      )}
 
       <section aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`}>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -558,6 +622,7 @@ export function VideoLibrary() {
                 <div className="mb-2">{item.recommendedByCoordinator && <CoordinatorRecommendation />}</div>
                 <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
                 <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
+                {!!item.parts?.length && <span className="mt-2 text-xs font-bold text-teal">{item.parts.length} סרטונים לצפייה באתר</span>}
                 <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
                 <span
                   className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${

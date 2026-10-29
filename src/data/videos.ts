@@ -12,6 +12,12 @@ export type VideoSubtopic = {
   tone: TopicTone;
 };
 
+export type VideoPart = {
+  id: string;
+  title: string;
+  durationSeconds?: number;
+};
+
 export type VideoItem = {
   id: string;
   title: string;
@@ -25,6 +31,8 @@ export type VideoItem = {
   externalProvider?: string;
   subtopic?: VideoSubtopic;
   keywords?: string[];
+  playlistId?: string;
+  parts?: VideoPart[];
 };
 
 export type VideoGroup = {
