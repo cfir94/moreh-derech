@@ -216,9 +216,15 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
     const list = listRef.current;
     const item = list?.querySelector<HTMLElement>(`[data-word="${activeIndex}"]`);
     if (!list || !item || list.scrollHeight <= list.clientHeight) return;
-    const top = item.offsetTop - list.offsetTop;
-    if (top < list.scrollTop || top + item.offsetHeight > list.scrollTop + list.clientHeight) {
-      list.scrollTo({ top: top - list.clientHeight / 3, behavior: "smooth" });
+    // Measured on screen, not with offsetTop: the list is sticky, so its offsets move as the page
+    // scrolls. The part of the list a reader sees is also cut by the window and the sticky navbar.
+    const box = list.getBoundingClientRect();
+    const rect = item.getBoundingClientRect();
+    const viewTop = Math.max(box.top, 72);
+    const viewBottom = Math.min(box.bottom, window.innerHeight);
+    if (rect.top < viewTop || rect.bottom > viewBottom) {
+      const target = list.scrollTop + rect.top - viewTop - (viewBottom - viewTop) / 3;
+      list.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
     }
   }, [activeIndex]);
 
