@@ -40,7 +40,7 @@ export const CROSSWORD_BANK: CrosswordEntry[] = [
   { id: "demo:תל", answer: "תל", clue: "גבעה מלאכותית של שכבות יישוב", notebook: "archaeology-intro", since: "2026-10-25" },
   { id: "demo:שכבה", answer: "שכבה", clue: "יחידת חפירה של תקופת יישוב אחת", notebook: "archaeology-intro", since: "2026-10-25" },
   { id: "demo:פחמן ארבעה עשר", answer: "פחמן ארבעה עשר", clue: "שיטת תיארוך לפי דעיכה רדיואקטיבית", notebook: "archaeology-intro", since: "2026-10-25" },
-  { id: "demo:חרס", answer: "חרס", clue: "שבר כלי חרס, כלי התיארוך העיקרי", notebook: "archaeology-intro", since: "2026-10-25" },
+  { id: "demo:חרס", answer: "חרס", clue: "שבר של כלי קיבול מחומר שרוף, כלי התיארוך העיקרי", notebook: "archaeology-intro", since: "2026-10-25" },
   { id: "demo:נאטופית", answer: "נאטופית", clue: "תרבות של ציידים־לקטים שהחלה להתיישב קבע", notebook: "prehistory", since: "2026-10-25" },
   { id: "demo:ניאנדרטלי", answer: "ניאנדרטלי", clue: "מין אדם שחי במערות הכרמל", notebook: "prehistory", since: "2026-10-25" },
   { id: "demo:עבידיה", answer: "עבידיה", clue: "אתר בעמק הירדן עם עדויות קדומות לאדם מחוץ לאפריקה", notebook: "prehistory", since: "2026-10-25" },
