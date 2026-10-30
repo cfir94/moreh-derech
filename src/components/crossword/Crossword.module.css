@@ -117,7 +117,14 @@
 }
 .flip { font-size: 16px; }
 .step:active, .flip:active { transform: scale(0.94); }
-.topBar { margin-bottom: 10px; }
+/* The active clue stays in view above the board while the page scrolls, under the 60px navbar. */
+.topBar {
+  position: sticky; top: 61px; z-index: 4;
+  margin: 0 -6px 10px; padding: 6px;
+  background: color-mix(in srgb, var(--bg-base) 90%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+}
 
 .enum { color: var(--txt-dim); font-size: 0.85em; white-space: nowrap; font-variant-numeric: tabular-nums; }
 

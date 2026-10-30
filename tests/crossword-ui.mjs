@@ -61,6 +61,22 @@ try {
     await typeHebrew(page, puzzle.words[order[0]].letters.join(""));
     assert.notEqual(await clue(order[0]).getAttribute("data-solved"), null);
 
+    // Picking a word on the board brings its clue into view in the clue column, also after the page
+    // was scrolled and the column stuck to the top — down clues at the bottom of the list included.
+    const last = order[order.length - 1];
+    await page.evaluate(() => window.scrollTo(0, 500));
+    const start = grid.locator("button").filter({ has: page.locator(`span:text-is("${puzzle.words[last].number}")`) }).first();
+    await start.click();
+    if ((await clue(last).getAttribute("data-active")) === null) await start.click();
+    await page.waitForTimeout(900);
+    const inView = await clue(last).evaluate((item) => {
+      const box = item.closest("ol").parentElement.parentElement.getBoundingClientRect();
+      const rect = item.getBoundingClientRect();
+      return rect.top >= Math.max(box.top, 60) - 1 && rect.bottom <= Math.min(box.bottom, innerHeight) + 1;
+    });
+    assert.ok(inView, "the active down clue is scrolled into view");
+    await page.evaluate(() => window.scrollTo(0, 0));
+
     // A wrong word: the check marks exactly its wrong letters.
     const second = puzzle.words[order[1]];
     await clue(order[1]).click();
