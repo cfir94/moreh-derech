@@ -85,8 +85,8 @@ function WeekView({ number, current, today, progress }: {
   return (
     <div className={styles.game}>
       <Hero puzzle={puzzle} save={save} isCurrent={isCurrent} today={today} streakCount={streak(solvedWeeks, current.number)} />
+      <Library current={current} shown={number} progress={progress} days={daysToNextWeek(today)} />
       <Board puzzle={puzzle} save={save} />
-      <Archive current={current} shown={number} progress={progress} />
     </div>
   );
 }
@@ -133,7 +133,7 @@ function Hero({ puzzle, save, isCurrent, today, streakCount }: {
         <h1 className={styles.title}>תשבץ מורי הדרך</h1>
         <p className={styles.lead}>
           <span className="num">{puzzle.words.length}</span> מילים מ־<span className="num">{notebooks}</span> מחברות הקורס.
-          {isCurrent ? (days === 1 ? " תשבץ חדש עולה מחר." : ` תשבץ חדש בעוד ${days} ימים.`) : " אפשר לפתור גם תשבצים שעברו."}
+          {isCurrent ? (days === 1 ? " מחר יתווסף למאגר תשבץ חדש." : ` בעוד ${days} ימים יתווסף למאגר תשבץ חדש.`) : " תשבץ מהמאגר: כל התשבצים נשארים זמינים לפתרון."}
         </p>
         <div className={styles.chips}>
           <span><b className="num">{solved}</b>/<span className="num">{puzzle.words.length}</span> נפתרו</span>
@@ -551,13 +551,31 @@ function Solved({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave }) {
   );
 }
 
-function Archive({ current, shown: shownWeek, progress }: { current: CrosswordWeek; shown: number; progress: CrosswordProgress }) {
-  if (current.number < 2) return null;
+/**
+ * מאגר התשבצים: every week adds one, and none goes away — each week's grid is
+ * fixed (see `since` in the bank), so any of them can be solved at any time.
+ */
+function Library({ current, shown: shownWeek, progress, days }: {
+  current: CrosswordWeek; shown: number; progress: CrosswordProgress; days: number;
+}) {
   const weeks = Array.from({ length: current.number }, (_, i) => weekByNumber(current.number - i));
+  const solved = weeks.filter((week) => progress[week.start]?.doneAt).length;
   return (
-    <nav className={styles.archive} aria-label="תשבצים קודמים">
-      <h2>כל התשבצים</h2>
+    <nav className={styles.archive} aria-label="מאגר התשבצים">
+      <h2>
+        מאגר התשבצים
+        <small>
+          <span className="num">{weeks.length}</span> תשבצים · <span className="num">{solved}</span> נפתרו · תשבץ חדש מתווסף בכל יום שישי
+        </small>
+      </h2>
       <ul>
+        <li>
+          <span className={styles.nextCard} aria-label={`התשבץ הבא יתווסף בעוד ${days} ימים`}>
+            <b className="num">#{current.number + 1}</b>
+            <span>🔒</span>
+            <small>{days === 1 ? "מחר" : `בעוד ${days} ימים`}</small>
+          </span>
+        </li>
         {weeks.map((week) => {
           const save = progress[week.start];
           const status = save?.doneAt ? "✓ נפתר" : save ? "בתהליך" : "";
@@ -567,7 +585,7 @@ function Archive({ current, shown: shownWeek, progress }: { current: CrosswordWe
               <a href={`#w${week.number}`} aria-current={week.number === shownWeek ? "page" : undefined}>
                 <b className="num">#{week.number}</b>
                 <span dir="ltr">{weekRange(week)}</span>
-                <small>{week.number === current.number ? "השבוע" : status}</small>
+                <small>{status || (week.number === current.number ? "חדש השבוע" : "טרם נפתר")}</small>
               </a>
             </li>
           );

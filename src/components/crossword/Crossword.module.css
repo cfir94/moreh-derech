@@ -100,7 +100,7 @@
 
 /* ---- layout ---- */
 .play { position: relative; }
-.layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, 1fr); gap: 20px; align-items: start; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr); gap: 24px; align-items: start; }
 .boardCol { min-width: 0; }
 
 .clueBar {
@@ -108,7 +108,7 @@
   padding: 8px; border-radius: var(--r-sm);
   background: var(--card-2); border: 1px solid var(--line);
 }
-.clueBar p { min-width: 0; font-size: 15px; line-height: 1.5; padding: 0 4px; }
+.clueBar p { min-width: 0; font-size: 17px; line-height: 1.5; padding: 0 4px; }
 .clueBar p b { color: var(--teal); margin-inline-end: 8px; white-space: nowrap; }
 .barClue { margin-inline-end: 6px; }
 .step, .flip {
@@ -136,7 +136,7 @@
   border: 1px solid var(--line); box-shadow: var(--shadow);
 }
 .grid {
-  --cell: min(40px, calc(100cqi / var(--cols)));
+  --cell: min(52px, calc(100cqi / var(--cols)));
   position: relative; margin: auto; outline: none;
   display: grid;
   grid-template-columns: repeat(var(--cols), var(--cell));
@@ -217,7 +217,7 @@
 .clues li button {
   width: 100%; display: grid; grid-template-columns: minmax(28px, auto) 1fr; gap: 6px; align-items: baseline;
   text-align: start; padding: 7px 8px; border: 1px solid transparent; border-radius: 10px;
-  background: transparent; font-size: 14px; line-height: 1.55;
+  background: transparent; font-size: 15.5px; line-height: 1.55;
 }
 .clues li button:hover { background: var(--card); }
 .clues li button b { color: var(--txt-dim); font-weight: 800; white-space: nowrap; }
@@ -287,8 +287,15 @@
 .learned li .book { justify-self: start; margin: 4px 0 0; }
 
 /* ---- archive ---- */
-.archive { margin-top: 28px; }
-.archive h2 { font-size: 16px; font-weight: 900; margin-bottom: 10px; }
+.archive { margin-bottom: 18px; }
+.archive h2 { font-size: 17px; font-weight: 900; margin-bottom: 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.archive h2 small { font-size: 13px; font-weight: 500; color: var(--txt-dim); }
+.archive ul { overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px !important; }
+.archive li { flex: none; }
+.nextCard {
+  display: grid; gap: 1px; min-width: 104px; padding: 8px 12px; border-radius: var(--r-sm);
+  border: 1px dashed var(--line); color: var(--txt-dim); font-size: 13px;
+}
 .archive ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .archive a {
   display: grid; gap: 1px; min-width: 104px; padding: 8px 12px; border-radius: var(--r-sm);
@@ -323,6 +330,8 @@
   .chips > span { font-size: 12px; padding: 4px 10px; }
   .mosaic { display: flex; flex-wrap: wrap; gap: 3px; padding: 6px; justify-self: start; }
   .mosaic li { width: 14px; height: 14px; }
+  .archive h2 { font-size: 15px; }
+  .archive a, .nextCard { min-width: 82px; padding: 5px 9px; font-size: 12px; }
   .boardWrap { padding: 6px; margin-inline: -6px; }
   .tools button { padding: 7px 11px; font-size: 12.5px; }
 }
