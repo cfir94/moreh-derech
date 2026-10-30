@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useEffectEvent, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useEffect, useEffectEvent, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties, type FormEvent } from "react";
 import { CROSSWORD_BANK } from "@/data/crossword/bank";
 import { CROSSWORD_NOTEBOOKS, NOTEBOOK_BY_ID } from "@/data/crossword/notebooks";
 import { puzzleForWeek, type Direction, type Puzzle, type PuzzleWord } from "@/lib/crossword/generate";
-import { KEYBOARD_ROWS, letterFromKey } from "@/lib/crossword/hebrew";
+import { letterFromKey } from "@/lib/crossword/hebrew";
 import {
   buildGrid, cellKey, clueOrder, entryCell, isFull, isWordFilled, isWordSolved, shown, starsFor, stepClue, streak,
   wordCells, wrongCells, type Fill, type GridCell,
@@ -24,6 +24,9 @@ import styles from "./Crossword.module.css";
  */
 
 const DIR_LABEL: Record<Direction, string> = { across: "מאוזן", down: "מאונך" };
+
+/** Kept in the hidden input, so the phone's Backspace always has something to delete. */
+const SENTINEL = "\u200b";
 const EMPTY_FILL: Fill = {};
 
 function subscribeClock(onChange: () => void) {
@@ -185,6 +188,7 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
   const [flash, setFlash] = useState<string | null>(null);
   const flashTimer = useRef<number | undefined>(undefined);
   const gridRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
   const fill = save?.fill ?? EMPTY_FILL;
@@ -306,7 +310,31 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
     if (cell[other] !== undefined) setSel({ key: sel.key, dir: other });
   }
 
+  /** Focus the hidden input on the selected cell: on a phone this opens the phone's own keyboard. */
+  function focusInput() {
+    inputRef.current?.focus({ preventScroll: true });
+  }
+
+  /*
+   * What the phone's keyboard typed. Android keyboards send keydown "Unidentified", so the letter
+   * only arrives here, as input; desktop and iOS keydowns are handled (and prevented) by onKey.
+   */
+  function consume(input: HTMLInputElement) {
+    const value = input.value;
+    input.value = SENTINEL;
+    input.setSelectionRange(1, 1);
+    if (!value) return erase();
+    const letters = [...value.replaceAll(SENTINEL, "")].map((char) => letterFromKey(char, "")).filter(Boolean);
+    if (letters.length) type(letters[letters.length - 1]!);
+  }
+
+  function onInput(event: FormEvent<HTMLInputElement>) {
+    if ((event.nativeEvent as InputEvent).isComposing) return;
+    consume(event.currentTarget);
+  }
+
   function clickCell(target: GridCell) {
+    focusInput();
     if (target.key === sel.key) return toggleDirection();
     const other: Direction = sel.dir === "across" ? "down" : "across";
     setSel({ key: target.key, dir: target[sel.dir] !== undefined ? sel.dir : other });
@@ -314,7 +342,7 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
 
   function chooseClue(word: number) {
     select(word);
-    gridRef.current?.focus({ preventScroll: true });
+    focusInput();
   }
 
   /*
@@ -325,7 +353,7 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
   const onKey = useEffectEvent((event: globalThis.KeyboardEvent) => {
     if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return;
     const target = event.target instanceof HTMLElement ? event.target : null;
-    if (target?.closest("input, textarea, select, [contenteditable='true'], [role='dialog']")) return;
+    if (target !== inputRef.current && target?.closest("input, textarea, select, [contenteditable='true'], [role='dialog']")) return;
     const inGrid = Boolean(target && gridRef.current?.contains(target));
     const letter = letterFromKey(event.key, event.code);
     if (letter) {
@@ -453,6 +481,23 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
                   </button>
                 );
               })}
+              {!done && (
+                <input
+                  ref={inputRef}
+                  className={styles.typing}
+                  style={{ gridRow: cell.row + 1, gridColumn: cell.col + 1 }}
+                  defaultValue={SENTINEL}
+                  onInput={onInput}
+                  onCompositionEnd={(event) => consume(event.currentTarget)}
+                  aria-label={`${active.number} ${DIR_LABEL[active.dir]}: ${active.clue}`}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
+                  enterKeyHint="next"
+                  dir="rtl"
+                />
+              )}
             </div>
           </div>
 
@@ -497,25 +542,6 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
           ))}
         </div>
       </div>
-
-      {/* Touch screens: the current clue and a Hebrew keyboard, docked at the bottom. */}
-      {!done && (
-        <div className={styles.dock} data-crossword-dock>
-          {clueBar}
-          <div className={styles.keyboard} role="group" aria-label="מקלדת">
-            {KEYBOARD_ROWS.map((row, i) => (
-              <div key={i}>
-                {row.map((letter) => (
-                  <button key={letter} type="button" onClick={() => type(letter)}>{letter}</button>
-                ))}
-                {i === KEYBOARD_ROWS.length - 1 && (
-                  <button type="button" className={styles.backspace} onClick={erase} aria-label="מחיקה">⌫</button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

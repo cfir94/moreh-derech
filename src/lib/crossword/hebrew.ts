@@ -52,9 +52,3 @@ export function letterFromKey(key: string, code: string): string | null {
   return baseLetter(key) ?? (CODE_TO_LETTER[code] ? baseLetter(CODE_TO_LETTER[code]) : null);
 }
 
-/** The on-screen keyboard: the Israeli layout without final letters, which the grid does not need. */
-export const KEYBOARD_ROWS: string[][] = [
-  ["ק", "ר", "א", "ט", "ו", "פ"],
-  ["ש", "ד", "ג", "כ", "ע", "י", "ח", "ל"],
-  ["ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת"],
-];
