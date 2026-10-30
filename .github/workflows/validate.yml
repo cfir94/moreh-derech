@@ -38,6 +38,8 @@ jobs:
         run: npm run lint -- src/app/page.tsx src/app/quizzes/review/page.tsx src/components/exam/ExamRunner.tsx src/components/quiz/QuizRunner.tsx src/components/guide-reports src/components/SiteSearch.tsx src/lib/progress.ts src/lib/guideReportDrafts.ts src/lib/notebookStore.ts src/lib/siteSearch.ts src/lib/requestCache.ts src/lib/answerMatching.ts src/lib/reviewQuestions.ts src/data/quizzes/types.ts src/data/quizzes/index.ts
       - name: Lint history talk page
         run: npm run lint -- src/app/timelines/history-talk src/app/timelines/page.tsx src/lib/domains.ts src/lib/siteSearch.ts src/components/characters src/data/history-talk.ts src/components/Navbar.tsx
+      - name: Lint the weekly crossword
+        run: npm run lint -- src/app/games src/components/crossword src/lib/crossword src/lib/crosswordProgress.ts src/data/crossword src/lib/domains.ts
       - run: npm run build
       - name: Install browser test tooling
         run: npm install --no-save --package-lock=false @playwright/test && npx playwright install --with-deps chromium
@@ -53,3 +55,5 @@ jobs:
         run: node tests/architecture-studio-ui.mjs
       - name: Learning map browser checks
         run: node tests/learning-map-ui.mjs
+      - name: Weekly crossword browser checks
+        run: node --import ./tests/register-ts.mjs tests/crossword-ui.mjs

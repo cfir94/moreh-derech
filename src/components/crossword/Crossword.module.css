@@ -1,0 +1,331 @@
+/* תשבץ השבוע as an excavation square: limestone ground marked with the dig's
+   grid lines, every answer a row of raised stones, and a strip of mosaic
+   tesserae that fills in, one stone per answer, as the week's words are found.
+   All colours are tokens here or in globals.css, so both themes hold. */
+.game {
+  --cw-ground: #efe5cf;
+  --cw-ground-2: #e6d8b9;
+  --cw-line: rgba(122, 92, 44, 0.16);
+  --cw-tile: #fffaf0;
+  --cw-tile-edge: #cdb894;
+  --cw-ink: #2a2016;
+  --cw-num: #8a6a2c;
+  --cw-word: #cfeee8;
+  --cw-word-edge: #0d9488;
+  --cw-sel: #ffcf6b;
+  --cw-sel-ink: #2a2016;
+  --cw-solved: #f6df9f;
+  --cw-wrong: #ffd4d4;
+  --cw-wrong-ink: #b4232f;
+  --cw-reveal-ink: #0f766e;
+  --cw-break: #8a6a2c;
+  --cw-key: #fffaf0;
+  --dock-h: 0px;
+  position: relative;
+  color: var(--txt);
+}
+:global([data-theme="dark"]) .game {
+  --cw-ground: #0f2130;
+  --cw-ground-2: #0b1a26;
+  --cw-line: rgba(160, 205, 255, 0.07);
+  --cw-tile: #1b3243;
+  --cw-tile-edge: #0a1620;
+  --cw-ink: #f1f6fa;
+  --cw-num: #ffce4d;
+  --cw-word: #1d4a52;
+  --cw-word-edge: #2ee6c5;
+  --cw-sel: #ffce4d;
+  --cw-sel-ink: #06121a;
+  --cw-solved: #4a4220;
+  --cw-wrong: #5a2430;
+  --cw-wrong-ink: #ff9aa5;
+  --cw-reveal-ink: #2ee6c5;
+  --cw-break: #ffce4d;
+  --cw-key: #1b3243;
+}
+.game button { font: inherit; color: inherit; cursor: pointer; touch-action: manipulation; }
+.game button:disabled { cursor: default; opacity: 0.45; }
+.game h1, .game h2, .game p { margin: 0; }
+
+.loading {
+  min-height: 60vh; display: grid; place-content: center; color: var(--txt-dim);
+  border: 1px dashed var(--line); border-radius: var(--r-lg);
+}
+
+/* ---- hero ---- */
+.hero {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end;
+  padding: 22px 24px; margin-bottom: 18px;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card);
+}
+.hero::before {
+  content: ""; position: absolute; width: 180px; height: 180px; top: -80px; left: -60px;
+  border-radius: 50%; background: var(--gold); opacity: 0.14; filter: blur(10px); pointer-events: none;
+}
+:global([data-theme="dark"]) .hero::before { opacity: 0.08; }
+.heroText { position: relative; min-width: 0; }
+.eyebrow { font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 6px !important; }
+.pastTag {
+  margin-inline-start: 8px; padding: 2px 8px; border-radius: 99px;
+  border: 1px solid var(--line); color: var(--txt-dim); font-size: 11px;
+}
+.title {
+  font-size: clamp(28px, 5vw, 40px); font-weight: 900; line-height: 1.15;
+  background: linear-gradient(120deg, var(--title-1), var(--title-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.lead { margin-top: 8px !important; color: var(--txt-dim); line-height: 1.7; max-width: 560px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chips > span {
+  padding: 5px 12px; border-radius: 99px; background: var(--card-2); border: 1px solid var(--line);
+  font-size: 13px; color: var(--txt-dim);
+}
+.chips b { color: var(--txt); }
+
+.mosaic {
+  position: relative; list-style: none; margin: 0; padding: 8px;
+  display: grid; grid-template-columns: repeat(6, 18px); gap: 4px;
+  border-radius: 10px; background: var(--cw-ground-2); border: 1px solid var(--line);
+}
+.mosaic li {
+  width: 18px; height: 18px; border-radius: 3px;
+  background: color-mix(in srgb, var(--nb) 16%, var(--cw-tile)); box-shadow: inset 0 -2px 0 var(--cw-tile-edge);
+  transition: background 0.4s, transform 0.4s var(--ease-spring);
+}
+.mosaic li[data-done] {
+  background: var(--nb); transform: rotate(-4deg);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.22), 0 0 10px -2px var(--nb);
+}
+
+/* ---- layout ---- */
+.play { position: relative; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, 1fr); gap: 20px; align-items: start; }
+.boardCol { min-width: 0; }
+
+.clueBar {
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 6px;
+  padding: 8px; border-radius: var(--r-sm);
+  background: var(--card-2); border: 1px solid var(--line);
+}
+.clueBar p { min-width: 0; font-size: 15px; line-height: 1.5; padding: 0 4px; }
+.clueBar p b { color: var(--teal); margin-inline-end: 8px; white-space: nowrap; }
+.barClue { margin-inline-end: 6px; }
+.step, .flip {
+  width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--card); font-size: 20px; line-height: 1;
+}
+.flip { font-size: 16px; }
+.step:active, .flip:active { transform: scale(0.94); }
+.topBar { margin-bottom: 10px; }
+
+.enum { color: var(--txt-dim); font-size: 0.85em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.book {
+  display: inline-block; margin-inline-start: 6px; padding: 0 7px; border-radius: 99px;
+  font-size: 11px; line-height: 18px; white-space: nowrap; vertical-align: 1px;
+  color: var(--nb); border: 1px solid color-mix(in srgb, var(--nb) 45%, transparent);
+  background: color-mix(in srgb, var(--nb) 10%, transparent);
+}
+
+/* ---- the grid ---- */
+.boardWrap {
+  container-type: inline-size;
+  padding: 10px; border-radius: var(--r-md);
+  background: radial-gradient(ellipse at 30% 0%, var(--cw-ground) 40%, var(--cw-ground-2));
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+.grid {
+  --cell: min(40px, calc(100cqi / var(--cols)));
+  position: relative; margin: auto; outline: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-template-rows: repeat(var(--rows), var(--cell));
+  width: max-content;
+  /* The dig's grid lines: every square of the trench, filled or not. */
+  background-image:
+    linear-gradient(var(--cw-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cw-line) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  border-radius: 6px;
+}
+.grid:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 50%, transparent); }
+
+.cell {
+  position: relative; margin: 1.5px; padding: 0;
+  display: grid; place-content: center;
+  border: 0; border-radius: 4px;
+  background: var(--cw-tile); color: var(--cw-ink);
+  box-shadow: inset 0 -2px 0 var(--cw-tile-edge), 0 1px 2px rgba(0, 0, 0, 0.12);
+  font-size: calc(var(--cell) * 0.56); font-weight: 800; line-height: 1;
+  transition: background 0.15s, transform 0.15s;
+  scroll-margin-bottom: calc(var(--dock-h) + 12px);
+}
+.cell[data-break-across] { box-shadow: inset 0 -2px 0 var(--cw-tile-edge), -3px 0 0 -1px var(--cw-break); }
+.cell[data-break-down] { box-shadow: inset 0 -2px 0 var(--cw-tile-edge), 0 3px 0 -1px var(--cw-break); }
+.cell[data-break-across][data-break-down] { box-shadow: inset 0 -2px 0 var(--cw-tile-edge), -3px 0 0 -1px var(--cw-break), 0 3px 0 -1px var(--cw-break); }
+.cell[data-solved] { background: var(--cw-solved); animation: unearth 0.5s var(--ease-spring); }
+.cell[data-active] { background: var(--cw-word); }
+.cell[data-selected] {
+  background: var(--cw-sel); color: var(--cw-sel-ink); z-index: 1;
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18), 0 4px 12px -4px rgba(0, 0, 0, 0.45);
+}
+.cell[data-wrong] { background: var(--cw-wrong); color: var(--cw-wrong-ink); animation: shake 0.35s; }
+.cell[data-revealed] .letter { color: var(--cw-reveal-ink); }
+.cell[data-selected][data-revealed] .letter { color: var(--cw-sel-ink); text-decoration: underline 2px; text-underline-offset: 3px; }
+.num {
+  position: absolute; top: 1px; inset-inline-start: 2px;
+  font-size: max(8px, calc(var(--cell) * 0.24)); font-weight: 700; line-height: 1; color: var(--cw-num);
+}
+.cell[data-selected] .num { color: var(--cw-sel-ink); }
+.letter { translate: 0 calc(var(--cell) * 0.05); }
+.grid[data-done] .cell { background: var(--cw-solved); }
+
+@keyframes unearth {
+  0% { transform: scale(0.82) rotate(-6deg); }
+  60% { transform: scale(1.08) rotate(2deg); }
+  100% { transform: none; }
+}
+@keyframes shake {
+  0%, 100% { translate: 0; }
+  25% { translate: -2px; }
+  75% { translate: 2px; }
+}
+
+/* ---- tools ---- */
+.tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tools button {
+  padding: 8px 14px; border-radius: 99px; border: 1px solid var(--line);
+  background: var(--card-2); font-size: 13px; font-weight: 700;
+}
+.tools button:hover:not(:disabled) { border-color: var(--teal); }
+.tools button:active:not(:disabled) { transform: scale(0.95); }
+.tools .quiet { margin-inline-start: auto; background: transparent; color: var(--txt-dim); font-weight: 500; }
+.status { min-height: 24px; margin-top: 8px !important; font-size: 14px; font-weight: 700; color: var(--teal); }
+
+/* ---- clues ---- */
+.clues {
+  display: grid; gap: 16px; max-height: calc(100vh - 120px); overflow-y: auto;
+  position: sticky; top: 76px; padding-inline-end: 4px; overscroll-behavior: contain;
+}
+.clues h2 {
+  font-size: 15px; font-weight: 900; color: var(--gold); margin-bottom: 6px;
+  padding-bottom: 6px; border-bottom: 1px solid var(--line);
+}
+.clues ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.clues li button {
+  width: 100%; display: grid; grid-template-columns: minmax(28px, auto) 1fr; gap: 6px; align-items: baseline;
+  text-align: start; padding: 7px 8px; border: 1px solid transparent; border-radius: 10px;
+  background: transparent; font-size: 14px; line-height: 1.55;
+}
+.clues li button:hover { background: var(--card); }
+.clues li button b { color: var(--txt-dim); font-weight: 800; white-space: nowrap; }
+.clues li button[data-active] { background: var(--card-2); border-color: color-mix(in srgb, var(--teal) 55%, transparent); }
+.clues li button[data-active] b { color: var(--teal); }
+.clues li button[data-solved] { color: var(--txt-dim); }
+.clues li button[data-solved] b::after { content: " ✓"; color: var(--ok); }
+
+/* ---- touch dock: current clue + keyboard ---- */
+.dock { display: none; }
+@media (pointer: coarse) {
+  .game { --dock-h: 200px; }
+  .topBar { display: none; }
+  .dock {
+    display: grid; gap: 8px;
+    position: sticky; bottom: 0; z-index: 5;
+    margin: 14px -16px 0; padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--bg-base) 92%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+  }
+  .clues { max-height: none; overflow: visible; position: static; }
+  /* Moti's hat would sit on the keyboard's last keys: lift it above the dock. */
+  :global(body:has([data-crossword-dock]) button[title="מוטי, מורה הדרך הוותיק"]) {
+    bottom: calc(230px + env(safe-area-inset-bottom));
+    width: 3.25rem; height: 3.25rem;
+  }
+}
+.keyboard { display: grid; gap: 6px; direction: rtl; }
+.keyboard > div { display: flex; justify-content: center; gap: 4px; }
+.keyboard button {
+  flex: 1 1 0; max-width: 44px; height: 42px; padding: 0;
+  border-radius: 8px; border: 0; background: var(--cw-key); color: var(--cw-ink);
+  box-shadow: inset 0 -2px 0 var(--cw-tile-edge); font-size: 19px; font-weight: 700;
+}
+.keyboard button:active { transform: translateY(1px); background: var(--cw-sel); color: var(--cw-sel-ink); }
+.keyboard .backspace { flex-grow: 1.5; max-width: 66px; font-size: 18px; }
+
+/* ---- solved ---- */
+.solved {
+  position: relative; overflow: hidden; text-align: center;
+  padding: 26px 20px 20px; margin-bottom: 18px;
+  border-radius: var(--r-lg); border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
+  background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--gold) 22%, transparent), var(--card) 70%);
+}
+.solved h2 { font-size: clamp(22px, 4vw, 30px); font-weight: 900; margin: 6px 0 10px; }
+.stars { font-size: 30px; color: var(--star); letter-spacing: 4px; }
+.stars span { color: var(--track); }
+.solvedMeta { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; color: var(--txt-dim); font-size: 14px; }
+.solvedMeta b { color: var(--txt); }
+.burst { position: absolute; top: 48px; left: 50%; width: 0; height: 0; pointer-events: none; }
+.burst i {
+  position: absolute; width: 9px; height: 9px; border-radius: 2px; background: var(--nb);
+  animation: burst 1.1s var(--ease-out) forwards; opacity: 0;
+}
+@keyframes burst {
+  0% { opacity: 1; transform: rotate(var(--a)) translateY(0) scale(1.2); }
+  100% { opacity: 0; transform: rotate(var(--a)) translateY(calc(var(--d) * -1)) rotate(140deg) scale(0.6); }
+}
+.learned { margin-top: 16px; text-align: start; }
+.learned summary { cursor: pointer; text-align: center; font-weight: 800; color: var(--teal); }
+.learned ul { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.learned li { padding: 10px 12px; border-radius: var(--r-sm); background: var(--card); border: 1px solid var(--line); display: grid; gap: 2px; font-size: 13.5px; }
+.learned li b { font-size: 16px; }
+.learned li span { color: var(--txt-dim); }
+.learned li small { font-size: 12.5px; line-height: 1.6; }
+.learned li .book { justify-self: start; margin: 4px 0 0; }
+
+/* ---- archive ---- */
+.archive { margin-top: 28px; }
+.archive h2 { font-size: 16px; font-weight: 900; margin-bottom: 10px; }
+.archive ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.archive a {
+  display: grid; gap: 1px; min-width: 104px; padding: 8px 12px; border-radius: var(--r-sm);
+  background: var(--card); border: 1px solid var(--line); text-decoration: none; color: var(--txt); font-size: 13px;
+}
+.archive a[aria-current] { border-color: var(--teal); background: var(--card-2); }
+.archive small { color: var(--txt-dim); min-height: 1.2em; }
+
+/* ---- before the bank is filled ---- */
+.soon {
+  position: relative; overflow: hidden; padding: 32px 28px;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card);
+}
+.soonCount { margin-top: 16px !important; font-size: 15px; color: var(--txt-dim); }
+.soonCount b { font-size: 22px; color: var(--gold); margin-inline-end: 4px; }
+.soonBooks { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.soonBooks li {
+  padding: 4px 11px; border-radius: 99px; font-size: 12.5px;
+  color: var(--nb); border: 1px solid color-mix(in srgb, var(--nb) 40%, transparent);
+  background: color-mix(in srgb, var(--nb) 8%, transparent);
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .clues { max-height: none; overflow: visible; position: static; }
+}
+@media (max-width: 560px) {
+  .hero { grid-template-columns: 1fr; gap: 12px; padding: 16px; margin-bottom: 12px; }
+  .title { font-size: 26px; }
+  .lead { font-size: 14px; margin-top: 4px !important; }
+  .chips { margin-top: 10px; }
+  .chips > span { font-size: 12px; padding: 4px 10px; }
+  .mosaic { display: flex; flex-wrap: wrap; gap: 3px; padding: 6px; justify-self: start; }
+  .mosaic li { width: 14px; height: 14px; }
+  .boardWrap { padding: 6px; margin-inline: -6px; }
+  .tools button { padding: 7px 11px; font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game *, .game *::before, .game *::after { animation: none !important; transition: none !important; }
+}

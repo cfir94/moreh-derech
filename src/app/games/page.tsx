@@ -8,6 +8,13 @@ export const metadata: Metadata = {
 
 const games = [
   {
+    slug: "crossword",
+    href: "/games/crossword",
+    title: "תשבץ השבוע",
+    description: "תשבץ חדש בכל יום ראשון, עם דמויות, אירועים, אתרים ומושגים מכל מחברות הקורס.",
+    meta: "מתחלף כל שבוע",
+  },
+  {
     slug: "who-am-i",
     href: "/games/who-am-i",
     title: "מי אני? — קולות מן העבר",
