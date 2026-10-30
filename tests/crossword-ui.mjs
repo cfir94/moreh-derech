@@ -97,17 +97,30 @@ try {
     await page.locator("#crossword-solved").waitFor();
     console.log(`crossword: week ${puzzle.week.number}, ${puzzle.words.length} words — solve flow checked`);
 
-    // Phone: the Hebrew keyboard is docked, types into the grid, and nothing scrolls sideways.
+    // Phone: no keyboard of our own. Tapping a clue focuses the hidden input on the board, so the
+    // phone's keyboard opens; its letters arrive as input events only (as on Android), and so does
+    // its Backspace.
     const phone = await browser.newContext({ viewport: { width: 360, height: 780 }, hasTouch: true, isMobile: true, timezoneId: "Asia/Jerusalem" });
     const mobile = await phone.newPage();
     mobile.on("pageerror", (error) => errors.push(error.message));
     await mobile.goto(base + "/games/crossword/");
-    await mobile.locator("[data-crossword-dock]").waitFor();
-    const first = puzzle.words[order[0]].letters[0];
-    await mobile.locator(`[data-crossword-dock] button:text-is("${first}")`).tap();
-    const typed = await mobile.locator("[aria-label^='תשבץ:'] button[data-active]")
+    await mobile.locator("[aria-label^='תשבץ:']").waitFor();
+    assert.equal(await mobile.locator("[aria-label='מקלדת']").count(), 0);
+    await mobile.locator(`button[data-word="${order[0]}"]`).tap();
+    assert.ok(await mobile.evaluate(() => document.activeElement?.tagName === "INPUT"), "the board's input has focus");
+    const word = puzzle.words[order[0]].letters;
+    await mobile.keyboard.insertText(word[0]);
+    await mobile.keyboard.insertText(word[1]);
+    const typedOnPhone = () => mobile.locator("[aria-label^='תשבץ:'] button[data-active]")
       .evaluateAll((cells) => cells.map((cell) => cell.lastElementChild.textContent).join(""));
-    assert.equal(typed, first);
+    assert.equal([...(await typedOnPhone())].length, 2);
+    // Android's Backspace: the input loses its placeholder character, with no keydown.
+    await mobile.evaluate(() => {
+      const input = document.activeElement;
+      input.value = "";
+      input.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "deleteContentBackward" }));
+    });
+    assert.equal([...(await typedOnPhone())].length, 1);
     assert.ok(await mobile.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
   }
 } finally {

@@ -20,7 +20,6 @@
   --cw-reveal-ink: #0f766e;
   --cw-break: #8a6a2c;
   --cw-key: #fffaf0;
-  --dock-h: 0px;
   position: relative;
   color: var(--txt);
 }
@@ -166,7 +165,7 @@
   box-shadow: inset 0 -2px 0 var(--cw-tile-edge), 0 1px 2px rgba(0, 0, 0, 0.12);
   font-size: calc(var(--cell) * 0.56); font-weight: 800; line-height: 1;
   transition: background 0.15s, transform 0.15s;
-  scroll-margin-bottom: calc(var(--dock-h) + 12px);
+  scroll-margin-top: 140px;
 }
 .cell[data-break-across] { box-shadow: inset 0 -2px 0 var(--cw-tile-edge), -3px 0 0 -1px var(--cw-break); }
 .cell[data-break-down] { box-shadow: inset 0 -2px 0 var(--cw-tile-edge), 0 3px 0 -1px var(--cw-break); }
@@ -233,35 +232,16 @@
 .clues li button[data-solved] { color: var(--txt-dim); }
 .clues li button[data-solved] b::after { content: " ✓"; color: var(--ok); }
 
-/* ---- touch dock: current clue + keyboard ---- */
-.dock { display: none; }
-@media (pointer: coarse) {
-  .game { --dock-h: 200px; }
-  .topBar { display: none; }
-  .dock {
-    display: grid; gap: 8px;
-    position: sticky; bottom: 0; z-index: 5;
-    margin: 14px -16px 0; padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
-    background: color-mix(in srgb, var(--bg-base) 92%, transparent);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid var(--line);
-  }
+/* The phone's own keyboard: a transparent input that sits on the selected cell. 16px stops iOS
+   from zooming in when it takes focus. */
+.typing {
+  position: relative; z-index: 0; width: 100%; height: 100%; margin: 0; padding: 0;
+  border: 0; outline: none; opacity: 0; font-size: 16px; color: transparent; caret-color: transparent;
+  background: transparent; pointer-events: none;
+}
+@media (max-width: 900px) {
   .clues { max-height: none; overflow: visible; position: static; }
-  /* Moti's hat would sit on the keyboard's last keys: lift it above the dock. */
-  :global(body:has([data-crossword-dock]) button[title="מוטי, מורה הדרך הוותיק"]) {
-    bottom: calc(230px + env(safe-area-inset-bottom));
-    width: 3.25rem; height: 3.25rem;
-  }
 }
-.keyboard { display: grid; gap: 6px; direction: rtl; }
-.keyboard > div { display: flex; justify-content: center; gap: 4px; }
-.keyboard button {
-  flex: 1 1 0; max-width: 44px; height: 42px; padding: 0;
-  border-radius: 8px; border: 0; background: var(--cw-key); color: var(--cw-ink);
-  box-shadow: inset 0 -2px 0 var(--cw-tile-edge); font-size: 19px; font-weight: 700;
-}
-.keyboard button:active { transform: translateY(1px); background: var(--cw-sel); color: var(--cw-sel-ink); }
-.keyboard .backspace { flex-grow: 1.5; max-width: 66px; font-size: 18px; }
 
 /* ---- solved ---- */
 .solved {
