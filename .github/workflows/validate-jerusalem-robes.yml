@@ -1,0 +1,45 @@
+name: Validate clergy-identification game
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/christian-dress/**'
+      - 'src/lib/christianDress.ts'
+      - 'src/components/games/JerusalemRobesGame*'
+      - 'src/app/games/**'
+      - 'public/images/christian-dress/**'
+      - 'tools/christian_dress_photos.json'
+      - 'tests/jerusalem-robes*'
+      - '.github/workflows/validate-jerusalem-robes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node --import ./tests/register-who-am-i.mjs --test tests/jerusalem-robes.test.mjs
+      - run: npx eslint src/lib/christianDress.ts src/components/games/JerusalemRobesGame.tsx src/app/games/jerusalem-robes/page.tsx src/data/christian-dress/groups.ts
+      - run: npm run build
+      - run: npm install --no-save --package-lock=false @playwright/test@1.64.1
+      - name: Use runner Chrome or install Chromium
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "WHO_AM_I_BROWSER_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - run: mkdir -p test-results
+      - run: node tests/jerusalem-robes-ui.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jerusalem-robes-review
+          path: test-results/

@@ -1,0 +1,842 @@
+[
+ {
+  "id": "franciscan-01",
+  "group": "franciscan",
+  "file": "Catholic_monks_in_Jerusalem_2006.jpg",
+  "caption": "נזירים פרנציסקנים בתהלוכה בכנסיית הקבר — גלימה חומה וחבל לבן במותניים",
+  "alt": "נזירים פרנציסקנים בתהלוכה בכנסיית הקבר — גלימה חומה וחבל לבן במותניים",
+  "focus": [
+   40,
+   78,
+   2.4
+  ]
+ },
+ {
+  "id": "franciscan-02",
+  "group": "franciscan",
+  "file": "Holy_Land_2022_(1)_P281_Jerusalem_Holy_Sepulchre_Franciscan_Procession.jpg",
+  "caption": "תהלוכת הפרנציסקנים היומית בכנסיית הקבר",
+  "alt": "תהלוכת הפרנציסקנים היומית בכנסיית הקבר",
+  "hard": true
+ },
+ {
+  "id": "franciscan-05",
+  "group": "franciscan",
+  "file": "Holy_Land_2019_(1)_P097_Jerusalem_Holy_Sepulchre_parvis_Franciscan_procession.jpg",
+  "caption": "תהלוכה פרנציסקנית ברחבת כנסיית הקבר",
+  "alt": "תהלוכה פרנציסקנית ברחבת כנסיית הקבר",
+  "focus": [
+   20,
+   72,
+   2
+  ]
+ },
+ {
+  "id": "franciscan-08",
+  "group": "franciscan",
+  "file": "Terrazzo,_Franciscan_Monks_in_Old_Jerusalem.jpg",
+  "caption": "נזירים פרנציסקנים ברחוב הפטריארכיה היוונית-קתולית, ולפניהם קוואסים (שומרי כבוד בתלבושת עות'מאנית)",
+  "alt": "נזירים פרנציסקנים ברחוב הפטריארכיה היוונית-קתולית, ולפניהם קוואסים (שומרי כבוד בתלבושת עות'מאנית)",
+  "focus": [
+   33,
+   55,
+   1.8
+  ]
+ },
+ {
+  "id": "franciscan-09",
+  "group": "franciscan",
+  "file": "107056_figures_in_jerusalem_-_a_franciscan_monk_in_the_ol_PikiWiki_Israel.jpg",
+  "caption": "נזיר פרנציסקני ברובע הנוצרי — הברדס, הגלימה החומה והחבל עם הקשרים",
+  "alt": "נזיר פרנציסקני ברובע הנוצרי — הברדס, הגלימה החומה והחבל עם הקשרים",
+  "focus": [
+   40,
+   78,
+   2.6
+  ]
+ },
+ {
+  "id": "franciscan-10",
+  "group": "franciscan",
+  "file": "Old_Jerusalem_Franciscan_Procession_on_Via_Dolorosa_Ninth_Station.jpg",
+  "caption": "תהלוכת הפרנציסקנים בוויה דולורוזה, ליד התחנה התשיעית והמנזר הקופטי",
+  "alt": "תהלוכת הפרנציסקנים בוויה דולורוזה, ליד התחנה התשיעית והמנזר הקופטי",
+  "hard": true
+ },
+ {
+  "id": "franciscan-11",
+  "group": "franciscan",
+  "file": "Francesco_Patton,_2016.jpg",
+  "caption": "פרה פרנצ'סקו פטון, הקוסטוס — ראש משמורת ארץ הקודש: הברדס החום מעל גלימת טקס לבנה",
+  "alt": "פרה פרנצ'סקו פטון, הקוסטוס — ראש משמורת ארץ הקודש: הברדס החום מעל גלימת טקס לבנה",
+  "hard": true
+ },
+ {
+  "id": "franciscan-16",
+  "group": "franciscan",
+  "file": "Old_City_of_Jerusalem_(4432617202).jpg",
+  "caption": "תהלוכת הפרנציסקנים בדרך לתחנה התשיעית; מימין — המנזר הקופטי עם התריסים הירוקים",
+  "alt": "תהלוכת הפרנציסקנים בדרך לתחנה התשיעית"
+ },
+ {
+  "id": "greek-orthodox-01",
+  "group": "greek-orthodox",
+  "file": "Priest_Jerusalem_2017.jpg",
+  "caption": "כומר יווני-אורתודוקסי ברחוב בעיר העתיקה",
+  "alt": "כומר יווני-אורתודוקסי ברחוב בעיר העתיקה"
+ },
+ {
+  "id": "greek-orthodox-02",
+  "group": "greek-orthodox",
+  "file": "Greek_Orthodox_IMG_0457.jpg",
+  "caption": "תהלוכה יוונית-אורתודוקסית ברחוב הפטריארכיה היוונית ברובע הנוצרי",
+  "alt": "תהלוכה יוונית-אורתודוקסית ברחוב הפטריארכיה היוונית ברובע הנוצרי",
+  "focus": [
+   55,
+   40,
+   2
+  ]
+ },
+ {
+  "id": "greek-orthodox-04",
+  "group": "greek-orthodox",
+  "file": "Flickr_-_Government_Press_Office_(GPO)_-_Greek_orthodox_clergy_waiting_for_their_patriarch.jpg",
+  "caption": "כמרים יוונים-אורתודוקסים בבגדי טקס מחכים לפטריארך בחג המולד בבית לחם (1999)",
+  "alt": "כמרים יוונים-אורתודוקסים בבגדי טקס מחכים לפטריארך בחג המולד בבית לחם (1999)",
+  "hard": true
+ },
+ {
+  "id": "greek-orthodox-08",
+  "group": "greek-orthodox",
+  "file": "Holy_Sepulchre10.jpg",
+  "caption": "כומר יווני-אורתודוקסי ברחבת כנסיית הקבר — הכובע הגלילי הישר",
+  "alt": "כומר יווני-אורתודוקסי ברחבת כנסיית הקבר — הכובע הגלילי הישר",
+  "focus": [
+   38,
+   20,
+   2.2
+  ]
+ },
+ {
+  "id": "greek-orthodox-09",
+  "group": "greek-orthodox",
+  "file": "Holy_Sepulchre_P1010598.JPG",
+  "caption": "כמרים יוונים ליד האדיקולה בכנסיית הקבר",
+  "alt": "כמרים יוונים ליד האדיקולה בכנסיית הקבר",
+  "hard": true
+ },
+ {
+  "id": "greek-orthodox-11",
+  "group": "greek-orthodox",
+  "file": "Patriarch_Theophilos_III_of_Jerusalem_2021.jpg",
+  "caption": "תאופילוס השלישי, הפטריארך היווני-אורתודוקסי של ירושלים: צעיף שחור מעל הכובע ואנגלפיון על החזה",
+  "alt": "תאופילוס השלישי, הפטריארך היווני-אורתודוקסי של ירושלים: צעיף שחור מעל הכובע ואנגלפיון על החזה",
+  "focus": [
+   50,
+   20,
+   2.2
+  ]
+ },
+ {
+  "id": "greek-orthodox-13",
+  "group": "greek-orthodox",
+  "file": "'Greek_Orthodox_Monks'_in_the_'Church_of_Holy_Sepulchre'.JPG",
+  "caption": "נזיר יווני-אורתודוקסי בקפלת המלאך בכנסיית הקבר",
+  "alt": "נזיר יווני-אורתודוקסי בקפלת המלאך בכנסיית הקבר",
+  "hard": true
+ },
+ {
+  "id": "greek-orthodox-15",
+  "group": "greek-orthodox",
+  "file": "Συμμετοχή_ΥΦΥΠΕΞ_Κ._Γεροντόπουλου_στην_Τελετή_Αφής_του_Αγίου_Φωτός.jpg",
+  "caption": "טקס האש הקדושה בכנסיית הקבר: הפטריארך היווני ואנשי הכמורה",
+  "alt": "טקס האש הקדושה בכנסיית הקבר: הפטריארך היווני ואנשי הכמורה",
+  "hard": true
+ },
+ {
+  "id": "greek-orthodox-16",
+  "group": "greek-orthodox",
+  "file": "Priest_with_a_black_hat_in_Greece.jpg",
+  "caption": "כומר יווני (ביוון): הכובע הגלילי, והשיער הארוך אסוף מאחור",
+  "alt": "כומר יווני (ביוון): הכובע הגלילי, והשיער הארוך אסוף מאחור",
+  "focus": [
+   45,
+   28,
+   1.8
+  ]
+ },
+ {
+  "id": "armenian-02",
+  "group": "armenian",
+  "file": "(An_Armenian_priest_reading_from_the_scriptures,_Church_of_the_Holy_Sepulchre,_Jerusalem)_(Frank_Hurley)_(15128712338).jpg",
+  "caption": "כומר ארמני קורא בכתבי הקודש בכנסיית הקבר, בימי מלחמת העולם הראשונה (צילום: פרנק הארלי)",
+  "alt": "כומר ארמני קורא בכתבי הקודש בכנסיית הקבר, בימי מלחמת העולם הראשונה (צילום: פרנק הארלי)",
+  "focus": [
+   38,
+   32,
+   2
+  ]
+ },
+ {
+  "id": "armenian-04",
+  "group": "armenian",
+  "file": "113810_prayer_in_the_armenian_church-jerusalem_PikiWiki_Israel.jpg",
+  "caption": "תפילה בכנסייה הארמנית בירושלים — הברדס המחודד מאחור",
+  "alt": "תפילה בכנסייה הארמנית בירושלים — הברדס המחודד מאחור",
+  "focus": [
+   52,
+   34,
+   2.4
+  ]
+ },
+ {
+  "id": "armenian-07",
+  "group": "armenian",
+  "file": "Armenian_Church_in_ER_priest_and_deakon.JPG",
+  "caption": "כמרים ארמנים בטקס בירושלים",
+  "alt": "כמרים ארמנים בטקס בירושלים",
+  "hard": true
+ },
+ {
+  "id": "armenian-10",
+  "group": "armenian",
+  "file": "PikiWiki_Israel_77337_armenian_patriarch.jpg",
+  "caption": "פטריארך ארמני של ירושלים, צילום מן המאה ה-19",
+  "alt": "פטריארך ארמני של ירושלים, צילום מן המאה ה-19",
+  "focus": [
+   50,
+   18,
+   2
+  ]
+ },
+ {
+  "id": "armenian-11",
+  "group": "armenian",
+  "file": "Armenian_Patriarch.jpg",
+  "caption": "הפטריארך הארמני גוריג השני ישראליאן, ירושלים 1948",
+  "alt": "הפטריארך הארמני גוריג השני ישראליאן, ירושלים 1948",
+  "focus": [
+   52,
+   22,
+   1.8
+  ]
+ },
+ {
+  "id": "armenian-12",
+  "group": "armenian",
+  "file": "Процессия_Армянской_патриархии_Иерусалима_с_ключом_от_храма_Воскресения._2009.jpg",
+  "caption": "תהלוכת הפטריארכיה הארמנית עם מפתח כנסיית הקבר, 2009",
+  "alt": "תהלוכת הפטריארכיה הארמנית עם מפתח כנסיית הקבר, 2009",
+  "focus": [
+   48,
+   40,
+   2.4
+  ]
+ },
+ {
+  "id": "coptic-01",
+  "group": "coptic",
+  "file": "Coptic_monks.jpg",
+  "caption": "נזירים קופטים בירושלים, צילום של המושבה האמריקנית מראשית המאה ה-20",
+  "alt": "נזירים קופטים בירושלים, צילום של המושבה האמריקנית מראשית המאה ה-20",
+  "hard": true
+ },
+ {
+  "id": "coptic-05",
+  "group": "coptic",
+  "file": "Church_of_the_Holy_Sepulchre_-_Coptic_monks_(1).jpg",
+  "caption": "נזירים קופטים בכנסיית הקבר, בגלימות טקס",
+  "alt": "נזירים קופטים בכנסיית הקבר, בגלימות טקס",
+  "hard": true
+ },
+ {
+  "id": "coptic-06",
+  "group": "coptic",
+  "file": "Church_of_the_Holy_Sepulchre_-_Coptic_monks_(2).jpg",
+  "caption": "נזירים קופטים בכנסיית הקבר — בטקס הכיפה הצמודה (קלנסווה) לבנה",
+  "alt": "נזירים קופטים בכנסיית הקבר — בטקס הכיפה הצמודה (קלנסווה) לבנה",
+  "focus": [
+   30,
+   25,
+   2.6
+  ]
+ },
+ {
+  "id": "coptic-10",
+  "group": "coptic",
+  "file": "Monastery_of_Saint_Bishoy_monk_with_cross.jpg",
+  "caption": "נזיר קופטי במנזר בישוי במצרים, עם צלב יד",
+  "alt": "נזיר קופטי במנזר בישוי במצרים, עם צלב יד",
+  "focus": [
+   45,
+   12,
+   2.2
+  ]
+ },
+ {
+  "id": "coptic-11",
+  "group": "coptic",
+  "file": "Egypt._Coptic_Ortohodox_(9200944184).jpg",
+  "caption": "נזיר קופטי במנזר בישוי — הצלבים הרקומים על הכיפה הצמודה",
+  "alt": "נזיר קופטי במנזר בישוי — הצלבים הרקומים על הכיפה הצמודה",
+  "focus": [
+   50,
+   25,
+   1.7
+  ]
+ },
+ {
+  "id": "coptic-12",
+  "group": "coptic",
+  "file": "Egypt._Coptic_Ortohodox_(9200967550).jpg",
+  "caption": "נזיר קופטי במנזר בישוי במצרים",
+  "alt": "נזיר קופטי במנזר בישוי במצרים",
+  "focus": [
+   55,
+   20,
+   2
+  ]
+ },
+ {
+  "id": "coptic-13",
+  "group": "coptic",
+  "file": "Egypt.Portret_(9200944852).jpg",
+  "caption": "נזיר קופטי במנזר אנטוניוס הקדוש במצרים",
+  "alt": "נזיר קופטי במנזר אנטוניוס הקדוש במצרים",
+  "focus": [
+   52,
+   26,
+   2.4
+  ]
+ },
+ {
+  "id": "coptic-14",
+  "group": "coptic",
+  "file": "Fr._Bishoy_in_Church_Service.jpg",
+  "caption": "כומר קופטי בתפילה בכנסייה",
+  "alt": "כומר קופטי בתפילה בכנסייה",
+  "hard": true
+ },
+ {
+  "id": "syriac-03",
+  "group": "syriac",
+  "file": "Gregorios_Boulus_Behnam,_Syriac_Orthodox_Archbishop_of_Mosul.jpg",
+  "caption": "בהנאם בולוס, הארכיבישוף הסורי-אורתודוקסי של מוסול",
+  "alt": "בהנאם בולוס, הארכיבישוף הסורי-אורתודוקסי של מוסול",
+  "hard": true
+ },
+ {
+  "id": "syriac-04",
+  "group": "syriac",
+  "file": "Mor_Julius_Yeshu_Çiçek.jpg",
+  "caption": "מור יוליוס ישוע צ'יצ'ק, בישוף סורי-אורתודוקסי, בהולנד",
+  "alt": "מור יוליוס ישוע צ'יצ'ק, בישוף סורי-אורתודוקסי, בהולנד",
+  "focus": [
+   48,
+   16,
+   2
+  ]
+ },
+ {
+  "id": "syriac-05",
+  "group": "syriac",
+  "file": "Mor_Timothy_Mosa_Alshamany.jpg",
+  "caption": "מור טימותיוס מוסא אלשמאני, הארכיבישוף הסורי-אורתודוקסי של מנזר מר מתי בעיראק — ברדס עם צלבים",
+  "alt": "מור טימותיוס מוסא אלשמאני, הארכיבישוף הסורי-אורתודוקסי של מנזר מר מתי בעיראק — ברדס עם צלבים",
+  "focus": [
+   52,
+   12,
+   2.6
+  ]
+ },
+ {
+  "id": "syriac-14",
+  "group": "syriac",
+  "file": "Assyrian_priests_of_the_Syriac_Orthodox_Church_with_Archbishop_Mor_Timotheos_Touma_Aras.jpg",
+  "caption": "כמרים סורים-אורתודוקסים עם הארכיבישוף בדיארבקיר שבטורקיה, 1939",
+  "alt": "כמרים סורים-אורתודוקסים עם הארכיבישוף בדיארבקיר שבטורקיה, 1939",
+  "hard": true
+ },
+ {
+  "id": "ethiopian-01",
+  "group": "ethiopian",
+  "file": "Monks_at_Ethiopian_Monastery_-_Old_City_-_Jerusalem_-_(5680813429).jpg",
+  "caption": "אנשי דת אתיופים בדיר א-סולטאן, על גג כנסיית הקבר — טורבן וצעיף לבנים",
+  "alt": "אנשי דת אתיופים בדיר א-סולטאן, על גג כנסיית הקבר — טורבן וצעיף לבנים",
+  "focus": [
+   52,
+   28,
+   2.4
+  ]
+ },
+ {
+  "id": "ethiopian-02",
+  "group": "ethiopian",
+  "file": "Ethiopian_monks.jpg",
+  "caption": "נזירים אתיופים בסמטת דיר א-סולטאן",
+  "alt": "נזירים אתיופים בסמטת דיר א-סולטאן",
+  "focus": [
+   57,
+   28,
+   2.4
+  ]
+ },
+ {
+  "id": "ethiopian-03",
+  "group": "ethiopian",
+  "file": "Ethiopian_monk_1.jpg",
+  "caption": "נזיר אתיופי בדיר א-סולטאן — כיפה עגולה וצעיף",
+  "alt": "נזיר אתיופי בדיר א-סולטאן — כיפה עגולה וצעיף",
+  "focus": [
+   50,
+   40,
+   2.4
+  ]
+ },
+ {
+  "id": "ethiopian-05",
+  "group": "ethiopian",
+  "file": "Ethiopian_Abyssinian_Church,_Jerusalem_12.jpg",
+  "caption": "נזיר אתיופי ליד כנסיית קידנה מהרת ברחוב האתיופים",
+  "alt": "נזיר אתיופי ליד כנסיית קידנה מהרת ברחוב האתיופים",
+  "focus": [
+   45,
+   10,
+   2
+  ]
+ },
+ {
+  "id": "ethiopian-09",
+  "group": "ethiopian",
+  "file": "ירושלים_-_Jerusalem_(4228673461).jpg",
+  "caption": "נזיר אתיופי בסביבת שער יפו",
+  "alt": "נזיר אתיופי בסביבת שער יפו"
+ },
+ {
+  "id": "ethiopian-10",
+  "group": "ethiopian",
+  "file": "Church-with-monks_big.jpg",
+  "caption": "תאי הנזירים בדיר א-סולטאן, על גג כנסיית הקבר",
+  "alt": "תאי הנזירים בדיר א-סולטאן, על גג כנסיית הקבר",
+  "hard": true
+ },
+ {
+  "id": "ethiopian-13",
+  "group": "ethiopian",
+  "file": "Holy_Sepulchre_IMG_0102.jpg",
+  "caption": "נזיר אתיופי בכנסיית הקבר — כיפה עגולה וצעיף עם פסים אדומים",
+  "alt": "נזיר אתיופי בכנסיית הקבר — כיפה עגולה וצעיף עם פסים אדומים",
+  "focus": [
+   32,
+   22,
+   2
+  ]
+ },
+ {
+  "id": "ethiopian-14",
+  "group": "ethiopian",
+  "file": "כומר_אתיופי_ברחבת_כנסיית_הקבר.jpg",
+  "caption": "נזיר אתיופי ברחבת כנסיית הקבר",
+  "alt": "נזיר אתיופי ברחבת כנסיית הקבר"
+ },
+ {
+  "id": "ethiopian-15",
+  "group": "ethiopian",
+  "file": "Ethiopian_Priest_near_Coptic_Patriarchate_(Jerusalem,_2013)_(8682155533).jpg",
+  "caption": "כומר אתיופי בדיר א-סולטאן, ליד הפטריארכיה הקופטית",
+  "alt": "כומר אתיופי בדיר א-סולטאן, ליד הפטריארכיה הקופטית",
+  "hard": true
+ },
+ {
+  "id": "ethiopian-16",
+  "group": "ethiopian",
+  "file": "Jerusalem_Batch_2_(77).jpg",
+  "caption": "כומר אתיופי בעיר העתיקה, ליד שער יפו",
+  "alt": "כומר אתיופי בעיר העתיקה, ליד שער יפו",
+  "focus": [
+   52,
+   34,
+   2.6
+  ]
+ },
+ {
+  "id": "ethiopian-17",
+  "group": "ethiopian",
+  "file": "Ethopian_Quarter_man_reading_Jerusalem_Victor_2011_-1-31.jpg",
+  "caption": "כומר אתיופי קורא בדיר א-סולטאן",
+  "alt": "כומר אתיופי קורא בדיר א-סולטאן",
+  "hard": true
+ },
+ {
+  "id": "ethiopian-18",
+  "group": "ethiopian",
+  "file": "Ethiopian_Orthodox_Monk_(7555821582).jpg",
+  "caption": "כומר אתיופי בטורבן לבן, ליד אגם טאנה באתיופיה",
+  "alt": "כומר אתיופי בטורבן לבן, ליד אגם טאנה באתיופיה",
+  "focus": [
+   50,
+   15,
+   1.6
+  ]
+ },
+ {
+  "id": "russian-orthodox-01",
+  "group": "russian-orthodox",
+  "file": "A_russian_orthodox_nun_Jerusalem.jpg",
+  "caption": "נזירה רוסית-אורתודוקסית בעיר העתיקה — מטפחת שחורה שעוטפת ראש וכתפיים",
+  "alt": "נזירה רוסית-אורתודוקסית בעיר העתיקה — מטפחת שחורה שעוטפת ראש וכתפיים",
+  "focus": [
+   50,
+   18,
+   2.2
+  ]
+ },
+ {
+  "id": "russian-orthodox-02",
+  "group": "russian-orthodox",
+  "file": "2_nuns_arranging_flowers.jpg",
+  "caption": "נזירות רוסיות מסדרות פרחים במנזר גורני בעין כרם",
+  "alt": "נזירות רוסיות מסדרות פרחים במנזר גורני בעין כרם",
+  "focus": [
+   65,
+   70,
+   2
+  ]
+ },
+ {
+  "id": "russian-orthodox-03",
+  "group": "russian-orthodox",
+  "file": "Nun_flowers_black_white.JPG",
+  "caption": "נזירה מסדרת פרחים במנזר גורני בעין כרם",
+  "alt": "נזירה מסדרת פרחים במנזר גורני בעין כרם",
+  "hard": true
+ },
+ {
+  "id": "russian-orthodox-05",
+  "group": "russian-orthodox",
+  "file": "Russian_Orthodox_nun_cleaning,_Gorny_Convent,_Ein_Kerem.JPG",
+  "caption": "נזירה מטאטאת את חצר מנזר גורני בעין כרם",
+  "alt": "נזירה מטאטאת את חצר מנזר גורני בעין כרם",
+  "focus": [
+   35,
+   65,
+   2
+  ]
+ },
+ {
+  "id": "russian-orthodox-06",
+  "group": "russian-orthodox",
+  "file": "Walking_russian_orthodox_nuns_and_monk_Israel.jpg",
+  "caption": "נזירה רוסית וכומר רוסי ליד שער יפו",
+  "alt": "נזירה רוסית וכומר רוסי ליד שער יפו",
+  "focus": [
+   33,
+   22,
+   2.6
+  ]
+ },
+ {
+  "id": "russian-orthodox-08",
+  "group": "russian-orthodox",
+  "file": "2_priests_checking_merchandise.JPG",
+  "caption": "שני נזירים רוסים במנזר גורני בעין כרם",
+  "alt": "שני נזירים רוסים במנזר גורני בעין כרם",
+  "hard": true
+ },
+ {
+  "id": "russian-orthodox-14",
+  "group": "russian-orthodox",
+  "file": "PikiWiki_Israel_67344_jerusalem.jpg",
+  "caption": "טקס בכנסיית מריה מגדלנה בהר הזיתים; מימין — הכובע הרוסי שמתרחב כלפי מעלה",
+  "alt": "טקס בכנסיית מריה מגדלנה בהר הזיתים; מימין — הכובע הרוסי שמתרחב כלפי מעלה",
+  "hard": true
+ },
+ {
+  "id": "dominican-07",
+  "group": "dominican",
+  "file": "Monnik_in_kruisgang_van_de_École_biblique_et_archéologique_française_de_Jérusale,_Bestanddeelnr_255-5370.jpg",
+  "caption": "נזיר דומיניקני בגלימה לבנה בחצר האקול ביבליק, ירושלים 1953",
+  "alt": "נזיר דומיניקני בגלימה לבנה בחצר האקול ביבליק, ירושלים 1953",
+  "hard": true
+ },
+ {
+  "id": "dominican-08",
+  "group": "dominican",
+  "file": "Monnik_in_kruisgang_van_de_École_biblique_et_archéologique_française_de_Jérusale,_Bestanddeelnr_255-5369.jpg",
+  "caption": "נזיר דומיניקני במנזר האקול ביבליק, ירושלים 1953",
+  "alt": "נזיר דומיניקני במנזר האקול ביבליק, ירושלים 1953",
+  "hard": true
+ },
+ {
+  "id": "dominican-09",
+  "group": "dominican",
+  "file": "DominicanFriars.jpg",
+  "caption": "נזירים דומיניקנים: גלימה לבנה, ומעליה גלימה שחורה עם ברדס",
+  "alt": "נזירים דומיניקנים: גלימה לבנה, ומעליה גלימה שחורה עם ברדס",
+  "focus": [
+   50,
+   55,
+   1.8
+  ]
+ },
+ {
+  "id": "dominican-10",
+  "group": "dominican",
+  "file": "Dominican.jpg",
+  "caption": "נזיר דומיניקני — הסקפולר הלבן והגלימה השחורה (קאפה) מעליו",
+  "alt": "נזיר דומיניקני — הסקפולר הלבן והגלימה השחורה (קאפה) מעליו",
+  "focus": [
+   50,
+   40,
+   1.8
+  ]
+ },
+ {
+  "id": "dominican-12",
+  "group": "dominican",
+  "file": "The_Hillbilly_Thomists_01.jpg",
+  "caption": "נזירים דומיניקנים בגלימות הלבנות מנגנים בעלייה לרגל בוושינגטון",
+  "alt": "נזירים דומיניקנים בגלימות הלבנות מנגנים בעלייה לרגל בוושינגטון",
+  "hard": true
+ },
+ {
+  "id": "benedictine-03",
+  "group": "benedictine",
+  "file": "Benediktinermönche_auf_dem_Sommerfest.jpg",
+  "caption": "שני נזירים בנדיקטינים בגלימות השחורות, בברלין",
+  "alt": "שני נזירים בנדיקטינים בגלימות השחורות, בברלין",
+  "hard": true
+ },
+ {
+  "id": "benedictine-04",
+  "group": "benedictine",
+  "file": "Two_monks_in_the_snow.jpg",
+  "caption": "נזירים בנדיקטינים של מנזר צ'ילוורת' באנגליה — גלימה וברדס שחורים",
+  "alt": "נזירים בנדיקטינים של מנזר צ'ילוורת' באנגליה — גלימה וברדס שחורים",
+  "focus": [
+   80,
+   25,
+   2
+  ]
+ },
+ {
+  "id": "benedictine-06",
+  "group": "benedictine",
+  "file": "Moines_bénédictins_de_Kergonan,_monastère_breton_dans_la_presqu'ile_de_Quiberon,_Carnac.jpg",
+  "caption": "נזירים בנדיקטינים על חוף הים בבריטני",
+  "alt": "נזירים בנדיקטינים על חוף הים בבריטני",
+  "hard": true
+ },
+ {
+  "id": "benedictine-09",
+  "group": "benedictine",
+  "file": "PikiWiki_Israel_49047_Benedictine_monastery_in_Abu_Ghosh.JPG",
+  "caption": "האח אוליבייה במנזר הבנדיקטיני באבו גוש — שם, אצל האוליבטנים, הגלימה בהירה",
+  "alt": "האח אוליבייה במנזר הבנדיקטיני באבו גוש — שם, אצל האוליבטנים, הגלימה בהירה",
+  "hard": true
+ },
+ {
+  "id": "white-fathers-01",
+  "group": "white-fathers",
+  "file": "Père_blanc_Afrique_équatoriale.jpg",
+  "caption": "אחד האבות הלבנים מלמד ילדים באפריקה המשוונית, גלויה משנות ה-30",
+  "alt": "אחד האבות הלבנים מלמד ילדים באפריקה המשוונית, גלויה משנות ה-30",
+  "hard": true
+ },
+ {
+  "id": "white-fathers-04",
+  "group": "white-fathers",
+  "file": "Lourdel_1853-1890.jpg",
+  "caption": "האב סימאון לורדל מן האבות הלבנים, המאה ה-19 — המחרוזת על הצוואר",
+  "alt": "האב סימאון לורדל מן האבות הלבנים, המאה ה-19 — המחרוזת על הצוואר",
+  "focus": [
+   42,
+   30,
+   2
+  ]
+ },
+ {
+  "id": "white-fathers-05",
+  "group": "white-fathers",
+  "file": "Père_Delattre.jpg",
+  "caption": "האב אלפרד-לואי דלאטר, ארכאולוג מן האבות הלבנים — גלימה ומחרוזת סביב הצוואר",
+  "alt": "האב אלפרד-לואי דלאטר, ארכאולוג מן האבות הלבנים — גלימה ומחרוזת סביב הצוואר",
+  "focus": [
+   45,
+   70,
+   1.8
+  ]
+ },
+ {
+  "id": "white-fathers-07",
+  "group": "white-fathers",
+  "file": "Etienne_(II)_AWeng_(1880-1951).jpg",
+  "caption": "האב אטיין וונג מן האבות הלבנים, בערך 1940",
+  "alt": "האב אטיין וונג מן האבות הלבנים, בערך 1940"
+ },
+ {
+  "id": "white-fathers-08",
+  "group": "white-fathers",
+  "file": "Afrique_Équatoriale_Père_Blanc.jpg",
+  "caption": "תפילה במיסיון של האבות הלבנים באפריקה המשוונית, גלויה משנות ה-30",
+  "alt": "תפילה במיסיון של האבות הלבנים באפריקה המשוונית, גלויה משנות ה-30",
+  "hard": true
+ },
+ {
+  "id": "carmelite-01",
+  "group": "carmelite",
+  "file": "Carmes_Déchaux_de_Paris_2015.JPG",
+  "caption": "קהילת הכרמליתים היחפים בפריז — גלימה וסקפולר חומים",
+  "alt": "קהילת הכרמליתים היחפים בפריז — גלימה וסקפולר חומים",
+  "focus": [
+   50,
+   55,
+   1.8
+  ]
+ },
+ {
+  "id": "carmelite-04",
+  "group": "carmelite",
+  "file": "Carmelites_students.jpg",
+  "caption": "נזירים כרמליתים במעיל הלבן מעל הגלימה החומה",
+  "alt": "נזירים כרמליתים במעיל הלבן מעל הגלימה החומה",
+  "focus": [
+   45,
+   60,
+   2
+  ]
+ },
+ {
+  "id": "carmelite-11",
+  "group": "carmelite",
+  "file": "Carmelitas_Descalzas_de_Tlacopac_-_México_DF.jpg",
+  "caption": "נזירות כרמליתיות יחפות במקסיקו: חום, מעיל לבן וצעיף שחור",
+  "alt": "נזירות כרמליתיות יחפות במקסיקו: חום, מעיל לבן וצעיף שחור"
+ },
+ {
+  "id": "trappist-01",
+  "group": "trappist",
+  "file": "LATRUN_MONASTERY_and_its_Monks.JPG",
+  "caption": "ראשי מסדר הטרפיסטים מול דגם מנזר לטרון ב\"מיני ישראל\" (2000)",
+  "alt": "ראשי מסדר הטרפיסטים מול דגם מנזר לטרון ב\"מיני ישראל\" (2000)",
+  "focus": [
+   80,
+   18,
+   1
+  ]
+ },
+ {
+  "id": "trappist-08",
+  "group": "trappist",
+  "file": "Trappist_praying_2007-08-20_dti.jpg",
+  "caption": "נזיר טרפיסטי מתפלל בתאו, בגלימה הרחבה עם הברדס",
+  "alt": "נזיר טרפיסטי מתפלל בתאו, בגלימה הרחבה עם הברדס",
+  "hard": true
+ },
+ {
+  "id": "trappist-09",
+  "group": "trappist",
+  "file": "Mariawald_zelle_lectio_2007-08-20_bmd.jpg",
+  "caption": "נזיר טרפיסטי קורא בתאו",
+  "alt": "נזיר טרפיסטי קורא בתאו",
+  "hard": true
+ },
+ {
+  "id": "trappist-10",
+  "group": "trappist",
+  "file": "Terce_at_the_Church_of_the_Monastery_of_Saint_Mary_Rawaseneng_1.jpg",
+  "caption": "נזירים טרפיסטים בתפילת הצהריים במנזר באינדונזיה — לבן וסקפולר שחור",
+  "alt": "נזירים טרפיסטים בתפילת הצהריים במנזר באינדונזיה — לבן וסקפולר שחור",
+  "focus": [
+   55,
+   55,
+   2.2
+  ]
+ },
+ {
+  "id": "missionaries-charity-01",
+  "group": "missionaries-charity",
+  "file": "Missionaries_of_Charity_in_Haiti.jpg",
+  "caption": "אחיות המיסיונריות של הצדקה בתהלוכה בהאיטי",
+  "alt": "אחיות המיסיונריות של הצדקה בתהלוכה בהאיטי"
+ },
+ {
+  "id": "missionaries-charity-02",
+  "group": "missionaries-charity",
+  "file": "Sisters_of_Charity.jpg",
+  "caption": "אחיות המיסיונריות של הצדקה בכנס בארצות הברית",
+  "alt": "אחיות המיסיונריות של הצדקה בכנס בארצות הברית",
+  "focus": [
+   55,
+   30,
+   2
+  ]
+ },
+ {
+  "id": "missionaries-charity-03",
+  "group": "missionaries-charity",
+  "file": "Flickr_-_Official_U.S._Navy_Imagery_-_Sisters_from_Missionaries_of_Charity_of_Jamaica_sing_hymns_during_church_service..jpg",
+  "caption": "אחיות המיסיונריות של הצדקה שרות בתפילה, ג'מייקה",
+  "alt": "אחיות המיסיונריות של הצדקה שרות בתפילה, ג'מייקה"
+ },
+ {
+  "id": "missionaries-charity-05",
+  "group": "missionaries-charity",
+  "file": "Sister_Mary_Prema_and_Sister_Mary_Joseph_at_the_Vatican_(cropped).jpg",
+  "caption": "האחות מרי פרמה, ראש המסדר, ואחות נוספת — הסארי הלבן עם הפסים הכחולים",
+  "alt": "האחות מרי פרמה, ראש המסדר, ואחות נוספת — הסארי הלבן עם הפסים הכחולים",
+  "focus": [
+   35,
+   25,
+   2
+  ]
+ },
+ {
+  "id": "protestant-01",
+  "group": "protestant",
+  "file": "Munib_Younan_2015.jpg",
+  "caption": "הבישוף הלותרני מוניב יונאן — חולצה סגולה, צווארון לבן וצלב",
+  "alt": "הבישוף הלותרני מוניב יונאן — חולצה סגולה, צווארון לבן וצלב",
+  "focus": [
+   55,
+   42,
+   2.2
+  ]
+ },
+ {
+  "id": "protestant-02",
+  "group": "protestant",
+  "file": "Munib_Younan.jpg",
+  "caption": "הבישוף הלותרני מוניב יונאן נואם",
+  "alt": "הבישוף הלותרני מוניב יונאן נואם",
+  "hard": true
+ },
+ {
+  "id": "protestant-03",
+  "group": "protestant",
+  "file": "Archbishop_Suheil_Dawani_and_Dean_Hosam_Naoum_(34019363365).jpg",
+  "caption": "הארכיבישוף האנגליקני סוהייל דוואני (מימין) והדיקן חוסאם נאום (במרכז) בירושלים",
+  "alt": "הארכיבישוף האנגליקני סוהייל דוואני (מימין) והדיקן חוסאם נאום (במרכז) בירושלים",
+  "focus": [
+   60,
+   40,
+   1.8
+  ]
+ },
+ {
+  "id": "protestant-06",
+  "group": "protestant",
+  "file": "Elections_of_new_Anglican_Bishops_in_Jerusalem_(FL45772748).jpg",
+  "caption": "בחירת בישופים אנגליקנים בירושלים, 1974",
+  "alt": "בחירת בישופים אנגליקנים בירושלים, 1974",
+  "hard": true
+ },
+ {
+  "id": "protestant-08",
+  "group": "protestant",
+  "file": "Saeimas_priekšsēdētāja_tiekas_ar_Pasaules_Luterāņu_federācijas_prezidentu_(16395089762).jpg",
+  "caption": "הבישוף מוניב יונאן (מימין) והארכיבישוף הלותרני של לטביה — שניהם בחולצה סגולה וצווארון לבן",
+  "alt": "הבישוף מוניב יונאן (מימין) והארכיבישוף הלותרני של לטביה — שניהם בחולצה סגולה וצווארון לבן",
+  "hard": true
+ }
+]
