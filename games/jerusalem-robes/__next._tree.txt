@@ -4,4 +4,4 @@
 :HL["/moreh-derech/_next/static/media/910852303c6b2343-s.p.1wvhz6ut8au_x.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/da0c36c2f20008af-s.p.1o88h9hhck-f8.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/chunks/1z6685ubxyiw0.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"games","param":null,"prefetchHints":4192,"slots":{"children":{"name":"jerusalem-robes","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"ILXBMbS8FfCxz8bMTjdOm"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"games","param":null,"prefetchHints":4192,"slots":{"children":{"name":"jerusalem-robes","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"O8KiAki2Fxp5tfqYcfIwR"}
