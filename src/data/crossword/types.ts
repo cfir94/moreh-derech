@@ -11,12 +11,12 @@ export type CrosswordEntry = {
   note?: string;
   kind?: "person" | "place" | "event" | "term" | "find" | "species";
   /**
-   * The first week (a Sunday, ISO date) this entry may appear in. A week's
+   * The first week (a Friday, ISO date) this entry may appear in. A week's
    * puzzle depends only on entries already eligible when it began, so adding
    * entries never changes a puzzle someone has already played.
    */
   since: string;
-  /** Retire instead of deleting: the entry stops appearing from this Sunday on. */
+  /** Retire instead of deleting: the entry stops appearing from this Friday on. */
   until?: string;
 };
 
