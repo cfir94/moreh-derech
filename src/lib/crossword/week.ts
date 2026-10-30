@@ -1,12 +1,15 @@
 /*
- * The crossword week runs Sunday to Saturday in Israel time: a new puzzle at
- * 00:00 on Sunday in Jerusalem, wherever the solver is. Dates are ISO strings
- * ("2026-10-25") and arithmetic is done on whole UTC days, so daylight saving
+ * The crossword week runs Friday to Thursday in Israel time: a new puzzle at
+ * 00:00 on Friday in Jerusalem, wherever the solver is. Dates are ISO strings
+ * ("2026-10-30") and arithmetic is done on whole UTC days, so daylight saving
  * never shifts a week.
  */
 
-/** Sunday of crossword #1. */
-export const CROSSWORD_EPOCH = "2026-10-25";
+/** Friday of crossword #1. */
+export const CROSSWORD_EPOCH = "2026-10-30";
+
+/** The day a new puzzle goes up: 5 = Friday (Date#getUTCDay). */
+const WEEK_START_DAY = 5;
 
 const DAY = 86_400_000;
 
@@ -20,9 +23,9 @@ const israelDateFormat = new Intl.DateTimeFormat("en-CA", {
 export type CrosswordWeek = {
   /** 1 for the week of the epoch. */
   number: number;
-  /** Sunday, ISO date. */
+  /** Friday, ISO date. */
   start: string;
-  /** Saturday, ISO date. */
+  /** Thursday, ISO date. */
   end: string;
 };
 
@@ -41,8 +44,8 @@ export function isoFromDay(day: number): string {
   return new Date(day * DAY).toISOString().slice(0, 10);
 }
 
-export function isSunday(iso: string): boolean {
-  return /^\d{4}-\d{2}-\d{2}$/.test(iso) && new Date(dayNumber(iso) * DAY).getUTCDay() === 0;
+export function isWeekStart(iso: string): boolean {
+  return /^\d{4}-\d{2}-\d{2}$/.test(iso) && new Date(dayNumber(iso) * DAY).getUTCDay() === WEEK_START_DAY;
 }
 
 export function weekByNumber(number: number): CrosswordWeek {
@@ -52,15 +55,15 @@ export function weekByNumber(number: number): CrosswordWeek {
 
 export function weekOfDate(iso: string): CrosswordWeek {
   const day = dayNumber(iso);
-  const sunday = day - new Date(day * DAY).getUTCDay();
-  return weekByNumber((sunday - dayNumber(CROSSWORD_EPOCH)) / 7 + 1);
+  const start = day - ((new Date(day * DAY).getUTCDay() - WEEK_START_DAY + 7) % 7);
+  return weekByNumber((start - dayNumber(CROSSWORD_EPOCH)) / 7 + 1);
 }
 
 export function weekOf(now: Date): CrosswordWeek {
   return weekOfDate(israelDate(now));
 }
 
-/** Whole days from this date until the next Sunday (1 on Saturday). */
+/** Whole days from this date until the next Friday (1 on Thursday). */
 export function daysToNextWeek(today: string): number {
   return dayNumber(weekOfDate(today).end) - dayNumber(today) + 1;
 }

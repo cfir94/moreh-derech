@@ -8,7 +8,7 @@ import { LIMITS, eligibleEntries, puzzleForWeek, weekPools } from "../src/lib/cr
 import { answerLetters, answerWords, enumeration, finalForm, letterFromKey } from "../src/lib/crossword/hebrew.ts";
 import { buildGrid, entryCell, shown, starsFor, stepClue, streak, wordCells, wrongCells } from "../src/lib/crossword/play.ts";
 import {
-  CROSSWORD_EPOCH, daysToNextWeek, israelDate, isSunday, weekByNumber, weekOfDate,
+  CROSSWORD_EPOCH, daysToNextWeek, israelDate, isWeekStart, weekByNumber, weekOfDate,
 } from "../src/lib/crossword/week.ts";
 
 // A realistic Hebrew bank for exercising the generator: the who-am-i names,
@@ -48,18 +48,19 @@ test("Hebrew answers: base letters only, final forms folded, words counted", () 
   assert.equal(letterFromKey("1", "Digit1"), null);
 });
 
-test("the crossword week turns at midnight on Sunday in Jerusalem", () => {
-  assert.ok(isSunday(CROSSWORD_EPOCH));
-  assert.deepEqual(weekByNumber(1), { number: 1, start: CROSSWORD_EPOCH, end: "2026-10-31" });
-  assert.equal(israelDate(new Date("2026-10-31T21:30:00Z")), "2026-10-31");
-  assert.equal(israelDate(new Date("2026-10-31T22:30:00Z")), "2026-11-01");
-  assert.equal(weekOfDate("2026-10-31").number, 1);
-  assert.equal(weekOfDate("2026-11-01").number, 2);
+test("the crossword week turns at midnight on Friday in Jerusalem", () => {
+  assert.ok(isWeekStart(CROSSWORD_EPOCH));
+  assert.deepEqual(weekByNumber(1), { number: 1, start: CROSSWORD_EPOCH, end: "2026-11-05" });
+  assert.equal(israelDate(new Date("2026-11-05T21:30:00Z")), "2026-11-05");
+  assert.equal(israelDate(new Date("2026-11-05T22:30:00Z")), "2026-11-06");
+  assert.equal(weekOfDate("2026-11-05").number, 1);
+  assert.equal(weekOfDate("2026-11-06").number, 2);
+  assert.equal(weekOfDate("2026-11-08").start, "2026-11-06");
   // Summer time does not move the boundary either.
-  assert.equal(israelDate(new Date("2027-06-05T21:30:00Z")), "2027-06-06");
-  assert.equal(weekOfDate("2027-06-06").start, "2027-06-06");
-  assert.equal(daysToNextWeek("2026-10-31"), 1);
-  assert.equal(daysToNextWeek("2026-10-25"), 7);
+  assert.equal(israelDate(new Date("2027-06-03T21:30:00Z")), "2027-06-04");
+  assert.equal(weekOfDate("2027-06-04").start, "2027-06-04");
+  assert.equal(daysToNextWeek("2026-11-05"), 1);
+  assert.equal(daysToNextWeek("2026-10-30"), 7);
 });
 
 test("every week gets a legal, connected criss-cross grid that fits a phone", () => {
@@ -198,8 +199,8 @@ test("bank entries are sourced, well-formed and never give the answer away", () 
     assert.ok(!ids.has(entry.id), `duplicate id ${entry.id}`);
     ids.add(entry.id);
     assert.ok(NOTEBOOK_IDS.includes(entry.notebook), `${entry.id}: unknown notebook`);
-    assert.ok(isSunday(entry.since) && entry.since >= CROSSWORD_EPOCH, `${entry.id}: since must be a Sunday from the epoch on`);
-    if (entry.until) assert.ok(isSunday(entry.until) && entry.until > entry.since, `${entry.id}: until must be a later Sunday`);
+    assert.ok(isWeekStart(entry.since) && entry.since >= CROSSWORD_EPOCH, `${entry.id}: since must be a Friday from the epoch on`);
+    if (entry.until) assert.ok(isWeekStart(entry.until) && entry.until > entry.since, `${entry.id}: until must be a later Friday`);
     assert.ok(!/[0-9A-Za-z]/.test(entry.answer), `${entry.id}: answers are Hebrew words only`);
     const letters = answerLetters(entry.answer);
     assert.ok(letters.length >= 2 && letters.length <= Math.max(LIMITS.maxCols, LIMITS.maxRows), `${entry.id}: ${letters.length} letters`);
