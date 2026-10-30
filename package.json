@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:regressions": "node --import ./tests/register-ts.mjs --test tests/study-state.test.mjs tests/history-talk-characters.test.mjs tests/video-library.test.mjs",
+    "test:regressions": "node --import ./tests/register-ts.mjs --test tests/study-state.test.mjs tests/history-talk-characters.test.mjs tests/video-library.test.mjs tests/crossword.test.mjs",
     "import:quizzes": "node tools/import-quizzes.mjs"
   },
   "dependencies": {

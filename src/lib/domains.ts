@@ -62,6 +62,7 @@ export const DOMAINS: Record<string, Domain> = {
   "geo-game": { color: "var(--teal)", icon: "🗺️" },
   "church-game": { color: "var(--violet)", icon: "⛪" },
   "plants-game": { color: "var(--green)", icon: "🌿" },
+  crossword: { color: "var(--gold)", icon: "✏️" },
   review: { color: "var(--gold)", icon: "🔁" },
 };
 
