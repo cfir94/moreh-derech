@@ -38,6 +38,7 @@ export type CrosswordNotebookId =
   | "geology-b"
   | "flora-fauna-a"
   | "flora-fauna-b"
+  | "independence-war"
   | "borders-intro"
   | "borders";
 
