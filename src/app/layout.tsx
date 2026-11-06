@@ -4,6 +4,7 @@ import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
 import { PaywallGate } from "@/components/paywall/PaywallGate";
 import { SiteFooter } from "@/components/SiteFooter";
+import { PreviewBar } from "@/components/PreviewBar";
 import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col font-sans">
         <UserProvider>
+          <PreviewBar />
           <Navbar />
           <main className="flex-1">
             <PaywallGate>{children}</PaywallGate>

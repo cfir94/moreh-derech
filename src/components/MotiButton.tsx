@@ -12,7 +12,7 @@ import { HISTORY_TALK_ORIGIN } from "@/data/history-talk";
 import { withBasePath } from "@/lib/basePath";
 import { useAccess } from "@/lib/accessStore";
 import { hasAccess } from "@/lib/entitlement";
-import { LAUNCH } from "@/lib/launch";
+import { useLaunch } from "@/lib/launchClient";
 
 export function MotiButton() {
   const [open, setOpen] = useState(false);
@@ -26,9 +26,10 @@ export function MotiButton() {
   }, [open]);
 
   const { access } = useAccess();
+  const { paywall } = useLaunch();
   if (!HISTORY_TALK_ORIGIN) return null;
   // מוטי עולה כסף (Gemini). כשה-Paywall פעיל הוא זמין רק למי שיש לו ניסיון או מנוי.
-  if (LAUNCH.paywall && !hasAccess(access)) return null;
+  if (paywall && !hasAccess(access)) return null;
 
   const toggle = () => {
     if (!src) {

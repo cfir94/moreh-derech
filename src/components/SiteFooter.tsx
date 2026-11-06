@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { LAUNCH } from "@/lib/launch";
+import { useLaunch } from "@/lib/launchClient";
 
 /** כותרת תחתונה עם המסמכים המשפטיים ויצירת קשר (חובת גילוי בעסקה מרחוק). פעילה עם ה-Paywall. */
 export function SiteFooter() {
-  if (!LAUNCH.paywall) return null;
+  const { paywall } = useLaunch();
+  if (!paywall) return null;
   const links = [
     ["/pricing/", "מחירים"],
     ["/legal/terms/", "תנאי שימוש"],

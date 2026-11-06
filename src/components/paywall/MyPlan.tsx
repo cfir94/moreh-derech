@@ -6,14 +6,16 @@ import { useState } from "react";
 import { readSession } from "@/lib/cloudAuth";
 import { refreshEntitlement, useAccess } from "@/lib/accessStore";
 import { LAUNCH } from "@/lib/launch";
+import { useLaunch } from "@/lib/launchClient";
 
 const date = (d: Date) => d.toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" });
 
 export function MyPlan() {
   const { access, known } = useAccess();
+  const { paywall } = useLaunch();
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
-  if (!LAUNCH.paywall || !known) return null;
+  if (!paywall || !known) return null;
 
   const cancel = async () => {
     const session = readSession();
