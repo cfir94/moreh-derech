@@ -1,7 +1,7 @@
 import type { CrosswordNotebook } from "@/data/crossword/types";
 
 /**
- * The 19 course notebooks the crossword draws its words from, in syllabus
+ * The course notebooks the crossword draws its words from, in syllabus
  * order. `notebookId` is the NotebookLM id; the bank is filled by asking each
  * notebook for its people, events, places and terms (docs/crossword.md).
  */
@@ -25,6 +25,7 @@ export const CROSSWORD_NOTEBOOKS: CrosswordNotebook[] = [
   { id: "christianity-a", title: "נצרות א׳", short: "נצרות א׳", notebookId: "78eb78ed-77c8-4b1d-b5b0-dc6dfb7f02ef", color: "var(--violet)" },
   { id: "christianity-b", title: "נצרות ב׳", short: "נצרות ב׳", notebookId: "d4b2d38a-0810-4580-9ca5-6403ff71bd74", color: "var(--violet)" },
   { id: "christianity-c", title: "נצרות ג׳", short: "נצרות ג׳", notebookId: "facc56ee-64d3-47a3-9286-15253b683919", color: "var(--violet)" },
+  { id: "independence-war", title: "מלחמת העצמאות", short: "מלחמת העצמאות", notebookId: "f3475273-fada-4a4f-964a-f995023f8a46", color: "var(--teal)" },
 ];
 
 export const NOTEBOOK_BY_ID = new Map(CROSSWORD_NOTEBOOKS.map((notebook) => [notebook.id, notebook]));

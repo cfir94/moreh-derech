@@ -190,10 +190,10 @@ test("play rules: final letters, moving between clues, checking and stars", () =
   assert.equal(streak(new Set([3, 5]), 6), 1);
 });
 
-test("the 19 source notebooks are listed once each", () => {
-  assert.equal(CROSSWORD_NOTEBOOKS.length, 19);
-  assert.equal(new Set(NOTEBOOK_IDS).size, 19);
-  assert.equal(new Set(CROSSWORD_NOTEBOOKS.map((notebook) => notebook.notebookId)).size, 19);
+test("the source notebooks are listed once each", () => {
+  assert.equal(CROSSWORD_NOTEBOOKS.length, 20);
+  assert.equal(new Set(NOTEBOOK_IDS).size, CROSSWORD_NOTEBOOKS.length);
+  assert.equal(new Set(CROSSWORD_NOTEBOOKS.map((notebook) => notebook.notebookId)).size, CROSSWORD_NOTEBOOKS.length);
   for (const notebook of CROSSWORD_NOTEBOOKS) assert.match(notebook.notebookId, /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/);
 });
 
