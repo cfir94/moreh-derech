@@ -46,6 +46,8 @@ export function FirstVisitTour({ id }: { id: TourId }) {
   // פתיחה אוטומטית רק בביקור הראשון, ואחרי שהדף נטען.
   useEffect(() => {
     if (JSON.parse(window.localStorage.getItem(KEY) ?? "[]").includes(id)) return;
+    // דפדפן אוטומטי (בדיקות, סורקים): בלי חלון שחוסם את הדף. הכפתור נשאר.
+    if (navigator.webdriver) return;
     const t = window.setTimeout(() => setOpen(true), 900);
     return () => window.clearTimeout(t);
   }, [id]);
