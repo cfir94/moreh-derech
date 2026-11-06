@@ -39,6 +39,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: ""
+          NEXT_PUBLIC_SITE_ORIGIN: "https://moreyderech.com"
       - name: Exclude files over Cloudflare's 25MB static limit
         if: env.CLOUDFLARE_API_TOKEN != ''
         run: |

@@ -5,7 +5,7 @@ import { PricingCards } from "@/components/paywall/PricingCards";
 import { EXAMS, MINISTRY_EXAMS } from "@/data/exams";
 import { QUIZZES } from "@/data/quizzes";
 import { withBasePath } from "@/lib/basePath";
-import { LAUNCH, PRICES } from "@/lib/launch";
+import { LAUNCH, PRICES, SITE_URL } from "@/lib/launch";
 
 export const metadata: Metadata = {
   title: "אבן דרך למורי דרך — כל ההכנה למבחן הרישוי במקום אחד",
@@ -15,8 +15,9 @@ export const metadata: Metadata = {
     description: `${PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי.`,
     locale: "he_IL",
     type: "website",
-    // כתובת מלאה: בלי metadataBase (יגיע ב-CX-02) Next היה משלים ל-localhost.
-    images: [{ url: `https://${LAUNCH.domain}/marketing/og.jpg`, width: 1200, height: 630 }],
+    // כתובת מלאה של הבנייה הנוכחית, כדי שוואטסאפ יציג תמונה (גם לפני המעבר לדומיין).
+    url: `${SITE_URL}/welcome/`,
+    images: [{ url: `${SITE_URL}/marketing/og.jpg`, width: 1200, height: 630 }],
   },
 };
 
