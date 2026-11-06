@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
+import { PaywallGate } from "@/components/paywall/PaywallGate";
+import { SiteFooter } from "@/components/SiteFooter";
 import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
 
@@ -40,7 +42,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col font-sans">
         <UserProvider>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PaywallGate>{children}</PaywallGate>
+          </main>
+          <SiteFooter />
           <MotiButton />
         </UserProvider>
       </body>

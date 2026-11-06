@@ -14,7 +14,8 @@
 | M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
 | C-01 | הסרת סרטוני "עיוניים" ו"מקוונים" | Claude | done (#55) | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
 | S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
-| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | ready · ממתין לחיבור Codex ל-GitHub | `docs/team/reports/CX-01.md` בלבד | — |
+| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | in-progress (👀 09:29) | `docs/team/reports/CX-01.md` בלבד | — |
+| CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | in-progress (👀 09:38, הוקצה ע"י Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
 | GPT-01 | מחקר מתחרים ומיצוב | ChatGPT | ready | `marketing/inbox/GPT-01/` | צילום המתחרה מהבעלים |
 | GPT-02 | שפה שיווקית: כותרות, יתרונות, שאלות נפוצות לדף הנחיתה | ChatGPT | ready | `marketing/inbox/GPT-02/` | — |
 | GPT-03 | טיוטת תקנון, מדיניות פרטיות, ביטול והצהרת נגישות | ChatGPT | ready | `marketing/inbox/GPT-03/` | — |
@@ -30,21 +31,20 @@
 | H-05 | ריפו פרטי | בעלים | backlog | — | H-02 |
 | E-01 | Resend ו-SMTP של Supabase | בעלים | blocked | — | USER-ACTIONS §5–6 |
 | E-02 | hello@moreyderech.com | בעלים | blocked | — | USER-ACTIONS §7 |
-| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (מאחורי דגל; נבדק מקצה לקצה) | Claude | review · הפעלה: USER-ACTIONS §6א | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
+| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (כבוי; נבדק מקצה לקצה) | Claude | done (#58) · הפעלה: USER-ACTIONS §6א | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
 | A-02 | כניסה עם Google | Claude | backlog | כנ"ל | USER-ACTIONS §8 |
 | A-03 | סגירת הסיסמה הנגזרת (יחד עם israel-geo-game) | Claude | backlog | — | A-01 |
 | B-01 | SQL: entitlements, billing_events, start_trial | Claude | backlog | `supabase/**` | — |
-| B-02 | `plans.ts` ו-`useEntitlement` | Claude | backlog | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
-| B-03 | Paywall ו"התוכנית שלי" | Claude/Codex | backlog | `src/components/paywall/**`, `src/app/me/**` | B-02 |
+| B-02 | `plans.ts`, `entitlement.ts`, `accessStore.ts` | Claude | review | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
+| B-03 | Paywall, `/pricing`, "התוכנית שלי", מוטי רק עם גישה (כבוי: NEXT_PUBLIC_PAYWALL) | Claude | review | `src/components/paywall/**`, `src/app/me/**` | B-02 |
 | B-04 | בחירת ספק סליקה ופתיחת חשבון | בעלים | blocked | — | USER-ACTIONS §3–4 |
-| B-05 | Worker `md-api` (checkout, callback, cancel, cron) | Claude | backlog | `api/**` | B-01, B-04 |
+| B-05 | Worker `md-api`: checkout, callback מאומת, ביטול, תזכורות, ספק מדומה, Grow (טיוטה). 6 בדיקות | Claude | review · Grow ממתין ל-sandbox | `api/**`, `tests/md-api.test.mjs` | B-04 (לחיבור Grow) |
 | B-06 | מוטי בודק זכאות | Claude | backlog | `history-talk/src/worker/**` | B-01, A-01 |
-| L-01 | תקנון ופרטיות באתר | Claude | backlog | `src/app/legal/**` | GPT-03 |
+| L-01 | `/legal/*`: תנאים, פרטיות, ביטול, נגישות (טיוטה; ממתין לפרטי העוסק ולעורך דין) | Claude | review | `src/app/legal/**` | GPT-03 |
 | L-02 | נגישות: בדיקה, תיקונים והצהרה | Codex | backlog | לפי דוח | CX-01 |
-| G-01 | דף נחיתה | Claude | backlog | `src/app/(landing)/**`, `src/components/landing/**` | GPT-02 |
-| G-02 | צילומי מסך וסרטוני מסך מהאתר | Claude | backlog | `public/marketing/**`, `tools/marketing/**` | — |
+| G-01 | דף נחיתה `/welcome` (הכנה, מספרים, 5 יכולות עם סרטונים, משחקים, מוטי, מחיר, שאלות נפוצות) | Claude | review · הטקסטים ישתפרו עם GPT-02 | `src/app/welcome/**`, `src/components/landing/**` | — |
+| G-02 | 18 צילומי מסך, 3 סרטוני מסך ותמונת שיתוף (`public/marketing/`, 2.4MB) | Claude | review | `public/marketing/**`, `tools/marketing/**` | — |
 | G-03 | תמונות שיווק וסרטון לרשתות | ChatGPT | backlog | `marketing/inbox/GPT-04/` | G-02 |
-| G-04 | SEO ו-Open Graph | Codex | backlog | `src/app/layout.tsx`, `src/app/**/page.tsx` (metadata בלבד) | H-02 |
 | G-05 | Web Analytics ומשפך | Claude | backlog | `src/app/layout.tsx` | H-02 |
 
 ## הושלם

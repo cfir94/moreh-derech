@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MyPlan } from "@/components/paywall/MyPlan";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/hooks/useProgress";
 import { needsReview, resetProgress, summarize } from "@/lib/progress";
@@ -53,6 +54,8 @@ export default function MePage() {
           יציאה
         </button>
       </header>
+
+      <MyPlan />
 
       {!hasData ? (
         <div className="rounded-lg border border-dashed border-line bg-card p-10 text-center">

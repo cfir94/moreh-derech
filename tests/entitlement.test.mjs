@@ -35,3 +35,13 @@ test("founder and comp: open-ended unless a period end is set", () => {
   assert.equal(accessFrom(row({ plan: "founder" }), true, now).kind, "paid");
   assert.equal(accessFrom(row({ plan: "comp", current_period_end: new Date(now - day).toISOString() }), true, now).kind, "expired");
 });
+
+test("free paths: home, account, legal, pricing, crossword; everything else is paid", async () => {
+  const { isFreePath } = await import("../src/lib/plans.ts");
+  for (const p of ["/", "/login/", "/login", "/me/", "/legal/terms/", "/legal/privacy", "/pricing/", "/welcome/", "/games/", "/games/crossword/", "/resources/", "/map/"]) {
+    assert.ok(isFreePath(p), p);
+  }
+  for (const p of ["/quizzes/", "/quizzes/bronze-age/", "/exams/", "/games/who-am-i/", "/timelines/roman/", "/map/learn/", "/videos/", "/notebooks/"]) {
+    assert.ok(!isFreePath(p), p);
+  }
+});

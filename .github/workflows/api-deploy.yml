@@ -1,0 +1,67 @@
+name: md-api (billing) — test & deploy
+
+# שרת התשלומים (api/). בדיקות בכל PR. פריסה במיזוג ל-main, אם קיים CLOUDFLARE_API_TOKEN.
+# כל הסודות מוזנים מ-GitHub Secrets בלבד (docs/launch/USER-ACTIONS.md), כדי שהבעלים לא יצטרך wrangler.
+on:
+  pull_request:
+    branches: [main]
+    paths: ["api/**", "tests/md-api.test.mjs", ".github/workflows/api-deploy.yml"]
+  push:
+    branches: [main]
+    paths: ["api/**", ".github/workflows/api-deploy.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: node --import ./tests/register-ts.mjs --test tests/md-api.test.mjs
+
+  deploy:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - name: Skip without Cloudflare token
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::CLOUDFLARE_API_TOKEN לא מוגדר — md-api לא נפרס."
+      - uses: actions/checkout@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - name: Deploy
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx --yes wrangler@4.149.0 deploy
+      - name: Sync secrets from GitHub
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GROW_USER_ID: ${{ secrets.GROW_USER_ID }}
+          GROW_PAGE_CODE_MONTHLY: ${{ secrets.GROW_PAGE_CODE_MONTHLY }}
+          GROW_PAGE_CODE_YEARLY: ${{ secrets.GROW_PAGE_CODE_YEARLY }}
+        run: |
+          existing=$(npx --yes wrangler@4.149.0 secret list --format json 2>/dev/null || echo "[]")
+          for name in SUPABASE_SERVICE_KEY RESEND_API_KEY GROW_USER_ID GROW_PAGE_CODE_MONTHLY GROW_PAGE_CODE_YEARLY; do
+            value="${!name}"
+            if [ -n "$value" ]; then printf '%s' "$value" | npx --yes wrangler@4.149.0 secret put "$name" >/dev/null && echo "set $name"; fi
+          done
+          # מפתח החתימה הפנימי נוצר פעם אחת ונשאר. החלפה שלו מבטלת קישורי תשלום פתוחים.
+          if ! echo "$existing" | grep -q '"BILLING_SECRET"'; then
+            openssl rand -hex 32 | npx --yes wrangler@4.149.0 secret put BILLING_SECRET >/dev/null && echo "generated BILLING_SECRET"
+          fi
+      - name: Smoke test
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: test "$(curl -sS -m 15 https://md-api.cfir94.workers.dev/health)" = "ok"
