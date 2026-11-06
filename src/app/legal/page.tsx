@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LEGAL_DOCS } from "@/data/legal";
 
-export const metadata: Metadata = { title: "מסמכים — אבן דרך למורי דרך" };
+export const metadata: Metadata = { title: "מסמכים" };
 
 export default function LegalIndex() {
   return (

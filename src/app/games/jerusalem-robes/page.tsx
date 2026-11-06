@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { JerusalemRobesGame } from "@/components/games/JerusalemRobesGame";
 
-export const metadata: Metadata = {
-  title: "גלימות ירושלים — זיהוי אנשי דת לפי הלבוש | אבן דרך למורי דרך",
-  description: "משחק זיהוי בתמונות אמיתיות: יוונים, רוסים, ארמנים, קופטים, סורים, אתיופים, פרנציסקנים, דומיניקנים ועוד — מי הם לפי הלבוש, לאיזו משפחה של כנסיות הם שייכים ואיפה פוגשים אותם בירושלים.",
-};
+export const metadata = pageMeta({
+  title: "גלימות ירושלים",
+  description: "משחק זיהוי אנשי דת בירושלים לפי לבוש בתמונות אמיתיות: הכירו כנסיות, מסדרים ועדות, למדו היכן פוגשים אותם וקבלו הסבר לאחר כל תשובה.",
+  path: "/games/jerusalem-robes",
+});
 
 export default function JerusalemRobesPage() {
   return <div className="mx-auto max-w-6xl px-4 py-6 sm:py-10">

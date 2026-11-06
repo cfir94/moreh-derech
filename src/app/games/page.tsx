@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { SectionCard } from "@/components/SectionCard";
 
-export const metadata: Metadata = {
-  title: "משחקים | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "משחקי זיהוי ותרגול למורי דרך",
-};
 
 const games = [
   {
@@ -53,6 +49,12 @@ const games = [
     meta: "28 צמחים",
   },
 ];
+
+export const metadata = pageMeta({
+  title: "משחקי לימוד למורי דרך",
+  description: "משחקי לימוד ותרגול למורי דרך: זיהוי דמויות ואנשי דת, תשבצים, כנסיות, צמחי בר וידיעת הארץ, לחזרה מהנה על חומר הקורס והמבחן.",
+  path: "/games",
+});
 
 export default function GamesPage() {
   return (

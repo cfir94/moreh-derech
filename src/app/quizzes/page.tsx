@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { QUIZZES, QUIZ_DESCRIPTIONS } from "@/data/quizzes";
 import { ReviewCallout } from "@/components/quiz/ReviewCallout";
@@ -22,6 +23,12 @@ const timelineExercises = [
     meta: "תרגול אינטראקטיבי",
   },
 ];
+
+export const metadata = pageMeta({
+  title: "מאגר שאלונים למורי דרך",
+  description: "אלפי שאלות אמריקאיות לפי נושאי קורס מורי הדרך, כולל שאלות ממבחני רישוי, מעקב אחר תשובות וטעויות ותרגולי תיארוך וסדר כרונולוגי.",
+  path: "/quizzes",
+});
 
 export default function QuizzesPage() {
   const totalQuestions = QUIZZES.reduce((s, q) => s + q.questions.length, 0);

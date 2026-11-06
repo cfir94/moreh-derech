@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { PricingCards } from "@/components/paywall/PricingCards";
 import { PRICES } from "@/lib/launch";
 
-export const metadata: Metadata = {
-  title: "מחירים — אבן דרך למורי דרך",
-  description: `מנוי חודשי ${PRICES.monthly} ₪ או שנתי ${PRICES.yearly} ₪, ושבוע ראשון חינם בלי כרטיס אשראי.`,
-};
+export const metadata = pageMeta({
+  title: "מחירים ומנויים",
+  description: "השוו מנוי חודשי ושנתי לאבן דרך למורי דרך, התחילו שבוע ניסיון חינם ללא כרטיס אשראי, וקבלו גישה לכל כלי הלימוד והתרגול באתר.",
+  path: "/pricing",
+});
 
 export default function PricingPage() {
   return (
