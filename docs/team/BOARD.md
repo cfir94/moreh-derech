@@ -30,16 +30,16 @@
 | H-05 | ריפו פרטי | בעלים | backlog | — | H-02 |
 | E-01 | Resend ו-SMTP של Supabase | בעלים | blocked | — | USER-ACTIONS §5–6 |
 | E-02 | hello@moreyderech.com | בעלים | blocked | — | USER-ACTIONS §7 |
-| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (מאחורי דגל; נבדק מקצה לקצה) | Claude | review · הפעלה: USER-ACTIONS §6א | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
+| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (כבוי; נבדק מקצה לקצה) | Claude | done (#58) · הפעלה: USER-ACTIONS §6א | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
 | A-02 | כניסה עם Google | Claude | backlog | כנ"ל | USER-ACTIONS §8 |
 | A-03 | סגירת הסיסמה הנגזרת (יחד עם israel-geo-game) | Claude | backlog | — | A-01 |
 | B-01 | SQL: entitlements, billing_events, start_trial | Claude | backlog | `supabase/**` | — |
-| B-02 | `plans.ts` ו-`useEntitlement` | Claude | backlog | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
-| B-03 | Paywall ו"התוכנית שלי" | Claude/Codex | backlog | `src/components/paywall/**`, `src/app/me/**` | B-02 |
+| B-02 | `plans.ts`, `entitlement.ts`, `accessStore.ts` | Claude | review | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
+| B-03 | Paywall, `/pricing`, "התוכנית שלי", מוטי רק עם גישה (כבוי: NEXT_PUBLIC_PAYWALL) | Claude | review | `src/components/paywall/**`, `src/app/me/**` | B-02 |
 | B-04 | בחירת ספק סליקה ופתיחת חשבון | בעלים | blocked | — | USER-ACTIONS §3–4 |
 | B-05 | Worker `md-api` (checkout, callback, cancel, cron) | Claude | backlog | `api/**` | B-01, B-04 |
 | B-06 | מוטי בודק זכאות | Claude | backlog | `history-talk/src/worker/**` | B-01, A-01 |
-| L-01 | תקנון ופרטיות באתר | Claude | backlog | `src/app/legal/**` | GPT-03 |
+| L-01 | `/legal/*`: תנאים, פרטיות, ביטול, נגישות (טיוטה; ממתין לפרטי העוסק ולעורך דין) | Claude | review | `src/app/legal/**` | GPT-03 |
 | L-02 | נגישות: בדיקה, תיקונים והצהרה | Codex | backlog | לפי דוח | CX-01 |
 | G-01 | דף נחיתה | Claude | backlog | `src/app/(landing)/**`, `src/components/landing/**` | GPT-02 |
 | G-02 | צילומי מסך וסרטוני מסך מהאתר | Claude | backlog | `public/marketing/**`, `tools/marketing/**` | — |
