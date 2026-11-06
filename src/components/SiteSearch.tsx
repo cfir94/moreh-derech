@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { withBasePath } from "@/lib/basePath";
 import type { SearchResult } from "@/lib/siteSearch";
 import { NOTEBOOKS_EVENT } from "@/lib/notebookStore";
+import { useClassMember } from "@/hooks/useClassMember";
 
 function SearchIcon() {
   return (
@@ -37,6 +38,7 @@ const kindTone: Record<SearchResult["kind"], string> = {
 };
 
 export function SiteSearch() {
+  const classMember = useClassMember();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -79,7 +81,7 @@ export function SiteSearch() {
     const timer = window.setTimeout(() => {
       setLoading(true);
       void import("@/lib/siteSearch")
-        .then(({ searchSite }) => searchSite(cleaned))
+        .then(({ searchSite }) => searchSite(cleaned, { classMember }))
         .then((nextResults) => {
           if (!cancelled) setResults(nextResults);
         })
@@ -92,7 +94,7 @@ export function SiteSearch() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [query, open, notebookVersion]);
+  }, [query, open, notebookVersion, classMember]);
 
   const close = () => setOpen(false);
   const updateQuery = (value: string) => {

@@ -25,6 +25,8 @@ export type SharedSession = {
   display_name: string;
   class_code?: string;
   is_teacher?: boolean;
+  /** When the Supabase account was created — decides who is a current classmate. */
+  created_at?: string;
 };
 
 export type SharedUser = {
@@ -33,6 +35,7 @@ export type SharedUser = {
   email: string;
   classCode: string;
   isTeacher: boolean;
+  createdAt: string;
 };
 
 type AuthResponse = {
@@ -41,6 +44,7 @@ type AuthResponse = {
   user?: {
     id?: string;
     email?: string;
+    created_at?: string;
     user_metadata?: Record<string, unknown>;
   };
 };
@@ -77,6 +81,7 @@ export function parseSession(raw: string | null): SharedSession | null {
       display_name: value.display_name ?? "",
       class_code: value.class_code ?? "",
       is_teacher: Boolean(value.is_teacher),
+      ...(value.created_at ? { created_at: value.created_at } : {}),
     };
   } catch {
     return null;
@@ -96,6 +101,7 @@ export function userFromSession(session: SharedSession | null): SharedUser | nul
     email: session.email,
     classCode: session.class_code ?? "",
     isTeacher: Boolean(session.is_teacher),
+    createdAt: session.created_at ?? "",
   };
 }
 
@@ -230,6 +236,7 @@ function unpack(response: AuthResponse, fallbackName = ""): SharedSession {
     display_name: String(meta.display_name ?? fallbackName),
     class_code: String(meta.class_code ?? ""),
     is_teacher: false,
+    created_at: response.user.created_at,
   };
 }
 
@@ -410,6 +417,14 @@ export async function saveProfileDetails(displayName: string, classCode = "") {
 export async function refreshProfile() {
   const session = readSession();
   if (!session) return null;
+  if (!session.created_at) {
+    // Sessions saved before created_at was stored: ask once, keep it.
+    const account = (await withAuth(() => supabaseRequest("/auth/v1/user"))) as AuthResponse["user"];
+    const current = readSession();
+    if (account?.created_at && current && current.user_id === account.id) {
+      saveSession({ ...current, created_at: account.created_at });
+    }
+  }
   const rows = (await withAuth(() =>
     supabaseRequest(
       `/rest/v1/profiles?id=eq.${encodeURIComponent(session.user_id)}` +
