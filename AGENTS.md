@@ -7,3 +7,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# צוות הסוכנים — חובה לפני כל משימה
+
+הריפו מנוהל ע"י Claude כמנהל עבודה, ו-Codex ו-ChatGPT עובדים לצדו. לפני כל משימה:
+
+1. קרא את `docs/team/PROTOCOL.md`: כללי העבודה המשותפת, ענפים, היקף קבצים, ובלי לדרוס עבודה של אחרים.
+2. קרא את `docs/team/BOARD.md`: לוח המשימות. קח רק משימה שמסומנת לך ו-`ready`.
+3. קרא את קובץ המשימה (`docs/team/codex/<ID>.md`), ובצע אותה בענף `codex/<ID>-<slug>`.
+4. הידע על הפרויקט נמצא ב-`CLAUDE.md`. התוכנית העסקית נמצאת ב-`docs/launch/PLAN.md`.
