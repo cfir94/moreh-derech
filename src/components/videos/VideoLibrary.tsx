@@ -230,7 +230,6 @@ export function VideoLibrary() {
   const activeAccent = accentClasses[selectedGroup.accent];
   const activeSubtopic = activeSubtopicGroup.subtopic;
   const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
-  const isUnifiedOnline = selectedSection.id === "online";
   const activePart = selectedVideoPart(activeVideo, activePartId);
   const activePartIndex = activeVideo.parts?.findIndex((part) => part.id === activePart?.id) ?? -1;
   const playerSource = videoPlayerUrl(activeVideo, activePartId, autoplay);
@@ -364,12 +363,10 @@ export function VideoLibrary() {
         </div>
         <h1 className="grad-text text-3xl leading-tight sm:text-4xl">ספריית הסרטונים</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-          {totalVideoCount} מקורות צפייה המחברים בין הקלטות הקורס, יחידות מקוונות,
-          סיורי השטח וספריית ההעשרה.
+          {totalVideoCount} מקורות צפייה: תיעוד סיורי השטח וספריית ההעשרה.
         </p>
         <p className="mt-2 text-sm text-txt-dim">
-          ערוץ הכיתה כולל כעת {classRecordingCount} הקלטות שונות ב־{classVideoCount} אוספים.
-          כל סרטוני השיעור או הסיור זמינים לבחירה בנגן כאן באתר.
+          תיעוד הסיורים כולל {classRecordingCount} סרטונים ב־{classVideoCount} אוספים, וכולם זמינים לבחירה בנגן כאן באתר.
         </p>
         <p className="mt-1 text-xs text-txt-dim">סריקת ערוץ הכיתה: {classVideoScanDate.split("-").reverse().join(".")}</p>
       </header>
@@ -398,7 +395,6 @@ export function VideoLibrary() {
         <p className="mt-3 text-sm leading-relaxed text-txt-dim">{selectedSection.description}</p>
       </section>
 
-      {!isUnifiedOnline && (
       <section aria-label="סינון לפי תחום" className="mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
           {selectedSection.groups.map((group) => {
@@ -423,9 +419,7 @@ export function VideoLibrary() {
           })}
         </div>
       </section>
-      )}
 
-      {!isUnifiedOnline && (
       <section aria-labelledby={`${selectedGroup.id}-heading`} className="mb-4">
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -477,7 +471,6 @@ export function VideoLibrary() {
           </div>
         </div>
       </section>
-      )}
 
       <section aria-label="בחירת קורס או אוסף" aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="mb-5">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -485,9 +478,9 @@ export function VideoLibrary() {
             <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
             <div>
               <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
-                {isUnifiedOnline ? "כל הקורסים המקוונים" : `בחירת אוסף: ${activeSubtopic.title}`}
+                {`בחירת אוסף: ${activeSubtopic.title}`}
               </h3>
-              <p className="mt-0.5 text-xs text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
+              <p className="mt-0.5 text-xs text-txt-dim">{activeSubtopic.description}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
