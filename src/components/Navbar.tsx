@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
+import { UpdatesBell } from "@/components/updates/UpdatesBell";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
@@ -70,6 +71,7 @@ export function Navbar() {
 
         <div className="mr-auto flex items-center gap-2 md:mr-0">
           <SiteSearch />
+          <UpdatesBell />
           <ThemeToggle />
           {ready && user ? (
             <Link

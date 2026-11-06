@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FirstVisitTour } from "@/components/tour/FirstVisitTour";
 import { TimelineDrag } from "@/components/timeline/TimelineDrag";
 
 export const metadata: Metadata = {
@@ -7,5 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function TimelineDragPage() {
-  return <TimelineDrag />;
+  return <>
+      <TimelineDrag />
+      <FirstVisitTour id="timeline-drag" />
+    </>;
 }
