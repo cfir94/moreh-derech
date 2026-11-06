@@ -61,3 +61,6 @@ next-env.d.ts
 
 # Python bytecode from tools/
 __pycache__/
+
+# Playwright
+/test-results/
