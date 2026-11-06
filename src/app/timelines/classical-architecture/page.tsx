@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FirstVisitTour } from "@/components/tour/FirstVisitTour";
 import { ArchitectureStudio } from "@/components/architecture/ArchitectureStudio";
 
 export const metadata: Metadata = {
@@ -7,5 +8,8 @@ export const metadata: Metadata = {
 };
 
 export default function ClassicalArchitecturePage() {
-  return <ArchitectureStudio />;
+  return <>
+      <ArchitectureStudio />
+      <FirstVisitTour id="architecture" />
+    </>;
 }

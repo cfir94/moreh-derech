@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
+import { UpdatesBell } from "@/components/updates/UpdatesBell";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
@@ -70,6 +71,9 @@ export function Navbar() {
 
         <div className="mr-auto flex items-center gap-2 md:mr-0">
           <SiteSearch />
+          <div className="hidden min-[400px]:block">
+            <UpdatesBell />
+          </div>
           <ThemeToggle />
           {ready && user ? (
             <Link
@@ -110,6 +114,11 @@ export function Navbar() {
 
       {open && (
         <ul className="border-t border-line bg-sheet px-4 pb-3 lg:hidden">
+          <li className="min-[400px]:hidden">
+            <Link href="/updates/" onClick={() => setOpen(false)} className="block rounded-[14px] px-3 py-3 text-sm font-bold text-txt-dim hover:bg-card">
+              🔔 מה חדש
+            </Link>
+          </li>
           {links.map((link) => (
             <li key={link.href}>
               <Link
