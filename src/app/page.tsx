@@ -2,6 +2,7 @@ import { QUIZZES } from "@/data/quizzes";
 import { EXAMS } from "@/data/exams";
 import { HomeProgress } from "@/components/HomeProgress";
 import { HomeActions } from "@/components/HomeActions";
+import { GuestToWelcome } from "@/components/landing/GuestToWelcome";
 import { SectionCard } from "@/components/SectionCard";
 
 export default function Home() {
@@ -81,6 +82,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
+      <GuestToWelcome />
       <section className="screen-in relative mb-9">
         {/* The teal glow behind the title, straight from the game's home. */}
         <span

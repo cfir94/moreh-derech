@@ -5,6 +5,7 @@
  * קישור המחברות מצטרף למרכזי הלמידה בלי להעמיס על שורת הניווט.
  */
 import Link from "next/link";
+import { LAUNCH } from "@/lib/launch";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -23,6 +24,7 @@ const links = [
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },
   { href: "/videos", label: "סרטונים" },
+  ...(LAUNCH.paywall ? [{ href: "/pricing", label: "מחירים" }] : []),
 ];
 
 export function Navbar() {
