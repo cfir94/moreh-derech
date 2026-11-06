@@ -9,7 +9,7 @@ import {
   buildGrid, cellKey, clueOrder, entryCell, isFull, isWordFilled, isWordSolved, shown, starsFor, stepClue, streak,
   wordCells, wrongCells, type Fill, type GridCell,
 } from "@/lib/crossword/play";
-import { daysToNextWeek, israelDate, weekByNumber, weekOfDate, weekRange, type CrosswordWeek } from "@/lib/crossword/week";
+import { crosswordDate, daysToNextWeek, weekByNumber, weekOfDate, weekRange, type CrosswordWeek } from "@/lib/crossword/week";
 import {
   clearSave, currentSave, emptySave, readSave, useCrosswordProgress, writeSave, type CrosswordProgress, type CrosswordSave,
 } from "@/lib/crosswordProgress";
@@ -36,7 +36,7 @@ function subscribeClock(onChange: () => void) {
 
 /** Today in Jerusalem; null during the static render, so the week is never baked into the HTML. */
 function useIsraelToday() {
-  return useSyncExternalStore(subscribeClock, () => israelDate(new Date()), () => null);
+  return useSyncExternalStore(subscribeClock, () => crosswordDate(new Date()), () => null);
 }
 
 function subscribeHash(onChange: () => void) {
@@ -597,7 +597,7 @@ function Library({ current, shown: shownWeek, progress, days }: {
       <h2>
         מאגר התשבצים
         <small>
-          <span className="num">{weeks.length}</span> תשבצים · <span className="num">{solved}</span> נפתרו · תשבץ חדש מתווסף בכל יום שישי
+          <span className="num">{weeks.length}</span> תשבצים · <span className="num">{solved}</span> נפתרו · תשבץ חדש מתווסף בכל יום שישי ב־16:00
         </small>
       </h2>
       <ul>

@@ -4,7 +4,7 @@ import { CrosswordGame } from "@/components/crossword/CrosswordGame";
 
 export const metadata: Metadata = {
   title: "תשבץ השבוע | אבן דרך למורי דרך",
-  description: "תשבץ חדש בכל יום שישי: דמויות, אירועים, אתרים ומושגים מכל מחברות קורס מורי הדרך.",
+  description: "תשבץ חדש בכל יום שישי ב־16:00: דמויות, אירועים, אתרים ומושגים מכל מחברות קורס מורי הדרך.",
 };
 
 export default function CrosswordPage() {
