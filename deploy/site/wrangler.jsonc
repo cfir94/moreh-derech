@@ -1,0 +1,22 @@
+// האתר הראשי ב-Cloudflare Workers (קבצים סטטיים). פריסה: .github/workflows/deploy-cloudflare.yml.
+// הבנייה (npm run build עם NEXT_PUBLIC_BASE_PATH="") יוצרת את ../../out.
+{
+  "$schema": "../../history-talk/node_modules/wrangler/config-schema.json",
+  "name": "moreh-derech",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "../../out",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    // רק הכתובות הישנות מפעילות קוד. כל השאר מוגש ישירות, בחינם ובלי להיספר במכסה.
+    "run_worker_first": ["/moreh-derech", "/moreh-derech/*"]
+  }
+  // אחרי קניית הדומיין (USER-ACTIONS §2) מוסיפים:
+  // "routes": [
+  //   { "pattern": "moreyderech.com", "custom_domain": true },
+  //   { "pattern": "www.moreyderech.com", "custom_domain": true }
+  // ]
+}
