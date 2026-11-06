@@ -1,0 +1,16 @@
+<!-- Supabase → Authentication → Emails → "Magic Link" (וגם "Confirm signup" אם מופעל).
+     Subject: קוד הכניסה שלך למורי דרך: {{ .Token }}
+     התבנית שולחת גם קוד (שמקלידים באתר) וגם קישור (לוחצים). שניהם עובדים באתר. -->
+<div dir="rtl" style="font-family: Heebo, Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 24px; color: #0f2a3d;">
+  <h2 style="margin: 0 0 8px; font-size: 22px;">כניסה למורי דרך</h2>
+  <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.6;">הקוד שלך לכניסה לאתר:</p>
+  <p dir="ltr" style="margin: 0 0 20px; font-size: 34px; font-weight: 800; letter-spacing: 8px; text-align: center; background: #e9f8f6; border-radius: 12px; padding: 14px 0;">{{ .Token }}</p>
+  <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.6;">
+    או פשוט לחצו כאן:
+    <a href="{{ .ConfirmationURL }}" style="display: inline-block; margin-top: 8px; padding: 12px 22px; border-radius: 999px; background: linear-gradient(135deg, #14b8a6, #3b82f6); color: #ffffff; font-weight: 800; text-decoration: none;">כניסה לאתר</a>
+  </p>
+  <p style="margin: 0; font-size: 13px; color: #5b7286; line-height: 1.6;">
+    הקוד והקישור תקפים לשעה אחת ולשימוש אחד בלבד. לא ביקשתם להיכנס? אפשר להתעלם מהמייל הזה.<br>
+    שאלות? <a href="mailto:hello@moreyderech.com" style="color: #0f766e;">hello@moreyderech.com</a>
+  </p>
+</div>

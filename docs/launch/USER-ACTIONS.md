@@ -46,6 +46,20 @@
 - Host: `smtp.resend.com` · Port: `465` · User: `resend` · Password: מפתח ה-API של Resend
 - Sender email: `login@moreyderech.com` · Sender name: `מורי דרך`
 
+## 6א. ⬜ Supabase: כתובות חזרה ותבנית מייל בעברית (משחרר: A-01). 5 דקות, חינם
+**נבדק ב-6.11:** הכניסה בקישור מהמייל עובדת מקצה לקצה (Claude בדק עם המייל שלך בדפדפן בדיקה). אבל:
+- **Site URL** של הפרויקט הוא `http://localhost:3000`, כלומר קישור מייל ששולח שרת אמיתי חוזר ל-localhost.
+- התבנית באנגלית, ושולחת רק קישור (בלי קוד להקלדה).
+
+מה לעשות: Supabase ← Authentication ← **URL Configuration**:
+- **Site URL**: `https://moreyderech.com` (עד שהדומיין יעלה: `https://cfir94.github.io/moreh-derech/`)
+- **Redirect URLs**: להוסיף את כל אלה:
+  `https://cfir94.github.io/**` · `https://moreyderech.com/**` · `https://www.moreyderech.com/**` · `https://moreh-derech.cfir94.workers.dev/**` · `http://localhost:3000/**`
+
+Authentication ← **Emails** ← **Magic Link**: נושא `קוד הכניסה שלך למורי דרך: {{ .Token }}`, ותוכן מהקובץ [`email-templates/magic-link.html`](email-templates/magic-link.html). אם "Confirm signup" מופעל, אותו תוכן גם שם.
+
+⚠️ בלי SMTP מותאם (§5–6) Supabase שולח רק כ-2 מיילים בשעה. זה מספיק לבדיקה, לא למשתמשים.
+
 ## 7. ⬜ מייל עסקי hello@moreyderech.com (משחרר: E-02). חינם
 1. Cloudflare ← הדומיין ← **Email** ← Email Routing ← Enable. מוסיף `hello@moreyderech.com` ← היעד הוא ה-Gmail שלך (מאשרים במייל).
 2. Gmail ← הגדרות ← חשבונות ← **שלח דואר בשם** ← `hello@moreyderech.com`, עם SMTP `smtp.resend.com`, פורט 465, משתמש `resend` וסיסמה = מפתח Resend.

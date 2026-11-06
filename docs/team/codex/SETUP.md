@@ -1,5 +1,8 @@
 # Codex — הגדרה חד-פעמית (לבעלים)
 
+> **החשוב ביותר:** חיבור Codex ל-GitHub, כך ש-Claude יפעיל את Codex בלי הבעלים. ההוראות המדויקות ב-[`../chatgpt/START-HERE.md`](../chatgpt/START-HERE.md) §6, והבדיקה שהחיבור עובד ב-issue #57.
+> מה שלמטה הוא הדרך הידנית, כגיבוי.
+
 Codex קורא אוטומטית את `AGENTS.md` שבשורש הריפו, ושם יש הפניה לפרוטוקול. כל מה שצריך:
 
 1. **ב-Codex (chatgpt.com/codex):** Environments ← בחר או צור סביבה לריפו `cfir94/moreh-derech`.
