@@ -11,7 +11,8 @@ import { useState, type ReactNode } from "react";
 import { PricingCards } from "@/components/paywall/PricingCards";
 import { refreshEntitlement, useAccess } from "@/lib/accessStore";
 import { hasAccess, startTrial } from "@/lib/entitlement";
-import { LAUNCH, PRICES } from "@/lib/launch";
+import { PRICES } from "@/lib/launch";
+import { useLaunch } from "@/lib/launchClient";
 import { isFreePath } from "@/lib/plans";
 
 const cta =
@@ -21,7 +22,8 @@ const ctaStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--bl
 export function PaywallGate({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { access, known } = useAccess();
-  if (!LAUNCH.paywall || isFreePath(pathname)) return <>{children}</>;
+  const { paywall } = useLaunch();
+  if (!paywall || isFreePath(pathname)) return <>{children}</>;
   if (hasAccess(access)) {
     return (
       <>

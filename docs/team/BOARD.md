@@ -16,9 +16,9 @@
 | S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
 | CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | in-progress (👀 09:29) | `docs/team/reports/CX-01.md` בלבד | — |
 | CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | in-progress (👀 09:38, הוקצה ע"י Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
-| CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | ready | `marketing/inbox/CX-04/` | — |
-| CX-03 | טקסטים שיווקיים לדף הנחיתה ולרשתות (הועבר מ-GPT-02) | Codex | ready | `marketing/inbox/CX-03/` | — |
-| CX-05 | 6 פוסטים, 3 סטוריז וסרטון קידום מחומרי האתר האמיתיים | Codex | ready | `marketing/inbox/CX-05/`, `tools/marketing/social.*` | — |
+| CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | in-progress | `marketing/inbox/CX-04/` | — |
+| CX-03 | טקסטים לדף הנחיתה, ובמקום פוסטים: הודעות וואטסאפ אישיות (הועבר מ-GPT-02) | Codex | in-progress | `marketing/inbox/CX-03/` | — |
+| CX-05 | (בוטל ע"י הבעלים: בלי שיווק המוני. הקהל הוא תלמידי מורי דרך, ופונים אליהם ישירות בוואטסאפ) | — | cancelled | — | — |
 | GPT-03 | (בוטל: Claude כתב את דפי המשפט ב-L-01) | — | done | — | — |
 
 ## הבא בתור
@@ -45,7 +45,7 @@
 | L-02 | נגישות: בדיקה, תיקונים והצהרה | Codex | backlog | לפי דוח | CX-01 |
 | G-01 | דף נחיתה `/welcome` (הכנה, מספרים, 5 יכולות עם סרטונים, משחקים, מוטי, מחיר, שאלות נפוצות) | Claude | review · הטקסטים ישתפרו עם GPT-02 | `src/app/welcome/**`, `src/components/landing/**` | — |
 | G-02 | 18 צילומי מסך, 3 סרטוני מסך ותמונת שיתוף (`public/marketing/`, 2.4MB) | Claude | review | `public/marketing/**`, `tools/marketing/**` | — |
-| G-03 | תמונות וסרטון לרשתות → CX-05 | Codex | ready | — | — |
+| G-03 | (בוטל: בלי שיווק המוני) | — | cancelled | — | — |
 | G-05 | Web Analytics ומשפך | Claude | backlog | `src/app/layout.tsx` | H-02 |
 
 ## הושלם

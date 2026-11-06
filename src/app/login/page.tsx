@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { EmailCodeLogin } from "@/components/auth/EmailCodeLogin";
 import { useUser } from "@/contexts/UserContext";
 import { friendlyAuthError, isLegacyPasswordError } from "@/lib/cloudAuth";
-import { LAUNCH } from "@/lib/launch";
+import { useLaunch } from "@/lib/launchClient";
 import { clearUser, readUser } from "@/lib/localAuth";
 
 /**
@@ -14,13 +14,15 @@ import { clearUser, readUser } from "@/lib/localAuth";
  * כשהדגל כבוי, לבדיקה אחרי הגדרת ה-SMTP.
  */
 export default function LoginPage() {
-  const [mode, setMode] = useState<"code" | "legacy">(LAUNCH.emailCodeLogin ? "code" : "legacy");
+  const { emailCodeLogin } = useLaunch();
+  const [choice, setMode] = useState<"code" | "legacy" | null>(null);
+  const mode = choice ?? (emailCodeLogin ? "code" : "legacy");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- query string is only readable after hydration
     if (params.get("mode") === "code" || window.location.hash.includes("access_token=")) setMode("code");
   }, []);
-  return mode === "code" ? <CodeLoginShell onUseLegacy={() => setMode("legacy")} /> : <LegacyLogin />;
+  return mode === "code" ? <CodeLoginShell allowLegacy={!emailCodeLogin} onUseLegacy={() => setMode("legacy")} /> : <LegacyLogin />;
 }
 
 function Shell({ title, intro, children }: { title: string; intro: string; children: React.ReactNode }) {
@@ -43,7 +45,7 @@ function Shell({ title, intro, children }: { title: string; intro: string; child
   );
 }
 
-function CodeLoginShell({ onUseLegacy }: { onUseLegacy: () => void }) {
+function CodeLoginShell({ allowLegacy, onUseLegacy }: { allowLegacy: boolean; onUseLegacy: () => void }) {
   const router = useRouter();
   const { user, ready } = useUser();
   const [entered, setEntered] = useState(false);
@@ -55,7 +57,7 @@ function CodeLoginShell({ onUseLegacy }: { onUseLegacy: () => void }) {
   }, [ready, user, entered, router]);
   return (
     <Shell title="כניסה והרשמה" intro="אותו חשבון של משחק אבן דרך. מזינים מייל, מקבלים קוד, ונכנסים.">
-      <EmailCodeLogin onUseLegacy={LAUNCH.emailCodeLogin ? undefined : onUseLegacy} />
+      <EmailCodeLogin onUseLegacy={allowLegacy ? onUseLegacy : undefined} />
     </Shell>
   );
 }
