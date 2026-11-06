@@ -1,0 +1,60 @@
+name: Deploy site to Cloudflare
+
+# בונה את האתר לשורש הדומיין (בלי /moreh-derech) ומעלה ל-Cloudflare Workers (deploy/site/).
+# רץ במקביל לפריסה ל-GitHub Pages (deploy.yml) עד המעבר המלא לדומיין (H-02 עד H-04 ב-docs/team/BOARD.md).
+# בלי הסודות CLOUDFLARE_API_TOKEN ו-CLOUDFLARE_ACCOUNT_ID הפריסה מדולגת (docs/launch/USER-ACTIONS.md §1).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Skip without Cloudflare token
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::CLOUDFLARE_API_TOKEN לא מוגדר — הפריסה ל-Cloudflare מדולגת. ראו docs/launch/USER-ACTIONS.md §1."
+      - uses: actions/checkout@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - uses: actions/setup-node@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          node-version: 22
+      - run: npm ci
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - name: Build for the domain root
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ""
+      - name: Exclude files over Cloudflare's 25MB static limit
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          printf '%s\n' 'embeds/map/data/israel.pmtiles' > out/.assetsignore
+          # שמירה: אם נוסף קובץ גדול חדש, הפריסה תיכשל כאן ולא באמצע ההעלאה.
+          big=$(find out -type f -size +25M ! -path 'out/embeds/map/data/israel.pmtiles')
+          if [ -n "$big" ]; then echo "::error::קבצים מעל 25MB: $big"; exit 1; fi
+          echo "files: $(find out -type f | wc -l)"
+      - name: Deploy
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx --yes wrangler@4.149.0 deploy --config deploy/site/wrangler.jsonc
+      - name: Smoke test
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 5
+          base="https://moreh-derech.${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN || 'cfir94' }}.workers.dev"
+          curl -fsS -m 20 -o /dev/null "$base/" && echo "home ok"
+          code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 "$base/moreh-derech/quizzes/")
+          test "$code" = "301" && echo "legacy redirect ok"

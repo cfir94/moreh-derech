@@ -38,9 +38,9 @@
     // ראו docs/api-notes.md: התיעוד אומר v1beta, ה-SDK אומר v1alpha.
     "GEMINI_API_VERSION": "v1beta",
     // מקורות שמותר להם לבקש אסימון (בנוסף למקור של ה-Worker עצמו).
-    "ALLOWED_ORIGINS": "https://cfir94.github.io,http://localhost:3000,http://localhost:5173",
+    "ALLOWED_ORIGINS": "https://cfir94.github.io,https://moreyderech.com,https://www.moreyderech.com,https://moreh-derech.cfir94.workers.dev,http://localhost:3000,http://localhost:5173",
     // מי רשאי להטמיע את העמוד ב-iframe.
-    "FRAME_ANCESTORS": "https://cfir94.github.io http://localhost:3000",
+    "FRAME_ANCESTORS": "https://cfir94.github.io https://moreyderech.com https://www.moreyderech.com https://moreh-derech.cfir94.workers.dev http://localhost:3000",
     "FREE_TIER_MODE": "true",
     "MAX_SESSION_MINUTES": "12",
     // מכסות יומיות; "0" = בלי הגבלה (המגבלה בפועל: 65 אלף טוקנים לדקה אצל Gemini).
