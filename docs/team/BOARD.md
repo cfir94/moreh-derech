@@ -38,7 +38,7 @@
 | B-02 | `plans.ts`, `entitlement.ts`, `accessStore.ts` | Claude | review | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
 | B-03 | Paywall, `/pricing`, "התוכנית שלי", מוטי רק עם גישה (כבוי: NEXT_PUBLIC_PAYWALL) | Claude | review | `src/components/paywall/**`, `src/app/me/**` | B-02 |
 | B-04 | בחירת ספק סליקה ופתיחת חשבון | בעלים | blocked | — | USER-ACTIONS §3–4 |
-| B-05 | Worker `md-api` (checkout, callback, cancel, cron) | Claude | backlog | `api/**` | B-01, B-04 |
+| B-05 | Worker `md-api`: checkout, callback מאומת, ביטול, תזכורות, ספק מדומה, Grow (טיוטה). 6 בדיקות | Claude | review · Grow ממתין ל-sandbox | `api/**`, `tests/md-api.test.mjs` | B-04 (לחיבור Grow) |
 | B-06 | מוטי בודק זכאות | Claude | backlog | `history-talk/src/worker/**` | B-01, A-01 |
 | L-01 | `/legal/*`: תנאים, פרטיות, ביטול, נגישות (טיוטה; ממתין לפרטי העוסק ולעורך דין) | Claude | review | `src/app/legal/**` | GPT-03 |
 | L-02 | נגישות: בדיקה, תיקונים והצהרה | Codex | backlog | לפי דוח | CX-01 |

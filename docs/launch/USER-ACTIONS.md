@@ -68,8 +68,15 @@ Authentication ← **Emails** ← **Magic Link**: נושא `קוד הכניסה 
 ## 8. ⬜ כניסה עם Google (משחרר: A-02). חינם, 15 דקות
 אכתוב מדריך מדויק כשנגיע לשלב הזה.
 
+## 8א. ⬜ סודות לשרת התשלומים (md-api), הכול ב-GitHub Secrets
+אין צורך בשורת פקודה. ב-GitHub ← Settings ← Secrets and variables ← Actions ← New repository secret:
+- `SUPABASE_SERVICE_KEY`: מ-Supabase ← Project Settings ← API ← **service_role** (סודי! רק כאן).
+- `RESEND_API_KEY`: מסעיף 5.
+- אחרי פתיחת חשבון ב-Grow: `GROW_USER_ID`, `GROW_PAGE_CODE_MONTHLY` ו-`GROW_PAGE_CODE_YEARLY` (Grow נותנים אותם בהקמה).
+- את `BILLING_SECRET` הפריסה יוצרת לבד.
+
 ## 9. ⬜ Supabase: הרצת קובצי SQL (משחרר: S-01, B-01)
-כשתגיע משימה כזו, אכתוב לך: "הרץ את `supabase/xxx.sql`". נכנסים ל-Supabase ← SQL Editor ← מדביקים ← Run.
+**לסדר, כשתתפנה:** `supabase/migrations/20261106_01_admins_notebooks.sql`, `..._02_entitlements.sql`, `..._03_entitlement_reminders.sql`. כל אחד: SQL Editor ← הדבקה ← Run. מותר להריץ שוב. נכנסים ל-Supabase ← SQL Editor ← מדביקים ← Run.
 אפשרות שחוסכת את זה: ליצור Supabase **access token** (Account ← Access Tokens) ולשמור אותו כ-GitHub Secret בשם `SUPABASE_ACCESS_TOKEN`, ואז workflow יריץ את המיגרציות לבד. **מפתח ה-service_role** נכנס כ-`wrangler secret` של ה-Worker בלבד (אכתוב פקודה מדויקת).
 
 ## 10. ⬜ צילום אתר המתחרה
