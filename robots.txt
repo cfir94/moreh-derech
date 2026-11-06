@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /moreh-derech/me/
+Disallow: /moreh-derech/login/
+
+Host: https://cfir94.github.io/moreh-derech
+Sitemap: https://cfir94.github.io/moreh-derech/sitemap.xml
