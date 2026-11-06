@@ -37,6 +37,7 @@ export type ErrorCode =
   | "quota_global"
   | "resume_rejected"
   | "chat_ended"
+  | "daily_exhausted"
   | "gemini_unavailable";
 
 const MESSAGES: Record<ErrorCode, [number, string, string]> = {
@@ -58,6 +59,11 @@ const MESSAGES: Record<ErrorCode, [number, string, string]> = {
   ],
   chat_ended: [403, "השיחה הזו הסתיימה. אפשר להתחיל שיחה חדשה.", "This chat has ended. Start a new one."],
   resume_rejected: [403, "לא ניתן לחדש את השיחה. התחל שיחה חדשה.", "This session can no longer be resumed."],
+  daily_exhausted: [
+    429,
+    "הדמויות ענו היום על המון שאלות ונחות עד מחר בבוקר. בינתיים אפשר לתרגל בשאלונים ובמבחנים באתר.",
+    "Today's conversation quota is used up. Please come back tomorrow.",
+  ],
   gemini_unavailable: [502, "Gemini לא זמין כרגע. נסה שוב בעוד כמה דקות.", "Gemini is unavailable right now."],
 };
 
@@ -167,17 +173,28 @@ export async function commitDailyQuota(
 ) {
   const { ipKey, globalKey } = quotaKeys(ipHash, now);
   await Promise.all([
-    kv.put(ipKey, String(counts.ipCount + 1), { expirationTtl: DAY_TTL }),
-    kv.put(globalKey, String(counts.globalCount + 1), { expirationTtl: DAY_TTL }),
+    safePut(kv, ipKey, String(counts.ipCount + 1), { expirationTtl: DAY_TTL }),
+    safePut(kv, globalKey, String(counts.globalCount + 1), { expirationTtl: DAY_TTL }),
   ]);
 }
 
-/** מונה מצטבר בלבד: כמה שיחות לכל דמות בכל יום. בלי תוכן ובלי IP. */
-export async function recordStat(kv: KVNamespace, characterId: string, now = Date.now()) {
-  const key = `stats:${today(now)}:${characterId}`;
-  const n = await readCount(kv, key);
-  await kv.put(key, String(n + 1), { expirationTtl: 400 * 24 * 60 * 60 });
+/**
+ * מונה שיחות לכל דמות: נרשם ללוגים (Workers Observability) ולא ל-KV. בתוכנית החינמית KV מוגבל
+ * ל-1,000 כתיבות ביום לכל החשבון, וכתיבה לכל שיחה הפילה את מוטי בשעות העומס. בלי תוכן ובלי IP.
+ */
+export function recordStat(characterId: string, now = Date.now()) {
   console.log(JSON.stringify({ event: "session_started", character: characterId, day: today(now) }));
+}
+
+/** כתיבה ל-KV שלא מפילה את הבקשה: המכסה היומית של KV יכולה להיגמר, והתשובה כבר מוכנה. */
+export async function safePut(kv: KVNamespace, key: string, value: string, options?: KVNamespacePutOptions) {
+  try {
+    await kv.put(key, value, options);
+    return true;
+  } catch (err) {
+    console.error(JSON.stringify({ event: "kv_put_failed", key: key.split(":")[0], message: (err as Error).message?.slice(0, 200) }));
+    return false;
+  }
 }
 
 export function securityHeaders(env: Env): Record<string, string> {

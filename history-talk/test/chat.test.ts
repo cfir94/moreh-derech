@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { handleChat, MAX_CHAT_CALLS, validContents } from "../src/worker/chat.ts";
+import { handleChat, MAX_CHAT_CALLS, readTicket, resetModelMemo, signTicket, validContents } from "../src/worker/chat.ts";
 import type { Env } from "../src/worker/guards.ts";
 import type { ServerCharacter } from "../src/worker/prompt.ts";
 
@@ -16,9 +16,9 @@ function setup(turnstileOk = true) {
     put: async (k: string, v: string) => void store.set(k, v),
   };
   const env = {
+    TURNSTILE_SECRET: "s",
     SESSIONS: kv,
     CHAT_LIMITER: { limit: async () => ({ success: true }) },
-    TURNSTILE_SECRET: "s",
     ALLOWED_ORIGINS: "https://cfir94.github.io",
     FREE_TIER_MODE: "true",
   } as unknown as Env;
@@ -38,7 +38,7 @@ function setup(turnstileOk = true) {
       env,
       deps,
     );
-  return { call, sent, store };
+  return { call, sent, store, deps };
 }
 
 const hi = [{ role: "user", parts: [{ text: "שלום" }] }];
@@ -59,11 +59,36 @@ test("פתיחה עם Turnstile, ואחר כך בלי; ההוראות והכלי
 test("בלי Turnstile תקין אין שיחה חדשה; שיחה שמוצתה נסגרת", async () => {
   const bad = setup(false);
   assert.equal((await bad.call({ characterId: "guide", contents: hi })).status, 403);
-  const { call, store } = setup();
-  const { chatId } = await (await call({ characterId: "guide", turnstileToken: "t", contents: hi })).json<any>();
-  store.set(`chat:${chatId}`, JSON.stringify({ characterId: "guide", startedAt: 1_000_000, calls: MAX_CHAT_CALLS }));
-  const r = await call({ characterId: "guide", chatId, contents: hi });
+  const { call } = setup();
+  const spent = await signTicket("s", { characterId: "guide", startedAt: 1_000_000, calls: MAX_CHAT_CALLS });
+  const r = await call({ characterId: "guide", chatId: spent, contents: hi });
   assert.equal((await r.json<any>()).error, "chat_ended");
+});
+
+test("אסימון השיחה חתום: מונה עולה בכל הודעה, זיוף נדחה, ושום דבר לא נכתב ל-KV", async () => {
+  const { call, store } = setup();
+  const b1 = await (await call({ characterId: "guide", turnstileToken: "t", contents: hi })).json<any>();
+  assert.deepEqual(await readTicket("s", b1.chatId), { characterId: "guide", startedAt: 1_000_000, calls: 1 });
+  const b2 = await (await call({ characterId: "guide", chatId: b1.chatId, contents: hi })).json<any>();
+  assert.equal((await readTicket("s", b2.chatId))!.calls, 2);
+  assert.equal(store.size, 0, "הצ'אט לא כותב ל-KV (1,000 כתיבות ביום בתוכנית החינמית)");
+  // זיוף: payload של מונה 0 עם החתימה של אסימון אחר
+  const forged = (await signTicket("s", { characterId: "guide", startedAt: 1_000_000, calls: 0 })).split(".")[0] + "." + b2.chatId.split(".")[1];
+  assert.equal(await readTicket("s", forged), null);
+  assert.equal(await readTicket("other-secret", b2.chatId), null);
+  assert.equal((await (await call({ characterId: "guide", chatId: forged, contents: hi })).json<any>()).error, "chat_ended");
+  // אסימון של דמות אחרת
+  const josephus = await signTicket("s", { characterId: "josephus", startedAt: 1_000_000, calls: 0 });
+  assert.equal((await (await call({ characterId: "guide", chatId: josephus, contents: hi })).json<any>()).error, "chat_ended");
+});
+
+test("מכסה יומית של Gemini: הודעה ברורה, לא 'נסה בעוד דקה'", async () => {
+  const { GeminiError } = await import("../src/worker/chat.ts");
+  const { call, deps } = setup();
+  deps.generate = async () => { throw new GeminiError(429, "daily", true); };
+  const r = await call({ characterId: "guide", turnstileToken: "t", contents: hi });
+  assert.equal(r.status, 429);
+  assert.equal((await r.json<any>()).error, "daily_exhausted");
 });
 
 test("היסטוריה לא תקינה נדחית", () => {
@@ -74,8 +99,9 @@ test("היסטוריה לא תקינה נדחית", () => {
   assert.ok(validContents(hi));
 });
 
-test("מודל עמוס (503) — עוברים מיד ל־Flash-Lite ושומרים את הגיבוי שעבד", async () => {
+test("מודל עמוס (503) — עוברים לגיבוי וזוכרים אותו בזיכרון (לא ב-KV)", async () => {
   const { geminiGenerate, rankFlashModels } = await import("../src/worker/chat.ts");
+  resetModelMemo();
   assert.deepEqual(
     rankFlashModels([
       { name: "models/gemini-3.5-flash-lite", supportedGenerationMethods: ["generateContent"] },
@@ -85,29 +111,48 @@ test("מודל עמוס (503) — עוברים מיד ל־Flash-Lite ושומר�
     ]),
     ["gemini-3.5-flash", "gemini-4.0-flash-preview", "gemini-3.5-flash-lite"],
   );
-  const store = new Map<string, string>();
-  const env = {
-    GEMINI_API_KEY: "k",
-    GEMINI_CHAT_MODEL: "gemini-flash-latest",
-    SESSIONS: { get: async (k: string) => store.get(k) ?? null, put: async (k: string, v: string) => void store.set(k, v) },
-  } as unknown as Env;
+  const env = { GEMINI_API_KEY: "k", GEMINI_CHAT_MODEL: "gemini-flash-lite-latest" } as unknown as Env;
   const calls: string[] = [];
   const realFetch = globalThis.fetch;
   globalThis.fetch = (async (url: string) => {
     calls.push(url.replace("https://generativelanguage.googleapis.com/v1beta/", ""));
-    if (url.includes("gemini-flash-latest")) return new Response("overloaded", { status: 503 });
-    if (url.endsWith("/models?pageSize=200")) {
-      return Response.json({ models: [{ name: "models/gemini-3.5-flash", supportedGenerationMethods: ["generateContent"] }] });
-    }
+    if (url.includes("gemini-flash-lite-latest")) return new Response("overloaded", { status: 503 });
     return Response.json({ candidates: [{ content: { parts: [{ text: "שלום" }] } }] });
   }) as unknown as typeof fetch;
   try {
     const { parts } = await geminiGenerate(env, {});
     assert.deepEqual(parts, [{ text: "שלום" }]);
-    assert.deepEqual(calls, ["models/gemini-flash-latest:generateContent", "models/gemini-flash-lite-latest:generateContent"]);
-    assert.equal(store.get("chat-model"), "gemini-flash-lite-latest");
+    assert.deepEqual(calls, ["models/gemini-flash-lite-latest:generateContent", "models/gemini-flash-latest:generateContent"]);
+    calls.length = 0;
+    await geminiGenerate(env, {});
+    assert.deepEqual(calls, ["models/gemini-flash-latest:generateContent"], "המודל שעבד נוסה ראשון");
   } finally {
     globalThis.fetch = realFetch;
+    resetModelMemo();
+  }
+});
+
+test("מכסה יומית (429 PerDay): המודל נחסם עד האיפוס, וכשכולם חסומים — שגיאה יומית בלי לפנות ל-Gemini", async () => {
+  const { geminiGenerate, GeminiError, nextQuotaReset } = await import("../src/worker/chat.ts");
+  resetModelMemo();
+  assert.equal(new Date(nextQuotaReset(Date.UTC(2026, 10, 6, 7, 0))).toISOString(), "2026-11-06T08:00:00.000Z");
+  assert.equal(new Date(nextQuotaReset(Date.UTC(2026, 10, 6, 9, 0))).toISOString(), "2026-11-07T08:00:00.000Z");
+  const env = { GEMINI_API_KEY: "k", GEMINI_CHAT_MODEL: "gemini-flash-lite-latest" } as unknown as Env;
+  const realFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = (async (url: string) => {
+    calls++;
+    if (url.endsWith("/models?pageSize=200")) return Response.json({ models: [] });
+    return new Response('{"error":{"details":[{"quotaId":"GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]}}', { status: 429 });
+  }) as unknown as typeof fetch;
+  try {
+    await assert.rejects(geminiGenerate(env, {}), (err: unknown) => err instanceof GeminiError && err.status === 429 && err.daily);
+    const before = calls;
+    await assert.rejects(geminiGenerate(env, {}), (err: unknown) => err instanceof GeminiError && err.daily);
+    assert.ok(calls - before <= 1, "מודלים חסומים לא נוסים שוב (לכל היותר רשימת המודלים)");
+  } finally {
+    globalThis.fetch = realFetch;
+    resetModelMemo();
   }
 });
 
@@ -138,7 +183,8 @@ test("שגיאת בקשה אינה גוררת החלפת מודלים והמתנ
   let calls = 0;
   globalThis.fetch = (async () => { calls++; return new Response("bad history", { status: 400 }); }) as typeof fetch;
   try {
-    const env = { GEMINI_API_KEY: "k", SESSIONS: { get: async () => null } } as unknown as Env;
+    resetModelMemo();
+    const env = { GEMINI_API_KEY: "k" } as unknown as Env;
     await assert.rejects(geminiGenerate(env, {}), (err: unknown) => err instanceof GeminiError && err.status === 400);
     assert.equal(calls, 1);
   } finally { globalThis.fetch = realFetch; }

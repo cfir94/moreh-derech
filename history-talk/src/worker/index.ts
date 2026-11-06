@@ -13,6 +13,7 @@ import {
   intVar,
   isFreeTier,
   recordStat,
+  safePut,
   securityHeaders,
   verifyTurnstile,
   type Env,
@@ -131,9 +132,10 @@ export async function handleToken(request: Request, env: Env, deps: Deps = defau
   }
 
   if (quotaCounts) await commitDailyQuota(env.SESSIONS, ipHash, quotaCounts, now);
-  if (countSession) await recordStat(env.SESSIONS, characterId, now);
+  if (countSession) recordStat(characterId, now);
   const ttl = Math.max(60, Math.ceil((session.startedAt + (maxMinutes + 30) * 60_000 - now) / 1000));
-  await env.SESSIONS.put(`sess:${sessionId}`, JSON.stringify(session), { expirationTtl: ttl });
+  // רק בשביל חידוש אחרי ניתוק. אם KV לא זמין, השיחה עצמה עובדת ורק החידוש ייכשל.
+  await safePut(env.SESSIONS, `sess:${sessionId}`, JSON.stringify(session), { expirationTtl: ttl });
 
   // 7. תשובה — בלי ההוראות ובלי המפתח.
   return Response.json(

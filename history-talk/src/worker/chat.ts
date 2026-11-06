@@ -1,7 +1,9 @@
 // צ'אט בכתב (/api/chat): אותה דמות, אותן הוראות ואותם כלים — דרך generateContent, בלי קול.
 // השרת לא שומר את השיחה: הדפדפן שולח את ההיסטוריה בכל בקשה, ומריץ בעצמו את הכלים
 // (החיפוש במקורות ומאגר השאלות יושבים בדפדפן), ואז שולח את התוצאה בבקשה הבאה.
-// ההוראות והכלים נקבעים כאן בלבד. שיחה נפתחת ב-Turnstile ונשמרת ב-KV עם מונה בקשות.
+// ההוראות והכלים נקבעים כאן בלבד. שיחה נפתחת ב-Turnstile. מצב השיחה (דמות, התחלה, מונה) נשמר
+// באסימון חתום (HMAC) שחוזר לדפדפן בכל תשובה, ולא ב-KV: ל-KV יש בתוכנית החינמית רק 1,000
+// כתיבות ביום לכל החשבון, וכתיבה לכל הודעה הפילה את מוטי בשעות העומס.
 
 import {
   allowedOrigin,
@@ -21,10 +23,46 @@ export const CHAT_HOURS = 3;
 const MAX_CONTENTS = 80;
 const MAX_CHARS = 60_000;
 
-interface ChatRecord {
+export interface ChatRecord {
   characterId: string;
   startedAt: number;
   calls: number;
+}
+
+const b64url = (bytes: Uint8Array) =>
+  btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const fromB64url = (text: string) =>
+  Uint8Array.from(atob(text.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+
+async function hmac(secret: string, payload: string): Promise<Uint8Array> {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(`chat-ticket:${secret}`), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  return new Uint8Array(await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload)));
+}
+
+/** אסימון השיחה: `<payload>.<חתימה>`. הדפדפן מחזיר אותו בכל הודעה ומקבל אסימון חדש עם המונה המעודכן. */
+export async function signTicket(secret: string, chat: ChatRecord): Promise<string> {
+  const payload = b64url(new TextEncoder().encode(JSON.stringify([chat.characterId, chat.startedAt, chat.calls])));
+  return `${payload}.${b64url(await hmac(secret, payload))}`;
+}
+
+/** אסימון לא חתום, מזויף או פגום מחזיר null. השוואת החתימה אינה תלויה בזמן. */
+export async function readTicket(secret: string, ticket: string): Promise<ChatRecord | null> {
+  if (ticket.length > 400) return null;
+  const [payload, sig, extra] = ticket.split(".");
+  if (!payload || !sig || extra !== undefined) return null;
+  try {
+    const expected = await hmac(secret, payload);
+    const given = fromB64url(sig);
+    if (given.length !== expected.length) return null;
+    let diff = 0;
+    for (let i = 0; i < expected.length; i++) diff |= expected[i] ^ given[i];
+    if (diff) return null;
+    const [characterId, startedAt, calls] = JSON.parse(new TextDecoder().decode(fromB64url(payload)));
+    if (typeof characterId !== "string" || !Number.isFinite(startedAt) || !Number.isInteger(calls)) return null;
+    return { characterId, startedAt, calls };
+  } catch {
+    return null;
+  }
 }
 
 type Part = (
@@ -86,9 +124,12 @@ export function chatRequestBody(character: ServerCharacter, contents: Content[])
 
 export class GeminiError extends Error {
   readonly status: number;
-  constructor(status: number, message: string) {
+  /** 429 בגלל המכסה היומית (ולא הדקתית): אין טעם לנסות את המודל הזה שוב עד האיפוס. */
+  readonly daily: boolean;
+  constructor(status: number, message: string, daily = false) {
     super(message);
     this.status = status;
+    this.daily = daily;
   }
 }
 
@@ -100,7 +141,11 @@ export async function geminiJson(url: string, init: RequestInit, timeoutMs = 10_
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const res = await fetch(url, { ...init, signal: controller.signal });
-    if (!res.ok) throw new GeminiError(res.status, `Gemini ${res.status}`);
+    if (!res.ok) {
+      // ב-429 גוף השגיאה אומר איזו מכסה נגמרה (למשל GenerateRequestsPerDayPerProjectPerModel-FreeTier).
+      const detail = res.status === 429 ? await res.text().catch(() => "") : "";
+      throw new GeminiError(res.status, `Gemini ${res.status}`, /PerDay/i.test(detail));
+    }
     return await res.json();
   } catch (err) {
     if (controller.signal.aborted) throw new GeminiError(504, "Gemini response timed out");
@@ -142,18 +187,40 @@ const RETRY = new Set([404, 429, 500, 502, 503, 504]);
 const MAX_MODELS = 3;
 
 /**
- * קודם המודל שנבחר בפעם הקודמת (או זה שהוגדר). אם הוא עמוס (503/500/429) או לא קיים (404/400) —
- * מנסים קודם Flash-Lite ואז מודל נוסף מהרשימה, עד שלושה ניסיונות עם זמן קצוב. מודל שעבד נשמר לשעה.
+ * זיכרון של ה-isolate (לא KV): המודל שעבד לאחרונה, ומודלים שנחסמו. מכסה יומית של Gemini מתאפסת
+ * בחצות שעון פסיפיק (08:00 UTC בחורף, 07:00 בקיץ; שעה של חסימה מיותרת בקיץ זה מחיר סביר).
+ * מכסה דקתית נחסמת לדקה.
+ */
+const memo = { preferred: "", blockedUntil: new Map<string, number>() };
+
+export function resetModelMemo() {
+  memo.preferred = "";
+  memo.blockedUntil.clear();
+}
+
+export function nextQuotaReset(now: number): number {
+  const reset = new Date(now);
+  reset.setUTCHours(8, 0, 0, 0);
+  if (reset.getTime() <= now) reset.setUTCDate(reset.getUTCDate() + 1);
+  return reset.getTime();
+}
+
+/**
+ * סדר הניסיונות: המודל שעבד בפעם הקודמת, ואחריו המודל שהוגדר. בתוכנית החינמית Flash-Lite קודם, כי
+ * המכסה היומית שלו גבוהה בהרבה (Flash מקבל כ-20 בקשות ביום לפרויקט). אחריו Flash כגיבוי, ואחר כך
+ * רשימת המודלים הזמינים. מודל חסום מדולג עד שהחסימה פגה. עד שלושה ניסיונות עם זמן קצוב.
  */
 export const geminiGenerate: GenerateFn = async (env, body) => {
-  const first = (await env.SESSIONS.get("chat-model")) || env.GEMINI_CHAT_MODEL || "gemini-flash-latest";
+  const now = Date.now();
+  const configured = env.GEMINI_CHAT_MODEL || "gemini-flash-lite-latest";
+  const usable = (m: string) => (memo.blockedUntil.get(m) ?? 0) <= now;
   const tried: string[] = [];
-  // גיבוי ממשפחה קלה לפני רשימת גרסאות Flash שעלולות להפנות לאותו מודל עמוס.
-  let queue = [first, "gemini-flash-lite-latest"];
+  let queue = [memo.preferred, configured, "gemini-flash-lite-latest", "gemini-flash-latest"].filter(Boolean);
   let listed = false;
   let lastError: unknown;
+  let allDaily = true;
   while (tried.length < MAX_MODELS) {
-    const model = queue.find((m) => !tried.includes(m));
+    const model = queue.find((m) => !tried.includes(m) && usable(m));
     if (!model) {
       if (listed) break;
       listed = true;
@@ -168,13 +235,24 @@ export const geminiGenerate: GenerateFn = async (env, body) => {
     tried.push(model);
     try {
       const parts = await callModel(env, model, body);
-      if (model !== first) await env.SESSIONS.put("chat-model", model, { expirationTtl: 3600 });
+      memo.preferred = model;
       return { parts };
     } catch (err) {
       lastError = err;
       if (!(err instanceof GeminiError) || !RETRY.has(err.status)) throw err;
-      console.error(JSON.stringify({ event: "chat_model_retry", model, status: err.status }));
+      if (err.status === 429) memo.blockedUntil.set(model, err.daily ? nextQuotaReset(now) : now + 60_000);
+      if (!(err.status === 429 && err.daily)) allDaily = false;
+      if (memo.preferred === model) memo.preferred = "";
+      console.error(JSON.stringify({ event: "chat_model_retry", model, status: err.status, daily: err instanceof GeminiError && err.daily }));
     }
+  }
+  if (!tried.length) {
+    // כל המודלים כבר חסומים. חסימה ארוכה מכמה דקות היא מכסה יומית.
+    const longest = Math.max(0, ...memo.blockedUntil.values());
+    throw new GeminiError(429, "all models blocked", longest - now > 5 * 60_000);
+  }
+  if (allDaily && lastError instanceof GeminiError && lastError.status === 429) {
+    throw new GeminiError(429, "daily quota exhausted", true);
   }
   throw lastError ?? new GeminiError(503, "no flash model available");
 };
@@ -213,17 +291,17 @@ export async function handleChat(
   if (!(await env.CHAT_LIMITER.limit({ key: ipHash })).success) return errorResponse("rate_limited", cors);
 
   const now = deps.now();
-  let chatId = typeof body.chatId === "string" ? body.chatId : "";
-  let chat = chatId ? await env.SESSIONS.get<ChatRecord>(`chat:${chatId}`, "json") : null;
-  if (chatId && (!chat || chat.characterId !== characterId || chat.calls >= MAX_CHAT_CALLS || now > chat.startedAt + CHAT_HOURS * 3_600_000)) {
+  const secret = env.TURNSTILE_SECRET;
+  const ticket = typeof body.chatId === "string" ? body.chatId : "";
+  let chat = ticket ? await readTicket(secret, ticket) : null;
+  if (ticket && (!chat || chat.characterId !== characterId || chat.calls >= MAX_CHAT_CALLS || now > chat.startedAt + CHAT_HOURS * 3_600_000)) {
     return errorResponse("chat_ended", cors);
   }
   if (!chat) {
     const token = typeof body.turnstileToken === "string" ? body.turnstileToken : undefined;
     if (!(await verifyTurnstile(token, ip, env.TURNSTILE_SECRET, deps.fetcher))) return errorResponse("turnstile_failed", cors);
-    chatId = crypto.randomUUID();
     chat = { characterId, startedAt: now, calls: 0 };
-    await recordStat(env.SESSIONS, characterId, now);
+    recordStat(characterId, now);
   }
 
   let parts: Part[];
@@ -232,11 +310,11 @@ export async function handleChat(
   } catch (err) {
     console.error(JSON.stringify({ event: "chat_error", message: (err as Error).message?.slice(0, 300) }));
     const status = err instanceof GeminiError ? err.status : 0;
+    if (err instanceof GeminiError && err.daily) return errorResponse("daily_exhausted", cors);
     // 429 = מכסת הקצב של Gemini; הקוד מוצג בהודעה כדי שאפשר יהיה לאבחן תקלה.
     return errorResponse(status === 429 ? "rate_limited" : "gemini_unavailable", cors, status ? `Gemini ${status}` : undefined);
   }
-  chat = { ...chat, calls: chat.calls + 1 };
-  await env.SESSIONS.put(`chat:${chatId}`, JSON.stringify(chat), { expirationTtl: CHAT_HOURS * 3600 });
+  const chatId = await signTicket(secret, { ...chat, calls: chat.calls + 1 });
 
   // רק טקסט וקריאות לכלים חוזרים לדפדפן (בלי "מחשבות" של המודל).
   const reply = parts.filter((p) => ("text" in p && !(p as { thought?: boolean }).thought) || "functionCall" in p);

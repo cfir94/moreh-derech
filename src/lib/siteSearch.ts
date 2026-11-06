@@ -137,7 +137,7 @@ function videoResults(): SearchResult[] {
       group.items.map((item) => ({
         id: `video-${item.id}`,
         kind: "video" as const,
-        kindLabel: section.id === "tours" ? "סרטוני סיור" : section.id === "online" ? "קורס מקוון" : section.id === "theory" ? "שיעור עיוני" : "סרטון העשרה",
+        kindLabel: section.id === "tours" ? "סרטוני סיור" : "סרטון העשרה",
         title: item.title,
         description: `${group.category} · ${item.description}`,
         href: `/videos/?video=${encodeURIComponent(item.id)}`,
