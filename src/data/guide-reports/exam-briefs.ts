@@ -1,3 +1,5 @@
+import { PRACTICE_PAPERS } from "@/data/guide-reports/practice-papers";
+
 /**
  * חלק ב' של מבחן הרישוי — הניסוח המקורי של משרד התיירות.
  *
@@ -40,6 +42,8 @@ export type ExamGroup = {
 
 export type ExamPaper = {
   slug: string;
+  /** One of our own practice papers in the 2026 shape, not a Ministry paper. */
+  practice?: boolean;
   /** e.g. "סיוון תשפ״ב · יוני 2022" */
   sitting: string;
   /** Points for part II, where the paper prints its mark scheme. */
@@ -52,7 +56,7 @@ export type ExamPaper = {
   groups: ExamGroup[];
 };
 
-export const EXAM_PAPERS: ExamPaper[] = [
+export const OFFICIAL_PAPERS: ExamPaper[] = [
   {
     slug: "july-2026",
     sitting: "תמוז תשפ״ו · יולי 2026",
@@ -318,6 +322,20 @@ export const EXAM_PAPERS: ExamPaper[] = [
     ],
   },
 ];
+
+/**
+ * Official papers first (newest first), then our practice papers. Practice
+ * papers come last so `EXAM_PAPERS[0]` stays the newest real sitting.
+ */
+export const EXAM_PAPERS: ExamPaper[] = [...OFFICIAL_PAPERS, ...PRACTICE_PAPERS];
+
+/**
+ * The conditions every brief assumes, as the coordinator read them out in the
+ * 6 November 2026 session: a May day, good weather, summer opening hours, and
+ * a group handed over at 08:00 already fed and ready to go.
+ */
+export const EXAM_CONDITIONS =
+  "הסיור מתקיים במאי, במזג אוויר נאה ובשעות קיץ. ב-08:00 הקבוצה כבר אכלה ארוחת בוקר, הייתה בשירותים ומצוידת במים — ארוזה לטיול.";
 
 export function paperBySlug(slug: string): ExamPaper | undefined {
   return EXAM_PAPERS.find((p) => p.slug === slug);
