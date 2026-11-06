@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { FEATURED_RESOURCES, RESOURCE_GROUPS } from "@/data/resources";
 import { TOPICS } from "@/data/topics";
@@ -5,9 +6,11 @@ import { QUIZZES } from "@/data/quizzes";
 import { ResourceCredit, ResourceList } from "@/components/ResourceList";
 import { domainStyle } from "@/lib/domains";
 
-export const metadata = {
+export const metadata = pageMeta({
   title: "סיכומים וחומרי לימוד",
-};
+  description: "סיכומים, מצגות וקישורים לפי נושאי הסילבוס למורי דרך, לצד דוחות סיור, מסלולים לדוגמה ומפות, עם סדר עדיפויות המבוסס על שאלות מבחנים.",
+  path: "/resources",
+});
 
 export default function ResourcesPage() {
   const total =

@@ -8,7 +8,7 @@ import { withBasePath } from "@/lib/basePath";
 import { LAUNCH, PRICES, SITE_URL } from "@/lib/launch";
 
 export const metadata: Metadata = {
-  title: "אבן דרך למורי דרך — כל ההכנה למבחן הרישוי במקום אחד",
+  title: { absolute: "אבן דרך למורי דרך — כל ההכנה למבחן הרישוי במקום אחד" },
   description: `מבחני רישוי אמיתיים בתנאי אמת, אלפי שאלות לפי נושא, תרגול טעויות חכם, צירי זמן, מפות ומשחקים. ${PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי.`,
   openGraph: {
     title: "אבן דרך למורי דרך — כל ההכנה למבחן הרישוי במקום אחד",
