@@ -5,10 +5,11 @@ import { ApiError } from "./live-client.ts";
 import type { QuizArgs, QuizItem, QuizShown } from "./quiz.ts";
 import type { Passage } from "./search.ts";
 
-type Part =
+type Part = (
   | { text: string }
-  | { functionCall: { name: string; args?: Record<string, unknown> } }
-  | { functionResponse: { name: string; response: Record<string, unknown> } };
+  | { functionCall: { name: string; args?: Record<string, unknown>; id?: string } }
+  | { functionResponse: { name: string; response: Record<string, unknown>; id?: string } }
+) & { thoughtSignature?: string };
 
 interface Content {
   role: "user" | "model";
@@ -32,6 +33,7 @@ const KEEP = 60;
 export class ChatClient {
   private history: Content[] = [];
   private chatId?: string;
+  private controller?: AbortController;
   private readonly opts: ChatClientOptions;
 
   constructor(opts: ChatClientOptions) {
@@ -42,26 +44,41 @@ export class ChatClient {
     return Boolean(this.chatId);
   }
 
+  close(): void {
+    this.controller?.abort();
+  }
+
   /** הודעה מהתלמיד → התשובה בטקסט. ההודעה הראשונה צריכה אסימון Turnstile. */
   async send(text: string, turnstileToken?: string): Promise<string> {
     // אם משהו נכשל באמצע (גם אחרי סבב כלים) — ההיסטוריה חוזרת למצבה לפני ההודעה, ואפשר לשלוח שוב.
     const mark = this.history.length;
+    const controller = new AbortController();
+    this.controller = controller;
+    const timer = setTimeout(() => controller.abort(), 60_000);
     try {
       this.history.push({ role: "user", parts: [{ text: text.slice(0, 2000) }] });
       for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
-        const parts = await this.request(turnstileToken);
+        const parts = await this.request(controller.signal, turnstileToken);
         turnstileToken = undefined;
-        if (!parts.length) return "…";
+        if (!parts.length) throw new ApiError("empty_reply", "לא התקבלה תשובה. אפשר לנסות שוב.");
         this.history.push({ role: "model", parts });
         const calls = parts.filter((p): p is Extract<Part, { functionCall: unknown }> => "functionCall" in p);
         if (!calls.length) return parts.map((p) => ("text" in p ? p.text : "")).join("").trim();
-        const responses = await Promise.all(calls.map((c) => this.runTool(c.functionCall.name, c.functionCall.args ?? {})));
+        const responses = await this.untilAborted(Promise.all(calls.map(async (c) => {
+          const response = await this.runTool(c.functionCall.name, c.functionCall.args ?? {});
+          if (c.functionCall.id && "functionResponse" in response) response.functionResponse.id = c.functionCall.id;
+          return response;
+        })), controller.signal);
         this.history.push({ role: "user", parts: responses });
       }
       return "רגע, הסתבכתי בחיפוש. אפשר לנסח את השאלה שוב?";
     } catch (err) {
       this.history.length = mark;
+      if (controller.signal.aborted) throw new ApiError("timeout", "התשובה מתעכבת. אפשר לנסות שוב בעוד רגע.");
       throw err;
+    } finally {
+      clearTimeout(timer);
+      this.controller = undefined;
     }
   }
 
@@ -73,15 +90,26 @@ export class ChatClient {
     return this.history.slice(i);
   }
 
-  private async request(turnstileToken?: string): Promise<Part[]> {
+  private untilAborted<T>(promise: Promise<T>, signal: AbortSignal): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const abort = () => reject(new ApiError("timeout", "התשובה מתעכבת. אפשר לנסות שוב בעוד רגע."));
+      if (signal.aborted) return abort();
+      signal.addEventListener("abort", abort, { once: true });
+      promise.then(resolve, reject).finally(() => signal.removeEventListener("abort", abort));
+    });
+  }
+
+  private async request(signal: AbortSignal, turnstileToken?: string): Promise<Part[]> {
     let res: Response;
     try {
       res = await fetch(`${this.opts.apiBase}/api/chat`, {
         method: "POST",
+        signal: AbortSignal.any([signal, AbortSignal.timeout(38_000)]),
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ characterId: this.opts.characterId, chatId: this.chatId, turnstileToken, contents: this.trimmed() }),
       });
-    } catch {
+    } catch (err) {
+      if (signal.aborted || (err as Error).name === "TimeoutError") throw new ApiError("timeout", "התשובה מתעכבת. אפשר לנסות שוב בעוד רגע.");
       throw new ApiError("network", "אין חיבור לשרת. בדוק את האינטרנט ונסה שוב.");
     }
     const data = (await res.json().catch(() => ({}))) as { chatId?: string; parts?: Part[]; error?: string; messageHe?: string; detail?: string };

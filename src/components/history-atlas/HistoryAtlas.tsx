@@ -1,97 +1,292 @@
 "use client";
 import Link from "next/link";
-import {useEffect,useMemo,useRef,useState,type PointerEvent} from "react";
-import {SECOND_TEMPLE_ATLAS as C,ATLAS_SOURCES,ordinal,rangeLabel,levelFor,clampWindow,zoomWindow,buildGroups,type AtlasNode,type AtlasWindow,type AtlasImage} from "@/data/history-atlas";
+import {useCallback,useEffect,useMemo,useRef,useState,type CSSProperties,type KeyboardEvent} from "react";
+import {HISTORY_ATLAS,TOPICS,ATLAS_SOURCES,HEADER,LEVEL_HEIGHT,LEVEL_SPAN,MIN_SPAN,centerAt,chronology,fitWhole,placeChips,COLUMNS,fitWithRoom,withHome,isPlaced,roomyBounds,layoutTree,levelOf,ordinal,panBy,rangeLabel,relatedIds,timeScale,toV,toYear,topicsOf,zoomAround,type AtlasCollection,type AtlasLevel,type AtlasNode,type AtlasTopic,type AtlasWindow,type Cluster,type TimeScale,type TreeLayout} from "@/data/history-atlas";
+import {AtlasMinimap} from "./AtlasMinimap";
+import {AtlasPanel} from "./AtlasPanel";
+import {AtlasLegend,AtlasStage,spanLabel,type TopicChip} from "./AtlasStage";
+import {Face,tint} from "./shared";
+import {useCamera} from "./useCamera";
 import s from "./HistoryAtlas.module.css";
-const BY_ID=new Map(C.nodes.map(n=>[n.id,n]));
-const BASE={from:ordinal(C.from),to:ordinal(C.to)},EXPANDED={from:ordinal(C.contextFrom),to:ordinal(C.contextTo)};
-const LEVELS={overview:"מבט על",context:"הקשר",detail:"פירוט מלא"};
-const normalize=(text:string)=>text.normalize("NFKD").replace(/[\u0591-\u05C7]/g,"").toLowerCase();
-function Face({image,name,large=false}:{image?:AtlasImage;name:string;large?:boolean}){
- const [failed,setFailed]=useState(false);
- return <span className={s.face+(large?" "+s.largeFace:"")}>{image&&!failed?<img src={image.localSrc} alt={image.alt} width={large?160:90} height={large?180:100} loading="lazy" onError={()=>setFailed(true)}/>:<span aria-hidden>{name.replace(/[^א-תA-Za-z]/g,"").slice(0,2)}</span>}{/* eslint-disable-line @next/next/no-img-element */}</span>;
+
+/**
+ * A world is what the stage shows: the whole axis, or one topic opened as a dimension of its own. Each has its
+ * collection, time scale and camera bounds; the component switches between them and keeps the axis's view to
+ * come back to.
+ */
+type World={C:AtlasCollection;topic:AtlasTopic|null;byId:Map<string,AtlasNode>;scale:TimeScale;bounds:AtlasWindow;first:number;last:number;order:AtlasNode[]};
+function worldOf(C:AtlasCollection,topic:AtlasTopic|null):World{
+ const scale=timeScale(C);
+ /** A little room past both ends, so the first and last items can scroll clear of the bars. */
+ const first=toV(scale,ordinal(C.from)),last=toV(scale,ordinal(C.to)+1);
+ return {C,topic,byId:new Map(C.nodes.map(n=>[n.id,n])),scale,bounds:roomyBounds(toV(scale,ordinal(C.contextFrom)),toV(scale,ordinal(C.contextTo)+1)),first,last,order:chronology(C)};
 }
+const AXIS=worldOf(HISTORY_ATLAS,null);
+const WORLDS=new Map(TOPICS.map(t=>[t.id,worldOf(t.collection,t)]));
+/** Spans are set for a desktop stage; a shorter one gets proportionally less, so a phone sees the same density. */
+const fitTo=(span:number,height:number)=>span*Math.max(240,height-HEADER)/LEVEL_HEIGHT;
+/** The axis opens at its top, the Bronze Age, close enough that scrolling down walks through the periods; a topic opens whole. */
+/** The whole of a world, with room for the first portraits and the last names (stage.ts, `fitWithRoom`). */
+const homeFor=(w:World,height:number,width=1280)=>fitWhole(w.C,w.scale,w.bounds,{width,height},{lane:width>=WIDE_LANE});
+const startFor=(w:World,height:number,width?:number)=>w.topic?homeFor(w,height,width):centerAt(toV(w.scale,ordinal(w.C.from)),fitTo(980,height),.05,w.bounds);
+const START=startFor(AXIS,LEVEL_HEIGHT+HEADER);
+const LEVEL_TEXT:Record<AtlasLevel,{title:string;note:string}>={
+ overview:{title:"מבט על",note:"רק דמויות המפתח והאירועים המכוננים"},
+ context:{title:"הקשר",note:"נוספות דמויות ואירועים משניים"},
+ detail:{title:"פירוט מלא",note:"כל הדמויות והאירועים בחלון"},
+};
+const LEVEL_SPANS:Record<Exclude<AtlasLevel,"overview">,number>={context:560,detail:170};
+const normalize=(text:string)=>text.normalize("NFKD").replace(/[֑-ׇ]/g,"").replace(/["'״׳]/g,"").toLowerCase();
+/** How much smaller or larger the whole stage may be drawn. */
+const UI={min:.55,max:1.35};
+/** From this width the lane of event titles opens beside the tree; below it, it starts closed. */
+const WIDE_LANE=900;
+/** Below this width the card opens as a sheet over the lower part of the stage instead of beside it. */
+const sheet=()=>window.matchMedia("(max-width: 1099px)").matches;
+/** `#P-033` is an item of the axis; `#jesus` opens a topic, `#jesus/JS-27` an item in it. */
+const parseHash=(hash:string)=>{const [a,b]=decodeURIComponent(hash.replace(/^#/,"")).split("/");return WORLDS.has(a)?{topic:a,id:b||null}:{topic:null,id:a||null};};
+
 export function HistoryAtlas(){
- const [view,setView]=useState<AtlasWindow>(BASE),[context,setContext]=useState(false),[kind,setKind]=useState<"all"|"person"|"event">("all"),[query,setQuery]=useState(""),[selected,setSelected]=useState<string|null>(null);
- const chart=useRef<HTMLDivElement>(null),dialog=useRef<HTMLDialogElement>(null),menu=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement|null>(null),focusYear=useRef((BASE.from+BASE.to)/2),drag=useRef(false);
- const bounds=context?EXPANDED:BASE,level=levelFor(view),span=view.to-view.from,boundsSpan=bounds.to-bounds.from;
- const groups=useMemo(()=>buildGroups(C,view,kind,context),[view,kind,context]);
- const results=useMemo(()=>query.trim()?C.nodes.filter(n=>normalize(n.title+" "+n.subtitle+" "+n.summary).includes(normalize(query.trim()))).slice(0,9):[],[query]);
- const active=selected?BY_ID.get(selected):null;
- const visibleCount=groups.reduce((n,g)=>n+g.nodes.length,0);
- function scrollChart(){requestAnimationFrame(()=>chart.current?.scrollIntoView({block:"start",behavior:"auto"}));}
- function change(next:AtlasWindow,scroll=true){setView(clampWindow(next,bounds));if(scroll)scrollChart();}
- function zoom(factor:number){change(zoomWindow(view,factor,Math.max(view.from,Math.min(view.to,focusYear.current)),bounds));}
- function all(){setView(bounds);setKind("all");focusYear.current=(bounds.from+bounds.to)/2;scrollChart();}
- function phase(id:string){const p=C.phases.find(p=>p.id===id)!;const next={from:ordinal(p.from),to:ordinal(p.to)};if(next.from<BASE.from||next.to>BASE.to)setContext(true);focusYear.current=(next.from+next.to)/2;setView(next);menu.current?.close();scrollChart();}
- function open(id:string,button?:HTMLButtonElement){
-  const node=BY_ID.get(id);if(!node)return;
-  if(button)trigger.current=button;
-  setSelected(id);setQuery("");focusYear.current=(node.from+node.to)/2;
-  if(!dialog.current?.open)dialog.current?.showModal();else dialog.current.scrollTop=0;
-  window.history.replaceState(null,"","#"+id);
- }
- function locate(id:string){
-  const n=BY_ID.get(id);if(!n)return;
-  const outside=n.from<BASE.from||n.to>BASE.to;
-  if(outside)setContext(true);
-  const b=outside?EXPANDED:bounds;
-  setView(clampWindow({from:n.from-12,to:n.to+12},b));setKind("all");dialog.current?.close();scrollChart();
- }
+ const [topicId,setTopicId]=useState<string|null>(null);
+ const W=useMemo(()=>(topicId&&WORLDS.get(topicId))||AXIS,[topicId]),{C,scale:SCALE}=W;
+ const [size,setSize]=useState({width:0,height:0});
+ // The camera may go as far as the opening view, which makes room for the first and last figures.
+ const BOUNDS=useMemo(()=>withHome(W.bounds,homeFor(W,size.height||LEVEL_HEIGHT+HEADER,size.width||1280)),[W,size.height,size.width]);
+ const camera=useCamera(BOUNDS,START),{view,read,fly,jump,zoomBy}=camera;
+ const [lane,setLane]=useState<boolean|undefined>(undefined),[selected,setSelected]=useState<string|null>(null);
+ const [query,setQuery]=useState(""),[hint,setHint]=useState(true),[pan,setPan]=useState<number|undefined>(undefined);
+ // The two other dimensions of zoom: how wide the columns are (the X axis), and how large everything is drawn.
+ const [columns,setColumns]=useState(1),[ui,setUi]=useState(1);
+ // Full screen: the browser's own when it allows it (desktop, Android), and otherwise the atlas laid over the whole
+ // window (an iPhone has no full screen for a page). Either way a clear button inside leads out, and Esc does too.
+ const root=useRef<HTMLDivElement>(null),[full,setFull]=useState(false),asking=useRef<Promise<void>|null>(null);
+ const enterFull=useCallback(()=>{setFull(true);const el=root.current;if(el?.requestFullscreen&&!document.fullscreenElement)asking.current=el.requestFullscreen().catch(()=>{});},[]);
+ // Leaving waits for a request still on its way, so a quick Esc cannot leave the browser in full screen with the button gone.
+ const exitFull=useCallback(()=>{setFull(false);Promise.resolve(asking.current).then(()=>{asking.current=null;if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});});},[]);
+ useEffect(()=>{const sync=()=>{if(!document.fullscreenElement)setFull(false);};document.addEventListener("fullscreenchange",sync);return()=>document.removeEventListener("fullscreenchange",sync);},[]);
+ useEffect(()=>{if(!full)return;const html=document.documentElement,before=html.style.overflow;html.style.overflow="hidden";return()=>{html.style.overflow=before;};},[full]);
+ const widen=useCallback((factor:number)=>{setHint(false);setColumns(c=>Math.max(COLUMNS.min,Math.min(COLUMNS.max,c*factor)));},[]);
+ const resizeAll=useCallback((factor:number)=>{setHint(false);setUi(u=>{const next=Math.max(UI.min,Math.min(UI.max,u*factor));return Math.abs(next-1)<.03?1:next;});},[]);
+ const sizeRef=useRef(size),trigger=useRef<HTMLElement|null>(null),index=useRef<HTMLDialogElement>(null),sized=useRef(false),latest=useRef<TreeLayout|null>(null);
+ // Switching worlds: the view to land on once the new world's bounds are in place, and the axis's view to return to.
+ const landing=useRef<{view:AtlasWindow;open:string|null}|null>(null),axisView=useRef<AtlasWindow|null>(null);
+ // The passage between worlds: into a topic the stage zooms in from where it was opened, back out to the axis it zooms out.
+ const [warp,setWarp]=useState<{n:number;dir:"in"|"out";title:string;x:number;y:number}|null>(null);
+ const focus=useMemo(()=>selected?relatedIds(C,selected):new Set<string>(),[C,selected]);
+ // The lane of event titles starts open where there is room for it beside the tree, and closed on a phone.
+ const laneOpen=lane??size.width>=WIDE_LANE;
+ const layout=useMemo(()=>layoutTree(C,SCALE,view,size,{lane:laneOpen,selected,focus,pan,columns}),[C,SCALE,view,size,laneOpen,selected,focus,pan,columns]);
+ const level=levelOf(view.to-view.from,size.height?size.height-HEADER:LEVEL_HEIGHT),active=selected?W.byId.get(selected)??null:null;
+ const step=active?W.order.findIndex(n=>n.id===active.id):-1;
+ const results=useMemo(()=>{const q=normalize(query.trim());return q?C.nodes.filter(n=>normalize(n.title+" "+n.subtitle+" "+n.summary).includes(q)).sort((a,b)=>Number(!normalize(a.title).includes(q))-Number(!normalize(b.title).includes(q))).slice(0,8):[];},[C,query]);
+ useEffect(()=>{latest.current=layout;},[layout]);
+ const maxLog=Math.log((BOUNDS.to-BOUNDS.from)/MIN_SPAN);
+ const meterOf=(span:number)=>Math.round(Math.log((BOUNDS.to-BOUNDS.from)/span)/maxLog*1000);
+ const spanOf=(meter:number)=>(BOUNDS.to-BOUNDS.from)/Math.exp(meter/1000*maxLog);
+ const years=(v:AtlasWindow)=>rangeLabel({from:toYear(SCALE,Math.max(0,v.from)),to:toYear(SCALE,Math.min(SCALE.total,v.to))});
+ const placeOf=useCallback((node:AtlasNode)=>toV(SCALE,node.kind==="event"?node.from+.5:node.from),[SCALE]);
+
+ // A chosen figure in a column that is scrolled away brings the tree sideways to it.
  useEffect(()=>{
-  let frame=0;
-  const track=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const items=Array.from(chart.current?.querySelectorAll<HTMLElement>("[data-atlas-anchor]")??[]);let distance=Infinity;for(const item of items){const rect=item.getBoundingClientRect(),delta=Math.abs(rect.top+Math.min(rect.height,240)/2-innerHeight*.5);if(delta<distance){distance=delta;focusYear.current=Number(item.dataset.atlasAnchor);}}});};
-  window.addEventListener("scroll",track,{passive:true});return()=>{window.removeEventListener("scroll",track);cancelAnimationFrame(frame);};
- },[groups]);
+  if(!selected||!C.slots[selected])return;
+  const frame=requestAnimationFrame(()=>{
+   const L=latest.current,slot=C.slots[selected],column=L?.columns.find(c=>c.id===slot.group);if(!L||!column)return;
+   const x=column.right-slot.slot*L.slotW-L.slotW/2,edge=L.peopleRight-L.slotW*.6;
+   if(x<L.slotW*.75)setPan(Math.min(L.panMax,L.pan+L.slotW*.75-x));else if(x>edge)setPan(Math.max(0,L.pan-(x-edge)));
+  });
+  return()=>cancelAnimationFrame(frame);
+ },[C,selected,layout.slotW,layout.width]);
+
+ const reveal=useCallback((node:AtlasNode,how:"keep"|"reveal"|"focus")=>{
+  if(!isPlaced(node)||!sizeRef.current.height)return;
+  const now=read(),span=now.to-now.from,v=placeOf(node),length=toV(SCALE,node.to+1)-toV(SCALE,node.from),at=sheet()?.2:.4;
+  if(how==="keep"){const f=(v-now.from)/span;if(f<.06||f>(sheet()?.32:.94))fly(centerAt(v,span,at,BOUNDS));return;}
+  // Zoom in only as far as the item's own level, so its peers appear around it.
+  const fit=(value:number)=>fitTo(value,sizeRef.current.height);
+  const wanted=how==="focus"?Math.min(fit(LEVEL_SPAN.detail)*.9,Math.max(MIN_SPAN*2,length*1.4+60)):Math.min(span,fit(LEVEL_SPAN[node.rank===1?"overview":node.rank===2?"context":"detail"])*.9);
+  fly(centerAt(v,wanted,at,BOUNDS));
+ },[read,fly,placeOf,SCALE,BOUNDS]);
+
+ const hashFor=useCallback((id:string|null)=>topicId?"#"+topicId+(id?"/"+id:""):id?"#"+id:"",[topicId]);
+ const open=useCallback((id:string,how:"keep"|"reveal"|"focus"="reveal",from?:HTMLElement)=>{
+  const node=W.byId.get(id);if(!node)return;
+  if(from)trigger.current=from;
+  setSelected(id);setQuery("");setHint(false);index.current?.close();
+  window.history.replaceState(null,"",hashFor(id));
+  reveal(node,how);
+ },[W,reveal,hashFor]);
+ const close=useCallback(()=>{
+  setSelected(null);window.history.replaceState(null,"",window.location.pathname+window.location.search+hashFor(null));
+  trigger.current?.focus({preventScroll:true});
+ },[hashFor]);
+
+ /**
+  * Opens a topic (or, with null, goes back to the whole axis), optionally with one of its items chosen.
+  * `origin` is where on the stage it was opened from, in fractions of its width and height: the zoom grows from there.
+  */
+ const enter=useCallback((id:string|null,item:string|null=null,origin?:{x:number;y:number})=>{
+  if(id===topicId){if(item)open(item);return;}
+  const target=id?WORLDS.get(id):AXIS;if(!target)return;
+  setWarp(w=>({n:(w?.n??0)+1,dir:id?"in":"out",title:target.topic?.title??"הציר המלא",x:origin?.x??.5,y:origin?.y??.45}));
+  if(!topicId)axisView.current=read();
+  const height=sizeRef.current.height||LEVEL_HEIGHT+HEADER;
+  landing.current={view:id?startFor(target,height,sizeRef.current.width||undefined):axisView.current??startFor(AXIS,height),open:item};
+  setSelected(null);setPan(undefined);setQuery("");setHint(false);index.current?.close();
+  setTopicId(id);
+  window.history.replaceState(null,"",window.location.pathname+window.location.search+(id?"#"+id+(item?"/"+item:""):item?"#"+item:""));
+ },[topicId,open,read]);
+ // Once the new world's bounds are in place, land on its view and open the item that was asked for.
  useEffect(()=>{
-  let frame=0;
-  const sync=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const n=BY_ID.get(decodeURIComponent(window.location.hash.slice(1)));if(!n)return;const outside=n.from<BASE.from||n.to>BASE.to;setContext(outside);setView(clampWindow({from:n.from-12,to:n.to+12},outside?EXPANDED:BASE));setSelected(n.id);focusYear.current=(n.from+n.to)/2;dialog.current?.showModal();});};
-  if(window.location.hash)sync();window.addEventListener("hashchange",sync);return()=>{cancelAnimationFrame(frame);window.removeEventListener("hashchange",sync);};
- },[]);
- function seek(event:PointerEvent<HTMLDivElement>){const box=event.currentTarget.getBoundingClientRect(),ratio=1-Math.max(0,Math.min(1,(event.clientX-box.left)/box.width)),center=bounds.from+ratio*boundsSpan;focusYear.current=center;change({from:center-span/2,to:center+span/2},false);}
- const localRelations=active?C.relations.filter(r=>r.from===active.id||r.to===active.id):[];
- const related=active?active.kind==="person"?active.related:C.nodes.filter(n=>n.kind==="person"&&n.related.includes(active.id)).map(n=>n.id):[];
- return <main className={s.atlas} dir="rtl" data-history-atlas data-level={level}>
-  <div className={s.inner}>
-   <div className={s.breadcrumb}><Link href="/timelines">← עזרי למידה</Link><span>כלי עצמאי · דמויות ואירועים</span></div>
-   <header className={s.header}><div><p className={s.eyebrow}>אֶבֶן דֶּרֶךְ · ATLAS</p><h1>אטלס הזמן</h1><p>לראות את הרצף. להתקרב אל הסיפור.</p></div><div className={s.collection}><span aria-hidden>◌</span><div><strong>{C.title}</strong><small>{C.subtitle}</small></div></div></header>
-   <div className={s.workbench}>
-    <div className={s.search}><label htmlFor="atlas-search">חיפוש דמות או אירוע</label><input id="atlas-search" type="search" value={query} placeholder="כורש, החשמונאים, הורדוס, חורבן…" onChange={e=>setQuery(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&results[0]){const n=results[0];setView(clampWindow({from:n.from-12,to:n.to+12},n.from<BASE.from||n.to>BASE.to?EXPANDED:bounds));if(n.from<BASE.from||n.to>BASE.to)setContext(true);open(n.id);}if(e.key==="Escape")setQuery("");}}/>{query.trim()&&<div className={s.results} role="region" aria-label="תוצאות חיפוש">{results.length?results.map(n=><button key={n.id} data-atlas-result={n.id} onClick={()=>{const outside=n.from<BASE.from||n.to>BASE.to;if(outside)setContext(true);setView(clampWindow({from:n.from-12,to:n.to+12},outside?EXPANDED:bounds));open(n.id);}}><span>{n.kind==="person"?"דמות":"אירוע"}{n.mentionOnly?" · אזכור בלבד":""}</span><strong>{n.title}</strong><small>{n.date}</small></button>):<p>לא נמצאה התאמה. נסה שם או מושג אחר.</p>}</div>}</div>
-    <div className={s.viewInfo}><span>{LEVELS[level]}</span><b data-atlas-range>{rangeLabel(view)}</b><small>{visibleCount} פריטים בתצוגה · בהתקרבות נחשף יותר פירוט</small></div>
+  const next=landing.current;if(!next)return;landing.current=null;
+  jump(next.view);
+  if(next.open){const node=W.byId.get(next.open);if(node){setSelected(node.id);requestAnimationFrame(()=>reveal(node,"reveal"));}}
+ },[W,jump,reveal]);
+
+ // Deep links (#P-033, #jesus, #jesus/JS-27) open once the stage knows its size, and again on every hash change.
+ const fromHash=useCallback(()=>{
+  const {topic,id}=parseHash(window.location.hash);
+  if(topic!==topicId){enter(topic,id);return;}
+  if(id&&W.byId.has(id))open(id);
+ },[topicId,W,enter,open]);
+ useEffect(()=>{window.addEventListener("hashchange",fromHash);return()=>window.removeEventListener("hashchange",fromHash);},[fromHash]);
+ const resize=useCallback((next:{width:number;height:number})=>{
+  sizeRef.current=next;setSize(next);
+  if(!sized.current&&next.width){sized.current=true;if(!window.location.hash)jump(startFor(AXIS,next.height));requestAnimationFrame(fromHash);}
+ },[fromHash,jump]);
+
+ useEffect(()=>{
+  const escape=(event:globalThis.KeyboardEvent)=>{
+   if(event.key!=="Escape"||index.current?.open)return;
+   if(selected)close();else if(topicId)enter(null);else if(full)exitFull();
+  };
+  window.addEventListener("keydown",escape);return()=>window.removeEventListener("keydown",escape);
+ },[selected,close,topicId,enter,full,exitFull]);
+
+ const quiet=useCallback(()=>setHint(false),[]);
+ // Until the tree is moved sideways by hand it stays centred on the first group (on a phone only part fits).
+ const sideways=useCallback((dx:number)=>setPan(p=>Math.max(0,Math.min(latest.current?.panMax??0,(p??latest.current?.pan??0)+dx))),[]);
+ const visibleCenter=()=>{const now=read();return now.from+(now.to-now.from)*(selected&&sheet()?.25:.5);};
+ function zoom(direction:1|-1){setHint(false);zoomBy(direction*Math.log(2),visibleCenter());}
+ function goLevel(target:AtlasLevel){
+  setHint(false);
+  if(target==="overview"){fly(homeFor(W,sizeRef.current.height,sizeRef.current.width));return;}
+  fly(centerAt(active&&isPlaced(active)?placeOf(active):visibleCenter(),fitTo(LEVEL_SPANS[target],sizeRef.current.height),selected&&sheet()?.25:.5,BOUNDS));
+ }
+ function phase(id:string){const seg=SCALE.segments.find(g=>g.phase.id===id);if(seg){setHint(false);fly(fitWithRoom(seg.start,seg.end,BOUNDS,Math.max(240,sizeRef.current.height-HEADER)));}}
+ function cluster(c:Cluster){const now=read(),h=Math.max(1,sizeRef.current.height-HEADER);fly(zoomAround(now,2.6,now.from+(c.y-HEADER)/h*(now.to-now.from),BOUNDS));}
+ function keys(event:KeyboardEvent<HTMLDivElement>){
+  const now=read(),span=now.to-now.from,move={ArrowUp:-.2,ArrowDown:.2,PageUp:-.8,PageDown:.8}[event.key];
+  if(move!==undefined)fly(panBy(now,span*move,BOUNDS),320);
+  else if(event.key==="ArrowLeft"||event.key==="ArrowRight")sideways((event.key==="ArrowLeft"?1:-1)*layout.slotW*2);
+  else if(event.key==="+"||event.key==="=")zoom(1);
+  else if(event.key==="-"||event.key==="_")zoom(-1);
+  else if(event.key==="0"||event.key==="Home")fly(homeFor(W,sizeRef.current.height,sizeRef.current.width));
+  else if(event.key==="f"||event.key==="F"){if(full)exitFull();else enterFull();}
+  else return;
+  event.preventDefault();setHint(false);
+ }
+
+ // On the whole axis, each topic has a focus button at the top of its years, in a spot clear of the figures (placeChips).
+ const chips=useMemo<TopicChip[]>(()=>{
+  if(topicId||!size.height)return [];
+  const L=layout,usable=Math.max(1,L.height-L.header),y=(year:number)=>L.header+(toV(SCALE,ordinal(year))-view.from)/(view.to-view.from)*usable;
+  return placeChips(L,TOPICS.map(t=>({id:t.id,title:t.title,top:y(t.from),bottom:y(t.to)})));
+ },[topicId,size.height,layout,SCALE,view]);
+
+ const shown=layout.people.length+layout.events.length+layout.vignettes.filter(v=>!layout.events.some(e=>e.node===v.node)).length;
+ const topic=W.topic,cardTopics=active&&!topic?topicsOf(active.id):[];
+ return <div ref={root} className={s.atlas} dir="rtl" data-history-atlas data-level={level} data-topic={topicId??undefined} data-full={full||undefined}>
+  <header className={s.hud}>
+   <div className={s.brand}>
+    <Link href="/timelines" className={s.back}>עזרי למידה</Link>
+    <h1>אטלס הזמן</h1>
+    {topic?<div className={s.dimension} data-atlas-topic={topic.id}>
+      <p className={s.dimKicker}><span>מימד</span>{spanLabel(topic.from,topic.to)}</p>
+      <h2 className={s.dimTitle}>{topic.title}</h2>
+      <p className={s.dimNote}>{topic.note}</p>
+     </div>
+     :<span className={s.collection}>{C.title} · {spanLabel(C.from,C.to)}</span>}
+    {topic&&<button type="button" className={s.exit} data-atlas-exit aria-label="חזרה לציר המלא" onClick={()=>enter(null)}><span aria-hidden>↩</span><span className={s.exitLong}>חזרה לציר המלא</span></button>}
    </div>
-   <section className={s.navigator} aria-label="חלון הזמן">
-    <div className={s.ruler} data-atlas-ruler onPointerDown={e=>{drag.current=true;e.currentTarget.setPointerCapture(e.pointerId);seek(e);}} onPointerMove={e=>{if(drag.current)seek(e);}} onPointerUp={()=>{drag.current=false;scrollChart();}} onPointerCancel={()=>{drag.current=false;}} aria-hidden="true">
-     {C.phases.map((p,i)=>{const a=Math.max(bounds.from,ordinal(p.from)),b=Math.min(bounds.to,ordinal(p.to));return b>a?<span key={p.id} className={s.phaseBand} data-band={i%3} style={{right:(a-bounds.from)/boundsSpan*100+"%",width:(b-a)/boundsSpan*100+"%"}}><small>{p.title}</small></span>:null;})}
-     <span className={s.windowBand} style={{right:(view.from-bounds.from)/boundsSpan*100+"%",width:span/boundsSpan*100+"%"}}/>
+   <div className={s.search}>
+    <label htmlFor="atlas-search" className={s.srOnly}>חיפוש דמות או אירוע</label>
+    <span aria-hidden>⌕</span>
+    <input id="atlas-search" type="search" value={query} autoComplete="off" placeholder={topic?"חיפוש בנושא…":"חיפוש: כורש, יהודה המכבי, הורדוס…"} onChange={e=>setQuery(e.target.value)}
+     onKeyDown={e=>{if(e.key==="Enter"&&results[0])open(results[0].id);if(e.key==="Escape")setQuery("");}}/>
+    {query.trim()&&<div className={s.results} role="region" aria-label="תוצאות חיפוש">
+     {results.length?results.map(n=><button key={n.id} type="button" data-atlas-result={n.id} style={tint(n.phase)} onClick={()=>open(n.id)}>
+      {n.kind==="person"?<Face image={n.image} name={n.title}/>:<i aria-hidden/>}
+      <span><strong>{n.title}</strong><small>{n.kind==="person"?"דמות":"אירוע"} · {n.kind==="person"?n.subtitle:n.date}{n.mentionOnly?" · אזכור בלבד":""}</small></span>
+     </button>):<p>לא נמצאה התאמה. נסו שם או מושג אחר.</p>}
+    </div>}
+   </div>
+   {full?<button type="button" className={s.exitFull} data-atlas-fullscreen="exit" title="יציאה ממסך מלא (Esc)" onClick={exitFull}><span aria-hidden>✕</span>יציאה ממסך מלא</button>
+    :<button type="button" className={s.indexButton} data-atlas-fullscreen="enter" aria-label="מסך מלא" title="מסך מלא (F)" onClick={enterFull}><span aria-hidden>⛶</span><span className={s.indexLabel}>מסך מלא</span></button>}
+   <button type="button" className={s.indexButton} aria-label="כל הדמויות והאירועים" onClick={()=>index.current?.showModal()}><span aria-hidden>☰</span><span className={s.indexLabel}>כל הפריטים</span></button>
+  </header>
+
+  <div className={s.body}>
+   <div className={s.stageWrap}>
+    <div key={topicId??"axis"} className={s.world} data-warp={warp?.dir} style={warp?{"--ox":warp.x*100+"%","--oy":warp.y*100+"%"} as CSSProperties:undefined}>
+    <AtlasStage collection={C} layout={layout} bounds={BOUNDS} camera={camera} selected={selected} focus={focus} hint={hint} chips={chips} onReveal={()=>zoom(1)} ui={ui} onColumns={widen} onScale={resizeAll} onTopic={id=>{const c=chips.find(x=>x.id===id),w=sizeRef.current.width||1,h=sizeRef.current.height||1;enter(id,null,c&&{x:Math.max(0,1-(c.right+70)/w),y:Math.min(1,(c.top+15)/h)});}}
+     onOpen={(id,el)=>open(id,"keep",el)} onCluster={cluster} onPhase={phase} onPan={sideways} onLane={setLane} onResize={resize} onKeyDown={keys} onInteract={quiet}/>
     </div>
-    <label className={s.panLabel}>הזזה לאורך התקופה<input aria-label="מיקום חלון הזמן" type="range" min={bounds.from} max={bounds.to} step={1} disabled={span>=boundsSpan} value={(view.from+view.to)/2} onChange={e=>{const center=Number(e.target.value);focusYear.current=center;change({from:center-span/2,to:center+span/2},false);}} onPointerUp={scrollChart} onKeyUp={scrollChart}/></label>
-    <div className={s.legend}><span>חלון הזמן המסומן מראה היכן מתמקדים. המרווחים בין התחנות מותאמים לקריאה.</span><button onClick={all}>כל התקופה ↺</button></div>
-   </section>
-   <div className={s.filters} aria-label="סוג תוכן">{([["all","דמויות ואירועים"],["person","דמויות"],["event","אירועים"]] as const).map(([id,label])=><button key={id} data-atlas-kind={id} aria-pressed={kind===id} onClick={()=>setKind(id)}>{label}</button>)}<button className={s.phasesButton} onClick={()=>menu.current?.showModal()}>בחירת תקופה ☷</button></div>
-   <div className={s.zoomRail} aria-label="כלי זום"><button aria-label="התקרבות בזמן" onClick={()=>zoom(2)} disabled={span<=4}>+</button><span>{Math.max(1,Math.round((BASE.to-BASE.from)/span))}×</span><button aria-label="התרחקות בזמן" onClick={()=>zoom(.5)} disabled={span>=boundsSpan}>−</button><button aria-label="מבט על כל התקופה" onClick={all}>↺</button><button aria-label="פתיחת תקופות האטלס" onClick={()=>menu.current?.showModal()}>☷</button></div>
-   <div ref={chart} className={s.chart} data-atlas-chart>
-    <div className={s.status} role="status">{LEVELS[level]} · {rangeLabel(view)} · {visibleCount} פריטים</div>
-    {!groups.length?<div className={s.empty}><h2>אין פריטים בחלון הזה</h2><p>אפשר להרחיב את הזמן או להציג גם דמויות וגם אירועים.</p><button onClick={all}>למבט על</button></div>:groups.map(group=><section key={group.id} className={s.group} data-atlas-anchor={group.year}>
-     <header><span className={s.point} aria-hidden/><small>{group.label}</small>{group.title&&<h2>{group.title}</h2>}</header>
-     <div className={s.people}>{group.nodes.filter(n=>n.kind==="person").map(n=><button className={s.person} key={n.id} data-atlas-node={n.id} data-kind="person" aria-label={"פתיחת "+n.title} onClick={e=>open(n.id,e.currentTarget)}><Face key={n.id} image={n.image} name={n.title}/><strong>{n.title}</strong><small>{n.subtitle}</small><span>{n.caution?"תיארוך או מסורת בהסתייגות":n.date}</span></button>)}</div>
-     <div className={s.events}>{group.nodes.filter(n=>n.kind==="event").map(n=><button key={n.id} className={s.event} data-atlas-node={n.id} data-kind="event" aria-label={"פתיחת "+n.title} onClick={e=>open(n.id,e.currentTarget)}>{n.art!==undefined&&<span className={s.art} aria-hidden style={{backgroundPosition:(n.art%2?"100%":"0%")+" 0%"}}/>}<span><small>{n.date}</small><strong>{n.title}</strong><span className={s.eventSummary}>{n.summary}</span>{n.caution&&<em>תיארוך או הסתייגות במקור</em>}<i aria-hidden>+</i></span></button>)}</div>
-     {group.more>0&&group.phase&&<button className={s.more} onClick={()=>phase(group.phase!.id)} data-atlas-explore={group.phase.id}>עוד {group.more} פריטים בהקשר התקופה · להתקרב ←</button>}
-    </section>)}
+    {warp&&<div key={warp.n} className={s.warp} data-dir={warp.dir} style={{"--ox":warp.x*100+"%","--oy":warp.y*100+"%"} as CSSProperties} aria-hidden onAnimationEnd={e=>{if(e.target===e.currentTarget)setWarp(null);}}>
+     <b><small>{warp.dir==="in"?"נכנסים למימד":"חוזרים אל"}</small>{warp.title}</b>
+    </div>}
+    <div key={level} className={s.levelToast} aria-hidden><b>{LEVEL_TEXT[level].title}</b><span>{LEVEL_TEXT[level].note}</span></div>
    </div>
-   <footer className={s.footer}><p>נקודות הדמויות מקשרות להקשר שבו הן נלמדות; הן אינן שנת לידה או מוות. תאריכים משוערים והסתייגויות נשמרים בכרטיסים.</p><p>התמונות כוללות יצירות אמנות מאוחרות. איורי המקדש הם המחשה אמנותית. הקרדיט המלא בכל כרטיס.</p><div><Link href="/timelines/second-temple">לציר בית שני המפורט ←</Link><Link href="/timelines/roman-people">כלי הזיכרון הרומי ←</Link></div></footer>
+   <AtlasPanel collection={C} sources={ATLAS_SOURCES} node={active} previous={step>0?W.order[step-1]:null} next={step>=0&&step<W.order.length-1?W.order[step+1]:null} position={step>=0?`${step+1} מתוך ${W.order.length}`:""}
+    topics={cardTopics.map(t=>({id:t.id,title:t.title}))} onTopic={id=>active&&enter(id,active.id)} onAxis={topic&&active&&AXIS.byId.has(active.id)?()=>enter(null,active.id):undefined}
+    onOpen={id=>open(id)} onFocusTime={()=>active&&reveal(active,"focus")} onClose={close}/>
   </div>
-  <dialog ref={menu} className={s.drawer} aria-labelledby="atlas-period-title" onClick={e=>{if(e.target===e.currentTarget)menu.current?.close();}}><header><h2 id="atlas-period-title">לאיזו תקופה להתקרב?</h2><button autoFocus aria-label="סגירת תקופות האטלס" onClick={()=>menu.current?.close()}>×</button></header><nav aria-label="תקופות האטלס">{C.phases.filter(p=>context||!p.context).map(p=><button key={p.id} data-atlas-phase={p.id} onClick={()=>phase(p.id)}><small>{rangeLabel({from:ordinal(p.from),to:ordinal(p.to)})}</small><strong>{p.title}</strong><span>{p.note}</span></button>)}</nav><label className={s.contextToggle}><input type="checkbox" checked={context} onChange={e=>{setContext(e.target.checked);setView(e.target.checked?EXPANDED:BASE);}}/>כולל רקע לפני בית שני ואחרית החורבן</label><details className={s.directory}><summary>כל כרטיסי הדמויות · {C.nodes.filter(n=>n.kind==="person").length}</summary><div>{C.nodes.filter(n=>n.kind==="person").map(n=><button key={n.id} onClick={()=>{menu.current?.close();open(n.id);}}>{n.title}{n.mentionOnly?" · אזכור בלבד":n.unplaced?" · ללא תיארוך ברור":""}</button>)}</div></details><p>בוחרים טווח רחב לתמונה הכללית, או מתקרבים אל שנים מסוימות כדי לחשוף את הפרטים.</p></dialog>
-  <dialog ref={dialog} className={s.detail} data-atlas-detail aria-labelledby="atlas-detail-title" onClose={()=>trigger.current?.focus({preventScroll:true})} onClick={e=>{if(e.target===e.currentTarget)dialog.current?.close();}}>
-   <header className={s.detailHeading}><div><small>{active?.kind==="person"?"דמות בתוך הרצף":"אירוע בתוך הרצף"}</small><h2 id="atlas-detail-title">{active?.title??"מידע"}</h2></div><button autoFocus aria-label="סגירת פריט האטלס" onClick={()=>dialog.current?.close()}>×</button></header>
-   {active&&<div className={s.detailBody}><div className={s.identity}>{active.kind==="person"&&<Face key={active.id} image={active.image} name={active.title} large/>}<div><p className={s.date}>{active.date}</p><p>{active.summary}</p>{active.mentionOnly&&<b className={s.caution}>אזכור בלבד · אינו אירוע מתוארך</b>}{!active.mentionOnly&&!active.unplaced&&<button className={s.locate} onClick={()=>locate(active.id)}>להתמקד בזמן הזה ←</button>}</div></div>
-    {active.caution&&<p className={s.caution}>{active.caution}</p>}
-    {localRelations.length>0&&<section className={s.related}><h3>קשרים לדמויות</h3>{localRelations.map((r,i)=>{const other=BY_ID.get(r.from===active.id?r.to:r.from)!;return <button key={i} onClick={()=>open(other.id)}><small>{r.label}</small><strong>{other.title} ←</strong></button>;})}</section>}
-    <div className={s.fields}>{active.fields.map(field=><section key={field.label}><h3>{field.label}</h3><p>{field.text}</p></section>)}</div>
-    {related.length>0&&<section className={s.related}><h3>{active.kind==="person"?"אירועים קשורים":"דמויות קשורות"}</h3>{related.map(id=>BY_ID.get(id)).filter((n):n is AtlasNode=>Boolean(n)).map(n=><button key={n.id} onClick={()=>open(n.id)}><small>{n.date}</small><strong>{n.title} ←</strong></button>)}</section>}
-    {active.image&&<details className={s.source}><summary>על התמונה והזכויות</summary><p>{active.image.caption} {active.image.note}</p><p>{active.image.credit} · <a href={active.image.sourceUrl} target="_blank" rel="noreferrer">מקור התמונה ↗</a> · <a href={active.image.licenseUrl} target="_blank" rel="noreferrer">{active.image.license}</a></p></details>}
-    <details className={s.source}><summary>מקור בחומר הנלמד</summary><p>{active.source}</p><ul>{ATLAS_SOURCES.filter(source=>active.source.includes(source.id)).map(source=><li key={source.id}>{source.title} · {source.type}</li>)}</ul><a href={C.sourceHref} target="_blank" rel="noreferrer">מחברת הקורס ↗</a></details>
-    <Link className={s.original} href={active.originalHref}>לפתיחת המקור בציר המפורט ←</Link>
-   </div>}
+
+  <footer className={s.dock}>
+   <div className={s.readout}><span>{LEVEL_TEXT[level].title}</span><b data-atlas-range>{years(view)}</b><small>{shown} פריטים בתצוגה</small></div>
+   <AtlasMinimap key={topicId??"axis"} collection={C} scale={SCALE} bounds={BOUNDS} view={view} label={years(view)} camera={camera}/>
+   <div className={s.levels}>
+    <div className={s.levelRow}>
+     <div className={s.segment} role="group" aria-label="רמת פירוט">{(Object.keys(LEVEL_TEXT) as AtlasLevel[]).map(id=><button key={id} type="button" data-atlas-level={id} aria-pressed={level===id} onClick={()=>goLevel(id)}>{LEVEL_TEXT[id].title}</button>)}</div>
+     <div className={s.zoomGroup} role="group" aria-label="זום">
+      <button type="button" aria-label="התקרבות בזמן" title="התקרבות (+)" onClick={()=>zoom(1)} disabled={view.to-view.from<=MIN_SPAN+.01}>+</button>
+      <button type="button" aria-label="התרחקות בזמן" title="התרחקות (−)" onClick={()=>zoom(-1)} disabled={view.to-view.from>=BOUNDS.to-BOUNDS.from-.01}>−</button>
+      <button type="button" aria-label={topic?"מבט על כל הנושא":"מבט על כל התקופה"} title="מבט על (0)" onClick={()=>goLevel("overview")}>⤢</button>
+     </div>
+     <details className={s.topicMenu} data-atlas-topics>
+      <summary aria-label="נושאים להתמקדות">נושאים</summary>
+      <div className={s.legendBody}>
+       <ul>{topic&&<li><button type="button" onClick={e=>{e.currentTarget.closest("details")?.removeAttribute("open");enter(null);}}>↩ הציר המלא</button></li>}
+        {TOPICS.map(t=><li key={t.id}><button type="button" data-atlas-topic-item={t.id} aria-current={t.id===topicId||undefined} onClick={e=>{e.currentTarget.closest("details")?.removeAttribute("open");enter(t.id);}}><b>{t.title}</b><small>{spanLabel(t.from,t.to)}</small></button></li>)}</ul>
+      </div>
+     </details>
+     <details className={`${s.topicMenu} ${s.viewMenu}`} data-atlas-view>
+      <summary aria-label="תצוגה: רוחב וגודל">תצוגה</summary>
+      <div className={`${s.legendBody} ${s.viewBody}`}>
+       <div role="group" aria-label="רוחב העמודות"><span><b>רוחב</b><small>Alt + גלגלת · צביטה לצדדים</small></span>
+        <button type="button" data-atlas-columns="narrow" aria-label="לצמצם את העמודות" onClick={()=>widen(1/1.2)} disabled={columns<=COLUMNS.min+.001}>→←</button>
+        <output>{Math.round(columns*100)}%</output>
+        <button type="button" data-atlas-columns="wide" aria-label="להרחיב את העמודות" onClick={()=>widen(1.2)} disabled={columns>=COLUMNS.max-.001}>←→</button></div>
+       <div role="group" aria-label="גודל התצוגה"><span><b>גודל הכול</b><small>Ctrl + Alt + גלגלת</small></span>
+        <button type="button" data-atlas-ui="smaller" aria-label="להקטין הכול" onClick={()=>resizeAll(1/1.15)} disabled={ui<=UI.min+.001}>−</button>
+        <output>{Math.round(ui*100)}%</output>
+        <button type="button" data-atlas-ui="larger" aria-label="להגדיל הכול" onClick={()=>resizeAll(1.15)} disabled={ui>=UI.max-.001}>+</button></div>
+       <button type="button" className={s.viewReset} onClick={()=>{setColumns(1);setUi(1);}} disabled={columns===1&&ui===1}>חזרה לגודל הרגיל</button>
+      </div>
+     </details>
+     <AtlasLegend/>
+    </div>
+    <input className={s.meter} type="range" min={0} max={1000} value={meterOf(view.to-view.from)} aria-label="רמת זום" aria-valuetext={LEVEL_TEXT[level].title}
+     onChange={e=>{const middle=visibleCenter(),span=spanOf(Number(e.target.value)),now=read();setHint(false);jump(zoomAround(now,(now.to-now.from)/span,middle,BOUNDS));}}/>
+   </div>
+  </footer>
+  <p className={s.srOnly} role="status">{topic?`נושא: ${topic.title} · `:""}{LEVEL_TEXT[level].title}</p>
+
+  <dialog ref={index} className={s.index} aria-labelledby="atlas-index-title" onClick={e=>{if(e.target===e.currentTarget)index.current?.close();}}>
+   <header><h2 id="atlas-index-title">{topic?`כל הדמויות והאירועים · ${topic.title}`:"כל הדמויות והאירועים"}</h2><button type="button" autoFocus aria-label="סגירת רשימת הפריטים" onClick={()=>index.current?.close()}>×</button></header>
+   <div className={s.indexBody}>{C.phases.map((p,i)=>{const items=C.nodes.filter(n=>n.phase===p.id).sort((a,b)=>a.from-b.from||a.id.localeCompare(b.id));return items.length>0&&<section key={p.id} style={tint(p.id,i)}>
+    <h3><button type="button" onClick={()=>{index.current?.close();phase(p.id);}}>{p.title}</button><small>{spanLabel(Math.trunc(p.from),Math.trunc(p.to))} · {p.note}</small></h3>
+    <div>{items.map(n=><button key={n.id} type="button" data-atlas-index={n.id} data-kind={n.kind} onClick={()=>open(n.id)}>{n.kind==="person"?<Face image={n.image} name={n.title}/>:<i aria-hidden/>}<span><strong>{n.title}</strong><small>{n.mentionOnly?"אזכור בלבד":n.unplaced?"ללא תיארוך ברור":n.kind==="person"?n.subtitle:n.date}</small></span></button>)}</div>
+   </section>;})}</div>
   </dialog>
- </main>;
+ </div>;
 }

@@ -202,6 +202,13 @@
     </div>
   </div>
 
+  <script>
+    // ב-Cloudflare (moreyderech.com) קובץ המפה (95MB) גדול מהמגבלה לקובץ סטטי (25MB) ואינו מועלה.
+    // שם הוא נטען מהעותק ב-GitHub Pages, שתומך בבקשות Range וב-CORS. ראו deploy/site/worker.ts.
+    if (!/\.github\.io$/.test(location.hostname) && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+      window.MAP_PMTILES_URL = 'https://cfir94.github.io/moreh-derech/embeds/map/data/israel.pmtiles';
+    }
+  </script>
   <script src="vendor/maplibre/pmtiles.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>

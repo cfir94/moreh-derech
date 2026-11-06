@@ -32,14 +32,15 @@
 
   "vars": {
     "GEMINI_LIVE_MODEL": "gemini-3.8-live",
-    // הצ'אט בכתב (generateContent). הכינוי "latest" מצביע תמיד על Flash העדכני, שזמין בתוכנית החינמית.
-    "GEMINI_CHAT_MODEL": "gemini-flash-latest",
+    // הצ'אט בכתב (generateContent). Flash-Lite קודם: בתוכנית החינמית המכסה היומית שלו גבוהה בהרבה
+    // מזו של Flash (כ-20 בקשות ביום). Flash נשאר גיבוי. במעבר לתשלום אפשר להחליף ל-"gemini-flash-latest".
+    "GEMINI_CHAT_MODEL": "gemini-flash-lite-latest",
     // ראו docs/api-notes.md: התיעוד אומר v1beta, ה-SDK אומר v1alpha.
     "GEMINI_API_VERSION": "v1beta",
     // מקורות שמותר להם לבקש אסימון (בנוסף למקור של ה-Worker עצמו).
-    "ALLOWED_ORIGINS": "https://cfir94.github.io,http://localhost:3000,http://localhost:5173",
+    "ALLOWED_ORIGINS": "https://cfir94.github.io,https://moreyderech.com,https://www.moreyderech.com,https://moreh-derech.cfir94.workers.dev,http://localhost:3000,http://localhost:5173",
     // מי רשאי להטמיע את העמוד ב-iframe.
-    "FRAME_ANCESTORS": "https://cfir94.github.io http://localhost:3000",
+    "FRAME_ANCESTORS": "https://cfir94.github.io https://moreyderech.com https://www.moreyderech.com https://moreh-derech.cfir94.workers.dev http://localhost:3000",
     "FREE_TIER_MODE": "true",
     "MAX_SESSION_MINUTES": "12",
     // מכסות יומיות; "0" = בלי הגבלה (המגבלה בפועל: 65 אלף טוקנים לדקה אצל Gemini).

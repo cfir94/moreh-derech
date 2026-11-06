@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { ROMAN_EVENTS } from "@/data/roman";
@@ -8,7 +9,7 @@ import { SectionCard } from "@/components/SectionCard";
 import { TALK_CHARACTERS } from "@/data/history-talk";
 
 const sets = [
-  {slug:"history-atlas",title:"אטלס הזמן — דמויות ואירועים",description:"בית שני: מן התמונה הגדולה ועד הפרטים. מתקרבים בזמן, מגלים דמויות ואירועים נוספים, ופותחים את הקשרים והמקורות.",meta:"זום בזמן · דמויות, אירועים וקשרים"},
+  {slug:"history-atlas",title:"אטלס הזמן — דמויות ואירועים",description:"אילן הזמן מראשית האדם ועד הכיבוש המוסלמי: גוללים ממיני האדם והנטופים, דרך ערי כנען, האבות ומלכי ישראל ויהודה, בית שני, רומא וביזנטיון, האיורים יושבים על הציר בשנה שלהם, והדמויות מסודרות כאילן יוחסין — מתתיהו מעל בניו, השושלת החשמונאית ובית הורדוס. זום מן המבט על אל כל פרט.",meta:"אילן הזמן · גלילה וזום · דמויות, אירועים וקשרים"},
   {
     slug: "history-talk",
     title: "דבר עם ההיסטוריה",
@@ -97,6 +98,12 @@ const sets = [
     meta: "ציר מסירה",
   },
 ];
+
+export const metadata = pageMeta({
+  title: "צירי זמן ועזרי למידה",
+  description: "צירי זמן וכלים אינטראקטיביים ללימוד ההיסטוריה והארכאולוגיה של ארץ ישראל, מאדם קדמון ועד התקופה הביזנטית, עם דמויות, אירועים ומושגים.",
+  path: "/timelines",
+});
 
 export default function TimelinesPage() {
   return (

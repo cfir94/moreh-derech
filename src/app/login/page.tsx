@@ -2,11 +2,67 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { EmailCodeLogin } from "@/components/auth/EmailCodeLogin";
 import { useUser } from "@/contexts/UserContext";
 import { friendlyAuthError, isLegacyPasswordError } from "@/lib/cloudAuth";
+import { useLaunch } from "@/lib/launchClient";
 import { clearUser, readUser } from "@/lib/localAuth";
 
+/**
+ * כניסה. כשהדגל NEXT_PUBLIC_EMAIL_CODE_LOGIN דולק: קוד חד-פעמי למייל (EmailCodeLogin).
+ * אחרת, או בלחיצה על "הדרך הישנה": שם ומייל כמו במשחק. ?mode=code מציג את הכניסה בקוד גם
+ * כשהדגל כבוי, לבדיקה אחרי הגדרת ה-SMTP.
+ */
 export default function LoginPage() {
+  const { emailCodeLogin } = useLaunch();
+  const [choice, setMode] = useState<"code" | "legacy" | null>(null);
+  const mode = choice ?? (emailCodeLogin ? "code" : "legacy");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- query string is only readable after hydration
+    if (params.get("mode") === "code" || window.location.hash.includes("access_token=")) setMode("code");
+  }, []);
+  return mode === "code" ? <CodeLoginShell allowLegacy={!emailCodeLogin} onUseLegacy={() => setMode("legacy")} /> : <LegacyLogin />;
+}
+
+function Shell({ title, intro, children }: { title: string; intro: string; children: React.ReactNode }) {
+  return (
+    <div className="screen-in flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
+      <div className="relative w-full max-w-md overflow-hidden rounded-lg border border-line bg-card p-8">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -top-16 -left-16 h-56 w-56 rounded-full blur-[10px]"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in srgb, var(--teal) 28%, transparent), transparent 65%)",
+          }}
+        />
+        <h1 className="grad-text relative mb-2 text-3xl">{title}</h1>
+        <p className="relative mb-6 text-sm leading-relaxed text-txt-dim">{intro}</p>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function CodeLoginShell({ allowLegacy, onUseLegacy }: { allowLegacy: boolean; onUseLegacy: () => void }) {
+  const router = useRouter();
+  const { user, ready } = useUser();
+  const [entered, setEntered] = useState(false);
+  useEffect(() => {
+    // משתמש שכבר מחובר כשהדף נפתח, ולא אחד שנכנס עכשיו ועוד בוחר שם.
+    if (ready && user && !entered && !window.location.hash.includes("access_token=")) router.replace("/me");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot latch after the first auth check
+    if (ready) setEntered(true);
+  }, [ready, user, entered, router]);
+  return (
+    <Shell title="כניסה והרשמה" intro="אותו חשבון של משחק אבן דרך. מזינים מייל, מקבלים קוד, ונכנסים.">
+      <EmailCodeLogin onUseLegacy={allowLegacy ? onUseLegacy : undefined} />
+    </Shell>
+  );
+}
+
+function LegacyLogin() {
   const router = useRouter();
   const { user, ready, login, loginWithPassword } = useUser();
   const [error, setError] = useState("");

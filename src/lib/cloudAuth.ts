@@ -341,6 +341,72 @@ async function ensureProfile(displayName: string, classCode: string) {
   });
 }
 
+/**
+ * כניסה בקוד חד-פעמי למייל (A-01). מחליפה את הסיסמה הנגזרת, שאינה מאובטחת: מי שיודע מייל של
+ * משתמש יכול לגזור את הסיסמה שלו מהקוד הציבורי. Supabase שולח מייל עם קוד בן 6 ספרות. משתמש חדש
+ * נוצר אוטומטית (create_user), עם אותו user_id שהיה לו אם כבר נרשם במשחק.
+ * דורש SMTP מותאם ותבנית מייל עם {{ .Token }} (docs/launch/USER-ACTIONS.md §5–6).
+ */
+export async function requestEmailCode(rawEmail: string, displayName = "", classCode = "") {
+  const email = rawEmail.trim().toLowerCase();
+  // אם תבנית המייל שולחת קישור ולא קוד, הקישור יחזור לדף הכניסה של האתר הנוכחי.
+  // (הכתובת צריכה להופיע ב-Redirect URLs של Supabase; אחרת Supabase חוזר ל-Site URL.)
+  const redirect =
+    typeof window === "undefined" ? "" : `?redirect_to=${encodeURIComponent(`${window.location.origin}${window.location.pathname}`)}`;
+  await supabaseRequest(`/auth/v1/otp${redirect}`, {
+    method: "POST",
+    auth: false,
+    body: {
+      email,
+      create_user: true,
+      data: { display_name: displayName.trim(), class_code: normalizeClass(classCode) },
+    },
+  });
+  return email;
+}
+
+/** מאמת את הקוד שהגיע במייל ושומר את ההתחברות. מחזיר גם אם זה משתמש בלי שם (כלומר חדש). */
+export async function verifyEmailCode(rawEmail: string, rawCode: string) {
+  const email = rawEmail.trim().toLowerCase();
+  const token = rawCode.replace(/\D/g, "");
+  const response = (await supabaseRequest("/auth/v1/verify", {
+    method: "POST",
+    auth: false,
+    body: { type: "email", email, token },
+  })) as AuthResponse;
+  saveSession(unpack(response));
+  // משתמש קיים (גם מהמשחק) מקבל את השם שלו מהפרופיל. לחדש אין עדיין פרופיל, והוא יתבקש לתת שם.
+  await refreshProfile().catch(() => null);
+  const session = readSession()!;
+  return { session, needsName: !session.display_name };
+}
+
+/**
+ * קישור הכניסה מהמייל (כשהתבנית שולחת קישור ולא קוד): Supabase מחזיר לדף הכניסה עם
+ * #access_token=...&refresh_token=... . שומרים את ההתחברות ומנקים את הכתובת.
+ */
+export async function completeMagicLink(hash: string) {
+  const params = new URLSearchParams(hash.replace(/^#/, ""));
+  const access_token = params.get("access_token");
+  const refresh_token = params.get("refresh_token");
+  if (!access_token || !refresh_token) return null;
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${access_token}` },
+  });
+  if (!response.ok) throw new CloudAuthError("קישור הכניסה לא תקף. בקשו קישור או קוד חדש.");
+  const user = (await response.json()) as AuthResponse["user"];
+  saveSession(unpack({ access_token, refresh_token, user }));
+  await refreshProfile().catch(() => null);
+  const session = readSession()!;
+  return { session, needsName: !session.display_name };
+}
+
+/** שם ומחזור אחרי כניסה ראשונה בקוד. */
+export async function saveProfileDetails(displayName: string, classCode = "") {
+  await ensureProfile(displayName.trim(), normalizeClass(classCode));
+  return readSession();
+}
+
 export async function refreshProfile() {
   const session = readSession();
   if (!session) return null;
@@ -392,6 +458,16 @@ export function friendlyAuthError(error: unknown) {
   }
   if (normalized.includes("refresh token")) {
     return "תוקף ההתחברות פג. היכנסו שוב עם אותו אימייל.";
+  }
+  if (normalized.includes("token has expired") || normalized.includes("otp_expired") || normalized.includes("invalid otp") || normalized.includes("token is invalid")) {
+    return "הקוד שגוי או שפג תוקפו. אפשר לבקש קוד חדש.";
+  }
+  if (normalized.includes("for security purposes") || normalized.includes("rate limit") || normalized.includes("over_email_send_rate_limit")) {
+    return "נשלחו יותר מדי קודים בזמן קצר. חכו דקה ונסו שוב.";
+  }
+  if (normalized.includes("signups not allowed")) return "ההרשמה סגורה כרגע.";
+  if (normalized.includes("error sending") || normalized.includes("smtp")) {
+    return "לא הצלחנו לשלוח את המייל כרגע. נסו שוב בעוד כמה דקות.";
   }
   if (normalized.includes("password")) return "הסיסמה אינה תקינה";
   return message || "משהו השתבש. נסו שוב.";

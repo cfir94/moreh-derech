@@ -324,7 +324,8 @@ function natureColorMatchExpression() {
 async function initMap() {
   const styleObj = await fetch('vendor/maplibre/style.json').then(r => r.json());
   applyBrandBasemap(styleObj, activeTheme);
-  styleObj.sources.openmaptiles.url = 'pmtiles://' + abs('data/israel.pmtiles');
+  // moreyderech.com: the 95MB archive exceeds Cloudflare's static-file limit, so index.html points elsewhere.
+  styleObj.sources.openmaptiles.url = 'pmtiles://' + (window.MAP_PMTILES_URL || abs('data/israel.pmtiles'));
   styleObj.glyphs = absDir() + 'vendor/maplibre/fonts/{fontstack}/{range}.pbf';
 
   const protocol = new pmtiles.Protocol();

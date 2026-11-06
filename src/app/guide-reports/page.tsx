@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SectionCard } from "@/components/SectionCard";
 import { REPORTS } from "@/data/guide-reports";
@@ -63,6 +64,12 @@ const PRACTICE_CARDS = [
     meta: "localStorage",
   },
 ];
+
+export const metadata = pageMeta({
+  title: "דוחות הדרכה ותרגול",
+  description: "למדו לכתוב דו״ח סיור בפורמט הקורס ומשרד התיירות, צפו בדוגמאות מלאות ותרגלו בניית יום סיור ויחידת הדרכה לקראת מבחן הרישוי.",
+  path: "/guide-reports",
+});
 
 export default function GuideReportsPage() {
   return (

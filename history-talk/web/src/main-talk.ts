@@ -41,6 +41,7 @@ const ui = {
   toggleTranscript: $<HTMLButtonElement>("toggle-transcript"),
   transcript: $<HTMLOListElement>("transcript"),
   sources: $<HTMLUListElement>("sources"),
+  sourcesPanel: $<HTMLDetailsElement>("mentioned-sources"),
   allSources: $<HTMLUListElement>("all-sources"),
   quizPanel: $("quiz-panel"),
   quizCards: $<HTMLOListElement>("quiz-cards"),
@@ -128,6 +129,7 @@ function addSources(passages: Passage[]) {
     li.append(a);
     ui.sources.prepend(li);
   }
+  ui.sourcesPanel.hidden = mentioned.size === 0;
 }
 
 // שאלות הבוחן של מורה הדרך: מקופלות, כדי שלא יקדימו את מה שהוא שואל בקול; התשובה לא מגיעה לכאן בכלל.
@@ -204,12 +206,15 @@ function teardown() {
   avatar?.setSpeaking(false);
   avatar?.setLevel(0);
   ui.controls.hidden = true;
+  ui.timer.hidden = true;
   ui.warning.hidden = true;
   ui.prestart.hidden = false;
   ui.micBtn.disabled = false;
   ui.micBtn.setAttribute("aria-pressed", "false");
   ui.micBtn.title = ui.micBtn.ariaLabel = "שיחה קולית";
+  chat?.close();
   chat = undefined;
+  ui.consentRow.hidden = false;
   document.documentElement.classList.remove("started", "chatting");
   turnstile.reset();
 }
@@ -328,6 +333,8 @@ async function main() {
   // הודעה בכתב: בצ'אט — לשרת ובחזרה; בשיחה קולית — אל החיבור החי.
   async function sendUser(text: string) {
     if (chat) {
+      const activeChat = chat;
+      clearError();
       currentLine = undefined;
       addTranscript("user", text, c!.nameHe);
       currentLine = undefined;
@@ -335,20 +342,29 @@ async function main() {
       ui.samples.hidden = true;
       ui.status.textContent = `${c!.nameHe.split(",")[0]} כותב…`;
       try {
-        const token = chat.started ? undefined : await turnstile.take();
-        const reply = await chat.send(text, token);
+        const token = activeChat.started ? undefined : await turnstile.take();
+        if (chat !== activeChat) return;
+        ui.prestart.hidden = true;
+        const reply = await activeChat.send(text, token);
+        if (chat !== activeChat) return;
         addTranscript("model", reply, c!.nameHe);
         currentLine = undefined;
         clearError();
       } catch (err) {
-        showError(err instanceof ApiError ? err.message : "משהו השתבש. נסה שוב.");
+        if (chat !== activeChat) return;
+        showError(err instanceof ApiError ? err.message : "בדיקת האבטחה לא הושלמה. נסה שוב.");
         // אסימון Turnstile משמש פעם אחת: אם הצ'אט עוד לא נפתח, צריך אסימון חדש לניסיון הבא.
-        if (!chat?.started) turnstile.reset();
+        if (!chat?.started) {
+          ui.prestart.hidden = false;
+          turnstile.reset();
+        }
         if (err instanceof ApiError && err.code === "chat_ended") teardown();
       } finally {
         ui.typeInput.disabled = false;
-        ui.status.textContent = "צ'אט";
-        ui.typeInput.focus();
+        if (chat === activeChat) {
+          ui.status.textContent = "צ'אט";
+          ui.typeInput.focus();
+        }
       }
       return;
     }
@@ -396,10 +412,12 @@ async function main() {
     addTranscript("model", c!.openingLineHe, c!.nameHe);
     currentLine = undefined;
     ui.status.textContent = "צ'אט";
-    ui.prestart.hidden = true;
+    // בדיקת אבטחה שעוד מבקשת אינטראקציה נשארת גלויה עד לקבלת האסימון.
+    ui.prestart.hidden = false;
+    ui.consentRow.hidden = true;
     ui.controls.hidden = false;
     ui.mute.hidden = true;
-    ui.samples.hidden = false;
+    ui.samples.hidden = true;
     ui.typeInput.focus();
   }
 
@@ -416,9 +434,12 @@ async function main() {
       return;
     }
     ui.micBtn.disabled = true;
+    chat?.close();
     chat = undefined;
     document.documentElement.classList.remove("chatting");
     document.documentElement.classList.add("started");
+    setTranscriptVisible(true);
+    ui.samples.hidden = true;
     ui.transcript.replaceChildren();
     ui.quizCards.replaceChildren();
     ui.quizPanel.hidden = true;
@@ -486,7 +507,7 @@ async function main() {
       startTimer(info.startedAt);
       ui.prestart.hidden = true;
       ui.controls.hidden = false;
-      ui.samples.hidden = false;
+      ui.samples.hidden = true;
       ui.mute.hidden = false;
       ui.micBtn.disabled = false;
       ui.micBtn.setAttribute("aria-pressed", "true");

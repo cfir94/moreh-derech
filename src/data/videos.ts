@@ -12,6 +12,12 @@ export type VideoSubtopic = {
   tone: TopicTone;
 };
 
+export type VideoPart = {
+  id: string;
+  title: string;
+  durationSeconds?: number;
+};
+
 export type VideoItem = {
   id: string;
   title: string;
@@ -25,6 +31,8 @@ export type VideoItem = {
   externalProvider?: string;
   subtopic?: VideoSubtopic;
   keywords?: string[];
+  playlistId?: string;
+  parts?: VideoPart[];
 };
 
 export type VideoGroup = {
@@ -146,6 +154,13 @@ const rawVideoGroups: VideoGroup[] = [
         "סדרה לימודית של יד ושם המציעה זווית עיונית להוראת השואה.",
         "PLVA6iCeBK_XJFxrHWdB-ExkN0byV4oN9w",
         "יד ושם",
+      ),
+      video(
+        "legend-of-destruction",
+        "אגדת חורבן | הסרט המלא",
+        "סרט מלא של כאן 11, שנבחר להרחבה על חורבן ירושלים בימי הבית השני.",
+        "96PXvR8MJJY",
+        "כאן 11 - תאגיד השידור הישראלי",
       ),
     ],
   },
@@ -595,6 +610,12 @@ const subtopicsByVideoId: Record<string, VideoSubtopic> = {
     "teal",
   ),
   "jerusalem-myth-history-reality": subtopic(
+    "jerusalem",
+    "ירושלים לדורותיה",
+    "העיר, שכבותיה ואתרי המפתח שלה.",
+    "gold",
+  ),
+  "legend-of-destruction": subtopic(
     "jerusalem",
     "ירושלים לדורותיה",
     "העיר, שכבותיה ואתרי המפתח שלה.",

@@ -107,7 +107,7 @@ export function SiteSearch() {
     <>
       <button type="button" onClick={() => setOpen(true)} aria-label="חיפוש בכל חומרי האתר" className="flex h-[42px] shrink-0 items-center gap-2 rounded-[14px] border border-line bg-card px-3 text-sm font-bold text-txt-dim transition hover:border-teal/45 hover:bg-card-2 hover:text-txt active:scale-[0.97]">
         <SearchIcon />
-        <span className="hidden xl:inline">חיפוש</span>
+        <span className="sr-only">חיפוש</span>
         <kbd className="hidden rounded border border-line bg-sheet px-1.5 py-0.5 text-[10px] font-bold text-txt-dim 2xl:inline">⌘K</kbd>
       </button>
 

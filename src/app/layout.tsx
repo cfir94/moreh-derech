@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import { absoluteUrl, DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { Heebo } from "next/font/google";
 import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
+import { PaywallGate } from "@/components/paywall/PaywallGate";
+import { SiteFooter } from "@/components/SiteFooter";
+import { PreviewBar } from "@/components/PreviewBar";
 import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
 
@@ -13,8 +17,28 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "אֶבֶן דֶּרֶךְ למורי דרך — תרגול, שאלונים, עזרי למידה ומפת מורשת",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: {
+    default: SITE_NAME,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  openGraph: {
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    locale: "he_IL",
+    type: "website",
+    siteName: SITE_NAME,
+    images: [absoluteUrl("/marketing/og.jpg")],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    images: [absoluteUrl("/marketing/og.jpg")],
+  },
 };
 
 const themeInitScript = `
@@ -39,8 +63,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col font-sans">
         <UserProvider>
+          <PreviewBar />
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PaywallGate>{children}</PaywallGate>
+          </main>
+          <SiteFooter />
           <MotiButton />
         </UserProvider>
       </body>

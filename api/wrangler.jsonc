@@ -1,0 +1,25 @@
+// md-api: שרת התשלומים. פריסה: .github/workflows/api-deploy.yml (כשהסודות קיימים).
+// סודות (wrangler secret put): SUPABASE_SERVICE_KEY, BILLING_SECRET, RESEND_API_KEY,
+// GROW_USER_ID, GROW_PAGE_CODE_MONTHLY, GROW_PAGE_CODE_YEARLY.
+{
+  "name": "md-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  // תזכורות יומיות ב-06:10 UTC (08:10 או 09:10 בישראל).
+  "triggers": { "crons": ["10 6 * * *"] },
+  "vars": {
+    "SUPABASE_URL": "https://dendxtbaxiszohjjsdtd.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlbmR4dGJheGlzem9oampzZHRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2OTMzMTcsImV4cCI6MjEwMjI2OTMxN30.rDYzH-3Pz2-XOYoUgrJW7GfTvdrZ7usqbSdtTZ4my6g",
+    // "mock" עד שחשבון Grow נפתח ונבדק ב-sandbox. בייצור: "grow".
+    "PROVIDER": "mock",
+    "SITE_URL": "https://moreyderech.com",
+    "API_URL": "https://md-api.cfir94.workers.dev",
+    "ALLOWED_ORIGINS": "https://moreyderech.com,https://www.moreyderech.com,https://moreh-derech.cfir94.workers.dev,https://cfir94.github.io,http://localhost:3000",
+    "PRICE_MONTHLY_AGOROT": "2000",
+    "PRICE_YEARLY_AGOROT": "20000",
+    "MAIL_FROM": "אבן דרך <hello@moreyderech.com>",
+    "GROW_API_URL": "https://sandbox.meshulam.co.il/api/light/server/1.0"
+  }
+}

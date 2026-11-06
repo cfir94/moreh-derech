@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * עיצוב "שכבות של דרך": ניווט נושאי קודם לצפייה, נגן יחיד קומפקטי, וקרוסלת מקורות בהמשך.
- * הסדר מכוון לסריקה מהירה: קטגוריה → תת־נושא → מקור פעיל → מקורות משלימים.
+ * עיצוב "שכבות של דרך": ניווט נושאי ובחירת אוסף לפני נגן יחיד קומפקטי.
+ * הסדר מכוון לסריקה מהירה: קטגוריה → תת־נושא → אוסף נבחר → נגן → חלקי האוסף.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -11,13 +11,19 @@ import {
   type TopicTone,
   type VideoGroup,
   type VideoItem,
+  type VideoPart,
   type VideoSubtopic,
 } from "@/data/videos";
 import {
   CLASS_VIDEO_SECTIONS,
   classVideoCount,
+  classRecordingCount,
+  classVideoScanDate,
   type VideoSection,
 } from "@/data/class-videos";
+import { findVideoSelection, selectedVideoPart, videoPlayerUrl } from "@/lib/videoPlayback";
+import { LessonPlaylist } from "./LessonPlaylist";
+import { YouTubePlayer } from "./YouTubePlayer";
 
 const accentClasses = {
   teal: {
@@ -159,6 +165,7 @@ function ExternalLinkIcon() {
 
 function kindLabel(item: VideoItem) {
   if (item.externalProvider) return "סדרה";
+  if (item.parts?.length) return "אוסף סרטונים";
   return item.type === "playlist" ? "פלייליסט" : "סרטון";
 }
 
@@ -168,11 +175,6 @@ function CoordinatorRecommendation() {
       המלצת רכז הקורס
     </span>
   );
-}
-
-function playerUrl(item: VideoItem) {
-  const separator = item.embedUrl.includes("?") ? "&" : "?";
-  return `${item.embedUrl}${separator}rel=0&modestbranding=1`;
 }
 
 function firstEmbeddableItem(items: VideoItem[]) {
@@ -186,6 +188,9 @@ export function VideoLibrary() {
   const [activeSection, setActiveSection] = useState(firstSection.id);
   const [activeCategory, setActiveCategory] = useState(firstGroup.id);
   const [activeVideoId, setActiveVideoId] = useState(firstItem.id);
+  const [activePartId, setActivePartId] = useState(firstItem.parts?.[0]?.id ?? "");
+  const [autoplay, setAutoplay] = useState(false);
+  const [autoAdvance, setAutoAdvance] = useState(true);
   const [activeSubtopicByGroup, setActiveSubtopicByGroup] = useState<Record<string, string>>(
     () =>
       Object.fromEntries(
@@ -225,32 +230,63 @@ export function VideoLibrary() {
   const activeAccent = accentClasses[selectedGroup.accent];
   const activeSubtopic = activeSubtopicGroup.subtopic;
   const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
-  const isUnifiedOnline = selectedSection.id === "online";
+  const activePart = selectedVideoPart(activeVideo, activePartId);
+  const activePartIndex = activeVideo.parts?.findIndex((part) => part.id === activePart?.id) ?? -1;
+  const playerSource = videoPlayerUrl(activeVideo, activePartId, autoplay);
 
   useEffect(() => {
-    const requestedId = new URLSearchParams(window.location.search).get("video");
-    if (!requestedId) return;
-    let nextSelection: { section: VideoSection; group: VideoGroup; item: VideoItem } | undefined;
-    for (const section of videoSections) {
-      for (const group of section.groups) {
-        const item = group.items.find((candidate) => candidate.id === requestedId);
-        if (!item) continue;
-        nextSelection = { section, group, item };
-        break;
-      }
-      if (nextSelection) break;
+    function readSelection() {
+      const params = new URLSearchParams(window.location.search);
+      const requestedId = params.get("video");
+      if (!requestedId) return;
+      const nextSelection = findVideoSelection(videoSections, requestedId);
+      if (!nextSelection) return;
+      const { section, group, item } = nextSelection;
+      const itemSubtopic = item.subtopic ?? generalSubtopic;
+      setActiveSection(section.id);
+      setActiveCategory(group.id);
+      setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: itemSubtopic.id }));
+      setActiveVideoId(item.id);
+      setActivePartId(selectedVideoPart(item, params.get("part") ?? undefined)?.id ?? "");
+      setAutoplay(false);
     }
-    if (!nextSelection) return;
-    const timer = window.setTimeout(() => {
-        const { section, group, item } = nextSelection;
-        const itemSubtopic = item.subtopic ?? generalSubtopic;
-        setActiveSection(section.id);
-        setActiveCategory(group.id);
-        setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: itemSubtopic.id }));
-        setActiveVideoId(item.id);
-    }, 0);
-    return () => window.clearTimeout(timer);
+    const timer = window.setTimeout(readSelection, 0);
+    window.addEventListener("popstate", readSelection);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("popstate", readSelection);
+    };
   }, []);
+
+  useEffect(() => {
+    const carousel = document.getElementById(`carousel-${selectedGroup.id}`);
+    const card = carousel?.querySelector<HTMLElement>(`[data-video-id="${activeVideoId}"]`);
+    if (!carousel || !card) return;
+    const bounds = carousel.getBoundingClientRect();
+    const selectedBounds = card.getBoundingClientRect();
+    if (selectedBounds.left < bounds.left || selectedBounds.right > bounds.right) {
+      carousel.scrollBy({
+        left: selectedBounds.left - bounds.left - (bounds.width - selectedBounds.width) / 2,
+        behavior: "instant",
+      });
+    }
+  }, [activeVideoId, selectedGroup.id]);
+
+  function updateSelectionUrl(item: VideoItem, partId?: string) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("video", item.id);
+    if (partId) url.searchParams.set("part", partId);
+    else url.searchParams.delete("part");
+    window.history.replaceState(window.history.state, "", url);
+  }
+
+  function chooseItem(item: VideoItem) {
+    const partId = item.parts?.[0]?.id;
+    setActiveVideoId(item.id);
+    setActivePartId(partId ?? "");
+    setAutoplay(false);
+    updateSelectionUrl(item, partId);
+  }
 
   function selectSection(section: VideoSection) {
     const group = section.groups[0];
@@ -259,7 +295,7 @@ export function VideoLibrary() {
     setActiveSection(section.id);
     setActiveCategory(group.id);
     setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
-    setActiveVideoId(nextItem.id);
+    chooseItem(nextItem);
   }
 
   function selectCategory(group: VideoGroup) {
@@ -267,7 +303,7 @@ export function VideoLibrary() {
     const nextItem = firstEmbeddableItem(firstSubtopic.items);
     setActiveCategory(group.id);
     setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
-    setActiveVideoId(nextItem.id);
+    chooseItem(nextItem);
   }
 
   function selectSubtopic(subtopic: VideoSubtopic) {
@@ -277,7 +313,7 @@ export function VideoLibrary() {
     if (!nextSubtopicGroup) return;
 
     setActiveSubtopicByGroup((current) => ({ ...current, [selectedGroup.id]: subtopic.id }));
-    setActiveVideoId(firstEmbeddableItem(nextSubtopicGroup.items).id);
+    chooseItem(firstEmbeddableItem(nextSubtopicGroup.items));
   }
 
   function scrollToPlayer() {
@@ -302,8 +338,20 @@ export function VideoLibrary() {
   }
 
   function selectVideo(item: VideoItem) {
-    setActiveVideoId(item.id);
+    chooseItem(item);
     scrollToPlayer();
+  }
+
+  function selectPart(part: VideoPart, scroll = true) {
+    setActivePartId(part.id);
+    setAutoplay(true);
+    updateSelectionUrl(activeVideo, part.id);
+    if (scroll) scrollToPlayer();
+  }
+
+  function onPartEnded() {
+    const nextPart = activeVideo.parts?.[activePartIndex + 1];
+    if (autoAdvance && nextPart) selectPart(nextPart, false);
   }
 
   return (
@@ -315,9 +363,12 @@ export function VideoLibrary() {
         </div>
         <h1 className="grad-text text-3xl leading-tight sm:text-4xl">ספריית הסרטונים</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-          {totalVideoCount} מקורות צפייה המחברים בין הקלטות הקורס, יחידות מקוונות,
-          סיורי השטח וספריית ההעשרה.
+          {totalVideoCount} מקורות צפייה: תיעוד סיורי השטח וספריית ההעשרה.
         </p>
+        <p className="mt-2 text-sm text-txt-dim">
+          תיעוד הסיורים כולל {classRecordingCount} סרטונים ב־{classVideoCount} אוספים, וכולם זמינים לבחירה בנגן כאן באתר.
+        </p>
+        <p className="mt-1 text-xs text-txt-dim">סריקת ערוץ הכיתה: {classVideoScanDate.split("-").reverse().join(".")}</p>
       </header>
 
       <section aria-labelledby="video-sections-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
@@ -344,7 +395,6 @@ export function VideoLibrary() {
         <p className="mt-3 text-sm leading-relaxed text-txt-dim">{selectedSection.description}</p>
       </section>
 
-      {!isUnifiedOnline && (
       <section aria-label="סינון לפי תחום" className="mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
           {selectedSection.groups.map((group) => {
@@ -369,9 +419,7 @@ export function VideoLibrary() {
           })}
         </div>
       </section>
-      )}
 
-      {!isUnifiedOnline && (
       <section aria-labelledby={`${selectedGroup.id}-heading`} className="mb-4">
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -423,90 +471,16 @@ export function VideoLibrary() {
           </div>
         </div>
       </section>
-      )}
 
-      <section
-        ref={playerRef}
-        aria-label="הנגן הנבחר"
-        className="mx-auto mb-5 max-w-5xl scroll-mt-5 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]"
-      >
-        <div className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)]">
-          <div className="relative aspect-video min-h-[10rem] bg-[#07131c]">
-            {activeVideo.embedRestricted ? (
-              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-white sm:p-7">
-                <span className="mb-3 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
-                  {activeVideo.externalProvider
-                    ? `מקור רשמי של ${activeVideo.externalProvider}`
-                    : "מקור מומלץ עם זמינות משתנה"}
-                </span>
-                <h2 className="max-w-md text-lg leading-snug sm:text-xl">
-                  {activeVideo.externalProvider
-                    ? `הסדרה זמינה לצפייה באתר ${activeVideo.externalProvider}.`
-                    : "הפלייליסט אינו זמין כעת להטמעה ממיקום זה."}
-                </h2>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/70">
-                  {activeVideo.externalProvider
-                    ? `${activeVideo.externalProvider} חוסם הטמעה בתוך אתרים חיצוניים. הקישור פותח את כל פרקי הסדרה באיכות המקורית.`
-                    : "הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב."}
-                </p>
-                <a
-                  href={activeVideo.directUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-gold px-3.5 py-2.5 text-sm font-bold text-[#07131c] transition duration-200 ease-out hover:brightness-110 active:scale-[0.97]"
-                >
-                  פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
-                  <ExternalLinkIcon />
-                </a>
-              </div>
-            ) : (
-              <iframe
-                key={activeVideo.id}
-                src={playerUrl(activeVideo)}
-                title={activeVideo.title}
-                className="absolute inset-0 size-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-              />
-            )}
-          </div>
-          <div className="flex flex-col justify-between p-4 sm:p-5">
-            <div>
-              <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${activeAccent.chip}`}>
-              {activeVideo.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
-                  {kindLabel(activeVideo)}
-                </span>
-                {activeVideo.recommendedByCoordinator && <CoordinatorRecommendation />}
-                <span className="text-xs text-txt-dim">{activeVideo.source}</span>
-              </div>
-              <h2 className="text-lg leading-snug text-txt sm:text-xl">{activeVideo.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-txt-dim">{activeVideo.description}</p>
-            </div>
-            <a
-              href={activeVideo.directUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg border border-line bg-card-2 px-3.5 py-2.5 text-sm font-bold text-txt transition duration-200 ease-out hover:border-teal/60 hover:bg-teal/10 hover:text-teal active:scale-[0.97]"
-            >
-              פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
-              <ExternalLinkIcon />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`}>
+      <section aria-label="בחירת קורס או אוסף" aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="mb-5">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
             <div>
               <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
-                {isUnifiedOnline ? "כל הקורסים המקוונים" : `מקורות נוספים: ${activeSubtopic.title}`}
+                {`בחירת אוסף: ${activeSubtopic.title}`}
               </h3>
-              <p className="mt-0.5 text-xs text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
+              <p className="mt-0.5 text-xs text-txt-dim">{activeSubtopic.description}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -539,6 +513,7 @@ export function VideoLibrary() {
               <button
                 key={item.id}
                 type="button"
+                data-video-id={item.id}
                 onClick={() => selectVideo(item)}
                 aria-pressed={isSelected}
                 className={`group relative flex min-h-44 w-[min(17rem,80vw)] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
@@ -553,11 +528,12 @@ export function VideoLibrary() {
                     {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
                     {kindLabel(item)}
                   </span>
-                  <span className="num text-xs font-bold text-txt-dim">{String(index + 1).padStart(2, "0")}</span>
+                  <span className={`num text-xs font-bold ${isSelected ? "text-teal" : "text-txt-dim"}`}>{isSelected ? "נבחר לצפייה" : String(index + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="mb-2">{item.recommendedByCoordinator && <CoordinatorRecommendation />}</div>
                 <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
                 <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-txt-dim">{item.description}</p>
+                {!!item.parts?.length && <span className="mt-2 text-xs font-bold text-teal">{item.parts.length} סרטונים לצפייה באתר</span>}
                 <span className="mt-auto pt-4 text-xs font-bold text-txt-dim">{item.source}</span>
                 <span
                   className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${
@@ -574,6 +550,107 @@ export function VideoLibrary() {
           })}
         </div>
       </section>
+
+      <section
+        ref={playerRef}
+        aria-label="הנגן הנבחר"
+        className="mx-auto mb-5 max-w-5xl scroll-mt-24 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]"
+      >
+        <div className="border-b border-line px-4 py-3 sm:px-5" aria-live="polite">
+          <p className="text-xs font-bold text-teal">{selectedSection.title} · נבחר לצפייה</p>
+          <h2 className="mt-1 text-lg leading-snug text-txt">{activeVideo.title}</h2>
+        </div>
+        <div className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)]">
+          <div className="relative aspect-video min-h-[10rem] bg-[#07131c]">
+            {activeVideo.embedRestricted ? (
+              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-white sm:p-7">
+                <span className="mb-3 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
+                  {activeVideo.externalProvider
+                    ? `מקור רשמי של ${activeVideo.externalProvider}`
+                    : "מקור מומלץ עם זמינות משתנה"}
+                </span>
+                <h2 className="max-w-md text-lg leading-snug sm:text-xl">
+                  {activeVideo.externalProvider
+                    ? `הסדרה זמינה לצפייה באתר ${activeVideo.externalProvider}.`
+                    : "הפלייליסט אינו זמין כעת להטמעה ממיקום זה."}
+                </h2>
+                <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/70">
+                  {activeVideo.externalProvider
+                    ? `${activeVideo.externalProvider} חוסם הטמעה בתוך אתרים חיצוניים. הקישור פותח את כל פרקי הסדרה באיכות המקורית.`
+                    : "הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב."}
+                </p>
+                <a
+                  href={activeVideo.directUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-gold px-3.5 py-2.5 text-sm font-bold text-[#07131c] transition duration-200 ease-out hover:brightness-110 active:scale-[0.97]"
+                >
+                  פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
+                  <ExternalLinkIcon />
+                </a>
+              </div>
+            ) : (
+              <YouTubePlayer
+                key={`${activeVideo.id}-${activePart?.id ?? "single"}-${autoplay}`}
+                src={playerSource}
+                title={activePart?.title ?? activeVideo.title}
+                onEnded={onPartEnded}
+              />
+            )}
+          </div>
+          <div className="flex flex-col justify-between p-4 sm:p-5">
+            <div>
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <span className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${activeAccent.chip}`}>
+              {activeVideo.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
+                  {kindLabel(activeVideo)}
+                </span>
+                {activeVideo.recommendedByCoordinator && <CoordinatorRecommendation />}
+                <span className="text-xs text-txt-dim">{activeVideo.source}</span>
+              </div>
+              {activePart ? (
+                <div className="mt-3 border-t border-line pt-3" aria-live="polite">
+                  <p className="mb-1 text-xs font-bold text-teal">סרטון {activePartIndex + 1} מתוך {activeVideo.parts?.length}</p>
+                  <p className="text-base leading-snug text-txt">{activePart.title}</p>
+                  <p className="mt-2 text-xs text-txt-dim">בחרו סרטון אחר ברשימה שמתחת לנגן, או עברו לסרטון הבא.</p>
+                </div>
+              ) : <p className="mt-2 text-sm leading-relaxed text-txt-dim">{activeVideo.description}</p>}
+            </div>
+            {activePart ? (
+              <details className="mt-4 text-xs text-txt-dim">
+                <summary className="cursor-pointer">מידע על האוסף וקישור המקור</summary>
+                <p className="mt-2 leading-relaxed">{activeVideo.description}</p>
+                <a href={activeVideo.directUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-teal underline underline-offset-4">
+                  פלייליסט המקור ביוטיוב (לא נדרש לצפייה)
+                  <ExternalLinkIcon />
+                </a>
+              </details>
+            ) : (
+            <a
+              href={activeVideo.directUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg border border-line bg-card-2 px-3.5 py-2.5 text-sm font-bold text-txt transition duration-200 ease-out hover:border-teal/60 hover:bg-teal/10 hover:text-teal active:scale-[0.97]"
+            >
+              פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
+              <ExternalLinkIcon />
+            </a>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {activePart && (
+        <LessonPlaylist
+          key={activeVideo.id}
+          item={activeVideo}
+          selectedPart={activePart}
+          onSelect={selectPart}
+          autoAdvance={autoAdvance}
+          onAutoAdvanceChange={setAutoAdvance}
+        />
+      )}
+
     </main>
   );
 }

@@ -60,8 +60,10 @@ export const DOMAINS: Record<string, Domain> = {
   game: { color: "var(--gold)", icon: "🎮" },
   games: { color: "var(--gold)", icon: "🎮" },
   "geo-game": { color: "var(--teal)", icon: "🗺️" },
+  "robes-game": { color: "#b0812f", icon: "✠" },
   "church-game": { color: "var(--violet)", icon: "⛪" },
   "plants-game": { color: "var(--green)", icon: "🌿" },
+  crossword: { color: "var(--gold)", icon: "✏️" },
   review: { color: "var(--gold)", icon: "🔁" },
 };
 

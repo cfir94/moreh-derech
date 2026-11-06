@@ -26,6 +26,7 @@ import { TOPIC_LABELS } from "@/data/topics";
 import { videoGroups } from "@/data/videos";
 import { listStoredNotebooks, notebookRevision, type StoredNotebook } from "@/lib/notebookStore";
 import { createRequestCache } from "@/lib/requestCache";
+import { classRecordingSearchResults } from "@/lib/videoSearch";
 
 export type SearchResultKind =
   | "notebook"
@@ -136,7 +137,7 @@ function videoResults(): SearchResult[] {
       group.items.map((item) => ({
         id: `video-${item.id}`,
         kind: "video" as const,
-        kindLabel: section.id === "tours" ? "סרטוני סיור" : section.id === "online" ? "קורס מקוון" : section.id === "theory" ? "שיעור עיוני" : "סרטון העשרה",
+        kindLabel: section.id === "tours" ? "סרטוני סיור" : "סרטון העשרה",
         title: item.title,
         description: `${group.category} · ${item.description}`,
         href: `/videos/?video=${encodeURIComponent(item.id)}`,
@@ -194,12 +195,13 @@ function timelineResults(): SearchResult[] {
 
 const toolResults: SearchResult[] = [
   { id: "tool-who-am-i", kind: "tool", kindLabel: "משחק", title: "מי אני? — קולות מן העבר", description: "195 דמויות מההיסטוריה, היהדות והנצרות, רמזים בגוף ראשון, שאלות אמריקאיות והקלדה, תמונות והסברים.", href: "/games/who-am-i", searchText: "מי אני דמויות היסטוריות משחק זיהוי מלכים קיסרים נביאים חכמים בית ראשון בית שני רומא ביזנטיון ברזל שופטים טיטוס הורדוס יהדות נצרות מקרא חכמים רמבם רשי ישוע מרים שליחים" },
+  { id: "tool-jerusalem-robes", kind: "tool", kindLabel: "משחק", title: "גלימות ירושלים — זיהוי אנשי דת לפי הלבוש", description: "נזירים, כמרים ונזירות מכל הכנסיות בירושלים: זיהוי בתמונות אמיתיות, מזרח ומערב, ומדריך שדה.", href: "/games/jerusalem-robes", searchText: "גלימות ירושלים נזירים כמרים נזירות לבוש זיהוי נצרות כנסיות מזרחית מערבית יוונים אורתודוקסים רוסים ארמנים קופטים סורים אתיופים פרנציסקנים דומיניקנים בנדיקטינים כרמליתים טרפיסטים האבות הלבנים אמא תרזה פרוטסטנטים אנגליקנים לותרנים כנסיית הקבר סטטוס קוו מונופיזיטים כלקדון" },
   { id: "tool-map", kind: "tool", kindLabel: "כלי", title: "מפה", description: "מפת למידה של אתרי בית שני, הרומית והביזנטית, ומפת שטח לתכנון מסלול.", href: "/map", searchText: "מפה מפות אתרים מקומות" },
   { id: "tool-learning-map", kind: "tool", kindLabel: "כלי", title: "מפת למידה — אתרי בית שני, רומית וביזנטית", description: "מי בנה ומתי, מה רואים באתר, תמונות, טיפים לזכירה ותרגול בסגנון המבחן.", href: "/map/learn", searchText: "מפת למידה מפה אתרים בונים הורדוס קונסטנטינוס הלנה יוסטיניאנוס אבדוקיה חשמונאים כנסיות מנזרים בתי כנסת מבצרים תרגול זיהוי" },
   { id: "tool-route-map", kind: "tool", kindLabel: "כלי", title: "מפת השטח — תכנון מסלול", description: "מפת אתרים, מסלולים ונקודות עניין בארץ, עובדת גם בלי רשת.", href: "/map/route", searchText: "מפה מפת שטח מסלול תכנון אתרים מקומות נקודות עניין גאוגרפיה שטח אופליין" },
   { id: "tool-guide-reports", kind: "tool", kindLabel: "כלי", title: "דוחות הדרכה", description: "למידה, תרגול ודוגמאות להכנת דוחות סיור.", href: "/guide-reports", searchText: "דוחות הדרכה סיור אתרים תרגול בחינה מסלול" },
   { id: "tool-timeline-drag", kind: "tool", kindLabel: "תרגול", title: "תרגול סדר כרונולוגי", description: "משחק גרירה לתרגול תקופות ואירועים על ציר הזמן.", href: "/quizzes/timeline-drag", searchText: "ציר זמן סדר כרונולוגי תקופות היסטוריה תרגול" },
-  { id: "tool-games", kind: "tool", kindLabel: "משחק", title: "משחקי לימוד", description: "משחקי דמויות היסטוריות, גאוגרפיה, כנסיות וצמחי ארץ ישראל.", href: "/games", searchText: "משחקים גאוגרפיה כנסיות נצרות צמחים צומח" },
+  { id: "tool-games", kind: "tool", kindLabel: "משחק", title: "משחקי לימוד", description: "משחקי דמויות היסטוריות, גאוגרפיה, כנסיות, לבוש אנשי הדת וצמחי ארץ ישראל.", href: "/games", searchText: "משחקים גאוגרפיה כנסיות נצרות צמחים צומח נזירים גלימות" },
 ];
 
 function learningMapResults(): SearchResult[] {
@@ -221,12 +223,13 @@ function learningMapResults(): SearchResult[] {
 const baseResults: SearchResult[] = [
   ...staticNotebookResults(),
   ...videoResults(),
+  ...classRecordingSearchResults(),
   ...resourceResults(),
   ...timelineResults(),
   ...learningMapResults(),
   {
     id: "timeline-history-atlas",
-    kind: "tool",kindLabel:"אטלס אינטראקטיבי",title:"אטלס הזמן — בית שני: דמויות ואירועים",description:"מתקרבים ומתרחקים בזמן: מבט על, הקשר ופירוט מלא, עם דמויות, אירועים וקשרים.",href:"/timelines/history-atlas",searchText:"אטלס ציר זמן בית שני דמויות אירועים זום התקרבות התרחקות היסטוריה חשמונאים הורדוס כורש"
+    kind: "tool",kindLabel:"אטלס אינטראקטיבי",title:"אטלס הזמן — מראשית האדם ועד ביזנטיון",description:"מתקרבים ומתרחקים בזמן: מבט על, הקשר ופירוט מלא, עם דמויות, אירועים וקשרים — מן הפרהיסטוריה והברונזה ועד הכיבוש המוסלמי.",href:"/timelines/history-atlas",searchText:"אטלס ציר זמן פרהיסטוריה נטופים ניאנדרטלי ברונזה כנען בית ראשון בית שני דמויות אירועים זום התקרבות התרחקות היסטוריה חשמונאים הורדוס כורש רומא ביזנטיון"
   },
   {
     id: "timeline-roman-people",

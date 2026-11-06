@@ -1,18 +1,28 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { SectionCard } from "@/components/SectionCard";
 
-export const metadata: Metadata = {
-  title: "משחקים | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "משחקי זיהוי ותרגול למורי דרך",
-};
 
 const games = [
+  {
+    slug: "crossword",
+    href: "/games/crossword",
+    title: "תשבץ השבוע",
+    description: "מאגר תשבצים שגדל בכל יום שישי, עם דמויות, אירועים, אתרים ומושגים מכל מחברות הקורס.",
+    meta: "תשבץ חדש מתווסף כל שבוע",
+  },
   {
     slug: "who-am-i",
     href: "/games/who-am-i",
     title: "מי אני? — קולות מן העבר",
     description: "דמויות מההיסטוריה, היהדות והנצרות מספרות על עצמן. מזהים את השם בשאלה אמריקאית או בהקלדה — וחושפים תמונה וסיפור.",
     meta: "195 דמויות · 10 מחברות",
+  },
+  {
+    slug: "robes-game",
+    href: "/games/jerusalem-robes",
+    title: "גלימות ירושלים",
+    description: "מי עובר שם בסמטה? מזהים נזירים, כמרים ונזירות מכל הכנסיות בירושלים לפי הלבוש — בתמונות אמיתיות, עם מדריך שדה למזרח ולמערב.",
+    meta: "14 קהילות · תמונות אמיתיות",
   },
   {
     slug: "geo-game",
@@ -39,6 +49,12 @@ const games = [
     meta: "28 צמחים",
   },
 ];
+
+export const metadata = pageMeta({
+  title: "משחקי לימוד למורי דרך",
+  description: "משחקי לימוד ותרגול למורי דרך: זיהוי דמויות ואנשי דת, תשבצים, כנסיות, צמחי בר וידיעת הארץ, לחזרה מהנה על חומר הקורס והמבחן.",
+  path: "/games",
+});
 
 export default function GamesPage() {
   return (
