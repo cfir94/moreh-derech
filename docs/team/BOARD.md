@@ -10,9 +10,9 @@
 | ID | משימה | מי | מצב | אזור (היקף קבצים) | תלוי ב- |
 |---|---|---|---|---|---|
 | P-00 | תוכנית, מחקר, פרוטוקול צוות | Claude | done | `docs/launch/**`, `docs/team/**` | — |
-| M-01 | מוטי: בלי כתיבות KV בכל הודעה, סדר מודלים, הודעות מכסה | Claude | in-progress | `history-talk/src/**`, `history-talk/web/src/**`, `history-talk/test/**` | — |
-| M-02 | מוטי: workflow העלאה אוטומטית | Claude | blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
-| C-01 | הסרת סרטוני "עיוניים" ו"מקוונים" | Claude | in-progress | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
+| M-01 | מוטי: בלי כתיבות KV בכל הודעה, סדר מודלים, הודעות מכסה | Claude | review | `history-talk/src/**`, `history-talk/web/src/**`, `history-talk/test/**` | — |
+| M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
+| C-01 | הסרת סרטוני "עיוניים" ו"מקוונים" | Claude | review | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
 | S-01 | מחברות: כתיבה למנהלים בלבד | Claude | ready | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
 | CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים | Codex | ready | `docs/team/reports/CX-01.md` בלבד | — |
 | GPT-01 | מחקר מתחרים ומיצוב | ChatGPT | ready | `marketing/inbox/GPT-01/` | צילום המתחרה מהבעלים |
@@ -50,4 +50,4 @@
 ## הושלם
 | ID | משימה | PR |
 |---|---|---|
-| P-00 | תוכנית ההשקה ופרוטוקול הצוות | (ה-PR הזה) |
+| P-00 | תוכנית ההשקה ופרוטוקול הצוות | [#54](https://github.com/cfir94/moreh-derech/pull/54) |
