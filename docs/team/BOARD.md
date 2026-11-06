@@ -14,8 +14,8 @@
 | M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
 | C-01 | הסרת סרטוני "עיוניים" ו"מקוונים" | Claude | done (#55) | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
 | S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
-| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | ready · ממתין לחיבור Codex ל-GitHub | `docs/team/reports/CX-01.md` בלבד | — |
-| CX-02 | SEO: metadata, Open Graph, sitemap, robots (`docs/team/codex/CX-02.md`) | Codex | ready | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
+| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | in-progress (👀 09:29) | `docs/team/reports/CX-01.md` בלבד | — |
+| CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | in-progress (👀 09:38, הוקצה ע"י Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
 | GPT-01 | מחקר מתחרים ומיצוב | ChatGPT | ready | `marketing/inbox/GPT-01/` | צילום המתחרה מהבעלים |
 | GPT-02 | שפה שיווקית: כותרות, יתרונות, שאלות נפוצות לדף הנחיתה | ChatGPT | ready | `marketing/inbox/GPT-02/` | — |
 | GPT-03 | טיוטת תקנון, מדיניות פרטיות, ביטול והצהרת נגישות | ChatGPT | ready | `marketing/inbox/GPT-03/` | — |
