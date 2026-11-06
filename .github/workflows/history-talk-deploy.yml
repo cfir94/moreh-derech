@@ -1,0 +1,54 @@
+name: History talk — deploy Worker
+
+# מעלה את מוטי והדמויות ל-Cloudflare בכל מיזוג ל-main שנוגע ב-history-talk/.
+# דורש שני סודות בריפו: CLOUDFLARE_API_TOKEN (תבנית "Edit Cloudflare Workers") ו-CLOUDFLARE_ACCOUNT_ID.
+# בלעדיהם ההעלאה מדולגת (ראו docs/launch/USER-ACTIONS.md §1). הסודות של ה-Worker עצמו
+# (GEMINI_API_KEY, TURNSTILE_SECRET) כבר שמורים ב-Cloudflare, ו-wrangler deploy לא נוגע בהם.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "history-talk/**"
+      - ".github/workflows/history-talk-deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: history-talk-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    defaults:
+      run:
+        working-directory: history-talk
+    steps:
+      - name: Skip without Cloudflare token
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::CLOUDFLARE_API_TOKEN לא מוגדר — ההעלאה מדולגת. ראו docs/launch/USER-ACTIONS.md §1."
+      - uses: actions/checkout@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - uses: actions/setup-node@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          node-version: 24
+      - run: npm ci
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - run: npm run typecheck
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - run: npm test
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - run: npm run deploy
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - name: Smoke test
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          sleep 5
+          test "$(curl -sS -m 15 https://history-talk.cfir94.workers.dev/api/health)" = "ok"
