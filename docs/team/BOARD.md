@@ -14,7 +14,7 @@
 | M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
 | C-01 | הסרת סרטוני "עיוניים" ו"מקוונים" | Claude | done (#55) | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
 | S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
-| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים | Codex | ready | `docs/team/reports/CX-01.md` בלבד | — |
+| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | ready · ממתין לחיבור Codex ל-GitHub | `docs/team/reports/CX-01.md` בלבד | — |
 | GPT-01 | מחקר מתחרים ומיצוב | ChatGPT | ready | `marketing/inbox/GPT-01/` | צילום המתחרה מהבעלים |
 | GPT-02 | שפה שיווקית: כותרות, יתרונות, שאלות נפוצות לדף הנחיתה | ChatGPT | ready | `marketing/inbox/GPT-02/` | — |
 | GPT-03 | טיוטת תקנון, מדיניות פרטיות, ביטול והצהרת נגישות | ChatGPT | ready | `marketing/inbox/GPT-03/` | — |
@@ -24,13 +24,13 @@
 | ID | משימה | מי | מצב | אזור | תלוי ב- |
 |---|---|---|---|---|---|
 | H-01 | דומיין moreyderech.com ו-DNS | בעלים | blocked(קנייה) | — | USER-ACTIONS §2 |
-| H-02 | בנייה בלי basePath ו-Worker סטטי ב-Cloudflare (נבדק מקומית ב-wrangler dev: 8 דפים, הפניות ישנות) | Claude | review | `next.config.ts`, `src/lib/basePath.ts`, `deploy/**`, `.github/workflows/deploy*.yml` | M-02 (אותו טוקן), H-01 |
+| H-02 | בנייה בלי basePath ו-Worker סטטי ב-Cloudflare | Claude | done (#56) | `next.config.ts`, `src/lib/basePath.ts`, `deploy/**`, `.github/workflows/deploy*.yml` | M-02 (אותו טוקן), H-01 |
 | H-03 | קובץ המפה (95MB): בינתיים נטען מ-GitHub Pages (Range+CORS נבדקו). לפני ריפו פרטי: ריפו ציבורי נפרד למפה, או R2 | Claude | backlog | `src/app/map/**` | H-02 |
 | H-04 | הפניה מהכתובת הישנה | Claude | backlog | `public/404.html` / gh-pages | H-02 |
 | H-05 | ריפו פרטי | בעלים | backlog | — | H-02 |
 | E-01 | Resend ו-SMTP של Supabase | בעלים | blocked | — | USER-ACTIONS §5–6 |
 | E-02 | hello@moreyderech.com | בעלים | blocked | — | USER-ACTIONS §7 |
-| A-01 | כניסה בקוד למייל, מסך הרשמה חדש | Claude | backlog | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
+| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (מאחורי דגל; נבדק מקצה לקצה) | Claude | review · הפעלה: USER-ACTIONS §6א | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
 | A-02 | כניסה עם Google | Claude | backlog | כנ"ל | USER-ACTIONS §8 |
 | A-03 | סגירת הסיסמה הנגזרת (יחד עם israel-geo-game) | Claude | backlog | — | A-01 |
 | B-01 | SQL: entitlements, billing_events, start_trial | Claude | backlog | `supabase/**` | — |

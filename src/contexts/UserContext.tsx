@@ -4,6 +4,7 @@ import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import {
   AUTH_EVENT,
   SESSION_KEY,
+  completeMagicLink,
   parseSession,
   quickAuth,
   readSession,
@@ -11,6 +12,7 @@ import {
   signIn,
   signOut,
   userFromSession,
+  verifyEmailCode,
   type SharedUser,
 } from "@/lib/cloudAuth";
 import { useHydrated } from "@/lib/clientStore";
@@ -78,6 +80,18 @@ export function useUser() {
       const session = await signIn(email.trim().toLowerCase(), password);
       migrateMatchingProgress(session.user_id, session.email);
       return userFromSession(session)!;
+    },
+    /** כניסה בקוד חד-פעמי (A-01). needsName = משתמש חדש שצריך לבחור שם. */
+    verifyCode: async (email: string, code: string) => {
+      const result = await verifyEmailCode(email, code);
+      migrateMatchingProgress(result.session.user_id, result.session.email);
+      return result;
+    },
+    /** חזרה מקישור כניסה במייל (#access_token=...). null אם אין קישור בכתובת. */
+    completeLink: async (hash: string) => {
+      const result = await completeMagicLink(hash);
+      if (result) migrateMatchingProgress(result.session.user_id, result.session.email);
+      return result;
     },
     logout: signOut,
   };
