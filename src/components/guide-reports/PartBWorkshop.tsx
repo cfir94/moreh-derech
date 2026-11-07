@@ -249,7 +249,8 @@ function GroupFlow({ paper, group, stored, onBack }: { paper: ExamPaper; group: 
       {step === 3 && <ScheduleStep group={group} plan={plan} set={set} />}
       {step === 4 && <ExaminerStep paper={paper} group={group} plan={plan} set={set} />}
 
-      <div className="flex justify-between gap-2">
+      {/* pl-24: on phones Moti's hat (fixed, bottom-left) would cover the "next" button. */}
+      <div className="flex justify-between gap-2 pl-24 sm:pl-0">
         {step > 1 ? <button type="button" className={btnGhost} onClick={() => go(step - 1)}>→ הקודם</button> : <span />}
         {step < 4 && <button type="button" className={btnPrimary} style={primaryStyle} onClick={() => go(step + 1)}>לשלב הבא ←</button>}
       </div>
