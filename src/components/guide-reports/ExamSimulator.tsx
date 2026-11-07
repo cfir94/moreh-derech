@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { EXAM_PAPERS, type ExamGroup } from "@/data/guide-reports/exam-briefs";
+import { EXAM_CONDITIONS, EXAM_PAPERS, type ExamGroup } from "@/data/guide-reports/exam-briefs";
 import { analyzeFiveMs } from "@/lib/fiveMs";
 import { saveDraft, type GuideDraft, type ExamDraftPayload } from "@/lib/guideReportDrafts";
 import { DraftLoader } from "@/components/guide-reports/DraftLoader";
@@ -228,11 +228,20 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
               }}
               className="rounded-md border border-line bg-card-2 px-3 py-2 text-sm font-bold"
             >
-              {EXAM_PAPERS.map((p) => (
-                <option key={p.slug} value={p.slug}>
-                  {p.sitting}
-                </option>
-              ))}
+              <optgroup label="טפסים של משרד התיירות">
+                {EXAM_PAPERS.filter((p) => !p.practice).map((p) => (
+                  <option key={p.slug} value={p.slug}>
+                    {p.sitting}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="תרגילים שלנו בפורמט 2026">
+                {EXAM_PAPERS.filter((p) => p.practice).map((p) => (
+                  <option key={p.slug} value={p.slug}>
+                    {p.sitting}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </div>
           <Timer hours={paper.hours} />
@@ -257,6 +266,12 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
               טופס הבחינה המקורי ↗
             </a>
           )}
+        </p>
+        <p className="mt-2 text-[12px] leading-relaxed text-txt-dim">
+          {EXAM_CONDITIONS}{" "}
+          <Link href="/guide-reports/workshop" className="font-bold text-teal hover:underline">
+            לתכנן קודם בסדנה ←
+          </Link>
         </p>
         {paper.note && (
           <p className="mt-2 text-[12px] leading-relaxed text-txt-dim opacity-80">

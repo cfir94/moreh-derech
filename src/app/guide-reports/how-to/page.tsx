@@ -167,30 +167,31 @@ export default function HowToWriteReportPage() {
           <div className="flex gap-2">
             <dt className="font-extrabold text-mc">חלק א׳</dt>
             <dd className="text-txt-dim">
-              <span className="num">30</span> נקודות — שאלות ידע והבנה
+              שעה וחצי — 45 סגורות ו-45 השלמה, עונים על <span className="num">40</span> מכל סוג
             </dd>
           </div>
           <div className="flex gap-2">
             <dt className="font-extrabold text-mc">חלק ב׳</dt>
             <dd className="text-txt-dim">
-              <span className="num">70</span> נקודות — תכנון היום
+              <span className="num">3</span> שעות, אחרי חצי שעה הפסקה — תכנון היום
             </dd>
           </div>
           <div className="flex gap-2">
-            <dt className="font-extrabold text-mc">משך חלק ב׳</dt>
+            <dt className="font-extrabold text-mc">משקל</dt>
             <dd className="text-txt-dim">
-              <span className="num">3</span> שעות
+              כ-<span className="num">40%</span> לחלק א׳ וכ-<span className="num">60%</span> לחלק ב׳ (לפי הרכז; ב-2020 וב-2022 הודפס 30/70)
             </dd>
           </div>
           <div className="flex gap-2">
-            <dt className="font-extrabold text-mc">מועדים</dt>
-            <dd className="text-txt-dim">מאי ונובמבר, פעמיים בשנה</dd>
-          </div>
-          <div className="flex gap-2 sm:col-span-2">
             <dt className="font-extrabold text-mc">עובר</dt>
             <dd className="text-txt-dim">
-              <span className="num">65</span> ומעלה מזכה בגישה לבחינה בעל פה
-              (ינואר ויולי, מול ועדה של שלושה מורי דרך ונציג סוכני הנסיעות).
+              <span className="num">60</span> במבחן העיוני כולו
+            </dd>
+          </div>
+          <div className="flex gap-2 sm:col-span-2">
+            <dt className="font-extrabold text-mc">עזרים</dt>
+            <dd className="text-txt-dim">
+              כתיבה במחשב, דפי טיוטה ועט, ומפה <span className="num">1:250,000</span>. הסיור בשאלה: 08:00–18:00, במאי, במזג אוויר טוב.
             </dd>
           </div>
         </dl>
@@ -199,12 +200,26 @@ export default function HowToWriteReportPage() {
           מטלה: <b className="text-txt">הגשת דוחות הסיור כנדרש היא תנאי</b>{" "}
           לזכאות לגשת למבחן הרישוי.
         </p>
-        <Link
-          href="/guide-reports/exam"
-          className="text-[13.5px] font-bold text-teal hover:underline"
-        >
-          לתרגל על טופס בחינה אמיתי ↗
-        </Link>
+        <p className="flex flex-wrap gap-x-4 gap-y-1">
+          <Link
+            href="/guide-reports/coordinator"
+            className="text-[13.5px] font-bold text-teal hover:underline"
+          >
+            דגשי הרכז לחלק ב׳ ↗
+          </Link>
+          <Link
+            href="/guide-reports/workshop"
+            className="text-[13.5px] font-bold text-teal hover:underline"
+          >
+            סדנת התכנון ↗
+          </Link>
+          <Link
+            href="/guide-reports/exam"
+            className="text-[13.5px] font-bold text-teal hover:underline"
+          >
+            לכתוב על טופס בחינה ↗
+          </Link>
+        </p>
       </section>
 
       <div className="flex flex-wrap gap-3">
