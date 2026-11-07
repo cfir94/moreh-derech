@@ -21,6 +21,8 @@ export type CrosswordSave = {
   ms: number;
   startedAt: number;
   doneAt?: number;
+  /** Last write, for merging devices (src/lib/sync). */
+  savedAt?: number;
 };
 
 export type CrosswordProgress = Record<string, CrosswordSave>;
@@ -91,7 +93,7 @@ export function currentSave(week: string, sig: string): CrosswordSave | null {
 }
 
 export function writeSave(week: string, save: CrosswordSave) {
-  const next = { ...getSnapshot(), [week]: save };
+  const next = { ...getSnapshot(), [week]: { ...save, savedAt: Date.now() } };
   try {
     window.localStorage.setItem(storageKey(), JSON.stringify(next));
   } catch {

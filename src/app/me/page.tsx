@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { MyPlan } from "@/components/paywall/MyPlan";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/hooks/useProgress";
+import { SyncStatusLine, useSyncStatus } from "@/components/SyncStatusLine";
 import { needsReview, resetProgress, summarize } from "@/lib/progress";
 import { domainStyle } from "@/lib/domains";
 
@@ -27,6 +28,7 @@ export default function MePage() {
     if (ready && !user) router.replace("/login");
   }, [ready, user, router]);
 
+  const syncState = useSyncStatus();
   if (!ready || !user || !progressReady) return null;
 
   const s = summarize(state);
@@ -42,6 +44,7 @@ export default function MePage() {
           {user.classCode && (
             <p className="mt-1 text-xs text-txt-dim">כיתה: {user.classCode}</p>
           )}
+          <SyncStatusLine />
         </div>
         <button
           type="button"
@@ -200,7 +203,9 @@ export default function MePage() {
             <button
               type="button"
               onClick={() => {
-                if (confirm("לאפס את נתוני ההתקדמות של החשבון הזה במכשיר? הפעולה אינה הפיכה.")) {
+                if (confirm(syncState === "unavailable"
+                  ? "לאפס את נתוני ההתקדמות של החשבון הזה במכשיר? הפעולה אינה הפיכה."
+                  : "לאפס את נתוני ההתקדמות של החשבון? הם יימחקו בכל המכשירים, והפעולה אינה הפיכה.")) {
                   resetProgress();
                 }
               }}

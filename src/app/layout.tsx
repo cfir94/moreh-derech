@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { absoluteUrl, DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { fontVariables } from "./fonts";
+import { CloudSync } from "@/components/CloudSync";
 import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
 import { PaywallGate } from "@/components/paywall/PaywallGate";
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <SiteFooter />
           <MotiButton />
+          <CloudSync />
         </UserProvider>
       </body>
     </html>
