@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Frank_Ruhl_Libre } from "next/font/google";
 import { FAMILIES, FAMILY_BY_ID, GROUPS, GROUP_BY_ID, type FamilyId, type GroupId } from "@/data/christian-dress/groups";
 import rawPhotos from "@/data/christian-dress/photos.json";
 import { acceptsGroup, createRound, KIND_LABELS, score, type Answer, type Photo, type Question, type QuestionKind } from "@/lib/christianDress";
 import { withBasePath } from "@/lib/basePath";
 import styles from "./JerusalemRobesGame.module.css";
 
-const serif = Frank_Ruhl_Libre({ subsets: ["hebrew", "latin"], weight: ["500", "700", "900"], display: "swap" });
 
 const PHOTOS = rawPhotos as Photo[];
 const PHOTO_BY_ID = new Map(PHOTOS.map(photo => [photo.id, photo]));
@@ -148,7 +146,7 @@ export function JerusalemRobesGame() {
   const toggle = <T,>(list: T[], value: T) => list.includes(value) ? list.filter(item => item !== value) : [...list, value];
   const missed = [...new Set(session?.answers.filter(a => !a.correct).map(a => a.group) ?? [])];
 
-  return <section className={`${styles.game} ${serif.className}`} data-robes dir="rtl">
+  return <section className={`${styles.game} font-serif`} data-robes dir="rtl">
     {view === "home" && <>
       <header className={styles.hero}>
         <div className={styles.heroText}>

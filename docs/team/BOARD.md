@@ -18,8 +18,8 @@
 | CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | done (#73, אחרי 4 תיקונים של Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
 | CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | done (`marketing/inbox/CX-04/`) | `marketing/inbox/CX-04/` | — |
 | CX-03 | טקסטים לדף הנחיתה, ובמקום פוסטים: הודעות וואטסאפ אישיות (הועבר מ-GPT-02) | Codex | done (`marketing/inbox/CX-03/`); שילוב ב-/welcome: G-01 | `marketing/inbox/CX-03/` | — |
-| CX-06 | ליטוש מדוח CX-01: ESLint בלי embeds, טיפוסי PNG, בדיקת האטלס וכל הבדיקות ב-CI, טוקנים במקום צבעים גולמיים, backdrop נגיש, קוד מת | Codex | in-progress | ראו `codex/CX-06.md` | — |
-| F-01 | פונטים מקומיים (`next/font/local`): build בלי Google | Claude | backlog | `src/app/layout.tsx`, `src/assets/fonts/**` | — |
+| CX-06 | ליטוש מדוח CX-01: ESLint בלי embeds, טיפוסי PNG, בדיקת האטלס וכל הבדיקות ב-CI, טוקנים במקום צבעים גולמיים, קוד מת | Codex+Claude | done (#78) | ראו `codex/CX-06.md` | — |
+| F-01 | פונטים מקומיים (`next/font/local`): build בלי Google | Claude | done | `src/app/layout.tsx`, `src/assets/fonts/**` | — |
 | CX-05 | (בוטל ע"י הבעלים: בלי שיווק המוני. הקהל הוא תלמידי מורי דרך, ופונים אליהם ישירות בוואטסאפ) | — | cancelled | — | — |
 | GPT-03 | (בוטל: Claude כתב את דפי המשפט ב-L-01) | — | done | — | — |
 
