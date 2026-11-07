@@ -12,7 +12,7 @@
 | P-00 | תוכנית, מחקר, פרוטוקול צוות | Claude | done | `docs/launch/**`, `docs/team/**` | — |
 | P-01 | סקילים בריפו, זמינים ל-Claude בענן ול-Codex, ומדריך `docs/team/SKILLS.md` | Claude | review | `.claude/skills/**`, `.agents/skills/**`, `docs/team/SKILLS.md`, `CLAUDE.md`, `AGENTS.md`, הגדרות lint/tsc/git | — |
 | M-01 | מוטי: בלי כתיבות KV בכל הודעה, סדר מודלים, הודעות מכסה | Claude | done (#55; באוויר אחרי העלאה) | `history-talk/src/**`, `history-talk/web/src/**`, `history-talk/test/**` | — |
-| M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
+| M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | הועלה ידנית ב-7.11 · אוטומטי: blocked(סוד ב-GitHub) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
 | C-01 | הקלטות הקורס (עיוני, מקוון, סיורים) רק לחברי הכיתה; לחדשים רק העשרה | Claude | done | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
 | S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
 | CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | done (`reports/CX-01.md`) | `docs/team/reports/CX-01.md` בלבד | — |
