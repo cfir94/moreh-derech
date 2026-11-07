@@ -1,0 +1,2 @@
+# Agent skills run on Linux runners: shell scripts must stay LF, also from a Windows checkout
+.claude/skills/** text=auto eol=lf

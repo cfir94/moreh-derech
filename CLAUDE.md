@@ -639,6 +639,21 @@ public/
 הלוגו בסרגל וה-favicon מבוססים על `assets/icon.png` של `israel-geo-game`.
 עותק הלוגו של הסרגל נשמר ב-`src/assets/brand-icon.png`.
 
+## סקילים
+
+הסקילים נמצאים ב-`.claude/skills/`, ולכן הם זמינים גם בסשן בענן. לפני משימה מהטבלה, הפעל את הסקיל או קרא את ה-`SKILL.md` שלו. הפירוט, הכללים והמקורות נמצאים ב-[`docs/team/SKILLS.md`](docs/team/SKILLS.md).
+
+| המשימה | הסקיל |
+|---|---|
+| כתיבה או תיקון של שאלות | `quiz-writer` |
+| ביקורת, ליטוש ועיצוב של מסכים | `impeccable` (שפת העיצוב למטה גוברת עליו) |
+| המחשה של מנגנון או מבנה | `anatomy` |
+| מסמך להורדה בעברית (לא חשבונית או קבלה) | `rtl-hebrew-docs` |
+| טקסטים לדף הנחיתה ולהודעות | `copywriting` |
+| מחיר, מסך חסימה, שבוע ניסיון, ביטול | `pricing`, `paywalls`, `onboarding`, `churn-prevention` |
+| בדיקת SEO | `seo-audit` |
+| החלטה יקרה, רק כשהבעלים מבקש | `decision-council` |
+
 ## מוסכמות ועיצוב
 
 - UI בעברית, `dir="rtl"`, פונט **Heebo** (ו-Frank Ruhl Libre בגלימות ירושלים). הפונטים ארוזים מקומית ב-`src/assets/fonts` (OFL) דרך `src/app/fonts.ts`, כך שה-build לא תלוי ב-Google Fonts. כל משפחה היא שני קבצים, לטינית ועברית, בשרשרת אחת, **בלי** fallback מותאם באמצע: אחרת העברית יוצאת ב-Arial.

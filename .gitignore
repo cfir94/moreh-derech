@@ -47,7 +47,7 @@ next-env.d.ts
 /prisma/dev.db-journal
 
 # auto-generated agent skill docs (from prisma init)
-/.agents/
+/.agents/*
 /.claude/
 /.windsurf/
 /skills-lock.json
@@ -58,6 +58,7 @@ next-env.d.ts
 !/.claude/
 /.claude/*
 !/.claude/skills/
+!/.agents/skills/
 
 # Python bytecode from tools/
 __pycache__/

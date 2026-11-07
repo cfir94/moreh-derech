@@ -10,6 +10,7 @@
 | ID | משימה | מי | מצב | אזור (היקף קבצים) | תלוי ב- |
 |---|---|---|---|---|---|
 | P-00 | תוכנית, מחקר, פרוטוקול צוות | Claude | done | `docs/launch/**`, `docs/team/**` | — |
+| P-01 | סקילים בריפו, זמינים ל-Claude בענן ול-Codex, ומדריך `docs/team/SKILLS.md` | Claude | review | `.claude/skills/**`, `.agents/skills/**`, `docs/team/SKILLS.md`, `CLAUDE.md`, `AGENTS.md`, הגדרות lint/tsc/git | — |
 | M-01 | מוטי: בלי כתיבות KV בכל הודעה, סדר מודלים, הודעות מכסה | Claude | done (#55; באוויר אחרי העלאה) | `history-talk/src/**`, `history-talk/web/src/**`, `history-talk/test/**` | — |
 | M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
 | C-01 | הקלטות הקורס (עיוני, מקוון, סיורים) רק לחברי הכיתה; לחדשים רק העשרה | Claude | done | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
