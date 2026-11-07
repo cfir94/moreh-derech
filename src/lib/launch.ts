@@ -16,7 +16,7 @@ export const SITE_URL =
 export const LAUNCH = {
   emailCodeLogin: process.env.NEXT_PUBLIC_EMAIL_CODE_LOGIN === "1",
   paywall: process.env.NEXT_PUBLIC_PAYWALL === "1",
-  supportEmail: "hello@moreyderech.com",
+  supportEmail: "office@moreyderech.com",
   /** כתובת ה-Worker של התשלומים (md-api, B-05). ריק = עוד לא פעיל, וכפתורי התשלום מפנים למייל. */
   apiOrigin: process.env.NEXT_PUBLIC_API_ORIGIN ?? "",
   siteName: "אבן דרך למורי דרך",

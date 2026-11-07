@@ -13,10 +13,10 @@
     "not_found_handling": "404-page",
     // רק הכתובות הישנות מפעילות קוד. כל השאר מוגש ישירות, בחינם ובלי להיספר במכסה.
     "run_worker_first": ["/moreh-derech", "/moreh-derech/*"]
-  }
-  // אחרי קניית הדומיין (USER-ACTIONS §2) מוסיפים:
-  // "routes": [
-  //   { "pattern": "moreyderech.com", "custom_domain": true },
-  //   { "pattern": "www.moreyderech.com", "custom_domain": true }
-  // ]
+  },
+  // הדומיין נקנה ב-7.11. ‏www מגיש את אותו אתר. תגי ה-canonical מצביעים על moreyderech.com.
+  "routes": [
+    { "pattern": "moreyderech.com", "custom_domain": true },
+    { "pattern": "www.moreyderech.com", "custom_domain": true }
+  ]
 }

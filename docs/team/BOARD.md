@@ -58,9 +58,9 @@
 | ID | משימה | מי | מצב | אזור | תלוי ב- |
 |---|---|---|---|---|---|
 | LA-00 | מפרט עיצוב לעזרי הלמידה | Claude | done | `docs/learning-aids/DESIGN.md` | — |
-| LA-01 | רכיבי המעטפת: כותרת, לשוניות ב-hash, חיפוש, כרטיס עם סיכום, תמונה עם קרדיט, תרגול | Codex | in-progress | `src/components/learning-aid/**` | LA-00 |
+| LA-01 | רכיבי המעטפת: כותרת, לשוניות ב-hash, חיפוש, כרטיס עם סיכום, תמונה עם קרדיט, תרגול | Codex | done (שני סבבים, נבדק בדפדפן) | `src/components/learning-aid/**` | LA-00 |
 | LA-10 | בית שני: סיכום של עד 200 תווים לכל אירוע, וסימון מושגי מבחן | Claude | ready | `src/data/second-temple/summaries.ts` | — |
-| LA-11 | בית שני על המעטפת: מסך לכל תקופה, מפה ותמונות | Codex | backlog | `src/components/timeline/SecondTemple*` | LA-01, LA-10 |
+| LA-11 | בית שני על המעטפת: מסך לכל תקופה, מפה ותמונות | Codex | backlog · מחכה ל-LA-10 | `src/components/timeline/SecondTemple*` | LA-01, LA-10 |
 | LA-12 | בית שני: תרגול (סדר כרונולוגי, מי עשה, מה קרה) | Codex | backlog | כנ"ל | LA-11 |
 | LA-20 | הרומי והביזנטי על המעטפת ועל הטוקנים, בלי לאבד את ה"חומר" הייחודי | Codex | backlog | `src/components/timeline/{Roman,Byzantine}*` | LA-01 |
 | LA-21 | הרומי והביזנטי: תמונות ותרגול | Claude+Codex | backlog | כנ"ל | LA-20 |

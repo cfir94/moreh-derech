@@ -74,10 +74,10 @@ Authentication ← **Emails** ← **Magic Link**: נושא `קוד הכניסה 
 
 ⚠️ בלי SMTP מותאם (§5–6) Supabase שולח רק כ-2 מיילים בשעה. זה מספיק לבדיקה, לא למשתמשים.
 
-## 7. ⬜ מייל עסקי hello@moreyderech.com (משחרר: E-02). חינם
-1. Cloudflare ← הדומיין ← **Email** ← Email Routing ← Enable. מוסיף `hello@moreyderech.com` ← היעד הוא ה-Gmail שלך (מאשרים במייל).
-2. Gmail ← הגדרות ← חשבונות ← **שלח דואר בשם** ← `hello@moreyderech.com`, עם SMTP `smtp.resend.com`, פורט 465, משתמש `resend` וסיסמה = מפתח Resend.
-3. מעכשיו עונים ללקוחות מתוך ה-Gmail, והם רואים `hello@moreyderech.com`.
+## 7. ⬜ מייל עסקי office@moreyderech.com (משחרר: E-02). חינם
+1. Cloudflare ← הדומיין ← **Email** ← Email Routing ← Enable. מוסיף `office@moreyderech.com` ← היעד הוא ה-Gmail שלך (מאשרים במייל).
+2. Gmail ← הגדרות ← חשבונות ← **שלח דואר בשם** ← `office@moreyderech.com`, עם SMTP `smtp.resend.com`, פורט 465, משתמש `resend` וסיסמה = מפתח Resend.
+3. מעכשיו עונים ללקוחות מתוך ה-Gmail, והם רואים `office@moreyderech.com`.
 
 ## 8. ⬜ כניסה עם Google (משחרר: A-02). חינם, 15 דקות
 אכתוב מדריך מדויק כשנגיע לשלב הזה.

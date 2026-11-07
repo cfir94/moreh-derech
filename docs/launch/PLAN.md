@@ -53,7 +53,7 @@ api.moreyderech.com ─► Cloudflare Worker "md-api" (חדש)
                         entitlements (חדש, כתיבה רק ע"י השרת), billing_events
 history-talk.cfir94.workers.dev (מוטי) ─► בודק JWT של Supabase + זכאות לפני שיחה
 Resend ─► מיילי כניסה (SMTP של Supabase) ומיילים אוטומטיים
-Cloudflare Email Routing ─► hello@moreyderech.com → ה-Gmail של הבעלים
+Cloudflare Email Routing ─► office@moreyderech.com → ה-Gmail של הבעלים
 ```
 
 ## השלבים
@@ -74,7 +74,7 @@ Cloudflare Email Routing ─► hello@moreyderech.com → ה-Gmail של הבעל
 - **H-04** 🟢 הפניה מהכתובת הישנה (`cfir94.github.io/moreh-derech/*`) לדומיין החדש, עם שמירת הנתיב.
 - **H-05** 🔴 הפיכת הריפו לפרטי אחרי שהפריסה החדשה עובדת.
 - **E-01** 🟡 Resend: אימות הדומיין, ו-SMTP מותאם ב-Supabase.
-- **E-02** 🟡 hello@moreyderech.com: Email Routing ל-Gmail, ו-"Send mail as" דרך Resend.
+- **E-02** 🟡 office@moreyderech.com: Email Routing ל-Gmail, ו-"Send mail as" דרך Resend.
 
 ### שלב 2 — הרשמה וכניסה
 - **A-01** 🔴 כניסה בקוד חד-פעמי למייל (Supabase OTP), במסך אחד: מייל ← קוד ← שם ← בפנים.
