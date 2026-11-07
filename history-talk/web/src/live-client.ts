@@ -1,6 +1,7 @@
 // החיבור ל-Gemini Live: אסימון מהשרת, חיבור, שליחה וקבלה, הכלים search_sources ו-quiz_questions,
 // תמלול, וחיבור מחדש עם sessionResumption כשמגיע goAway או כשהחיבור נקטע.
 
+import { authHeaders } from "./site-auth.ts";
 import { GoogleGenAI, Modality, type LiveServerMessage, type Session } from "@google/genai";
 import type { QuizArgs, QuizItem, QuizShown } from "./quiz.ts";
 import type { Passage } from "./search.ts";
@@ -81,10 +82,11 @@ export class LiveClient {
 
   private async requestToken(body: object): Promise<TokenInfo> {
     let res: Response;
+    const auth = await authHeaders();
     try {
       res = await fetch(`${this.opts.apiBase}/api/token`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...auth },
         body: JSON.stringify({ characterId: this.opts.characterId, ...body }),
       });
     } catch {

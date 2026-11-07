@@ -7,6 +7,7 @@
  */
 import { useSyncExternalStore } from "react";
 import { HISTORY_TALK_ORIGIN, TALK_CHARACTERS } from "@/data/history-talk";
+import { useTalkAuthBridge } from "@/lib/talkAuth";
 
 // ערכת הצבעים נקראת פעם אחת, בטעינה: שינוי של src היה טוען את המסגרת מחדש
 // וקוטע שיחה באמצע. (בלי מנוי — החלפת ערכה אחר כך לא משנה את המסגרת.)
@@ -14,6 +15,7 @@ const noSubscribe = () => () => {};
 const getTheme = () => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
 
 export function HistoryTalk() {
+  useTalkAuthBridge();
   const theme = useSyncExternalStore(noSubscribe, getTheme, () => "dark");
   const src = HISTORY_TALK_ORIGIN ? `${HISTORY_TALK_ORIGIN}/?embed=1&theme=${theme}` : "";
 

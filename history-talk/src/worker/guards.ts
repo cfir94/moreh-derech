@@ -18,6 +18,11 @@ export interface Env {
   DAILY_SESSIONS_PER_IP: string;
   DAILY_SESSIONS_GLOBAL: string;
   TURNSTILE_SITE_KEY: string;
+  /** "1" = שיחה רק למי שיש לו גישה (מנוי או שבוע ניסיון). כבוי עד שהתשלומים פעילים. */
+  REQUIRE_ENTITLEMENT?: string;
+  /** הפרויקט של האתר (ציבורי, כמו ב-src/lib/cloudAuth.ts). נדרש רק כש-REQUIRE_ENTITLEMENT="1". */
+  SUPABASE_URL?: string;
+  SUPABASE_ANON_KEY?: string;
 }
 
 // האיחוד האירופי, אזור הכלכלה האירופי, שווייץ ובריטניה: בתוכנית החינמית של
@@ -38,6 +43,7 @@ export type ErrorCode =
   | "resume_rejected"
   | "chat_ended"
   | "daily_exhausted"
+  | "no_access"
   | "gemini_unavailable";
 
 const MESSAGES: Record<ErrorCode, [number, string, string]> = {
@@ -63,6 +69,11 @@ const MESSAGES: Record<ErrorCode, [number, string, string]> = {
     429,
     "הדמויות ענו היום על המון שאלות ונחות עד מחר בבוקר. בינתיים אפשר לתרגל בשאלונים ובמבחנים באתר.",
     "Today's conversation quota is used up. Please come back tomorrow.",
+  ],
+  no_access: [
+    403,
+    "השיחה עם הדמויות פתוחה למנויים ולשבוע הניסיון. נכנסים לאתר או מתחילים ניסיון חינם, ומנסים שוב.",
+    "Conversations are open to subscribers and trial users. Sign in on the site and try again.",
   ],
   gemini_unavailable: [502, "Gemini לא זמין כרגע. נסה שוב בעוד כמה דקות.", "Gemini is unavailable right now."],
 };
@@ -96,7 +107,7 @@ export function corsHeaders(origin: string | null): Record<string, string> {
   return {
     "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, X-MD-Auth",
     "Access-Control-Max-Age": "600",
     Vary: "Origin",
   };
@@ -220,4 +231,25 @@ export function securityHeaders(env: Env): Record<string, string> {
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "X-Content-Type-Options": "nosniff",
   };
+}
+
+/**
+ * גישה לשיחה: כש-REQUIRE_ENTITLEMENT="1", הדפדפן שולח את אסימון ה-Supabase של המשתמש בכותרת
+ * X-MD-Auth, והשרת שואל את md_has_access() בשמו (RLS: המשתמש רואה רק את עצמו).
+ * נכשל סגור: בלי אסימון, אסימון פג או תקלה ב-Supabase, אין שיחה.
+ */
+export async function hasAccess(request: Request, env: Env, fetcher: typeof fetch = fetch): Promise<boolean> {
+  if (env.REQUIRE_ENTITLEMENT !== "1") return true;
+  const token = request.headers.get("X-MD-Auth")?.trim();
+  if (!token || !env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) return false;
+  try {
+    const res = await fetcher(`${env.SUPABASE_URL}/rest/v1/rpc/md_has_access`, {
+      method: "POST",
+      headers: { apikey: env.SUPABASE_ANON_KEY, Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: "{}",
+    });
+    return res.ok && (await res.json()) === true;
+  } catch {
+    return false;
+  }
 }

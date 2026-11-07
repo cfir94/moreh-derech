@@ -418,6 +418,10 @@ Cloudflare Worker אחד שמגיש גם את הלקוח (Vite + TypeScript, ב�
   קורא ל-`generateContent` (`GEMINI_CHAT_MODEL`) עם אותן הוראות וכלים, נעולים בשרת, ועוד `CHAT_RULES`. השרת לא
   שומר את השיחה: הדפדפן (`web/src/chat-client.ts`) שולח את ההיסטוריה, מריץ את הכלים בעצמו ושולח את התוצאה.
   Turnstile רק בהודעה הראשונה; אחר כך `chatId` ב-KV, עד 150 בקשות ו-3 שעות לשיחה, ו-`CHAT_LIMITER` לכל IP.
+- **גישה למנויים** (`REQUIRE_ENTITLEMENT` ב-`wrangler.jsonc`, כבוי עד שהתשלומים פעילים): כשהוא `"1"`, פתיחת שיחה
+  (`/api/token`, וההודעה הראשונה ב-`/api/chat`) דורשת `md_has_access()` של המשתמש. ה-iframe לא רואה את ההתחברות של
+  האתר, ולכן הוא מבקש אסימון ב-`postMessage` (`web/src/site-auth.ts`). האתר עונה רק למקור של ה-Worker
+  (`src/lib/talkAuth.ts`). אם אין אסימון, אם האסימון פג או אם Supabase לא זמין, השיחה נחסמת.
 - ערכת הצבעים נקראת פעם אחת בטעינה ונשלחת כ-`?theme=` — שינוי `src` היה טוען את המסגרת מחדש
   וקוטע שיחה באמצע.
 

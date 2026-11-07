@@ -10,6 +10,7 @@ import {
   checkDailyQuota,
   commitDailyQuota,
   hashIp,
+  hasAccess,
   intVar,
   isFreeTier,
   recordStat,
@@ -63,6 +64,9 @@ export async function handleToken(request: Request, env: Env, deps: Deps = defau
 
   // 2. מדינה
   if (countryBlocked(request, env)) return errorResponse("country_blocked", cors);
+
+  // 3. גישה (מנוי או שבוע ניסיון), כשהיא נאכפת
+  if (!(await hasAccess(request, env, deps.fetcher))) return errorResponse("no_access", cors);
 
   const ip = request.headers.get("CF-Connecting-IP");
   const ipHash = await hashIp(ip ?? "unknown", env.TURNSTILE_SECRET);
