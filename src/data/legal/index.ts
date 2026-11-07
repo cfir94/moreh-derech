@@ -1,15 +1,17 @@
 /**
  * דפי המשפט (L-01). טיוטה מבוססת עובדות השירות (docs/team/chatgpt/GPT-03.md) ו-
  * docs/launch/research/legal.md. **לבדיקת עורך דין לפני גבייה מהלקוח הראשון.** מקומות שהבעלים
- * צריך למלא מסומנים OPERATOR (שם העוסק, מספר עוסק) ומוצגים בבירור עד שימולאו.
+ * פרטי המפעיל ב-OPERATOR מולאו ב-7.11. ספק הסליקה יעודכן כשייפתח החשבון.
  */
 import { LAUNCH, PRICES } from "@/lib/launch";
 
 export const OPERATOR = {
   /** שם העוסק כפי שהוא רשום ברשות המסים. */
-  name: "[שם העוסק — ימולא]",
+  name: "כפיר משה יעקובי",
   /** עוסק פטור / מורשה ומספרו. */
-  registration: "[עוסק פטור/מורשה מס' — ימולא]",
+  registration: "עוסק פטור מס' 205760473",
+  /** כתובת למשלוח דואר, כנדרש בעסקה מרחוק. */
+  address: "המייסדים 7, נתניה",
   email: LAUNCH.supportEmail,
   /** ספק הסליקה, כשייבחר (docs/launch/research/payments.md). */
   paymentProvider: "[חברת הסליקה — תעודכן]",
@@ -27,7 +29,7 @@ export const TERMS: LegalDoc = {
   title: "תנאי שימוש",
   intro: `ברוכים הבאים ל${site}. השימוש באתר כפוף לתנאים האלה. כתבנו אותם בשפה פשוטה. אם משהו לא ברור, כתבו לנו ל-${OPERATOR.email}.`,
   sections: [
-    { title: "מי אנחנו", body: [`האתר מופעל ע"י ${OPERATOR.name}, ${OPERATOR.registration}. יצירת קשר: ${OPERATOR.email}.`] },
+    { title: "מי אנחנו", body: [`האתר מופעל ע"י ${OPERATOR.name}, ${OPERATOR.registration}, ${OPERATOR.address}. יצירת קשר: ${OPERATOR.email}.`] },
     {
       title: "מה השירות",
       body: [
@@ -155,7 +157,7 @@ export const ACCESSIBILITY: LegalDoc = {
       title: "מה עוד לא נגיש במלואו",
       body: ["חלק מהכלים האינטראקטיביים (מפות, גרירה בצירי זמן, מודלים בתלת-ממד ומשחקים) עדיין לא נגישים במלואם לקוראי מסך. אנחנו עובדים על חלופות טקסטואליות."],
     },
-    { title: "נתקלתם בבעיה?", body: [`כתבו לרכז הנגישות: [שם — ימולא], ${OPERATOR.email}. נשתדל לתקן תוך 14 יום, ובינתיים לתת את המידע בדרך אחרת.`] },
+    { title: "נתקלתם בבעיה?", body: [`כתבו לרכז הנגישות, ${OPERATOR.name}: ${OPERATOR.email}. נשתדל לתקן תוך 14 יום, ובינתיים לתת את המידע בדרך אחרת.`] },
   ],
 };
 

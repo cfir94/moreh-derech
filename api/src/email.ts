@@ -2,7 +2,7 @@
 import type { Env } from "./types.ts";
 
 const wrap = (body: string) => `<div dir="rtl" style="font-family:Heebo,Arial,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#0f2a3d;line-height:1.7">${body}
-<p style="margin-top:28px;font-size:13px;color:#5b7286">אבן דרך למורי דרך · <a href="mailto:hello@moreyderech.com" style="color:#0f766e">hello@moreyderech.com</a></p></div>`;
+<p style="margin-top:28px;font-size:13px;color:#5b7286">אבן דרך למורי דרך · <a href="mailto:office@moreyderech.com" style="color:#0f766e">office@moreyderech.com</a></p></div>`;
 
 export const templates = {
   trialEnding: (name: string, siteUrl: string, days: number) => ({
