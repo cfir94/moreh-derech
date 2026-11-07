@@ -19,7 +19,7 @@
     "ALLOWED_ORIGINS": "https://moreyderech.com,https://www.moreyderech.com,https://moreh-derech.cfir94.workers.dev,https://cfir94.github.io,http://localhost:3000",
     "PRICE_MONTHLY_AGOROT": "2000",
     "PRICE_YEARLY_AGOROT": "20000",
-    "MAIL_FROM": "אבן דרך <office@moreyderech.com>",
+    "MAIL_FROM": "אבן דרך <hello@moreyderech.com>",
     "GROW_API_URL": "https://sandbox.meshulam.co.il/api/light/server/1.0"
   }
 }
