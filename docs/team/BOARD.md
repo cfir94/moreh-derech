@@ -64,8 +64,8 @@
 | LA-12 | בית שני: תרגול (סדר כרונולוגי, מי עשה, מה קרה) | Codex | backlog | כנ"ל | LA-11 |
 | LA-20 | הרומי והביזנטי על המעטפת ועל הטוקנים, בלי לאבד את ה"חומר" הייחודי | Codex | backlog | `src/components/timeline/{Roman,Byzantine}*` | LA-01 |
 | LA-21 | הרומי והביזנטי: תמונות ותרגול | Claude+Codex | backlog | כנ"ל | LA-20 |
-| LA-30 | משחק הצמחים: נתונים (סימן מזהה, עונה, בית גידול, איפה בסיור, לא להתבלבל עם) | Claude | ready | `src/data/plants/**` | — |
-| LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | backlog | `tools/plants_photos.json`, workflow | LA-30 |
+| LA-30 | משחק הצמחים: נתונים (סימן מזהה, עונה, בית גידול, איפה בסיור, לא להתבלבל עם) | Claude | done (40 צמחים, 7 קבוצות, 3 בדיקות) | `src/data/plants/**` | — |
+| LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | ready | `tools/plants_photos.json`, workflow | LA-30 |
 | LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | backlog | `src/components/games/Plants*` | LA-31 |
 | LA-33 | משחק הצמחים: בדיקת ממשק, הסרת ה-embed הישן, "מה חדש" | Claude | backlog | `src/app/games/plants/**`, `public/embeds/games/plants/**` | LA-32 |
 | LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog | `src/data/history-timeline/**` | LA-01 |
