@@ -51,6 +51,27 @@
 | G-03 | (בוטל: בלי שיווק המוני) | — | cancelled | — | — |
 | G-05 | Web Analytics ומשפך | Claude | backlog | `src/app/layout.tsx` | H-02 |
 
+## עזרי למידה: שפה אחידה (סדרה LA)
+
+המפרט נמצא ב-[`docs/learning-aids/DESIGN.md`](../learning-aids/DESIGN.md). עובדים לפי הסדר, משימה או שתיים בכל פעימה. Codex בונה ממשק לפי המפרט, Claude כותב את התוכן ובודק כל PR בצילומי מסך.
+
+| ID | משימה | מי | מצב | אזור | תלוי ב- |
+|---|---|---|---|---|---|
+| LA-00 | מפרט עיצוב לעזרי הלמידה | Claude | done | `docs/learning-aids/DESIGN.md` | — |
+| LA-01 | רכיבי המעטפת: כותרת, לשוניות ב-hash, חיפוש, כרטיס עם סיכום, תמונה עם קרדיט, תרגול | Codex | in-progress | `src/components/learning-aid/**` | LA-00 |
+| LA-10 | בית שני: סיכום של עד 200 תווים לכל אירוע, וסימון מושגי מבחן | Claude | ready | `src/data/second-temple/summaries.ts` | — |
+| LA-11 | בית שני על המעטפת: מסך לכל תקופה, מפה ותמונות | Codex | backlog | `src/components/timeline/SecondTemple*` | LA-01, LA-10 |
+| LA-12 | בית שני: תרגול (סדר כרונולוגי, מי עשה, מה קרה) | Codex | backlog | כנ"ל | LA-11 |
+| LA-20 | הרומי והביזנטי על המעטפת ועל הטוקנים, בלי לאבד את ה"חומר" הייחודי | Codex | backlog | `src/components/timeline/{Roman,Byzantine}*` | LA-01 |
+| LA-21 | הרומי והביזנטי: תמונות ותרגול | Claude+Codex | backlog | כנ"ל | LA-20 |
+| LA-30 | משחק הצמחים: נתונים (סימן מזהה, עונה, בית גידול, איפה בסיור, לא להתבלבל עם) | Claude | done (40 צמחים, 7 קבוצות, 3 בדיקות) | `src/data/plants/**` | — |
+| LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | ready | `tools/plants_photos.json`, workflow | LA-30 |
+| LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | backlog | `src/components/games/Plants*` | LA-31 |
+| LA-33 | משחק הצמחים: בדיקת ממשק, הסרת ה-embed הישן, "מה חדש" | Claude | backlog | `src/app/games/plants/**`, `public/embeds/games/plants/**` | LA-32 |
+| LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog | `src/data/history-timeline/**` | LA-01 |
+| LA-41 | הברית החדשה ומצרים–כנען על המעטפת (בלי לגעת בתוכן של ישוע) | Codex | backlog | `src/app/timelines/{biblical,egypt-canaan}/**` | LA-01 |
+| LA-50 | טבלת התקופות ו"מי זה מי ברומא" על הטוקנים ובמצב כהה, ואינדקס עזרי הלמידה אחיד | Codex | backlog | `src/components/timeline/Periods*`, `RomanPeople*`, `src/app/timelines/page.tsx` | LA-01 |
+
 ## הושלם
 | ID | משימה | PR |
 |---|---|---|
