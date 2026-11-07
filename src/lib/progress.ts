@@ -21,6 +21,8 @@ export type AttemptRecord = {
   category: string;
   correct: number;
   total: number;
+  /** When a self-check in the results changed this attempt; the sync keeps the newer copy. */
+  editedAt?: number;
 };
 
 export type QuestionStat = {
@@ -32,11 +34,15 @@ export type QuestionStat = {
   wrong: number;
   lastCorrectAt: number | null;
   lastWrongAt: number | null;
+  /** Last change to this row, for merging devices (src/lib/sync). Older rows have none. */
+  rev?: number;
 };
 
 export type ProgressState = {
   attempts: AttemptRecord[];
   questions: Record<string, QuestionStat>;
+  /** "Reset progress" time: on every device, anything older is dropped when it syncs. */
+  resetAt?: number;
 };
 
 export const PROGRESS_KEY = "md_progress_v2";
@@ -85,6 +91,7 @@ export function parseProgress(raw: string | null): ProgressState {
         parsed?.questions && typeof parsed.questions === "object"
           ? repairExamOwners(parsed.questions)
           : {},
+      ...(typeof parsed?.resetAt === "number" ? { resetAt: parsed.resetAt } : {}),
     };
   } catch {
     return emptyProgress;
@@ -158,6 +165,7 @@ export function recordAttempt(args: {
   const currentState = readProgress();
   // Never mutate the shared empty snapshot used during SSR/hydration.
   const state: ProgressState = {
+    ...currentState,
     attempts: [...currentState.attempts],
     questions: { ...currentState.questions },
   };
@@ -205,6 +213,7 @@ export function recordAttempt(args: {
       wrong: prev.wrong + (a.correct ? 0 : 1),
       lastCorrectAt: a.correct ? now : prev.lastCorrectAt,
       lastWrongAt: a.correct ? prev.lastWrongAt : now,
+      rev: now,
     };
   }
 
@@ -219,7 +228,8 @@ export function correctAttemptAnswer(attemptId: string, questionId: number, corr
   const answer = attempt?.answers?.find((a) => a.questionId === questionId);
   if (!attempt || !answer || answer.correct === correct) return;
   const delta = Number(correct) - Number(answer.correct);
-  const updated = { ...attempt, correct: attempt.correct + delta,
+  const editedAt = Math.max(Date.now(), (attempt.editedAt ?? attempt.ts) + 1);
+  const updated = { ...attempt, correct: attempt.correct + delta, editedAt,
     answers: attempt.answers!.map((a) => a === answer ? { ...a, correct } : a) };
   const attempts = current.attempts.map((a) => a === attempt ? updated : a);
   const owner = questionOwner(answer.quiz ?? attempt.quiz, questionId);
@@ -232,8 +242,9 @@ export function correctAttemptAnswer(attemptId: string, questionId: number, corr
   const baseline = events[0].answer;
   const lastCorrectAt = Math.max(baseline.previousCorrectAt ?? 0, ...events.filter((e) => e.answer.correct).map((e) => e.ts)) || null;
   const lastWrongAt = Math.max(baseline.previousWrongAt ?? 0, ...events.filter((e) => !e.answer.correct).map((e) => e.ts)) || null;
-  write({ attempts, questions: { ...current.questions, [key]: {
+  write({ ...current, attempts, questions: { ...current.questions, [key]: {
     ...previous, wrong: Math.max(0, previous.wrong - delta), lastCorrectAt, lastWrongAt,
+    rev: Math.max(editedAt, (previous.rev ?? 0) + 1),
   } } });
 }
 
@@ -247,6 +258,7 @@ export function recordSummaryAttempt(args: {
 }) {
   const currentState = readProgress();
   write({
+    ...currentState,
     attempts: [
       ...currentState.attempts,
       {
@@ -264,8 +276,14 @@ export function recordSummaryAttempt(args: {
 
 export function resetProgress() {
   if (typeof window === "undefined") return;
+  if (readSession()) {
+    // A signed-in reset is kept as a time, so the account's other devices drop the same data.
+    const resetAt = Math.max(Date.now(), ...readProgress().attempts.map((a) => (a.editedAt ?? a.ts) + 1));
+    write({ attempts: [], questions: {}, resetAt });
+    return;
+  }
   window.localStorage.removeItem(progressStorageKey());
-  if (!readSession()) window.localStorage.removeItem(LEGACY_KEY);
+  window.localStorage.removeItem(LEGACY_KEY);
   window.dispatchEvent(new Event(PROGRESS_EVENT));
 }
 
@@ -306,7 +324,7 @@ function mergeProgress(a: ProgressState, b: ProgressState): ProgressState {
       lastWrongAt: Math.max(current.lastWrongAt ?? 0, incoming.lastWrongAt ?? 0) || null,
     };
   }
-  return { attempts, questions };
+  return { ...a, attempts, questions };
 }
 
 /** One-time migration from the site's former browser-wide store. */

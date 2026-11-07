@@ -20,6 +20,7 @@
 | CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | done (`marketing/inbox/CX-04/`) | `marketing/inbox/CX-04/` | — |
 | CX-03 | טקסטים לדף הנחיתה, ובמקום פוסטים: הודעות וואטסאפ אישיות (הועבר מ-GPT-02) | Codex | done (`marketing/inbox/CX-03/`); שילוב ב-/welcome: G-01 | `marketing/inbox/CX-03/` | — |
 | CX-06 | ליטוש מדוח CX-01: ESLint בלי embeds, טיפוסי PNG, בדיקת האטלס וכל הבדיקות ב-CI, טוקנים במקום צבעים גולמיים, קוד מת | Codex+Claude | done (#78) | ראו `codex/CX-06.md` | — |
+| S-02 | התקדמות, טעויות, מפת הלמידה, תשבצים וטיוטות נשמרים בחשבון ומסונכרנים בין מכשירים (`md_user_data`) | Claude | review · SQL: [#93](https://github.com/cfir94/moreh-derech/issues/93) | `src/lib/sync/**`, `supabase/migrations/20261107_01_*`, `tests/cloud-sync.test.mjs` | — |
 | F-01 | פונטים מקומיים (`next/font/local`): build בלי Google | Claude | done | `src/app/layout.tsx`, `src/assets/fonts/**` | — |
 | CX-05 | (בוטל ע"י הבעלים: בלי שיווק המוני. הקהל הוא תלמידי מורי דרך, ופונים אליהם ישירות בוואטסאפ) | — | cancelled | — | — |
 | GPT-03 | (בוטל: Claude כתב את דפי המשפט ב-L-01) | — | done | — | — |
