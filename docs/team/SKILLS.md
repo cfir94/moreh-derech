@@ -77,6 +77,8 @@
 
 ## מה קיים רק במחשב של הבעלים
 
+המדריך לעבודה במחשב הזה, כולל סרטונים ו-Google Flow: [`LOCAL-TOOLS.md`](LOCAL-TOOLS.md).
+
 סשן בענן ו-Codex **לא** רואים את אלה:
 
 - **`~/.claude/skills`:** `llm-council`, וגם עותקים של `anatomy`, `impeccable` ו-`rtl-hebrew-docs`.
