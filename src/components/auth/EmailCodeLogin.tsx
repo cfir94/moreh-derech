@@ -3,7 +3,7 @@
 /**
  * הרשמה וכניסה בקוד חד-פעמי למייל (A-01): מייל ← קוד ← (משתמש חדש) שם ← בפנים.
  * בלי סיסמה. אותו חשבון כמו במשחק "אבן דרך", כי Supabase מזהה את המשתמש לפי המייל.
- * אחרי כניסה ראשונה נפתח שבוע ניסיון (md_start_trial). אם הטבלה עוד לא קיימת, ממשיכים בלי.
+ * כשהתשלום דולק (NEXT_PUBLIC_PAYWALL), אחרי כניסה ראשונה נפתח שבוע ניסיון (md_start_trial).
  */
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -98,7 +98,8 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
       if (result.needsName) setStep("profile");
       else {
         // משתמש קיים: אם עוד אין לו ניסיון, הוא נפתח בשקט (אידמפוטנטי).
-        await startTrial(false, false).catch(() => null);
+        // רק כשיש תשלום: אחרת השבוע היה נשרף לפני שיש מה לנסות.
+        if (LAUNCH.paywall) await startTrial(false, false).catch(() => null);
         router.replace("/me");
       }
     } catch (err) {
@@ -127,7 +128,7 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
     setError("");
     try {
       await saveProfileDetails(name, classCode);
-      await startTrial(true, marketing).catch(() => null);
+      if (LAUNCH.paywall) await startTrial(true, marketing).catch(() => null);
       router.replace("/me?welcome=1");
     } catch (err) {
       setError(friendlyAuthError(err));
@@ -178,7 +179,8 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
             />
           </label>
           <p className="text-sm leading-relaxed text-txt-dim">
-            נשלח אליכם קוד כניסה. בלי סיסמה לזכור. נרשמים בפעם הראשונה? {PRICES.trialDays} ימים ראשונים בחינם, בלי כרטיס אשראי.
+            נשלח אליכם קוד כניסה. בלי סיסמה לזכור.
+            {LAUNCH.paywall && <> נרשמים בפעם הראשונה? {PRICES.trialDays} ימים ראשונים בחינם, בלי כרטיס אשראי.</>}
           </p>
           <button type="submit" disabled={busy} className={primary} style={primaryStyle}>
             {busy ? "שולח…" : "שלחו לי קוד"}

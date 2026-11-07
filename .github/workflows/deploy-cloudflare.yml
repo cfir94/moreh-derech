@@ -40,6 +40,8 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ""
           NEXT_PUBLIC_SITE_ORIGIN: "https://moreyderech.com"
+          # כניסה בקוד למייל (A-01). אושר ע"י הבעלים ב-7.11, אחרי ש-SMTP של Resend הוגדר ב-Supabase.
+          NEXT_PUBLIC_EMAIL_CODE_LOGIN: "1"
       - name: Exclude files over Cloudflare's 25MB static limit
         if: env.CLOUDFLARE_API_TOKEN != ''
         run: |
