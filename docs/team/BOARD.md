@@ -12,9 +12,9 @@
 | P-00 | תוכנית, מחקר, פרוטוקול צוות | Claude | done | `docs/launch/**`, `docs/team/**` | — |
 | P-01 | סקילים בריפו, זמינים ל-Claude בענן ול-Codex, ומדריך `docs/team/SKILLS.md` | Claude | review | `.claude/skills/**`, `.agents/skills/**`, `docs/team/SKILLS.md`, `CLAUDE.md`, `AGENTS.md`, הגדרות lint/tsc/git | — |
 | M-01 | מוטי: בלי כתיבות KV בכל הודעה, סדר מודלים, הודעות מכסה | Claude | done (#55; באוויר אחרי העלאה) | `history-talk/src/**`, `history-talk/web/src/**`, `history-talk/test/**` | — |
-| M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | הועלה ידנית ב-7.11 · אוטומטי: blocked(סוד ב-GitHub) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
+| M-02 | מוטי: workflow העלאה אוטומטית | Claude | done (רץ אוטומטית אחרי #89) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
 | C-01 | הקלטות הקורס (עיוני, מקוון, סיורים) רק לחברי הכיתה; לחדשים רק העשרה | Claude | done | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
-| S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
+| S-01 | מחברות: כתיבה למנהלים בלבד (`supabase/migrations/20261106_01_*`) | בעלים | done (הורץ ב-7.11, #88) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
 | CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | done (`reports/CX-01.md`) | `docs/team/reports/CX-01.md` בלבד | — |
 | CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | done (#73, אחרי 4 תיקונים של Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
 | CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | done (`marketing/inbox/CX-04/`) | `marketing/inbox/CX-04/` | — |
@@ -28,17 +28,17 @@
 
 | ID | משימה | מי | מצב | אזור | תלוי ב- |
 |---|---|---|---|---|---|
-| H-01 | דומיין moreyderech.com ו-DNS | בעלים | blocked(קנייה) | — | USER-ACTIONS §2 |
+| H-01 | דומיין moreyderech.com ו-DNS | בעלים | done (באוויר, כולל www) | — | USER-ACTIONS §2 |
 | H-02 | בנייה בלי basePath ו-Worker סטטי ב-Cloudflare | Claude | done (#56) | `next.config.ts`, `src/lib/basePath.ts`, `deploy/**`, `.github/workflows/deploy*.yml` | M-02 (אותו טוקן), H-01 |
 | H-03 | קובץ המפה (95MB): בינתיים נטען מ-GitHub Pages (Range+CORS נבדקו). לפני ריפו פרטי: ריפו ציבורי נפרד למפה, או R2 | Claude | backlog | `src/app/map/**` | H-02 |
 | H-04 | הפניה מהכתובת הישנה | Claude | backlog | `public/404.html` / gh-pages | H-02 |
 | H-05 | ריפו פרטי | בעלים | backlog | — | H-02 |
-| E-01 | Resend ו-SMTP של Supabase | בעלים | blocked | — | USER-ACTIONS §5–6 |
-| E-02 | hello@moreyderech.com | בעלים | blocked | — | USER-ACTIONS §7 |
-| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (כבוי; נבדק מקצה לקצה) | Claude | done (#58) · הפעלה: USER-ACTIONS §6א | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
+| E-01 | Resend ו-SMTP של Supabase | בעלים | done (#88: הדומיין מאומת, SMTP ותבנית עברית) | — | USER-ACTIONS §5–6 |
+| E-02 | office@moreyderech.com (Email Routing ל-Gmail) | מקומי | ready ([#90](https://github.com/cfir94/moreh-derech/issues/90)) | — | USER-ACTIONS §7 |
+| A-01 | כניסה בקוד/קישור למייל, מסך הרשמה חדש (כבוי; נבדק מקצה לקצה) | Claude | done (#58) · הודלק ב-moreyderech.com ב-7.11, באישור הבעלים | `src/lib/cloudAuth.ts`, `src/app/login/**`, `src/contexts/**` | E-01 |
 | A-02 | כניסה עם Google | Claude | backlog | כנ"ל | USER-ACTIONS §8 |
 | A-03 | סגירת הסיסמה הנגזרת (יחד עם israel-geo-game) | Claude | backlog | — | A-01 |
-| B-01 | SQL: entitlements, billing_events, start_trial (`supabase/migrations/20261106_02_*`, `_03_*`) | Claude | done · ממתין להרצה (USER-ACTIONS §9) | `supabase/**` | — |
+| B-01 | SQL: entitlements, billing_events, start_trial (`supabase/migrations/20261106_02_*`, `_03_*`) | Claude | done (הורץ ב-7.11) | `supabase/**` | — |
 | B-02 | `plans.ts`, `entitlement.ts`, `accessStore.ts` | Claude | review | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
 | B-03 | Paywall, `/pricing`, "התוכנית שלי", מוטי רק עם גישה (כבוי: NEXT_PUBLIC_PAYWALL) | Claude | review | `src/components/paywall/**`, `src/app/me/**` | B-02 |
 | B-04 | בחירת ספק סליקה ופתיחת חשבון | בעלים | blocked | — | USER-ACTIONS §3–4 |
