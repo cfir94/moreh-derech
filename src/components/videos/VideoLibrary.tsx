@@ -591,7 +591,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
         <div className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)]">
           <div className="relative aspect-video min-h-[10rem] bg-[#07131c]">
             {activeVideo.embedRestricted ? (
-              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-white sm:p-7">
+              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-on-media sm:p-7">
                 <span className="mb-3 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
                   {activeVideo.externalProvider
                     ? `מקור רשמי של ${activeVideo.externalProvider}`
@@ -602,7 +602,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
                     ? `הסדרה זמינה לצפייה באתר ${activeVideo.externalProvider}.`
                     : "הפלייליסט אינו זמין כעת להטמעה ממיקום זה."}
                 </h2>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/70">
+                <p className="mt-2 max-w-lg text-sm leading-relaxed text-on-media/70">
                   {activeVideo.externalProvider
                     ? `${activeVideo.externalProvider} חוסם הטמעה בתוך אתרים חיצוניים. הקישור פותח את כל פרקי הסדרה באיכות המקורית.`
                     : "הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב."}

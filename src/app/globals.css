@@ -85,6 +85,9 @@
 }
 
 @theme inline {
+  /* Text and scrims laid over video and photos: the same in light and dark. */
+  --color-on-media: #fff;
+  --color-scrim: #000;
   --color-bg: var(--bg);
   --color-card: var(--card);
   --color-card-2: var(--card-2);
