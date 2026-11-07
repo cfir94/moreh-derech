@@ -22,6 +22,7 @@ import {
   type VideoSection,
 } from "@/data/class-videos";
 import { findVideoSelection, selectedVideoPart, videoPlayerUrl } from "@/lib/videoPlayback";
+import { useClassMember } from "@/hooks/useClassMember";
 import { LessonPlaylist } from "./LessonPlaylist";
 import { YouTubePlayer } from "./YouTubePlayer";
 
@@ -108,8 +109,8 @@ const enrichmentSection: VideoSection = {
   groups: videoGroups,
 };
 
-const videoSections: VideoSection[] = [...CLASS_VIDEO_SECTIONS, enrichmentSection];
-const totalVideoCount = classVideoCount + videoCount;
+const classSections: VideoSection[] = [...CLASS_VIDEO_SECTIONS, enrichmentSection];
+const publicSections: VideoSection[] = [enrichmentSection];
 
 function groupItemsBySubtopic(items: VideoItem[]) {
   return items.reduce<{ subtopic: VideoSubtopic; items: VideoItem[] }[]>(
@@ -181,7 +182,19 @@ function firstEmbeddableItem(items: VideoItem[]) {
   return items.find((item) => !item.embedRestricted) ?? items[0];
 }
 
+/**
+ * Course recordings are shown only to current classmates (see src/lib/classAccess.ts).
+ * The key remounts the library once the session is read, so a classmate never keeps
+ * the enrichment-only state that the static HTML starts with.
+ */
 export function VideoLibrary() {
+  const classMember = useClassMember();
+  return <VideoLibraryView key={classMember ? "class" : "public"} classMember={classMember} />;
+}
+
+function VideoLibraryView({ classMember }: { classMember: boolean }) {
+  const videoSections = classMember ? classSections : publicSections;
+  const totalVideoCount = (classMember ? classVideoCount : 0) + videoCount;
   const firstSection = videoSections[0];
   const firstGroup = firstSection.groups[0];
   const firstItem = firstGroup.items[0];
@@ -201,7 +214,7 @@ export function VideoLibrary() {
 
   const selectedSection = useMemo(
     () => videoSections.find((section) => section.id === activeSection) ?? firstSection,
-    [activeSection, firstSection],
+    [activeSection, firstSection, videoSections],
   );
   const selectedGroup = useMemo(
     () => selectedSection.groups.find((group) => group.id === activeCategory) ?? selectedSection.groups[0],
@@ -224,12 +237,13 @@ export function VideoLibrary() {
         .flatMap((section) => section.groups)
         .flatMap((group) => group.items)
         .find((item) => item.id === activeVideoId) ?? firstItem,
-    [activeVideoId, firstItem],
+    [activeVideoId, firstItem, videoSections],
   );
 
   const activeAccent = accentClasses[selectedGroup.accent];
   const activeSubtopic = activeSubtopicGroup.subtopic;
   const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
+  const isUnifiedOnline = selectedSection.id === "online";
   const activePart = selectedVideoPart(activeVideo, activePartId);
   const activePartIndex = activeVideo.parts?.findIndex((part) => part.id === activePart?.id) ?? -1;
   const playerSource = videoPlayerUrl(activeVideo, activePartId, autoplay);
@@ -256,7 +270,7 @@ export function VideoLibrary() {
       window.clearTimeout(timer);
       window.removeEventListener("popstate", readSelection);
     };
-  }, []);
+  }, [videoSections]);
 
   useEffect(() => {
     const carousel = document.getElementById(`carousel-${selectedGroup.id}`);
@@ -362,13 +376,23 @@ export function VideoLibrary() {
           מרכז הלמידה
         </div>
         <h1 className="grad-text text-3xl leading-tight sm:text-4xl">ספריית הסרטונים</h1>
-        <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-          {totalVideoCount} מקורות צפייה: תיעוד סיורי השטח וספריית ההעשרה.
-        </p>
-        <p className="mt-2 text-sm text-txt-dim">
-          תיעוד הסיורים כולל {classRecordingCount} סרטונים ב־{classVideoCount} אוספים, וכולם זמינים לבחירה בנגן כאן באתר.
-        </p>
-        <p className="mt-1 text-xs text-txt-dim">סריקת ערוץ הכיתה: {classVideoScanDate.split("-").reverse().join(".")}</p>
+        {classMember ? (
+          <>
+            <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
+              {totalVideoCount} מקורות צפייה המחברים בין הקלטות הקורס, יחידות מקוונות,
+              סיורי השטח וספריית ההעשרה.
+            </p>
+            <p className="mt-2 text-sm text-txt-dim">
+              ערוץ הכיתה כולל כעת {classRecordingCount} הקלטות שונות ב־{classVideoCount} אוספים.
+              כל סרטוני השיעור או הסיור זמינים לבחירה בנגן כאן באתר.
+            </p>
+            <p className="mt-1 text-xs text-txt-dim">סריקת ערוץ הכיתה: {classVideoScanDate.split("-").reverse().join(".")}</p>
+          </>
+        ) : (
+          <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
+            {totalVideoCount} סדרות, הרצאות וסרטונים משלימים, לפי נושאי הליבה של קורס מורי הדרך.
+          </p>
+        )}
       </header>
 
       <section aria-labelledby="video-sections-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
@@ -395,6 +419,7 @@ export function VideoLibrary() {
         <p className="mt-3 text-sm leading-relaxed text-txt-dim">{selectedSection.description}</p>
       </section>
 
+      {!isUnifiedOnline && (
       <section aria-label="סינון לפי תחום" className="mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
           {selectedSection.groups.map((group) => {
@@ -419,7 +444,9 @@ export function VideoLibrary() {
           })}
         </div>
       </section>
+      )}
 
+      {!isUnifiedOnline && (
       <section aria-labelledby={`${selectedGroup.id}-heading`} className="mb-4">
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -471,6 +498,7 @@ export function VideoLibrary() {
           </div>
         </div>
       </section>
+      )}
 
       <section aria-label="בחירת קורס או אוסף" aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="mb-5">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -478,9 +506,9 @@ export function VideoLibrary() {
             <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
             <div>
               <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
-                {`בחירת אוסף: ${activeSubtopic.title}`}
+                {isUnifiedOnline ? "כל הקורסים המקוונים" : `בחירת אוסף: ${activeSubtopic.title}`}
               </h3>
-              <p className="mt-0.5 text-xs text-txt-dim">{activeSubtopic.description}</p>
+              <p className="mt-0.5 text-xs text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -563,7 +591,7 @@ export function VideoLibrary() {
         <div className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)]">
           <div className="relative aspect-video min-h-[10rem] bg-[#07131c]">
             {activeVideo.embedRestricted ? (
-              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-white sm:p-7">
+              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-on-media sm:p-7">
                 <span className="mb-3 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
                   {activeVideo.externalProvider
                     ? `מקור רשמי של ${activeVideo.externalProvider}`
@@ -574,7 +602,7 @@ export function VideoLibrary() {
                     ? `הסדרה זמינה לצפייה באתר ${activeVideo.externalProvider}.`
                     : "הפלייליסט אינו זמין כעת להטמעה ממיקום זה."}
                 </h2>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/70">
+                <p className="mt-2 max-w-lg text-sm leading-relaxed text-on-media/70">
                   {activeVideo.externalProvider
                     ? `${activeVideo.externalProvider} חוסם הטמעה בתוך אתרים חיצוניים. הקישור פותח את כל פרקי הסדרה באיכות המקורית.`
                     : "הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב."}

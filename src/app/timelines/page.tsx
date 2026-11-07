@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import biblical from "@/data/timelines/biblical";
 import egyptCanaan from "@/data/timelines/egypt-canaan";
 import { ROMAN_EVENTS } from "@/data/roman";
@@ -97,6 +98,12 @@ const sets = [
     meta: "ציר מסירה",
   },
 ];
+
+export const metadata = pageMeta({
+  title: "צירי זמן ועזרי למידה",
+  description: "צירי זמן וכלים אינטראקטיביים ללימוד ההיסטוריה והארכאולוגיה של ארץ ישראל, מאדם קדמון ועד התקופה הביזנטית, עם דמויות, אירועים ומושגים.",
+  path: "/timelines",
+});
 
 export default function TimelinesPage() {
   return (

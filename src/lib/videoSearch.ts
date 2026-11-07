@@ -24,7 +24,7 @@ export function classRecordingSearchResults(): SearchResult[] {
               result: {
                 id: `recording-${part.id}`,
                 kind: "video",
-                kindLabel: "סרטון סיור",
+                kindLabel: section.id === "online" ? "סרטון קורס מקוון" : section.id === "theory" ? "הקלטת שיעור" : "סרטון סיור",
                 title: part.title,
                 description: item.title,
                 href: videoSelectionHref(item.id, part.id),

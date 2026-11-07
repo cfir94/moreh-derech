@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { CrosswordGame } from "@/components/crossword/CrosswordGame";
 
-export const metadata: Metadata = {
-  title: "תשבץ השבוע | אבן דרך למורי דרך",
-  description: "תשבץ חדש בכל יום שישי: דמויות, אירועים, אתרים ומושגים מכל מחברות קורס מורי הדרך.",
-};
+export const metadata = pageMeta({
+  title: "תשבץ השבוע למורי דרך",
+  description: "תשבץ חדש בכל יום שישי עם דמויות, אירועים, אתרים ומושגים מכל מחברות קורס מורי הדרך, לצד מאגר תשבצים קודמים הזמינים לפתרון בכל עת.",
+  path: "/games/crossword",
+});
 
 export default function CrosswordPage() {
   return (

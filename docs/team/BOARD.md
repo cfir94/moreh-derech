@@ -3,7 +3,7 @@
 > **רק Claude עורך את הקובץ הזה** (ראו [`PROTOCOL.md`](PROTOCOL.md), כלל 1). סוכנים אחרים מדווחים ב-`reports/<ID>.md`.
 > התוכנית המלאה: [`docs/launch/PLAN.md`](../launch/PLAN.md) · פעולות הבעלים: [`docs/launch/USER-ACTIONS.md`](../launch/USER-ACTIONS.md)
 
-עודכן: 6.11.2026 · מצבים: `backlog` · `ready` · `in-progress` · `review` · `done` · `blocked(<סיבה>)`
+עודכן: 7.11.2026 · מצבים: `backlog` · `ready` · `in-progress` · `review` · `done` · `blocked(<סיבה>)`
 
 ## עכשיו
 
@@ -12,12 +12,14 @@
 | P-00 | תוכנית, מחקר, פרוטוקול צוות | Claude | done | `docs/launch/**`, `docs/team/**` | — |
 | M-01 | מוטי: בלי כתיבות KV בכל הודעה, סדר מודלים, הודעות מכסה | Claude | done (#55; באוויר אחרי העלאה) | `history-talk/src/**`, `history-talk/web/src/**`, `history-talk/test/**` | — |
 | M-02 | מוטי: workflow העלאה אוטומטית (נכתב; פעיל מרגע שיש טוקן) | Claude | review · blocked(בעלים: CLOUDFLARE_API_TOKEN) | `.github/workflows/history-talk*.yml` | USER-ACTIONS §1 |
-| C-01 | הסרת סרטוני "עיוניים" ו"מקוונים" | Claude | done (#55) | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
+| C-01 | הקלטות הקורס (עיוני, מקוון, סיורים) רק לחברי הכיתה; לחדשים רק העשרה | Claude | done | `src/data/class-videos.ts`, `src/components/videos/**`, `src/lib/videoSearch.ts`, `src/lib/siteSearch.ts` | — |
 | S-01 | מחברות: כתיבה למנהלים בלבד (SQL מוכן: `supabase/migrations/20261106_01_*`) | בעלים | blocked(הרצת SQL) | `supabase/**`, `src/lib/notebookStore.ts`, `src/app/notebooks/**` | USER-ACTIONS §9 (הרצת SQL) |
-| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | in-progress (👀 09:29) | `docs/team/reports/CX-01.md` בלבד | — |
-| CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | in-progress (👀 09:38, הוקצה ע"י Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
-| CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | in-progress | `marketing/inbox/CX-04/` | — |
-| CX-03 | טקסטים לדף הנחיתה, ובמקום פוסטים: הודעות וואטסאפ אישיות (הועבר מ-GPT-02) | Codex | in-progress | `marketing/inbox/CX-03/` | — |
+| CX-01 | סקירת בריאות קוד: דוח בלבד, בלי שינויים ([#57](https://github.com/cfir94/moreh-derech/issues/57)) | Codex | done (`reports/CX-01.md`) | `docs/team/reports/CX-01.md` בלבד | — |
+| CX-02 | SEO: metadata, Open Graph, sitemap, robots ([#60](https://github.com/cfir94/moreh-derech/issues/60)) | Codex | done (#73, אחרי 4 תיקונים של Claude) | metadata ב-`src/app/**`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/seo.ts` | — |
+| CX-04 | מחקר מתחרים, מחיר ומיצוב (הועבר מ-GPT-01) | Codex | done (`marketing/inbox/CX-04/`) | `marketing/inbox/CX-04/` | — |
+| CX-03 | טקסטים לדף הנחיתה, ובמקום פוסטים: הודעות וואטסאפ אישיות (הועבר מ-GPT-02) | Codex | done (`marketing/inbox/CX-03/`); שילוב ב-/welcome: G-01 | `marketing/inbox/CX-03/` | — |
+| CX-06 | ליטוש מדוח CX-01: ESLint בלי embeds, טיפוסי PNG, בדיקת האטלס וכל הבדיקות ב-CI, טוקנים במקום צבעים גולמיים, קוד מת | Codex+Claude | done (#78) | ראו `codex/CX-06.md` | — |
+| F-01 | פונטים מקומיים (`next/font/local`): build בלי Google | Claude | done | `src/app/layout.tsx`, `src/assets/fonts/**` | — |
 | CX-05 | (בוטל ע"י הבעלים: בלי שיווק המוני. הקהל הוא תלמידי מורי דרך, ופונים אליהם ישירות בוואטסאפ) | — | cancelled | — | — |
 | GPT-03 | (בוטל: Claude כתב את דפי המשפט ב-L-01) | — | done | — | — |
 

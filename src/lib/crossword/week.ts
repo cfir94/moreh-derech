@@ -1,6 +1,8 @@
 /*
- * The crossword week runs Friday to Thursday in Israel time: a new puzzle at
- * 00:00 on Friday in Jerusalem, wherever the solver is. Dates are ISO strings
+ * The crossword week runs from Friday 16:00 to the next Friday 16:00, Israel
+ * time, wherever the solver is. The weekly task that adds new words to the
+ * bank runs shortly before 16:00, so the new puzzle already holds them.
+ * A week is named by its Friday's date (`start`). Dates are ISO strings
  * ("2026-10-30") and arithmetic is done on whole UTC days, so daylight saving
  * never shifts a week.
  */
@@ -12,6 +14,9 @@ export const CROSSWORD_EPOCH = "2026-10-30";
 const WEEK_START_DAY = 5;
 
 const DAY = 86_400_000;
+
+/** The hour on Friday, in Jerusalem, at which a new puzzle goes up. */
+export const SWITCH_HOUR = 16;
 
 const israelDateFormat = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Jerusalem",
@@ -59,8 +64,16 @@ export function weekOfDate(iso: string): CrosswordWeek {
   return weekByNumber((start - dayNumber(CROSSWORD_EPOCH)) / 7 + 1);
 }
 
+/**
+ * The crossword's own calendar date: Jerusalem time moved back by SWITCH_HOUR,
+ * so the day — and with it the week — turns at 16:00 rather than at midnight.
+ */
+export function crosswordDate(now: Date): string {
+  return israelDate(new Date(now.getTime() - SWITCH_HOUR * 3_600_000));
+}
+
 export function weekOf(now: Date): CrosswordWeek {
-  return weekOfDate(israelDate(now));
+  return weekOfDate(crosswordDate(now));
 }
 
 /** Whole days from this date until the next Friday (1 on Thursday). */

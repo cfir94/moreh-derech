@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { FEATURED_RESOURCES, RESOURCE_GROUPS } from "@/data/resources";
 import { TOPICS } from "@/data/topics";
@@ -5,9 +6,11 @@ import { QUIZZES } from "@/data/quizzes";
 import { ResourceCredit, ResourceList } from "@/components/ResourceList";
 import { domainStyle } from "@/lib/domains";
 
-export const metadata = {
+export const metadata = pageMeta({
   title: "סיכומים וחומרי לימוד",
-};
+  description: "סיכומים, מצגות וקישורים לפי נושאי הסילבוס למורי דרך, לצד דוחות סיור, מסלולים לדוגמה ומפות, עם סדר עדיפויות המבוסס על שאלות מבחנים.",
+  path: "/resources",
+});
 
 export default function ResourcesPage() {
   const total =
@@ -31,7 +34,7 @@ export default function ResourcesPage() {
         <h1 className="grad-text mb-2 text-3xl">סיכומים וחומרי לימוד</h1>
         <p className="mb-3 max-w-2xl leading-relaxed text-txt-dim">
           <span className="num">{total}</span> חומרי לימוד וקישורים לנושאי הסילבוס
-          של הקורס: סיכום להרצאה, דוחות סיור לפי אתר, מסלולים לדוגמה לחלק ב',
+          של הקורס: סיכום להרצאה, דוחות סיור לפי אתר, מסלולים לדוגמה לחלק ב׳,
           מצגות ומפות. השאלונים והמבחנים כאן בודקים ידע — הדף הזה הוא איפה
           לומדים אותו.
         </p>
@@ -84,7 +87,7 @@ export default function ResourcesPage() {
           >
             שאלון מבחני הרישוי
           </Link>{" "}
-          (מתג "לפי נושא").
+          (מתג &quot;לפי נושא&quot;).
         </p>
         <ul className="grid gap-1.5 sm:grid-cols-2">
           {byTopic.map(({ key, label, reading, count }) => (

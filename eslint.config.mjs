@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     "history-talk/**",
     "deploy/**",
     "api/**",
+    // Prebuilt third-party bundles (games, timelines, the heritage map) — vendored, not our source.
+    "public/embeds/**",
   ]),
 ]);
 

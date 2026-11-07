@@ -1,3 +1,4 @@
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { EXAMS } from "@/data/exams";
 import { LANG_META } from "@/data/exams/types";
@@ -13,6 +14,12 @@ function fills(exam: { questions: { kind?: string }[] }) {
   const n = exam.questions.filter((q) => q.kind === "fill").length;
   return n ? `${n} שאלות השלמה · הסבר לכל תשובה` : "הסבר לכל תשובה";
 }
+
+export const metadata = pageMeta({
+  title: "מבחני רישוי מלאים",
+  description: "מבחני רישוי מלאים למורי דרך ממועדים קודמים ומבחני הקורס, בתנאי אמת, עם שאלות רב־ברירה והשלמה, הגשה, ציון והסברים לתשובות.",
+  path: "/exams",
+});
 
 export default function ExamsPage() {
   const official = EXAMS.filter((e) => e.keySource === "official");

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Heebo } from "next/font/google";
+import { absoluteUrl, DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { fontVariables } from "./fonts";
 import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
 import { PaywallGate } from "@/components/paywall/PaywallGate";
@@ -8,16 +9,29 @@ import { PreviewBar } from "@/components/PreviewBar";
 import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
 
-// Heebo across the board, as the geo-game uses it — its 900 weight is what
-// makes the headings read as a game rather than a document.
-const heebo = Heebo({
-  variable: "--font-heebo",
-  subsets: ["hebrew", "latin"],
-});
-
 export const metadata: Metadata = {
-  title: "אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "אֶבֶן דֶּרֶךְ למורי דרך — תרגול, שאלונים, עזרי למידה ומפת מורשת",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: {
+    default: SITE_NAME,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  openGraph: {
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    locale: "he_IL",
+    type: "website",
+    siteName: SITE_NAME,
+    images: [absoluteUrl("/marketing/og.jpg")],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    images: [absoluteUrl("/marketing/og.jpg")],
+  },
 };
 
 const themeInitScript = `
@@ -34,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="he"
       dir="rtl"
-      className={`${heebo.variable} h-full antialiased`}
+      className={`${fontVariables} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { withBasePath } from "@/lib/basePath";
 import { SITES, ROWS, PERIODS } from "@/data/learning-map";
 import styles from "./MapChooser.module.css";
 
-export const metadata: Metadata = {
-  title: "מפה — למידה או תכנון מסלול | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "שתי מפות: מפת למידה של אתרי בית שני, הרומית והביזנטית — מי בנה, מתי ואיך זוכרים — ומפת שטח לתכנון מסלול.",
-};
 
 // one dot per period, scattered over the land in the card's art
 const DOTS = [["34%", "52%"], ["22%", "47%"], ["55%", "58%"], ["44%", "44%"], ["68%", "50%"], ["30%", "62%"]];
@@ -16,6 +12,12 @@ const DOTS = [["34%", "52%"], ["22%", "47%"], ["55%", "58%"], ["44%", "44%"], ["
  * "מפה" offers two different tools: the learning map, built for the exam, and
  * the offline field map that was here before, built for planning a route.
  */
+export const metadata = pageMeta({
+  title: "מפות למידה ותכנון מסלול",
+  description: "בחרו בין מפה מאוירת ללימוד אתרי בית שני, התקופה הרומית והביזנטית, לבין מפת שטח וקטורית עם שכבות מידע לבניית מסלול סיור בארץ.",
+  path: "/map",
+});
+
 export default function MapChooserPage() {
   return (
     <div className={`screen-in ${styles.page}`}>

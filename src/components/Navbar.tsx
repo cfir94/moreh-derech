@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useUser } from "@/contexts/UserContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
+import { UpdatesBell } from "@/components/updates/UpdatesBell";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
@@ -46,12 +47,12 @@ export function Navbar() {
             priority
             className="h-11 w-11 rounded-[15px] shadow-[0_12px_30px_-14px_var(--teal)]"
           />
-          <span className="grad-text hidden text-lg font-black sm:inline">
+          <span className="grad-text hidden text-lg font-black sm:inline xl:hidden">
             אֶבֶן דֶּרֶךְ למורי דרך
           </span>
         </Link>
 
-        <ul className="mr-2 hidden min-w-0 flex-1 items-center gap-0.5 lg:flex">
+        <ul className="mr-2 hidden min-w-0 flex-1 items-center gap-0.5 xl:flex">
           {links.map((link) => (
             <li key={link.href}>
               <Link
@@ -68,13 +69,16 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="mr-auto flex items-center gap-2 md:mr-0">
+        <div className="mr-auto flex shrink-0 items-center gap-2 xl:mr-0">
           <SiteSearch />
+          <div className="hidden min-[400px]:block">
+            <UpdatesBell />
+          </div>
           <ThemeToggle />
           {ready && user ? (
             <Link
               href="/me"
-              className={`whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-bold transition ${
+              className={`max-w-[9rem] truncate whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-bold transition ${
                 isActive("/me")
                   ? "border border-line bg-card-2 text-txt"
                   : "text-txt-dim hover:bg-card hover:text-txt"
@@ -101,7 +105,7 @@ export function Navbar() {
             onClick={() => setOpen((v) => !v)}
             aria-label="תפריט"
             aria-expanded={open}
-            className="grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90 lg:hidden"
+            className="grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90 xl:hidden"
           >
             ☰
           </button>
@@ -109,7 +113,12 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <ul className="border-t border-line bg-sheet px-4 pb-3 lg:hidden">
+        <ul className="border-t border-line bg-sheet px-4 pb-3 xl:hidden">
+          <li className="min-[400px]:hidden">
+            <Link href="/updates/" onClick={() => setOpen(false)} className="block rounded-[14px] px-3 py-3 text-sm font-bold text-txt-dim hover:bg-card">
+              🔔 מה חדש
+            </Link>
+          </li>
           {links.map((link) => (
             <li key={link.href}>
               <Link

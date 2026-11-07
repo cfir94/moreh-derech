@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- a plain Node script, CommonJS on purpose */
 const { chromium, devices } = require("playwright");
 const BASE = "http://127.0.0.1:8811";
 const OUT = process.env.OUT || "/tmp/marketing-raw";

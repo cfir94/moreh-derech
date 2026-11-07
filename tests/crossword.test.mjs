@@ -8,7 +8,7 @@ import { LIMITS, eligibleEntries, puzzleForWeek, weekPools } from "../src/lib/cr
 import { answerLetters, answerWords, enumeration, finalForm, letterFromKey } from "../src/lib/crossword/hebrew.ts";
 import { buildGrid, entryCell, shown, starsFor, stepClue, streak, wordCells, wrongCells } from "../src/lib/crossword/play.ts";
 import {
-  CROSSWORD_EPOCH, daysToNextWeek, israelDate, isWeekStart, weekByNumber, weekOfDate,
+  CROSSWORD_EPOCH, crosswordDate, daysToNextWeek, israelDate, isWeekStart, weekOf, weekByNumber, weekOfDate,
 } from "../src/lib/crossword/week.ts";
 
 // A realistic Hebrew bank for exercising the generator: the who-am-i names,
@@ -48,7 +48,7 @@ test("Hebrew answers: base letters only, final forms folded, words counted", () 
   assert.equal(letterFromKey("1", "Digit1"), null);
 });
 
-test("the crossword week turns at midnight on Friday in Jerusalem", () => {
+test("the crossword week turns on Friday in Jerusalem time", () => {
   assert.ok(isWeekStart(CROSSWORD_EPOCH));
   assert.deepEqual(weekByNumber(1), { number: 1, start: CROSSWORD_EPOCH, end: "2026-11-05" });
   assert.equal(israelDate(new Date("2026-11-05T21:30:00Z")), "2026-11-05");
@@ -59,6 +59,11 @@ test("the crossword week turns at midnight on Friday in Jerusalem", () => {
   // Summer time does not move the boundary either.
   assert.equal(israelDate(new Date("2027-06-03T21:30:00Z")), "2027-06-04");
   assert.equal(weekOfDate("2027-06-04").start, "2027-06-04");
+  // The week turns at 16:00 on Friday, Jerusalem time (winter UTC+2, summer UTC+3).
+  assert.equal(weekOf(new Date("2026-11-06T13:59:00Z")).number, 1);
+  assert.equal(weekOf(new Date("2026-11-06T14:00:00Z")).number, 2);
+  assert.equal(crosswordDate(new Date("2027-06-04T12:59:00Z")), "2027-06-03");
+  assert.equal(crosswordDate(new Date("2027-06-04T13:00:00Z")), "2027-06-04");
   assert.equal(daysToNextWeek("2026-11-05"), 1);
   assert.equal(daysToNextWeek("2026-10-30"), 7);
 });
@@ -185,10 +190,10 @@ test("play rules: final letters, moving between clues, checking and stars", () =
   assert.equal(streak(new Set([3, 5]), 6), 1);
 });
 
-test("the 19 source notebooks are listed once each", () => {
-  assert.equal(CROSSWORD_NOTEBOOKS.length, 19);
-  assert.equal(new Set(NOTEBOOK_IDS).size, 19);
-  assert.equal(new Set(CROSSWORD_NOTEBOOKS.map((notebook) => notebook.notebookId)).size, 19);
+test("the source notebooks are listed once each", () => {
+  assert.equal(CROSSWORD_NOTEBOOKS.length, 20);
+  assert.equal(new Set(NOTEBOOK_IDS).size, CROSSWORD_NOTEBOOKS.length);
+  assert.equal(new Set(CROSSWORD_NOTEBOOKS.map((notebook) => notebook.notebookId)).size, CROSSWORD_NOTEBOOKS.length);
   for (const notebook of CROSSWORD_NOTEBOOKS) assert.match(notebook.notebookId, /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/);
 });
 

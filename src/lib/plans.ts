@@ -18,6 +18,7 @@ export const FREE_PATHS: readonly string[] = [
   "/games/crossword/",
   "/resources/",
   "/map/",
+  "/updates/",
 ];
 
 /** קידומות שכל מה שמתחתן חינמי. */
