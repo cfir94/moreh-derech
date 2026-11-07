@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { withBasePath } from "@/lib/basePath";
 import type { SearchResult } from "@/lib/siteSearch";
 import { NOTEBOOKS_EVENT } from "@/lib/notebookStore";
+import { useClassMember } from "@/hooks/useClassMember";
 
 function SearchIcon() {
   return (
@@ -37,6 +38,7 @@ const kindTone: Record<SearchResult["kind"], string> = {
 };
 
 export function SiteSearch() {
+  const classMember = useClassMember();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -79,7 +81,7 @@ export function SiteSearch() {
     const timer = window.setTimeout(() => {
       setLoading(true);
       void import("@/lib/siteSearch")
-        .then(({ searchSite }) => searchSite(cleaned))
+        .then(({ searchSite }) => searchSite(cleaned, { classMember }))
         .then((nextResults) => {
           if (!cancelled) setResults(nextResults);
         })
@@ -92,7 +94,7 @@ export function SiteSearch() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [query, open, notebookVersion]);
+  }, [query, open, notebookVersion, classMember]);
 
   const close = () => setOpen(false);
   const updateQuery = (value: string) => {
@@ -112,7 +114,7 @@ export function SiteSearch() {
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center bg-black/65 px-3 pb-5 pt-[8vh] backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="חיפוש בכל חומרי האתר" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
+        <div className="fixed inset-0 z-[100] flex items-start justify-center bg-scrim/65 px-3 pb-5 pt-[8vh] backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="חיפוש בכל חומרי האתר" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
           <div className="flex max-h-[84vh] w-full max-w-3xl flex-col overflow-hidden rounded-[var(--r-lg)] border border-line bg-sheet shadow-[var(--shadow)]" dir="rtl">
             <div className="border-b border-line p-3 sm:p-4">
               <div className="flex items-center gap-3 rounded-[var(--r-md)] border border-teal/35 bg-card px-3.5 py-2.5 focus-within:ring-2 focus-within:ring-teal/35">

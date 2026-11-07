@@ -10,9 +10,9 @@ const snapshot = JSON.parse(readFileSync(new URL("../src/data/class-video-parts.
 const collections = CLASS_VIDEO_SECTIONS.flatMap((section) => section.groups.flatMap((group) => group.items));
 const sections = [...CLASS_VIDEO_SECTIONS, { id: "enrichment", groups: videoGroups }];
 
-test("all 21 tour playlists have exactly one collection with all ordered video parts", () => {
-  assert.equal(classVideoCount, 21);
-  assert.equal(new Set(collections.map((item) => item.id)).size, 21);
+test("all 41 scanned playlists have exactly one collection with all ordered video parts", () => {
+  assert.equal(classVideoCount, 41);
+  assert.equal(new Set(collections.map((item) => item.id)).size, 41);
   assert.deepEqual(new Set(collections.map((item) => item.playlistId)), new Set(Object.keys(snapshot.playlists)));
   let memberships = 0;
   for (const item of collections) {
@@ -26,22 +26,20 @@ test("all 21 tour playlists have exactly one collection with all ordered video p
     }
     memberships += item.parts.length;
   }
-  assert.equal(memberships, 270);
-  assert.equal(classRecordingCount, 221);
+  assert.equal(memberships, 385);
+  assert.equal(classRecordingCount, 336);
 });
 
-test("lecture recordings (theory, online courses) are not published — they belong to the lecturers", () => {
-  assert.deepEqual(CLASS_VIDEO_SECTIONS.map((section) => section.id), ["tours"]);
-  for (const id of ["online-iron-age-one", "class-christianity", "class-flora", "class-course-opening"]) {
-    assert.equal(findVideoSelection(sections, id), undefined, id);
-  }
-  for (const list of ["PL20z4RUH7ooq3x2nEIwOMrUH8krDA1MWz", "PLPOdFzwMj6kw", "PLDEVuzN0RSm8"]) {
-    assert.ok(!(list in snapshot.playlists), list);
-  }
+test("online courses remain unified with all eleven units and no nested topic divisions", () => {
+  const online = CLASS_VIDEO_SECTIONS.find((section) => section.id === "online");
+  assert.equal(online.groups.length, 1);
+  assert.equal(online.groups[0].items.length, 11);
+  assert.deepEqual(new Set(online.groups[0].items.map((item) => item.subtopic.id)), new Set(["online-all"]));
+  assert.equal(online.groups[0].items.reduce((count, item) => count + item.parts.length, 0), 55);
 });
 
-test("tour collection deep links and enrichment remain available", () => {
-  for (const id of ["tour-megiddo-gilboa", "tour-gezer-afek", "legend-of-destruction", "tohu-va-vohu"]) {
+test("all previously published collection deep links and enrichment remain available", () => {
+  for (const id of ["online-iron-age-one", "tour-megiddo-gilboa", "class-christianity", "tour-gezer-afek", "legend-of-destruction", "tohu-va-vohu"]) {
     assert.ok(findVideoSelection(sections, id), id);
   }
   assert.equal(findVideoSelection(sections, "does-not-exist"), undefined);
@@ -69,8 +67,8 @@ test("video part links choose a specific video, and invalid part IDs fall back s
 
 test("recording search exposes every video once, with resolvable internal part links", () => {
   const results = classRecordingSearchResults();
-  assert.equal(results.length, 221);
-  assert.equal(new Set(results.map((result) => result.id)).size, 221);
+  assert.equal(results.length, 336);
+  assert.equal(new Set(results.map((result) => result.id)).size, 336);
   for (const result of results) {
     const href = new URL(result.href, "https://example.com");
     const selection = findVideoSelection(sections, href.searchParams.get("video"));
@@ -78,6 +76,7 @@ test("recording search exposes every video once, with resolvable internal part l
     assert.ok(selection.item.parts.find((part) => part.id === href.searchParams.get("part")), result.href);
   }
   assert.ok(results.some((result) => result.title.includes("מנהרות הכותל")));
+  assert.ok(results.some((result) => result.title.includes("טקסונומיה")));
 });
 
 test("overlapping official collections retain their complete memberships", () => {
@@ -107,4 +106,22 @@ test("collection selection and current collection title appear before the player
   assert.ok(player < heading && heading < frame);
   assert.ok(frame < parts);
   assert.equal(source.split('<section aria-label="בחירת קורס או אוסף"').length - 1, 1);
+});
+
+test("course recordings are for current classmates only: accounts created before the cutoff", async () => {
+  const { isClassMember, CLASS_MEMBER_CUTOFF } = await import("../src/lib/classAccess.ts");
+  assert.equal(isClassMember("2025-09-01T10:00:00Z"), true);
+  assert.equal(isClassMember("2026-11-06T21:59:59Z"), true);
+  assert.equal(isClassMember(new Date(Date.parse(CLASS_MEMBER_CUTOFF) + 1000).toISOString()), false);
+  for (const missing of [undefined, null, "", "not a date"]) assert.equal(isClassMember(missing), false);
+});
+
+test("site search hides every course recording from non-classmates", async () => {
+  const { searchSite } = await import("../src/lib/siteSearch.ts");
+  const query = "מנהרות הכותל";
+  const member = await searchSite(query, { classMember: true });
+  const guest = await searchSite(query, { classMember: false });
+  assert.ok(member.some((result) => result.kind === "video"));
+  const classIds = new Set(collections.map((item) => `video-${item.id}`));
+  assert.ok(!guest.some((result) => classIds.has(result.id) || result.id.startsWith("recording-")));
 });

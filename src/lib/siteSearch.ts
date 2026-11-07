@@ -122,22 +122,20 @@ function storedNotebookResults(notebooks: StoredNotebook[]): SearchResult[] {
   }));
 }
 
-function videoResults(): SearchResult[] {
-  const sections = [
-    ...CLASS_VIDEO_SECTIONS,
-    {
-      id: "enrichment" as const,
-      title: "העשרה",
-      description: "חומרי העשרה",
-      groups: videoGroups,
-    },
-  ];
+const ENRICHMENT_SECTION = {
+  id: "enrichment" as const,
+  title: "העשרה",
+  description: "חומרי העשרה",
+  groups: videoGroups,
+};
+
+function videoResults(sections: (typeof CLASS_VIDEO_SECTIONS)[number][]): SearchResult[] {
   return sections.flatMap((section) =>
     section.groups.flatMap((group) =>
       group.items.map((item) => ({
         id: `video-${item.id}`,
         kind: "video" as const,
-        kindLabel: section.id === "tours" ? "סרטוני סיור" : "סרטון העשרה",
+        kindLabel: section.id === "tours" ? "סרטוני סיור" : section.id === "online" ? "קורס מקוון" : section.id === "theory" ? "שיעור עיוני" : "סרטון העשרה",
         title: item.title,
         description: `${group.category} · ${item.description}`,
         href: `/videos/?video=${encodeURIComponent(item.id)}`,
@@ -220,10 +218,12 @@ function learningMapResults(): SearchResult[] {
   }));
 }
 
+// Course recordings (lectures, online units, tours) are for current classmates only.
+const classResults: SearchResult[] = [...videoResults(CLASS_VIDEO_SECTIONS), ...classRecordingSearchResults()];
+
 const baseResults: SearchResult[] = [
   ...staticNotebookResults(),
-  ...videoResults(),
-  ...classRecordingSearchResults(),
+  ...videoResults([ENRICHMENT_SECTION]),
   ...resourceResults(),
   ...timelineResults(),
   ...learningMapResults(),
@@ -403,13 +403,14 @@ function scoreResult(result: SearchResult, normalizedQuery: string, tokens: stri
   return score;
 }
 
-export async function searchSite(query: string): Promise<SearchResult[]> {
+export async function searchSite(query: string, { classMember = false } = {}): Promise<SearchResult[]> {
   const normalizedQuery = normalize(query);
   if (normalizedQuery.length < 2) return [];
   const tokens = normalizedQuery.split(" ").filter(Boolean);
   const storedNotebooks = await getStoredNotebooks();
   const candidates = [
     ...baseResults,
+    ...(classMember ? classResults : []),
     ...storedNotebookResults(storedNotebooks),
     ...quizResults(tokens),
     ...examResults(tokens),

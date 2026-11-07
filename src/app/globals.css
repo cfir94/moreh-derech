@@ -85,6 +85,9 @@
 }
 
 @theme inline {
+  /* Text and scrims laid over video and photos: the same in light and dark. */
+  --color-on-media: #fff;
+  --color-scrim: #000;
   --color-bg: var(--bg);
   --color-card: var(--card);
   --color-card-2: var(--card-2);
@@ -108,7 +111,8 @@
   --color-on-accent: var(--on-accent);
   --color-mc: var(--mc, var(--teal));
 
-  --font-sans: var(--font-heebo);
+  --font-sans: var(--font-heebo-latin), var(--font-heebo-hebrew), system-ui, sans-serif;
+  --font-serif: var(--font-frank-latin), var(--font-frank-hebrew), serif;
 
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);

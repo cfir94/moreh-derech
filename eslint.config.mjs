@@ -19,6 +19,8 @@ const eslintConfig = defineConfig([
     // סקילים של סוכנים, כולל קוד חיצוני שמועתק כמו שהוא.
     ".claude/**",
     ".agents/**",
+    // Prebuilt third-party bundles (games, timelines, the heritage map) — vendored, not our source.
+    "public/embeds/**",
   ]),
 ]);
 

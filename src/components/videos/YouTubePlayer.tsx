@@ -91,7 +91,7 @@ export function YouTubePlayer({ src, title, onEnded }: {
   return (
     <div ref={container} className="absolute inset-0">
       {error !== undefined && (
-        <div role="status" className="absolute inset-x-0 bottom-0 z-10 bg-[#07131c]/95 p-3 text-sm text-white">
+        <div role="status" className="absolute inset-x-0 bottom-0 z-10 bg-[#07131c]/95 p-3 text-sm text-on-media">
           YouTube לא מאפשר כרגע לנגן את הסרטון הזה (קוד {error}). אפשר לבחור חלק אחר ברשימה למטה.
         </div>
       )}

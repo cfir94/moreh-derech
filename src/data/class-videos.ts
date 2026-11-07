@@ -1,12 +1,11 @@
 /**
- * עיצוב ספריית הכיתה: פלייליסטי הסיורים מערוץ LWSHARON, מחולקים לפי מרחב גאוגרפי.
+ * עיצוב ספריית הכיתה: הפלייליסטים מערוץ LWSHARON נשמרים כמקורות קורס רשמיים,
+ * ומחולקים קודם לפי אופן הלמידה ואחר כך לפי תחום או מרחב גאוגרפי.
  */
 import type { TopicTone, VideoGroup, VideoItem, VideoPart, VideoSubtopic } from "@/data/videos";
 import channelSnapshot from "@/data/class-video-parts.json";
 
-// "שיעורים עיוניים" ו"קורסים מקוונים" (הקלטות השיעורים) הוסרו בהכנה לגרסה בתשלום: הם קניין של
-// המרצים. נשארו תיעודי הסיורים, והעשרה (src/data/videos.ts). ראו docs/launch/PLAN.md.
-export type VideoSectionId = "tours" | "enrichment";
+export type VideoSectionId = "theory" | "online" | "tours" | "enrichment";
 
 export type VideoSection = {
   id: VideoSectionId;
@@ -46,6 +45,21 @@ function classPlaylist(
   };
 }
 
+const theoryTopics = {
+  borders: subtopic("class-borders", "גבולות וגאוגרפיה", "גבולות הארץ, שדרת ההר והמרחב הישראלי.", "gold"),
+  religions: subtopic("class-religions", "דתות", "שיעורים עיוניים ביהדות ובנצרות.", "violet"),
+  nature: subtopic("class-nature", "טבע וסביבה", "צומח, משאבי טבע וסביבה בארץ ישראל.", "teal"),
+  profession: subtopic("class-profession", "מקצוע ההדרכה", "ניהול קבוצה ועבודה מול גורמי תיירות.", "blue"),
+  introduction: subtopic("class-introduction", "מבוא לקורס", "מפגש הפתיחה, תכנית הקורס וכללי הלימוד.", "gold"),
+};
+
+const onlineAllTopic = subtopic(
+  "online-all",
+  "קורסים מקוונים",
+  "כל יחידות החובה המקוונות של הקורס ברשימה אחת.",
+  "teal",
+);
+
 const tourTopics = {
   coast: subtopic("tour-coast", "מישור החוף והמרכז", "סיורי חוף, ערי מישור החוף ואתרי המרכז.", "gold"),
   carmel: subtopic("tour-carmel", "חיפה והכרמל", "חיפה, הכרמל, זכרון יעקב, המוחרקה ועתלית.", "teal"),
@@ -57,6 +71,88 @@ const tourTopics = {
 };
 
 export const CLASS_VIDEO_SECTIONS: VideoSection[] = [
+  {
+    id: "theory",
+    title: "חומר עיוני",
+    description: "הקלטות של שיעורי הכיתה לפי תחומי הלימוד של הקורס.",
+    groups: [
+      {
+        id: "class-theory-geography",
+        category: "גבולות וגאוגרפיה",
+        intro: theoryTopics.borders.description,
+        accent: "gold",
+        items: [
+          classPlaylist("class-israel-borders", "גבולות הארץ ושדרת ההר המרכזית", "שיעור עיוני עם גיא לינב על גבולות הארץ ושדרת ההר המרכזית.", "PLJhw_Oa-JntE", theoryTopics.borders, ["גבולות", "ארץ ישראל", "שדרת ההר", "גיא לינב"]),
+        ],
+      },
+      {
+        id: "class-theory-religions",
+        category: "דתות",
+        intro: theoryTopics.religions.description,
+        accent: "violet",
+        items: [
+          classPlaylist("class-christianity", "מבוא לנצרות", "הקלטות שיעורי המבוא לנצרות במסגרת הקורס.", "PLDEVuzN0RSm8", theoryTopics.religions, ["נצרות", "ישו", "כנסייה", "כתבי הקודש"]),
+          classPlaylist("class-judaism", "מבוא ליהדות", "הקלטות שיעורי המבוא ליהדות במסגרת הקורס.", "PLUERFHln9NWo", theoryTopics.religions, ["יהדות", "מקרא", "הלכה", "בית כנסת"]),
+        ],
+      },
+      {
+        id: "class-theory-nature",
+        category: "טבע וסביבה",
+        intro: theoryTopics.nature.description,
+        accent: "teal",
+        items: [
+          classPlaylist("class-natural-resources", "משאבי טבע וסביבה", "שיעורים על משאבי הטבע והסביבה בישראל.", "PLfJJe27EPxg0", theoryTopics.nature, ["משאבי טבע", "סביבה", "אקולוגיה", "שמירת טבע"]),
+          classPlaylist("class-flora", "עולם הצומח בארץ ישראל", "שיעורי אוהד בנימיני על הצומח בארץ ישראל.", "PL20z4RUH7ooq3x2nEIwOMrUH8krDA1MWz", theoryTopics.nature, ["צומח", "בוטניקה", "צמחי ארץ ישראל", "אוהד בנימיני"]),
+          classPlaylist("class-fauna", "עולם החי בארץ ישראל", "שיעורי אוהד בנימיני על זואולוגיה, טקסונומיה, אקולוגיה והתאמות בעלי חיים.", "PL20z4RUH7oooh5ZDsH1-TYm6EFndKiDfA", theoryTopics.nature, ["חי", "בעלי חיים", "זואולוגיה", "אקולוגיה", "אוהד בנימיני"]),
+        ],
+      },
+      {
+        id: "class-theory-profession",
+        category: "מקצוע ההדרכה",
+        intro: theoryTopics.profession.description,
+        accent: "blue",
+        items: [
+          classPlaylist("class-tourism-operations", "עבודה מול גורמי תיירות וניהול קבוצה", "שיעורים מעשיים על עבודה בענף התיירות וניהול קבוצות.", "PLANfcs5Uhi1I", theoryTopics.profession, ["ניהול קבוצה", "גורמי תיירות", "מקצוע ההדרכה", "תיירות"]),
+          classPlaylist("class-leadership-simulator", "סדנת מנהיגות וסימולטור", "סדנת מנהיגות עם דני נוימן ותרגול סימולטור ותחקירים עם נרי אשוח.", "PLXEeIQhQBY0k", theoryTopics.profession, ["מנהיגות", "סימולטור", "תחקירים", "דני נוימן", "נרי אשוח"]),
+        ],
+      },
+      {
+        id: "class-theory-introduction",
+        category: "מבוא לקורס",
+        intro: theoryTopics.introduction.description,
+        accent: "gold",
+        items: [
+          classPlaylist("class-course-opening", "מפגש הפתיחה — 25.5.2026", "כללי הקורס, תכנית הלימודים ושיעורי המבוא עם גיא לינב.", "PL20z4RUH7ooq9LcJrmttVsubidj1AhizX", theoryTopics.introduction, ["מפגש ראשון", "מבוא", "גיא לינב", "מנהלה", "תכנית הקורס", "25.5.2026"]),
+        ],
+      },
+    ],
+  },
+  {
+    id: "online",
+    title: "קורסים מקוונים",
+    description: "כל יחידות החובה המקוונות של הקורס ברשימה אחת, ללא תתי־חלוקות.",
+    groups: [
+      {
+        id: "online-all",
+        category: "קורסים מקוונים",
+        intro: onlineAllTopic.description,
+        accent: "teal",
+        items: [
+          classPlaylist("online-prehistory", "יחידה 6: פרהיסטוריה והתפתחות האדם", "יחידת הקורס המקוון על ראשית האדם והתרבויות הפרהיסטוריות.", "PL20z4RUH7ooqr0q3iJvxBHE54S-wRDWGd", onlineAllTopic, ["פרהיסטוריה", "התפתחות האדם", "פליאולית", "ניאולית"]),
+          classPlaylist("online-archaeology-intro", "יחידה 8: מבוא לארכאולוגיה של ארץ ישראל", "יחידת יסוד על מחקר ארכאולוגי, חפירה, תיארוך וממצא.", "PLRgKoeKFZD7M", onlineAllTopic, ["ארכאולוגיה", "חפירה", "תיארוך", "תל"]),
+          classPlaylist("online-bronze-age", "יחידה 9: תקופת הברונזה", "יחידת הקורס המקוון על תקופות הברונזה וערי כנען.", "PLfj5khSEP_OU", onlineAllTopic, ["תקופת הברונזה", "כנען", "ערי מדינה", "מגידו"]),
+          classPlaylist("online-iron-age-one", "יחידה 10: תקופת הברזל — חלק ראשון", "החלק הראשון של יחידת הקורס המקוון על תקופת הברזל.", "PLPOdFzwMj6kw", onlineAllTopic, ["תקופת הברזל", "ישראל", "יהודה", "מקרא"]),
+          classPlaylist("online-iron-age-two", "יחידה 10: תקופת הברזל — חלק שני", "החלק השני של יחידת הקורס המקוון על תקופת הברזל.", "PLYcCpUbYG204", onlineAllTopic, ["תקופת הברזל", "ממלכת ישראל", "ממלכת יהודה", "מגידו"]),
+          classPlaylist("online-second-temple", "יחידה 11: תקופת בית שני", "יחידת הקורס המקוון על התקופה הפרסית, ההלניסטית והרומית הקדומה.", "PLOJyGbnt4Y5U", onlineAllTopic, ["בית שני", "חשמונאים", "הורדוס", "רומאים"]),
+          classPlaylist("online-roman-byzantine", "יחידה 12: התקופה הרומית המאוחרת והביזנטית", "יחידת הקורס המקוון על התקופות הרומית המאוחרת והביזנטית.", "PLbKQBW1l0Uqo", onlineAllTopic, ["רומית", "ביזנטית", "נצרות", "העולם הקלאסי"]),
+          classPlaylist("online-classical-architecture", "יחידה 13: ארכאולוגיה ואדריכלות העולם הקלאסי", "מושגי יסוד בארכאולוגיה ובאדריכלות של העולם הקלאסי.", "PLCOMrrqZK_48", onlineAllTopic, ["ארכאולוגיה", "אדריכלות", "העולם הקלאסי", "מקדש"]),
+          classPlaylist("online-early-islam", "יחידה 14: התקופה המוסלמית הקדומה", "יחידת הקורס המקוון על הכיבוש המוסלמי והתקופות האומיית והעבאסית.", "PLfuVdWU8-RUI", onlineAllTopic, ["אסלאם", "מוסלמית קדומה", "אומיים", "עבאסים"]),
+          classPlaylist("online-middle-ages", "יחידה 15: הצלבנים, האיובים והממלוכים", "יחידת הקורס המקוון על תקופות ימי הביניים בארץ ישראל.", "PLZeF_g39gXEo", onlineAllTopic, ["צלבנים", "איובים", "ממלוכים", "ימי הביניים"]),
+          classPlaylist("online-ottoman", "יחידה 16: התקופה העות׳מאנית", "יחידת הקורס המקוון על ארץ ישראל בתקופה העות׳מאנית.", "PLU0PiDrMxRMA", onlineAllTopic, ["עותמאנים", "האימפריה העותמאנית", "העת החדשה"]),
+        ],
+      },
+    ],
+  },
   {
     id: "tours",
     title: "סיורים",
