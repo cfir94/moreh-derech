@@ -42,6 +42,11 @@
     // מי רשאי להטמיע את העמוד ב-iframe.
     "FRAME_ANCESTORS": "https://cfir94.github.io https://moreyderech.com https://www.moreyderech.com https://moreh-derech.cfir94.workers.dev http://localhost:3000",
     "FREE_TIER_MODE": "true",
+    // "1" = שיחה רק למנויים ולשבוע הניסיון (בדיקה מול md_has_access). כבוי עד שהתשלומים פעילים.
+    "REQUIRE_ENTITLEMENT": "0",
+    // הפרויקט של האתר. מפתח anon ציבורי, זהה לזה שב-src/lib/cloudAuth.ts.
+    "SUPABASE_URL": "https://dendxtbaxiszohjjsdtd.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlbmR4dGJheGlzem9oampzZHRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2OTMzMTcsImV4cCI6MjEwMjI2OTMxN30.rDYzH-3Pz2-XOYoUgrJW7GfTvdrZ7usqbSdtTZ4my6g",
     "MAX_SESSION_MINUTES": "12",
     // מכסות יומיות; "0" = בלי הגבלה (המגבלה בפועל: 65 אלף טוקנים לדקה אצל Gemini).
     "DAILY_SESSIONS_PER_IP": "0",

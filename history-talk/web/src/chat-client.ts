@@ -2,6 +2,7 @@
 // (חיפוש במקורות, מאגר השאלות), ושולח את התוצאות עד שחוזרת תשובה בטקסט.
 
 import { ApiError } from "./live-client.ts";
+import { authHeaders } from "./site-auth.ts";
 import type { QuizArgs, QuizItem, QuizShown } from "./quiz.ts";
 import type { Passage } from "./search.ts";
 
@@ -101,11 +102,15 @@ export class ChatClient {
 
   private async request(signal: AbortSignal, turnstileToken?: string): Promise<Part[]> {
     let res: Response;
+    // Only the first message opens the chat, so only it needs the site's token.
+    const auth = this.chatId ? {} : await authHeaders();
+    // Closed while we waited for the site's token: don't start a request nobody will read.
+    if (signal.aborted) throw new ApiError("timeout", "התשובה מתעכבת. אפשר לנסות שוב בעוד רגע.");
     try {
       res = await fetch(`${this.opts.apiBase}/api/chat`, {
         method: "POST",
         signal: AbortSignal.any([signal, AbortSignal.timeout(38_000)]),
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", ...auth },
         body: JSON.stringify({ characterId: this.opts.characterId, chatId: this.chatId, turnstileToken, contents: this.trimmed() }),
       });
     } catch (err) {

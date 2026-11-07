@@ -202,6 +202,19 @@ async function refreshSession() {
   return refreshing;
 }
 
+/** The current access token, refreshed first if it expires within a minute. Null when signed out. */
+export async function freshAccessToken(): Promise<string | null> {
+  const session = readSession();
+  if (!session) return null;
+  try {
+    const payload = JSON.parse(atob(session.access_token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))) as { exp?: number };
+    if (!payload.exp || payload.exp * 1000 - Date.now() < 60_000) await refreshSession();
+  } catch {
+    // Unreadable token or a failed refresh: hand over what we have; the server decides.
+  }
+  return readSession()?.access_token ?? null;
+}
+
 async function withAuth<T>(action: () => Promise<T>): Promise<T> {
   try {
     return await action();

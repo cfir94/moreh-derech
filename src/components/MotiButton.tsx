@@ -9,12 +9,14 @@
  */
 import { useEffect, useState } from "react";
 import { HISTORY_TALK_ORIGIN } from "@/data/history-talk";
+import { useTalkAuthBridge } from "@/lib/talkAuth";
 import { withBasePath } from "@/lib/basePath";
 import { useAccess } from "@/lib/accessStore";
 import { hasAccess } from "@/lib/entitlement";
 import { useLaunch } from "@/lib/launchClient";
 
 export function MotiButton() {
+  useTalkAuthBridge();
   const [open, setOpen] = useState(false);
   const [src, setSrc] = useState("");
 

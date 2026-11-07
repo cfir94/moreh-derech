@@ -11,6 +11,7 @@ import {
   countryBlocked,
   errorResponse,
   hashIp,
+  hasAccess,
   recordStat,
   verifyTurnstile,
   type Env,
@@ -300,6 +301,8 @@ export async function handleChat(
   if (!chat) {
     const token = typeof body.turnstileToken === "string" ? body.turnstileToken : undefined;
     if (!(await verifyTurnstile(token, ip, env.TURNSTILE_SECRET, deps.fetcher))) return errorResponse("turnstile_failed", cors);
+    // הגישה נבדקת בפתיחת שיחה, כמו Turnstile. השיחה עצמה מוגבלת ל-3 שעות ול-150 בקשות.
+    if (!(await hasAccess(request, env, deps.fetcher))) return errorResponse("no_access", cors);
     chat = { characterId, startedAt: now, calls: 0 };
     recordStat(characterId, now);
   }
