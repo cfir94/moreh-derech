@@ -67,7 +67,7 @@ export function LessonPlaylist({ item, selectedPart, onSelect, autoAdvance, onAu
             <button key={part.id} ref={selected ? selectedButton : undefined} type="button" onClick={() => onSelect(part)} aria-pressed={selected} className={`flex items-center gap-3 rounded-xl border p-2 text-right transition duration-150 active:scale-[0.99] ${selected ? "border-teal/45 bg-teal/10 ring-1 ring-teal/35" : "border-line bg-card-2 hover:border-teal/40"}`}>
               <div className="relative w-24 shrink-0 overflow-hidden rounded-lg bg-[#07131c]">
                 <Image src={`https://i.ytimg.com/vi/${part.id}/mqdefault.jpg`} alt="" width={160} height={90} unoptimized className="aspect-video w-full object-cover" />
-                {part.durationSeconds !== undefined && <span dir="ltr" className="absolute bottom-1 left-1 rounded bg-black/85 px-1 text-[10px] font-bold text-white">{formatVideoDuration(part.durationSeconds)}</span>}
+                {part.durationSeconds !== undefined && <span dir="ltr" className="absolute bottom-1 left-1 rounded bg-scrim/85 px-1 text-[10px] font-bold text-on-media">{formatVideoDuration(part.durationSeconds)}</span>}
               </div>
               <div className="min-w-0 flex-1">
                 <span className={`mb-1 block text-xs font-bold ${selected ? "text-teal" : "text-txt-dim"}`}>{selected ? "נבחר בנגן" : `סרטון ${position}`}</span>

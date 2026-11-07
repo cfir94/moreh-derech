@@ -12,6 +12,12 @@ registerHooks({
       if (path.endsWith(".json")) return { url: pathToFileURL(path).href, shortCircuit: true };
       return next(pathToFileURL(existsSync(path + ".ts") ? path + ".ts" : path + "/index.ts").href, context);
     }
+    // Extensionless relative imports inside src/ (e.g. "./second-temple"), as the bundler resolves them.
+    if (specifier.startsWith(".") && !/\.[cm]?[jt]sx?$|\.json$/.test(specifier) && context.parentURL?.includes("/src/")) {
+      const path = fileURLToPath(new URL(specifier, context.parentURL));
+      if (existsSync(path + ".ts")) return next(pathToFileURL(path + ".ts").href, context);
+      if (existsSync(path + "/index.ts")) return next(pathToFileURL(path + "/index.ts").href, context);
+    }
     return next(specifier, context);
   },
   load(url, context, next) {

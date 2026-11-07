@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- a plain Node script, CommonJS on purpose */
 const { chromium } = require("playwright");
 (async () => {
   const browser = await chromium.launch();

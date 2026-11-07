@@ -79,7 +79,7 @@ export function FirstVisitTour({ id }: { id: TourId }) {
         ❓ איך זה עובד?
       </button>
       {open && (
-        <div className="fixed inset-0 z-[70] grid place-items-center bg-black/50 p-4" onClick={close}>
+        <div className="fixed inset-0 z-[70] grid place-items-center bg-scrim/50 p-4" onClick={close}>
           <div
             ref={dialog}
             role="dialog"
