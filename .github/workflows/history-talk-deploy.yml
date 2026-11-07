@@ -32,6 +32,8 @@ jobs:
     steps:
       - name: Skip without Cloudflare token
         if: env.CLOUDFLARE_API_TOKEN == ''
+        # לפני ה-checkout התיקייה history-talk לא קיימת, ולכן הצעד הזה רץ בשורש.
+        working-directory: .
         run: echo "::notice::CLOUDFLARE_API_TOKEN לא מוגדר — ההעלאה מדולגת. ראו docs/launch/USER-ACTIONS.md §1."
       - uses: actions/checkout@v4
         if: env.CLOUDFLARE_API_TOKEN != ''
