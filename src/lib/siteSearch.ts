@@ -20,6 +20,7 @@ import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
 import { ARCH_TERMS } from "@/data/classical-architecture";
 import { ROMAN_PEOPLE } from "@/data/roman-people";
+import { PLANTS } from "@/data/plants/plants";
 import { PERIOD_ROWS, periodDateText } from "@/data/periods";
 import { BUILDER_BY_ID, PERIOD_BY_ID, SITES as MAP_SITES } from "@/data/learning-map";
 import { TOPIC_LABELS } from "@/data/topics";
@@ -230,6 +231,15 @@ const baseResults: SearchResult[] = [
   {
     id: "timeline-history-atlas",
     kind: "tool",kindLabel:"אטלס אינטראקטיבי",title:"אטלס הזמן — מראשית האדם ועד ביזנטיון",description:"מתקרבים ומתרחקים בזמן: מבט על, הקשר ופירוט מלא, עם דמויות, אירועים וקשרים — מן הפרהיסטוריה והברונזה ועד הכיבוש המוסלמי.",href:"/timelines/history-atlas",searchText:"אטלס ציר זמן פרהיסטוריה נטופים ניאנדרטלי ברונזה כנען בית ראשון בית שני דמויות אירועים זום התקרבות התרחקות היסטוריה חשמונאים הורדוס כורש רומא ביזנטיון"
+  },
+  {
+    id: "timeline-plants-guide",
+    kind: "tool",
+    kindLabel: "מגדיר",
+    title: "מגדיר צמחים",
+    description: `${PLANTS.length} צמחים: מצמצמים לפי בית גידול, עונה וצורת חיים, ובכל כרטיס סימן מזהה ואיפה רואים בסיור.`,
+    href: "/timelines/plants-guide",
+    searchText: ["מגדיר צמחים זיהוי צומח פריחה עונה גלגל העונות", ...PLANTS.map(plant => `${plant.name} ${plant.sci}`)].join(" "),
   },
   {
     id: "timeline-roman-people",
