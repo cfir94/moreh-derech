@@ -5,6 +5,7 @@
   --muted: #617570;
   --rule: #dce3db;
   --accent: #2e776b;
+  --table-shadow: #152c3270;
   max-width: 1220px;
   margin: 0 auto;
   padding: 30px 28px 64px;
@@ -17,6 +18,7 @@
   --muted: #a5b6b0;
   --rule: #2a3c43;
   --accent: #83cfba;
+  --table-shadow: #00000070;
 }
 .back { display: inline-flex; align-items: center; gap: 8px; color: var(--txt-dim); font-size: 13px; font-weight: 700; margin-bottom: 22px; }
 .back:hover { color: var(--accent); }
@@ -36,7 +38,7 @@
 .eraMap li { display: grid; grid-template-columns: 16px 4px 1fr; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; }
 .mapIndex { font-size: 9px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .mapBar { height: 23px; border-radius: 2px; background: var(--era-color); }
-.workspace { margin-top: 24px; border: 1px solid var(--rule); border-radius: 20px; background: var(--paper); box-shadow: 0 12px 40px -32px #152c3270; }
+.workspace { margin-top: 24px; border: 1px solid var(--rule); border-radius: 20px; background: var(--paper); box-shadow: 0 12px 40px -32px var(--table-shadow); }
 .controls { padding: 24px 26px 0; }
 .controlsTop { display: flex; justify-content: space-between; gap: 22px; align-items: center; }
 .overline { color: var(--muted); font-size: 10px; font-weight: 700; margin-bottom: 3px; }

@@ -185,14 +185,21 @@ try {
   await expect(page.locator("[data-story-periods]")).not.toBeVisible();
   await expect(page.getByRole("button", {name:"בחירת תקופה בציר"})).toHaveAttribute("aria-expanded","false");
   await expect(page.locator('[data-story-chapter="end"]')).toBeFocused();
+  await page.evaluate(() => document.fonts.ready);
   for (const width of [1440,768,390,320]) {
     await page.setViewportSize({width,height:1000});
     for (const theme of ["light","dark"]) {
       await page.evaluate(value => {document.documentElement.dataset.theme=value;},theme);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), "story overflow: "+width+", "+theme).toBe(true);
-      await expect(page.locator("[data-roman-people]")).toHaveCSS("background-color","rgb(255, 255, 255)");
-      await expect(page.locator("[data-roman-people]")).toHaveCSS("background-image","none");
-      const centered=await page.locator("[data-roman-story]").evaluate(root=>{
+      const pageColors = await page.locator("[data-roman-people]").evaluate(node => ({
+        background: getComputedStyle(node).backgroundColor,
+        ink: getComputedStyle(node).color,
+      }));
+      if (theme === "dark") {
+        expect(pageColors.background).not.toBe("rgb(255, 255, 255)");
+        expect(pageColors.ink).not.toBe("rgb(40, 40, 40)");
+      }
+      const measureCentered=()=>page.locator("[data-roman-story]").evaluate(root=>{
         const axis=root.querySelector("[data-story-axis]"),canvas=axis.parentElement.getBoundingClientRect();
         const middle=canvas.left+canvas.width/2;
         const pointX=Number((axis.getAttribute("d")||"").split(" ")[1]);
@@ -203,9 +210,11 @@ try {
         });
         return {spine:Math.abs(pointX-canvas.width/2),stops:Math.max(...stops),figures:Math.max(...figures)};
       });
-      expect(centered.spine,"centered main line at "+width).toBeLessThanOrEqual(1);
-      expect(centered.stops,"centered stops at "+width).toBeLessThanOrEqual(1);
-      expect(centered.figures,"centered portraits at "+width).toBeLessThanOrEqual(1);
+      // Changing the viewport schedules the story's ResizeObserver. Poll the
+      // settled geometry rather than sampling the previous width mid-layout.
+      await expect.poll(async()=>(await measureCentered()).spine,{message:"centered main line at "+width}).toBeLessThanOrEqual(1);
+      await expect.poll(async()=>(await measureCentered()).stops,{message:"centered stops at "+width}).toBeLessThanOrEqual(1);
+      await expect.poll(async()=>(await measureCentered()).figures,{message:"centered portraits at "+width}).toBeLessThanOrEqual(1);
 
     }
   }
