@@ -284,3 +284,8 @@ brief (Claude) → draft (Codex: copy/scripts · ChatGPT: images · Manus: resea
    Record what works in `PROTOCOL.md`.
 6. Start real work in parallel. Claude builds; Codex gets a research or copy task; Manus gets platform-specs research; ChatGPT image prompts go to the owner only if images are needed now.
 7. Send the owner a short Hebrew report covering what was set up, the PR links, and what's waiting on them.
+
+## מכסות של סוכנים (כלל קבוע, 8.11)
+ל-Codex, ל-Claude ולכל סוכן אחר יש מכסות שימוש שנגמרות ומתחדשות (ל-Codex בערך כל 3 שעות; ל-Claude מכסה של 5 שעות ומכסה שבועית).
+משימה שלא חזרה **לא נשלחת שוב**: מחכים לחידוש המכסה ובודקים אחריו פעם אחת (`send_later`). שליחה חוזרת יוצרת משימה כפולה ושורפת עוד מכסה.
+כשהמכסה של Claude קרובה לסוף: מעבירים עבודה ל-Codex, ממזגים רק מה שנבדק, ומשאירים את העבודות הגדולות לאחרי האיפוס.
