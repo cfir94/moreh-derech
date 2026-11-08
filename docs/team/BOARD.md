@@ -72,7 +72,7 @@
 | LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | backlog | `src/components/games/Plants*` | LA-31 |
 | LA-33 | משחק הצמחים: בדיקת ממשק, הסרת ה-embed הישן, "מה חדש" | Claude | backlog | `src/app/games/plants/**`, `public/embeds/games/plants/**` | LA-32 |
 | LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog | `src/data/history-timeline/**` | LA-01 |
-| LA-41 | הברית החדשה ומצרים–כנען על המעטפת (בלי לגעת בתוכן של ישוע) | Codex | backlog | `src/app/timelines/{biblical,egypt-canaan}/**` | LA-01 |
+| LA-41 | הברית החדשה ומצרים–כנען על המעטפת (בלי לגעת בתוכן של ישוע) | Codex | done (#97; הגרסה הישנה ב-`/classic` עד אישור להסרה) | `src/app/timelines/{biblical,egypt-canaan}/**` | LA-01 |
 | LA-50 | טבלת התקופות ו"מי זה מי ברומא" על הטוקנים ובמצב כהה, ואינדקס עזרי הלמידה אחיד | Codex | done (#109) | `src/components/timeline/Periods*`, `RomanPeople*`, `src/app/timelines/page.tsx` | LA-01 |
 
 ## עזרי למידה חדשים (בקשת הבעלים, 8.11)
