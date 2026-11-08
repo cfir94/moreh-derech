@@ -80,3 +80,25 @@ Copy the pattern of `tools/fetch_christian_dress_photos.py` + `fetch-christian-d
 **Scope:** new `src/data/history-timeline/**`, new `tools/extract_history_timeline.mjs`, new `tests/history-timeline-data.test.mjs`, `docs/team/reports/LA-40.md`. **Data only: no UI in this task.**
 
 `public/embeds/history-timeline/` is a built app (about 250KB of HTML/JS) with three views (`?view=` iron, kings, judaism) and the dating tool. Write a script that extracts its data (events, dates, periods, people, descriptions, image references) into typed TS files, one per view, plus `index.ts`. Keep every text **verbatim** (no rewording; fix only obvious encoding damage and list each fix in the report). The test checks counts against the embed (write down the numbers you find in the report), unique ids, and that each date parses. A later task builds the pages.
+
+---
+
+## LA-60: plant field guide (מגדיר צמחים), a learning aid of its own
+
+**Owner's request (8.11).** Separate from the plants game: an interactive identification guide, for students and for working guides.
+**Scope:** new `src/app/timelines/plants-guide/**`, new `src/components/plants-guide/**`, `src/data/tours.ts`, new `tests/plants-guide-ui.mjs`, `docs/team/reports/LA-60.md`. Read `src/data/plants/plants.ts` and `src/data/plants/photos.json` (approved entries only; it may be empty or missing: then treat as `{}`). **Do not edit the plants data or `src/components/games/Plants*`.**
+
+- An identification flow, not a list: narrow down by **formation/habitat** (the plant `group`, with friendly names: חורש, בתה וגריגה, מדבר, גדות נחלים, מטפסים, שבעת המינים, נטועים — use the names in `PLANT_GROUPS`), **season** (`season`), **life form** (`habit`) and free-text search. The remaining plants show as tiles (name + scientific name; a neutral placeholder when there is no approved photo).
+- A plant card (sheet on phone, side panel on desktop): photos with credit (`PhotoFigure`), the `sign` ("סימן מזהה") first, then season, habitat, **where to see it on a tour** (`where`), "don't confuse with" (`confuse`, each linking to the other plant) and `fact`. Deep link `#plant-<id>`.
+- A "season wheel": 12 months around a circle; tapping a month lists what flowers or fruits then. Parse `season` with a pure function, unit-tested on all 40 plants; texts it cannot parse are listed in the report, not guessed.
+- Shell components, tokens, light and dark, phone first.
+
+## LA-51: the learning-aids index in groups (after LA-50)
+
+**Owner's request (8.11).** `/timelines` is a grid of tiles that feels messy. Group it under clear headings, aids below each:
+- **צירי זמן**: אטלס הזמן, בית שני, הרומי, הביזנטי, ברזל, מלכים, יהדות, הברית החדשה (חיי ישוע), מצרים–כנען, טבלת התקופות.
+- **חי, צומח ונוף**: מגדיר הצמחים (LA-60), later geology.
+- **אדריכלות וארכיאולוגיה**: the classical architecture studio, and any archaeology aid page.
+- **אינטראקטיביים**: דבר עם ההיסטוריה, מי זה מי ברומא.
+- **מפות**: cards linking to the learning map and the route planner.
+Place every route under `src/app/timelines/`; anything that fits nowhere goes in the report, not a "שונות" group. One heading and one line per group, the same card component everywhere, and the groups in one data array (`src/data/learning-aids.ts`) so a new aid is one line.
