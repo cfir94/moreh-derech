@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
-import { embedUrl } from "@/lib/basePath";
+import { FirstVisitTour } from "@/components/tour/FirstVisitTour";
+import { EgyptCanaanTimeline } from "@/components/timeline/EgyptCanaanTimeline";
 
 export const metadata: Metadata = {
   title: "מצרים, כנען וראשית ישראל — הברונזה | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "ציר הזמן המקורי של מצרים, כנען וראשית ישראל",
+  description: "מצרים, כנען וראשית ישראל, עם חיפוש ותרגול",
 };
 
 export default function EgyptCanaanTimelinePage() {
-  return (
-    <div className="h-[calc(100dvh-60px)] min-h-[500px] w-full">
-      <iframe
-        src={embedUrl("timelines/egypt-canaan/")}
-        title="מצרים, כנען וראשית ישראל — הברונזה"
-        className="h-full w-full border-0"
-        allow="fullscreen"
-        allowFullScreen
-      />
-    </div>
-  );
+  return <><EgyptCanaanTimeline /><FirstVisitTour id="egypt-canaan" /></>;
 }
