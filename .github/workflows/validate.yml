@@ -57,3 +57,5 @@ jobs:
         run: node tests/learning-map-ui.mjs
       - name: Weekly crossword browser checks
         run: node --import ./tests/register-ts.mjs tests/crossword-ui.mjs
+      - name: Plants field guide browser checks
+        run: node --import ./tests/register-ts.mjs tests/plants-guide-ui.mjs
