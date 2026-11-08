@@ -10,6 +10,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
 import { friendlyAuthError, requestEmailCode, saveProfileDetails } from "@/lib/cloudAuth";
+import { cohortLabel, fetchCohorts, saveSignupDetails, type Cohort } from "@/lib/manualAccess";
 import { startTrial } from "@/lib/entitlement";
 import { LAUNCH, PRICES } from "@/lib/launch";
 
@@ -34,6 +35,13 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
   const [error, setError] = useState("");
   const [cooldown, setCooldown] = useState(0);
   const codeInput = useRef<HTMLInputElement>(null);
+  const [cohorts, setCohorts] = useState<Cohort[] | null>(null);
+
+  useEffect(() => {
+    if (step !== "profile" || cohorts) return;
+    // בלי טבלת המחזורים (לפני הרצת ה-SQL) נשארים עם שדה טקסט חופשי.
+    void fetchCohorts().then(setCohorts, () => setCohorts([]));
+  }, [step, cohorts]);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -114,10 +122,16 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") ?? "").trim();
     const classCode = String(form.get("classCode") ?? "").trim();
+    const phone = String(form.get("phone") ?? "").trim();
+    const cohort = cohorts?.find((c) => String(c.id) === String(form.get("cohort") ?? "")) ?? null;
     const terms = form.get("terms") === "on";
     const marketing = form.get("marketing") === "on";
     if (!name) {
       setError("איך לקרוא לכם? השם מופיע רק אצלכם ובטבלאות הכיתה.");
+      return;
+    }
+    if (phone.replace(/\D/g, "").length < 9) {
+      setError("צריך מספר טלפון, כדי שנוכל לחזור אליכם.");
       return;
     }
     if (!terms) {
@@ -127,7 +141,11 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
     setBusy(true);
     setError("");
     try {
-      await saveProfileDetails(name, classCode);
+      if (cohorts && cohorts.length) await saveSignupDetails({ fullName: name, phone, cohort });
+      else {
+        await saveProfileDetails(name, classCode);
+        await saveSignupDetails({ fullName: name, phone, cohort: null }).catch(() => null);
+      }
       if (LAUNCH.paywall) await startTrial(true, marketing).catch(() => null);
       router.replace("/me?welcome=1");
     } catch (err) {
@@ -238,15 +256,31 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
 
       {step === "profile" && (
         <form onSubmit={submitProfile} className="relative flex flex-col gap-4">
-          <p className="text-sm leading-relaxed text-txt-dim">ברוכים הבאים! עוד שני פרטים קטנים ומתחילים.</p>
+          <p className="text-sm leading-relaxed text-txt-dim">ברוכים הבאים! עוד כמה פרטים ומתחילים.</p>
           <label className="flex flex-col gap-1.5 text-sm font-bold">
             שם
             <input name="name" type="text" required autoComplete="name" className={field} placeholder="ישראל ישראלי" autoFocus />
           </label>
           <label className="flex flex-col gap-1.5 text-sm font-bold">
-            כיתה / מחזור <span className="font-normal text-txt-dim">(לא חובה)</span>
-            <input name="classCode" type="text" autoComplete="off" className={field} placeholder={'למשל: קמ"ד שרון 26-27'} />
+            טלפון
+            <input name="phone" type="tel" required inputMode="tel" autoComplete="tel" dir="ltr" className={field} placeholder="050-0000000" />
           </label>
+          {cohorts && cohorts.length > 0 ? (
+            <label className="flex flex-col gap-1.5 text-sm font-bold">
+              מחזור <span className="font-normal text-txt-dim">(לא חובה; כך תופיעו בטבלת הכיתה)</span>
+              <select name="cohort" className={field} defaultValue="">
+                <option value="">לא בקורס / אחר</option>
+                {cohorts.map((c) => (
+                  <option key={c.id} value={c.id}>{cohortLabel(c)}</option>
+                ))}
+              </select>
+            </label>
+          ) : (
+            <label className="flex flex-col gap-1.5 text-sm font-bold">
+              כיתה / מחזור <span className="font-normal text-txt-dim">(לא חובה)</span>
+              <input name="classCode" type="text" autoComplete="off" className={field} placeholder={'למשל: קמ"ד שרון 26-27'} />
+            </label>
+          )}
           <label className="flex items-start gap-2.5 text-sm leading-relaxed">
             <input name="terms" type="checkbox" required className="mt-1 size-4 accent-[var(--teal)]" />
             <span>

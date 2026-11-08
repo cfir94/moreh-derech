@@ -42,7 +42,7 @@
 | B-01 | SQL: entitlements, billing_events, start_trial (`supabase/migrations/20261106_02_*`, `_03_*`) | Claude | done (הורץ ב-7.11) | `supabase/**` | — |
 | B-02 | `plans.ts`, `entitlement.ts`, `accessStore.ts` | Claude | review | `src/lib/plans.ts`, `src/hooks/**` | B-01 |
 | B-03 | Paywall, `/pricing`, "התוכנית שלי", מוטי רק עם גישה (כבוי: NEXT_PUBLIC_PAYWALL) | Claude | review | `src/components/paywall/**`, `src/app/me/**` | B-02 |
-| B-04 | ~~ספק סליקה~~ → תשלום ידני בביט, הרשמה עם פרטים ומסך מנהל ([`PAYMENTS-MANUAL.md`](../launch/PAYMENTS-MANUAL.md)) | Claude | in-progress · SQL: `supabase/migrations/20261108_01_*` (להרצה ע"י הסשן המקומי), ממשק ו-Worker אחרי איפוס המכסה. יעד: יום ג' בערב (בקשת הבעלים, עדיפות עליונה) | — | — |
+| B-04 | ~~ספק סליקה~~ → תשלום ידני בביט, הרשמה עם פרטים ומסך מנהל ([`PAYMENTS-MANUAL.md`](../launch/PAYMENTS-MANUAL.md)) | Claude | in-progress · SQL (#114, הסשן המקומי) · ממשק: הרשמה עם טלפון ומחזור, הצטרפות עם כרטיס אישי, `/admin` (נבנה, נבדק מול Supabase מדומה) · נשאר: מייל לבעלים על פנייה ותזכורות (Worker), בדיקה מול Supabase אמיתי, הדלקת החסימה. יעד: יום ג' בערב (בקשת הבעלים, עדיפות עליונה) | — | — |
 | B-05 | Worker `md-api`: checkout, callback מאומת, ביטול, תזכורות, ספק מדומה, Grow (טיוטה). 6 בדיקות | Claude | review · Grow ממתין ל-sandbox | `api/**`, `tests/md-api.test.mjs` | B-04 (לחיבור Grow) |
 | B-06 | מוטי בודק זכאות (`REQUIRE_ENTITLEMENT`, כבוי; 2 בדיקות) | Claude | done · הפעלה אחרי B-04 ו-§9 | `history-talk/src/worker/**` | B-01, A-01 |
 | L-01 | `/legal/*`: תנאים, פרטיות, ביטול, נגישות (טיוטה; ממתין לפרטי העוסק ולעורך דין) | Claude | review | `src/app/legal/**` | GPT-03 |

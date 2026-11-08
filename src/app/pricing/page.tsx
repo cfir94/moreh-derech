@@ -15,7 +15,7 @@ export default function PricingPage() {
       <header className="mb-10 text-center">
         <h1 className="grad-text text-4xl">מחיר אחד, הכול פתוח</h1>
         <p className="mx-auto mt-3 max-w-xl leading-relaxed text-txt-dim">
-          {PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי. אחר כך בוחרים מנוי, ומבטלים בכל רגע מהאזור האישי.
+          {PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי. אחר כך בוחרים חצי שנה או שנה, משאירים פרטים, ואני חוזר אליכם.
         </p>
       </header>
       <PricingCards />
@@ -27,12 +27,12 @@ export default function PricingPage() {
             <dd className="text-txt-dim">כלום, אם לא בחרתם מנוי. לא ביקשנו כרטיס אשראי, ולכן אין חיוב אוטומטי. התוכן בתשלום פשוט נחסם, וההתקדמות נשמרת.</dd>
           </div>
           <div>
-            <dt className="font-bold text-txt">איך מבטלים?</dt>
-            <dd className="text-txt-dim">כפתור אחד באזור האישי. המנוי לא יתחדש, והגישה נמשכת עד סוף התקופה ששולמה. פרטים ב<Link href="/legal/cancellation" className="font-bold text-teal">מדיניות הביטול</Link>.</dd>
+            <dt className="font-bold text-txt">איך משלמים?</dt>
+            <dd className="text-txt-dim">בוחרים חצי שנה או שנה ומשאירים פרטים. אני חוזר אליכם, משלמים פעם אחת בהעברה (למשל בביט), והמנוי נפתח. אין חיוב חוזר, ולכן אין גם מה לבטל. חודש לפני הסוף תגיע תזכורת. ביטול והחזר לפי <Link href="/legal/cancellation" className="font-bold text-teal">מדיניות הביטול</Link>.</dd>
           </div>
           <div>
-            <dt className="font-bold text-txt">מקבלים חשבונית?</dt>
-            <dd className="text-txt-dim">כן, במייל, אוטומטית אחרי כל תשלום.</dd>
+            <dt className="font-bold text-txt">מקבלים קבלה?</dt>
+            <dd className="text-txt-dim">כן, על כל תשלום.</dd>
           </div>
         </dl>
       </section>

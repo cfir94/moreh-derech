@@ -46,11 +46,11 @@ export function MyPlan() {
     title = "שבוע ניסיון";
     detail = `נשארו ${access.daysLeft} ימים (עד ${date(access.endsAt)}).`;
   } else if (access.kind === "paid") {
-    title = access.plan === "yearly" ? "מנוי שנתי" : access.plan === "monthly" ? "מנוי חודשי" : "גישה מלאה";
+    title = access.plan === "yearly" ? "מנוי לשנה" : access.plan === "halfyear" ? "מנוי לחצי שנה" : "גישה מלאה";
     detail = access.until
       ? access.canceling
         ? `בוטל. הגישה נמשכת עד ${date(access.until)}.`
-        : `מתחדש ב-${date(access.until)}.`
+        : `בתוקף עד ${date(access.until)}. חודש לפני כן נשלח תזכורת.`
       : "ללא הגבלת זמן.";
   } else if (access.kind === "expired") {
     title = "אין מנוי פעיל";
@@ -67,13 +67,13 @@ export function MyPlan() {
           <h2 id="my-plan-title" className="text-lg font-black text-txt">התוכנית שלי: {title}</h2>
           <p className="text-sm text-txt-dim">{detail}</p>
         </div>
-        {access.kind === "paid" && access.until && !access.canceling && (access.plan === "monthly" || access.plan === "yearly") ? (
+        {access.kind === "paid" && access.until && !access.canceling && false ? (
           <button type="button" disabled={busy} onClick={() => void cancel()} className="rounded-full border border-line bg-card-2 px-4 py-2.5 text-sm font-bold transition active:scale-95">
             {busy ? "מבטל…" : "ביטול מנוי"}
           </button>
         ) : access.kind !== "paid" ? (
           <Link href="/pricing/" className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent" style={{ background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" }}>
-            בחירת מנוי
+            הצטרפות
           </Link>
         ) : null}
       </div>

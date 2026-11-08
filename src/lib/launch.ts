@@ -23,12 +23,15 @@ export const LAUNCH = {
   domain: "moreyderech.com",
 } as const;
 
-/** המחירים בשקלים, כולל מע"מ אם חל. שינוי מחיר = שינוי כאן (ובספק הסליקה). */
+/**
+ * המחירים בשקלים (docs/launch/PAYMENTS-MANUAL.md). תשלום ידני בביט, לתקופה מראש, בלי מנוי חודשי.
+ * `list` הוא המחיר לפי 30 ₪ לחודש, שמוצג מחוק ליד המחיר בפועל.
+ */
 export const PRICES = {
   trialDays: 7,
-  monthly: 20,
-  yearly: 200,
+  perMonth: 30,
+  halfyear: 160,
+  halfyearList: 180,
+  yearly: 300,
+  yearlyList: 360,
 } as const;
-
-/** כמה חודשים "חינם" במנוי השנתי לעומת 12 חודשים חודשיים (לטקסט השיווקי). */
-export const yearlySavingsMonths = Math.floor((PRICES.monthly * 12 - PRICES.yearly) / PRICES.monthly);
