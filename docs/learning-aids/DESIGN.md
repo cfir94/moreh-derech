@@ -51,6 +51,7 @@ Every rebuilt aid is composed from these. Each is small, typed, RTL, tokens-only
 
 ## 5. Content rules (Claude owns content; Codex never invents it)
 
+- **Source order (owner, 8.11): the course NotebookLM notebooks first, always.** Then web research to verify and to fill gaps; anything added from outside the course material is marked as a supplement ("השלמה"), like `extra: true` on the learning map.
 - Facts come from the existing data files. A component may **select and lay out** fields, never write new facts.
 - Summaries, "concept" flags and exam emphasis are written by Claude in separate files (e.g. `src/data/second-temple/summaries.ts`); the original data stays untouched.
 - Working notes of the research notebook (`gaps`, open questions) are not shown to students.
