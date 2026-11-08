@@ -7,7 +7,7 @@ Written by Claude on 8.11.2026. Claude will be offline for about two days. Work 
 1. Read `CLAUDE.md`, `AGENTS.md`, `docs/team/PROTOCOL.md` and **`docs/learning-aids/DESIGN.md`** (the spec; it wins over component habits). Node: `nvm use 22`. The build works offline (local fonts).
 2. Build on the shell that is already on `main`: `src/components/learning-aid/*` (`AidHeader`, `AidTabs` + `useHashTab`, `AidSearch`, `SummaryCard`, `PhotoFigure`, `PracticeDeck`). The demo is `src/app/timelines/shell-demo/page.tsx`. Do not fork these components; if one needs a new prop, add it backwards-compatibly.
 3. **Tokens only.** No hex and no raw Tailwind colours in components. An aid may keep **one** "material" palette as CSS variables in its module, with light **and** dark values.
-4. **Never write new facts.** Content comes from the existing data files. You may select, group and lay out fields. Summaries are written by Claude (see LA-11).
+4. **Never write new facts.** Content comes from the existing data files. You may select, group and lay out fields. Every event in the three era timelines already has a short `summary` field: use it as is.
 5. **Never break deep links** (`#ST-012`, `#RO-012`, `#BY-012`, `#t-<id>`): site search and the atlas use them. Use `useHashTab`'s `resolve` so a card hash opens its tab and scrolls to the card.
 6. Do not touch: the history atlas, history-talk, the architecture studio, `src/lib/sync/**`, `src/lib/progress.ts` (call its functions, don't change them), `api/**`, workflows other than the one a task names.
 7. Stay inside the task's scope. If you must change a file outside it, say why in the report.
@@ -19,13 +19,13 @@ Written by Claude on 8.11.2026. Claude will be offline for about two days. Work 
 
 ## LA-11: Second Temple on the shell
 
-**Scope:** `src/components/timeline/SecondTemple*`, `src/app/timelines/second-temple/**`, new `src/data/second-temple/summaries.ts`, `src/data/tours.ts` (one new entry), `tests/second-temple-ui.mjs` (update), `docs/team/reports/LA-11.md`.
+**Scope:** `src/components/timeline/SecondTemple*`, `src/app/timelines/second-temple/**`, new `src/data/second-temple/concepts.ts`, `src/data/tours.ts` (one new entry), `tests/second-temple-ui.mjs` (update), `docs/team/reports/LA-11.md`.
 
 Today the page is one long scroll of 88 cards, about 660 characters each. Rebuild it on the shell:
 - `AidHeader` (slug `second-temple`) with a stat line (events, periods).
 - One tab per period (`TEMPLE_PERIODS`), plus a first tab "תמונה כוללת": one row per period with its years and its 3 events marked `concept` (if fewer, the first 3).
-- Each event is a `SummaryCard`: title, date chip, **summary**, up to 3 tags (people/places from the data), detail fields inside "עוד" as short labelled rows. Drop the research notebook's working fields (`gaps`, open questions) from the display.
-- **Summaries:** create `src/data/second-temple/summaries.ts` exporting `SUMMARIES: Record<string, { summary: string; concept?: boolean }> = {}` (empty; Claude fills it). Until an id has an entry, show the event's existing shortest descriptive field cut at a word boundary to ≤ 200 characters, followed by "…". Put that fallback in one pure function with a unit test in `tests/second-temple-content.test.mjs`.
+- Each event is a `SummaryCard`: title, date chip, the event's existing **`summary`** field (every event has one, ≤ 62 characters), the **`takeaway`** field as a short "למבחן:" line on the card face, and up to 3 tags (from `people` / `places`). Inside "עוד", as short labelled rows: `body`, `causes`, `consequences`, `archaeology`, `caution`, `date` + `precision`. **Do not show** `source`, `warning`, `rule`, `anchor` (research working fields).
+- Concept badge: add `src/data/second-temple/concepts.ts` exporting `CONCEPT_IDS: string[] = []` (Claude fills it) and pass `concept={CONCEPT_IDS.includes(id)}`.
 - `AidSearch` with `matchesTempleQuery`; a match opens its tab and scrolls to the card.
 - A practice tab with `PracticeDeck` (`quizSlug: "second-temple"`). Question types, built **only** from the data: "מה קרה ב-<year>?" (4 event titles), "באיזו תקופה…?" (4 period names). Wrong distractors from the same or neighbouring period.
 - First-visit tour entry in `src/data/tours.ts`.
@@ -37,7 +37,7 @@ Today the page is one long scroll of 88 cards, about 660 characters each. Rebuil
 
 - Keep each aid's **material**: Roman road and milestones, tabula ansata, Pompeian red/copper; Byzantine mosaic. Move every colour into CSS variables with light and dark values (check for hard-coded hex today).
 - Wrap them in `AidHeader` and `AidTabs`: one tab per period plus the existing sub-views (emperors and legions, sites; emperors and councils, churches/monasteries/synagogues, pilgrims) as tabs, in the hash.
-- Event cards: summary first, detail in "עוד". For the summary, use the existing short field if there is one (≤ 200 characters), otherwise the same fallback function as LA-11 (import it, don't copy it).
+- Event cards: the existing `summary` field first (every event has one), detail in "עוד".
 - Mark `concept: true` events with the "מושג למבחן" badge (`SummaryCard` already has it).
 - A practice tab per aid (`PracticeDeck`, slugs `roman` / `byzantine`): order/date and "who did it" questions built only from the data.
 - `#RO-012` / `#BY-012` must still open the right tab and card.
