@@ -293,12 +293,11 @@
 .companionCard .personContext{margin-top:16px}.companionCard .contextPanel li p,.companionCard .jewishPanel p{font-size:12px!important}.companionCard .jewishPanel{padding:10px}
 @media(max-width:640px){.personContext{margin-top:20px}.contextPanel li p,.jewishPanel p{font-size:14px!important}.modes button{font-size:10px}.modes button>span{font-size:19px}}
 
-/* The illustrated chapter has its own quieter white-marble reading surface. */
-.page[data-mode=story]{--scene:#ffffff;--paper:#ffffff;--soft:#f5f5f5;--ink:#282828;--dim:#666666;--line:#dedede;--accent:#4c606b;color-scheme:light;background:#ffffff}
+/* The illustrated chapter keeps a quieter reading surface in the active era material. */
+.page[data-mode=story]{background:var(--scene)}
 .page[data-mode=story] .hero,.page[data-mode=story] .chapterIntro{display:none}
 .page[data-mode=story] .modes{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0 0 8px;margin-bottom:0}
 .page[data-mode=story] .modes button{background:none;color:var(--dim);box-shadow:none;border-radius:0;font-size:13px}
 .page[data-mode=story] .modes button[aria-pressed=true]{color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
 .page[data-mode=story] .modes button[aria-pressed=true]>span{color:var(--accent)}
-:global([data-theme=dark]) .page[data-mode=story]{--scene:#ffffff;--paper:#ffffff;--soft:#f5f5f5;--ink:#282828;--dim:#666666;--line:#dedede;--accent:#4c606b;color-scheme:light;background:#ffffff}
 @media(max-width:640px){.page[data-mode=story]{padding-inline:14px}.page[data-mode=story] .modes button{font-size:10px}.page[data-mode=story] .modes button>span{font-size:17px}}
