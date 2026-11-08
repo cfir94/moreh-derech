@@ -67,7 +67,7 @@ export function MotiButton() {
         aria-expanded={open}
         aria-label={open ? "סגירת השיחה עם מוטי" : "מוטי, מורה הדרך — לשאול או להיבחן"}
         title="מוטי, מורה הדרך הוותיק"
-        className="fixed bottom-3 left-3 z-50 h-[4.5rem] w-[4.5rem] rounded-full border border-line bg-card p-1.5 shadow-xl backdrop-blur transition-transform hover:scale-105 active:scale-95"
+        className="fixed bottom-3 left-3 z-50 h-14 w-14 rounded-full sm:h-[4.5rem] sm:w-[4.5rem] border border-line bg-card p-1.5 shadow-xl backdrop-blur transition-transform hover:scale-105 active:scale-95"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={withBasePath("/moti/hat.webp")} alt="" width="60" height="60" className="h-full w-full object-contain" />
