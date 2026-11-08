@@ -5,7 +5,7 @@
  */
 import { authenticatedSupabaseRequest, readSession } from "@/lib/cloudAuth";
 
-export type Plan = "trial" | "monthly" | "yearly" | "founder" | "comp";
+export type Plan = "trial" | "monthly" | "halfyear" | "yearly" | "founder" | "comp";
 export type PlanStatus = "active" | "past_due" | "canceled" | "expired";
 
 export type Entitlement = {

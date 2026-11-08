@@ -216,7 +216,7 @@ export default function WelcomePage() {
           {[
             ["נרשמים עם מייל", "מקבלים קוד כניסה למייל. בלי סיסמה ובלי כרטיס אשראי."],
             [`${PRICES.trialDays} ימים הכול פתוח`, "שאלונים, מבחנים, צירים, מפות, משחקים ומוטי."],
-            ["ממשיכים אם מתאים", `מ-${PRICES.monthly} ₪ לחודש, ביטול בכל רגע.`],
+            ["ממשיכים אם מתאים", `${PRICES.halfyear} ₪ לחצי שנה או ${PRICES.yearly} ₪ לשנה. בלי חיוב אוטומטי.`],
           ].map(([title, text], i) => (
             <li key={title} className="rounded-lg border border-line bg-card p-5">
               <span className="mb-3 grid size-9 place-items-center rounded-full text-lg font-black text-on-accent" style={ctaStyle}>

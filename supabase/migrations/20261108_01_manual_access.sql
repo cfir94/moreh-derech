@@ -18,10 +18,13 @@ create table if not exists public.md_cohorts (
   school text not null,
   year integer not null check (year between 2000 and 2100),
   name text not null,
+  -- הקוד שנשמר ב-profiles.class_code של המשחק "אבן דרך": כך אותו מחזור מופיע בשני המקומות.
+  code text not null unique check (char_length(code) between 1 and 40),
   active boolean not null default true,
   created_at timestamptz not null default now(),
   unique (school, year, name)
 );
+alter table public.md_cohorts add column if not exists code text;
 alter table public.md_cohorts enable row level security;
 drop policy if exists "md_cohorts_read" on public.md_cohorts;
 create policy "md_cohorts_read" on public.md_cohorts for select to anon, authenticated using (true);
