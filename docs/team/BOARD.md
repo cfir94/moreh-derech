@@ -62,16 +62,16 @@
 |---|---|---|---|---|---|
 | LA-00 | מפרט עיצוב לעזרי הלמידה | Claude | done | `docs/learning-aids/DESIGN.md` | — |
 | LA-01 | רכיבי המעטפת: כותרת, לשוניות ב-hash, חיפוש, כרטיס עם סיכום, תמונה עם קרדיט, תרגול | Codex | done (שני סבבים, נבדק בדפדפן) | `src/components/learning-aid/**` | LA-00 |
-| LA-10 | בית שני: סיכום של עד 200 תווים לכל אירוע, וסימון מושגי מבחן | Claude | ready | `src/data/second-temple/summaries.ts` | — |
+| LA-10 | בית שני: סיכום של עד 200 תווים לכל אירוע, וסימון מושגי מבחן | Claude | done (לכל 88 האירועים יש `summary` קצר ו-`takeaway`, ואירועי מפתח מסומנים `anchor`; התרגול LA-12 נבנה עליהם) | `src/data/second-temple/summaries.ts` | — |
 | LA-11 | בית שני על המעטפת: מסך לכל תקופה, מפה ותמונות | Codex | backlog · נדחה: הדף הקיים כבר מקפל לסיכום ומחולק לתקופות, ומכוסה בבדיקות; שכתוב מלא לא שווה את הסיכון כרגע | `src/components/timeline/SecondTemple*` | LA-01, LA-10 |
 | LA-12 | בית שני: תרגול (סדר כרונולוגי, מי עשה, מה קרה) | Codex | done (לשונית תרגול בבית שני, 57 שאלות מהנתונים, #141) | כנ"ל | LA-11 |
-| LA-20 | הרומי והביזנטי על המעטפת ועל הטוקנים, בלי לאבד את ה"חומר" הייחודי | Codex | backlog | `src/components/timeline/{Roman,Byzantine}*` | LA-01 |
+| LA-20 | הרומי והביזנטי על המעטפת ועל הטוקנים, בלי לאבד את ה"חומר" הייחודי | Codex | backlog · נדחה: לשני הצירים כבר יש סיכום מקופל, תקופות וחומר ייחודי; נוסף להם תרגול (LA-21). מעבר מלא למעטפת לא שווה את הסיכון כרגע | `src/components/timeline/{Roman,Byzantine}*` | LA-01 |
 | LA-21 | הרומי והביזנטי: תמונות ותרגול | Claude+Codex | in-progress · תרגול נוסף לשני הצירים (56 ו-22 שאלות מהנתונים); תמונות עוד לא | כנ"ל | LA-20 |
 | LA-30 | משחק הצמחים: נתונים (סימן מזהה, עונה, בית גידול, איפה בסיור, לא להתבלבל עם) | Claude | done (40 צמחים, 7 קבוצות, 3 בדיקות) | `src/data/plants/**` | — |
-| LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | ready | `tools/plants_photos.json`, workflow | LA-30 |
+| LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | done (40/40 תמונות אושרו אחרי בדיקה בעין, עם כיתוב) | `tools/plants_photos.json`, workflow | LA-30 |
 | LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | done (נבנה ע"י Claude: Codex החזיר פעמיים סיכום בלי diff, #100) | `src/components/games/Plants*` | LA-31 |
 | LA-33 | משחק הצמחים: בדיקת ממשק, הסרת ה-embed הישן, "מה חדש" | Claude | done (נבדק בדפדפן ב-390/1280; "מה חדש" נוסף; ה-embed הישן נשאר ב-/games/plants/classic עד אישור הבעלים להסיר) | `src/app/games/plants/**`, `public/embeds/games/plants/**` | LA-32 |
-| LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog | `src/data/history-timeline/**` | LA-01 |
+| LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog · נבדק: אפליקציה גדולה עם הרבה מבני נתונים (מלכים, נביאים, שרשרת הספרים). לא בוצע הלילה | `src/data/history-timeline/**` | LA-01 |
 | LA-41 | הברית החדשה ומצרים–כנען על המעטפת (בלי לגעת בתוכן של ישוע) | Codex | done (#97; הגרסה הישנה ב-`/classic` עד אישור להסרה) | `src/app/timelines/{biblical,egypt-canaan}/**` | LA-01 |
 | LA-50 | טבלת התקופות ו"מי זה מי ברומא" על הטוקנים ובמצב כהה, ואינדקס עזרי הלמידה אחיד | Codex | done (#109) | `src/components/timeline/Periods*`, `RomanPeople*`, `src/app/timelines/page.tsx` | LA-01 |
 
