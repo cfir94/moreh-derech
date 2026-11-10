@@ -24,12 +24,34 @@ export default function Home() {
     QUIZZES.find((q) => q.slug === "past-exams")?.questions.length ?? 0;
   const sections = [
     {
-      slug: "games",
-      href: "/games",
-      title: "משחקים",
+      slug: "map",
+      href: "/map",
+      title: "מפה",
       description:
-        "משחקי זיהוי ותרגול: דמויות מההיסטוריה, ידיעת הארץ, כנסיות וצמחי בר.",
-      meta: "4 משחקים",
+        "מפת למידה של אתרי בית שני, הרומית והביזנטית — מי בנה, מתי ואיך זוכרים — ומפת שטח לתכנון מסלול.",
+      meta: "למידה · תכנון מסלול",
+    },
+    {
+      slug: "notebooks",
+      href: "/notebooks",
+      title: "מחברות סיור ושיעור",
+      description: "מחברות סיור לפי אזור ומחברות עיוניות לפי תחום, עם קישור ישיר למחברת המקורית.",
+      meta: "סיורים · עיוני · מקוון",
+    },
+    {
+      slug: "guide-reports",
+      href: "/guide-reports",
+      title: "דוחות הדרכה",
+      description: "מדריך, דוגמה מלאה ותרגול לבניית יום סיור ויחידת הדרכה, עם טיוטות שמורות.",
+      meta: "דוגמאות, תרגול וטיוטות",
+    },
+    {
+      slug: "resources",
+      href: "/resources",
+      title: "סיכומים וחומרי לימוד",
+      description:
+        "קישורים לסיכומים, לדוחות לפי אתר ולמסלולים לדוגמה של אפרת נקש. נפתחים באתר שלה.",
+      meta: "קישורים · אפרת נקש",
     },
     {
       slug: "quizzes",
@@ -48,14 +70,6 @@ export default function Home() {
       meta: `${EXAMS.length} מועדים`,
     },
     {
-      slug: "resources",
-      href: "/resources",
-      title: "סיכומים וחומרי לימוד",
-      description:
-        "סיכום לכל נושא בסילבוס, דוחות סיור לפי אתר ומסלולים לדוגמה.",
-      meta: "מקורות חופשיים",
-    },
-    {
       slug: "timelines",
       href: "/timelines",
       title: "עזרי למידה",
@@ -63,26 +77,12 @@ export default function Home() {
       meta: "כלים אינטראקטיביים",
     },
     {
-      slug: "map",
-      href: "/map",
-      title: "מפה",
+      slug: "games",
+      href: "/games",
+      title: "משחקים",
       description:
-        "מפת למידה של אתרי בית שני, הרומית והביזנטית — מי בנה, מתי ואיך זוכרים — ומפת שטח לתכנון מסלול.",
-      meta: "למידה · תכנון מסלול",
-    },
-    {
-      slug: "me",
-      href: "/me",
-      title: "אזור אישי",
-      description: "ההתקדמות שלכם, אחוזי הצלחה, ומה שנשאר לחזור עליו.",
-      meta: "מעקב אישי",
-    },
-    {
-      slug: "guide-reports",
-      href: "/guide-reports",
-      title: "דוחות הדרכה",
-      description: "פורמט משרד התיירות וסימולציית בניית מסלול.",
-      meta: "דוגמאות, תרגול וטיוטות",
+        "משחקי זיהוי ותרגול: דמויות מההיסטוריה, ידיעת הארץ, כנסיות וצמחי בר.",
+      meta: "4 משחקים",
     },
     {
       slug: "videos",
@@ -90,6 +90,13 @@ export default function Home() {
       title: "סרטונים מומלצים",
       description: "ספריית סרטונים לצפייה, לפי נושאי הקורס.",
       meta: "ספריית צפייה לפי נושאים",
+    },
+    {
+      slug: "me",
+      href: "/me",
+      title: "אזור אישי",
+      description: "ההתקדמות שלכם, אחוזי הצלחה, ומה שנשאר לחזור עליו.",
+      meta: "מעקב אישי",
     },
   ];
 
@@ -109,16 +116,16 @@ export default function Home() {
 
         <div className="relative">
           <p className="mb-3 text-[12.5px] font-semibold tracking-[0.04em] text-txt-dim">
-            אֶבֶן דֶּרֶךְ למורי דרך · כל חומרי התרגול במקום אחד
+            אֶבֶן דֶּרֶךְ למורי דרך · מהקורס אל השטח
           </p>
           <h1 className="grad-text mb-4 max-w-2xl text-4xl leading-[1.25] sm:text-5xl">
-            להתכונן לבחינת מורי הדרך — בלי לחפש בעשרה מקומות
+            ללמוד למבחן. להכין את הסיור הבא.
           </h1>
           <p className="mb-7 max-w-xl leading-relaxed text-txt-dim">
-            <span className="num">{examCount}</span> שאלות מתוך מבחני הרישוי
-            הרשמיים, <span className="num">{questionCount}</span> שאלות תרגול
-            בסך הכל, עזרי למידה ומפת מורשת מלאה — עם מערכת שזוכרת במה טעיתם ועל
-            מה כדאי לחזור.
+            מפות, מחברות ודוחות לעבודה השוטפת, לצד{" "}
+            <span className="num">{questionCount}</span> שאלות תרגול (
+            <span className="num">{examCount}</span> מהן ממבחני הרישוי), מבחנים
+            מלאים ועזרי למידה. ההתקדמות והטעויות נשמרות בחשבון.
           </p>
           <HomeActions />
         </div>
@@ -127,7 +134,7 @@ export default function Home() {
       <HomeProgress />
 
       <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        מה יש כאן
+        כלי עבודה, לימוד והכנה למבחן
       </h2>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
         {sections.map((s, i) => (

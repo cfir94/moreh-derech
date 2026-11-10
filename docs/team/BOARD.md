@@ -50,7 +50,7 @@
 | G-01 | דף נחיתה `/welcome` (הכנה, מספרים, 5 יכולות עם סרטונים, משחקים, מוטי, מחיר, שאלות נפוצות) | Claude | done · הטקסטים נבדקו מול CX-03 | `src/app/welcome/**`, `src/components/landing/**` | — |
 | G-02 | 18 צילומי מסך, 3 סרטוני מסך ותמונת שיתוף (`public/marketing/`, 2.4MB) | Claude | review | `public/marketing/**`, `tools/marketing/**` | — |
 | G-03 | (בוטל: בלי שיווק המוני) | — | cancelled | — | — |
-| G-04 | ניסוח מחדש לשני קהלים (תלמידים ומורי דרך פעילים): `/welcome` ודף הבית, ודגש על כלי העבודה ([`AUDIENCE.md`](../product/AUDIENCE.md)) | Codex (טיוטה) + Claude | review · הטיוטות נבדקו ותוקנו (מחירים, הרשמה, אפרת נקש); הבא: Claude מכניס לאתר | `marketing/inbox/G-04/`, אחר כך `src/app/welcome/**`, `src/app/page.tsx` | — |
+| G-04 | ניסוח מחדש לשני קהלים (תלמידים ומורי דרך פעילים): `/welcome` ודף הבית, ודגש על כלי העבודה ([`AUDIENCE.md`](../product/AUDIENCE.md)) | Codex (טיוטה) + Claude | done (טיוטות #117, הוכנסו ל-/welcome ולדף הבית) | `marketing/inbox/G-04/`, אחר כך `src/app/welcome/**`, `src/app/page.tsx` | — |
 | G-05b | ערוץ השתלמויות למורי דרך: רשימת גופים והצעה (פנייה רק באישור הבעלים) | Claude | backlog | `docs/product/**` | G-04 |
 | G-05 | Web Analytics ומשפך | Claude | backlog | `src/app/layout.tsx` | H-02 |
 
