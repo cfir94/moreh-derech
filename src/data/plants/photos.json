@@ -3,16 +3,16 @@
     {
       "id": "quercus-calliprinos-1",
       "plant": "quercus-calliprinos",
-      "status": "rejected",
+      "status": "candidate",
       "caption": "",
       "alt": "אלון מצוי",
       "src": "/plants/photos/quercus-calliprinos-1.jpg",
-      "width": 1280,
-      "height": 960,
-      "author": "Josep Gesti",
+      "width": 1228,
+      "height": 819,
+      "author": "Davidbena",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Quercus_coccifera_coccifera,_Bot.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Israel_oak_(Quercus_calliprinos).jpg"
     }
   ],
   "quercus-ithaburensis": [
@@ -29,22 +29,6 @@
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
       "source": "https://commons.wikimedia.org/wiki/File:%D7%91%D7%A8%D7%A0%D7%A2_%D7%90%D7%9C%D7%95%D7%9F_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%A4%D7%A8%D7%93%D7%A1_%D7%97%D7%A0%D7%94.jpg"
-    }
-  ],
-  "quercus-boissieri": [
-    {
-      "id": "quercus-boissieri-1",
-      "plant": "quercus-boissieri",
-      "status": "rejected",
-      "caption": "",
-      "alt": "אלון התולע",
-      "src": "/plants/photos/quercus-boissieri-1.jpg",
-      "width": 392,
-      "height": 319,
-      "author": "George Ripley And Charles A. Dana",
-      "license": "Public domain",
-      "licenseUrl": "",
-      "source": "https://commons.wikimedia.org/wiki/File:Quercus_infectoria.jpg"
     }
   ],
   "pistacia-palaestina": [
@@ -287,6 +271,22 @@
       "source": "https://commons.wikimedia.org/wiki/File:Rhamnus_lycioides_fruits.JPG"
     }
   ],
+  "cistus": [
+    {
+      "id": "cistus-1",
+      "plant": "cistus",
+      "status": "candidate",
+      "caption": "",
+      "alt": "לוטם",
+      "src": "/plants/photos/cistus-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Hanay",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Cistus_creticus_at_Nesher,_Park_Nesher,_Wadi_Katia.jpg"
+    }
+  ],
   "majorana-syriaca": [
     {
       "id": "majorana-syriaca-1",
@@ -367,6 +367,22 @@
       "source": "https://commons.wikimedia.org/wiki/File:Malta_-_Mellieha_-_Triq_l-Armier_-_Asparagus_aphyllus_01_ies.jpg"
     }
   ],
+  "rubia-tenuifolia": [
+    {
+      "id": "rubia-tenuifolia-1",
+      "plant": "rubia-tenuifolia",
+      "status": "candidate",
+      "caption": "",
+      "alt": "פואה מצויה",
+      "src": "/plants/photos/rubia-tenuifolia-1.jpg",
+      "width": 853,
+      "height": 1280,
+      "author": "Krzysztof Ziarnek, Kenraiz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rubia_tenuifolia_kz5.jpg"
+    }
+  ],
   "triticum": [
     {
       "id": "triticum-1",
@@ -419,48 +435,48 @@
     {
       "id": "ficus-carica-1",
       "plant": "ficus-carica",
-      "status": "rejected",
+      "status": "candidate",
       "caption": "",
       "alt": "תאנה",
       "src": "/plants/photos/ficus-carica-1.jpg",
-      "width": 704,
-      "height": 1080,
-      "author": "Trew, C.J",
-      "license": "Public domain",
-      "licenseUrl": "",
-      "source": "https://commons.wikimedia.org/wiki/File:Ficus_carica_L,_1771.jpg"
+      "width": 1024,
+      "height": 768,
+      "author": "Daniel Capilla",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ficus_carica_leaves_and_fruits.jpg"
     }
   ],
   "punica-granatum": [
     {
       "id": "punica-granatum-1",
       "plant": "punica-granatum",
-      "status": "rejected",
+      "status": "candidate",
       "caption": "",
       "alt": "רימון",
       "src": "/plants/photos/punica-granatum-1.jpg",
       "width": 1280,
-      "height": 848,
-      "author": "Augustus Binu : flickr",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Pomegranate_Juice_(2019).jpg"
+      "height": 976,
+      "author": "Jules Verne Times Two",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pomegranate_flowers_(Punica_granatum),_Ponte_de_Sor,_Portugal_(approx._GPS_location)_julesvernex2.jpg"
     }
   ],
   "olea-europaea": [
     {
       "id": "olea-europaea-1",
       "plant": "olea-europaea",
-      "status": "rejected",
+      "status": "candidate",
       "caption": "",
       "alt": "זית",
       "src": "/plants/photos/olea-europaea-1.jpg",
-      "width": 1280,
-      "height": 1016,
-      "author": "Abu Shawka",
-      "license": "Public domain",
-      "licenseUrl": "",
-      "source": "https://commons.wikimedia.org/wiki/File:Olea_europaea_cuspidata-africana_Cape_Town.JPG"
+      "width": 606,
+      "height": 1280,
+      "author": "Yair Haklai",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Olive_tree-Zippori.jpg"
     }
   ],
   "phoenix-dactylifera": [
@@ -483,16 +499,32 @@
     {
       "id": "tamarix-1",
       "plant": "tamarix",
-      "status": "rejected",
+      "status": "candidate",
       "caption": "",
       "alt": "אשל",
       "src": "/plants/photos/tamarix-1.jpg",
-      "width": 960,
-      "height": 1280,
-      "author": "לא צוין",
+      "width": 800,
+      "height": 600,
+      "author": "Pavel Buršík - https://www.biolib.cz/en/person/id2333/",
       "license": "CC BY-SA 3.0",
-      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Tamarix_aphylla.jpg"
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tamaris_nilotica-BioLib-77418.jpg"
+    }
+  ],
+  "acacia": [
+    {
+      "id": "acacia-1",
+      "plant": "acacia",
+      "status": "candidate",
+      "caption": "",
+      "alt": "שיטה",
+      "src": "/plants/photos/acacia-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Krzysztof Ziarnek, Kenraiz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Acacia_tortilis_subsp._raddiana_kz06.jpg"
     }
   ],
   "ziziphus-spina-christi": [
@@ -563,16 +595,16 @@
     {
       "id": "prunus-dulcis-1",
       "plant": "prunus-dulcis",
-      "status": "rejected",
+      "status": "candidate",
       "caption": "",
       "alt": "שקד",
       "src": "/plants/photos/prunus-dulcis-1.jpg",
       "width": 1280,
       "height": 853,
-      "author": "Ivar Leidus",
+      "author": "Frank Schulenburg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Almonds_-_in_shell,_shell_cracked_open,_shelled,_blanched.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Almond_Blossom_in_Butte_County_(2025)-104A8325.jpg"
     }
   ],
   "acacia-saligna": [
