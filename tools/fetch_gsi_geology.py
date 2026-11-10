@@ -13,6 +13,7 @@ layer's own renderer, so the map looks like the printed one.
 Writes:
   public/geology/gsi-200k.geojson   polygons with a single property "c" (formation code)
   src/data/geology/gsi-units.ts     generated: code -> symbol, Hebrew and English name, colour
+  public/geology/gsi-units.json     the same, for the route map embed
 
     python3 tools/fetch_gsi_geology.py
 """
@@ -83,6 +84,11 @@ def main() -> None:
         "export const GSI_UNITS: Record<number, GsiUnit> = {\n" + "\n".join(rows) + "\n};\n",
         encoding="utf-8",
     )
+    # the route map (a plain-JS embed) reads the same legend as JSON
+    (OUT_GEO.parent / "gsi-units.json").write_text(json.dumps(
+        {str(code): {"symbol": units[code]["symbol"].strip(), "he": (units[code]["he"] or "").strip(),
+                     "en": (units[code]["en"] or "").strip(), "color": colours.get(code, "#CCCCCC")} for code in sorted(units)},
+        ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"{len(features)} polygons, {len(units)} units, {OUT_GEO.stat().st_size // 1024} KB")
 
 

@@ -161,7 +161,7 @@ const state = {
   regionsGeoJSON: null,
   religions: [],
   sitesGeoJSON: { type: 'FeatureCollection', features: [] },
-  geologyGeoJSON: { basic: null, advanced: null },
+  geologyGeoJSON: { basic: null, advanced: null, official: null },
   natureGeoJSON: { type: 'FeatureCollection', features: [] },
   visitorGeoJSON: { type: 'FeatureCollection', features: [] },
   species: {},
@@ -487,6 +487,7 @@ async function initMap() {
   }, THEMATIC_INSERT_BEFORE);
   map.addLayer({
     id: 'geology-hatch', type: 'fill', source: 'geology',
+    filter: ['has', 'rock_class'],
     layout: { visibility: 'none' },
     paint: {
       'fill-pattern': rockPatternMatchExpression(),
@@ -746,10 +747,57 @@ function refreshReligionsLayer() {
   map.setFilter('sites-religions', ['any', ...active.map(rid => ['in', rid, ['get', 'religions']])]);
 }
 
+// The Geological Survey's 1:200,000 map (2014): about 3 MB, so it is fetched
+// only the first time someone asks for it. It sits outside the embed, in the
+// site's /geology/, where the geology learning aid reads the same file.
+const GSI_CREDIT = 'המפה הגאולוגית של ישראל 1:200,000 (2014), המכון הגאולוגי לישראל';
+const GSI_AGE = (en) => {
+  const n = en.toLowerCase();
+  if (n.includes('precambrian')) return 'פרה-קמבריון';
+  if (/basalt|volcanic/.test(n) && !/cretaceous|mesozoic/.test(n)) return 'בזלת';
+  if (/cambrian|ordovician|permian/.test(n)) return 'פלאוזואיקון';
+  if (n.includes('triassic')) return 'טריאס';
+  if (n.includes('jurassic')) return 'יורה';
+  if (/lower cretaceous|kurnub|mesozoic/.test(n)) return 'קרטיקון תחתון';
+  if (/cenomanian|turonian|albian/.test(n) && !/senonian/.test(n)) return 'קנומן–טורון';
+  if (/senonian|coniacian|santonian|campanian|maastrichtian|paleocene|upper cretaceous|hatrurim/.test(n)) return 'סנון';
+  if (/eocene|oligocene/.test(n)) return 'אאוקן';
+  if (/miocene|pliocene|neogene/.test(n)) return 'ניאוגן';
+  return 'רביעון';
+};
+async function loadOfficialGeology() {
+  if (state.geologyGeoJSON.official) return state.geologyGeoJSON.official;
+  const base = new URL('../../geology/', absDir()).href;
+  const [fc, units] = await Promise.all([
+    fetch(base + 'gsi-200k.geojson').then(r => r.json()),
+    fetch(base + 'gsi-units.json').then(r => r.json())
+  ]);
+  fc.features.forEach(f => {
+    const u = units[f.properties.c] || {};
+    f.properties = {
+      id: 'gsi-' + f.properties.c, code: f.properties.c, color: u.color || '#CCCCCC',
+      name_he: u.he || u.en || '', name_en: u.en || '', rock_summary_he: `${u.symbol || ''} · ${u.en || ''}`,
+      age_he: GSI_AGE(u.en || ''), description_he: GSI_CREDIT,
+      sources: JSON.stringify([{ title: GSI_CREDIT, url: 'https://www.gov.il/he/departments/israel-geological-survey' }])
+    };
+  });
+  state.geologyGeoJSON.official = fc;
+  return fc;
+}
+
 function refreshGeologyLayer() {
+  if (state.geologyLevel === 'official' && !state.geologyGeoJSON.official) {
+    loadOfficialGeology().then(refreshGeologyLayer).catch(() => {
+      const el = document.getElementById('geology-legend');
+      if (el) el.innerHTML = '<p class="legend-note">השכבה הרשמית לא נטענה. נסו שוב כשיש חיבור.</p>';
+    });
+    return;
+  }
   const data = state.geologyGeoJSON[state.geologyLevel];
   if (!data || !map.getSource('geology')) return;
   map.getSource('geology').setData(data);
+  // thousands of small official polygons: a hairline keeps the colours readable
+  map.setPaintProperty('geology-line', 'line-width', state.geologyLevel === 'official' ? 0.35 : 1.2);
   buildGeologyLegend();
 }
 
@@ -870,6 +918,22 @@ function buildGeologyLegend() {
   const data = state.geologyGeoJSON[state.geologyLevel];
   el.innerHTML = '';
   if (!data) return;
+  if (state.geologyLevel === 'official') {
+    const seen = new Map();
+    data.features.forEach(f => { if (!seen.has(f.properties.code)) seen.set(f.properties.code, f.properties); });
+    [...seen.values()].sort((a, b) => a.name_he.localeCompare(b.name_he, 'he')).forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      item.innerHTML = `<span class="swatch" style="background:${p.color}"></span>` +
+        `<span class="legend-text">${p.name_he}<span class="legend-sub">${p.age_he}</span></span>`;
+      el.appendChild(item);
+    });
+    const note = document.createElement('p');
+    note.className = 'legend-note';
+    note.textContent = `${GSI_CREDIT}. הצבעים הם הצבעים הרשמיים של המפה; הקווים מוכללים ל-150 מ׳.`;
+    el.appendChild(note);
+    return;
+  }
   // Coloured by the age of the rock, in the colours of the international
   // stratigraphic chart that geological maps (the GSI's too) use, so the
   // legend reads from oldest to youngest like a column in the field.
@@ -1710,12 +1774,22 @@ function wireUI() {
     state.geologyLevel = 'basic';
     geoBasicBtn.classList.add('active');
     geoAdvancedBtn.classList.remove('active');
+    document.getElementById('btn-geology-official').classList.remove('active');
     refreshGeologyLayer();
   });
   geoAdvancedBtn.addEventListener('click', () => {
     state.geologyLevel = 'advanced';
     geoAdvancedBtn.classList.add('active');
     geoBasicBtn.classList.remove('active');
+    geoOfficialBtn.classList.remove('active');
+    refreshGeologyLayer();
+  });
+  const geoOfficialBtn = document.getElementById('btn-geology-official');
+  geoOfficialBtn.addEventListener('click', () => {
+    state.geologyLevel = 'official';
+    geoOfficialBtn.classList.add('active');
+    geoBasicBtn.classList.remove('active');
+    geoAdvancedBtn.classList.remove('active');
     refreshGeologyLayer();
   });
 
