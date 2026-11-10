@@ -2,241 +2,233 @@
   {
     "id": "nubian-ibex-1",
     "subject": "nubian-ibex",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Nubian ibex",
-    "caption": "",
-    "alt": ""
+    "caption": "זכר יעל נובי על סלע, עם הקרניים המקושתות לאחור",
+    "alt": "יעל נובי זכר"
   },
   {
     "id": "mountain-gazelle-1",
     "subject": "mountain-gazelle",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Mountain gazelle",
-    "caption": "",
-    "alt": ""
+    "caption": "צבי ארץ־ישראלי בשדה: גוף דק, פס כהה בצד וקרניים דקות",
+    "alt": "צבי ארץ־ישראלי"
   },
   {
     "id": "persian-fallow-deer-1",
     "subject": "persian-fallow-deer",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Persian fallow deer",
-    "caption": "",
-    "alt": ""
+    "caption": "זכר יחמור פרסי: גב מנוקד וקרניים רחבות",
+    "alt": "יחמור פרסי זכר"
   },
   {
     "id": "rock-hyrax-1",
     "subject": "rock-hyrax",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Rock hyrax",
-    "caption": "",
-    "alt": ""
+    "caption": "שפן סלעים על סלע: עגלגל ובלי זנב",
+    "alt": "שפן סלעים"
   },
   {
     "id": "striped-hyena-1",
     "subject": "striped-hyena",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Striped hyena",
-    "caption": "",
-    "alt": ""
+    "caption": "צבוע מפוספס: רעמה זקורה ופסים כהים",
+    "alt": "צבוע מפוספס"
   },
   {
     "id": "golden-jackal-1",
     "subject": "golden-jackal",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Golden jackal",
-    "caption": "",
-    "alt": ""
+    "caption": "תן זהוב: גוון זהוב־אפרפר וזנב קצר",
+    "alt": "תן זהוב"
   },
   {
     "id": "red-fox-1",
     "subject": "red-fox",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Red fox",
-    "caption": "",
-    "alt": ""
+    "caption": "שועל מצוי בשלג (צולם באירופה): זנב עבות ואוזניים מחודדות",
+    "alt": "שועל מצוי"
   },
   {
     "id": "fat-sand-rat-1",
     "subject": "fat-sand-rat",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Fat sand rat",
-    "caption": "",
-    "alt": ""
+    "caption": "פסמון ליד מחילה באדמה מדברית",
+    "alt": "פסמון"
   },
   {
     "id": "fruit-bat-1",
     "subject": "fruit-bat",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Egyptian fruit bat",
-    "caption": "",
-    "alt": ""
+    "caption": "עטלף פירות תלוי הפוך: פנים דמויי כלב קטן",
+    "alt": "עטלף פירות מצוי"
   },
   {
     "id": "onager-1",
     "subject": "onager",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Onager",
-    "caption": "",
-    "alt": ""
+    "caption": "ערוד: חמור בר חום־בהיר עם בטן לבנה",
+    "alt": "ערוד"
   },
   {
     "id": "arabian-oryx-1",
     "subject": "arabian-oryx",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Arabian oryx",
-    "caption": "",
-    "alt": ""
+    "caption": "ראם לבן בחולות: קרניים ארוכות וישרות",
+    "alt": "ראם לבן"
   },
   {
     "id": "hoopoe-1",
     "subject": "hoopoe",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Eurasian hoopoe",
-    "caption": "",
-    "alt": ""
+    "caption": "דוכיפת על הקרקע: כרבולת, כנפיים מפוספסות ומקור מעוקל",
+    "alt": "דוכיפת"
   },
   {
     "id": "griffon-vulture-1",
     "subject": "griffon-vulture",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Griffon vulture",
-    "caption": "",
-    "alt": ""
+    "caption": "נשר מקראי נוחת, כנפיים פרושות",
+    "alt": "נשר מקראי"
   },
   {
     "id": "barn-owl-1",
     "subject": "barn-owl",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Barn owl",
-    "caption": "",
-    "alt": ""
+    "caption": "תנשמת על עמוד בלילה: פנים לבנים בצורת לב",
+    "alt": "תנשמת"
   },
   {
     "id": "common-crane-1",
     "subject": "common-crane",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Common crane",
-    "caption": "",
-    "alt": ""
+    "caption": "עגור אפור במים רדודים: צוואר ארוך וכתם שחור־לבן בראש",
+    "alt": "עגור אפור"
   },
   {
     "id": "white-stork-1",
     "subject": "white-stork",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:White stork",
-    "caption": "",
-    "alt": ""
+    "caption": "חסידה לבנה בשדה: קצות כנפיים שחורים, מקור ורגליים אדומים",
+    "alt": "חסידה לבנה"
   },
   {
     "id": "white-pelican-1",
     "subject": "white-pelican",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Great white pelican",
-    "caption": "",
-    "alt": ""
+    "caption": "שקנאי עם שק עור צהוב מתחת למקור, ולהקה ברקע",
+    "alt": "שקנאי"
   },
   {
     "id": "tristram-starling-1",
     "subject": "tristram-starling",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Tristram's starling",
-    "caption": "",
-    "alt": ""
+    "caption": "טריסטרמית: שחורה מבריקה עם כתם כתום בכנף",
+    "alt": "טריסטרמית"
   },
   {
     "id": "white-throated-kingfisher-1",
     "subject": "white-throated-kingfisher",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:White-throated kingfisher",
-    "caption": "",
-    "alt": ""
+    "caption": "שלדג לבן־חזה על ענף: גב כחול, חזה לבן ומקור אדום",
+    "alt": "שלדג לבן־חזה"
   },
   {
     "id": "white-spectacled-bulbul-1",
     "subject": "white-spectacled-bulbul",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:White-spectacled bulbul",
-    "caption": "",
-    "alt": ""
+    "caption": "בולבול על ענף: ראש כהה וגוף חום־אפור",
+    "alt": "בולבול ממושקף"
   },
   {
     "id": "palestine-viper-1",
     "subject": "palestine-viper",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Daboia palaestinae",
-    "caption": "",
-    "alt": ""
+    "caption": "צפע ארץ־ישראלי מקופל: גוף עבה ודוגמת זיגזג כהה",
+    "alt": "צפע ארץ־ישראלי"
   },
   {
     "id": "saw-scaled-viper-1",
     "subject": "saw-scaled-viper",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Echis coloratus",
-    "caption": "",
-    "alt": ""
+    "caption": "אפעה מגוונת בין סלעים: נחש קטן בגוני ורוד־אדמדם",
+    "alt": "אפעה מגוונת"
   },
   {
     "id": "starred-agama-1",
     "subject": "starred-agama",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Stellagama",
-    "caption": "",
-    "alt": ""
+    "caption": "חרדון על גדם עץ: לטאה מחוספסת וקוצנית",
+    "alt": "חרדון מצוי"
   },
   {
     "id": "chameleon-1",
     "subject": "chameleon",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Common chameleon",
-    "caption": "",
-    "alt": ""
+    "caption": "זיקית מצויה על חול",
+    "alt": "זיקית מצויה"
   },
   {
     "id": "spur-thighed-tortoise-1",
     "subject": "spur-thighed-tortoise",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Greek tortoise",
-    "caption": "",
-    "alt": ""
+    "caption": "צב יבשה עם שריון מקומר בגוני צהוב וחום",
+    "alt": "צב יבשה מצוי"
   },
   {
     "id": "loggerhead-turtle-1",
     "subject": "loggerhead-turtle",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Loggerhead sea turtle",
-    "caption": "",
-    "alt": ""
+    "caption": "צב ים חום שוחה (באקווריום)",
+    "alt": "צב ים חום"
   },
   {
     "id": "hula-painted-frog-1",
     "subject": "hula-painted-frog",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Hula painted frog",
-    "caption": "",
-    "alt": ""
+    "caption": "עגולשון שחור־גחון: גב כהה עם נקודות בהירות",
+    "alt": "עגולשון שחור־גחון"
   },
   {
     "id": "fire-salamander-1",
     "subject": "fire-salamander",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Near Eastern fire salamander",
-    "caption": "",
-    "alt": ""
+    "caption": "סלמנדרה כתומה: שחורה עם כתמים צהובים־כתומים",
+    "alt": "סלמנדרה כתומה"
   },
   {
     "id": "yellow-scorpion-1",
     "subject": "yellow-scorpion",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Leiurus hebraeus",
-    "caption": "",
-    "alt": ""
-  },
-  {
-    "id": "murex-1",
-    "subject": "murex",
-    "status": "candidate",
-    "wiki": "en:Bolinus brandaris",
-    "caption": "",
-    "alt": ""
+    "caption": "עקצן צהוב על אדמה: צבתות דקות וזנב ארוך",
+    "alt": "עקצן צהוב"
   }
 ]
