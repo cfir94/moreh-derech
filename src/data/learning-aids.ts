@@ -127,7 +127,7 @@ export const LEARNING_AID_GROUPS: LearningAidGroup[] = [
       {
         slug: "classical-architecture-timeline",
         href: "/timelines/classical-architecture",
-        title: "הסטודיו לאדריכלות קלאסית",
+        title: "מושגי יסוד באדריכלות קלאסית",
         description: "שרטוטים אינטראקטיביים של סדרים, מקדשים, אמות מים, מבני בידור, מרחצאות, קבורה ומבני דת.",
         meta: `${ARCH_CHAPTERS.length} לוחות · ${ARCH_TERMS.length} מושגים`,
       },
