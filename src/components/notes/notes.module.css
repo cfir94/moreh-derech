@@ -1,0 +1,91 @@
+/* הפתקים שלי: סרגל צד מימין. רק טוקנים, כדי שהמצב הכהה יעבוד בלי עוד קוד. */
+.layer { position: fixed; inset: 0; z-index: 80; }
+.backdrop { position: absolute; inset: 0; width: 100%; border: 0; background: var(--track); backdrop-filter: blur(3px); cursor: default; }
+
+.panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(26rem, 100%);
+  display: flex; flex-direction: column; gap: 1rem;
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 1.25rem 1.25rem 1rem;
+  background: var(--sheet);
+  border-inline-end: 1px solid var(--line);
+  box-shadow: -24px 0 60px -28px rgba(0, 0, 0, .45);
+}
+.panel::before { /* a thin band of the brand gradient along the edge */
+  content: ""; position: absolute; inset-block: 0; right: 0; width: 4px;
+  background: linear-gradient(180deg, var(--teal), var(--blue));
+}
+
+.head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.close { flex: none; width: 2.75rem; height: 2.75rem; border-radius: 999px; border: 1px solid var(--line); font-size: 1.4rem; line-height: 1; transition: transform .15s; }
+.close:active { transform: scale(.92); }
+
+.composer {
+  display: flex; flex-direction: column; gap: .6rem;
+  padding: 1rem; border-radius: var(--r-md);
+  border: 1px solid var(--line); background: var(--card);
+}
+.title, .body {
+  width: 100%; border: 1px solid transparent; border-radius: var(--r-sm);
+  background: var(--sheet); color: var(--txt); padding: .65rem .8rem;
+  transition: border-color .15s, box-shadow .15s;
+}
+.title { font-size: 1.05rem; font-weight: 800; min-height: 2.9rem; }
+.body { font-size: 1rem; line-height: 1.7; resize: vertical; min-height: 7.5rem; }
+.title::placeholder, .body::placeholder { color: var(--txt-dim); font-weight: 500; }
+.title:focus, .body:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 22%, transparent); }
+
+.context {
+  display: flex; align-items: center; gap: .4rem; min-width: 0;
+  padding: .3rem .4rem .3rem .75rem; border-radius: 999px;
+  background: var(--card-2); color: var(--txt-dim); font-size: .85rem; font-weight: 700;
+}
+.chipX { flex: none; width: 1.9rem; height: 1.9rem; border-radius: 999px; font-size: 1.05rem; color: var(--txt-dim); }
+.chipX:hover { background: var(--card); color: var(--txt); }
+
+.save {
+  min-height: 2.9rem; padding: 0 1.4rem; border-radius: 999px;
+  font-weight: 800; color: var(--on-accent);
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  box-shadow: 0 10px 24px -12px var(--teal);
+  transition: transform .15s, opacity .15s;
+}
+.save:active { transform: scale(.96); }
+.save:disabled { opacity: .45; box-shadow: none; cursor: not-allowed; }
+.ghost { min-height: 2.75rem; padding: 0 .9rem; border-radius: 999px; font-weight: 700; font-size: .9rem; color: var(--txt-dim); }
+.ghost:hover { background: var(--card-2); color: var(--txt); }
+
+.search { display: flex; align-items: center; gap: .5rem; padding: 0 .9rem; min-height: 2.9rem; border: 1px solid var(--line); border-radius: 999px; color: var(--txt-dim); }
+.search input { flex: 1; min-width: 0; background: transparent; color: var(--txt); outline: none; }
+
+.list { display: flex; flex-direction: column; gap: .7rem; }
+.note {
+  position: relative; padding: .9rem 1rem .4rem;
+  border-radius: var(--r-md); border: 1px solid var(--line); background: var(--card);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.note::before { /* the folded corner of a paper note */
+  content: ""; position: absolute; top: 0; left: 0; width: 1.1rem; height: 1.1rem;
+  border-radius: var(--r-md) 0 .5rem 0;
+  background: linear-gradient(135deg, var(--card-2) 50%, transparent 50%);
+}
+.note:hover { border-color: color-mix(in srgb, var(--teal) 45%, var(--line)); }
+.current { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 18%, transparent); }
+.text { margin-top: .35rem; color: var(--txt-dim); line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.link { display: inline-block; max-width: 100%; margin-top: .5rem; padding: .2rem .65rem; border-radius: 999px; background: var(--card-2); font-size: .8rem; font-weight: 700; color: var(--teal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.actions { display: flex; align-items: center; gap: .25rem; margin-top: .25rem; margin-inline-start: -.6rem; }
+
+.empty { display: grid; justify-items: center; gap: .4rem; padding: 1.75rem 1rem; text-align: center; border: 1px dashed var(--line); border-radius: var(--r-md); }
+.foot { margin-top: auto; padding-top: .75rem; border-top: 1px solid var(--line); font-size: .85rem; line-height: 1.6; color: var(--txt-dim); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .panel { animation: notes-in .32s var(--ease-out); }
+  .backdrop { animation: notes-fade .25s ease-out; }
+  .flash { animation: notes-flash 1.4s var(--ease-out); }
+  @keyframes notes-in { from { transform: translateX(100%); } }
+  @keyframes notes-fade { from { opacity: 0; } }
+  @keyframes notes-flash { 0% { transform: scale(.97); border-color: var(--teal); box-shadow: 0 0 0 6px color-mix(in srgb, var(--teal) 25%, transparent); } }
+}
+@media (max-width: 480px) { .panel { width: 100%; padding-inline: 1rem; } }

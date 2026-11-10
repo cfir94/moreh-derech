@@ -6,7 +6,7 @@ import { emptyDoc, type SyncDoc, type TimeOf } from "./merge";
 
 export type SyncStore = {
   /** שם השורה בטבלה md_user_data. */
-  name: "progress" | "learning-map" | "crossword" | "guide-drafts";
+  name: "progress" | "learning-map" | "crossword" | "guide-drafts" | "notes";
   /** המפתח ב-localStorage, לפני `:<user_id>`. */
   localKey: string;
   /** האירוע שהמאגר משדר כשהוא משתנה. */
@@ -127,4 +127,16 @@ export const DRAFTS_STORE: SyncStore = {
   },
 };
 
-export const SYNC_STORES: SyncStore[] = [PROGRESS_STORE, LEARNING_MAP_STORE, CROSSWORD_STORE, DRAFTS_STORE];
+/** הפתקים שלי (src/lib/notes.ts): id ← פתק. */
+export const NOTES_STORE: SyncStore = {
+  name: "notes",
+  localKey: "md_notes_v1",
+  event: "md-notes-changed",
+  tracksDeletions: true,
+  timeOf: { notes: (item) => (isRecord(item) ? num(item.updatedAt) : 0) },
+  toDoc: (raw) => recordDoc("notes", raw),
+  fromDoc: (doc) => JSON.stringify(doc.collections.notes?.items ?? {}),
+};
+
+// הפתקים אחרונים: עד שהמיגרציה שלהם רצה, השרת דוחה אותם, וזה לא יעצור את השאר.
+export const SYNC_STORES: SyncStore[] = [PROGRESS_STORE, LEARNING_MAP_STORE, CROSSWORD_STORE, DRAFTS_STORE, NOTES_STORE];

@@ -13,6 +13,7 @@ import { useUser } from "@/contexts/UserContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
 import { UpdatesBell } from "@/components/updates/UpdatesBell";
+import { NotesButton } from "@/components/notes/NotesDrawer";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
@@ -74,6 +75,7 @@ export function Navbar() {
           <div className="hidden min-[400px]:block">
             <UpdatesBell />
           </div>
+          <NotesButton />
           <ThemeToggle />
           {ready && user ? (
             <Link

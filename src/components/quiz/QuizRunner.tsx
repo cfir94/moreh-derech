@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Question, Quiz } from "@/data/quizzes/types";
 import { recordAttempt, type RecordedAnswer } from "@/lib/progress";
@@ -9,6 +9,8 @@ import { domainOf, domainStyle } from "@/lib/domains";
 import { TOPICS } from "@/data/topics";
 import { ReadingLink } from "@/components/ReadingLink";
 import { matchesAnswer } from "@/lib/answerMatching";
+import { setNoteContext } from "@/lib/notes";
+import { openNotes } from "@/components/notes/NotesDrawer";
 
 type Phase = "setup" | "running" | "results";
 type Axis = "category" | "topic";
@@ -97,6 +99,14 @@ export function QuizRunner({
   const current = questions[index];
   const correctText = current?.kind === "fill" ? current.answerText : current?.answers.find((a) => a.correct)?.text;
   const currentCorrect = answers[index]?.correct ?? false;
+
+  // a note written now remembers which question it was about
+  useEffect(() => {
+    if (phase !== "running" || !current) return;
+    const text = current.question.length > 70 ? `${current.question.slice(0, 70)}…` : current.question;
+    setNoteContext({ label: `${quiz.label} · שאלה ${index + 1}: ${text}`, href: `/quizzes/${quiz.slug}/` });
+    return () => setNoteContext(null);
+  }, [phase, current, index, quiz.label, quiz.slug]);
 
   const pick = (text: string) => {
     if (picked !== null) return;
@@ -497,7 +507,16 @@ export function QuizRunner({
           <span className="num">
             {index + 1} / {questions.length}
           </span>
-          <span>{current.category}</span>
+          <span className="flex items-center gap-2">
+            {current.category}
+            <button
+              type="button"
+              onClick={openNotes}
+              className="min-h-9 rounded-full border border-line bg-card px-3 text-[13px] font-bold text-txt transition active:scale-95"
+            >
+              🗒️ פתק לשאלה
+            </button>
+          </span>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-track">
           <i
