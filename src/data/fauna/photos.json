@@ -462,5 +462,21 @@
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Deathstalker-israel.jpg"
     }
+  ],
+  "murex": [
+    {
+      "id": "murex-2",
+      "subject": "murex",
+      "status": "approved",
+      "caption": "קונכיית ארגמון מחמישה צדדים: קוצים ו״זנב״ ארוך",
+      "alt": "קונכיית ארגמון",
+      "src": "/fauna/photos/murex-2.jpg",
+      "width": 1280,
+      "height": 914,
+      "author": "H. Zell",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Bolinus_brandaris_01.jpg"
+    }
   ]
 }
