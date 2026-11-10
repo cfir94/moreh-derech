@@ -14,12 +14,14 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
 import { UpdatesBell } from "@/components/updates/UpdatesBell";
 import { NotesButton, openNotes } from "@/components/notes/NotesDrawer";
+import { CommunityBadge, useCommunityUnread } from "@/components/community/CommunityBadge";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
   // "שאלונים", "סיכומים" ו"מאגרי מידע" הוסתרו (10.11, בקשת הבעלים): הם נגישים מ"עיוני" ו"סיורים".
   { href: "/topics", label: "עיוני" },
   { href: "/tours", label: "סיורים" },
+  { href: "/community", label: "קהילה" },
   { href: "/games", label: "משחקים" },
   { href: "/exams", label: "מבחן מלא" },
   { href: "/timelines", label: "עזרי למידה" },
@@ -34,6 +36,7 @@ export function Navbar() {
   const { paywall } = useLaunch();
   const links = paywall ? [...baseLinks, { href: "/pricing", label: "מחירים" }] : baseLinks;
   const [open, setOpen] = useState(false);
+  const unread = useCommunityUnread();
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
@@ -65,6 +68,7 @@ export function Navbar() {
                 }`}
               >
                 {link.label}
+                {link.href === "/community" && <CommunityBadge count={unread} />}
               </Link>
             </li>
           ))}
@@ -141,6 +145,7 @@ export function Navbar() {
                 }`}
               >
                 {link.label}
+                {link.href === "/community" && <CommunityBadge count={unread} />}
               </Link>
             </li>
           ))}

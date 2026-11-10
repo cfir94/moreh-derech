@@ -45,6 +45,8 @@ jobs:
         run: npm install --no-save --package-lock=false @playwright/test && npx playwright install --with-deps chromium
       - name: Browser regression checks
         run: node --import ./tests/register-ts.mjs tests/study-ui.mjs
+      - name: Community UI (forum, thread, reply, admin)
+        run: node tests/community-ui.mjs
       - name: Second Temple browser checks
         run: node tests/second-temple-ui.mjs
       - name: Roman and Byzantine timeline browser checks
