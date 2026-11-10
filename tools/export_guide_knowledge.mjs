@@ -1,6 +1,6 @@
 // מייצא את התוכן של האתר אל "מורה הדרך" של דבר עם ההיסטוריה (history-talk/characters/guide):
 //   sources/*.html  — מאגר הידע שהוא מחפש בו בשיחה חופשית (search_sources): צירי הזמן, האישים,
-//                     מפת הלמידה, האדריכלות, טבלת התקופות, "מי אני", דפי הידע של הדמויות,
+//                     מפת הלמידה, האדריכלות, הגאולוגיה, הצמחים, החי, הקשתות, טבלת התקופות, "מי אני", דפי הידע,
 //                     וכל שאלות השאלונים עם התשובה וההסבר.
 //   questions.json — מאגר השאלות שהוא שולף ממנו כשבוחנים אותו (quiz_questions): שאלות אמריקאיות
 //                     מהשאלונים, שאלות השלמה ממבחני הקורס, ושאלות "איפה זה?" ממפת הלמידה.
@@ -159,6 +159,34 @@ const counts = {};
   d.book("ציר הזמן האדריכלי");
   for (const m of a.ARCH_MILESTONES) d.item(`${m.title} (${m.date})`, `${SITE}/timelines/classical-architecture/`, [m.text]);
   counts.architecture = d.write("architecture.html", "מושגי יסוד באדריכלות קלאסית", `${SITE}/timelines/classical-architecture/`);
+}
+
+// ---- טבע ונוף: גאולוגיה, צמחים, בעלי חיים, וקשתות וקמרונות ----
+{
+  const g = await data("geology/geology.ts");
+  const d = new Doc().book("גאולוגיה של ארץ ישראל — עמוד הזמן");
+  for (const a of g.AGES) d.item(`${a.name} (${a.when})`, `${SITE}/timelines/geology/#ages`, [a.story, ...lines([["סלעים", a.rocks], ["בסיור", a.where]])]);
+  d.book("סלעים");
+  for (const r of g.ROCKS) d.item(r.name, `${SITE}/timelines/geology/#rocks`, [`${r.name} (${g.ROCK_FAMILIES[r.family].title}, ${r.kind}): ${r.how}`, ...lines([["סימן בשטח", r.sign], ["בדיקה", r.test], ["איפה בארץ", r.where], ["בסיור", r.tour]])]);
+  d.book("קרקעות");
+  for (const x of g.SOILS) d.item(x.name, `${SITE}/timelines/geology/#soils`, [`${x.name}: נוצרת מ${x.parent}. ${x.look}.`, ...lines([["איפה", x.where], ["בנוף", x.meaning]])]);
+  counts.geology = d.write("geology.html", "גאולוגיה של ארץ ישראל", `${SITE}/timelines/geology/`);
+
+  const pl = await data("plants/plants.ts");
+  const p2 = new Doc().book("מגדיר הצמחים");
+  for (const x of pl.PLANTS) p2.item(`${x.name} (${x.sci})`, `${SITE}/timelines/plants-guide/#plant-${x.id}`, [`${x.name}: ${x.sign}.`, ...lines([["עונה", x.season], ["בית גידול", x.habitat], ["איפה בסיור", x.where], ["כדאי לדעת", x.fact]])]);
+  counts.plants = p2.write("plants.html", "מגדיר הצמחים", `${SITE}/timelines/plants-guide/`);
+
+  const fa = await data("fauna/animals.ts");
+  const f2 = new Doc().book("מגדיר החי והציפורים");
+  for (const x of fa.ANIMALS) f2.item(`${x.name} (${x.sci})`, `${SITE}/timelines/fauna-guide/#animal-${x.id}`, [`${x.name} (${fa.ANIMAL_GROUPS[x.group].title}): ${x.sign}.`, ...lines([["איפה ומתי", x.where], ["כדאי לדעת", x.fact]])]);
+  counts.fauna = f2.write("fauna.html", "מגדיר החי והציפורים", `${SITE}/timelines/fauna-guide/`);
+
+  const ar = await data("arches/arches.ts");
+  const a2 = new Doc().book("קשתות וקמרונות");
+  for (const x of ar.ARCH_TYPES) a2.item(`${x.name} (${x.period})`, `${SITE}/timelines/arches/`, [x.about, ...lines([["איך מזהים", x.sign], ["איפה רואים", x.sites.map((s) => s.name).join("; ")]])]);
+  for (const [, pr] of Object.entries(ar.PROFILES)) a2.item(pr.name, `${SITE}/timelines/arches/#compare`, [`${pr.name}: ${pr.how}`]);
+  counts.arches = a2.write("arches.html", "קשתות וקמרונות", `${SITE}/timelines/arches/`);
 }
 
 // ---- טבלת התקופות ----

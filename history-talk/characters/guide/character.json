@@ -65,6 +65,38 @@
       "refTitle": ""
     },
     {
+      "title": "גאולוגיה של ארץ ישראל",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/geology/",
+      "license": "חומר הלימוד של האתר",
+      "file": "geology.html",
+      "refTitle": ""
+    },
+    {
+      "title": "מגדיר הצמחים",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/plants-guide/",
+      "license": "חומר הלימוד של האתר",
+      "file": "plants.html",
+      "refTitle": ""
+    },
+    {
+      "title": "מגדיר החי והציפורים",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/fauna-guide/",
+      "license": "חומר הלימוד של האתר",
+      "file": "fauna.html",
+      "refTitle": ""
+    },
+    {
+      "title": "קשתות וקמרונות",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/timelines/arches/",
+      "license": "חומר הלימוד של האתר",
+      "file": "arches.html",
+      "refTitle": ""
+    },
+    {
       "title": "טבלת התקופות",
       "translator": "אבן דרך למורי דרך",
       "url": "https://cfir94.github.io/moreh-derech/timelines/periods",
@@ -86,6 +118,14 @@
       "url": "https://cfir94.github.io/moreh-derech/timelines/history-talk",
       "license": "חומר הלימוד של האתר",
       "file": "characters.html",
+      "refTitle": ""
+    },
+    {
+      "title": "שאלון: שאלון של משה למבחן הקרוב",
+      "translator": "אבן דרך למורי דרך",
+      "url": "https://cfir94.github.io/moreh-derech/quizzes/moshe-upcoming-exam",
+      "license": "חומר הלימוד של האתר",
+      "file": "quiz-moshe-upcoming-exam.html",
       "refTitle": ""
     },
     {
