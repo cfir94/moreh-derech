@@ -75,7 +75,7 @@ function staticNotebookResults(): SearchResult[] {
     return {
       id: `notebook-${notebook.id}`,
       kind: "notebook" as const,
-      kindLabel: "מחברת סיור",
+      kindLabel: "מאגר מידע לסיור",
       title: notebook.title,
       description: `${region} · ${notebook.date} · ${notebook.guide}`,
       href: notebook.url,
@@ -88,7 +88,7 @@ function staticNotebookResults(): SearchResult[] {
     return {
       id: `notebook-${notebook.id}`,
       kind: "notebook" as const,
-      kindLabel: "מחברת עיונית",
+      kindLabel: "מאגר מידע עיוני",
       title: notebook.title,
       description: `${subject} · ${notebook.date} · ${notebook.guide}`,
       href: notebook.url,
@@ -99,7 +99,7 @@ function staticNotebookResults(): SearchResult[] {
   const online = ONLINE_NOTEBOOKS.map((notebook) => ({
     id: `notebook-${notebook.id}`,
     kind: "notebook" as const,
-    kindLabel: "מחברת מקוונת",
+    kindLabel: "מאגר מידע מקוון",
     title: notebook.title,
     description: [notebook.focus, notebook.lecturer].filter(Boolean).join(" · "),
     href: notebook.url,
@@ -110,7 +110,7 @@ function staticNotebookResults(): SearchResult[] {
 }
 
 function storedNotebookResults(notebooks: StoredNotebook[]): SearchResult[] {
-  const modeLabels = { tours: "מחברת סיור", theory: "מחברת עיונית", online: "מחברת מקוונת" };
+  const modeLabels = { tours: "מאגר מידע לסיור", theory: "מאגר מידע עיוני", online: "מאגר מידע מקוון" };
   return notebooks.map((notebook) => ({
     id: `stored-notebook-${notebook.id}`,
     kind: "notebook",

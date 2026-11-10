@@ -101,13 +101,13 @@ function ComingSoon() {
         <p className={styles.eyebrow}>תשבץ השבוע</p>
         <h1 className={styles.title}>התשבץ הראשון בדרך</h1>
         <p className={styles.lead}>
-          כל יום שישי עולה כאן תשבץ חדש, כ־20 מילים: דמויות, אירועים, אתרים ומושגים מכל מחברות הקורס.
-          המאגר נאסף עכשיו מהמחברות, והתשבץ הראשון יופיע ברגע שיהיו בו מספיק מילים.
+          כל יום שישי עולה כאן תשבץ חדש, כ־20 מילים: דמויות, אירועים, אתרים ומושגים מכל מאגרי המידע של הקורס.
+          המאגר נאסף עכשיו ממאגרי המידע, והתשבץ הראשון יופיע ברגע שיהיו בו מספיק מילים.
         </p>
         <p className={styles.soonCount}>
           <b className="num">{CROSSWORD_BANK.length}</b> מילים במאגר עד עכשיו
         </p>
-        <ul className={styles.soonBooks} aria-label="המחברות שמהן נאספות המילים">
+        <ul className={styles.soonBooks} aria-label="מאגרי המידע שמהם נאספות המילים">
           {CROSSWORD_NOTEBOOKS.map((notebook) => (
             <li key={notebook.id} style={{ "--nb": notebook.color } as CSSProperties}>{notebook.title}</li>
           ))}
@@ -135,7 +135,7 @@ function Hero({ puzzle, save, isCurrent, today, streakCount }: {
         </p>
         <h1 className={styles.title}>תשבץ מורי הדרך</h1>
         <p className={styles.lead}>
-          <span className="num">{puzzle.words.length}</span> מילים מ־<span className="num">{notebooks}</span> מחברות הקורס.
+          <span className="num">{puzzle.words.length}</span> מילים מ־<span className="num">{notebooks}</span> מאגרי המידע של הקורס.
           {isCurrent ? (days === 1 ? " מחר יתווסף למאגר תשבץ חדש." : ` בעוד ${days} ימים יתווסף למאגר תשבץ חדש.`) : " תשבץ מהמאגר: כל התשבצים נשארים זמינים לפתרון."}
         </p>
         <div className={styles.chips}>

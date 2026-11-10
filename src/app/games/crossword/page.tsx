@@ -4,7 +4,7 @@ import { CrosswordGame } from "@/components/crossword/CrosswordGame";
 
 export const metadata = pageMeta({
   title: "תשבץ השבוע למורי דרך",
-  description: "תשבץ חדש בכל יום שישי עם דמויות, אירועים, אתרים ומושגים מכל מחברות קורס מורי הדרך, לצד מאגר תשבצים קודמים הזמינים לפתרון בכל עת.",
+  description: "תשבץ חדש בכל יום שישי עם דמויות, אירועים, אתרים ומושגים מכל מאגרי המידע של קורס מורי הדרך, לצד מאגר תשבצים קודמים הזמינים לפתרון בכל עת.",
   path: "/games/crossword",
 });
 
