@@ -136,7 +136,7 @@ export function SecondTempleTimeline() {
     <section id="temple-content" className={styles.workspace} aria-label="עיון בתקופת בית שני">
       <nav className={styles.viewNav} aria-label="תצוגות בית שני">{views.map((item) => <button key={item.id} type="button" aria-pressed={view === item.id} onClick={() => { setView(item.id); setQuery(""); }}><span>{item.title}</span>{item.count !== undefined && <small>{item.count}</small>}</button>)}</nav>
       <div className={styles.searchRow}>
-        <label className={styles.search}><span aria-hidden>⌕</span><span className={styles.srOnly}>חיפוש בתצוגה הנוכחית</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={view === "timeline" ? "לחפש אירוע, דמות, מקום או שנה…" : "לחפש בתצוגה הנוכחית…"} /></label>
+        {view !== "practice" && <label className={styles.search}><span aria-hidden>⌕</span><span className={styles.srOnly}>חיפוש בתצוגה הנוכחית</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={view === "timeline" ? "לחפש אירוע, דמות, מקום או שנה…" : "לחפש בתצוגה הנוכחית…"} /></label>}
         {view === "timeline" && <label className={styles.checkbox}><input type="checkbox" checked={anchorsOnly} onChange={(event) => setAnchorsOnly(event.target.checked)} />אירועי מפתח בלבד</label>}
       </div>
 

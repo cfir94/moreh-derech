@@ -88,7 +88,7 @@ export function RomanTimeline() {
     <section id="roman-road" className={styles.workspace} aria-label="עיון בתקופה הרומית">
       <nav className={styles.views} aria-label="תצוגות התקופה הרומית">{views.map((view) => <button key={view.id} type="button" aria-pressed={t.view === view.id} onClick={() => { t.setView(view.id); t.setQuery(""); }}>{view.title}<small>{view.count}</small></button>)}</nav>
       <div className={styles.toolbar}>
-        <label className={styles.search}><span aria-hidden>⌕</span><span className={styles.srOnly}>חיפוש בתצוגה הנוכחית</span><input type="search" value={t.query} onChange={(event) => t.setQuery(event.target.value)} placeholder={t.view === "timeline" ? "לחפש אירוע, דמות, אתר או שנה…" : "לחפש בתצוגה הנוכחית…"} /></label>
+        {t.view !== "practice" && <label className={styles.search}><span aria-hidden>⌕</span><span className={styles.srOnly}>חיפוש בתצוגה הנוכחית</span><input type="search" value={t.query} onChange={(event) => t.setQuery(event.target.value)} placeholder={t.view === "timeline" ? "לחפש אירוע, דמות, אתר או שנה…" : "לחפש בתצוגה הנוכחית…"} /></label>}
         {t.view === "timeline" && <>
           <label className={styles.select}>נושא<select value={t.kind} onChange={(event) => t.setKind(event.target.value)}><option value="all">כל הנושאים</option>{ROMAN_KINDS.map((kind) => <option key={kind.id} value={kind.id}>{kind.title}</option>)}</select></label>
           <label className={styles.check}><input type="checkbox" checked={t.keyOnly} onChange={(event) => t.setKeyOnly(event.target.checked)} />אירועי מפתח</label>
