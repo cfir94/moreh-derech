@@ -69,7 +69,7 @@
 | LA-21 | הרומי והביזנטי: תמונות ותרגול | Claude+Codex | backlog | כנ"ל | LA-20 |
 | LA-30 | משחק הצמחים: נתונים (סימן מזהה, עונה, בית גידול, איפה בסיור, לא להתבלבל עם) | Claude | done (40 צמחים, 7 קבוצות, 3 בדיקות) | `src/data/plants/**` | — |
 | LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | ready | `tools/plants_photos.json`, workflow | LA-30 |
-| LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | backlog | `src/components/games/Plants*` | LA-31 |
+| LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | done (נבנה ע"י Claude: Codex החזיר פעמיים סיכום בלי diff, #100) | `src/components/games/Plants*` | LA-31 |
 | LA-33 | משחק הצמחים: בדיקת ממשק, הסרת ה-embed הישן, "מה חדש" | Claude | backlog | `src/app/games/plants/**`, `public/embeds/games/plants/**` | LA-32 |
 | LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog | `src/data/history-timeline/**` | LA-01 |
 | LA-41 | הברית החדשה ומצרים–כנען על המעטפת (בלי לגעת בתוכן של ישוע) | Codex | done (#97; הגרסה הישנה ב-`/classic` עד אישור להסרה) | `src/app/timelines/{biblical,egypt-canaan}/**` | LA-01 |

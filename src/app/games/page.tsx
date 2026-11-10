@@ -1,4 +1,5 @@
 import { pageMeta } from "@/lib/seo";
+import { PLANTS } from "@/data/plants/plants";
 import { SectionCard } from "@/components/SectionCard";
 
 
@@ -45,8 +46,8 @@ const games = [
     href: "/games/plants",
     title: "זיהוי צמחי ישראל",
     description:
-      "משחק בלשי ללימוד וזיהוי צמחי בר ישראליים בעזרת תמונות, רמזים ועזרי זיכרון.",
-    meta: "28 צמחים",
+      "סבבים של עשר שאלות: צילומים אמיתיים, סימן מזהה, זוגות שמתבלבלים בהם ובית הגידול. צמח שטעיתם בו חוזר ראשון.",
+    meta: `${PLANTS.length} צמחים`,
   },
 ];
 

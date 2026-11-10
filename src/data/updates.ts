@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-plants-game",
+    date: "2026-11-11",
+    kind: "game",
+    title: "משחק הצמחים נבנה מחדש",
+    body: "40 צמחים, צילומים אמיתיים מוויקישיתוף, שאלות \"מי מהשניים\" על צמחים שמתבלבלים בהם, וצמח שטעיתם בו חוזר בסבב הבא.",
+    href: "/games/plants/",
+  },
+  {
     id: "2026-11-11-community",
     date: "2026-11-11",
     kind: "feature",
