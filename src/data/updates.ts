@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-fauna-guide",
+    date: "2026-11-11",
+    kind: "tool",
+    title: "עזר למידה חדש: מגדיר החי והציפורים",
+    body: "היעל, הנשר, הדוכיפת, הצפע והעגולשון ועוד: סימן מזהה, איפה פוגשים אותם בסיור, ומה המבחן שואל.",
+    href: "/timelines/fauna-guide/",
+  },
+  {
     id: "2026-11-11-plants-game",
     date: "2026-11-11",
     kind: "game",

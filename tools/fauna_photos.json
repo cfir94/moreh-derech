@@ -1,0 +1,242 @@
+[
+  {
+    "id": "nubian-ibex-1",
+    "subject": "nubian-ibex",
+    "status": "candidate",
+    "wiki": "en:Nubian ibex",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "mountain-gazelle-1",
+    "subject": "mountain-gazelle",
+    "status": "candidate",
+    "wiki": "en:Mountain gazelle",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "persian-fallow-deer-1",
+    "subject": "persian-fallow-deer",
+    "status": "candidate",
+    "wiki": "en:Persian fallow deer",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "rock-hyrax-1",
+    "subject": "rock-hyrax",
+    "status": "candidate",
+    "wiki": "en:Rock hyrax",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "striped-hyena-1",
+    "subject": "striped-hyena",
+    "status": "candidate",
+    "wiki": "en:Striped hyena",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "golden-jackal-1",
+    "subject": "golden-jackal",
+    "status": "candidate",
+    "wiki": "en:Golden jackal",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "red-fox-1",
+    "subject": "red-fox",
+    "status": "candidate",
+    "wiki": "en:Red fox",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "fat-sand-rat-1",
+    "subject": "fat-sand-rat",
+    "status": "candidate",
+    "wiki": "en:Fat sand rat",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "fruit-bat-1",
+    "subject": "fruit-bat",
+    "status": "candidate",
+    "wiki": "en:Egyptian fruit bat",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "onager-1",
+    "subject": "onager",
+    "status": "candidate",
+    "wiki": "en:Onager",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "arabian-oryx-1",
+    "subject": "arabian-oryx",
+    "status": "candidate",
+    "wiki": "en:Arabian oryx",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "hoopoe-1",
+    "subject": "hoopoe",
+    "status": "candidate",
+    "wiki": "en:Eurasian hoopoe",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "griffon-vulture-1",
+    "subject": "griffon-vulture",
+    "status": "candidate",
+    "wiki": "en:Griffon vulture",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "barn-owl-1",
+    "subject": "barn-owl",
+    "status": "candidate",
+    "wiki": "en:Barn owl",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "common-crane-1",
+    "subject": "common-crane",
+    "status": "candidate",
+    "wiki": "en:Common crane",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "white-stork-1",
+    "subject": "white-stork",
+    "status": "candidate",
+    "wiki": "en:White stork",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "white-pelican-1",
+    "subject": "white-pelican",
+    "status": "candidate",
+    "wiki": "en:Great white pelican",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "tristram-starling-1",
+    "subject": "tristram-starling",
+    "status": "candidate",
+    "wiki": "en:Tristram's starling",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "white-throated-kingfisher-1",
+    "subject": "white-throated-kingfisher",
+    "status": "candidate",
+    "wiki": "en:White-throated kingfisher",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "white-spectacled-bulbul-1",
+    "subject": "white-spectacled-bulbul",
+    "status": "candidate",
+    "wiki": "en:White-spectacled bulbul",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "palestine-viper-1",
+    "subject": "palestine-viper",
+    "status": "candidate",
+    "wiki": "en:Daboia palaestinae",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "saw-scaled-viper-1",
+    "subject": "saw-scaled-viper",
+    "status": "candidate",
+    "wiki": "en:Echis coloratus",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "starred-agama-1",
+    "subject": "starred-agama",
+    "status": "candidate",
+    "wiki": "en:Stellagama",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "chameleon-1",
+    "subject": "chameleon",
+    "status": "candidate",
+    "wiki": "en:Common chameleon",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "spur-thighed-tortoise-1",
+    "subject": "spur-thighed-tortoise",
+    "status": "candidate",
+    "wiki": "en:Greek tortoise",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "loggerhead-turtle-1",
+    "subject": "loggerhead-turtle",
+    "status": "candidate",
+    "wiki": "en:Loggerhead sea turtle",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "hula-painted-frog-1",
+    "subject": "hula-painted-frog",
+    "status": "candidate",
+    "wiki": "en:Hula painted frog",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "fire-salamander-1",
+    "subject": "fire-salamander",
+    "status": "candidate",
+    "wiki": "en:Near Eastern fire salamander",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "yellow-scorpion-1",
+    "subject": "yellow-scorpion",
+    "status": "candidate",
+    "wiki": "en:Leiurus hebraeus",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "murex-1",
+    "subject": "murex",
+    "status": "candidate",
+    "wiki": "en:Bolinus brandaris",
+    "caption": "",
+    "alt": ""
+  }
+]
