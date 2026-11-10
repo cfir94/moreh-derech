@@ -42,7 +42,7 @@ function HubButton({ link }: { link: HubLink }) {
         <span className="num rounded-full bg-card px-2 text-sm text-txt-dim">{link.items.length}</span>
         <span aria-hidden className="text-sm text-txt-dim transition group-open:rotate-180">▾</span>
       </summary>
-      <ul className="mt-2 flex min-w-60 flex-col gap-1 rounded-[var(--r-md)] border border-line bg-card p-2 shadow-xl sm:absolute sm:z-20">
+      <ul className="mt-2 flex min-w-60 flex-col gap-1 rounded-[var(--r-md)] border border-line bg-sheet p-2 shadow-2xl sm:absolute sm:z-30">
         {link.items.map((item) => (
           <li key={item.href}>
             <ItemLink item={item} className="flex min-h-11 items-center justify-between gap-3 rounded-md px-3 py-2 text-base text-txt hover:bg-card-2">
