@@ -1,1 +1,178 @@
-{}
+{
+  "limestone": [
+    {
+      "id": "limestone-1",
+      "subject": "limestone",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/limestone-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "AdamReinman",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:JerusalemStoneJosephSherman_(4).JPG"
+    }
+  ],
+  "sandstone": [
+    {
+      "id": "sandstone-1",
+      "subject": "sandstone",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/sandstone-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Little Savage",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Timna_3.jpg"
+    }
+  ],
+  "kurkar": [
+    {
+      "id": "kurkar-1",
+      "subject": "kurkar",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/kurkar-1.jpg",
+      "width": 853,
+      "height": 1280,
+      "author": "סתיו קונשטיק",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:105187_tel_hefer_-_emek_hefer_PikiWiki_Israel.jpg"
+    }
+  ],
+  "halite": [
+    {
+      "id": "halite-1",
+      "subject": "halite",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/halite-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Shayshal2",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rock_Salt_in_Mount_Sodom_closeup.jpg"
+    }
+  ],
+  "marble": [
+    {
+      "id": "marble-1",
+      "subject": "marble",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/marble-1.jpg",
+      "width": 1024,
+      "height": 768,
+      "author": "Zyance",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Marmo_z17.JPG"
+    }
+  ],
+  "gneiss": [
+    {
+      "id": "gneiss-1",
+      "subject": "gneiss",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/gneiss-1.jpg",
+      "width": 600,
+      "height": 361,
+      "author": "No machine-readable author provided. Siim assumed (based on copyright claims).",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Gneiss.jpg"
+    }
+  ],
+  "soil-terra-rossa": [
+    {
+      "id": "soil-terra-rossa-1",
+      "subject": "soil-terra-rossa",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-terra-rossa-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Daniel Ventura",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Terra_rossa_poria.JPG"
+    }
+  ],
+  "soil-rendzina": [
+    {
+      "id": "soil-rendzina-1",
+      "subject": "soil-rendzina",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-rendzina-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Victor M. Vicente Selvas",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Rendzina_soil_(Catalonia).jpg"
+    }
+  ],
+  "soil-alluvium": [
+    {
+      "id": "soil-alluvium-1",
+      "subject": "soil-alluvium",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-alluvium-1.jpg",
+      "width": 986,
+      "height": 624,
+      "author": "Boris Carmi",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Jezreel_Valley_(997009324450405171.jpg"
+    }
+  ],
+  "soil-sand": [
+    {
+      "id": "soil-sand-1",
+      "subject": "soil-sand",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-sand-1.jpg",
+      "width": 1280,
+      "height": 883,
+      "author": "Renan I, Assmann T, Freidberg A (2018) Taxonomic revision of the Graphipterus serrator (Forskål) group (Coleoptera, Carabidae): an increase from five to 15 valid species. ZooKeys 753: 23-82. https://doi.org/10.3897/zookeys.753.22366",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Graphipterus_sharonae_(10.3897-zookeys.753.22366)_Figure_15.jpg"
+    }
+  ],
+  "soil-loess": [
+    {
+      "id": "soil-loess-1",
+      "subject": "soil-loess",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-loess-1.jpg",
+      "width": 1280,
+      "height": 958,
+      "author": "Eman",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:AraqibLoessWaddi.JPG"
+    }
+  ]
+}
