@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
-import { TOPIC_HUB } from "../src/data/topic-hub.ts";
+import { TOPIC_HUB, TOUR_HUB } from "../src/data/topic-hub.ts";
 import { QUIZZES } from "../src/data/quizzes/index.ts";
 
 const route = (href) => {
@@ -12,7 +12,7 @@ const route = (href) => {
 };
 
 test("every internal link in the topic hub points at a real page", () => {
-  for (const group of TOPIC_HUB) for (const topic of group.topics) for (const link of topic.links) for (const item of link.items) {
+  for (const group of [...TOPIC_HUB, ...TOUR_HUB]) for (const topic of group.topics) for (const link of topic.links) for (const item of link.items) {
     if (item.external) assert.match(item.href, /^https:\/\//, `${topic.id}: ${item.title}`);
     else assert.ok(route(item.href), `${topic.id}: ${item.href} has no page`);
   }
@@ -20,7 +20,7 @@ test("every internal link in the topic hub points at a real page", () => {
 
 test("no empty rows, no duplicate topics, one button per kind", () => {
   const ids = new Set();
-  for (const group of TOPIC_HUB) for (const topic of group.topics) {
+  for (const group of [...TOPIC_HUB, ...TOUR_HUB]) for (const topic of group.topics) {
     assert.ok(!ids.has(topic.id), `duplicate ${topic.id}`);
     ids.add(topic.id);
     assert.ok(topic.links.length > 0, `${topic.id} has no links`);

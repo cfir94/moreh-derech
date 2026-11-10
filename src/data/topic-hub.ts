@@ -5,7 +5,7 @@
  *
  * נושא חדש או עזר חדש: מוסיפים שורה כאן. סוג שאין לו תוכן בנושא פשוט לא נכתב, ולא יופיע כפתור ריק.
  */
-import { ONLINE_NOTEBOOKS, THEORY_NOTEBOOKS, TOUR_NOTEBOOKS } from "./notebooks";
+import { ONLINE_NOTEBOOKS, THEORY_NOTEBOOKS, TOUR_NOTEBOOKS, TOUR_REGIONS } from "./notebooks";
 import { TOPICS } from "./topics";
 
 export type HubKind = "quiz" | "notebook" | "summary" | "aid" | "map" | "game" | "practice";
@@ -129,11 +129,34 @@ export const TOPIC_HUB: HubGroup[] = [
     note: "דוחות, סיורים ותרגול לקראת הרישוי",
     topics: [
       { id: "guide-reports", title: "דוחות הדרכה וסיורים", sub: "יום סיור, יחידת הדרכה וחלק ב׳", icon: "🧭",
-        links: [link("aid", ["דוחות הדרכה", "/guide-reports/"]), link("notebook", ["מאגרי המידע של הסיורים", "/notebooks/"]),
+        links: [link("aid", ["דוחות הדרכה", "/guide-reports/"]), link("notebook", ["מאגרי המידע של הסיורים", "/tours/"]),
           summary("tourism"), link("map", ["תכנון מסלול", "/map/route/"])] },
       { id: "exam", title: "מבחן הרישוי", sub: "מבחנים מלאים ושאלות מכל השנים", icon: "🖊️",
         links: [link("practice", ["מבחנים מלאים", "/exams/"], ["תרגול טעויות", "/quizzes/review/"]),
           quiz("exam-bank", "מאגר מבחני הרישוי לפי נושא")] },
     ],
+  },
+];
+
+/*
+ * "סיורים" (/tours): שורה לכל אזור, ובה מאגרי המידע של הסיורים באזור. בינתיים רק מאגרי מידע; כלים
+ * נוספים לסיור (מפה, דוח לדוגמה) יתווספו כאן כשייבנו.
+ */
+export const TOUR_HUB: HubGroup[] = [
+  {
+    id: "tours",
+    title: "סיורים לפי אזור",
+    note: "מאגרי המידע של סיורי הקורס",
+    topics: TOUR_REGIONS.flatMap((region) => {
+      const items = TOUR_NOTEBOOKS.filter((n) => n.region === region.id);
+      if (!items.length) return [];
+      return [{
+        id: `tour-${region.id}`,
+        title: region.title,
+        sub: region.description,
+        icon: "📍",
+        links: [{ kind: "notebook" as const, items: items.map((n) => ({ title: n.title, href: n.url, external: true })) }],
+      }];
+    }),
   },
 ];

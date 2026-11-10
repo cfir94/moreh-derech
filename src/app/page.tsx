@@ -34,34 +34,11 @@ export default function Home() {
       meta: "למידה · תכנון מסלול",
     },
     {
-      slug: "notebooks",
-      href: "/notebooks",
-      title: "מאגרי מידע לסיורים ולשיעורים",
-      description: "מאגרי מידע לסיורים לפי אזור ולחומר העיוני לפי תחום, עם קישור ישיר למאגר המקורי.",
-      meta: "סיורים · עיוני · מקוון",
-    },
-    {
       slug: "guide-reports",
       href: "/guide-reports",
       title: "דוחות הדרכה",
       description: "מדריך, דוגמה מלאה ותרגול לבניית יום סיור ויחידת הדרכה, עם טיוטות שמורות.",
       meta: "דוגמאות, תרגול וטיוטות",
-    },
-    {
-      slug: "resources",
-      href: "/resources",
-      title: "סיכומים וחומרי לימוד",
-      description:
-        "קישורים לסיכומים, לדוחות לפי אתר ולמסלולים לדוגמה של אפרת נקש. נפתחים באתר שלה.",
-      meta: "קישורים · אפרת נקש",
-    },
-    {
-      slug: "quizzes",
-      href: "/quizzes",
-      title: "מאגר שאלונים",
-      description:
-        "שאלות אמריקאיות לפי נושא, כולל שאלות אמיתיות ממבחני הרישוי.",
-      meta: `${questionCount} שאלות`,
     },
     {
       slug: "exams",
@@ -137,8 +114,8 @@ export default function Home() {
 
       <section aria-labelledby="home-topics" className="mb-10">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
-          <h2 id="home-topics" className="text-2xl font-black text-txt">בוחרים נושא</h2>
-          <Link href="/topics/" className="text-base font-bold text-teal">כל הנושאים בעמוד אחד ←</Link>
+          <h2 id="home-topics" className="text-2xl font-black text-txt">עיוני: בוחרים נושא</h2>
+          <span className="flex gap-4"><Link href="/topics/" className="text-base font-bold text-teal">כל הנושאים ←</Link><Link href="/tours/" className="text-base font-bold text-teal">סיורים לפי אזור ←</Link></span>
         </div>
         <TopicHub compact />
       </section>
