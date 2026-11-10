@@ -1,4 +1,5 @@
 import { ARCH_CHAPTERS, ARCH_TERMS } from "@/data/classical-architecture";
+import { ARCH_TYPES } from "@/data/arches/arches";
 import { TALK_CHARACTERS } from "@/data/history-talk";
 import { SITES, ROWS } from "@/data/learning-map";
 import { PLANTS } from "@/data/plants/plants";
@@ -138,6 +139,13 @@ export const LEARNING_AID_GROUPS: LearningAidGroup[] = [
         title: "מושגי יסוד באדריכלות קלאסית",
         description: "שרטוטים אינטראקטיביים של סדרים, מקדשים, אמות מים, מבני בידור, מרחצאות, קבורה ומבני דת.",
         meta: `${ARCH_CHAPTERS.length} לוחות · ${ARCH_TERMS.length} מושגים`,
+      },
+      {
+        slug: "arches",
+        href: "/timelines/arches",
+        title: "קשתות וקמרונות",
+        description: "בונים ומסובבים בתלת־ממד: הקשת הכנענית בתל דן, הקשת והקמרון הרומיים, הקשת המחודדת, האבלק והמוקרנס.",
+        meta: `${ARCH_TYPES.length} סוגים · השוואת קווים וזיהוי`,
       },
     ],
   },

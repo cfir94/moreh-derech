@@ -145,7 +145,7 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
         </div>
         <label className="flex min-h-11 items-center gap-2 rounded-full border border-line bg-card px-4 text-sm font-bold">
           הגבהה <span className="num">×{lift}</span>
-          <input type="range" min={1} max={10} value={lift} onChange={(e) => setLift(Number(e.target.value))} className="w-24 accent-[var(--mc)]" aria-label="הגבהת התבליט" />
+          <input type="range" min={1} max={10} value={lift} onChange={(e) => setLift(Number(e.target.value))} className="w-24 accent-[var(--color-mc)]" aria-label="הגבהת התבליט" />
         </label>
         <button type="button" onClick={() => viewer.current?.resetView()} className="min-h-11 rounded-full border border-line bg-card px-4 font-bold active:scale-95">מבט מלא</button>
       </div>

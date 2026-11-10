@@ -19,6 +19,7 @@ import secondTempleEvents from "@/data/second-temple/search.json";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { BYZ_EVENTS } from "@/data/byzantine";
 import { ARCH_TERMS } from "@/data/classical-architecture";
+import { ARCH_TYPES } from "@/data/arches/arches";
 import { ROMAN_PEOPLE } from "@/data/roman-people";
 import { PLANTS } from "@/data/plants/plants";
 import { AGES as GEO_AGES, ROCKS as GEO_ROCKS, SOILS as GEO_SOILS } from "@/data/geology/geology";
@@ -334,6 +335,16 @@ const baseResults: SearchResult[] = [
     href: `/timelines/byzantine/#${event.id}`,
     searchText: ["התקופה הביזנטית", event.title, event.date, event.summary, event.sites ?? ""].join(" "),
   })),
+  {
+    id: "timeline-arches",
+    kind: "tool",
+    kindLabel: "עזר למידה",
+    title: "קשתות וקמרונות",
+    description: "קשתות בתלת־ממד מהקשת הכנענית ועד הממלוכים, השוואת צורות וזיהוי.",
+    href: "/timelines/arches",
+    searchText: ["קשת קשתות קמרון קמרונות קמרון צולב קשת מחודדת קשת פרסה אבלק מוקרנס אבן ראשה תל דן בריכת הקשתות",
+      ...ARCH_TYPES.map(t => t.name)].join(" "),
+  },
   {
     id: "timeline-classical-architecture",
     kind: "timeline",

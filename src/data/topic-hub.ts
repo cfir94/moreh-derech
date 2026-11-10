@@ -90,7 +90,7 @@ export const TOPIC_HUB: HubGroup[] = [
           link("map", ["מפת הלמידה", "/map/learn/"])] },
       { id: "classical-architecture", title: "אדריכלות קלאסית", sub: "סדרים, מקדשים ובסיליקות", icon: "🏛",
         links: [quiz("classical-architecture", "שאלון אדריכלות קלאסית"), notebooks("classical-architecture-basics"), summary("art-arch"),
-          link("aid", ["סטודיו האדריכלות", "/timelines/classical-architecture/"])] },
+          link("aid", ["סטודיו האדריכלות", "/timelines/classical-architecture/"], ["קשתות וקמרונות", "/timelines/arches/"])] },
       { id: "early-islam", title: "התקופה המוסלמית הקדומה", sub: "האומיים והעבאסים", icon: "🕌",
         links: [quiz("early-islam", "שאלון מוסלמית קדומה"), notebooks("early-muslim-period"), summary("early-islam")] },
       { id: "medieval", title: "צלבנים, איובים וממלוכים", sub: "ימי הביניים בארץ", icon: "🏰",
