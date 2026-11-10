@@ -9,7 +9,11 @@
 // 2. קובץ המפה (95MB) גדול מהמגבלה של Cloudflare לקובץ סטטי (25MB). הוא מוחרג מההעלאה
 //    (.assetsignore), ואפליקציית המפה טוענת אותו מכתובת חיצונית (ראו public/embeds/map/index.html).
 
-export interface Env {
+import { handleLeadNotify, runDaily, type NotifyEnv } from "./notify.ts";
+
+// 3. /api/lead-notify ו-cron יומי: הודעות של התשלום הידני (notify.ts).
+
+export interface Env extends NotifyEnv {
   ASSETS: Fetcher;
 }
 
@@ -30,6 +34,9 @@ export function isPage(pathname: string): boolean {
 export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url);
+    if (url.pathname === "/api/lead-notify") {
+      return handleLeadNotify(request, env).catch(() => new Response(null, { status: 502 }));
+    }
     const stripped = stripLegacy(url.pathname);
     if (stripped !== null) {
       url.pathname = stripped;
@@ -39,5 +46,8 @@ export default {
       return env.ASSETS.fetch(new Request(url.toString(), request));
     }
     return env.ASSETS.fetch(request);
+  },
+  async scheduled(_event, env, ctx): Promise<void> {
+    ctx.waitUntil(runDaily(env).then(() => undefined));
   },
 } satisfies ExportedHandler<Env>;
