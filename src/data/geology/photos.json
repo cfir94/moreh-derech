@@ -3,9 +3,9 @@
     {
       "id": "limestone-1",
       "subject": "limestone",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "קיר באבן ירושלים: גיר מסותת",
+      "alt": "קיר מאבני גיר מסותתות",
       "src": "/geology/photos/limestone-1.jpg",
       "width": 1280,
       "height": 960,
@@ -19,9 +19,9 @@
     {
       "id": "sandstone-1",
       "subject": "sandstone",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "הפטרייה בבקעת תמנע: כובע קשה של אבן חול על רגל רכה",
+      "alt": "עמוד אבן חול אדומה בצורת פטרייה",
       "src": "/geology/photos/sandstone-1.jpg",
       "width": 1280,
       "height": 960,
@@ -31,29 +31,13 @@
       "source": "https://commons.wikimedia.org/wiki/File:Timna_3.jpg"
     }
   ],
-  "kurkar": [
-    {
-      "id": "kurkar-1",
-      "subject": "kurkar",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
-      "src": "/geology/photos/kurkar-1.jpg",
-      "width": 853,
-      "height": 1280,
-      "author": "סתיו קונשטיק",
-      "license": "CC BY 2.5",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
-      "source": "https://commons.wikimedia.org/wiki/File:105187_tel_hefer_-_emek_hefer_PikiWiki_Israel.jpg"
-    }
-  ],
   "halite": [
     {
       "id": "halite-1",
       "subject": "halite",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "גבישי מלח בהר סדום, מקרוב",
+      "alt": "קרום מלח מחודד",
       "src": "/geology/photos/halite-1.jpg",
       "width": 1280,
       "height": 960,
@@ -67,9 +51,9 @@
     {
       "id": "marble-1",
       "subject": "marble",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "שיש לבן: קלציט אחיד, בלי נקבוביות ובלי מאובנים (איטליה)",
+      "alt": "משטח שיש לבן",
       "src": "/geology/photos/marble-1.jpg",
       "width": 1024,
       "height": 768,
@@ -83,9 +67,9 @@
     {
       "id": "gneiss-1",
       "subject": "gneiss",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "גנייס: פסים בהירים וכהים מקבילים",
+      "alt": "דוגמת סלע גנייס מפוספס",
       "src": "/geology/photos/gneiss-1.jpg",
       "width": 600,
       "height": 361,
@@ -95,29 +79,13 @@
       "source": "https://commons.wikimedia.org/wiki/File:Gneiss.jpg"
     }
   ],
-  "soil-terra-rossa": [
-    {
-      "id": "soil-terra-rossa-1",
-      "subject": "soil-terra-rossa",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
-      "src": "/geology/photos/soil-terra-rossa-1.jpg",
-      "width": 1280,
-      "height": 960,
-      "author": "Daniel Ventura",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Terra_rossa_poria.JPG"
-    }
-  ],
   "soil-rendzina": [
     {
       "id": "soil-rendzina-1",
       "subject": "soil-rendzina",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "רנדזינה: קרקע בהירה מעל שברי סלע גירי (קטלוניה)",
+      "alt": "חתך קרקע בהירה עם שברי סלע לבנים",
       "src": "/geology/photos/soil-rendzina-1.jpg",
       "width": 1280,
       "height": 960,
@@ -127,29 +95,13 @@
       "source": "https://commons.wikimedia.org/wiki/File:Rendzina_soil_(Catalonia).jpg"
     }
   ],
-  "soil-alluvium": [
-    {
-      "id": "soil-alluvium-1",
-      "subject": "soil-alluvium",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
-      "src": "/geology/photos/soil-alluvium-1.jpg",
-      "width": 986,
-      "height": 624,
-      "author": "Boris Carmi",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Jezreel_Valley_(997009324450405171.jpg"
-    }
-  ],
   "soil-sand": [
     {
       "id": "soil-sand-1",
       "subject": "soil-sand",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "חולות חוף מיוצבים בצמחייה",
+      "alt": "חולות עם שיחים ועשב",
       "src": "/geology/photos/soil-sand-1.jpg",
       "width": 1280,
       "height": 883,
@@ -163,9 +115,9 @@
     {
       "id": "soil-loess-1",
       "subject": "soil-loess",
-      "status": "candidate",
-      "caption": "",
-      "alt": "",
+      "status": "approved",
+      "caption": "לס בצפון הנגב: ערוצים שהמים חרצו בקרקע הרכה",
+      "alt": "מישור לס צהבהב עם ערוצי סחף",
       "src": "/geology/photos/soil-loess-1.jpg",
       "width": 1280,
       "height": 958,

@@ -3,159 +3,159 @@
     "id": "basalt-1",
     "subject": "basalt",
     "status": "candidate",
-    "search": "Hexagon pool basalt columns Golan",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "search": "Meshushim"
   },
   {
     "id": "granite-1",
     "subject": "granite",
     "status": "candidate",
-    "search": "Eilat mountains granite",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "wiki": "en:Granite"
   },
   {
     "id": "limestone-1",
     "subject": "limestone",
-    "status": "candidate",
+    "status": "approved",
     "search": "Jerusalem stone limestone wall",
-    "caption": "",
-    "alt": ""
+    "caption": "קיר באבן ירושלים: גיר מסותת",
+    "alt": "קיר מאבני גיר מסותתות"
   },
   {
     "id": "dolomite-1",
     "subject": "dolomite",
     "status": "candidate",
-    "search": "dolomite rock Israel Galilee",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "wiki": "en:Dolomite (rock)"
   },
   {
     "id": "chalk-1",
     "subject": "chalk",
     "status": "candidate",
-    "search": "Beit Guvrin bell cave chalk",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "search": "Beit Guvrin caves"
   },
   {
     "id": "flint-1",
     "subject": "flint",
     "status": "candidate",
-    "search": "flint nodules chalk Negev",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "wiki": "en:Flint"
   },
   {
     "id": "sandstone-1",
     "subject": "sandstone",
-    "status": "candidate",
+    "status": "approved",
     "search": "Timna mushroom sandstone",
-    "caption": "",
-    "alt": ""
-  },
-  {
-    "id": "kurkar-1",
-    "subject": "kurkar",
-    "status": "candidate",
-    "search": "kurkar ridge Israel coast",
-    "caption": "",
-    "alt": ""
+    "caption": "הפטרייה בבקעת תמנע: כובע קשה של אבן חול על רגל רכה",
+    "alt": "עמוד אבן חול אדומה בצורת פטרייה"
   },
   {
     "id": "halite-1",
     "subject": "halite",
-    "status": "candidate",
+    "status": "approved",
     "search": "Mount Sodom salt",
-    "caption": "",
-    "alt": ""
+    "caption": "גבישי מלח בהר סדום, מקרוב",
+    "alt": "קרום מלח מחודד"
   },
   {
     "id": "marble-1",
     "subject": "marble",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Marble",
-    "caption": "",
-    "alt": ""
+    "caption": "שיש לבן: קלציט אחיד, בלי נקבוביות ובלי מאובנים (איטליה)",
+    "alt": "משטח שיש לבן"
   },
   {
     "id": "quartzite-1",
     "subject": "quartzite",
     "status": "candidate",
-    "search": "Carpentry Makhtesh Ramon quartzite prisms",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "search": "Makhtesh Ramon Minsara"
   },
   {
     "id": "gneiss-1",
     "subject": "gneiss",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Gneiss",
-    "caption": "",
-    "alt": ""
-  },
-  {
-    "id": "soil-terra-rossa-1",
-    "subject": "soil-terra-rossa",
-    "status": "candidate",
-    "search": "terra rossa soil Israel",
-    "caption": "",
-    "alt": ""
+    "caption": "גנייס: פסים בהירים וכהים מקבילים",
+    "alt": "דוגמת סלע גנייס מפוספס"
   },
   {
     "id": "soil-rendzina-1",
     "subject": "soil-rendzina",
-    "status": "candidate",
+    "status": "approved",
     "search": "rendzina soil",
-    "caption": "",
-    "alt": ""
+    "caption": "רנדזינה: קרקע בהירה מעל שברי סלע גירי (קטלוניה)",
+    "alt": "חתך קרקע בהירה עם שברי סלע לבנים"
   },
   {
     "id": "soil-basalt-soil-1",
     "subject": "soil-basalt-soil",
     "status": "candidate",
-    "search": "Golan Heights basalt field stones",
     "caption": "",
-    "alt": ""
-  },
-  {
-    "id": "soil-alluvium-1",
-    "subject": "soil-alluvium",
-    "status": "candidate",
-    "search": "Jezreel Valley fields",
-    "caption": "",
-    "alt": ""
+    "alt": "",
+    "search": "Golan Heights basalt field"
   },
   {
     "id": "soil-hamra-1",
     "subject": "soil-hamra",
     "status": "candidate",
-    "search": "Hamra soil Sharon",
     "caption": "",
-    "alt": ""
+    "alt": "",
+    "search": "hamra soil Israel"
   },
   {
     "id": "soil-sand-1",
     "subject": "soil-sand",
-    "status": "candidate",
+    "status": "approved",
     "search": "Nitzanim sand dunes",
-    "caption": "",
-    "alt": ""
+    "caption": "חולות חוף מיוצבים בצמחייה",
+    "alt": "חולות עם שיחים ועשב"
   },
   {
     "id": "soil-loess-1",
     "subject": "soil-loess",
-    "status": "candidate",
+    "status": "approved",
     "search": "loess northern Negev",
-    "caption": "",
-    "alt": ""
+    "caption": "לס בצפון הנגב: ערוצים שהמים חרצו בקרקע הרכה",
+    "alt": "מישור לס צהבהב עם ערוצי סחף"
   },
   {
     "id": "soil-reg-1",
     "subject": "soil-reg",
     "status": "candidate",
-    "search": "desert pavement Negev",
+    "caption": "",
+    "alt": "",
+    "wiki": "en:Desert pavement"
+  },
+  {
+    "id": "kurkar-2",
+    "subject": "kurkar",
+    "status": "candidate",
+    "wiki": "en:Kurkar",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-terra-rossa-2",
+    "subject": "soil-terra-rossa",
+    "status": "candidate",
+    "wiki": "en:Terra rossa (soil)",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-alluvium-2",
+    "subject": "soil-alluvium",
+    "status": "candidate",
+    "search": "Hula Valley fields",
     "caption": "",
     "alt": ""
   }
