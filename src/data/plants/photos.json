@@ -3,24 +3,24 @@
     {
       "id": "quercus-calliprinos-1",
       "plant": "quercus-calliprinos",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אלון מצוי בישראל: גזעים מתפצלים ונוף צפוף של עלים קטנים וקשים",
       "alt": "אלון מצוי",
       "src": "/plants/photos/quercus-calliprinos-1.jpg",
-      "width": 1280,
-      "height": 960,
-      "author": "Josep Gesti",
+      "width": 1228,
+      "height": 819,
+      "author": "Davidbena",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Quercus_coccifera_coccifera,_Bot.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Israel_oak_(Quercus_calliprinos).jpg"
     }
   ],
   "quercus-ithaburensis": [
     {
       "id": "quercus-ithaburensis-1",
       "plant": "quercus-ithaburensis",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אלון התבור עתיק: גזע עבה ונוף רחב של עץ בודד",
       "alt": "אלון התבור",
       "src": "/plants/photos/quercus-ithaburensis-1.jpg",
       "width": 655,
@@ -35,24 +35,24 @@
     {
       "id": "quercus-boissieri-1",
       "plant": "quercus-boissieri",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אלון התולע ותיק (צולם בקפריסין), בעונה שרוב העלים כבר נשרו: גזע עבה ונוף רחב ופתוח",
       "alt": "אלון התולע",
       "src": "/plants/photos/quercus-boissieri-1.jpg",
-      "width": 392,
-      "height": 319,
-      "author": "George Ripley And Charles A. Dana",
-      "license": "Public domain",
-      "licenseUrl": "",
-      "source": "https://commons.wikimedia.org/wiki/File:Quercus_infectoria.jpg"
+      "width": 1280,
+      "height": 865,
+      "author": "Michal Klajban",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Quercus_infectoria_subsp._veneris,_Akamas_Paninsula,_Cyprus.jpg"
     }
   ],
   "pistacia-palaestina": [
     {
       "id": "pistacia-palaestina-1",
       "plant": "pistacia-palaestina",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אלה ארץ-ישראלית: עץ בודד עם נוף מעוגל וצפוף, בשטח פתוח",
       "alt": "אלה ארץ-ישראלית",
       "src": "/plants/photos/pistacia-palaestina-1.jpg",
       "width": 1280,
@@ -67,8 +67,8 @@
     {
       "id": "pistacia-atlantica-1",
       "plant": "pistacia-atlantica",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אלה אטלנטית ותיקה בעין עבדת: גזע מפותל ועבה במיוחד",
       "alt": "אלה אטלנטית",
       "src": "/plants/photos/pistacia-atlantica-1.jpg",
       "width": 851,
@@ -83,8 +83,8 @@
     {
       "id": "pistacia-lentiscus-1",
       "plant": "pistacia-lentiscus",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אלת המסטיק: עלים מורכבים ירוקי-עד ואשכולות פרחים אדומים",
       "alt": "אלת המסטיק",
       "src": "/plants/photos/pistacia-lentiscus-1.jpg",
       "width": 960,
@@ -99,8 +99,8 @@
     {
       "id": "ceratonia-siliqua-1",
       "plant": "ceratonia-siliqua",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "חרוב: תרמילים כהים ובשלים תלויים בין העלים",
       "alt": "חרוב מצוי",
       "src": "/plants/photos/ceratonia-siliqua-1.jpg",
       "width": 960,
@@ -115,8 +115,8 @@
     {
       "id": "arbutus-andrachne-1",
       "plant": "arbutus-andrachne",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "קטלב: הגזע האדום והחלק שנחשף כשהקליפה מתקלפת",
       "alt": "קטלב מצוי",
       "src": "/plants/photos/arbutus-andrachne-1.jpg",
       "width": 851,
@@ -131,8 +131,8 @@
     {
       "id": "cercis-siliquastrum-1",
       "plant": "cercis-siliquastrum",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "כליל החורש בפריחה: כל העץ מכוסה פרחים ורודים לפני הלבלוב",
       "alt": "כליל החורש",
       "src": "/plants/photos/cercis-siliquastrum-1.jpg",
       "width": 1280,
@@ -147,8 +147,8 @@
     {
       "id": "pyrus-syriaca-1",
       "plant": "pyrus-syriaca",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אגס סורי: פרחים לבנים באשכולות על ענף",
       "alt": "אגס סורי",
       "src": "/plants/photos/pyrus-syriaca-1.jpg",
       "width": 1280,
@@ -163,8 +163,8 @@
     {
       "id": "acer-obtusifolium-1",
       "plant": "acer-obtusifolium",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אדר סורי: עץ שלם עם נוף צפוף",
       "alt": "אדר סורי",
       "src": "/plants/photos/acer-obtusifolium-1.jpg",
       "width": 960,
@@ -179,8 +179,8 @@
     {
       "id": "crataegus-aronia-1",
       "plant": "crataegus-aronia",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "עוזרר קוצני בפריחה: פרחים לבנים ועלים מפורצים",
       "alt": "עוזרר קוצני",
       "src": "/plants/photos/crataegus-aronia-1.jpg",
       "width": 1280,
@@ -195,8 +195,8 @@
     {
       "id": "styrax-officinalis-1",
       "plant": "styrax-officinalis",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "לבנה רפואי: שיח-עץ רחב על מדרון",
       "alt": "לבנה רפואי",
       "src": "/plants/photos/styrax-officinalis-1.jpg",
       "width": 1280,
@@ -211,8 +211,8 @@
     {
       "id": "platanus-orientalis-1",
       "plant": "platanus-orientalis",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "דולב מזרחי: חורשת עצים גבוהים לאורך נחל",
       "alt": "דולב מזרחי",
       "src": "/plants/photos/platanus-orientalis-1.jpg",
       "width": 1280,
@@ -227,8 +227,8 @@
     {
       "id": "laurus-nobilis-1",
       "plant": "laurus-nobilis",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "ער אציל: עלים ירוקים ומבריקים, מוארכים וחדים",
       "alt": "ער אציל",
       "src": "/plants/photos/laurus-nobilis-1.jpg",
       "width": 960,
@@ -243,8 +243,8 @@
     {
       "id": "sarcopoterium-spinosum-1",
       "plant": "sarcopoterium-spinosum",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "סירה קוצנית: שיח קוצני נמוך עם פירות אדמדמים",
       "alt": "סירה קוצנית",
       "src": "/plants/photos/sarcopoterium-spinosum-1.jpg",
       "width": 1280,
@@ -259,8 +259,8 @@
     {
       "id": "calicotome-villosa-1",
       "plant": "calicotome-villosa",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "קידה שעירה בפריחה: פרחים צהובים בוהקים",
       "alt": "קידה שעירה",
       "src": "/plants/photos/calicotome-villosa-1.jpg",
       "width": 1280,
@@ -275,8 +275,8 @@
     {
       "id": "rhamnus-lycioides-1",
       "plant": "rhamnus-lycioides",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אשחר ארץ-ישראלי: ענף עם פירות כהים ועלים קטנים",
       "alt": "אשחר ארץ-ישראלי",
       "src": "/plants/photos/rhamnus-lycioides-1.jpg",
       "width": 1280,
@@ -287,12 +287,28 @@
       "source": "https://commons.wikimedia.org/wiki/File:Rhamnus_lycioides_fruits.JPG"
     }
   ],
+  "cistus": [
+    {
+      "id": "cistus-1",
+      "plant": "cistus",
+      "status": "approved",
+      "caption": "לוטם בפארק נשר: פרח ורוד של לוטם שעיר, ומאחוריו פרחים לבנים של לוטם מרווני",
+      "alt": "לוטם",
+      "src": "/plants/photos/cistus-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Hanay",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Cistus_creticus_at_Nesher,_Park_Nesher,_Wadi_Katia.jpg"
+    }
+  ],
   "majorana-syriaca": [
     {
       "id": "majorana-syriaca-1",
       "plant": "majorana-syriaca",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "זוטה אזובית: שיח נמוך עם עלים אפורים-שעירים",
       "alt": "אזוב מצוי",
       "src": "/plants/photos/majorana-syriaca-1.jpg",
       "width": 1280,
@@ -307,8 +323,8 @@
     {
       "id": "coridothymus-capitatus-1",
       "plant": "coridothymus-capitatus",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "קורנית מקורקפת בפריחה: שיח נמוך עם פרחים סגולים (צולם בכרתים)",
       "alt": "קורנית מקורקפת",
       "src": "/plants/photos/coridothymus-capitatus-1.jpg",
       "width": 1280,
@@ -323,8 +339,8 @@
     {
       "id": "salvia-fruticosa-1",
       "plant": "salvia-fruticosa",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "מרווה משולשת: שרביט פרחים לבנים-ורודים",
       "alt": "מרווה משולשת",
       "src": "/plants/photos/salvia-fruticosa-1.jpg",
       "width": 960,
@@ -339,8 +355,8 @@
     {
       "id": "smilax-aspera-1",
       "plant": "smilax-aspera",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "קיסוסית קוצנית: מטפס עם עלים דמויי לב ופירות אדומים",
       "alt": "קיסוסית קוצנית",
       "src": "/plants/photos/smilax-aspera-1.jpg",
       "width": 960,
@@ -355,8 +371,8 @@
     {
       "id": "asparagus-aphyllus-1",
       "plant": "asparagus-aphyllus",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אספרג החורש: גבעולים ירוקים וענפים דמויי מחטים (צולם במלטה)",
       "alt": "אספרג החורש",
       "src": "/plants/photos/asparagus-aphyllus-1.jpg",
       "width": 1280,
@@ -367,12 +383,28 @@
       "source": "https://commons.wikimedia.org/wiki/File:Malta_-_Mellieha_-_Triq_l-Armier_-_Asparagus_aphyllus_01_ies.jpg"
     }
   ],
+  "rubia-tenuifolia": [
+    {
+      "id": "rubia-tenuifolia-1",
+      "plant": "rubia-tenuifolia",
+      "status": "approved",
+      "caption": "פואה מצויה: מטפס עם פרחים קטנים צהבהבים",
+      "alt": "פואה מצויה",
+      "src": "/plants/photos/rubia-tenuifolia-1.jpg",
+      "width": 853,
+      "height": 1280,
+      "author": "Krzysztof Ziarnek, Kenraiz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rubia_tenuifolia_kz5.jpg"
+    }
+  ],
   "triticum": [
     {
       "id": "triticum-1",
       "plant": "triticum",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "חיטה: שדה שיבולים בשלות",
       "alt": "חיטה",
       "src": "/plants/photos/triticum-1.jpg",
       "width": 1280,
@@ -387,8 +419,8 @@
     {
       "id": "hordeum-1",
       "plant": "hordeum",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "שעורה: שיבולים עם מלענים ארוכים",
       "alt": "שעורה",
       "src": "/plants/photos/hordeum-1.jpg",
       "width": 640,
@@ -403,8 +435,8 @@
     {
       "id": "vitis-vinifera-1",
       "plant": "vitis-vinifera",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "גפן: אשכול ענבים כהים ועלים מפורצים",
       "alt": "גפן",
       "src": "/plants/photos/vitis-vinifera-1.jpg",
       "width": 882,
@@ -419,56 +451,56 @@
     {
       "id": "ficus-carica-1",
       "plant": "ficus-carica",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "תאנה: עלים גדולים ומפורצים ופירות צעירים על הענף",
       "alt": "תאנה",
       "src": "/plants/photos/ficus-carica-1.jpg",
-      "width": 704,
-      "height": 1080,
-      "author": "Trew, C.J",
-      "license": "Public domain",
-      "licenseUrl": "",
-      "source": "https://commons.wikimedia.org/wiki/File:Ficus_carica_L,_1771.jpg"
+      "width": 1024,
+      "height": 768,
+      "author": "Daniel Capilla",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ficus_carica_leaves_and_fruits.jpg"
     }
   ],
   "punica-granatum": [
     {
       "id": "punica-granatum-1",
       "plant": "punica-granatum",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "רימון: פרח אדום-כתום ועלים מבריקים (צולם בפורטוגל)",
       "alt": "רימון",
       "src": "/plants/photos/punica-granatum-1.jpg",
       "width": 1280,
-      "height": 848,
-      "author": "Augustus Binu : flickr",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Pomegranate_Juice_(2019).jpg"
+      "height": 976,
+      "author": "Jules Verne Times Two",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pomegranate_flowers_(Punica_granatum),_Ponte_de_Sor,_Portugal_(approx._GPS_location)_julesvernex2.jpg"
     }
   ],
   "olea-europaea": [
     {
       "id": "olea-europaea-1",
       "plant": "olea-europaea",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "זית עתיק בציפורי: גזע מחורץ ומפוצל",
       "alt": "זית",
       "src": "/plants/photos/olea-europaea-1.jpg",
-      "width": 1280,
-      "height": 1016,
-      "author": "Abu Shawka",
-      "license": "Public domain",
-      "licenseUrl": "",
-      "source": "https://commons.wikimedia.org/wiki/File:Olea_europaea_cuspidata-africana_Cape_Town.JPG"
+      "width": 606,
+      "height": 1280,
+      "author": "Yair Haklai",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Olive_tree-Zippori.jpg"
     }
   ],
   "phoenix-dactylifera": [
     {
       "id": "phoenix-dactylifera-1",
       "plant": "phoenix-dactylifera",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "תמר: אשכולות פירות כתומים מתחת לכותרת העלים",
       "alt": "תמר",
       "src": "/plants/photos/phoenix-dactylifera-1.jpg",
       "width": 1280,
@@ -483,24 +515,40 @@
     {
       "id": "tamarix-1",
       "plant": "tamarix",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אשל היאור: גזעים מתפצלים וענפים דקים",
       "alt": "אשל",
       "src": "/plants/photos/tamarix-1.jpg",
-      "width": 960,
-      "height": 1280,
-      "author": "לא צוין",
+      "width": 800,
+      "height": 600,
+      "author": "Pavel Buršík - https://www.biolib.cz/en/person/id2333/",
       "license": "CC BY-SA 3.0",
-      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Tamarix_aphylla.jpg"
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tamaris_nilotica-BioLib-77418.jpg"
+    }
+  ],
+  "acacia": [
+    {
+      "id": "acacia-1",
+      "plant": "acacia",
+      "status": "approved",
+      "caption": "שיטה סלילנית: עץ בודד עם נוף שטוח בנוף מדברי",
+      "alt": "שיטה",
+      "src": "/plants/photos/acacia-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Krzysztof Ziarnek, Kenraiz",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Acacia_tortilis_subsp._raddiana_kz06.jpg"
     }
   ],
   "ziziphus-spina-christi": [
     {
       "id": "ziziphus-spina-christi-1",
       "plant": "ziziphus-spina-christi",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "שיזף מצוי: ענף עם פרחים צהבהבים ופירות, צולם בערבה",
       "alt": "שיזף מצוי",
       "src": "/plants/photos/ziziphus-spina-christi-1.jpg",
       "width": 1280,
@@ -515,8 +563,8 @@
     {
       "id": "retama-raetam-1",
       "plant": "retama-raetam",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "רותם המדבר: שיח עם ענפים ארוכים ודקים כמעט בלי עלים",
       "alt": "רותם המדבר",
       "src": "/plants/photos/retama-raetam-1.jpg",
       "width": 1280,
@@ -531,8 +579,8 @@
     {
       "id": "pinus-halepensis-1",
       "plant": "pinus-halepensis",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "אורן ירושלים: עצים עם נוף רחב ומפוצל (צולם ביוון)",
       "alt": "אורן ירושלים",
       "src": "/plants/photos/pinus-halepensis-1.jpg",
       "width": 1280,
@@ -547,8 +595,8 @@
     {
       "id": "cupressus-sempervirens-1",
       "plant": "cupressus-sempervirens",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "ברוש מצוי בצורתו הפראית: ענפים מתפשטים לצדדים, בהרים (מחוץ לארץ)",
       "alt": "ברוש מצוי",
       "src": "/plants/photos/cupressus-sempervirens-1.jpg",
       "width": 1280,
@@ -563,24 +611,24 @@
     {
       "id": "prunus-dulcis-1",
       "plant": "prunus-dulcis",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "שקדייה בפריחה: מטע עצים מכוסים פרחים לבנים (צולם בקליפורניה)",
       "alt": "שקד",
       "src": "/plants/photos/prunus-dulcis-1.jpg",
       "width": 1280,
       "height": 853,
-      "author": "Ivar Leidus",
+      "author": "Frank Schulenburg",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Almonds_-_in_shell,_shell_cracked_open,_shelled,_blanched.jpg"
+      "source": "https://commons.wikimedia.org/wiki/File:Almond_Blossom_in_Butte_County_(2025)-104A8325.jpg"
     }
   ],
   "acacia-saligna": [
     {
       "id": "acacia-saligna-1",
       "plant": "acacia-saligna",
-      "status": "candidate",
-      "caption": "",
+      "status": "approved",
+      "caption": "שיטה כחלחלה בפריחה: כדורי פרחים צהובים ועלים מוארכים",
       "alt": "שיטה כחלחלה (מכחילה)",
       "src": "/plants/photos/acacia-saligna-1.jpg",
       "width": 1063,

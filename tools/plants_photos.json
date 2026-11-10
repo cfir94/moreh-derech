@@ -2,321 +2,321 @@
   {
     "id": "quercus-calliprinos-1",
     "plant": "quercus-calliprinos",
-    "wiki": "en:Quercus calliprinos",
-    "status": "candidate",
-    "caption": "",
-    "alt": "אלון מצוי"
+    "status": "approved",
+    "caption": "אלון מצוי בישראל: גזעים מתפצלים ונוף צפוף של עלים קטנים וקשים",
+    "alt": "אלון מצוי",
+    "search": "Quercus calliprinos Israel"
   },
   {
     "id": "quercus-ithaburensis-1",
     "plant": "quercus-ithaburensis",
     "wiki": "en:Quercus ithaburensis",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אלון התבור עתיק: גזע עבה ונוף רחב של עץ בודד",
     "alt": "אלון התבור"
   },
   {
     "id": "quercus-boissieri-1",
     "plant": "quercus-boissieri",
-    "wiki": "en:Quercus boissieri",
-    "status": "candidate",
-    "caption": "",
-    "alt": "אלון התולע"
+    "status": "approved",
+    "caption": "אלון התולע ותיק (צולם בקפריסין), בעונה שרוב העלים כבר נשרו: גזע עבה ונוף רחב ופתוח",
+    "alt": "אלון התולע",
+    "search": "Quercus boissieri"
   },
   {
     "id": "pistacia-palaestina-1",
     "plant": "pistacia-palaestina",
     "wiki": "en:Pistacia palaestina",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אלה ארץ-ישראלית: עץ בודד עם נוף מעוגל וצפוף, בשטח פתוח",
     "alt": "אלה ארץ-ישראלית"
   },
   {
     "id": "pistacia-atlantica-1",
     "plant": "pistacia-atlantica",
     "wiki": "en:Pistacia atlantica",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אלה אטלנטית ותיקה בעין עבדת: גזע מפותל ועבה במיוחד",
     "alt": "אלה אטלנטית"
   },
   {
     "id": "pistacia-lentiscus-1",
     "plant": "pistacia-lentiscus",
     "wiki": "en:Pistacia lentiscus",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אלת המסטיק: עלים מורכבים ירוקי-עד ואשכולות פרחים אדומים",
     "alt": "אלת המסטיק"
   },
   {
     "id": "ceratonia-siliqua-1",
     "plant": "ceratonia-siliqua",
     "wiki": "en:Ceratonia siliqua",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "חרוב: תרמילים כהים ובשלים תלויים בין העלים",
     "alt": "חרוב מצוי"
   },
   {
     "id": "arbutus-andrachne-1",
     "plant": "arbutus-andrachne",
     "wiki": "en:Arbutus andrachne",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "קטלב: הגזע האדום והחלק שנחשף כשהקליפה מתקלפת",
     "alt": "קטלב מצוי"
   },
   {
     "id": "cercis-siliquastrum-1",
     "plant": "cercis-siliquastrum",
     "wiki": "en:Cercis siliquastrum",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "כליל החורש בפריחה: כל העץ מכוסה פרחים ורודים לפני הלבלוב",
     "alt": "כליל החורש"
   },
   {
     "id": "pyrus-syriaca-1",
     "plant": "pyrus-syriaca",
     "wiki": "en:Pyrus syriaca",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אגס סורי: פרחים לבנים באשכולות על ענף",
     "alt": "אגס סורי"
   },
   {
     "id": "acer-obtusifolium-1",
     "plant": "acer-obtusifolium",
     "wiki": "en:Acer obtusifolium",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אדר סורי: עץ שלם עם נוף צפוף",
     "alt": "אדר סורי"
   },
   {
     "id": "crataegus-aronia-1",
     "plant": "crataegus-aronia",
     "wiki": "en:Crataegus aronia",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "עוזרר קוצני בפריחה: פרחים לבנים ועלים מפורצים",
     "alt": "עוזרר קוצני"
   },
   {
     "id": "styrax-officinalis-1",
     "plant": "styrax-officinalis",
     "wiki": "en:Styrax officinalis",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "לבנה רפואי: שיח-עץ רחב על מדרון",
     "alt": "לבנה רפואי"
   },
   {
     "id": "platanus-orientalis-1",
     "plant": "platanus-orientalis",
     "wiki": "en:Platanus orientalis",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "דולב מזרחי: חורשת עצים גבוהים לאורך נחל",
     "alt": "דולב מזרחי"
   },
   {
     "id": "laurus-nobilis-1",
     "plant": "laurus-nobilis",
     "wiki": "en:Laurus nobilis",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "ער אציל: עלים ירוקים ומבריקים, מוארכים וחדים",
     "alt": "ער אציל"
   },
   {
     "id": "sarcopoterium-spinosum-1",
     "plant": "sarcopoterium-spinosum",
     "wiki": "en:Sarcopoterium spinosum",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "סירה קוצנית: שיח קוצני נמוך עם פירות אדמדמים",
     "alt": "סירה קוצנית"
   },
   {
     "id": "calicotome-villosa-1",
     "plant": "calicotome-villosa",
     "wiki": "en:Calicotome villosa",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "קידה שעירה בפריחה: פרחים צהובים בוהקים",
     "alt": "קידה שעירה"
   },
   {
     "id": "rhamnus-lycioides-1",
     "plant": "rhamnus-lycioides",
     "wiki": "en:Rhamnus lycioides",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אשחר ארץ-ישראלי: ענף עם פירות כהים ועלים קטנים",
     "alt": "אשחר ארץ-ישראלי"
   },
   {
     "id": "cistus-1",
     "plant": "cistus",
-    "wiki": "en:Cistus creticus / C. salviifolius",
-    "status": "candidate",
-    "caption": "",
-    "alt": "לוטם"
+    "status": "approved",
+    "caption": "לוטם בפארק נשר: פרח ורוד של לוטם שעיר, ומאחוריו פרחים לבנים של לוטם מרווני",
+    "alt": "לוטם",
+    "search": "Cistus creticus flower"
   },
   {
     "id": "majorana-syriaca-1",
     "plant": "majorana-syriaca",
     "wiki": "en:Majorana syriaca",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "זוטה אזובית: שיח נמוך עם עלים אפורים-שעירים",
     "alt": "אזוב מצוי"
   },
   {
     "id": "coridothymus-capitatus-1",
     "plant": "coridothymus-capitatus",
     "wiki": "en:Coridothymus capitatus",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "קורנית מקורקפת בפריחה: שיח נמוך עם פרחים סגולים (צולם בכרתים)",
     "alt": "קורנית מקורקפת"
   },
   {
     "id": "salvia-fruticosa-1",
     "plant": "salvia-fruticosa",
     "wiki": "en:Salvia fruticosa",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "מרווה משולשת: שרביט פרחים לבנים-ורודים",
     "alt": "מרווה משולשת"
   },
   {
     "id": "smilax-aspera-1",
     "plant": "smilax-aspera",
     "wiki": "en:Smilax aspera",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "קיסוסית קוצנית: מטפס עם עלים דמויי לב ופירות אדומים",
     "alt": "קיסוסית קוצנית"
   },
   {
     "id": "asparagus-aphyllus-1",
     "plant": "asparagus-aphyllus",
     "wiki": "en:Asparagus aphyllus",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אספרג החורש: גבעולים ירוקים וענפים דמויי מחטים (צולם במלטה)",
     "alt": "אספרג החורש"
   },
   {
     "id": "rubia-tenuifolia-1",
     "plant": "rubia-tenuifolia",
-    "wiki": "en:Rubia tenuifolia",
-    "status": "candidate",
-    "caption": "",
-    "alt": "פואה מצויה"
+    "status": "approved",
+    "caption": "פואה מצויה: מטפס עם פרחים קטנים צהבהבים",
+    "alt": "פואה מצויה",
+    "search": "Rubia tenuifolia"
   },
   {
     "id": "triticum-1",
     "plant": "triticum",
     "wiki": "en:Triticum",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "חיטה: שדה שיבולים בשלות",
     "alt": "חיטה"
   },
   {
     "id": "hordeum-1",
     "plant": "hordeum",
     "wiki": "en:Hordeum",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "שעורה: שיבולים עם מלענים ארוכים",
     "alt": "שעורה"
   },
   {
     "id": "vitis-vinifera-1",
     "plant": "vitis-vinifera",
     "wiki": "en:Vitis vinifera",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "גפן: אשכול ענבים כהים ועלים מפורצים",
     "alt": "גפן"
   },
   {
     "id": "ficus-carica-1",
     "plant": "ficus-carica",
-    "wiki": "en:Ficus carica",
-    "status": "candidate",
-    "caption": "",
-    "alt": "תאנה"
+    "status": "approved",
+    "caption": "תאנה: עלים גדולים ומפורצים ופירות צעירים על הענף",
+    "alt": "תאנה",
+    "search": "Ficus carica tree leaves fruit"
   },
   {
     "id": "punica-granatum-1",
     "plant": "punica-granatum",
-    "wiki": "en:Punica granatum",
-    "status": "candidate",
-    "caption": "",
-    "alt": "רימון"
+    "status": "approved",
+    "caption": "רימון: פרח אדום-כתום ועלים מבריקים (צולם בפורטוגל)",
+    "alt": "רימון",
+    "search": "Punica granatum flower"
   },
   {
     "id": "olea-europaea-1",
     "plant": "olea-europaea",
-    "wiki": "en:Olea europaea",
-    "status": "candidate",
-    "caption": "",
-    "alt": "זית"
+    "status": "approved",
+    "caption": "זית עתיק בציפורי: גזע מחורץ ומפוצל",
+    "alt": "זית",
+    "search": "Olea europaea olive tree Israel"
   },
   {
     "id": "phoenix-dactylifera-1",
     "plant": "phoenix-dactylifera",
     "wiki": "en:Phoenix dactylifera",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "תמר: אשכולות פירות כתומים מתחת לכותרת העלים",
     "alt": "תמר"
   },
   {
     "id": "tamarix-1",
     "plant": "tamarix",
-    "wiki": "en:Tamarix",
-    "status": "candidate",
-    "caption": "",
-    "alt": "אשל"
+    "status": "approved",
+    "caption": "אשל היאור: גזעים מתפצלים וענפים דקים",
+    "alt": "אשל",
+    "search": "Tamarix nilotica"
   },
   {
     "id": "acacia-1",
     "plant": "acacia",
-    "wiki": "en:Vachellia (Acacia) tortilis / raddiana",
-    "status": "candidate",
-    "caption": "",
-    "alt": "שיטה"
+    "status": "approved",
+    "caption": "שיטה סלילנית: עץ בודד עם נוף שטוח בנוף מדברי",
+    "alt": "שיטה",
+    "search": "Acacia raddiana tree"
   },
   {
     "id": "ziziphus-spina-christi-1",
     "plant": "ziziphus-spina-christi",
     "wiki": "en:Ziziphus spina-christi",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "שיזף מצוי: ענף עם פרחים צהבהבים ופירות, צולם בערבה",
     "alt": "שיזף מצוי"
   },
   {
     "id": "retama-raetam-1",
     "plant": "retama-raetam",
     "wiki": "en:Retama raetam",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "רותם המדבר: שיח עם ענפים ארוכים ודקים כמעט בלי עלים",
     "alt": "רותם המדבר"
   },
   {
     "id": "pinus-halepensis-1",
     "plant": "pinus-halepensis",
     "wiki": "en:Pinus halepensis",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אורן ירושלים: עצים עם נוף רחב ומפוצל (צולם ביוון)",
     "alt": "אורן ירושלים"
   },
   {
     "id": "cupressus-sempervirens-1",
     "plant": "cupressus-sempervirens",
     "wiki": "en:Cupressus sempervirens",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "ברוש מצוי בצורתו הפראית: ענפים מתפשטים לצדדים, בהרים (מחוץ לארץ)",
     "alt": "ברוש מצוי"
   },
   {
     "id": "prunus-dulcis-1",
     "plant": "prunus-dulcis",
-    "wiki": "en:Prunus dulcis",
-    "status": "candidate",
-    "caption": "",
-    "alt": "שקד"
+    "status": "approved",
+    "caption": "שקדייה בפריחה: מטע עצים מכוסים פרחים לבנים (צולם בקליפורניה)",
+    "alt": "שקד",
+    "search": "Almond blossom tree"
   },
   {
     "id": "acacia-saligna-1",
     "plant": "acacia-saligna",
     "wiki": "en:Acacia saligna",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "שיטה כחלחלה בפריחה: כדורי פרחים צהובים ועלים מוארכים",
     "alt": "שיטה כחלחלה (מכחילה)"
   }
 ]
