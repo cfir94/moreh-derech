@@ -1,0 +1,234 @@
+[
+  {
+    "id": "nubian-ibex-1",
+    "subject": "nubian-ibex",
+    "status": "approved",
+    "wiki": "en:Nubian ibex",
+    "caption": "זכר יעל נובי על סלע, עם הקרניים המקושתות לאחור",
+    "alt": "יעל נובי זכר"
+  },
+  {
+    "id": "mountain-gazelle-1",
+    "subject": "mountain-gazelle",
+    "status": "approved",
+    "wiki": "en:Mountain gazelle",
+    "caption": "צבי ארץ־ישראלי בשדה: גוף דק, פס כהה בצד וקרניים דקות",
+    "alt": "צבי ארץ־ישראלי"
+  },
+  {
+    "id": "persian-fallow-deer-1",
+    "subject": "persian-fallow-deer",
+    "status": "approved",
+    "wiki": "en:Persian fallow deer",
+    "caption": "זכר יחמור פרסי: גב מנוקד וקרניים רחבות",
+    "alt": "יחמור פרסי זכר"
+  },
+  {
+    "id": "rock-hyrax-1",
+    "subject": "rock-hyrax",
+    "status": "approved",
+    "wiki": "en:Rock hyrax",
+    "caption": "שפן סלעים על סלע: עגלגל ובלי זנב",
+    "alt": "שפן סלעים"
+  },
+  {
+    "id": "striped-hyena-1",
+    "subject": "striped-hyena",
+    "status": "approved",
+    "wiki": "en:Striped hyena",
+    "caption": "צבוע מפוספס: רעמה זקורה ופסים כהים",
+    "alt": "צבוע מפוספס"
+  },
+  {
+    "id": "golden-jackal-1",
+    "subject": "golden-jackal",
+    "status": "approved",
+    "wiki": "en:Golden jackal",
+    "caption": "תן זהוב: גוון זהוב־אפרפר וזנב קצר",
+    "alt": "תן זהוב"
+  },
+  {
+    "id": "red-fox-1",
+    "subject": "red-fox",
+    "status": "approved",
+    "wiki": "en:Red fox",
+    "caption": "שועל מצוי בשלג (צולם באירופה): זנב עבות ואוזניים מחודדות",
+    "alt": "שועל מצוי"
+  },
+  {
+    "id": "fat-sand-rat-1",
+    "subject": "fat-sand-rat",
+    "status": "approved",
+    "wiki": "en:Fat sand rat",
+    "caption": "פסמון ליד מחילה באדמה מדברית",
+    "alt": "פסמון"
+  },
+  {
+    "id": "fruit-bat-1",
+    "subject": "fruit-bat",
+    "status": "approved",
+    "wiki": "en:Egyptian fruit bat",
+    "caption": "עטלף פירות תלוי הפוך: פנים דמויי כלב קטן",
+    "alt": "עטלף פירות מצוי"
+  },
+  {
+    "id": "onager-1",
+    "subject": "onager",
+    "status": "approved",
+    "wiki": "en:Onager",
+    "caption": "ערוד: חמור בר חום־בהיר עם בטן לבנה",
+    "alt": "ערוד"
+  },
+  {
+    "id": "arabian-oryx-1",
+    "subject": "arabian-oryx",
+    "status": "approved",
+    "wiki": "en:Arabian oryx",
+    "caption": "ראם לבן בחולות: קרניים ארוכות וישרות",
+    "alt": "ראם לבן"
+  },
+  {
+    "id": "hoopoe-1",
+    "subject": "hoopoe",
+    "status": "approved",
+    "wiki": "en:Eurasian hoopoe",
+    "caption": "דוכיפת על הקרקע: כרבולת, כנפיים מפוספסות ומקור מעוקל",
+    "alt": "דוכיפת"
+  },
+  {
+    "id": "griffon-vulture-1",
+    "subject": "griffon-vulture",
+    "status": "approved",
+    "wiki": "en:Griffon vulture",
+    "caption": "נשר מקראי נוחת, כנפיים פרושות",
+    "alt": "נשר מקראי"
+  },
+  {
+    "id": "barn-owl-1",
+    "subject": "barn-owl",
+    "status": "approved",
+    "wiki": "en:Barn owl",
+    "caption": "תנשמת על עמוד בלילה: פנים לבנים בצורת לב",
+    "alt": "תנשמת"
+  },
+  {
+    "id": "common-crane-1",
+    "subject": "common-crane",
+    "status": "approved",
+    "wiki": "en:Common crane",
+    "caption": "עגור אפור במים רדודים: צוואר ארוך וכתם שחור־לבן בראש",
+    "alt": "עגור אפור"
+  },
+  {
+    "id": "white-stork-1",
+    "subject": "white-stork",
+    "status": "approved",
+    "wiki": "en:White stork",
+    "caption": "חסידה לבנה בשדה: קצות כנפיים שחורים, מקור ורגליים אדומים",
+    "alt": "חסידה לבנה"
+  },
+  {
+    "id": "white-pelican-1",
+    "subject": "white-pelican",
+    "status": "approved",
+    "wiki": "en:Great white pelican",
+    "caption": "שקנאי עם שק עור צהוב מתחת למקור, ולהקה ברקע",
+    "alt": "שקנאי"
+  },
+  {
+    "id": "tristram-starling-1",
+    "subject": "tristram-starling",
+    "status": "approved",
+    "wiki": "en:Tristram's starling",
+    "caption": "טריסטרמית: שחורה מבריקה עם כתם כתום בכנף",
+    "alt": "טריסטרמית"
+  },
+  {
+    "id": "white-throated-kingfisher-1",
+    "subject": "white-throated-kingfisher",
+    "status": "approved",
+    "wiki": "en:White-throated kingfisher",
+    "caption": "שלדג לבן־חזה על ענף: גב כחול, חזה לבן ומקור אדום",
+    "alt": "שלדג לבן־חזה"
+  },
+  {
+    "id": "white-spectacled-bulbul-1",
+    "subject": "white-spectacled-bulbul",
+    "status": "approved",
+    "wiki": "en:White-spectacled bulbul",
+    "caption": "בולבול על ענף: ראש כהה וגוף חום־אפור",
+    "alt": "בולבול ממושקף"
+  },
+  {
+    "id": "palestine-viper-1",
+    "subject": "palestine-viper",
+    "status": "approved",
+    "wiki": "en:Daboia palaestinae",
+    "caption": "צפע ארץ־ישראלי מקופל: גוף עבה ודוגמת זיגזג כהה",
+    "alt": "צפע ארץ־ישראלי"
+  },
+  {
+    "id": "saw-scaled-viper-1",
+    "subject": "saw-scaled-viper",
+    "status": "approved",
+    "wiki": "en:Echis coloratus",
+    "caption": "אפעה מגוונת בין סלעים: נחש קטן בגוני ורוד־אדמדם",
+    "alt": "אפעה מגוונת"
+  },
+  {
+    "id": "starred-agama-1",
+    "subject": "starred-agama",
+    "status": "approved",
+    "wiki": "en:Stellagama",
+    "caption": "חרדון על גדם עץ: לטאה מחוספסת וקוצנית",
+    "alt": "חרדון מצוי"
+  },
+  {
+    "id": "chameleon-1",
+    "subject": "chameleon",
+    "status": "approved",
+    "wiki": "en:Common chameleon",
+    "caption": "זיקית מצויה על חול",
+    "alt": "זיקית מצויה"
+  },
+  {
+    "id": "spur-thighed-tortoise-1",
+    "subject": "spur-thighed-tortoise",
+    "status": "approved",
+    "wiki": "en:Greek tortoise",
+    "caption": "צב יבשה עם שריון מקומר בגוני צהוב וחום",
+    "alt": "צב יבשה מצוי"
+  },
+  {
+    "id": "loggerhead-turtle-1",
+    "subject": "loggerhead-turtle",
+    "status": "approved",
+    "wiki": "en:Loggerhead sea turtle",
+    "caption": "צב ים חום שוחה (באקווריום)",
+    "alt": "צב ים חום"
+  },
+  {
+    "id": "hula-painted-frog-1",
+    "subject": "hula-painted-frog",
+    "status": "approved",
+    "wiki": "en:Hula painted frog",
+    "caption": "עגולשון שחור־גחון: גב כהה עם נקודות בהירות",
+    "alt": "עגולשון שחור־גחון"
+  },
+  {
+    "id": "fire-salamander-1",
+    "subject": "fire-salamander",
+    "status": "approved",
+    "wiki": "en:Near Eastern fire salamander",
+    "caption": "סלמנדרה כתומה: שחורה עם כתמים צהובים־כתומים",
+    "alt": "סלמנדרה כתומה"
+  },
+  {
+    "id": "yellow-scorpion-1",
+    "subject": "yellow-scorpion",
+    "status": "approved",
+    "wiki": "en:Leiurus hebraeus",
+    "caption": "עקצן צהוב על אדמה: צבתות דקות וזנב ארוך",
+    "alt": "עקצן צהוב"
+  }
+]

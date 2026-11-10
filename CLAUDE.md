@@ -259,7 +259,7 @@ tabula ansata (לוח כתובת עם "אוזניים"), בגווני אדום �
 - **המפה** (`src/components/geology/relief3d.ts`, נטען ב-dynamic import): תבליט מ-`public/geology/relief.bin`, שנבנה ע"י `python3 tools/build_geology_relief.py` מאריחי הגובה של מפת המסלול. את היחידות הגאולוגיות הוא צובע מאותו GeoJSON של מפת המסלול (`geology_basic`/`geology_advanced`), כך ששתי המפות לא נפרדות. בחירה במפה מתבצעת דרך קנבס נסתר עם צבע אחד לכל יחידה.
 - **צבע = גיל הסלע**, במוסכמת הטבלה הסטרטיגרפית הבינלאומית. `age_class` של כל יחידה ב-GeoJSON חייב להופיע ב-`AGES` (`src/data/geology/geology.ts`) ולשאת את הצבע שלו, ו-`tests/geology.test.mjs` אוכף זאת. מי שמשנה צבע משנה אותו בשני המקומות.
 - **התוכן** כתוב ביד, מתוך שאלון הגאולוגיה ויחידות המפה. מה שאינו בחומר הקורס מסומן `extra: true` (תג "השלמה"). מחברות הגאולוגיה ב-NotebookLM עוד לא נקראו לתוכו.
-- **שכבה רשמית** (LA-72): המפה הגאולוגית של ישראל 1:200,000 (2014) של המכון הגאולוגי. היא נמשכת משירות ArcGIS ציבורי של המכון ע"י `python3 tools/fetch_gsi_geology.py` (רץ מכאן, המכון לא חוסם). הסקריפט כותב את `public/geology/gsi-200k.geojson` (8,450 פוליגונים, מוכללים ל-150 מ') ואת `src/data/geology/gsi-units.ts` (generated: 109 תצורות בצבעים הרשמיים). `gsiAge` ב-`gsi.ts` משייך כל תצורה לתקופה של עמוד הזמן. הקרדיט למכון מוצג מתחת למפה ובכל תצורה.
+- **שכבה רשמית** (LA-72): המפה הגאולוגית של ישראל 1:200,000 (2014) של המכון הגאולוגי. היא נמשכת משירות ArcGIS ציבורי של המכון ע"י `python3 tools/fetch_gsi_geology.py` (רץ מכאן, המכון לא חוסם). הסקריפט כותב את `public/geology/gsi-200k.geojson` (8,450 פוליגונים, מוכללים ל-150 מ') ואת `src/data/geology/gsi-units.ts` (generated: 109 תצורות בצבעים הרשמיים). `gsiAge` ב-`gsi.ts` משייך כל תצורה לתקופה של עמוד הזמן. הקרדיט למכון מוצג מתחת למפה ובכל תצורה. אותה שכבה היא גם הרמה "רשמית" במפת המסלול (`loadOfficialGeology` ב-`public/embeds/map/js/app.js`, נטענת רק כשבוחרים בה, מ-`public/geology/gsi-200k.geojson` ו-`gsi-units.json`).
 - **תמונות**: `tools/geology_photos.json`, ב-workflow `fetch-geology-photos.yml`, כמו בצמחים. רק תמונות `approved` מוצגות: כל תמונה נבדקת בעין וכותבים לה כיתוב.
 
 ### קשתות וקמרונות (`/timelines/arches`)
@@ -466,6 +466,14 @@ Cloudflare Worker אחד שמגיש גם את הלקוח (Vite + TypeScript, ב�
   מציג אותם זה מול זה ולא שואל עליהם בהקלדה.
 - בדיקות: `tests/jerusalem-robes.test.mjs` (נתונים, קרדיט, הקלדה, בניית סבב) ו-`tests/jerusalem-robes-ui.mjs`
   (משחק שני סבבים מלאים במחשב ובטלפון).
+
+## משחק הצמחים (`/games/plants`, LA-32)
+
+נבנה מחדש על נתוני מגדיר הצמחים (`src/data/plants/plants.ts`, 40 צמחים) ועל התמונות המאושרות (`src/data/plants/photos.json`). לכל סבב עשר שאלות מארבעה סוגים: מי בתמונה, לפי הסימן המזהה, "מי מהשניים" (זוג מ-`confuse` עם ההסבר איך מבדילים), ואיפה פוגשים אותו. בניית הסבב היא פונקציה טהורה ב-`src/lib/plantsGame.ts`, ונבדקת ב-`tests/plants-game.test.mjs`. צמחים שטעו בהם חוזרים ראשונים, והתוצאות נרשמות במעקב תחת `plants-game` (המזהה הוא מיקום הצמח ברשימה, ולכן צמח חדש נוסף רק בסוף). הגרסה הקודמת, ה-iframe, נשארה ב-`/games/plants/classic` (noindex, בלי קישור).
+
+## מגדיר החי והציפורים (`/timelines/fauna-guide`, LA-80/81)
+
+30 בעלי חיים, באותו מבנה כמו מגדיר הצמחים: סינון לפי קבוצה ואזור, וכרטיס שדה שהקישור אליו הוא `#animal-<id>`. הנתונים ב-`src/data/fauna/animals.ts`, כתובים ביד. הבחירה מבוססת על שאלון החי והצומח של הקורס, ומה שאינו בשאלון מסומן `extra`. התמונות דרך `tools/fauna_photos.json` וה-workflow `fetch-fauna-photos.yml`, כמו בגאולוגיה: כל תמונה מסומנת `candidate` עד שהיא נבדקת בעין.
 
 ## איכות השאלונים — נמדדת, לא מוערכת (`tools/quiz_doctor.py`)
 

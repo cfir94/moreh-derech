@@ -4,13 +4,17 @@ import Link from "next/link";
 import { ROMAN_EMPERORS, ROMAN_ERAS, ROMAN_EVENTS, ROMAN_KINDS, ROMAN_LEGIONS, ROMAN_SITES, type RomanEvent } from "@/data/roman";
 import { matches, useEraTimeline } from "./useEraTimeline";
 import styles from "./RomanTimeline.module.css";
+import { PracticeDeck } from "@/components/learning-aid";
+import { eraPractice } from "@/lib/eraPractice";
 
 const ID = /^RO-\d{3}$/;
 const kindTitle = new Map(ROMAN_KINDS.map((kind) => [kind.id, kind.title]));
+const PRACTICE = eraPractice(ROMAN_EVENTS, ROMAN_ERAS);
 const views = [
   { id: "timeline", title: "הדרך", count: ROMAN_EVENTS.length },
   { id: "emperors", title: "הקיסרים והלגיונות", count: ROMAN_EMPERORS.length },
   { id: "sites", title: "אתרים בדרך", count: ROMAN_SITES.length },
+  { id: "practice", title: "תרגול", count: PRACTICE.length },
 ];
 
 /** Numbered milestones, the way a Roman road counts its miles. */
@@ -108,6 +112,10 @@ export function RomanTimeline() {
           </section>;
         })}
       </>}
+
+      {t.view === "practice" && <div className={styles.panel}>
+        <PracticeDeck quizSlug="roman" label="הציר הרומי: תרגול" items={PRACTICE} />
+      </div>}
 
       {t.view === "emperors" && <div className={styles.panel}>
         <header className={styles.panelIntro}><h2>הקיסרים</h2><p>הקיסרים שהשפיעו ישירות על ארץ ישראל — ומה כל אחד מהם השאיר כאן.</p></header>

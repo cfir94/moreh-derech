@@ -25,18 +25,19 @@
   --track: rgba(11, 32, 50, 0.1);
 
   --txt: #0d1f2d;
-  --txt-dim: #55697a;
+  --txt-dim: #4b5e6e;
   --title-1: #0b2233;
   --title-2: #0d9488;
 
-  --teal: #0d9488;
-  --teal-2: #0f766e;
+  /* ≥5:1 on white and on the tinted cards: small teal text and white-on-teal buttons pass WCAG AA (was #0d9488, 3.7:1) */
+  --teal: #0e6e67;
+  --teal-2: #115e59;
   --blue: #2563eb;
   --violet: #7c3aed;
   --rose: #e11d48;
   --green: #059669;
   --red: #dc2626;
-  --gold: #a86a06;
+  --gold: #8f5a05;
   --star: #eab308;
   --ok: #059669;
   --on-accent: #ffffff;
@@ -133,7 +134,14 @@ body {
     radial-gradient(90% 50% at 5% 105%, var(--bg-grad-2) 0%, transparent 60%),
     linear-gradient(180deg, var(--bg-base) 0%, var(--bg) 100%);
   background-attachment: fixed;
+  /* a solid colour under the washes, so contrast checkers (and browsers that
+     drop fixed backgrounds) see the real ground and not white */
+  background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
+}
+
+html {
+  background-color: var(--bg);
 }
 
 h1,

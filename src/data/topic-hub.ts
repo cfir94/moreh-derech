@@ -58,7 +58,7 @@ export const TOPIC_HUB: HubGroup[] = [
         links: [quiz("flora-fauna", "שאלון חי וצומח"), notebooks("flora-in-israel"), summary("flora-fauna"),
           link("aid", ["מגדיר צמחים", "/timelines/plants-guide/"]), link("game", ["משחק זיהוי צמחים", "/games/plants/"])] },
       { id: "fauna", title: "חי", sub: "בעלי החיים בארץ ישראל", icon: "🦌",
-        links: [quiz("flora-fauna", "שאלון חי וצומח"), notebooks("fauna-in-israel")] },
+        links: [quiz("flora-fauna", "שאלון חי וצומח"), notebooks("fauna-in-israel"), link("aid", ["מגדיר החי והציפורים", "/timelines/fauna-guide/"])] },
       { id: "geography", title: "גאוגרפיה וגבולות", sub: "אזורי הארץ, דרכים וגבולות", icon: "🧭",
         links: [quiz("israel-borders", "שאלון גבולות"), notebooks("introduction-to-israel-borders", "borders-part-two"), summary("geography"),
           link("map", ["תכנון מסלול על מפת הארץ", "/map/route/"]), link("game", ["ידיעת הארץ", "/games/geography/"])] },

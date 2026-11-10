@@ -1,0 +1,466 @@
+{
+  "nubian-ibex": [
+    {
+      "id": "nubian-ibex-1",
+      "subject": "nubian-ibex",
+      "status": "approved",
+      "caption": "זכר יעל נובי על סלע, עם הקרניים המקושתות לאחור",
+      "alt": "יעל נובי זכר",
+      "src": "/fauna/photos/nubian-ibex-1.jpg",
+      "width": 1280,
+      "height": 850,
+      "author": "netzach farbiash",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_38769_Male_Ibex.jpg"
+    }
+  ],
+  "mountain-gazelle": [
+    {
+      "id": "mountain-gazelle-1",
+      "subject": "mountain-gazelle",
+      "status": "approved",
+      "caption": "צבי ארץ־ישראלי בשדה: גוף דק, פס כהה בצד וקרניים דקות",
+      "alt": "צבי ארץ־ישראלי",
+      "src": "/fauna/photos/mountain-gazelle-1.jpg",
+      "width": 752,
+      "height": 578,
+      "author": "Bassem18 at English Wikipedia",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Gazella_gazella.jpg"
+    }
+  ],
+  "persian-fallow-deer": [
+    {
+      "id": "persian-fallow-deer-1",
+      "subject": "persian-fallow-deer",
+      "status": "approved",
+      "caption": "זכר יחמור פרסי: גב מנוקד וקרניים רחבות",
+      "alt": "יחמור פרסי זכר",
+      "src": "/fauna/photos/persian-fallow-deer-1.jpg",
+      "width": 1280,
+      "height": 889,
+      "author": "Eyal Bartov",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Persian_Fallow_Deer_1.jpg"
+    }
+  ],
+  "rock-hyrax": [
+    {
+      "id": "rock-hyrax-1",
+      "subject": "rock-hyrax",
+      "status": "approved",
+      "caption": "שפן סלעים על סלע: עגלגל ובלי זנב",
+      "alt": "שפן סלעים",
+      "src": "/fauna/photos/rock-hyrax-1.jpg",
+      "width": 1280,
+      "height": 1115,
+      "author": "Prosthetic Head",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Hyrax_on_the_Rocks.JPG"
+    }
+  ],
+  "striped-hyena": [
+    {
+      "id": "striped-hyena-1",
+      "subject": "striped-hyena",
+      "status": "approved",
+      "caption": "צבוע מפוספס: רעמה זקורה ופסים כהים",
+      "alt": "צבוע מפוספס",
+      "src": "/fauna/photos/striped-hyena-1.jpg",
+      "width": 1280,
+      "height": 1123,
+      "author": "Tisha Mukherjee",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Striped_hyena_in_Bhigwan_August_2025_by_Tisha_Mukherjee_07_(cropped).jpg"
+    }
+  ],
+  "golden-jackal": [
+    {
+      "id": "golden-jackal-1",
+      "subject": "golden-jackal",
+      "status": "approved",
+      "caption": "תן זהוב: גוון זהוב־אפרפר וזנב קצר",
+      "alt": "תן זהוב",
+      "src": "/fauna/photos/golden-jackal-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Giles Laurent",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:033_Golden_jackal_in_Keoladeo_National_Park_Photo_by_Giles_Laurent.jpg"
+    }
+  ],
+  "red-fox": [
+    {
+      "id": "red-fox-1",
+      "subject": "red-fox",
+      "status": "approved",
+      "caption": "שועל מצוי בשלג (צולם באירופה): זנב עבות ואוזניים מחודדות",
+      "alt": "שועל מצוי",
+      "src": "/fauna/photos/red-fox-1.jpg",
+      "width": 1280,
+      "height": 848,
+      "author": "ClaudiaTen",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Portrait_of_a_red_fox_in_Rautas_fj%C3%A4llurskog_(cropped).jpg"
+    }
+  ],
+  "fat-sand-rat": [
+    {
+      "id": "fat-sand-rat-1",
+      "subject": "fat-sand-rat",
+      "status": "approved",
+      "caption": "פסמון ליד מחילה באדמה מדברית",
+      "alt": "פסמון",
+      "src": "/fauna/photos/fat-sand-rat-1.jpg",
+      "width": 1280,
+      "height": 987,
+      "author": "Gary L. Clark",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Fat_sand_rat.jpg"
+    }
+  ],
+  "fruit-bat": [
+    {
+      "id": "fruit-bat-1",
+      "subject": "fruit-bat",
+      "status": "approved",
+      "caption": "עטלף פירות תלוי הפוך: פנים דמויי כלב קטן",
+      "alt": "עטלף פירות מצוי",
+      "src": "/fauna/photos/fruit-bat-1.jpg",
+      "width": 590,
+      "height": 945,
+      "author": "Lietuvos zoologijos sodas",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Skraidantis_egipto_%C5%A1uo_(cropped).jpg"
+    }
+  ],
+  "onager": [
+    {
+      "id": "onager-1",
+      "subject": "onager",
+      "status": "approved",
+      "caption": "ערוד: חמור בר חום־בהיר עם בטן לבנה",
+      "alt": "ערוד",
+      "src": "/fauna/photos/onager-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Alexxx1979",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rostov-on-Don_Zoo_Persian_onager_IMG_5268_1725.jpg"
+    }
+  ],
+  "arabian-oryx": [
+    {
+      "id": "arabian-oryx-1",
+      "subject": "arabian-oryx",
+      "status": "approved",
+      "caption": "ראם לבן בחולות: קרניים ארוכות וישרות",
+      "alt": "ראם לבן",
+      "src": "/fauna/photos/arabian-oryx-1.jpg",
+      "width": 1280,
+      "height": 1102,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Arabian_oryx_(oryx_leucoryx).jpg"
+    }
+  ],
+  "hoopoe": [
+    {
+      "id": "hoopoe-1",
+      "subject": "hoopoe",
+      "status": "approved",
+      "caption": "דוכיפת על הקרקע: כרבולת, כנפיים מפוספסות ומקור מעוקל",
+      "alt": "דוכיפת",
+      "src": "/fauna/photos/hoopoe-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Greg Schechter from San Francisco, USA",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Israel._Eurasian_Hoopoe_(6497645007).jpg"
+    }
+  ],
+  "griffon-vulture": [
+    {
+      "id": "griffon-vulture-1",
+      "subject": "griffon-vulture",
+      "status": "approved",
+      "caption": "נשר מקראי נוחת, כנפיים פרושות",
+      "alt": "נשר מקראי",
+      "src": "/fauna/photos/griffon-vulture-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Pierre Dalous",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Gyps_fulvus_in_flight_-_Spain.jpg"
+    }
+  ],
+  "barn-owl": [
+    {
+      "id": "barn-owl-1",
+      "subject": "barn-owl",
+      "status": "approved",
+      "caption": "תנשמת על עמוד בלילה: פנים לבנים בצורת לב",
+      "alt": "תנשמת",
+      "src": "/fauna/photos/barn-owl-1.jpg",
+      "width": 853,
+      "height": 1280,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:American_Barn_Owl_(Tyto_furcata_guatemalae),_Orange_Walk.jpg"
+    }
+  ],
+  "common-crane": [
+    {
+      "id": "common-crane-1",
+      "subject": "common-crane",
+      "status": "approved",
+      "caption": "עגור אפור במים רדודים: צוואר ארוך וכתם שחור־לבן בראש",
+      "alt": "עגור אפור",
+      "src": "/fauna/photos/common-crane-1.jpg",
+      "width": 1280,
+      "height": 1280,
+      "author": "Andreas Trepte",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Common_crane_grus_grus.jpg"
+    }
+  ],
+  "white-stork": [
+    {
+      "id": "white-stork-1",
+      "subject": "white-stork",
+      "status": "approved",
+      "caption": "חסידה לבנה בשדה: קצות כנפיים שחורים, מקור ורגליים אדומים",
+      "alt": "חסידה לבנה",
+      "src": "/fauna/photos/white-stork-1.jpg",
+      "width": 1280,
+      "height": 1280,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:White_stork_(Ciconia_ciconia)_Bia%C5%82owieza.jpg"
+    }
+  ],
+  "white-pelican": [
+    {
+      "id": "white-pelican-1",
+      "subject": "white-pelican",
+      "status": "approved",
+      "caption": "שקנאי עם שק עור צהוב מתחת למקור, ולהקה ברקע",
+      "alt": "שקנאי",
+      "src": "/fauna/photos/white-pelican-1.jpg",
+      "width": 1280,
+      "height": 1034,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Great_white_pelican_(Pelecanus_onocrotalus).jpg"
+    }
+  ],
+  "tristram-starling": [
+    {
+      "id": "tristram-starling-1",
+      "subject": "tristram-starling",
+      "status": "approved",
+      "caption": "טריסטרמית: שחורה מבריקה עם כתם כתום בכנף",
+      "alt": "טריסטרמית",
+      "src": "/fauna/photos/tristram-starling-1.jpg",
+      "width": 1208,
+      "height": 679,
+      "author": "Oriaaaass",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Tristram%27s_starling_3.jpg"
+    }
+  ],
+  "white-throated-kingfisher": [
+    {
+      "id": "white-throated-kingfisher-1",
+      "subject": "white-throated-kingfisher",
+      "status": "approved",
+      "caption": "שלדג לבן־חזה על ענף: גב כחול, חזה לבן ומקור אדום",
+      "alt": "שלדג לבן־חזה",
+      "src": "/fauna/photos/white-throated-kingfisher-1.jpg",
+      "width": 1280,
+      "height": 1280,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:White-throated_kingfisher_(Halcyon_smyrnensis)_Galle.jpg"
+    }
+  ],
+  "white-spectacled-bulbul": [
+    {
+      "id": "white-spectacled-bulbul-1",
+      "subject": "white-spectacled-bulbul",
+      "status": "approved",
+      "caption": "בולבול על ענף: ראש כהה וגוף חום־אפור",
+      "alt": "בולבול ממושקף",
+      "src": "/fauna/photos/white-spectacled-bulbul-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "Baresi franco",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:White-spectacled_bulbul.jpg"
+    }
+  ],
+  "palestine-viper": [
+    {
+      "id": "palestine-viper-1",
+      "subject": "palestine-viper",
+      "status": "approved",
+      "caption": "צפע ארץ־ישראלי מקופל: גוף עבה ודוגמת זיגזג כהה",
+      "alt": "צפע ארץ־ישראלי",
+      "src": "/fauna/photos/palestine-viper-1.jpg",
+      "width": 1280,
+      "height": 976,
+      "author": "Guy Haimovitch",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Vipera_palaestina.jpg"
+    }
+  ],
+  "saw-scaled-viper": [
+    {
+      "id": "saw-scaled-viper-1",
+      "subject": "saw-scaled-viper",
+      "status": "approved",
+      "caption": "אפעה מגוונת בין סלעים: נחש קטן בגוני ורוד־אדמדם",
+      "alt": "אפעה מגוונת",
+      "src": "/fauna/photos/saw-scaled-viper-1.jpg",
+      "width": 650,
+      "height": 488,
+      "author": "דוד דוד.. Original uploader was Androctonus at he.wikipedia",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:%D7%90%D7%A4%D7%A2%D7%94_%D7%9E%D7%92%D7%95%D7%95%D7%9F-2.jpg"
+    }
+  ],
+  "starred-agama": [
+    {
+      "id": "starred-agama-1",
+      "subject": "starred-agama",
+      "status": "approved",
+      "caption": "חרדון על גדם עץ: לטאה מחוספסת וקוצנית",
+      "alt": "חרדון מצוי",
+      "src": "/fauna/photos/starred-agama-1.jpg",
+      "width": 1024,
+      "height": 1280,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Roughtail_rock_agama_(Stellagama_stellio_brachydactyla)_2.jpg"
+    }
+  ],
+  "chameleon": [
+    {
+      "id": "chameleon-1",
+      "subject": "chameleon",
+      "status": "approved",
+      "caption": "זיקית מצויה על חול",
+      "alt": "זיקית מצויה",
+      "src": "/fauna/photos/chameleon-1.jpg",
+      "width": 1280,
+      "height": 640,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mediterranean_chameleon_(Chamaeleo_chamaeleon_recticrista).jpg"
+    }
+  ],
+  "spur-thighed-tortoise": [
+    {
+      "id": "spur-thighed-tortoise-1",
+      "subject": "spur-thighed-tortoise",
+      "status": "approved",
+      "caption": "צב יבשה עם שריון מקומר בגוני צהוב וחום",
+      "alt": "צב יבשה מצוי",
+      "src": "/fauna/photos/spur-thighed-tortoise-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Charles J. Sharp",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tunisian_tortoise_(Testudo_graeca_nabeulensis)_male_Cap_Bon.jpg"
+    }
+  ],
+  "loggerhead-turtle": [
+    {
+      "id": "loggerhead-turtle-1",
+      "subject": "loggerhead-turtle",
+      "status": "approved",
+      "caption": "צב ים חום שוחה (באקווריום)",
+      "alt": "צב ים חום",
+      "src": "/fauna/photos/loggerhead-turtle-1.jpg",
+      "width": 1280,
+      "height": 851,
+      "author": "ukanda",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Loggerhead_sea_turtle.jpg"
+    }
+  ],
+  "hula-painted-frog": [
+    {
+      "id": "hula-painted-frog-1",
+      "subject": "hula-painted-frog",
+      "status": "approved",
+      "caption": "עגולשון שחור־גחון: גב כהה עם נקודות בהירות",
+      "alt": "עגולשון שחור־גחון",
+      "src": "/fauna/photos/hula-painted-frog-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "עוזי פז",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_79040_latonia_nigriventer.jpg"
+    }
+  ],
+  "fire-salamander": [
+    {
+      "id": "fire-salamander-1",
+      "subject": "fire-salamander",
+      "status": "approved",
+      "caption": "סלמנדרה כתומה: שחורה עם כתמים צהובים־כתומים",
+      "alt": "סלמנדרה כתומה",
+      "src": "/fauna/photos/fire-salamander-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Lior Fainshil",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Salamander_Israel.jpg"
+    }
+  ],
+  "yellow-scorpion": [
+    {
+      "id": "yellow-scorpion-1",
+      "subject": "yellow-scorpion",
+      "status": "approved",
+      "caption": "עקצן צהוב על אדמה: צבתות דקות וזנב ארוך",
+      "alt": "עקצן צהוב",
+      "src": "/fauna/photos/yellow-scorpion-1.jpg",
+      "width": 1280,
+      "height": 912,
+      "author": "Yair Goldstof",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Deathstalker-israel.jpg"
+    }
+  ]
+}

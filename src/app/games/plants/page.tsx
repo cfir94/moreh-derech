@@ -1,21 +1,11 @@
 import type { Metadata } from "next";
-import { embedUrl } from "@/lib/basePath";
+import { PlantsGame } from "@/components/games/PlantsGame";
 
 export const metadata: Metadata = {
-  title: "זיהוי צמחי ישראל | משחקים",
-  description: "משחק לזיהוי צמחי בר ישראליים",
+  title: "זיהוי צמחים | משחקים",
+  description: "משחק זיהוי של צמחי ארץ ישראל: צילומים אמיתיים, סימן מזהה, זוגות שמתבלבלים בהם ובית הגידול.",
 };
 
 export default function PlantsGamePage() {
-  return (
-    <div className="h-[calc(100dvh-60px)] min-h-[500px] w-full">
-      <iframe
-        src={embedUrl("games/plants/")}
-        title="זיהוי צמחי ישראל"
-        className="h-full w-full border-0"
-        allow="fullscreen"
-        allowFullScreen
-      />
-    </div>
-  );
+  return <PlantsGame />;
 }

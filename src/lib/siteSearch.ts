@@ -22,6 +22,7 @@ import { ARCH_TERMS } from "@/data/classical-architecture";
 import { ARCH_TYPES } from "@/data/arches/arches";
 import { ROMAN_PEOPLE } from "@/data/roman-people";
 import { PLANTS } from "@/data/plants/plants";
+import { ANIMALS } from "@/data/fauna/animals";
 import { AGES as GEO_AGES, ROCKS as GEO_ROCKS, SOILS as GEO_SOILS } from "@/data/geology/geology";
 import { PERIOD_ROWS, periodDateText } from "@/data/periods";
 import { BUILDER_BY_ID, PERIOD_BY_ID, SITES as MAP_SITES } from "@/data/learning-map";
@@ -242,6 +243,15 @@ const baseResults: SearchResult[] = [
     description: `${PLANTS.length} צמחים: מצמצמים לפי בית גידול, עונה וצורת חיים, ובכל כרטיס סימן מזהה ואיפה רואים בסיור.`,
     href: "/timelines/plants-guide",
     searchText: ["מגדיר צמחים זיהוי צומח פריחה עונה גלגל העונות", ...PLANTS.map(plant => `${plant.name} ${plant.sci}`)].join(" "),
+  },
+  {
+    id: "timeline-fauna-guide",
+    kind: "tool",
+    kindLabel: "מגדיר",
+    title: "מגדיר החי והציפורים",
+    description: `${ANIMALS.length} בעלי חיים וציפורים: סימן מזהה, איפה פוגשים אותם ומה לספר בסיור.`,
+    href: "/timelines/fauna-guide",
+    searchText: ["מגדיר חי ציפורים יונקים זוחלים דו חיים נדידה", ...ANIMALS.map(a => `${a.name} ${a.sci}`)].join(" "),
   },
   {
     id: "timeline-geology",

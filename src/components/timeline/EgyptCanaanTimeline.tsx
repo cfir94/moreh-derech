@@ -43,7 +43,7 @@ export function EgyptCanaanTimeline() {
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start lg:gap-5">
       <AidTabs tabs={tabs} active={tab} onSelect={selectTab} />
       <section role="tabpanel" className="screen-in min-w-0 space-y-4 pt-4 lg:pt-0" key={tab}>
-        {tab === "practice" ? <PracticeDeck quizSlug="egypt-canaan" items={practice} /> : <>
+        {tab === "practice" ? <PracticeDeck quizSlug="egypt-canaan" label="מצרים וכנען: תרגול" items={practice} /> : <>
           <AidSearch value={query} onChange={search} placeholder="חיפוש באירועים…" />
           <div className="grid gap-4 xl:grid-cols-2">{events.map((event) => <SummaryCard key={event.id} id={event.id} title={event.title} date={event.reference} summary={event.body} tags={event.disputed ? ["במחלוקת"] : []}>{event.takeaway && <p><strong className="text-txt">למבחן: </strong>{event.takeaway}</p>}</SummaryCard>)}</div>
           {!events.length && <p className="rounded-lg border border-line bg-card p-5 text-center text-txt-dim">לא נמצאו תוצאות.</p>}

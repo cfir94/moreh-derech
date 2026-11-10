@@ -3,6 +3,7 @@ import { ARCH_TYPES } from "@/data/arches/arches";
 import { TALK_CHARACTERS } from "@/data/history-talk";
 import { SITES, ROWS } from "@/data/learning-map";
 import { PLANTS } from "@/data/plants/plants";
+import { ANIMALS } from "@/data/fauna/animals";
 import { AGES as GEO_AGES, ROCKS as GEO_ROCKS, SOILS as GEO_SOILS } from "@/data/geology/geology";
 import { BYZ_EVENTS } from "@/data/byzantine";
 import { ROMAN_EVENTS } from "@/data/roman";
@@ -118,6 +119,13 @@ export const LEARNING_AID_GROUPS: LearningAidGroup[] = [
         title: "מגדיר הצמחים",
         description: "מזהים את צמחי ארץ ישראל לפי קבוצה, עונה וצורת חיים, ופותחים כרטיס קצר לשימוש בשטח.",
         meta: `${PLANTS.length} צמחים · סינון וגלגל עונות`,
+      },
+      {
+        slug: "fauna",
+        href: "/timelines/fauna-guide",
+        title: "מגדיר החי והציפורים",
+        description: "יונקים, ציפורים, זוחלים ודו־חיים שפוגשים בסיור: סימן מזהה, איפה ומתי, ומה לספר.",
+        meta: `${ANIMALS.length} בעלי חיים · סינון לפי קבוצה ואזור`,
       },
       {
         slug: "geology",

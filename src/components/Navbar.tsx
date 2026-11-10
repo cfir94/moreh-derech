@@ -44,7 +44,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
       <nav className="mx-auto flex min-h-[60px] max-w-6xl items-center gap-1.5 px-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+        <Link href="/" aria-label="אבן דרך למורי דרך — דף הבית" className="flex shrink-0 items-center gap-2.5">
           <Image
             src={brandIcon}
             alt=""

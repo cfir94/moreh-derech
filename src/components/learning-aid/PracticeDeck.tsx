@@ -16,7 +16,7 @@ function shuffled<T>(values: readonly T[], seed: number) {
   return copy;
 }
 
-export function PracticeDeck({ quizSlug, items }: { quizSlug: string; items: readonly PracticeItem[] }) {
+export function PracticeDeck({ quizSlug, label, items }: { quizSlug: string; label?: string; items: readonly PracticeItem[] }) {
   const [round, setRound] = useState(1);
   const [questions, setQuestions] = useState(() => shuffled(items, 1).slice(0, 10));
   const [index, setIndex] = useState(0);
@@ -41,7 +41,7 @@ export function PracticeDeck({ quizSlug, items }: { quizSlug: string; items: rea
 
   const next = () => {
     if (index + 1 < questions.length) { setIndex(index + 1); setPicked(null); return; }
-    recordAttempt({ quiz: quizSlug, quizLabel: quizSlug, category: "תרגול", answers: answers.current });
+    recordAttempt({ quiz: quizSlug, quizLabel: label ?? quizSlug, category: "תרגול", answers: answers.current });
     setScore(answers.current.filter((answer) => answer.correct).length);
     setFinished(true);
   };
