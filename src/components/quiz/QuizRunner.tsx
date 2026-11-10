@@ -176,10 +176,10 @@ export function QuizRunner({
         style={domainStyle(quiz.slug)}
       >
         <Link
-          href="/quizzes"
+          href="/topics/"
           className="mb-5 inline-block text-sm font-bold text-txt-dim transition hover:text-txt"
         >
-          ← כל השאלונים
+          ← חזרה לעיוני
         </Link>
 
         <div className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-6">

@@ -34,11 +34,34 @@ export default function Home() {
       meta: "למידה · תכנון מסלול",
     },
     {
+      slug: "notebooks",
+      href: "/notebooks",
+      title: "מאגרי מידע לסיורים ולשיעורים",
+      description: "מאגרי מידע לסיורים לפי אזור ולחומר העיוני לפי תחום, עם קישור ישיר למאגר המקורי.",
+      meta: "סיורים · עיוני · מקוון",
+    },
+    {
       slug: "guide-reports",
       href: "/guide-reports",
       title: "דוחות הדרכה",
       description: "מדריך, דוגמה מלאה ותרגול לבניית יום סיור ויחידת הדרכה, עם טיוטות שמורות.",
       meta: "דוגמאות, תרגול וטיוטות",
+    },
+    {
+      slug: "resources",
+      href: "/resources",
+      title: "סיכומים וחומרי לימוד",
+      description:
+        "קישורים לסיכומים, לדוחות לפי אתר ולמסלולים לדוגמה של אפרת נקש. נפתחים באתר שלה.",
+      meta: "קישורים · אפרת נקש",
+    },
+    {
+      slug: "quizzes",
+      href: "/quizzes",
+      title: "מאגר שאלונים",
+      description:
+        "שאלות אמריקאיות לפי נושא, כולל שאלות אמיתיות ממבחני הרישוי.",
+      meta: `${questionCount} שאלות`,
     },
     {
       slug: "exams",
