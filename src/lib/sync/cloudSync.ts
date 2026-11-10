@@ -149,11 +149,18 @@ async function syncStores(userId: string, stores: SyncStore[]) {
         await upload(store, userId, row, merged);
       } catch (error) {
         if (error instanceof Conflict) conflicts.push(store);
+        // a store the table does not accept yet (its migration has not run):
+        // it stays on this device, and the other stores still sync
+        else if (isRejectedStore(error)) console.warn(`[sync] ${store.name}: not accepted by the server yet`);
         else throw error;
       }
     }
     pending = conflicts;
   }
+}
+
+function isRejectedStore(error: unknown) {
+  return error instanceof CloudAuthError && error.status === 400 && /23514|check constraint/i.test(error.message);
 }
 
 function isMissingTable(error: unknown) {

@@ -13,6 +13,7 @@ import { useUser } from "@/contexts/UserContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
 import { UpdatesBell } from "@/components/updates/UpdatesBell";
+import { NotesButton, openNotes } from "@/components/notes/NotesDrawer";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
@@ -74,6 +75,10 @@ export function Navbar() {
           <div className="hidden min-[400px]:block">
             <UpdatesBell />
           </div>
+          {/* below 360px the bar has no room: the menu opens the notes instead */}
+          <div className="hidden min-[360px]:block">
+            <NotesButton />
+          </div>
           <ThemeToggle />
           {ready && user ? (
             <Link
@@ -118,6 +123,11 @@ export function Navbar() {
             <Link href="/updates/" onClick={() => setOpen(false)} className="block rounded-[14px] px-3 py-3 text-sm font-bold text-txt-dim hover:bg-card">
               🔔 מה חדש
             </Link>
+          </li>
+          <li className="min-[360px]:hidden">
+            <button type="button" onClick={() => { setOpen(false); openNotes(); }} className="block w-full rounded-[14px] px-3 py-3 text-right text-sm font-bold text-txt-dim hover:bg-card">
+              🗒️ הפתקים שלי
+            </button>
           </li>
           {links.map((link) => (
             <li key={link.href}>

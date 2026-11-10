@@ -29,6 +29,7 @@ const PUBLIC_ROUTES = [
   "/timelines/byzantine",
   "/timelines/classical-architecture",
   "/timelines/plants-guide",
+  "/timelines/geology",
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

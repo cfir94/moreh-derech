@@ -1,0 +1,306 @@
+{
+  "basalt": [
+    {
+      "id": "basalt-1",
+      "subject": "basalt",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/basalt-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Dina L",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:The_Hexagon_pool.JPG"
+    }
+  ],
+  "granite": [
+    {
+      "id": "granite-1",
+      "subject": "granite",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/granite-1.jpg",
+      "width": 1140,
+      "height": 640,
+      "author": "The stone gate",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Bianco_Sardo_Granit_mit_polierter_Oberfl%C3%A4che.jpg"
+    }
+  ],
+  "limestone": [
+    {
+      "id": "limestone-1",
+      "subject": "limestone",
+      "status": "approved",
+      "caption": "קיר באבן ירושלים: גיר מסותת",
+      "alt": "קיר מאבני גיר מסותתות",
+      "src": "/geology/photos/limestone-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "AdamReinman",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:JerusalemStoneJosephSherman_(4).JPG"
+    }
+  ],
+  "dolomite": [
+    {
+      "id": "dolomite-1",
+      "subject": "dolomite",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/dolomite-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "Ondrej Pelech",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:7092_pieskovna_Dolinka_pri_Hradisti_pod_Vratnom_dolomit.JPG"
+    }
+  ],
+  "chalk": [
+    {
+      "id": "chalk-1",
+      "subject": "chalk",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/chalk-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Bukvoed",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Beit-Guvrin-cave-of-horses-208.jpg"
+    }
+  ],
+  "flint": [
+    {
+      "id": "flint-1",
+      "subject": "flint",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/flint-1.jpg",
+      "width": 905,
+      "height": 1050,
+      "author": "Otis Crandell",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Miorcani_flint.jpg"
+    }
+  ],
+  "sandstone": [
+    {
+      "id": "sandstone-1",
+      "subject": "sandstone",
+      "status": "approved",
+      "caption": "הפטרייה בבקעת תמנע: כובע קשה של אבן חול על רגל רכה",
+      "alt": "עמוד אבן חול אדומה בצורת פטרייה",
+      "src": "/geology/photos/sandstone-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Little Savage",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Timna_3.jpg"
+    }
+  ],
+  "halite": [
+    {
+      "id": "halite-1",
+      "subject": "halite",
+      "status": "approved",
+      "caption": "גבישי מלח בהר סדום, מקרוב",
+      "alt": "קרום מלח מחודד",
+      "src": "/geology/photos/halite-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Shayshal2",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rock_Salt_in_Mount_Sodom_closeup.jpg"
+    }
+  ],
+  "marble": [
+    {
+      "id": "marble-1",
+      "subject": "marble",
+      "status": "approved",
+      "caption": "שיש לבן: קלציט אחיד, בלי נקבוביות ובלי מאובנים (איטליה)",
+      "alt": "משטח שיש לבן",
+      "src": "/geology/photos/marble-1.jpg",
+      "width": 1024,
+      "height": 768,
+      "author": "Zyance",
+      "license": "CC BY-SA 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Marmo_z17.JPG"
+    }
+  ],
+  "quartzite": [
+    {
+      "id": "quartzite-1",
+      "subject": "quartzite",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/quartzite-1.jpg",
+      "width": 798,
+      "height": 1064,
+      "author": "Yuvalr",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ha-Minsara_(The_Carpentry_Shop)_in_Makhtesh_Ramon,_Negev,_Israel.jpg"
+    }
+  ],
+  "gneiss": [
+    {
+      "id": "gneiss-1",
+      "subject": "gneiss",
+      "status": "approved",
+      "caption": "גנייס: פסים בהירים וכהים מקבילים",
+      "alt": "דוגמת סלע גנייס מפוספס",
+      "src": "/geology/photos/gneiss-1.jpg",
+      "width": 600,
+      "height": 361,
+      "author": "No machine-readable author provided. Siim assumed (based on copyright claims).",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Gneiss.jpg"
+    }
+  ],
+  "soil-rendzina": [
+    {
+      "id": "soil-rendzina-1",
+      "subject": "soil-rendzina",
+      "status": "approved",
+      "caption": "רנדזינה: קרקע בהירה מעל שברי סלע גירי (קטלוניה)",
+      "alt": "חתך קרקע בהירה עם שברי סלע לבנים",
+      "src": "/geology/photos/soil-rendzina-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Victor M. Vicente Selvas",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Rendzina_soil_(Catalonia).jpg"
+    }
+  ],
+  "soil-basalt-soil": [
+    {
+      "id": "soil-basalt-soil-1",
+      "subject": "soil-basalt-soil",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-basalt-soil-1.jpg",
+      "width": 1280,
+      "height": 792,
+      "author": "Israel Press and Photo Agency (I.P.P.A.) photographer",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Dan_Hadani_collection_(990044471610205171).jpg"
+    }
+  ],
+  "soil-sand": [
+    {
+      "id": "soil-sand-1",
+      "subject": "soil-sand",
+      "status": "approved",
+      "caption": "חולות חוף מיוצבים בצמחייה",
+      "alt": "חולות עם שיחים ועשב",
+      "src": "/geology/photos/soil-sand-1.jpg",
+      "width": 1280,
+      "height": 883,
+      "author": "Renan I, Assmann T, Freidberg A (2018) Taxonomic revision of the Graphipterus serrator (Forskål) group (Coleoptera, Carabidae): an increase from five to 15 valid species. ZooKeys 753: 23-82. https://doi.org/10.3897/zookeys.753.22366",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Graphipterus_sharonae_(10.3897-zookeys.753.22366)_Figure_15.jpg"
+    }
+  ],
+  "soil-loess": [
+    {
+      "id": "soil-loess-1",
+      "subject": "soil-loess",
+      "status": "approved",
+      "caption": "לס בצפון הנגב: ערוצים שהמים חרצו בקרקע הרכה",
+      "alt": "מישור לס צהבהב עם ערוצי סחף",
+      "src": "/geology/photos/soil-loess-1.jpg",
+      "width": 1280,
+      "height": 958,
+      "author": "Eman",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:AraqibLoessWaddi.JPG"
+    }
+  ],
+  "soil-reg": [
+    {
+      "id": "soil-reg-1",
+      "subject": "soil-reg",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-reg-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Mark Marathon",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Desert_pavement_2.jpg"
+    }
+  ],
+  "kurkar": [
+    {
+      "id": "kurkar-2",
+      "subject": "kurkar",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/kurkar-2.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Daniel Ventura",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Calcareous_sandstone_a_Route_2_near_Zicron_jacov.jpg"
+    }
+  ],
+  "soil-terra-rossa": [
+    {
+      "id": "soil-terra-rossa-2",
+      "subject": "soil-terra-rossa",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-terra-rossa-2.jpg",
+      "width": 791,
+      "height": 1280,
+      "author": "No machine-readable author provided. Scops~commonswiki assumed (based on copyright claims).",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Malvasia_Vine_on_Terra_Rossa_soil.JPG"
+    }
+  ],
+  "soil-alluvium": [
+    {
+      "id": "soil-alluvium-2",
+      "subject": "soil-alluvium",
+      "status": "candidate",
+      "caption": "",
+      "alt": "",
+      "src": "/geology/photos/soil-alluvium-2.jpg",
+      "width": 1280,
+      "height": 714,
+      "author": "בר",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:The_view_of_the_Galilee_Panhandle_from_Naftali_Mountains_to_the_Hula_Valley,_the_Golan_Heights_and_the_Hermon_Range.jpg"
+    }
+  ]
+}

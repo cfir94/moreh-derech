@@ -21,6 +21,7 @@ import { BYZ_EVENTS } from "@/data/byzantine";
 import { ARCH_TERMS } from "@/data/classical-architecture";
 import { ROMAN_PEOPLE } from "@/data/roman-people";
 import { PLANTS } from "@/data/plants/plants";
+import { AGES as GEO_AGES, ROCKS as GEO_ROCKS, SOILS as GEO_SOILS } from "@/data/geology/geology";
 import { PERIOD_ROWS, periodDateText } from "@/data/periods";
 import { BUILDER_BY_ID, PERIOD_BY_ID, SITES as MAP_SITES } from "@/data/learning-map";
 import { TOPIC_LABELS } from "@/data/topics";
@@ -240,6 +241,16 @@ const baseResults: SearchResult[] = [
     description: `${PLANTS.length} צמחים: מצמצמים לפי בית גידול, עונה וצורת חיים, ובכל כרטיס סימן מזהה ואיפה רואים בסיור.`,
     href: "/timelines/plants-guide",
     searchText: ["מגדיר צמחים זיהוי צומח פריחה עונה גלגל העונות", ...PLANTS.map(plant => `${plant.name} ${plant.sci}`)].join(" "),
+  },
+  {
+    id: "timeline-geology",
+    kind: "tool",
+    kindLabel: "עזר למידה",
+    title: "גאולוגיה של ארץ ישראל",
+    description: "מפה גאולוגית בתלת־ממד, עמוד הזמן, סלעים וקרקעות שרואים בסיור, ותרגול.",
+    href: "/timelines/geology",
+    searchText: ["גאולוגיה גיאולוגיה סלעים קרקעות מפה גאולוגית תלת ממד עמוד הזמן שכבות חבורת יהודה",
+      ...GEO_ROCKS.map(rock => rock.name), ...GEO_SOILS.map(soil => soil.name), ...GEO_AGES.map(age => age.name)].join(" "),
   },
   {
     id: "timeline-roman-people",

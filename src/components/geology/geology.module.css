@@ -1,0 +1,12 @@
+/* עזר הגאולוגיה: רק טוקנים. צבעי התקופות מגיעים מהנתונים (מוסכמת המפות הגאולוגיות). */
+.stage { position: relative; height: clamp(380px, 68vh, 720px); overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-lg); background: radial-gradient(ellipse at 50% 25%, var(--card-2), var(--card)); }
+.canvasHost { position: absolute; inset: 0; }
+.canvasHost canvas { display: block; cursor: grab; }
+.canvasHost canvas:active { cursor: grabbing; }
+.note { position: absolute; inset: 0; display: grid; place-content: center; padding: 1.25rem; text-align: center; font-weight: 700; color: var(--txt-dim); }
+.tooltip { position: absolute; top: 0; left: 0; margin: -2.4rem 0 0 .75rem; padding: .25rem .65rem; border-radius: var(--r-sm); background: var(--sheet); color: var(--txt); font-size: .875rem; font-weight: 800; white-space: nowrap; pointer-events: none; box-shadow: var(--shadow); }
+.hint { position: absolute; inset-inline: .75rem; bottom: .75rem; width: fit-content; margin-inline-start: auto; padding: .35rem .75rem; border-radius: 999px; background: var(--sheet); color: var(--txt-dim); font-size: .8rem; font-weight: 700; pointer-events: none; }
+.swatch { display: inline-block; flex: none; width: 1.1rem; height: 1.1rem; border-radius: .3rem; border: 1px solid var(--line); }
+.layer { display: flex; overflow: hidden; }
+.band { flex: none; width: 1.1rem; }
+@media (max-width: 640px) { .stage { height: 62vh; } .band { width: .7rem; } }
