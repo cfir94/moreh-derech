@@ -121,6 +121,11 @@
 <priority>0.8</priority>
 </url>
 <url>
+<loc>https://cfir94.github.io/moreh-derech/timelines/arches/</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
 <loc>https://cfir94.github.io/moreh-derech/quizzes/moshe-upcoming-exam/</loc>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
