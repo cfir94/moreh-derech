@@ -8,6 +8,7 @@ import {
   cohortLabel, fetchCohorts, isAdmin, PLAN_LABEL, PLAN_MONTHS, renewalMessage,
   type AdminUser, type Cohort, type JoinPlan, type Lead, type PendingGrant,
 } from "@/lib/manualAccess";
+import { CommunityAdmin } from "@/components/community/CommunityAdmin";
 
 async function fetchAll() {
   try {
@@ -18,12 +19,13 @@ async function fetchAll() {
   }
 }
 
-type Tab = "leads" | "users" | "grant" | "cohorts";
+type Tab = "leads" | "users" | "grant" | "cohorts" | "community";
 const TABS: { id: Tab; label: string }[] = [
   { id: "leads", label: "פניות" },
   { id: "users", label: "משתמשים ומנויים" },
   { id: "grant", label: "הפעלת מנוי" },
   { id: "cohorts", label: "מחזורים" },
+  { id: "community", label: "קהילה" },
 ];
 
 const field = "rounded-md border border-line bg-sheet px-3 py-2.5 text-base outline-none transition focus:border-teal";
@@ -132,6 +134,7 @@ export function AdminPanel() {
           : `${email} עוד לא נרשם. המנוי נשמר ויופעל ברגע שיירשם עם המייל הזה.`);
         await load();
       }} />}
+      {tab === "community" && <CommunityAdmin />}
       {tab === "cohorts" && <Cohorts cohorts={cohorts} onSave={async (c) => { await adminSaveCohort(c); await load(); setNotice("המחזור נשמר."); }} />}
     </div>
   );

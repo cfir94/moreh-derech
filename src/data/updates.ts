@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-community",
+    date: "2026-11-11",
+    kind: "feature",
+    title: "חדש: קהילה",
+    body: "פורום למחזור שלכם ולוח פרסומים על השתלמויות וקורסים. מספר אדום בתפריט מראה כמה הודעות חדשות מחכות.",
+    href: "/community/",
+  },
+  {
     id: "2026-11-11-arches",
     date: "2026-11-11",
     kind: "tool",
