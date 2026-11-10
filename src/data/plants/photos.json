@@ -31,6 +31,22 @@
       "source": "https://commons.wikimedia.org/wiki/File:%D7%91%D7%A8%D7%A0%D7%A2_%D7%90%D7%9C%D7%95%D7%9F_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%A4%D7%A8%D7%93%D7%A1_%D7%97%D7%A0%D7%94.jpg"
     }
   ],
+  "quercus-boissieri": [
+    {
+      "id": "quercus-boissieri-1",
+      "plant": "quercus-boissieri",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלון התולע",
+      "src": "/plants/photos/quercus-boissieri-1.jpg",
+      "width": 1280,
+      "height": 865,
+      "author": "Michal Klajban",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Quercus_infectoria_subsp._veneris,_Akamas_Paninsula,_Cyprus.jpg"
+    }
+  ],
   "pistacia-palaestina": [
     {
       "id": "pistacia-palaestina-1",
