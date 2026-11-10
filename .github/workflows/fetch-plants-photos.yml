@@ -36,4 +36,6 @@ jobs:
           git add public/plants/photos src/data/plants/photos.json tools/plants_photos.lock.json
           if git diff --cached --quiet; then echo "photos already up to date"; exit 0; fi
           git commit -m "Fetch plant photos from Wikimedia Commons"
+          # the branch may have moved while photos downloaded
+          git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
