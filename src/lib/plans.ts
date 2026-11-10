@@ -20,6 +20,7 @@ export const FREE_PATHS: readonly string[] = [
   "/map/",
   "/updates/",
   "/admin/",
+  "/topics/",
 ];
 
 /** קידומות שכל מה שמתחתן חינמי. */
