@@ -1,6 +1,6 @@
 .page {
   --paper: #f8f5ed; --paper-raised: #fffdf8; --paper-muted: #eee9dd;
-  --ink: #263a45; --muted: #68716f; --edge: #dcd5c6; --accent: #80622a;
+  --ink: #263a45; --muted: #5a625f; --edge: #dcd5c6; --accent: #80622a;
   --warning-bg: #f7edd7; --warning-ink: #745219;
   max-width: 1200px; margin: auto; padding: 24px 24px 36px; color: var(--ink);
 }
@@ -51,7 +51,7 @@
 .periodNav button:hover { background: var(--paper-muted); }
 .periodNav button[aria-pressed="true"] { background: var(--paper-raised); border-color: var(--edge); font-weight: 800; box-shadow: 0 3px 10px #00000005; }
 .periodNav small { display: block; color: var(--muted); font-size: 10px; font-weight: 400; }
-.periodMark { color: var(--period-color, var(--accent)); font-family: Georgia, serif; font-size: 14px; min-width: 23px; }
+.periodMark { color: color-mix(in srgb, var(--period-color, var(--accent)) 55%, var(--ink)); font-family: Georgia, serif; font-size: 14px; min-width: 23px; }
 .timelineMain { min-width: 0; padding: 22px 32px 40px; }
 .filters { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 15px; }
 .filters label { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
@@ -62,7 +62,7 @@
 .periodSection { margin-bottom: 42px; }
 .periodSection:last-child { margin-bottom: 0; }
 .periodHeading { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 24px; }
-.chapterNumber { font-family: Georgia, serif; font-size: 30px; color: var(--period-color); line-height: 1.2; opacity: .85; min-width: 36px; }
+.chapterNumber { font-family: Georgia, serif; font-size: 30px; color: color-mix(in srgb, var(--period-color) 65%, var(--ink)); line-height: 1.2; min-width: 36px; }
 .periodHeading h2 { font-family: "Times New Roman", serif; font-size: 28px; font-weight: 700; margin: 3px 0 4px; line-height: 1.15; }
 .periodHeading p { color: var(--accent); font-size: 11px; }
 .periodHeading div > span { display: block; color: var(--muted); font-size: 11px; line-height: 1.7; }

@@ -46,7 +46,7 @@
 | B-05 | Worker `md-api`: checkout, callback מאומת, ביטול, תזכורות, ספק מדומה, Grow (טיוטה). 6 בדיקות | Claude | review · Grow ממתין ל-sandbox | `api/**`, `tests/md-api.test.mjs` | B-04 (לחיבור Grow) |
 | B-06 | מוטי בודק זכאות (`REQUIRE_ENTITLEMENT`, כבוי; 2 בדיקות) | Claude | done · הפעלה אחרי B-04 ו-§9 | `history-talk/src/worker/**` | B-01, A-01 |
 | L-01 | `/legal/*`: תנאים, פרטיות, ביטול, נגישות (טיוטה; ממתין לפרטי העוסק ולעורך דין) | Claude | review | `src/app/legal/**` | GPT-03 |
-| L-02 | נגישות: בדיקה, תיקונים והצהרה | Codex | backlog | לפי דוח | CX-01 |
+| L-02 | נגישות: בדיקה, תיקונים והצהרה | Claude | in-progress · סריקת axe (WCAG 2 A/AA) על 22 עמודים, בהיר וכהה, מחשב וטלפון: ~450 ממצאים ירדו ל-1. תוקנו ניגודיות (teal, gold, txt-dim, צבעי צירי התקופה) וקישור הלוגו בלי שם. נשאר: בדיקה ידנית במקלדת וקורא מסך, ועדכון הצהרת הנגישות | לפי דוח | CX-01 |
 | G-01 | דף נחיתה `/welcome` (הכנה, מספרים, 5 יכולות עם סרטונים, משחקים, מוטי, מחיר, שאלות נפוצות) | Claude | done · הטקסטים נבדקו מול CX-03 | `src/app/welcome/**`, `src/components/landing/**` | — |
 | G-02 | 18 צילומי מסך, 3 סרטוני מסך ותמונת שיתוף (`public/marketing/`, 2.4MB) | Claude | review | `public/marketing/**`, `tools/marketing/**` | — |
 | G-03 | (בוטל: בלי שיווק המוני) | — | cancelled | — | — |

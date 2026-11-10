@@ -143,8 +143,8 @@ export function SecondTempleTimeline() {
       {view === "timeline" && <div className={styles.timelineLayout}>
         <aside className={styles.periodNav} aria-label="סינון לפי תקופה">
           <p>פרקי המסע</p>
-          <button type="button" aria-pressed={period === "all"} onClick={() => setPeriod("all")}><span className={styles.periodMark}>◈</span><span>המסע המלא<small>כל התקופות</small></span></button>
-          {TEMPLE_PERIODS.map((entry, index) => <button key={entry.id} type="button" aria-pressed={period === entry.id} onClick={() => setPeriod(entry.id)} style={{ "--period-color": entry.color } as CSSProperties}><span className={styles.periodMark}>{String(index + 1).padStart(2, "0")}</span><span>{entry.title}<small>{entry.range}</small></span></button>)}
+          <button type="button" aria-pressed={period === "all"} onClick={() => setPeriod("all")}><span className={styles.periodMark} aria-hidden>◈</span><span>המסע המלא<small>כל התקופות</small></span></button>
+          {TEMPLE_PERIODS.map((entry, index) => <button key={entry.id} type="button" aria-pressed={period === entry.id} onClick={() => setPeriod(entry.id)} style={{ "--period-color": entry.color } as CSSProperties}><span className={styles.periodMark} aria-hidden>{String(index + 1).padStart(2, "0")}</span><span>{entry.title}<small>{entry.range}</small></span></button>)}
         </aside>
         <div className={styles.timelineMain}>
           <div className={styles.filters}><label>נושא<select value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((entry) => <option key={entry.id} value={entry.id}>{entry.title}</option>)}</select></label><p role="status">{visibleEvents.length} מתוך {TEMPLE_EVENTS.length} אירועים</p>{(query || period !== "all" || category !== "all" || anchorsOnly) && <button type="button" onClick={reset}>ניקוי סינון</button>}</div>
@@ -154,7 +154,7 @@ export function SecondTempleTimeline() {
             const events = visibleEvents.filter((event) => event.period === entry.id);
             if (!events.length) return null;
             return <section key={entry.id} className={styles.periodSection} style={{ "--period-color": entry.color } as CSSProperties} aria-labelledby={`period-${entry.id}`}>
-              <header className={styles.periodHeading}><span className={styles.chapterNumber}>{String(index + 1).padStart(2, "0")}</span><div><p>{entry.range}</p><h2 id={`period-${entry.id}`}>{entry.title}</h2><span>{entry.note}</span></div><small>{events.length} אירועים</small></header>
+              <header className={styles.periodHeading}><span className={styles.chapterNumber} aria-hidden>{String(index + 1).padStart(2, "0")}</span><div><p>{entry.range}</p><h2 id={`period-${entry.id}`}>{entry.title}</h2><span>{entry.note}</span></div><small>{events.length} אירועים</small></header>
               <div className={styles.eventRail}>{events.map((event) => <EventCard key={event.id} event={event} onJump={jump} />)}</div>
             </section>;
           })}

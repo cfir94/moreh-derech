@@ -3,15 +3,16 @@
    tabula ansata — the dovetailed tablet of Roman inscriptions. */
 .page {
   --stone: #f2ebdd; --stone-raised: #fbf7ee; --stone-deep: #e6dbc6;
-  --ink: #2a1f18; --muted: #6d5f53; --edge: #d5c6ab;
-  --red: #8b2a1d; --bronze: #9a6a2c; --road-a: #c9bca3; --road-b: #b3a58b;
+  --ink: #2a1f18; --muted: #5f5247; --edge: #d5c6ab;
+  --red: #8b2a1d; --red-fill: #8b2a1d; --bronze: #7a5220; --road-a: #c9bca3; --road-b: #b3a58b;
   --tip-bg: #f4e3cf;
   max-width: 1200px; margin: auto; padding: 24px 24px 40px; color: var(--ink);
 }
 :global([data-theme="dark"]) .page {
   --stone: #1b1613; --stone-raised: #251e19; --stone-deep: #2f2620;
   --ink: #f1e7d6; --muted: #b8a892; --edge: #4a3d32;
-  --red: #d8664d; --bronze: #d9a95f; --road-a: #3f352c; --road-b: #332a23;
+  /* text red and button-fill red differ in dark: light text needs a deep fill, dark ground needs a light text */
+  --red: #e8806a; --red-fill: #9a3a28; --bronze: #d9a95f; --road-a: #3f352c; --road-b: #332a23;
   --tip-bg: #3a2a20;
 }
 .page button, .page input, .page select { font: inherit; color: inherit; }
@@ -54,7 +55,7 @@
 .workspace { background: var(--stone); border: 1px solid var(--edge); border-radius: 6px; overflow: clip; scroll-margin-top: 80px; }
 .views { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 20px; border-bottom: 2px solid var(--edge); background: var(--stone-deep); }
 .views button { display: flex; align-items: center; gap: 8px; padding: 16px 14px 13px; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
-.views button small { font-size: 11px; opacity: .8; }
+.views button small { font-size: 11px; }
 .views button[aria-pressed="true"] { color: var(--red); border-color: var(--red); font-weight: 800; }
 .toolbar { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--edge); }
 .search { flex: 1 1 280px; display: flex; align-items: center; gap: 8px; background: var(--stone-raised); border: 1px solid var(--edge); border-radius: 4px; padding: 9px 12px; }
@@ -70,7 +71,7 @@
 .eras button:first-child { border-start-start-radius: 4px; border-end-start-radius: 4px; }
 .eras button:last-child { border-start-end-radius: 4px; border-end-end-radius: 4px; }
 .eras button small { font-size: 11px; color: var(--muted); }
-.eras button[aria-pressed="true"] { background: var(--red); border-color: var(--red); color: #fbefd8; }
+.eras button[aria-pressed="true"] { background: var(--red-fill); border-color: var(--red-fill); color: #fbefd8; }
 .eras button[aria-pressed="true"] small { color: #f2d6b4; }
 .status { display: flex; align-items: center; gap: 14px; padding: 8px 20px 0; font-size: 12.5px; color: var(--muted); }
 .status button { color: var(--red); text-decoration: underline; }
