@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/seo";
 import { QUIZZES } from "@/data/quizzes";
 import { EXAMS } from "@/data/exams";
 import { HomeProgress } from "@/components/HomeProgress";
+import { CommunityStrip } from "@/components/community/CommunityStrip";
 import { HomeActions } from "@/components/HomeActions";
 import { GuestToWelcome } from "@/components/landing/GuestToWelcome";
 import { TopicHub } from "@/components/topics/TopicHub";
@@ -134,6 +135,7 @@ export default function Home() {
       </section>
 
       <HomeProgress />
+      <CommunityStrip />
 
       <section aria-labelledby="home-topics" className="mb-10">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
