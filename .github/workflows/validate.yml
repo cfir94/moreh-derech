@@ -61,3 +61,5 @@ jobs:
         run: node --import ./tests/register-ts.mjs tests/plants-guide-ui.mjs
       - name: New Testament and Egypt–Canaan browser checks
         run: node --import ./tests/register-ts.mjs tests/biblical-egypt-ui.mjs
+      - name: Learning-aids index browser checks
+        run: node --import ./tests/register-ts.mjs tests/learning-aids-index-ui.mjs
