@@ -1,0 +1,41 @@
+/* קשתות וקמרונות: טוקנים בלבד. צבע לכל צורת קשת בהשוואה, מתוך הטוקנים של האתר. */
+.stage { position: relative; height: clamp(360px, 60vh, 640px); overflow: hidden; border: 1px solid var(--line); border-radius: var(--r-lg); background: radial-gradient(ellipse at 50% 20%, var(--card-2), var(--card)); }
+.canvasHost { position: absolute; inset: 0; }
+.canvasHost canvas { display: block; cursor: grab; }
+.canvasHost canvas:active { cursor: grabbing; }
+.note { position: absolute; inset: 0; display: grid; place-content: center; padding: 1.25rem; text-align: center; font-weight: 700; color: var(--txt-dim); }
+.hint { position: absolute; inset-inline: .75rem; bottom: .75rem; width: fit-content; margin-inline-start: auto; padding: .35rem .75rem; border-radius: 999px; background: var(--sheet); color: var(--txt-dim); font-size: .8rem; font-weight: 700; pointer-events: none; }
+
+.picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .5rem; }
+.pick { display: flex; align-items: center; gap: .55rem; min-height: 3.25rem; padding: .4rem .7rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--card); text-align: right; font-weight: 700; font-size: .9rem; line-height: 1.25; transition: border-color .15s, background .15s, transform .15s; }
+.pick:active { transform: scale(.97); }
+.pick[aria-pressed="true"] { border-color: var(--color-mc); background: color-mix(in srgb, var(--color-mc) 14%, var(--card)); }
+.pickIcon { flex: none; width: 2.4rem; height: 1.9rem; }
+.ageIcon { flex: none; width: 4.5rem; height: 3.5rem; }
+
+.curve { fill: none; stroke: var(--txt); stroke-width: .07; stroke-linejoin: round; stroke-linecap: round; vector-effect: none; }
+.pier { stroke: var(--txt-dim); stroke-width: .07; }
+.springing { stroke: var(--line); stroke-width: .03; stroke-dasharray: .12 .1; }
+.overlay { width: 100%; max-height: 60vh; }
+.overlay .curve { stroke-width: .05; }
+
+.c_corbel { --arch: var(--violet); }
+.c_round { --arch: var(--teal); }
+.c_pointed { --arch: var(--rose); }
+.c_horseshoe { --arch: var(--gold); }
+.overlay .c_corbel, .overlay .c_round, .overlay .c_pointed, .overlay .c_horseshoe { stroke: var(--arch); }
+.chip { min-height: 2.75rem; padding: 0 1rem; border-radius: 999px; border: 2px solid var(--arch); font-weight: 800; color: var(--txt); transition: background .15s, transform .15s; }
+.chip:active { transform: scale(.96); }
+.chip[aria-pressed="true"] { background: color-mix(in srgb, var(--arch) 22%, transparent); }
+.chip[aria-pressed="false"] { opacity: .65; }
+.legend { border-inline-start: 5px solid var(--arch); }
+
+.primary { min-height: 2.75rem; padding: 0 1.3rem; border-radius: 999px; font-weight: 800; color: var(--on-accent); background: linear-gradient(135deg, var(--teal), var(--blue)); box-shadow: 0 10px 24px -12px var(--teal); transition: transform .15s, opacity .15s; }
+.primary:active { transform: scale(.96); }
+.primary:disabled { opacity: .5; }
+.answer { min-height: 3rem; padding: .7rem 1rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--card-2); text-align: right; font-weight: 700; transition: transform .15s; }
+.answer:active { transform: scale(.98); }
+.right { border-color: var(--green); background: color-mix(in srgb, var(--green) 16%, transparent); }
+.wrong { border-color: var(--red); background: color-mix(in srgb, var(--red) 16%, transparent); }
+.faded { opacity: .3; }
+@media (max-width: 640px) { .stage { height: 56vh; } .picker { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

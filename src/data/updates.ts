@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-arches",
+    date: "2026-11-11",
+    kind: "tool",
+    title: "עזר למידה חדש: קשתות וקמרונות",
+    body: "בונים קשת אבן אחרי אבן בתלת־ממד, ומשווים: הקשת הכנענית בתל דן, הקשת הרומית, הקשת המחודדת, האבלק והמוקרנס.",
+    href: "/timelines/arches/",
+  },
+  {
     id: "2026-11-10-notes",
     date: "2026-11-10",
     kind: "feature",
