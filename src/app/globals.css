@@ -211,3 +211,11 @@ h3 {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Native <select> lists (Chrome on Windows): the popup ignores color-scheme, so options inherited the
+   light text colour on a white list in dark mode. Give every option the sheet background and text colour. */
+select option,
+select optgroup {
+  background-color: var(--sheet);
+  color: var(--txt);
+}
