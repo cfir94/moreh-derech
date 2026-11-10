@@ -1,0 +1,322 @@
+[
+  {
+    "id": "quercus-calliprinos-1",
+    "plant": "quercus-calliprinos",
+    "wiki": "en:Quercus calliprinos",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אלון מצוי"
+  },
+  {
+    "id": "quercus-ithaburensis-1",
+    "plant": "quercus-ithaburensis",
+    "wiki": "en:Quercus ithaburensis",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אלון התבור"
+  },
+  {
+    "id": "quercus-boissieri-1",
+    "plant": "quercus-boissieri",
+    "wiki": "en:Quercus boissieri",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אלון התולע"
+  },
+  {
+    "id": "pistacia-palaestina-1",
+    "plant": "pistacia-palaestina",
+    "wiki": "en:Pistacia palaestina",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אלה ארץ-ישראלית"
+  },
+  {
+    "id": "pistacia-atlantica-1",
+    "plant": "pistacia-atlantica",
+    "wiki": "en:Pistacia atlantica",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אלה אטלנטית"
+  },
+  {
+    "id": "pistacia-lentiscus-1",
+    "plant": "pistacia-lentiscus",
+    "wiki": "en:Pistacia lentiscus",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אלת המסטיק"
+  },
+  {
+    "id": "ceratonia-siliqua-1",
+    "plant": "ceratonia-siliqua",
+    "wiki": "en:Ceratonia siliqua",
+    "status": "candidate",
+    "caption": "",
+    "alt": "חרוב מצוי"
+  },
+  {
+    "id": "arbutus-andrachne-1",
+    "plant": "arbutus-andrachne",
+    "wiki": "en:Arbutus andrachne",
+    "status": "candidate",
+    "caption": "",
+    "alt": "קטלב מצוי"
+  },
+  {
+    "id": "cercis-siliquastrum-1",
+    "plant": "cercis-siliquastrum",
+    "wiki": "en:Cercis siliquastrum",
+    "status": "candidate",
+    "caption": "",
+    "alt": "כליל החורש"
+  },
+  {
+    "id": "pyrus-syriaca-1",
+    "plant": "pyrus-syriaca",
+    "wiki": "en:Pyrus syriaca",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אגס סורי"
+  },
+  {
+    "id": "acer-obtusifolium-1",
+    "plant": "acer-obtusifolium",
+    "wiki": "en:Acer obtusifolium",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אדר סורי"
+  },
+  {
+    "id": "crataegus-aronia-1",
+    "plant": "crataegus-aronia",
+    "wiki": "en:Crataegus aronia",
+    "status": "candidate",
+    "caption": "",
+    "alt": "עוזרר קוצני"
+  },
+  {
+    "id": "styrax-officinalis-1",
+    "plant": "styrax-officinalis",
+    "wiki": "en:Styrax officinalis",
+    "status": "candidate",
+    "caption": "",
+    "alt": "לבנה רפואי"
+  },
+  {
+    "id": "platanus-orientalis-1",
+    "plant": "platanus-orientalis",
+    "wiki": "en:Platanus orientalis",
+    "status": "candidate",
+    "caption": "",
+    "alt": "דולב מזרחי"
+  },
+  {
+    "id": "laurus-nobilis-1",
+    "plant": "laurus-nobilis",
+    "wiki": "en:Laurus nobilis",
+    "status": "candidate",
+    "caption": "",
+    "alt": "ער אציל"
+  },
+  {
+    "id": "sarcopoterium-spinosum-1",
+    "plant": "sarcopoterium-spinosum",
+    "wiki": "en:Sarcopoterium spinosum",
+    "status": "candidate",
+    "caption": "",
+    "alt": "סירה קוצנית"
+  },
+  {
+    "id": "calicotome-villosa-1",
+    "plant": "calicotome-villosa",
+    "wiki": "en:Calicotome villosa",
+    "status": "candidate",
+    "caption": "",
+    "alt": "קידה שעירה"
+  },
+  {
+    "id": "rhamnus-lycioides-1",
+    "plant": "rhamnus-lycioides",
+    "wiki": "en:Rhamnus lycioides",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אשחר ארץ-ישראלי"
+  },
+  {
+    "id": "cistus-1",
+    "plant": "cistus",
+    "wiki": "en:Cistus creticus / C. salviifolius",
+    "status": "candidate",
+    "caption": "",
+    "alt": "לוטם"
+  },
+  {
+    "id": "majorana-syriaca-1",
+    "plant": "majorana-syriaca",
+    "wiki": "en:Majorana syriaca",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אזוב מצוי"
+  },
+  {
+    "id": "coridothymus-capitatus-1",
+    "plant": "coridothymus-capitatus",
+    "wiki": "en:Coridothymus capitatus",
+    "status": "candidate",
+    "caption": "",
+    "alt": "קורנית מקורקפת"
+  },
+  {
+    "id": "salvia-fruticosa-1",
+    "plant": "salvia-fruticosa",
+    "wiki": "en:Salvia fruticosa",
+    "status": "candidate",
+    "caption": "",
+    "alt": "מרווה משולשת"
+  },
+  {
+    "id": "smilax-aspera-1",
+    "plant": "smilax-aspera",
+    "wiki": "en:Smilax aspera",
+    "status": "candidate",
+    "caption": "",
+    "alt": "קיסוסית קוצנית"
+  },
+  {
+    "id": "asparagus-aphyllus-1",
+    "plant": "asparagus-aphyllus",
+    "wiki": "en:Asparagus aphyllus",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אספרג החורש"
+  },
+  {
+    "id": "rubia-tenuifolia-1",
+    "plant": "rubia-tenuifolia",
+    "wiki": "en:Rubia tenuifolia",
+    "status": "candidate",
+    "caption": "",
+    "alt": "פואה מצויה"
+  },
+  {
+    "id": "triticum-1",
+    "plant": "triticum",
+    "wiki": "en:Triticum",
+    "status": "candidate",
+    "caption": "",
+    "alt": "חיטה"
+  },
+  {
+    "id": "hordeum-1",
+    "plant": "hordeum",
+    "wiki": "en:Hordeum",
+    "status": "candidate",
+    "caption": "",
+    "alt": "שעורה"
+  },
+  {
+    "id": "vitis-vinifera-1",
+    "plant": "vitis-vinifera",
+    "wiki": "en:Vitis vinifera",
+    "status": "candidate",
+    "caption": "",
+    "alt": "גפן"
+  },
+  {
+    "id": "ficus-carica-1",
+    "plant": "ficus-carica",
+    "wiki": "en:Ficus carica",
+    "status": "candidate",
+    "caption": "",
+    "alt": "תאנה"
+  },
+  {
+    "id": "punica-granatum-1",
+    "plant": "punica-granatum",
+    "wiki": "en:Punica granatum",
+    "status": "candidate",
+    "caption": "",
+    "alt": "רימון"
+  },
+  {
+    "id": "olea-europaea-1",
+    "plant": "olea-europaea",
+    "wiki": "en:Olea europaea",
+    "status": "candidate",
+    "caption": "",
+    "alt": "זית"
+  },
+  {
+    "id": "phoenix-dactylifera-1",
+    "plant": "phoenix-dactylifera",
+    "wiki": "en:Phoenix dactylifera",
+    "status": "candidate",
+    "caption": "",
+    "alt": "תמר"
+  },
+  {
+    "id": "tamarix-1",
+    "plant": "tamarix",
+    "wiki": "en:Tamarix",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אשל"
+  },
+  {
+    "id": "acacia-1",
+    "plant": "acacia",
+    "wiki": "en:Vachellia (Acacia) tortilis / raddiana",
+    "status": "candidate",
+    "caption": "",
+    "alt": "שיטה"
+  },
+  {
+    "id": "ziziphus-spina-christi-1",
+    "plant": "ziziphus-spina-christi",
+    "wiki": "en:Ziziphus spina-christi",
+    "status": "candidate",
+    "caption": "",
+    "alt": "שיזף מצוי"
+  },
+  {
+    "id": "retama-raetam-1",
+    "plant": "retama-raetam",
+    "wiki": "en:Retama raetam",
+    "status": "candidate",
+    "caption": "",
+    "alt": "רותם המדבר"
+  },
+  {
+    "id": "pinus-halepensis-1",
+    "plant": "pinus-halepensis",
+    "wiki": "en:Pinus halepensis",
+    "status": "candidate",
+    "caption": "",
+    "alt": "אורן ירושלים"
+  },
+  {
+    "id": "cupressus-sempervirens-1",
+    "plant": "cupressus-sempervirens",
+    "wiki": "en:Cupressus sempervirens",
+    "status": "candidate",
+    "caption": "",
+    "alt": "ברוש מצוי"
+  },
+  {
+    "id": "prunus-dulcis-1",
+    "plant": "prunus-dulcis",
+    "wiki": "en:Prunus dulcis",
+    "status": "candidate",
+    "caption": "",
+    "alt": "שקד"
+  },
+  {
+    "id": "acacia-saligna-1",
+    "plant": "acacia-saligna",
+    "wiki": "en:Acacia saligna",
+    "status": "candidate",
+    "caption": "",
+    "alt": "שיטה כחלחלה (מכחילה)"
+  }
+]

@@ -1,0 +1,594 @@
+{
+  "quercus-calliprinos": [
+    {
+      "id": "quercus-calliprinos-1",
+      "plant": "quercus-calliprinos",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלון מצוי",
+      "src": "/plants/photos/quercus-calliprinos-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Josep Gesti",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Quercus_coccifera_coccifera,_Bot.jpg"
+    }
+  ],
+  "quercus-ithaburensis": [
+    {
+      "id": "quercus-ithaburensis-1",
+      "plant": "quercus-ithaburensis",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלון התבור",
+      "src": "/plants/photos/quercus-ithaburensis-1.jpg",
+      "width": 655,
+      "height": 873,
+      "author": "Offer.s.z",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:%D7%91%D7%A8%D7%A0%D7%A2_%D7%90%D7%9C%D7%95%D7%9F_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%A4%D7%A8%D7%93%D7%A1_%D7%97%D7%A0%D7%94.jpg"
+    }
+  ],
+  "quercus-boissieri": [
+    {
+      "id": "quercus-boissieri-1",
+      "plant": "quercus-boissieri",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלון התולע",
+      "src": "/plants/photos/quercus-boissieri-1.jpg",
+      "width": 392,
+      "height": 319,
+      "author": "George Ripley And Charles A. Dana",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Quercus_infectoria.jpg"
+    }
+  ],
+  "pistacia-palaestina": [
+    {
+      "id": "pistacia-palaestina-1",
+      "plant": "pistacia-palaestina",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלה ארץ-ישראלית",
+      "src": "/plants/photos/pistacia-palaestina-1.jpg",
+      "width": 1280,
+      "height": 916,
+      "author": "איתן פרמן",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pistacia_palaestina.JPG"
+    }
+  ],
+  "pistacia-atlantica": [
+    {
+      "id": "pistacia-atlantica-1",
+      "plant": "pistacia-atlantica",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלה אטלנטית",
+      "src": "/plants/photos/pistacia-atlantica-1.jpg",
+      "width": 851,
+      "height": 1280,
+      "author": "איתן פרמן",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pistacia_atlantica_(Ein_Ovdat).JPG"
+    }
+  ],
+  "pistacia-lentiscus": [
+    {
+      "id": "pistacia-lentiscus-1",
+      "plant": "pistacia-lentiscus",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אלת המסטיק",
+      "src": "/plants/photos/pistacia-lentiscus-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "Lumbar~commonswiki",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Pistacia_lentiscus.jpg"
+    }
+  ],
+  "ceratonia-siliqua": [
+    {
+      "id": "ceratonia-siliqua-1",
+      "plant": "ceratonia-siliqua",
+      "status": "candidate",
+      "caption": "",
+      "alt": "חרוב מצוי",
+      "src": "/plants/photos/ceratonia-siliqua-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "Nevit Dilmen (talk)",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ceratonia_siliqua_Keciboynuzu_1370984_Nevit.jpg"
+    }
+  ],
+  "arbutus-andrachne": [
+    {
+      "id": "arbutus-andrachne-1",
+      "plant": "arbutus-andrachne",
+      "status": "candidate",
+      "caption": "",
+      "alt": "קטלב מצוי",
+      "src": "/plants/photos/arbutus-andrachne-1.jpg",
+      "width": 851,
+      "height": 1280,
+      "author": "Hectonichus",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ericaceae_-_Arbutus_andrachne.JPG"
+    }
+  ],
+  "cercis-siliquastrum": [
+    {
+      "id": "cercis-siliquastrum-1",
+      "plant": "cercis-siliquastrum",
+      "status": "candidate",
+      "caption": "",
+      "alt": "כליל החורש",
+      "src": "/plants/photos/cercis-siliquastrum-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "אורנה לוטן",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:PikiWiki_Israel_3421_Geography_of_Israel.jpg"
+    }
+  ],
+  "pyrus-syriaca": [
+    {
+      "id": "pyrus-syriaca-1",
+      "plant": "pyrus-syriaca",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אגס סורי",
+      "src": "/plants/photos/pyrus-syriaca-1.jpg",
+      "width": 1280,
+      "height": 1024,
+      "author": "Gideon Pisanty (Gidip)",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pyrus_syriaca_1.jpg"
+    }
+  ],
+  "acer-obtusifolium": [
+    {
+      "id": "acer-obtusifolium-1",
+      "plant": "acer-obtusifolium",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אדר סורי",
+      "src": "/plants/photos/acer-obtusifolium-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "Consultaplantas",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Acer_obtusifolium_1c.JPG"
+    }
+  ],
+  "crataegus-aronia": [
+    {
+      "id": "crataegus-aronia-1",
+      "plant": "crataegus-aronia",
+      "status": "candidate",
+      "caption": "",
+      "alt": "עוזרר קוצני",
+      "src": "/plants/photos/crataegus-aronia-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Davidbena",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Hawthorn_in_blossom.jpg"
+    }
+  ],
+  "styrax-officinalis": [
+    {
+      "id": "styrax-officinalis-1",
+      "plant": "styrax-officinalis",
+      "status": "candidate",
+      "caption": "",
+      "alt": "לבנה רפואי",
+      "src": "/plants/photos/styrax-officinalis-1.jpg",
+      "width": 1280,
+      "height": 851,
+      "author": "איתן פרמן",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Styrax_officinalis_tree.JPG"
+    }
+  ],
+  "platanus-orientalis": [
+    {
+      "id": "platanus-orientalis-1",
+      "plant": "platanus-orientalis",
+      "status": "candidate",
+      "caption": "",
+      "alt": "דולב מזרחי",
+      "src": "/plants/photos/platanus-orientalis-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "uncredited",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Plane_tree_Grove_Tsav_River.jpg"
+    }
+  ],
+  "laurus-nobilis": [
+    {
+      "id": "laurus-nobilis-1",
+      "plant": "laurus-nobilis",
+      "status": "candidate",
+      "caption": "",
+      "alt": "ער אציל",
+      "src": "/plants/photos/laurus-nobilis-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "Forest and Kim Starr",
+      "license": "CC BY 3.0 us",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Starr-071024-0195-Laurus_nobilis-leaves-Enchanting_Floral_Gardens_of_Kula-Maui_(24867859296).jpg"
+    }
+  ],
+  "sarcopoterium-spinosum": [
+    {
+      "id": "sarcopoterium-spinosum-1",
+      "plant": "sarcopoterium-spinosum",
+      "status": "candidate",
+      "caption": "",
+      "alt": "סירה קוצנית",
+      "src": "/plants/photos/sarcopoterium-spinosum-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "RickP",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Sarcopoterium_spinosum_fruit_RJP_02.jpg"
+    }
+  ],
+  "calicotome-villosa": [
+    {
+      "id": "calicotome-villosa-1",
+      "plant": "calicotome-villosa",
+      "status": "candidate",
+      "caption": "",
+      "alt": "קידה שעירה",
+      "src": "/plants/photos/calicotome-villosa-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "User:Xemenendura",
+      "license": "CC BY-SA 2.1 es",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.1/es/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Calicotome_villosa3.JPG"
+    }
+  ],
+  "rhamnus-lycioides": [
+    {
+      "id": "rhamnus-lycioides-1",
+      "plant": "rhamnus-lycioides",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אשחר ארץ-ישראלי",
+      "src": "/plants/photos/rhamnus-lycioides-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "איתן פרמן",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rhamnus_lycioides_fruits.JPG"
+    }
+  ],
+  "majorana-syriaca": [
+    {
+      "id": "majorana-syriaca-1",
+      "plant": "majorana-syriaca",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אזוב מצוי",
+      "src": "/plants/photos/majorana-syriaca-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Davidbena",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Origanum_syriacum,_March_2015.jpg"
+    }
+  ],
+  "coridothymus-capitatus": [
+    {
+      "id": "coridothymus-capitatus-1",
+      "plant": "coridothymus-capitatus",
+      "status": "candidate",
+      "caption": "",
+      "alt": "קורנית מקורקפת",
+      "src": "/plants/photos/coridothymus-capitatus-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Lapplaender",
+      "license": "CC BY-SA 3.0 de",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Thymus_capitatus_in_Crete.jpg"
+    }
+  ],
+  "salvia-fruticosa": [
+    {
+      "id": "salvia-fruticosa-1",
+      "plant": "salvia-fruticosa",
+      "status": "candidate",
+      "caption": "",
+      "alt": "מרווה משולשת",
+      "src": "/plants/photos/salvia-fruticosa-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "This file is a work by Ester Inbar (user:ST or he:user:ST). More of my work can be found in Category:Files by User:ST. If you use my work outside Wikimedia I would appreciate being notified and referred to site where used here.",
+      "license": "Attribution",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:SalviaFruticosa1_ST_06.JPG"
+    }
+  ],
+  "smilax-aspera": [
+    {
+      "id": "smilax-aspera-1",
+      "plant": "smilax-aspera",
+      "status": "candidate",
+      "caption": "",
+      "alt": "קיסוסית קוצנית",
+      "src": "/plants/photos/smilax-aspera-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "לא צוין",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Smilax_aspera.jpg"
+    }
+  ],
+  "asparagus-aphyllus": [
+    {
+      "id": "asparagus-aphyllus-1",
+      "plant": "asparagus-aphyllus",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אספרג החורש",
+      "src": "/plants/photos/asparagus-aphyllus-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Frank Vincentz",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Malta_-_Mellieha_-_Triq_l-Armier_-_Asparagus_aphyllus_01_ies.jpg"
+    }
+  ],
+  "triticum": [
+    {
+      "id": "triticum-1",
+      "plant": "triticum",
+      "status": "candidate",
+      "caption": "",
+      "alt": "חיטה",
+      "src": "/plants/photos/triticum-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "kallerna",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Vehn%C3%A4pelto_6.jpg"
+    }
+  ],
+  "hordeum": [
+    {
+      "id": "hordeum-1",
+      "plant": "hordeum",
+      "status": "candidate",
+      "caption": "",
+      "alt": "שעורה",
+      "src": "/plants/photos/hordeum-1.jpg",
+      "width": 640,
+      "height": 480,
+      "author": "Kurt Stüber [1]",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Hordeum_distichon0.jpg"
+    }
+  ],
+  "vitis-vinifera": [
+    {
+      "id": "vitis-vinifera-1",
+      "plant": "vitis-vinifera",
+      "status": "candidate",
+      "caption": "",
+      "alt": "גפן",
+      "src": "/plants/photos/vitis-vinifera-1.jpg",
+      "width": 882,
+      "height": 718,
+      "author": "לא צוין",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Cabernet_Sauvignon_Gaillac.jpg"
+    }
+  ],
+  "ficus-carica": [
+    {
+      "id": "ficus-carica-1",
+      "plant": "ficus-carica",
+      "status": "candidate",
+      "caption": "",
+      "alt": "תאנה",
+      "src": "/plants/photos/ficus-carica-1.jpg",
+      "width": 704,
+      "height": 1080,
+      "author": "Trew, C.J",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Ficus_carica_L,_1771.jpg"
+    }
+  ],
+  "punica-granatum": [
+    {
+      "id": "punica-granatum-1",
+      "plant": "punica-granatum",
+      "status": "candidate",
+      "caption": "",
+      "alt": "רימון",
+      "src": "/plants/photos/punica-granatum-1.jpg",
+      "width": 1280,
+      "height": 848,
+      "author": "Augustus Binu : flickr",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pomegranate_Juice_(2019).jpg"
+    }
+  ],
+  "olea-europaea": [
+    {
+      "id": "olea-europaea-1",
+      "plant": "olea-europaea",
+      "status": "candidate",
+      "caption": "",
+      "alt": "זית",
+      "src": "/plants/photos/olea-europaea-1.jpg",
+      "width": 1280,
+      "height": 1016,
+      "author": "Abu Shawka",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Olea_europaea_cuspidata-africana_Cape_Town.JPG"
+    }
+  ],
+  "phoenix-dactylifera": [
+    {
+      "id": "phoenix-dactylifera-1",
+      "plant": "phoenix-dactylifera",
+      "status": "candidate",
+      "caption": "",
+      "alt": "תמר",
+      "src": "/plants/photos/phoenix-dactylifera-1.jpg",
+      "width": 1280,
+      "height": 856,
+      "author": "Nepenthes",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Dates005.jpg"
+    }
+  ],
+  "tamarix": [
+    {
+      "id": "tamarix-1",
+      "plant": "tamarix",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אשל",
+      "src": "/plants/photos/tamarix-1.jpg",
+      "width": 960,
+      "height": 1280,
+      "author": "לא צוין",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Tamarix_aphylla.jpg"
+    }
+  ],
+  "ziziphus-spina-christi": [
+    {
+      "id": "ziziphus-spina-christi-1",
+      "plant": "ziziphus-spina-christi",
+      "status": "candidate",
+      "caption": "",
+      "alt": "שיזף מצוי",
+      "src": "/plants/photos/ziziphus-spina-christi-1.jpg",
+      "width": 1280,
+      "height": 960,
+      "author": "Dov Grobgeld",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Ziziphus-areva-israel.jpg"
+    }
+  ],
+  "retama-raetam": [
+    {
+      "id": "retama-raetam-1",
+      "plant": "retama-raetam",
+      "status": "candidate",
+      "caption": "",
+      "alt": "רותם המדבר",
+      "src": "/plants/photos/retama-raetam-1.jpg",
+      "width": 1280,
+      "height": 1102,
+      "author": "Original: Ariel Palmon Derived: Peter Coxhead",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Retama_raetam_1_cropped.jpg"
+    }
+  ],
+  "pinus-halepensis": [
+    {
+      "id": "pinus-halepensis-1",
+      "plant": "pinus-halepensis",
+      "status": "candidate",
+      "caption": "",
+      "alt": "אורן ירושלים",
+      "src": "/plants/photos/pinus-halepensis-1.jpg",
+      "width": 1280,
+      "height": 957,
+      "author": "C messier",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:%CE%A7%CE%B1%CE%BB%CE%AD%CF%80%CE%B9%CE%BF%CF%82_%CF%80%CE%B5%CF%8D%CE%BA%CE%B7_%CE%A3%CE%BF%CF%8D%CE%BD%CE%B9%CE%BF_1963.jpg"
+    }
+  ],
+  "cupressus-sempervirens": [
+    {
+      "id": "cupressus-sempervirens-1",
+      "plant": "cupressus-sempervirens",
+      "status": "candidate",
+      "caption": "",
+      "alt": "ברוש מצוי",
+      "src": "/plants/photos/cupressus-sempervirens-1.jpg",
+      "width": 1280,
+      "height": 848,
+      "author": "Andloukakis",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:%CE%95%CE%B8%CE%BD%CE%B9%CE%BA%CF%8C%CF%82_%CE%94%CF%81%CF%85%CE%BC%CF%8C%CF%82_%CE%A3%CE%B1%CE%BC%CE%B1%CF%81%CE%B9%CE%AC%CF%82.jpg"
+    }
+  ],
+  "prunus-dulcis": [
+    {
+      "id": "prunus-dulcis-1",
+      "plant": "prunus-dulcis",
+      "status": "candidate",
+      "caption": "",
+      "alt": "שקד",
+      "src": "/plants/photos/prunus-dulcis-1.jpg",
+      "width": 1280,
+      "height": 853,
+      "author": "Ivar Leidus",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Almonds_-_in_shell,_shell_cracked_open,_shelled,_blanched.jpg"
+    }
+  ],
+  "acacia-saligna": [
+    {
+      "id": "acacia-saligna-1",
+      "plant": "acacia-saligna",
+      "status": "candidate",
+      "caption": "",
+      "alt": "שיטה כחלחלה (מכחילה)",
+      "src": "/plants/photos/acacia-saligna-1.jpg",
+      "width": 1063,
+      "height": 1280,
+      "author": "Alvesgaspar",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Acacia_March_2008-2.jpg"
+    }
+  ]
+}

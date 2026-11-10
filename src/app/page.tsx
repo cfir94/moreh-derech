@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { pageMeta } from "@/lib/seo";
 import { QUIZZES } from "@/data/quizzes";
 import { EXAMS } from "@/data/exams";
 import { HomeProgress } from "@/components/HomeProgress";
 import { HomeActions } from "@/components/HomeActions";
 import { GuestToWelcome } from "@/components/landing/GuestToWelcome";
+import { TopicHub } from "@/components/topics/TopicHub";
 import { SectionCard } from "@/components/SectionCard";
 
 export const metadata = {
@@ -34,8 +36,8 @@ export default function Home() {
     {
       slug: "notebooks",
       href: "/notebooks",
-      title: "מחברות סיור ושיעור",
-      description: "מחברות סיור לפי אזור ומחברות עיוניות לפי תחום, עם קישור ישיר למחברת המקורית.",
+      title: "מאגרי מידע לסיורים ולשיעורים",
+      description: "מאגרי מידע לסיורים לפי אזור ולחומר העיוני לפי תחום, עם קישור ישיר למאגר המקורי.",
       meta: "סיורים · עיוני · מקוון",
     },
     {
@@ -122,7 +124,7 @@ export default function Home() {
             ללמוד למבחן. להכין את הסיור הבא.
           </h1>
           <p className="mb-7 max-w-xl leading-relaxed text-txt-dim">
-            מפות, מחברות ודוחות לעבודה השוטפת, לצד{" "}
+            מפות, מאגרי מידע ודוחות לעבודה השוטפת, לצד{" "}
             <span className="num">{questionCount}</span> שאלות תרגול (
             <span className="num">{examCount}</span> מהן ממבחני הרישוי), מבחנים
             מלאים ועזרי למידה. ההתקדמות והטעויות נשמרות בחשבון.
@@ -133,8 +135,16 @@ export default function Home() {
 
       <HomeProgress />
 
+      <section aria-labelledby="home-topics" className="mb-10">
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
+          <h2 id="home-topics" className="text-2xl font-black text-txt">בוחרים נושא</h2>
+          <Link href="/topics/" className="text-base font-bold text-teal">כל הנושאים בעמוד אחד ←</Link>
+        </div>
+        <TopicHub compact />
+      </section>
+
       <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        כלי עבודה, לימוד והכנה למבחן
+        או לפי סוג התוכן
       </h2>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
         {sections.map((s, i) => (

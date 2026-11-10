@@ -5,7 +5,7 @@
 import { NotebookLibrary } from "@/components/notebooks/NotebookLibrary";
 
 export const metadata = {
-  title: "מחברות הקורס",
+  title: "מאגרי המידע של הקורס",
 };
 
 export default function NotebooksPage() {

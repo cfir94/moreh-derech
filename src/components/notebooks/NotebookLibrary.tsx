@@ -51,7 +51,7 @@ function resolveTourRegion(id: string) {
   return TOUR_REGIONS.find((region) => region.id === id) ?? {
     id,
     title: id,
-    description: `מחברות סיור באזור ${id}.`,
+    description: `מאגרי מידע לסיורים באזור ${id}.`,
     tone: dynamicTone(id),
   };
 }
@@ -60,7 +60,7 @@ function resolveTheorySubject(id: string) {
   return THEORY_SUBJECTS.find((subject) => subject.id === id) ?? {
     id,
     title: id,
-    description: `מחברות בתחום ${id}.`,
+    description: `מאגרי מידע בתחום ${id}.`,
     tone: dynamicTone(id),
   };
 }
@@ -95,7 +95,7 @@ function SortControls({ order, onChange }: { order: SortOrder; onChange: (order:
     { id: "oldest", label: "ישן לחדש" },
   ];
   return (
-    <section aria-label="מיון מחברות" className="mb-6 flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-line bg-card/45 px-3 py-3 sm:px-4">
+    <section aria-label="מיון מאגרי מידע" className="mb-6 flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-line bg-card/45 px-3 py-3 sm:px-4">
       <span className="ml-1 text-sm font-bold text-txt">מיון לפי תאריך:</span>
       {options.map((option) => (
         <button key={option.id} type="button" onClick={() => onChange(option.id)} aria-pressed={order === option.id} className={`rounded-full border px-3 py-1.5 text-xs font-bold transition duration-200 ease-out active:scale-[0.97] ${order === option.id ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>
@@ -135,7 +135,7 @@ function PinIcon() {
 function CardAction() {
   return (
     <span className="mt-auto inline-flex w-fit items-center gap-2 pt-5 text-sm font-bold text-teal transition duration-200 ease-out group-hover:text-txt">
-      פתיחה במחברת
+      פתיחת מאגר המידע
       <ExternalIcon />
     </span>
   );
@@ -165,9 +165,9 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 id="theory-subjects-heading" className="text-lg text-txt">עיוני לפי תחום לימוד</h2>
-            <p className="mt-1 text-sm text-txt-dim">בחרו תחום כדי לצמצם את המחברות לרצף לימוד אחד.</p>
+            <p className="mt-1 text-sm text-txt-dim">בחרו תחום כדי לצמצם את המאגרים לרצף לימוד אחד.</p>
           </div>
-          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{shownNotebooks.length} מחברות</span>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{shownNotebooks.length} מאגרים</span>
         </div>
         <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
           <button type="button" onClick={() => setActiveSubject("all")} aria-pressed={activeSubject === "all"} className={`shrink-0 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${activeSubject === "all" ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>כל התחומים</button>
@@ -183,20 +183,20 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
         </div>
       </section>
 
-      <section aria-live="polite" aria-label="מחברות העיוני">
+      <section aria-live="polite" aria-label="מאגרי המידע העיוניים">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-xl text-txt sm:text-2xl">{selectedSubject?.title ?? "כל המחברות העיוניות"}</h2>
+            <h2 className="text-xl text-txt sm:text-2xl">{selectedSubject?.title ?? "כל המאגרים העיוניים"}</h2>
             {selectedSubject && <p className="mt-1 text-sm text-txt-dim">{selectedSubject.description}</p>}
           </div>
-          <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למחברות</p>
+          <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למאגרים</p>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {shownNotebooks.map((notebook, index) => {
             const subject = resolveTheorySubject(notebook.subject);
             return (
-              <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת המחברת ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
+              <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת מאגר המידע ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
                 <span aria-hidden="true" className={`absolute inset-y-0 right-0 w-1 ${toneClasses[subject.tone].split(" ")[1]}`} />
                 <div className="mb-5 flex items-center justify-between gap-3">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${toneClasses[subject.tone]}`}><NotebookIcon />{subject.title}</span>
@@ -217,26 +217,26 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
 
 function OnlineSection({ notebooks }: { notebooks: OnlineNotebook[] }) {
   return (
-    <section aria-label="מחברות השיעורים המקוונים">
+    <section aria-label="מאגרי המידע של השיעורים המקוונים">
       <div className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-4 sm:p-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-lg text-txt">שיעורים מקוונים</h2>
-            <p className="mt-1 text-sm text-txt-dim">רצף מחברות בארכאולוגיה, פרהיסטוריה ותקופות ארץ ישראל.</p>
+            <p className="mt-1 text-sm text-txt-dim">רצף מאגרים בארכאולוגיה, פרהיסטוריה ותקופות ארץ ישראל.</p>
           </div>
-          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{notebooks.length} מחברות</span>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{notebooks.length} מאגרים</span>
         </div>
       </div>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-xl text-txt sm:text-2xl">כל השיעורים המקוונים</h2>
-          <p className="mt-1 text-sm text-txt-dim">סדר המחברות משתנה בהתאם לבחירת המיון.</p>
+          <p className="mt-1 text-sm text-txt-dim">סדר המאגרים משתנה בהתאם לבחירת המיון.</p>
         </div>
-        <p className="text-xs font-bold text-txt-dim">{notebooks.length} קישורים ישירים למחברות</p>
+        <p className="text-xs font-bold text-txt-dim">{notebooks.length} קישורים ישירים למאגרים</p>
       </div>
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {notebooks.map((notebook, index) => (
-          <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת המחברת ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
+          <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת מאגר המידע ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
             <span aria-hidden="true" className="absolute inset-y-0 right-0 w-1 bg-violet/10" />
             <div className="mb-5 flex items-center justify-between gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/35 bg-violet/10 px-2.5 py-1 text-xs font-bold text-violet"><NotebookIcon />מקוון</span>
@@ -270,7 +270,7 @@ export function NotebookLibrary() {
         if (!cancelled) setStoredNotebooks(notebooks);
       })
       .catch((error) => {
-        if (!cancelled) setDataError(error instanceof Error ? error.message : "טעינת המחברות שנוספו נכשלה.");
+        if (!cancelled) setDataError(error instanceof Error ? error.message : "טעינת מאגרי המידע שנוספו נכשלה.");
       });
     return () => {
       cancelled = true;
@@ -357,10 +357,10 @@ export function NotebookLibrary() {
       <header className="mb-8 flex flex-wrap items-end justify-between gap-5">
         <div className="max-w-3xl">
           <div className="mb-3 flex items-center gap-2 text-sm font-bold text-teal"><span aria-hidden="true" className="h-px w-8 bg-teal" />מרכז הלמידה</div>
-          <h1 className="grad-text text-3xl leading-tight sm:text-4xl">מחברות הקורס</h1>
-          <p className="mt-3 leading-relaxed text-txt-dim">מקום אחד למחברות Gemini Notebook של הקורס — סיורים, מפגשים עיוניים ותכנים מקוונים. בוחרים תחום, מוצאים את המחברת ופותחים אותה ישירות.</p>
+          <h1 className="grad-text text-3xl leading-tight sm:text-4xl">מאגרי המידע של הקורס</h1>
+          <p className="mt-3 leading-relaxed text-txt-dim">מקום אחד למאגרי המידע של הקורס (Gemini Notebook) — סיורים, מפגשים עיוניים ותכנים מקוונים. בוחרים תחום, מוצאים את המאגר ופותחים אותו ישירות.</p>
         </div>
-        {isOwner && <button type="button" onClick={() => setManagerOpen((open) => !open)} aria-expanded={managerOpen} className="rounded-full border border-teal/40 bg-teal/10 px-4 py-2.5 text-sm font-extrabold text-teal transition hover:bg-teal/15 active:scale-[0.97]">{managerOpen ? "סגירת הניהול" : "+ הוספת מחברת"}</button>}
+        {isOwner && <button type="button" onClick={() => setManagerOpen((open) => !open)} aria-expanded={managerOpen} className="rounded-full border border-teal/40 bg-teal/10 px-4 py-2.5 text-sm font-extrabold text-teal transition hover:bg-teal/15 active:scale-[0.97]">{managerOpen ? "סגירת הניהול" : "+ הוספת מאגר"}</button>}
       </header>
 
       {isOwner && managerOpen && (
@@ -373,7 +373,7 @@ export function NotebookLibrary() {
         />
       )}
 
-      <section aria-label="סוג המחברות" className="mb-6">
+      <section aria-label="סוג מאגרי המידע" className="mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
           {NOTEBOOK_MODES.map((mode) => {
             const isActive = activeMode === mode.id;
@@ -397,8 +397,8 @@ export function NotebookLibrary() {
         <>
           <section aria-labelledby="tour-regions-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
             <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-              <div><h2 id="tour-regions-heading" className="text-lg text-txt">סיורים לפי אזור</h2><p className="mt-1 text-sm text-txt-dim">בחרו אזור כדי לצמצם את המחברות למרחב שטח אחד.</p></div>
-              <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{shownNotebooks.length} מחברות</span>
+              <div><h2 id="tour-regions-heading" className="text-lg text-txt">סיורים לפי אזור</h2><p className="mt-1 text-sm text-txt-dim">בחרו אזור כדי לצמצם את המאגרים למרחב שטח אחד.</p></div>
+              <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{shownNotebooks.length} מאגרים</span>
             </div>
             <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
               <button type="button" onClick={() => setActiveRegion("all")} aria-pressed={activeRegion === "all"} className={`shrink-0 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${activeRegion === "all" ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>כל האזורים</button>
@@ -410,19 +410,19 @@ export function NotebookLibrary() {
             </div>
           </section>
 
-          <section aria-live="polite" aria-label="מחברות הסיורים">
+          <section aria-live="polite" aria-label="מאגרי המידע של הסיורים">
             <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h2 className="text-xl text-txt sm:text-2xl">{activeRegion === "all" ? "כל מחברות הסיורים" : activeRegionDetails?.title}</h2>
+                <h2 className="text-xl text-txt sm:text-2xl">{activeRegion === "all" ? "כל מאגרי הסיורים" : activeRegionDetails?.title}</h2>
                 {activeRegionDetails && <p className="mt-1 text-sm text-txt-dim">{activeRegionDetails.description}</p>}
               </div>
-              <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למחברות</p>
+              <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למאגרים</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {shownNotebooks.map((notebook, index) => {
                 const region = resolveTourRegion(notebook.region);
                 return (
-                  <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת המחברת ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
+                  <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת מאגר המידע ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
                     <span aria-hidden="true" className={`absolute inset-y-0 right-0 w-1 ${toneClasses[region.tone].split(" ")[1]}`} />
                     <div className="mb-5 flex items-center justify-between gap-3"><span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${toneClasses[region.tone]}`}><PinIcon />{region.title}</span><span className="num text-xs font-bold text-txt-dim">{notebook.date}</span></div>
                     <h3 className="text-lg leading-snug text-txt">{notebook.title}</h3>
