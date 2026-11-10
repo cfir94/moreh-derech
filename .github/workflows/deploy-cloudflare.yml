@@ -42,6 +42,9 @@ jobs:
           NEXT_PUBLIC_SITE_ORIGIN: "https://moreyderech.com"
           # כניסה בקוד למייל (A-01). אושר ע"י הבעלים ב-7.11, אחרי ש-SMTP של Resend הוגדר ב-Supabase.
           NEXT_PUBLIC_EMAIL_CODE_LOGIN: "1"
+          # חסימת תוכן בתשלום אחרי שבוע הניסיון (B-04). הודלק ב-10.11, אחרי: ה-SQL (#114), המפתחות (#120),
+          # וגישה חינם לחברי הכיתה עד 1.1.2028 (#123).
+          NEXT_PUBLIC_PAYWALL: "1"
       - name: Exclude files over Cloudflare's 25MB static limit
         if: env.CLOUDFLARE_API_TOKEN != ''
         run: |
