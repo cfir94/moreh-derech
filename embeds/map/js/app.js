@@ -855,14 +855,28 @@ function refreshNatureLayer() {
     : ['==', ['literal', false], ['literal', true]]);
 }
 
+const GEO_AGE_ORDER = ['precambrian', 'paleozoic', 'triassic', 'jurassic', 'lower-cretaceous', 'cenomanian-turonian',
+  'senonian', 'eocene', 'neogene', 'basalt-old', 'pleistocene-kurkar', 'basalt-young', 'lisan', 'quaternary', 'loess'];
+const GEO_AGE_HE = {
+  'precambrian': 'פרה-קמבריון', 'paleozoic': 'פלאוזואיקון', 'triassic': 'טריאס', 'jurassic': 'יורה',
+  'lower-cretaceous': 'קרטיקון תחתון', 'cenomanian-turonian': 'קנומן–טורון', 'senonian': 'סנון',
+  'eocene': 'אאוקן', 'neogene': 'ניאוגן', 'basalt-old': 'בזלת (ניאוגן–פלייסטוקן)',
+  'pleistocene-kurkar': 'פלייסטוקן', 'basalt-young': 'בזלת צעירה (פלייסטוקן)', 'lisan': 'פלייסטוקן מאוחר',
+  'quaternary': 'רביעון', 'loess': 'רביעון'
+};
+
 function buildGeologyLegend() {
   const el = document.getElementById('geology-legend');
   const data = state.geologyGeoJSON[state.geologyLevel];
   el.innerHTML = '';
   if (!data) return;
+  // Coloured by the age of the rock, in the colours of the international
+  // stratigraphic chart that geological maps (the GSI's too) use, so the
+  // legend reads from oldest to youngest like a column in the field.
   data.features
     .slice()
-    .sort((a, b) => a.properties.name_he.localeCompare(b.properties.name_he, 'he'))
+    .sort((a, b) => (GEO_AGE_ORDER.indexOf(a.properties.age_class) - GEO_AGE_ORDER.indexOf(b.properties.age_class))
+      || a.properties.name_he.localeCompare(b.properties.name_he, 'he'))
     .forEach(f => {
       const item = document.createElement('div');
       item.className = 'legend-item';
@@ -876,7 +890,7 @@ function buildGeologyLegend() {
         `<span class="swatch" style="background-image:${pat}linear-gradient(${f.properties.color},${f.properties.color});` +
         `background-size:15px 15px,auto"></span>` +
         `<span class="legend-text">${f.properties.name_he}` +
-        (f.properties.rock_class_he ? `<span class="legend-sub">${f.properties.rock_class_he}</span>` : '') +
+        `<span class="legend-sub">${[GEO_AGE_HE[f.properties.age_class], f.properties.rock_class_he].filter(Boolean).join(' · ')}</span>` +
         `</span>`;
       el.appendChild(item);
     });
