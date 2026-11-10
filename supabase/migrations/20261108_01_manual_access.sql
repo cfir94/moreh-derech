@@ -64,12 +64,15 @@ create table if not exists public.md_leads (
   phone text not null default '' check (char_length(phone) <= 32),
   note text not null default '' check (char_length(note) <= 1000),
   handled boolean not null default false,
+  -- מתי נשלח לבעלים מייל על הפנייה (ה-Worker של האתר, deploy/site/worker.ts). null = עוד לא.
+  notified_at timestamptz,
   created_at timestamptz not null default now()
 );
+alter table public.md_leads add column if not exists notified_at timestamptz;
 alter table public.md_leads enable row level security;
 drop policy if exists "md_leads_insert_own" on public.md_leads;
 create policy "md_leads_insert_own" on public.md_leads for insert to authenticated
-  with check (auth.uid() = user_id and handled = false);
+  with check (auth.uid() = user_id and handled = false and notified_at is null);
 revoke all on public.md_leads from anon;
 grant insert on public.md_leads to authenticated;
 

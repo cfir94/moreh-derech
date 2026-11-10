@@ -3,7 +3,8 @@
  * ופעולות המנהל. הכול מול טבלאות md_ ופונקציות md_admin_* ב-Supabase
  * (supabase/migrations/20261108_01_manual_access.sql). ההרשאות נאכפות שם, לא כאן.
  */
-import { authenticatedSupabaseRequest, readSession, saveProfileDetails } from "@/lib/cloudAuth";
+import { authenticatedSupabaseRequest, freshAccessToken, readSession, saveProfileDetails } from "@/lib/cloudAuth";
+import { withBasePath } from "@/lib/basePath";
 
 export type Cohort = { id: number; school: string; year: number; name: string; code: string; active?: boolean };
 export type JoinPlan = "halfyear" | "yearly";
@@ -56,7 +57,14 @@ export async function saveSignupDetails(input: { fullName: string; phone: string
     method: "POST",
     headers: { Prefer: "return=minimal" },
     body: { user_id: session.user_id, kind: "signup", email: session.email, full_name: input.fullName, phone: input.phone },
-  }).catch(() => null);
+  }).then(notifyOwner, () => null);
+}
+
+/** מבקש מה-Worker של האתר לשלוח לבעלים מייל על הפנייה. ב-GitHub Pages אין Worker: נכשל בשקט. */
+async function notifyOwner() {
+  const token = await freshAccessToken().catch(() => null);
+  if (!token) return;
+  await fetch(withBasePath("/api/lead-notify"), { method: "POST", headers: { Authorization: `Bearer ${token}` } }).catch(() => null);
 }
 
 export async function fetchMyProfile(): Promise<{ full_name: string; phone: string } | null> {
@@ -80,6 +88,7 @@ export async function requestJoin(input: { plan: JoinPlan; fullName: string; pho
       full_name: input.fullName, phone: input.phone, note: input.note,
     },
   });
+  void notifyOwner();
   if (input.phone) {
     await authenticatedSupabaseRequest("/rest/v1/md_profiles?on_conflict=user_id", {
       method: "POST",
