@@ -308,7 +308,7 @@ export function GeologyAid({ photos, practice }: { photos: GeoPhotos; practice: 
         {tab === "soils" && <SoilsList photos={photos} />}
         {tab === "practice" && <section className="space-y-3">
           <p className="rounded-lg border border-line bg-card p-4 leading-7 text-txt-dim">עשר שאלות משאלון הגאולוגיה. התשובות נרשמות במעקב שלכם, ושאלה שטעיתם בה תחזור בתרגול הטעויות.</p>
-          <PracticeDeck quizSlug="geology" items={practice} />
+          <PracticeDeck quizSlug="geology" label="גיאולוגיה" items={practice} />
         </section>}
       </div>
     </div>

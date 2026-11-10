@@ -3,15 +3,20 @@
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { SECOND_TEMPLE as research, TEMPLE_EVENTS, TEMPLE_PERIODS, matchesTempleQuery, type TempleEvent } from "@/data/second-temple";
+import { PracticeDeck } from "@/components/learning-aid";
+import { templePractice } from "@/lib/templePractice";
 import styles from "./SecondTempleTimeline.module.css";
 
-type View = "timeline" | "people" | "sites" | "processes" | "sources";
+const PRACTICE = templePractice();
+
+type View = "timeline" | "people" | "sites" | "processes" | "sources" | "practice";
 const views: { id: View; title: string; count?: number }[] = [
   { id: "timeline", title: "ציר הזמן", count: TEMPLE_EVENTS.length },
   { id: "people", title: "אנשי התקופה", count: research.people.length },
   { id: "sites", title: "אתרים וממצאים", count: research.sites.length },
   { id: "processes", title: "התמונה הרחבה", count: research.processes.length },
   { id: "sources", title: "מקורות ודיוק" },
+  { id: "practice", title: "תרגול" },
 ];
 const categories = [
   { id: "all", title: "כל הנושאים", pattern: null },
@@ -175,6 +180,11 @@ export function SecondTempleTimeline() {
         <header className={styles.sectionIntro}><p>החוטים שמחברים את האירועים</p><h2>התמונה הרחבה</h2><span>תהליכים נמשכים לאורך זמן וחוצים חילופי שלטון. הם אינם נקודה אחת על הציר.</span></header>
         <div className={styles.processList}>{research.processes.filter(search).map((process) => <article key={process.id} className={styles.processCard}><span className={styles.cardId}>{process.id}</span><h3>{process.title}</h3>{process.paragraphs.map((paragraph, index) => <p key={index}>{paragraph.replace(/^\* /, "")}</p>)}{process.table.length > 0 && <div className={styles.tableWrap}><table><caption>השוואת הקבוצות לפי עמדת ההרצאה בלבד</caption><thead><tr>{process.table[0].map((cell) => <th key={cell} scope="col">{cell}</th>)}</tr></thead><tbody>{process.table.slice(1).map((row, index) => <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>}<EventLinks text={process.paragraphs.join(" ")} onJump={jump} /></article>)}</div>
         {!research.processes.filter(search).length && <p className={styles.empty} role="status">לא נמצאו תהליכים התואמים לחיפוש.</p>}
+      </div>}
+
+      {view === "practice" && <div className={styles.secondary}>
+        <header className={styles.sectionIntro}><p>מה זוכרים מהציר?</p><h2>תרגול</h2><span>עשר שאלות בכל סבב, מתוך האירועים שבציר: מה קרה בשנה מסוימת, ובאיזו תקופה. התשובות נרשמות במעקב שלכם.</span></header>
+        <PracticeDeck quizSlug="second-temple" label="בית שני: תרגול ציר" items={PRACTICE} />
       </div>}
 
       {view === "sources" && <div className={styles.secondary}>

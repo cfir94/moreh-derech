@@ -57,7 +57,7 @@ export function BiblicalTimeline() {
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start lg:gap-5">
       <AidTabs tabs={tabs} active={tab} onSelect={selectTab} />
       <section role="tabpanel" className="screen-in min-w-0 space-y-4 pt-4 lg:pt-0" key={tab}>
-        {tab === PRACTICE_ID ? <PracticeDeck quizSlug="biblical" items={practice} /> : activeTimeline && <>
+        {tab === PRACTICE_ID ? <PracticeDeck quizSlug="biblical" label="הברית החדשה: תרגול" items={practice} /> : activeTimeline && <>
           <div><h2 className="text-2xl font-black">{activeTimeline.title}</h2><p className="mt-1 text-txt-dim">{activeTimeline.subtitle}</p></div>
           <AidSearch value={query} onChange={search} placeholder="חיפוש באירועים ובמקורות…" />
           <div className="grid gap-4 xl:grid-cols-2">{events.map((event) => <SummaryCard key={event.id} id={event.id} title={event.title} date={event.reference} summary={event.body}><EventDetail event={event} /></SummaryCard>)}</div>
