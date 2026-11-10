@@ -2,8 +2,8 @@
   {
     "id": "quercus-calliprinos-1",
     "plant": "quercus-calliprinos",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אלון מצוי בישראל: גזעים מתפצלים ונוף צפוף של עלים קטנים וקשים",
     "alt": "אלון מצוי",
     "search": "Quercus calliprinos Israel"
   },
@@ -21,7 +21,7 @@
     "status": "candidate",
     "caption": "",
     "alt": "אלון התולע",
-    "search": "Quercus boissieri tree"
+    "search": "Quercus boissieri"
   },
   {
     "id": "pistacia-palaestina-1",
@@ -146,8 +146,8 @@
   {
     "id": "cistus-1",
     "plant": "cistus",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "לוטם בפארק נשר: פרח ורוד של לוטם שעיר, ומאחוריו פרחים לבנים של לוטם מרווני",
     "alt": "לוטם",
     "search": "Cistus creticus flower"
   },
@@ -194,8 +194,8 @@
   {
     "id": "rubia-tenuifolia-1",
     "plant": "rubia-tenuifolia",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "פואה מצויה: מטפס עם פרחים קטנים צהבהבים",
     "alt": "פואה מצויה",
     "search": "Rubia tenuifolia"
   },
@@ -226,24 +226,24 @@
   {
     "id": "ficus-carica-1",
     "plant": "ficus-carica",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "תאנה: עלים גדולים ומפורצים ופירות צעירים על הענף",
     "alt": "תאנה",
     "search": "Ficus carica tree leaves fruit"
   },
   {
     "id": "punica-granatum-1",
     "plant": "punica-granatum",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "רימון: פרח אדום-כתום ועלים מבריקים (צולם בפורטוגל)",
     "alt": "רימון",
     "search": "Punica granatum flower"
   },
   {
     "id": "olea-europaea-1",
     "plant": "olea-europaea",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "זית עתיק בציפורי: גזע מחורץ ומפוצל",
     "alt": "זית",
     "search": "Olea europaea olive tree Israel"
   },
@@ -258,16 +258,16 @@
   {
     "id": "tamarix-1",
     "plant": "tamarix",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "אשל היאור: גזעים מתפצלים וענפים דקים",
     "alt": "אשל",
     "search": "Tamarix nilotica"
   },
   {
     "id": "acacia-1",
     "plant": "acacia",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "שיטה סלילנית: עץ בודד עם נוף שטוח בנוף מדברי",
     "alt": "שיטה",
     "search": "Acacia raddiana tree"
   },
@@ -306,8 +306,8 @@
   {
     "id": "prunus-dulcis-1",
     "plant": "prunus-dulcis",
-    "status": "candidate",
-    "caption": "",
+    "status": "approved",
+    "caption": "שקדייה בפריחה: מטע עצים מכוסים פרחים לבנים (צולם בקליפורניה)",
     "alt": "שקד",
     "search": "Almond blossom tree"
   },
