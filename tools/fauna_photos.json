@@ -230,5 +230,13 @@
     "wiki": "en:Leiurus hebraeus",
     "caption": "עקצן צהוב על אדמה: צבתות דקות וזנב ארוך",
     "alt": "עקצן צהוב"
+  },
+  {
+    "id": "murex-2",
+    "subject": "murex",
+    "status": "candidate",
+    "search": "Bolinus brandaris shell",
+    "caption": "",
+    "alt": ""
   }
 ]

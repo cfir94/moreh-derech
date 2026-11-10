@@ -150,5 +150,21 @@
     "search": "Hula Valley fields",
     "caption": "עמק החולה: שדות על אדמת סחף",
     "alt": "מבט על שדות עמק החולה"
+  },
+  {
+    "id": "soil-hamra-2",
+    "subject": "soil-hamra",
+    "status": "candidate",
+    "search": "Hamra soil Sharon red sandy",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-basalt-soil-2",
+    "subject": "soil-basalt-soil",
+    "status": "candidate",
+    "search": "basalt boulders field Golan Heights",
+    "caption": "",
+    "alt": ""
   }
 ]
