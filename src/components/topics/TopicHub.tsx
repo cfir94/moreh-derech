@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { HUB_KINDS, TOPIC_HUB, type HubGroup, type HubItem, type HubLink } from "@/data/topic-hub";
+import { QUIZZES } from "@/data/quizzes";
+import { TopicProgress } from "./TopicProgress";
 
 /*
  * "לפי נושא" (בקשת הבעלים 10.11): שורה לכל נושא, וכפתור לכל סוג תוכן. קהל היעד הוא 40–60, ולכן:
@@ -66,7 +68,12 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
             <p className="text-base text-txt-dim">{group.note}</p>
           </div>
           <ul className="flex flex-col gap-3">
-            {group.topics.map((topic) => (
+            {group.topics.map((topic) => {
+              const quizHref = topic.links.find((link) => link.kind === "quiz")?.items[0]?.href;
+              const quizSlug = quizHref?.match(/^\/quizzes\/([^/]+)\/?$/)?.[1];
+              const quizData = quizSlug ? QUIZZES.find((quiz) => quiz.slug === quizSlug) : undefined;
+
+              return (
               <li
                 key={topic.id}
                 id={`topic-${topic.id}`}
@@ -77,6 +84,7 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
                   <div className="min-w-0">
                     <h3 className="text-xl font-black leading-tight text-txt">{topic.title}</h3>
                     {!compact && <p className="text-base text-txt-dim">{topic.sub}</p>}
+                    {quizData && <TopicProgress quiz={quizData.slug} total={quizData.questions.length} />}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
@@ -92,7 +100,8 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
                     : topic.links.map((linkItem) => <HubButton key={linkItem.kind} link={linkItem} />)}
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ul>
         </section>
       ))}

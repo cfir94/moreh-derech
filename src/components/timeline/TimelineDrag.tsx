@@ -154,10 +154,10 @@ export function TimelineDrag() {
     return (
       <div className="screen-in mx-auto max-w-2xl px-4 py-10">
         <Link
-          href="/quizzes"
+          href="/topics/"
           className="mb-4 inline-block text-[13px] font-bold text-txt-dim hover:underline"
         >
-          ← כל השאלונים
+          ← חזרה לעיוני
         </Link>
         <div
           className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-5"

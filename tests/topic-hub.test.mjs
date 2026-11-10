@@ -29,3 +29,14 @@ test("no empty rows, no duplicate topics, one button per kind", () => {
     for (const link of topic.links) assert.ok(link.items.length > 0, `${topic.id}/${link.kind} is empty`);
   }
 });
+
+test("every quiz button has quiz data for its progress bar", () => {
+  for (const group of TOPIC_HUB) for (const topic of group.topics) {
+    const quizLink = topic.links.find((link) => link.kind === "quiz");
+    if (!quizLink) continue;
+    assert.equal(quizLink.items.length, 1, `${topic.id} must have one quiz for one progress bar`);
+    const slug = quizLink.items[0].href.match(/^\/quizzes\/([^/]+)\/?$/)?.[1];
+    assert.ok(slug, `${topic.id} has an invalid quiz URL`);
+    assert.ok(QUIZZES.some((quiz) => quiz.slug === slug), `${topic.id}: no quiz data for ${slug}`);
+  }
+});

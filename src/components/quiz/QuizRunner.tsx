@@ -76,6 +76,9 @@ export function QuizRunner({
       count: counts.get(t.key)!,
     }));
   }, [quiz.questions]);
+  // Quizzes without their own noun call their categories "נושא" too; next to the
+  // syllabus-topic axis that read "לפי נושא / לפי נושא", so there they are chapters.
+  const categoryLabel = topics.length > 1 && noun.one === "נושא" ? "פרק" : noun.one;
 
   const pool = useMemo(() => {
     if (category === "הכל") return quiz.questions;
@@ -176,10 +179,10 @@ export function QuizRunner({
         style={domainStyle(quiz.slug)}
       >
         <Link
-          href="/quizzes"
+          href="/topics/"
           className="mb-5 inline-block text-sm font-bold text-txt-dim transition hover:text-txt"
         >
-          ← כל השאלונים
+          ← חזרה לעיוני
         </Link>
 
         <div className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-6">
@@ -211,13 +214,13 @@ export function QuizRunner({
           <section>
             <div className="mb-2.5 flex items-center justify-between gap-3">
               <h2 className="text-sm font-bold tracking-[0.05em] text-txt-dim">
-                {axis === "topic" ? "נושא" : noun.one}
+                {axis === "topic" ? "נושא" : categoryLabel}
               </h2>
               {topics.length > 1 && (
                 <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
                   {(
                     [
-                      ["category", noun.one],
+                      ["category", categoryLabel],
                       ["topic", "נושא"],
                     ] as const
                   ).map(([value, label]) => (
