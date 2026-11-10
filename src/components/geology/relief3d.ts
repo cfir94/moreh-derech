@@ -41,6 +41,12 @@ const PER_METRE = (WIDTH / RELIEF.frame.w) * RELIEF.frame.scale / (40075016 * Ma
 const LAND = { light: "#ece5d3", dark: "#24323b" } as const;
 const PICK_W = 512;
 
+/** Unit i as an exact colour on the pick canvas: steps of 9 in red and green, up to 783 units. */
+function pickCode(i: number): [number, number] {
+  const n = i + 1;
+  return [(n % 28) * 9, Math.floor(n / 28) * 9];
+}
+
 function loadImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image();
@@ -175,7 +181,8 @@ export function createReliefViewer(host: HTMLElement, assets: ReliefAssets, even
     pickCtx.fillRect(0, 0, pick.width, pick.height);
     units.forEach((unit, i) => {
       tracePolygons(pickCtx, unit, pp);
-      pickCtx.fillStyle = `rgb(${(i + 1) * 9},0,0)`;
+      const [r, g] = pickCode(i);
+      pickCtx.fillStyle = `rgb(${r},${g},0)`;
       pickCtx.fill("evenodd");
     });
     pickCtx.globalCompositeOperation = "destination-out";
@@ -192,11 +199,10 @@ export function createReliefViewer(host: HTMLElement, assets: ReliefAssets, even
     const hit = ray.intersectObject(mesh)[0];
     if (!hit?.uv) return null;
     const px = Math.floor(hit.uv.x * pick.width), py = Math.floor((1 - hit.uv.y) * pick.height);
-    const [r, , , a] = pickCtx.getImageData(px, py, 1, 1).data;
-    if (a < 255) return null;
-    const index = Math.round(r / 9) - 1;
-    // anti-aliased edges blend two codes; only an exact code is a unit
-    return index >= 0 && r === (index + 1) * 9 ? units[index]?.id ?? null : null;
+    const [r, g, , a] = pickCtx.getImageData(px, py, 1, 1).data;
+    if (a < 255 || r % 9 || g % 9) return null; // anti-aliased edges blend two codes
+    const index = (g / 9) * 28 + r / 9 - 1;
+    return index >= 0 ? units[index]?.id ?? null : null;
   };
 
   // a tap is a press that did not turn into a drag

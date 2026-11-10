@@ -2,17 +2,17 @@
   {
     "id": "basalt-1",
     "subject": "basalt",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "עמודי בזלת משושים בבריכת המשושים, בגולן",
+    "alt": "מפל בין עמודי בזלת משושים",
     "search": "Meshushim"
   },
   {
     "id": "granite-1",
     "subject": "granite",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "גרניט מלוטש: גבישים גדולים, בהירים וכהים (סרדיניה)",
+    "alt": "משטח גרניט מלוטש",
     "wiki": "en:Granite"
   },
   {
@@ -26,25 +26,25 @@
   {
     "id": "dolomite-1",
     "subject": "dolomite",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "מחשוף דולומיט: סלע אפור־אדמדם ומחוספס (סלובניה)",
+    "alt": "מחשוף סלע דולומיט",
     "wiki": "en:Dolomite (rock)"
   },
   {
     "id": "chalk-1",
     "subject": "chalk",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "קירטון רך בקיר מערה בבית גוברין",
+    "alt": "קיר מערה לבן מקירטון",
     "search": "Beit Guvrin caves"
   },
   {
     "id": "flint-1",
     "subject": "flint",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "גוש צור: שבר חלק וקעור",
+    "alt": "גוש צור אפור",
     "wiki": "en:Flint"
   },
   {
@@ -74,9 +74,9 @@
   {
     "id": "quartzite-1",
     "subject": "quartzite",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "המנסרה במכתש רמון: עמודי קוורציט",
+    "alt": "גבעה מכוסה עמודי אבן מנסרתיים",
     "search": "Makhtesh Ramon Minsara"
   },
   {
@@ -94,14 +94,6 @@
     "search": "rendzina soil",
     "caption": "רנדזינה: קרקע בהירה מעל שברי סלע גירי (קטלוניה)",
     "alt": "חתך קרקע בהירה עם שברי סלע לבנים"
-  },
-  {
-    "id": "soil-basalt-soil-1",
-    "subject": "soil-basalt-soil",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
-    "search": "Golan Heights basalt field"
   },
   {
     "id": "soil-hamra-1",
@@ -130,33 +122,33 @@
   {
     "id": "soil-reg-1",
     "subject": "soil-reg",
-    "status": "candidate",
-    "caption": "",
-    "alt": "",
+    "status": "approved",
+    "caption": "מרבד אבנים במדבר: הרוח הסיעה את החומר הדק",
+    "alt": "משטח של אבנים קטנות צפופות",
     "wiki": "en:Desert pavement"
   },
   {
     "id": "kurkar-2",
     "subject": "kurkar",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Kurkar",
-    "caption": "",
-    "alt": ""
+    "caption": "רכס כורכר ליד כביש 2",
+    "alt": "גבעת כורכר בהירה בצד כביש"
   },
   {
     "id": "soil-terra-rossa-2",
     "subject": "soil-terra-rossa",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Terra rossa (soil)",
-    "caption": "",
-    "alt": ""
+    "caption": "טרה רוסה בכרם: אדמה אדומה בין הגפנים (איסטריה)",
+    "alt": "שורת גפנים על אדמה אדומה"
   },
   {
     "id": "soil-alluvium-2",
     "subject": "soil-alluvium",
-    "status": "candidate",
+    "status": "approved",
     "search": "Hula Valley fields",
-    "caption": "",
-    "alt": ""
+    "caption": "עמק החולה: שדות על אדמת סחף",
+    "alt": "מבט על שדות עמק החולה"
   }
 ]

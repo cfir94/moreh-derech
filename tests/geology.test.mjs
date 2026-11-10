@@ -44,3 +44,18 @@ test("every photo subject is a rock or a soil", () => {
     if (item.status === "approved") assert.ok(item.caption && item.alt, `${item.id}: approved without caption/alt`);
   }
 });
+
+test("the official GSI layer: every polygon has a known formation with a colour and an age", async () => {
+  const { GSI_UNITS } = await import("../src/data/geology/gsi-units.ts");
+  const { gsiAge } = await import("../src/data/geology/gsi.ts");
+  const data = JSON.parse(readFileSync("public/geology/gsi-200k.geojson", "utf8"));
+  assert.ok(data.features.length > 8000, "the 1:200,000 map has about 8,450 polygons");
+  for (const f of data.features) assert.ok(GSI_UNITS[f.properties.c], `unknown formation ${f.properties.c}`);
+  for (const [code, u] of Object.entries(GSI_UNITS)) {
+    assert.match(u.color, /^#[0-9A-F]{6}$/, code);
+    assert.ok(ages.has(gsiAge(u.en)), code);
+  }
+  assert.equal(gsiAge("Elat Granite - (Precambrian)"), "precambrian");
+  assert.equal(gsiAge("Yam Suf Group - (Cambrian)"), "paleozoic");
+  assert.equal(gsiAge("Golan Basalt; Raqqad Basalt - (Quaternary)"), "basalt-young");
+});
