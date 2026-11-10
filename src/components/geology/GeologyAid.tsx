@@ -7,12 +7,14 @@ import { useTheme } from "@/components/ThemeToggle";
 import { AGES, ROCKS, ROCK_FAMILIES, SOILS, type AgeId, type RockFamily } from "@/data/geology/geology";
 import { withBasePath } from "@/lib/basePath";
 import type { ReliefViewer, Unit } from "./relief3d";
+import { GSI_CREDIT, gsiAge } from "@/data/geology/gsi";
+import { GSI_UNITS } from "@/data/geology/gsi-units";
 import styles from "./geology.module.css";
 
 export type GeoPhoto = { src: string; caption: string; credit: string; alt: string };
 export type GeoPhotos = Record<string, GeoPhoto[]>;
 
-type Level = "basic" | "advanced";
+type Level = "basic" | "advanced" | "official";
 type UnitInfo = Unit & { summary: string; description: string; rockClass: string; sources: { title: string; url: string }[] };
 
 const TABS = [
@@ -38,27 +40,52 @@ function Swatch({ color }: { color: string }) {
 
 // ------------------------------------------------------------------ the map
 
+type RawGeometry = { type: string; coordinates: unknown };
+const polygonsOf = (g: RawGeometry) => (g.type === "Polygon" ? [g.coordinates] : g.coordinates) as Unit["rings"];
+
+/** The official map: thousands of polygons, gathered into one unit per formation. */
+function officialUnits(features: { properties: Record<string, unknown>; geometry: RawGeometry }[]): UnitInfo[] {
+  const byCode = new Map<number, UnitInfo>();
+  for (const f of features) {
+    const code = Number(f.properties.c);
+    const meta = GSI_UNITS[code];
+    if (!meta || !f.geometry) continue;
+    let unit = byCode.get(code);
+    if (!unit) {
+      const age = gsiAge(meta.en);
+      unit = {
+        id: `gsi-${code}`, name: meta.he || meta.en, color: meta.color, age, rings: [],
+        summary: `${meta.symbol} · ${meta.en}`, description: "", rockClass: meta.symbol,
+        sources: [{ title: GSI_CREDIT.text, url: GSI_CREDIT.url }],
+      };
+      byCode.set(code, unit);
+    }
+    unit.rings.push(...polygonsOf(f.geometry));
+  }
+  return [...byCode.values()];
+}
+
 function useUnits(level: Level) {
   const [cache, setCache] = useState<Partial<Record<Level, UnitInfo[]>>>({});
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     if (cache[level]) return;
     let live = true;
-    fetch(withBasePath(`/embeds/map/js/data/geology_${level}.geojson`))
+    const path = level === "official" ? "/geology/gsi-200k.geojson" : `/embeds/map/js/data/geology_${level}.geojson`;
+    fetch(withBasePath(path))
       .then((r) => r.json())
       .then((data: { features: { properties: Record<string, unknown>; geometry: { type: string; coordinates: unknown } }[] }) => {
         if (!live) return;
-        const units = data.features.map((f) => {
+        const units = (level === "official" ? officialUnits(data.features) : data.features.map((f) => {
           const p = f.properties;
-          const coords = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
           return {
             id: String(p.id), name: String(p.name_he), color: String(p.color), age: String(p.age_class),
-            rings: coords as Unit["rings"],
+            rings: polygonsOf(f.geometry),
             summary: String(p.rock_summary_he ?? ""), description: String(p.description_he ?? ""),
             rockClass: String(p.rock_class_he ?? ""),
             sources: Array.isArray(p.sources) ? (p.sources as { title: string; url: string }[]) : [],
           } satisfies UnitInfo;
-        }).sort((a, b) => ageOrder(a.age) - ageOrder(b.age) || a.name.localeCompare(b.name, "he"));
+        })).sort((a, b) => ageOrder(a.age) - ageOrder(b.age) || a.name.localeCompare(b.name, "he"));
         setCache((c) => ({ ...c, [level]: units }));
       })
       .catch(() => live && setFailed(true));
@@ -114,7 +141,7 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
     <div className="space-y-3">
       <div className="flex flex-wrap items-center gap-2">
         <div role="group" aria-label="רמת פירוט" className="flex rounded-full border border-line bg-card p-1">
-          {([["basic", "פשוטה"], ["advanced", "מפורטת"]] as const).map(([id, label]) => <button key={id} type="button" aria-pressed={level === id} onClick={() => { setLevel(id); setPicked(null); }} className={`min-h-11 rounded-full px-5 font-bold transition active:scale-95 ${level === id ? "bg-mc text-on-accent" : "text-txt-dim"}`}>{label}</button>)}
+          {([["basic", "פשוטה"], ["advanced", "מפורטת"], ["official", "רשמית"]] as const).map(([id, label]) => <button key={id} type="button" aria-pressed={level === id} onClick={() => { setLevel(id); setPicked(null); }} className={`min-h-11 rounded-full px-5 font-bold transition active:scale-95 ${level === id ? "bg-mc text-on-accent" : "text-txt-dim"}`}>{label}</button>)}
         </div>
         <label className="flex min-h-11 items-center gap-2 rounded-full border border-line bg-card px-4 text-sm font-bold">
           הגבהה <span className="num">×{lift}</span>
@@ -129,7 +156,9 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
         {hover && hoverName && <div className={styles.tooltip} style={{ transform: `translate(${hover.x}px, ${hover.y}px)` }}>{hoverName}</div>}
         <p className={styles.hint}>גררו לסיבוב · גלגלת או צביטה לזום · הקישו על אזור</p>
       </div>
-      <p className="text-xs leading-5 text-txt-dim">צבעי האזורים הם צבעי גיל הסלע, כמו במפות גאולוגיות. תחומי היחידות סכמטיים: הכללה ללימוד, לא מיפוי מדויק. גבהים: Mapzen Terrain Tiles.</p>
+      <p className="text-xs leading-5 text-txt-dim">{level === "official"
+        ? <>השכבה הרשמית: <a href={GSI_CREDIT.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">{GSI_CREDIT.text}</a>, בצבעים של המפה המודפסת. הקווים מוכללים לתצוגה ארצית.</>
+        : "צבעי האזורים הם צבעי גיל הסלע, כמו במפות גאולוגיות. תחומי היחידות סכמטיים: הכללה ללימוד, לא מיפוי מדויק."} גבהים: Mapzen Terrain Tiles.</p>
     </div>
 
     <aside className="space-y-3 lg:sticky lg:top-24 lg:self-start" aria-live="polite">
