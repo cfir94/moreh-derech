@@ -86,6 +86,18 @@ try {
     const crossesFirst = await page.locator("button[data-wrong]").count();
     assert.ok(crossesFirst >= 1 && crossesFirst <= second.letters.length);
 
+    // The learning list exposes only attempted words. A wrong checked word is first, marked for
+    // review, and links to its source notebook without taking the user away from the crossword.
+    const answers = page.getByRole("region", { name: "תשובות והסברים" });
+    await answers.waitFor();
+    assert.equal(await answers.locator("li").count(), 2);
+    assert.equal(await answers.locator("li").first().getAttribute("data-revisit"), "true");
+    await answers.locator("li").first().getByText("כדאי לחזור").waitFor();
+    const sourceLink = answers.locator("li").first().getByRole("link", { name: "איפה לומדים את זה ↗" });
+    assert.match(await sourceLink.getAttribute("href"), /^https:\/\/notebooklm\.google\.com\/notebook\/[\w-]+$/);
+    assert.equal(await sourceLink.getAttribute("target"), "_blank");
+    assert.equal(await sourceLink.getAttribute("rel"), "noopener noreferrer");
+
     // Revealing the rest finishes the puzzle and the result survives a reload.
     for (const i of order) {
       if ((await clue(i).getAttribute("data-solved")) !== null) continue;
@@ -95,6 +107,7 @@ try {
     await page.locator("#crossword-solved").waitFor();
     await page.reload();
     await page.locator("#crossword-solved").waitFor();
+    assert.equal(await page.getByRole("region", { name: "תשובות והסברים" }).locator("li").count(), puzzle.words.length);
     console.log(`crossword: week ${puzzle.week.number}, ${puzzle.words.length} words — solve flow checked`);
 
     // Phone: no keyboard of our own. Tapping a clue focuses the hidden input on the board, so the
@@ -122,6 +135,10 @@ try {
     });
     assert.equal([...(await typedOnPhone())].length, 1);
     assert.ok(await mobile.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+    await mobile.getByRole("button", { name: "גילוי מילה" }).tap();
+    const smallestSourceTarget = await mobile.getByRole("link", { name: "איפה לומדים את זה ↗" }).first()
+      .evaluate((link) => Math.min(link.getBoundingClientRect().width, link.getBoundingClientRect().height));
+    assert.ok(smallestSourceTarget >= 44, "source link has a 44px tap target");
   }
 } finally {
   await browser.close();

@@ -175,6 +175,7 @@ function NotebookChip({ word }: { word: PuzzleWord }) {
 }
 
 type Selection = { key: string; dir: Direction };
+type WordReview = { checkedWrong: boolean };
 
 function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null }) {
   const week = puzzle.week.start;
@@ -185,6 +186,7 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
     return { key: entryCell(first, save?.fill ?? EMPTY_FILL), dir: first.dir };
   });
   const [wrong, setWrong] = useState<ReadonlySet<string>>(() => new Set());
+  const [reviews, setReviews] = useState<ReadonlyMap<number, WordReview>>(() => new Map());
   const [flash, setFlash] = useState<string | null>(null);
   const flashTimer = useRef<number | undefined>(undefined);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -389,6 +391,12 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
   function checkWord() {
     const bad = wrongCells(active, fill);
     setWrong(new Set(bad));
+    setReviews((current) => {
+      const next = new Map(current);
+      const previous = next.get(activeIndex);
+      next.set(activeIndex, { checkedWrong: Boolean(previous?.checkedWrong || bad.length) });
+      return next;
+    });
     const current = base();
     commit({ ...current, checks: current.checks + 1 });
     if (bad.length) say(bad.length === 1 ? "אות אחת לא במקום" : `${bad.length} אותיות לא במקום`);
@@ -420,6 +428,7 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
     if (!window.confirm("למחוק את כל האותיות בתשבץ הזה ולהתחיל מחדש?")) return;
     clearSave(week);
     setWrong(new Set());
+    setReviews(new Map());
     select(order[0], EMPTY_FILL);
   }
 
@@ -542,13 +551,13 @@ function Board({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave | null })
           ))}
         </div>
       </div>
+      <AnswerReview puzzle={puzzle} fill={fill} revealed={revealed} reviews={reviews} done={done} />
     </div>
   );
 }
 
 function Solved({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave }) {
   const stars = starsFor(save.revealed.length, save.checks);
-  const order = clueOrder(puzzle);
   return (
     <section className={styles.solved} aria-labelledby="crossword-solved">
       <div className={styles.burst} aria-hidden>
@@ -563,22 +572,56 @@ function Solved({ puzzle, save }: { puzzle: Puzzle; save: CrosswordSave }) {
         <span>אותיות שנחשפו: <b className="num">{save.revealed.length}</b></span>
         <span>בדיקות: <b className="num">{save.checks}</b></span>
       </p>
-      <details className={styles.learned}>
-        <summary>המילים של השבוע — ומה כדאי לזכור</summary>
-        <ul>
-          {order.map((index) => {
-            const word = puzzle.words[index];
-            return (
-              <li key={word.id}>
+    </section>
+  );
+}
+
+function AnswerReview({ puzzle, fill, revealed, reviews, done }: {
+  puzzle: Puzzle;
+  fill: Fill;
+  revealed: ReadonlySet<string>;
+  reviews: ReadonlyMap<number, WordReview>;
+  done: boolean;
+}) {
+  const items = puzzle.words.flatMap((word, index) => {
+    const wasRevealed = wordCells(word).some((key) => revealed.has(key));
+    const review = reviews.get(index);
+    const visible = done || isWordSolved(word, fill) || wasRevealed || Boolean(review);
+    return visible ? [{ word, revisit: wasRevealed || Boolean(review?.checkedWrong), index }] : [];
+  }).sort((a, b) => Number(b.revisit) - Number(a.revisit) || a.word.number - b.word.number);
+
+  if (!items.length) return null;
+  return (
+    <section className={styles.answers} aria-labelledby="crossword-answers">
+      <div className={styles.answersHeading}>
+        <p className={styles.eyebrow}>אחרי הבדיקה</p>
+        <h2 id="crossword-answers">תשובות והסברים</h2>
+        <p>כאן מופיעות רק מילים שכבר פתרתם, בדקתם או גיליתם.</p>
+      </div>
+      <ol>
+        {items.map(({ word, revisit, index }) => {
+          const notebook = NOTEBOOK_BY_ID.get(word.notebook);
+          if (!notebook) return null;
+          return (
+            <li key={`${word.id}-${index}`} data-revisit={revisit || undefined}>
+              <div className={styles.answerTitle}>
                 <b>{word.answer}</b>
-                <span>{word.clue}</span>
-                {word.note && <small>{word.note}</small>}
-                <NotebookChip word={word} />
-              </li>
-            );
-          })}
-        </ul>
-      </details>
+                {revisit && <span>כדאי לחזור</span>}
+              </div>
+              <p className={styles.answerClue}>{word.clue}</p>
+              {word.note && <p className={styles.answerNote}>{word.note}</p>}
+              <p className={styles.answerSource}>מאגר המידע: {notebook.title}</p>
+              <a
+                href={`https://notebooklm.google.com/notebook/${notebook.notebookId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                איפה לומדים את זה ↗
+              </a>
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }
