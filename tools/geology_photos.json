@@ -1,0 +1,162 @@
+[
+  {
+    "id": "basalt-1",
+    "subject": "basalt",
+    "status": "candidate",
+    "search": "Hexagon pool basalt columns Golan",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "granite-1",
+    "subject": "granite",
+    "status": "candidate",
+    "search": "Eilat mountains granite",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "limestone-1",
+    "subject": "limestone",
+    "status": "candidate",
+    "search": "Jerusalem stone limestone wall",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "dolomite-1",
+    "subject": "dolomite",
+    "status": "candidate",
+    "search": "dolomite rock Israel Galilee",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "chalk-1",
+    "subject": "chalk",
+    "status": "candidate",
+    "search": "Beit Guvrin bell cave chalk",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "flint-1",
+    "subject": "flint",
+    "status": "candidate",
+    "search": "flint nodules chalk Negev",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "sandstone-1",
+    "subject": "sandstone",
+    "status": "candidate",
+    "search": "Timna mushroom sandstone",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "kurkar-1",
+    "subject": "kurkar",
+    "status": "candidate",
+    "search": "kurkar ridge Israel coast",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "halite-1",
+    "subject": "halite",
+    "status": "candidate",
+    "search": "Mount Sodom salt",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "marble-1",
+    "subject": "marble",
+    "status": "candidate",
+    "wiki": "en:Marble",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "quartzite-1",
+    "subject": "quartzite",
+    "status": "candidate",
+    "search": "Carpentry Makhtesh Ramon quartzite prisms",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "gneiss-1",
+    "subject": "gneiss",
+    "status": "candidate",
+    "wiki": "en:Gneiss",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-terra-rossa-1",
+    "subject": "soil-terra-rossa",
+    "status": "candidate",
+    "search": "terra rossa soil Israel",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-rendzina-1",
+    "subject": "soil-rendzina",
+    "status": "candidate",
+    "search": "rendzina soil",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-basalt-soil-1",
+    "subject": "soil-basalt-soil",
+    "status": "candidate",
+    "search": "Golan Heights basalt field stones",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-alluvium-1",
+    "subject": "soil-alluvium",
+    "status": "candidate",
+    "search": "Jezreel Valley fields",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-hamra-1",
+    "subject": "soil-hamra",
+    "status": "candidate",
+    "search": "Hamra soil Sharon",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-sand-1",
+    "subject": "soil-sand",
+    "status": "candidate",
+    "search": "Nitzanim sand dunes",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-loess-1",
+    "subject": "soil-loess",
+    "status": "candidate",
+    "search": "loess northern Negev",
+    "caption": "",
+    "alt": ""
+  },
+  {
+    "id": "soil-reg-1",
+    "subject": "soil-reg",
+    "status": "candidate",
+    "search": "desert pavement Negev",
+    "caption": "",
+    "alt": ""
+  }
+]

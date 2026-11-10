@@ -53,7 +53,7 @@ export const TOPIC_HUB: HubGroup[] = [
     note: "סלעים, צמחים, בעלי חיים ומפת הארץ",
     topics: [
       { id: "geology", title: "גאולוגיה", sub: "סלעים, נוף ותהליכים", icon: "🪨",
-        links: [quiz("geology", "שאלון גאולוגיה"), notebooks("geology-part-one", "geology-part-two"), summary("geology")] },
+        links: [link("aid", ["גאולוגיה של ארץ ישראל", "/timelines/geology/"]), quiz("geology", "שאלון גאולוגיה"), notebooks("geology-part-one", "geology-part-two"), summary("geology")] },
       { id: "flora", title: "צומח", sub: "צמחי הבר ובתי הגידול", icon: "🌿",
         links: [quiz("flora-fauna", "שאלון חי וצומח"), notebooks("flora-in-israel"), summary("flora-fauna"),
           link("aid", ["מגדיר צמחים", "/timelines/plants-guide/"]), link("game", ["משחק זיהוי צמחים", "/games/plants/"])] },

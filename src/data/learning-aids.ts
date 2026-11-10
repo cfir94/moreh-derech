@@ -2,6 +2,7 @@ import { ARCH_CHAPTERS, ARCH_TERMS } from "@/data/classical-architecture";
 import { TALK_CHARACTERS } from "@/data/history-talk";
 import { SITES, ROWS } from "@/data/learning-map";
 import { PLANTS } from "@/data/plants/plants";
+import { AGES as GEO_AGES, ROCKS as GEO_ROCKS, SOILS as GEO_SOILS } from "@/data/geology/geology";
 import { BYZ_EVENTS } from "@/data/byzantine";
 import { ROMAN_EVENTS } from "@/data/roman";
 import { PERIOD_ROWS } from "@/data/periods";
@@ -116,6 +117,13 @@ export const LEARNING_AID_GROUPS: LearningAidGroup[] = [
         title: "מגדיר הצמחים",
         description: "מזהים את צמחי ארץ ישראל לפי קבוצה, עונה וצורת חיים, ופותחים כרטיס קצר לשימוש בשטח.",
         meta: `${PLANTS.length} צמחים · סינון וגלגל עונות`,
+      },
+      {
+        slug: "geology",
+        href: "/timelines/geology",
+        title: "גאולוגיה של ארץ ישראל",
+        description: "מפה גאולוגית בתלת־ממד, עמוד הזמן מהגרניט של אילת ועד הלס, הסלעים והקרקעות שרואים בסיור, ותרגול.",
+        meta: `${GEO_AGES.length} תקופות · ${GEO_ROCKS.length} סלעים · ${GEO_SOILS.length} קרקעות`,
       },
     ],
   },
