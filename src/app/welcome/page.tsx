@@ -8,10 +8,10 @@ import { withBasePath } from "@/lib/basePath";
 import { LAUNCH, PRICES, SITE_URL } from "@/lib/launch";
 
 export const metadata: Metadata = {
-  title: { absolute: "אבן דרך למורי דרך — כל ההכנה למבחן הרישוי במקום אחד" },
-  description: `מבחני רישוי אמיתיים בתנאי אמת, אלפי שאלות לפי נושא, תרגול טעויות חכם, צירי זמן, מפות ומשחקים. ${PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי.`,
+  title: { absolute: "אבן דרך למורי דרך | ללמוד למבחן ולתכנן את הסיור הבא" },
+  description: `מפות לתכנון מסלול וללמידה, מחברות סיור, דוחות הדרכה, צירי זמן, מבחני רישוי, שאלונים ומשחקים. ${PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי.`,
   openGraph: {
-    title: "אבן דרך למורי דרך — כל ההכנה למבחן הרישוי במקום אחד",
+    title: "אבן דרך למורי דרך | ללמוד למבחן ולתכנן את הסיור הבא",
     description: `${PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי.`,
     locale: "he_IL",
     type: "website",
@@ -26,6 +26,30 @@ const round = (n: number) => (n >= 1000 ? `${Math.floor(n / 100) * 100}`.replace
 
 const cta = "inline-flex items-center justify-center rounded-full px-7 py-4 text-base font-extrabold text-on-accent transition active:scale-95";
 const ctaStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)", boxShadow: "0 12px 30px -10px var(--teal)" };
+
+const TOOLS = [
+  {
+    href: "/map/route/",
+    icon: "🗺️",
+    title: "בונים מסלול על מפת הארץ",
+    text: "פותחים שכבות של אזורים, גאולוגיה, טבע ואתרי ביקור, מסמנים מסלול ובודקים מה נמצא בסביבה. המפה עובדת גם בלי רשת.",
+    points: ["שכבות מידע לבחירה", "בניית מסלול על המפה", "גם בלי חיבור לרשת"],
+  },
+  {
+    href: "/notebooks/",
+    icon: "📓",
+    title: "חוזרים למחברת מהסיור או מהשיעור",
+    text: "מחברות סיור מסודרות לפי אזור, ומחברות עיוניות לפי תחום. כל כרטיס פותח את המחברת המקורית.",
+    points: ["סיורים לפי אזורים בארץ", "חומר עיוני לפי תחום", "קישור ישיר למחברת המקור"],
+  },
+  {
+    href: "/guide-reports/",
+    icon: "🧭",
+    title: "מכינים יום סיור ויחידת הדרכה",
+    text: "מדריך, דוגמה מלאה ותרגול לבניית לוח זמנים ויחידת הדרכה, עם טיוטות שנשמרות בחשבון.",
+    points: ["מדריך ודוגמה מלאה", "תרגול יום סיור ויחידת הדרכה", "טיוטות שממשיכים מכל מכשיר"],
+  },
+];
 
 const FEATURES: {
   id: string;
@@ -98,12 +122,14 @@ const FEATURES: {
 ];
 
 const FAQ: [string, string][] = [
-  ["מה קורה אחרי שבוע הניסיון?", "כלום, אם לא בחרתם מנוי. לא מבקשים כרטיס אשראי לניסיון, ולכן אין חיוב אוטומטי. ההתקדמות שלכם נשמרת."],
-  ["איך מבטלים מנוי?", "כפתור אחד באזור האישי. המנוי לא יתחדש, והגישה נמשכת עד סוף התקופה ששולמה."],
-  ["זה מחליף את הקורס?", "לא. האתר משלים את הקורס: הוא עוזר לחזור על החומר, לתרגל ולהגיע למבחן מוכנים."],
+  ["למי האתר מיועד?", "לתלמידי קורס מורי דרך ולמורי דרך מורשים. יש בו כלים להכנה למבחן לצד מפות, מחברות ודוחות שחוזרים אליהם כשמכינים סיור."],
+  [`מה קורה אחרי ${PRICES.trialDays} ימי הניסיון?`, "אם לא בחרתם מנוי, לא קורה דבר. לא מבקשים כרטיס אשראי לניסיון, ולכן אין חיוב אוטומטי. ההתקדמות שלכם נשמרת."],
+  ["אילו כלים מתאימים להכנת סיור?", "מפת השטח עוזרת לבנות מסלול ולבדוק שכבות מידע. המחברות מרכזות חומר מסיורים ומשיעורים, ובדוחות ההדרכה אפשר לתרגל לוח זמנים ויחידות הדרכה ולשמור טיוטות."],
+  ["איך משלמים?", "לוחצים \"רוצה להצטרף\" באתר ובוחרים תקופה. חוזרים אליכם, והתשלום בביט. אין מנוי שמתחדש לבד: חודש לפני סוף התקופה מקבלים מייל, ומחליטים אם להמשיך."],
+  ["זה מחליף את הקורס?", "לא. האתר משלים את הקורס ועוזר לחזור על החומר, לתרגל ולהתכונן למבחן. הכלים להכנת סיור נשארים זמינים גם לעבודה אחריו."],
   ["על מה מבוססות השאלות?", "על מבחני הרישוי הפומביים של משרד התיירות ועל נושאי הסילבוס. האתר אינו קשור למשרד התיירות."],
-  ["זה עובד בטלפון?", "כן. האתר בנוי לטלפון, לטאבלט ולמחשב, ונכנסים עם אותו חשבון בכולם. ההתקדמות והטעויות נשמרות בחשבון, וממשיכים מכל מכשיר מאיפה שעצרתם."],
-  ["מקבלים חשבונית?", "כן. חשבונית או קבלה נשלחת במייל אחרי כל תשלום."],
+  ["זה עובד בטלפון?", "כן. האתר בנוי לטלפון, לטאבלט ולמחשב. נכנסים עם אותו חשבון, וההתקדמות והטעויות נשמרות בחשבון, כך שממשיכים מכל מכשיר."],
+  ["מקבלים קבלה?", "כן, קבלה על כל תשלום."],
   ["למי פונים כשיש בעיה?", `כותבים ל-${LAUNCH.supportEmail}, ועונים בדרך כלל תוך יום עסקים.`],
 ];
 
@@ -114,21 +140,21 @@ export default function WelcomePage() {
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-12 pb-16 md:grid-cols-[1.05fr_1fr] md:pt-20">
         <div>
           <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 text-xs font-bold text-teal">
-            לתלמידי קורס מורי דרך · לקראת מבחן הרישוי
+            לתלמידי הקורס · למורי דרך בעבודה
           </p>
-          <h1 className="grad-text text-4xl leading-tight font-black sm:text-5xl">כל ההכנה למבחן מורי הדרך, במקום אחד</h1>
+          <h1 className="grad-text text-4xl leading-tight font-black sm:text-5xl">מתחילים בקורס. ממשיכים מכאן לשטח.</h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-txt-dim">
-            מבחני רישוי אמיתיים, אלפי שאלות לפי נושא, צירי זמן, מפות ומשחקים. ותרגול שזוכר בדיוק מה עוד צריך לחזור עליו.
+            מתכוננים למבחן עם שאלונים, מבחני רישוי ועזרי למידה. אחר כך חוזרים למפות, למחברות ולדוחות כשבונים מסלול או מכינים הדרכה.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link href="/login/" className={cta} style={ctaStyle}>
-              {PRICES.trialDays} ימים ראשונים חינם
+              לפתוח {PRICES.trialDays} ימי ניסיון
             </Link>
             <a href="#features" className="rounded-full border border-line bg-card px-6 py-4 font-bold text-txt transition active:scale-95">
-              מה יש באתר?
+              לראות מה יש באתר
             </a>
           </div>
-          <p className="mt-3 text-sm text-txt-dim">בלי כרטיס אשראי · ביטול בלחיצה · עובד בטלפון</p>
+          <p className="mt-3 text-sm text-txt-dim">בלי כרטיס אשראי · בלי חיוב אוטומטי · עובד בטלפון</p>
         </div>
         <div className="relative">
           <BrowserFrame label="moreyderech.com">
@@ -158,6 +184,29 @@ export default function WelcomePage() {
             </div>
           ))}
         </dl>
+      </section>
+
+      {/* Work tools */}
+      <section id="tools" aria-labelledby="tools-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-10">
+        <p className="mb-2 text-center text-sm font-bold text-teal">כלי העבודה למורי דרך</p>
+        <h2 id="tools-title" className="text-center text-3xl font-black text-txt">לפני שיוצאים לסיור</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-center leading-relaxed text-txt-dim">
+          פותחים מפה, בודקים את חומר הרקע ומסדרים את יום הסיור. הכלים האלה נשארים שימושיים גם אחרי מבחן הרישוי.
+        </p>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {TOOLS.map((t) => (
+            <Link key={t.href} href={t.href} className="group flex flex-col rounded-lg border border-line bg-card p-5 transition active:scale-95">
+              <span aria-hidden className="text-3xl">{t.icon}</span>
+              <h3 className="mt-2 text-lg font-black text-txt">{t.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-txt-dim">{t.text}</p>
+              <ul className="mt-3 flex flex-col gap-1.5 text-sm text-txt">
+                {t.points.map((p) => (
+                  <li key={p} className="flex gap-2"><span aria-hidden className="text-teal">✓</span>{p}</li>
+                ))}
+              </ul>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* Features */}
@@ -214,9 +263,9 @@ export default function WelcomePage() {
         <h2 id="how" className="mb-8 text-center text-3xl font-black text-txt">איך מתחילים</h2>
         <ol className="grid gap-4 md:grid-cols-3">
           {[
-            ["נרשמים עם מייל", "מקבלים קוד כניסה למייל. בלי סיסמה ובלי כרטיס אשראי."],
-            [`${PRICES.trialDays} ימים הכול פתוח`, "שאלונים, מבחנים, צירים, מפות, משחקים ומוטי."],
-            ["ממשיכים אם מתאים", `${PRICES.halfyear} ₪ לחצי שנה או ${PRICES.yearly} ₪ לשנה. בלי חיוב אוטומטי.`],
+            ["נרשמים עם הפרטים", "שם, מייל, טלפון ומחזור. מקבלים קוד כניסה למייל, בלי סיסמה ובלי כרטיס אשראי."],
+            [`${PRICES.trialDays} ימים כל הכלים פתוחים`, "מפות, מחברות, דוחות, שאלונים, מבחנים, צירים, משחקים ומוטי."],
+            ["ממשיכים אם זה שימושי לכם", `"רוצה להצטרף": חצי שנה (${PRICES.halfyear} ₪) או שנה (${PRICES.yearly} ₪). חוזרים אליכם, והתשלום בביט.`],
           ].map(([title, text], i) => (
             <li key={title} className="rounded-lg border border-line bg-card p-5">
               <span className="mb-3 grid size-9 place-items-center rounded-full text-lg font-black text-on-accent" style={ctaStyle}>
@@ -231,8 +280,8 @@ export default function WelcomePage() {
 
       {/* Pricing */}
       <section aria-labelledby="pricing" className="mx-auto max-w-4xl px-4 py-14">
-        <h2 id="pricing" className="mb-2 text-center text-3xl font-black text-txt">מחיר פשוט, וכל הכלים פתוחים</h2>
-        <p className="mb-8 text-center text-txt-dim">אחרי {PRICES.trialDays} ימי ניסיון חינם.</p>
+        <h2 id="pricing" className="mb-2 text-center text-3xl font-black text-txt">מנוי אחד ללימודים ולעבודה</h2>
+        <p className="mb-8 text-center text-txt-dim">אחרי {PRICES.trialDays} ימי ניסיון חינם בוחרים חצי שנה או שנה. משלמים פעם אחת, בלי חיוב חודשי.</p>
         <PricingCards />
       </section>
 
@@ -255,8 +304,8 @@ export default function WelcomePage() {
       {/* Final CTA */}
       <section className="mx-auto max-w-4xl px-4 pt-6 pb-20 text-center">
         <div className="rounded-2xl border border-line bg-card p-10">
-          <h2 className="grad-text text-3xl font-black">המבחן מתקרב. מתחילים להתכונן היום.</h2>
-          <p className="mx-auto mt-3 max-w-xl text-txt-dim">נרשמים בדקה, ובתוך שבוע כבר יודעים מה עוד חסר.</p>
+          <h2 className="grad-text text-3xl font-black">למבחן, ולכל סיור שאחריו.</h2>
+          <p className="mx-auto mt-3 max-w-xl text-txt-dim">נרשמים בדקה, ובתוך שבוע יודעים אם זה בשבילכם.</p>
           <Link href="/login/" className={`${cta} mt-6`} style={ctaStyle}>
             מתחילים {PRICES.trialDays} ימים חינם
           </Link>
