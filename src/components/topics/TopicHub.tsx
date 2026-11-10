@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HUB_KINDS, TOPIC_HUB, type HubItem, type HubLink } from "@/data/topic-hub";
+import { HUB_KINDS, TOPIC_HUB, type HubGroup, type HubItem, type HubLink } from "@/data/topic-hub";
 
 /*
  * "לפי נושא" (בקשת הבעלים 10.11): שורה לכל נושא, וכפתור לכל סוג תוכן. קהל היעד הוא 40–60, ולכן:
@@ -56,10 +56,10 @@ function HubButton({ link }: { link: HubLink }) {
   );
 }
 
-export function TopicHub({ compact = false }: { compact?: boolean }) {
+export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: boolean; groups?: HubGroup[] }) {
   return (
     <div className="flex flex-col gap-10" data-topic-hub>
-      {TOPIC_HUB.map((group) => (
+      {groups.map((group) => (
         <section key={group.id} aria-labelledby={`hub-${group.id}`}>
           <div className="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line pb-2">
             <h2 id={`hub-${group.id}`} className="text-2xl font-black text-txt">{group.title}</h2>
@@ -80,9 +80,16 @@ export function TopicHub({ compact = false }: { compact?: boolean }) {
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-                  {topic.links.map((linkItem) => (
-                    <HubButton key={linkItem.kind} link={linkItem} />
-                  ))}
+                  {topic.links.length === 1 && topic.links[0].items.length > 1
+                    ? // רק סוג תוכן אחד (סיורים): כל פריט ככפתור גלוי, בלי רשימה נפתחת.
+                      topic.links[0].items.map((item) => (
+                        <ItemLink key={item.href} item={item} className={`${button} col-span-2 min-w-0 whitespace-normal! text-center sm:col-span-1`}>
+                          <span aria-hidden className="text-lg">{HUB_KINDS[topic.links[0].kind].icon}</span>
+                          {item.title}
+                          {item.external && <span aria-hidden className="text-sm text-txt-dim">↗</span>}
+                        </ItemLink>
+                      ))
+                    : topic.links.map((linkItem) => <HubButton key={linkItem.kind} link={linkItem} />)}
                 </div>
               </li>
             ))}

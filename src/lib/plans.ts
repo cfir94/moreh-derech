@@ -21,6 +21,7 @@ export const FREE_PATHS: readonly string[] = [
   "/updates/",
   "/admin/",
   "/topics/",
+  "/tours/",
 ];
 
 /** קידומות שכל מה שמתחתן חינמי. */

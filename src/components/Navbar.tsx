@@ -16,12 +16,11 @@ import { UpdatesBell } from "@/components/updates/UpdatesBell";
 import brandIcon from "@/assets/brand-icon.png";
 
 const baseLinks = [
-  { href: "/topics", label: "לפי נושא" },
+  // "שאלונים", "סיכומים" ו"מאגרי מידע" הוסתרו (10.11, בקשת הבעלים): הם נגישים מ"עיוני" ו"סיורים".
+  { href: "/topics", label: "עיוני" },
+  { href: "/tours", label: "סיורים" },
   { href: "/games", label: "משחקים" },
-  { href: "/quizzes", label: "שאלונים" },
   { href: "/exams", label: "מבחן מלא" },
-  { href: "/resources", label: "סיכומים" },
-  { href: "/notebooks", label: "מאגרי מידע" },
   { href: "/timelines", label: "עזרי למידה" },
   { href: "/map", label: "מפה" },
   { href: "/guide-reports", label: "דוחות הדרכה" },
