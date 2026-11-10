@@ -7,6 +7,12 @@ import { TEMPLE_EVENTS, TEMPLE_PERIODS } from "@/data/second-temple";
 
 const PERIOD_INDEX = new Map<string, number>(TEMPLE_PERIODS.map((p, i) => [p.id, i]));
 
+/** "138–235 לספירה": the en dash is neutral, so in a Hebrew paragraph the two years swap
+ *  places. Isolating the run of years left-to-right keeps them in order. */
+function ltrRange(range: string) {
+  return range.replace(/(\d[\d\s–-]*\d)/g, "\u2066$1\u2069");
+}
+
 function pick<T>(xs: readonly T[], n: number, seed: number) {
   const a = [...xs];
   for (let i = a.length - 1; i > 0; i--) { seed = (seed * 1664525 + 1013904223) >>> 0; const j = seed % (i + 1); [a[i], a[j]] = [a[j], a[i]]; }
@@ -29,7 +35,7 @@ export function templePractice(): PracticeItem[] {
     const others = TEMPLE_PERIODS.filter((p, j) => p.id !== event.period && Math.abs(j - pi) <= 2);
     const wrong = pick(others, 3, i + 29).map((p) => p.title);
     if (wrong.length < 3) return;
-    items.push({ id: 2000 + Number(event.id.slice(3)), prompt: `באיזו תקופה: ${event.title}?`, choices: [TEMPLE_PERIODS[pi].title, ...wrong], answer: 0, explain: `${TEMPLE_PERIODS[pi].range}. ${event.summary}` });
+    items.push({ id: 2000 + Number(event.id.slice(3)), prompt: `באיזו תקופה: ${event.title}?`, choices: [TEMPLE_PERIODS[pi].title, ...wrong], answer: 0, explain: `${ltrRange(TEMPLE_PERIODS[pi].range)}. ${event.summary}` });
   });
   return items;
 }

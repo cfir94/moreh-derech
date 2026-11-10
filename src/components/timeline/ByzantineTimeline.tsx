@@ -4,15 +4,19 @@ import Link from "next/link";
 import { BYZ_COUNCILS, BYZ_EMPERORS, BYZ_ERAS, BYZ_EVENTS, BYZ_KINDS, BYZ_PILGRIMS, BYZ_SITES, type ByzEvent } from "@/data/byzantine";
 import { matches, useEraTimeline } from "./useEraTimeline";
 import styles from "./ByzantineTimeline.module.css";
+import { PracticeDeck } from "@/components/learning-aid";
+import { eraPractice } from "@/lib/eraPractice";
 
 const ID = /^BY-\d{3}$/;
 const kindTitle = new Map(BYZ_KINDS.map((kind) => [kind.id, kind.title]));
 const siteType = { church: "כנסייה", monastery: "מנזר", synagogue: "בית כנסת", city: "עיר" } as const;
+const PRACTICE = eraPractice(BYZ_EVENTS, BYZ_ERAS);
 const views = [
   { id: "timeline", title: "ציר הזמן", count: BYZ_EVENTS.length },
   { id: "emperors", title: "קיסרים ומועצות", count: BYZ_EMPERORS.length + BYZ_COUNCILS.length },
   { id: "sites", title: "כנסיות, מנזרים ובתי כנסת", count: BYZ_SITES.length },
   { id: "pilgrims", title: "צליינים", count: BYZ_PILGRIMS.length },
+  { id: "practice", title: "תרגול", count: PRACTICE.length },
 ];
 
 function Panel({ event }: { event: ByzEvent }) {
@@ -93,6 +97,10 @@ export function ByzantineTimeline() {
           </section>;
         })}
       </>}
+
+      {t.view === "practice" && <div className={styles.view}>
+        <PracticeDeck quizSlug="byzantine" label="הציר הביזנטי: תרגול" items={PRACTICE} />
+      </div>}
 
       {t.view === "emperors" && <div className={styles.view}>
         <header className={styles.viewIntro}><h2>הקיסרים</h2><p>מי שלט בקונסטנטינופול — ומה זה שינה בארץ.</p></header>
