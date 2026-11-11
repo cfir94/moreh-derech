@@ -463,15 +463,9 @@
   },
   {
     "id": "ein-gedi-synagogue",
-    "search": "Ein Gedi ancient synagogue mosaic floor",
-    "caption": "רצפת הפסיפס של בית הכנסת העתיק בעין גדי.",
-    "alt": "רצפת פסיפס של בית כנסת עתיק"
-  },
-  {
-    "id": "ein-gedi-inscription",
-    "search": "Ein Gedi synagogue inscription Aramaic",
-    "caption": "הכתובות בארמית ובעברית ברצפת בית הכנסת בעין גדי.",
-    "alt": "כתובת עתיקה באותיות עבריות בפסיפס"
+    "caption": "מרכז רצפת הפסיפס בבית הכנסת בעין גדי: ציפור במדליון עגול בתוך מעוין, ובלי דמויות אדם.",
+    "alt": "פסיפס בגוני חום ובו ציפור במעגל, בתוך מעוין ודוגמאות גאומטריות",
+    "file": "A mosaic floor in an ancient synagogue (3378975801).jpg"
   },
   {
     "id": "hyrcania",

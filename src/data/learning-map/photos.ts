@@ -904,8 +904,8 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "ein-gedi-synagogue",
-    "caption": "רצפת הפסיפס של בית הכנסת העתיק בעין גדי.",
-    "alt": "רצפת פסיפס של בית כנסת עתיק",
+    "caption": "מרכז רצפת הפסיפס בבית הכנסת בעין גדי: ציפור במדליון עגול בתוך מעוין, ובלי דמויות אדם.",
+    "alt": "פסיפס בגוני חום ובו ציפור במעגל, בתוך מעוין ודוגמאות גאומטריות",
     "src": "/learning-map/photos/ein-gedi-synagogue.jpg",
     "width": 1280,
     "height": 857,
