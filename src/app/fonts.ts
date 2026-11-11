@@ -42,5 +42,62 @@ const frankHebrew = localFont({
   declarations: [{ prop: "unicode-range", value: "U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F" }],
 });
 
+// Redesign fonts ("תרמיל מורה הדרך", 11.11.2026). Fonts load only where a page uses them.
+// Gveret Levin: real Hebrew cursive handwriting, for headings. Playpen Sans Hebrew: a lighter hand,
+// for notes. Karantina: a condensed sign face, for sign labels.
+const gveretLatin = localFont({
+  src: "../assets/fonts/gveret-levin-latin-400-normal.woff2",
+  weight: "400",
+  variable: "--font-gveret-latin",
+  adjustFontFallback: false,
+  display: "swap",
+});
+const gveretHebrew = localFont({
+  src: "../assets/fonts/gveret-levin-hebrew-400-normal.woff2",
+  weight: "400",
+  variable: "--font-gveret-hebrew",
+  display: "swap",
+  declarations: [{ prop: "unicode-range", value: "U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F" }],
+});
+const playpenLatin = localFont({
+  src: [
+    { path: "../assets/fonts/playpen-sans-hebrew-latin-400-normal.woff2", weight: "400" },
+    { path: "../assets/fonts/playpen-sans-hebrew-latin-700-normal.woff2", weight: "700" },
+  ],
+  variable: "--font-playpen-latin",
+  adjustFontFallback: false,
+  display: "swap",
+});
+const playpenHebrew = localFont({
+  src: [
+    { path: "../assets/fonts/playpen-sans-hebrew-hebrew-400-normal.woff2", weight: "400" },
+    { path: "../assets/fonts/playpen-sans-hebrew-hebrew-700-normal.woff2", weight: "700" },
+  ],
+  variable: "--font-playpen-hebrew",
+  display: "swap",
+  declarations: [{ prop: "unicode-range", value: "U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F" }],
+});
+const karantinaLatin = localFont({
+  src: [
+    { path: "../assets/fonts/karantina-latin-400-normal.woff2", weight: "400" },
+    { path: "../assets/fonts/karantina-latin-700-normal.woff2", weight: "700" },
+  ],
+  variable: "--font-karantina-latin",
+  adjustFontFallback: false,
+  display: "swap",
+});
+const karantinaHebrew = localFont({
+  src: [
+    { path: "../assets/fonts/karantina-hebrew-400-normal.woff2", weight: "400" },
+    { path: "../assets/fonts/karantina-hebrew-700-normal.woff2", weight: "700" },
+  ],
+  variable: "--font-karantina-hebrew",
+  display: "swap",
+  declarations: [{ prop: "unicode-range", value: "U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F" }],
+});
+
 /** Class names that define the font CSS variables; put on <html>. */
-export const fontVariables = [heeboLatin, heeboHebrew, frankLatin, frankHebrew].map((font) => font.variable).join(" ");
+export const fontVariables = [
+  heeboLatin, heeboHebrew, frankLatin, frankHebrew,
+  gveretLatin, gveretHebrew, playpenLatin, playpenHebrew, karantinaLatin, karantinaHebrew,
+].map((font) => font.variable).join(" ");

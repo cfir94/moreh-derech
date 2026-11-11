@@ -114,6 +114,9 @@
 
   --font-sans: var(--font-heebo-latin), var(--font-heebo-hebrew), system-ui, sans-serif;
   --font-serif: var(--font-frank-latin), var(--font-frank-hebrew), serif;
+  --font-hand: var(--font-gveret-latin), var(--font-gveret-hebrew), var(--font-heebo-hebrew), cursive;
+  --font-note: var(--font-playpen-latin), var(--font-playpen-hebrew), var(--font-heebo-hebrew), cursive;
+  --font-sign: var(--font-karantina-latin), var(--font-karantina-hebrew), var(--font-heebo-hebrew), sans-serif;
 
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);
