@@ -171,6 +171,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Stamp-Impressions_of_the_Legio_X_Fretensis-Round.jpg"
   },
   {
+    "id": "bethesda",
+    "caption": "שרידי בריכות בית חסדא בחצר כנסיית סנט אן.",
+    "alt": "חפירה ארכאולוגית עמוקה עם קירות אבן וקשתות",
+    "src": "/learning-map/photos/bethesda.jpg",
+    "width": 900,
+    "height": 671,
+    "author": "Tamar Hayardeni תמר הירדני",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pools_of_Bethesda_-_map22.jpg"
+  },
+  {
     "id": "holy-sepulchre-rotunda",
     "caption": "האדיקולה בתוך הרוטונדה בכנסיית הקבר.",
     "alt": "מבנה קטן מעוטר תחת כיפה גדולה",
