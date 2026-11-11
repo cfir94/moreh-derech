@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
-import { EmbeddedHistoricalTool } from "@/components/EmbeddedHistoricalTool";
+import { pageMeta } from "@/lib/seo";
+import { KingsAid } from "@/components/kings/KingsAid";
 
-export const metadata: Metadata = {
-  title: "מלכי ישראל ויהודה | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "מלכי ישראל ויהודה, הנביאים והאירועים על ציר זמן משותף",
-};
+export const metadata = pageMeta({
+  title: "מלכי ישראל ויהודה",
+  description: "מלכי ישראל ויהודה על ציר זמן אחד, עם הנביאים בני התקופה, המסעות, המצורים והכתובות של תקופת הברזל, ותרגול.",
+  path: "/timelines/kings",
+});
 
 export default function KingsTimelinePage() {
-  return <EmbeddedHistoricalTool view="kings" title="מלכי ישראל ויהודה" />;
+  return <KingsAid />;
 }

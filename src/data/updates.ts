@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-kings",
+    date: "2026-11-11",
+    kind: "tool",
+    title: "מלכי ישראל ויהודה — בעיצוב חדש",
+    body: "שתי הממלכות על ציר אחד שעובד גם בטלפון, כרטיס לכל מלך עם הנביאים בני תקופתו, 25 אירועים וממצאים עם תמונות, ותרגול של 47 שאלות.",
+    href: "/timelines/kings/",
+  },
+  {
     id: "2026-11-11-era-photos",
     date: "2026-11-11",
     kind: "content",

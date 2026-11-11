@@ -73,7 +73,10 @@ MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נ�
 ונרשם בהיסטוריית ההתקדמות. לציר הברזל עיצוב ארכאולוגי דמוי קלף, ולציר
 היהדות עיצוב ספר בגוני ארגמן וזהב. כך המשתמש נשאר באתר והעיצוב נשמר מקומית.
 הנתונים של האפליקציה הזו (מלכים, נביאים, שרשרת הספרים, ממצאי הברזל) מחולצים ל-`src/data/history-timeline/`
-ע"י `node tools/extract_history_timeline.mjs` (generated — לא לערוך ידנית), ומשמשים בינתיים את מאגר הידע של מוטי.
+ע"י `node tools/extract_history_timeline.mjs` (generated — לא לערוך ידנית). הם משמשים את מאגר הידע של מוטי
+ואת **מלכי ישראל ויהודה** (`/timelines/kings`, `src/components/kings/KingsAid.tsx`), שכבר אינו מוטמע: ציר אנכי
+לשתי הממלכות (`stack` מונע חפיפה בין מלכים קצרי מלוכה בלי לזוז מהשנה), ממצאים, נביאים ותרגול (`src/lib/kingsPractice.ts`).
+ההטמעה הישנה נשארה ב-`/timelines/kings/classic` (noindex) עד אישור להסרה.
 
 ### תרגול ציר הזמן (`/quizzes/timeline-drag`)
 
