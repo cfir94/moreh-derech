@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FieldIcon } from "./FieldIcons";
 import { SignsFrame } from "./SignsHome";
-import { TrailsFrame } from "./TrailsHome";
+import { TrailsFrame, type TrailPalette } from "./TrailsHome";
 import { useHomeData } from "./useHomeData";
 import s from "./quiz.module.css";
 
@@ -22,14 +22,19 @@ export type SampleQuestion = {
 const TOTAL = 20;
 const CURRENT = 7;
 
-export function QuizSample({ variant, question }: { variant: "signs" | "trails"; question: SampleQuestion }) {
+export function QuizSample({
+  variant,
+  question,
+  palette,
+}: {
+  variant: "signs" | "trails";
+  question: SampleQuestion;
+  palette?: TrailPalette;
+}) {
   const d = useHomeData();
   const [picked, setPicked] = useState<number | null>(null);
   const answered = picked !== null;
-  const Frame = variant === "signs" ? SignsFrame : TrailsFrame;
-
-  return (
-    <Frame name={d.name}>
+  const body = (
       <main className={`${s.main} ${s[variant]}`}>
         <div className={s.top}>
           <p className={s.crumb}>
@@ -103,6 +108,12 @@ export function QuizSample({ variant, question }: { variant: "signs" | "trails";
           )}
         </section>
       </main>
-    </Frame>
+  );
+  return variant === "signs" ? (
+    <SignsFrame name={d.name}>{body}</SignsFrame>
+  ) : (
+    <TrailsFrame name={d.name} palette={palette}>
+      {body}
+    </TrailsFrame>
   );
 }
