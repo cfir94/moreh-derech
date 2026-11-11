@@ -42,7 +42,12 @@ jobs:
         run: npm run lint -- src/app/games src/components/crossword src/lib/crossword src/lib/crosswordProgress.ts src/data/crossword src/lib/domains.ts
       - run: npm run build
       - name: Install browser test tooling
-        run: npm install --no-save --package-lock=false @playwright/test && npx playwright install --with-deps chromium
+        # --with-deps pulls system packages from the Ubuntu mirrors. When the runner cannot reach them
+        # (DNS outages, Nov 2026), fall back to the browser alone: the runner image already carries
+        # Chrome's system libraries, and the browser checks below still run and fail on their own.
+        run: |
+          npm install --no-save --package-lock=false @playwright/test
+          timeout 300 npx playwright install --with-deps chromium || npx playwright install chromium
       - name: Browser regression checks
         run: node --import ./tests/register-ts.mjs tests/study-ui.mjs
       - name: Community UI (forum, thread, reply, admin)
