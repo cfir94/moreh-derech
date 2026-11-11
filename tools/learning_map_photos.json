@@ -592,5 +592,11 @@
     "search": "Masada siege ramp",
     "caption": "הסוללה הרומית במצדה.",
     "alt": "סוללה עולה אל ראש מצוק"
+  },
+  {
+    "id": "kedesh",
+    "search": "Tel Kedesh Roman temple",
+    "caption": "חזית המקדש הרומי בתל קדש.",
+    "alt": "שרידי חזית מקדש מאבן"
   }
 ]

@@ -76,6 +76,7 @@ export const SITE_RELIGIONS: Record<string, ReligionId[]> = {
   rehov: ["judaism"],
   "tel-shalem": [],
   "hamat-gader": [],
+  kedesh: ["other"],
   // ---- south
   modiin: ["judaism"],
   emmaus: ["judaism", "christianity"],

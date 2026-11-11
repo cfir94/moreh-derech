@@ -114,6 +114,9 @@ export const SITE_ARCH: Record<string, SiteArchNote[]> = {
   gamla: [
     { term: "first-synagogues", note: "בית הכנסת של גמלא — מן הקדומים בארץ, מימי הבית השני." },
   ],
+  kedesh: [
+    { term: "roman-temple", note: "בתל קדש עומדת חזית של מקדש רומי — לפי הרכז, המקדש הרומי השמור ביותר בארץ." },
+  ],
   banias: [
     { term: "roman-temple", note: "מקדש לאוגוסטוס שבנה הורדוס ליד מערת פאן.", extra: true },
   ],
