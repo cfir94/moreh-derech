@@ -40,9 +40,14 @@ const NAV: { href: string; label: string; trail: Trail }[] = [
 ];
 
 /** "stone": the first grey-limestone take. "khaki": desert sand and khaki. "journey": the page walks from the Carmel to the Negev. */
-export type TrailPalette = "stone" | "khaki" | "journey";
+export type TrailPalette = "stone" | "khaki" | "journey" | "map";
 
-const BASE: Record<TrailPalette, string> = { stone: "/design/trails", khaki: "/design/khaki", journey: "/design/journey" };
+const BASE: Record<TrailPalette, string> = {
+  stone: "/design/trails",
+  khaki: "/design/khaki",
+  journey: "/design/journey",
+  map: "/design/map",
+};
 
 type Props = { questionCount: number; examCount: number; palette?: TrailPalette };
 
@@ -234,7 +239,7 @@ export function TrailsFrame({
   const base = BASE[palette];
   return (
     <div className={`${s.root} ${s[`pal_${palette}`] ?? ""}`} style={topo}>
-      {intro && <MapUnfold variant="trails" always storageKey="md_intro_design_trails" />}
+      {intro && <MapUnfold variant="trails" always storageKey="md_intro_design_trails" paperGround={palette === "map"} />}
       <div aria-hidden className={s.topo} />
 
       <header className={s.top}>

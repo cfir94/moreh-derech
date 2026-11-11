@@ -187,9 +187,6 @@
   color: var(--ink);
 }
 
-:global([data-theme="dark"]) .trails .letter {
-  color: var(--paint);
-}
 
 .answerText {
   position: relative;
