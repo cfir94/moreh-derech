@@ -66,6 +66,18 @@
     "alt": "משקולת אבן עגולה עם כתובת"
   },
   {
+    "id": "herodian-quarter",
+    "search": "Wohl Archaeological Museum Herodian Quarter Jerusalem mosaic",
+    "caption": "בית מידות ברובע ההרודיאני, מתחת לרובע היהודי של היום.",
+    "alt": "שרידי בית עתיק עם רצפת פסיפס"
+  },
+  {
+    "id": "western-wall-tunnels",
+    "search": "Western Wall Tunnel Jerusalem large stone",
+    "caption": "מנהרות הכותל: אבני הכותל ההרודיאני לאורך המנהרה.",
+    "alt": "מנהרה צרה לאורך קיר אבנים גדולות"
+  },
+  {
     "id": "tombs-of-the-kings",
     "search": "Tomb of the Kings Jerusalem",
     "caption": "אבן הגולל בפתח קברות המלכים — צילום היסטורי.",
