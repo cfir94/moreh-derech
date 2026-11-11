@@ -462,6 +462,18 @@
     "alt": "מערות במצוק"
   },
   {
+    "id": "ein-gedi-synagogue",
+    "search": "Ein Gedi ancient synagogue mosaic floor",
+    "caption": "רצפת הפסיפס של בית הכנסת העתיק בעין גדי.",
+    "alt": "רצפת פסיפס של בית כנסת עתיק"
+  },
+  {
+    "id": "ein-gedi-inscription",
+    "search": "Ein Gedi synagogue inscription Aramaic",
+    "caption": "הכתובות בארמית ובעברית ברצפת בית הכנסת בעין גדי.",
+    "alt": "כתובת עתיקה באותיות עבריות בפסיפס"
+  },
+  {
     "id": "hyrcania",
     "file": "HurkaniaTop.JPG",
     "caption": "פסגת הורקניה.",
