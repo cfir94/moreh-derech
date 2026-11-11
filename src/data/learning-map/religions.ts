@@ -30,6 +30,8 @@ export const SITE_RELIGIONS: Record<string, ReligionId[]> = {
   givati: ["judaism"],
   siloam: ["judaism", "christianity"],
   "burnt-house": ["judaism"],
+  "herodian-quarter": ["judaism"],
+  "western-wall-tunnels": ["judaism"],
   "kidron-tombs": ["judaism"],
   "jason-tomb": ["judaism"],
   "tombs-of-the-kings": ["judaism"],
