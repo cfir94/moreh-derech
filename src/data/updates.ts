@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-dating",
+    date: "2026-11-11",
+    kind: "quiz",
+    title: "שאלוני התיארוך — בעיצוב חדש",
+    body: "שבעה סטים, 147 שאלות של \"מה קדם למה ובאיזו שנה\": אמריקאיות, ושאלות השלמה שבהן חושפים את התשובה ומדרגים את עצמכם. ההתקדמות הקודמת נשמרת.",
+    href: "/quizzes/dating/",
+  },
+  {
     id: "2026-11-11-iron-finds",
     date: "2026-11-11",
     kind: "tool",
