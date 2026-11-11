@@ -1,7 +1,7 @@
 :HL["/moreh-derech/_next/static/chunks/1ac9pnchn7r3j.css","style"]
-:HL["/moreh-derech/_next/static/chunks/3nl9r2r1j6u2a.css","style"]
+:HL["/moreh-derech/_next/static/chunks/0cotu3b_jsd12.css","style"]
 :HL["/moreh-derech/_next/static/media/frank_ruhl_libre_hebrew_wght_normal-s.p.1f40cji2rrmlk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/frank_ruhl_libre_latin_wght_normal.p.1p_ev8fauqki_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/heebo_hebrew_wght_normal-s.p.3rg6jcb-7zpkx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/heebo_latin_wght_normal.p.3489sfztm8n0y.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"exams","param":null,"prefetchHints":4192,"slots":{"children":{"name":"slug","param":{"type":"d","key":"course-practice-1","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"NJB2wmcDd__6mAB-itIK7"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"exams","param":null,"prefetchHints":4192,"slots":{"children":{"name":"slug","param":{"type":"d","key":"course-practice-1","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}},"staleTime":300,"buildId":"9BAMmFW67NsiBFbOQUbhV"}
