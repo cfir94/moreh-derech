@@ -79,7 +79,9 @@ MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נ�
 באותו אופן **שרשרת הספרים של היהדות** (`/timelines/judaism`, `src/components/judaism/JudaismAid.tsx`, תרגול ב-`src/lib/judaismPractice.ts`).
 ו**ממצאי הברזל** (`/timelines/archaeology`, `src/components/finds/IronFindsAid.tsx`): לכל ממצא המלכים שמלכו באותה עת (`kingAt`
 ב-`src/lib/findsPractice.ts`). טווחי שנים בטקסט עוברים דרך `isolateRanges` (`src/lib/bidi.ts`), אחרת הם מוצגים הפוך.
-ההטמעות הישנות נשארו ב-`/timelines/{kings,judaism,archaeology}/classic` (noindex) עד אישור להסרה.
+וגם **שאלוני התיארוך** (`/quizzes/dating`, `src/components/dating/DatingQuizzes.tsx`): התוצאה נרשמת תחת
+`timeline-dating-<סט>`, אותו מזהה שהכלי המוטמע שלח — אין לשנות את מפתחות הסטים.
+ההטמעות הישנות נשארו ב-`/timelines/{kings,judaism,archaeology}/classic` וב-`/quizzes/dating/classic` (noindex) עד אישור להסרה.
 
 ### תרגול ציר הזמן (`/quizzes/timeline-drag`)
 

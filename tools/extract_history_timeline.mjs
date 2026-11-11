@@ -73,4 +73,15 @@ export const FIND_KINDS: Record<string, string> = ${json(kinds)};
 export const IRON_FINDS: IronFind[] = ${json(archaeology.items)};
 `);
 
-console.log(`kings: ${kings.united.length}+${kings.judah.length}+${kings.israel.length}, prophets: ${Object.keys(prophets).length}, milestones: ${milestones.length}, books: ${judaism.chain.length}, centers: ${judaism.centers.length}, foundations: ${judaism.foundations.length}, finds: ${archaeology.items.length}`);
+const quizzes = literal("QUIZZES");
+write("dating.ts", header("שאלוני התיארוך (מה קדם למה, ובאיזו שנה)") + `
+export type DatingItem =
+  | { type: "mc"; topic: string; q: string; options: string[]; correct: number; exp?: string }
+  | { type: "fill"; topic: string; q: string; answer: string; exp?: string };
+export type DatingQuiz = { title: string; items: DatingItem[] };
+
+/** Keys stay as they were: progress is recorded as timeline-dating-<key>, as the embedded tool did. */
+export const DATING_QUIZZES: Record<string, DatingQuiz> = ${json(quizzes)};
+`);
+
+console.log(`dating: ${Object.keys(quizzes).length} sets, ${Object.values(quizzes).reduce((n, q) => n + q.items.length, 0)} questions; kings: ${kings.united.length}+${kings.judah.length}+${kings.israel.length}, prophets: ${Object.keys(prophets).length}, milestones: ${milestones.length}, books: ${judaism.chain.length}, centers: ${judaism.centers.length}, foundations: ${judaism.foundations.length}, finds: ${archaeology.items.length}`);

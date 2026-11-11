@@ -131,7 +131,7 @@ export function KingsAid() {
   const [picked, setPicked] = useState<Pick | null>(null);
   const kings = JUDAH_KINGS.length + ISRAEL_KINGS.length + UNITED_KINGS.length;
 
-  return <main dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <div dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
     <AidHeader slug="kings" title="מלכי ישראל ויהודה" subtitle="מהממלכה המאוחדת ועד חורבן ירושלים: שתי הממלכות על ציר אחד, הנביאים בני התקופה, והמסעות, המצורים והכתובות שמאמתים את הסיפור." stats={`${kings} מלכים · ${Object.keys(PROPHETS).length} נביאים · ${IRON_FINDS.length} אירועים וממצאים`} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">
     <AidTabs tabs={TABS} active={tab} onSelect={setTab} />
@@ -175,5 +175,5 @@ export function KingsAid() {
     </section>}
     </div>
     </div>
-  </main>;
+  </div>;
 }

@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
-import { EmbeddedHistoricalTool } from "@/components/EmbeddedHistoricalTool";
+import { pageMeta } from "@/lib/seo";
+import { DatingQuizzes } from "@/components/dating/DatingQuizzes";
 
-export const metadata: Metadata = {
-  title: "שאלוני תיארוך | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "שאלונים על תאריכים, סדר אירועים ותקופות מקבילות",
-};
+export const metadata = pageMeta({
+  title: "שאלוני תיארוך",
+  description: "שבעה שאלוני תיארוך: מה קדם למה ובאיזו שנה, מהפרהיסטוריה ועד ספרי היהדות. שאלות אמריקאיות ושאלות השלמה עם דירוג עצמי.",
+  path: "/quizzes/dating",
+});
 
 export default function DatingQuizzesPage() {
-  return <EmbeddedHistoricalTool view="dating" title="שאלוני תיארוך" />;
+  return <DatingQuizzes />;
 }
