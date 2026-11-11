@@ -1,0 +1,622 @@
+/* גרסה ב׳ — סימון שבילים. גיר בהיר, צבעי שביל אמיתיים, שביל עם תחנות, ומקרא של מפה. */
+
+.root {
+  --ground: #e4dac4;
+  --ground-deep: #d3c6a9;
+  --topo-ink: #5d5a35;
+  --topo-alpha: 0.2;
+  --paper: #efe8d8;
+  --ink: #26221a;
+  --ink-dim: #574d3d;
+  --frame: #3b3428;
+  --paint: #f6f2e8;
+  --rock: #cbc1aa;
+  --rock-dark: #a99d82;
+  --t-red: #b83a2b;
+  --t-blue: #2c5c8a;
+  --t-green: #3f7a3a;
+  --t-black: #26221a;
+  --t-orange: #c8742b;
+  --steps: #4d4630;
+  --steps-alpha: 0.14;
+  --focus: #2c5c8a;
+
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(80% 60% at 100% 0%, rgb(255 252 240 / 0.55), transparent 60%),
+    radial-gradient(60% 50% at 0% 70%, rgb(63 122 58 / 0.12), transparent 70%),
+    var(--ground);
+  scrollbar-color: var(--t-red) var(--ground-deep);
+}
+
+:global([data-theme="dark"]) .root {
+  --ground: #1a1c16;
+  --ground-deep: #25281f;
+  --topo-ink: #b6c294;
+  --topo-alpha: 0.12;
+  --paper: #24271e;
+  --ink: #ece6d6;
+  --ink-dim: #c1b9a3;
+  --frame: #8f8a74;
+  --rock: #6b6656;
+  --rock-dark: #4d493d;
+  --t-red: #d4523f;
+  --t-blue: #4f86bd;
+  --t-green: #67a35c;
+  --t-black: #0e0e0b;
+  --t-orange: #dc8a3f;
+  --steps: #cdd3b4;
+  --steps-alpha: 0.1;
+  --focus: #8fb7e0;
+
+  background:
+    radial-gradient(80% 60% at 100% 0%, rgb(182 194 148 / 0.07), transparent 60%),
+    var(--ground);
+}
+
+.root ::selection {
+  background: var(--t-red);
+  color: var(--paint);
+}
+
+.root :focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.topo {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: var(--topo-ink);
+  opacity: var(--topo-alpha);
+  mask: var(--topo) 30% 40% / max(1500px, 150vw) auto no-repeat;
+  -webkit-mask: var(--topo) 30% 40% / max(1500px, 150vw) auto no-repeat;
+}
+
+/* ---------- blazes: white, colour, white ---------- */
+
+.blaze {
+  --c: var(--t-red);
+  display: inline-block;
+  flex: none;
+  width: 18px;
+  height: 14px;
+  background: linear-gradient(var(--paint) 0 30%, var(--c) 30% 70%, var(--paint) 70%);
+  border-radius: 2px 3px 2px 3px;
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.18);
+}
+
+.red {
+  --c: var(--t-red);
+}
+.blue {
+  --c: var(--t-blue);
+}
+.green {
+  --c: var(--t-green);
+}
+.black {
+  --c: var(--t-black);
+}
+.orange {
+  --c: var(--t-orange);
+}
+
+/* ---------- top bar ---------- */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.topInner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+/* the bar's lower edge is a painted trail: white, red, white */
+.topTrail {
+  display: block;
+  height: 9px;
+  background: linear-gradient(var(--paint) 0 30%, var(--t-red) 30% 70%, var(--paint) 70%);
+  box-shadow: 0 6px 14px -8px rgb(20 15 5 / 0.45);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 46% 54% 42% 58% / 56% 44% 56% 44%;
+  background: linear-gradient(160deg, var(--rock), var(--rock-dark));
+  color: var(--ink);
+}
+
+:global([data-theme="dark"]) .mark {
+  color: var(--paint);
+}
+
+.markBlaze {
+  position: absolute;
+  top: -2px;
+  inset-inline-start: -6px;
+  width: 14px;
+  height: 11px;
+  transform: rotate(6deg);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brandName {
+  font-family: var(--font-hand);
+  font-size: 1.95rem;
+}
+
+.brandSub {
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.nav {
+  display: flex;
+  gap: 2px;
+  margin-inline-start: auto;
+}
+
+.navItem,
+.me {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.navItem:hover,
+.me:hover {
+  background: rgb(0 0 0 / 0.06);
+}
+
+:global([data-theme="dark"]) .navItem:hover,
+:global([data-theme="dark"]) .me:hover {
+  background: rgb(255 255 255 / 0.06);
+}
+
+.me {
+  border: 1.5px solid var(--frame);
+}
+
+/* ---------- hero ---------- */
+
+.main {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  column-gap: 56px;
+  row-gap: 18px;
+  align-items: start;
+  margin-bottom: 56px;
+}
+
+.greet {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.trail {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.note {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.here {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  color: var(--t-red);
+  transform: rotate(-3deg);
+}
+
+.hereDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--t-red);
+  box-shadow: 0 0 0 4px var(--ground), 0 0 0 6px var(--t-red);
+}
+
+.hello {
+  margin: 0 0 16px;
+  padding-inline-start: 0.12em;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.lede {
+  max-width: 34rem;
+  margin: 0 0 22px;
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: var(--ink-dim);
+}
+
+/* ---------- scale bar ---------- */
+
+.scale {
+  max-width: 26rem;
+  margin: 0 0 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scaleBar {
+  position: relative;
+  display: flex;
+  height: 12px;
+  border: 1.5px solid var(--ink);
+}
+
+.scaleDark {
+  flex: 1;
+  background: var(--ink);
+}
+
+.scaleLight {
+  flex: 1;
+  background: var(--paint);
+}
+
+.scaleMark {
+  position: absolute;
+  top: -9px;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-top: 9px solid var(--t-red);
+  transform: translateX(50%);
+}
+
+.scaleTicks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+}
+
+.scale figcaption {
+  margin-top: 4px;
+  font-size: 1rem;
+}
+
+/* ---------- the trail: the signature move ---------- */
+
+.trail {
+  position: relative;
+  min-height: 520px;
+}
+
+.trailLine {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 400px;
+  height: 520px;
+  overflow: visible;
+}
+
+.trailLine path {
+  fill: none;
+  stroke: var(--t-red);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 12 10;
+  opacity: 0.75;
+}
+
+.pathNarrow {
+  display: none;
+}
+
+.steps {
+  position: absolute;
+  inset: -20px -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 40px);
+  color: var(--steps);
+  opacity: var(--steps-alpha);
+  pointer-events: none;
+}
+
+.stations {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.station {
+  height: 130px;
+  display: flex;
+  align-items: center;
+}
+
+.station:nth-child(even) {
+  padding-inline-start: 90px;
+}
+
+.stationLink {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.rock {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 80px;
+  height: 66px;
+  border-radius: 48% 52% 40% 60% / 58% 50% 50% 42%;
+  background:
+    radial-gradient(60% 50% at 35% 30%, rgb(255 255 255 / 0.35), transparent 70%),
+    linear-gradient(160deg, var(--rock), var(--rock-dark));
+  box-shadow: 0 10px 14px -10px rgb(20 15 5 / 0.6), inset 0 -5px 0 rgb(0 0 0 / 0.1);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rockBlaze {
+  width: 30px;
+  height: 24px;
+  transform: rotate(-5deg);
+}
+
+.stationLink:hover .rock,
+.stationLink:focus-visible .rock {
+  transform: translateY(-4px) rotate(-2deg);
+}
+
+.tag {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 8px 18px -12px rgb(20 15 5 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.06);
+}
+
+.tagLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.85rem;
+  line-height: 1.05;
+}
+
+.tagDetail {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.alert {
+  color: var(--t-red);
+  font-weight: 800;
+}
+
+/* ---------- the legend ---------- */
+
+.legend {
+  position: relative;
+  padding: 18px 22px 12px;
+  background: var(--paper);
+  border: 2px solid var(--frame);
+  outline: 1px solid var(--frame);
+  outline-offset: -7px;
+  box-shadow: 0 24px 40px -30px rgb(20 15 5 / 0.6);
+}
+
+.legendTitle {
+  margin: 0 0 6px;
+  padding: 0 6px;
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 2.1rem;
+  line-height: 1.1;
+}
+
+.legendGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+  padding: 10px 8px;
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.legendItem:hover {
+  background: rgb(0 0 0 / 0.05);
+}
+
+:global([data-theme="dark"]) .legendItem:hover {
+  background: rgb(255 255 255 / 0.05);
+}
+
+.legendBlaze {
+  width: 26px;
+  height: 20px;
+}
+
+.legendIcon {
+  flex: none;
+  color: var(--ink-dim);
+}
+
+.legendText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.legendName {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.legendLine {
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+.legendFoot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin: 8px 6px 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--frame);
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+
+.badge {
+  min-width: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--t-red);
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 1000px) {
+  .nav {
+    display: none;
+  }
+  .me {
+    margin-inline-start: auto;
+  }
+  .legendGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .greet,
+  .trail,
+  .note {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .topInner {
+    padding: 8px 14px;
+    gap: 10px;
+  }
+  .main {
+    padding: 24px 16px 60px;
+  }
+  .trail {
+    min-height: 0;
+  }
+  .pathWide {
+    display: none;
+  }
+  .pathNarrow {
+    display: inline;
+  }
+  .station:nth-child(even) {
+    padding-inline-start: 46px;
+  }
+  .tagLabel {
+    font-size: 1.55rem;
+  }
+  .legendGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rock,
+  .legendItem {
+    transition: none;
+  }
+}

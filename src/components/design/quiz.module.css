@@ -1,0 +1,308 @@
+/* מסך שאלה: אותו מבנה בשתי הגרסאות; המשתנים נלקחים מהמסגרת של כל גרסה. */
+
+.signs {
+  --q-card: var(--board);
+  --q-edge: var(--board-edge);
+  --q-ok: var(--green);
+  --q-bad: var(--red);
+  --q-accent: var(--sign);
+  --q-accent-ink: var(--sign-ink);
+}
+
+.trails {
+  --q-card: var(--paper);
+  --q-edge: var(--frame);
+  --q-ok: var(--t-green);
+  --q-bad: var(--t-red);
+  --q-accent: var(--t-black);
+  --q-accent-ink: var(--paint);
+}
+
+:global([data-theme="dark"]) .trails {
+  --q-accent: var(--t-red);
+}
+
+.main {
+  position: relative;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 32px 18px 80px;
+}
+
+.top {
+  margin-bottom: 18px;
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink-dim);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  line-height: 1.1;
+}
+
+/* ---------- progress: signs = small plates on a road, trails = blazes on a path ---------- */
+
+.progress {
+  display: flex;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progress li {
+  flex: 1;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.signs .done {
+  background: var(--q-accent);
+}
+.signs .now {
+  background: var(--q-ok);
+  transform: scaleY(1.6);
+}
+.signs .ahead {
+  background: color-mix(in srgb, var(--q-accent) 20%, transparent);
+}
+
+.trails .progress li {
+  height: 14px;
+}
+.trails .done {
+  background: linear-gradient(var(--paint) 0 30%, var(--t-red) 30% 70%, var(--paint) 70%);
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.2);
+}
+.trails .now {
+  background: linear-gradient(var(--paint) 0 30%, var(--t-green) 30% 70%, var(--paint) 70%);
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.2);
+  transform: scale(1.15, 1.6);
+}
+.trails .ahead {
+  background: repeating-linear-gradient(to left, color-mix(in srgb, var(--ink) 30%, transparent) 0 4px, transparent 4px 8px);
+  height: 3px;
+  margin-top: 5px;
+}
+
+.count {
+  margin: 8px 0 18px;
+  font-size: 1.05rem;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.count b {
+  color: var(--ink);
+}
+
+/* ---------- the clean content card ---------- */
+
+.card {
+  padding: 26px 24px 22px;
+  border-radius: 10px;
+  background: var(--q-card);
+  box-shadow:
+    0 0 0 1px var(--q-edge),
+    0 24px 40px -30px rgb(20 12 4 / 0.6);
+}
+
+.question {
+  margin: 0 0 20px;
+  font-size: clamp(1.35rem, 3.6vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.answer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 62px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: color-mix(in srgb, var(--q-card) 70%, white 30%);
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: start;
+  transition: border-color 0.2s, opacity 0.3s, transform 0.15s;
+}
+
+:global([data-theme="dark"]) .answer {
+  background: color-mix(in srgb, var(--q-card) 85%, white 15%);
+}
+
+.answer:not(:disabled):hover {
+  border-color: var(--q-accent);
+}
+
+.answer:not(:disabled):active {
+  transform: scale(0.99);
+}
+
+.answer:disabled {
+  cursor: default;
+}
+
+.letter {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background: var(--q-accent);
+  color: var(--q-accent-ink);
+  font-weight: 800;
+}
+
+.trails .letter {
+  border-radius: 46% 54% 42% 58% / 56% 44% 56% 44%;
+  background: var(--rock);
+  color: var(--ink);
+}
+
+:global([data-theme="dark"]) .trails .letter {
+  color: var(--paint);
+}
+
+.answerText {
+  position: relative;
+  display: inline-block;
+}
+
+.faded {
+  opacity: 0.4;
+}
+
+.right {
+  border-color: var(--q-ok);
+}
+
+.wrong {
+  border-color: var(--q-bad);
+}
+
+/* the teacher's pen: a circle drawn around the right answer, a line through the wrong one */
+.circle,
+.strike {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.circle {
+  inset: -12px -22px;
+  width: calc(100% + 44px);
+  height: calc(100% + 24px);
+}
+
+.circle path,
+.strike path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.circle path {
+  stroke: var(--q-ok);
+  stroke-width: 3.5;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.strike {
+  top: 50%;
+  inset-inline: -6px;
+  width: calc(100% + 12px);
+  height: 20px;
+  transform: translateY(-50%);
+}
+
+.strike path {
+  stroke: var(--q-bad);
+  stroke-width: 4;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.feedback {
+  margin-top: 18px;
+}
+
+.verdict {
+  margin: 0 0 12px;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.next {
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--q-accent);
+  color: var(--q-accent-ink);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.noteBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle path,
+  .strike path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

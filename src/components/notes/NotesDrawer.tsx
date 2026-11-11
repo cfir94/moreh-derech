@@ -26,8 +26,18 @@ function when(ts: number) {
   return new Date(ts).toLocaleDateString("he-IL", { day: "numeric", month: "short", year: new Date(ts).getFullYear() === new Date().getFullYear() ? undefined : "numeric" });
 }
 
-function NoteIcon() {
-  return <svg aria-hidden viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+function PinIcon() {
+  return <svg aria-hidden viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: "none" }}>
+    <path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" /><circle cx="12" cy="10" r="2.3" />
+  </svg>;
+}
+
+function SearchIcon() {
+  return <svg aria-hidden viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg>;
+}
+
+function NoteIcon({ size = 20 }: { size?: number }) {
+  return <svg aria-hidden viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
     <path d="M15.5 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z" />
     <path d="M15 3v5h5" /><path d="M8 13h8M8 17h5" />
   </svg>;
@@ -119,14 +129,14 @@ function Drawer({ onClose }: { onClose: () => void }) {
     <aside ref={panel} role="dialog" aria-modal="true" aria-labelledby="notes-title" className={styles.panel}>
       <header className={styles.head}>
         <div>
-          <h2 id="notes-title" className="text-2xl font-black">הפתקים שלי</h2>
-          <p className="text-sm text-txt-dim">{notes.length ? `${notes.length} פתקים` : "הערות לעצמכם, מכל מקום באתר"}</p>
+          <h2 id="notes-title" className={styles.heading}>הפתקים שלי</h2>
+          <p className={styles.sub}>{notes.length ? `${notes.length} פתקים` : "הערות לעצמכם, מכל מקום באתר"}</p>
         </div>
         <button type="button" onClick={onClose} aria-label="סגירה" className={styles.close}>×</button>
       </header>
 
       <form className={styles.composer} onSubmit={(e) => { e.preventDefault(); save(); }}>
-        <p className="text-sm font-bold text-teal">{editing ? "עריכת פתק" : "פתק חדש"}</p>
+        <p className={styles.kicker}>{editing ? "עריכת פתק" : "פתק חדש"}</p>
         <label className="sr-only" htmlFor="note-title">נושא</label>
         <input id="note-title" ref={titleRef} value={title} maxLength={MAX_TITLE} onChange={(e) => setTitle(e.target.value)}
           placeholder="נושא" className={styles.title} autoComplete="off" />
@@ -135,40 +145,40 @@ function Drawer({ onClose }: { onClose: () => void }) {
           onKeyDown={(e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); save(); } }}
           placeholder="מה רציתי לזכור…" rows={5} className={styles.body} />
         {context && <p className={styles.context}>
-          <span aria-hidden>📍</span>
+          <PinIcon />
           <span className="min-w-0 flex-1 truncate">מתוך: {context.label}</span>
           <button type="button" onClick={() => setContext(null)} aria-label="בלי לצרף את הדף" className={styles.chipX}>×</button>
         </p>}
-        {error && <p role="alert" className="text-sm font-bold text-red">{error}</p>}
-        <div className="flex items-center gap-2">
+        {error && <p role="alert" className={styles.error}>{error}</p>}
+        <div className={styles.row}>
           <button type="submit" disabled={!canSave} className={styles.save}>{editing ? "שמירת השינויים" : "שמירה"}</button>
           {editing && <button type="button" onClick={reset} className={styles.ghost}>ביטול</button>}
-          <span className="mr-auto hidden text-xs text-txt-dim sm:inline">Ctrl+Enter לשמירה</span>
+          <span className={`${styles.hint} hidden sm:inline`}>Ctrl+Enter לשמירה</span>
         </div>
       </form>
 
       {notes.length > 3 && <label className={styles.search}>
         <span className="sr-only">חיפוש בפתקים</span>
-        <span aria-hidden>⌕</span>
+        <SearchIcon />
         <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="חיפוש בפתקים" />
       </label>}
 
       {notes.length === 0 ? <div className={styles.empty}>
-        <span aria-hidden className="text-4xl">🗒️</span>
-        <p className="font-bold">עוד אין פתקים</p>
-        <p className="text-sm leading-6 text-txt-dim">כתבו הערה תוך כדי שאלון או קריאה. הפתק זוכר מאיזה דף, ומאיזו שאלה, הוא נכתב.</p>
+        <NoteIcon size={36} />
+        <p className="text-lg font-bold">עוד אין פתקים</p>
+        <p className={styles.emptyText}>כתבו הערה תוך כדי שאלון או קריאה. הפתק זוכר מאיזה דף, ומאיזו שאלה, הוא נכתב.</p>
       </div> : <ul className={styles.list} aria-label="הפתקים">
         {shown.map((note) => <li key={note.id} className={`${styles.note} ${flash === note.id ? styles.flash : ""} ${editing?.id === note.id ? styles.current : ""}`}>
           <div className="flex items-start justify-between gap-3">
-            <h3 className="min-w-0 flex-1 font-black leading-6">{note.title}</h3>
-            <time className="shrink-0 text-xs text-txt-dim" dateTime={new Date(note.updatedAt).toISOString()}>{when(note.updatedAt)}</time>
+            <h3 className={`min-w-0 flex-1 ${styles.noteTitle}`}>{note.title}</h3>
+            <time className={styles.when} dateTime={new Date(note.updatedAt).toISOString()}>{when(note.updatedAt)}</time>
           </div>
           {note.body && note.body !== note.title && <p className={styles.text}>{note.body}</p>}
-          {note.context && <Link href={note.context.href} onClick={onClose} className={styles.link}>📍 {note.context.label}</Link>}
+          {note.context && <Link href={note.context.href} onClick={onClose} className={styles.link}><PinIcon />{note.context.label}</Link>}
           <div className={styles.actions}>
             {confirm === note.id ? <>
               <span className="text-sm font-bold">למחוק את הפתק?</span>
-              <button type="button" onClick={() => { deleteNote(note.id); setConfirm(null); if (editing?.id === note.id) reset(); }} className={`${styles.ghost} text-red`}>מחיקה</button>
+              <button type="button" onClick={() => { deleteNote(note.id); setConfirm(null); if (editing?.id === note.id) reset(); }} className={`${styles.ghost} ${styles.danger}`}>מחיקה</button>
               <button type="button" onClick={() => setConfirm(null)} className={styles.ghost}>לא</button>
             </> : <>
               <button type="button" onClick={() => edit(note)} className={styles.ghost}>עריכה</button>
@@ -182,7 +192,7 @@ function Drawer({ onClose }: { onClose: () => void }) {
       <footer className={styles.foot}>
         {user
           ? "נשמר בחשבון שלך, ומופיע בכל מכשיר שתתחברו ממנו."
-          : <>הפתקים נשמרים בדפדפן הזה. <Link href="/login" onClick={onClose} className="font-bold text-teal underline underline-offset-4">התחברו</Link> כדי לשמור אותם בחשבון.</>}
+          : <>הפתקים נשמרים בדפדפן הזה. <Link href="/login" onClick={onClose} className={styles.footLink}>התחברו</Link> כדי לשמור אותם בחשבון.</>}
       </footer>
     </aside>
   </div>;

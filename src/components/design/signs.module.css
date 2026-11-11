@@ -1,0 +1,543 @@
+/* גרסה א׳ — השלטים החומים. החום שמור לניווט; לוחות ההסבר בהירים; הרקע מפת קווי גובה. */
+
+.root {
+  --ground: #d6c39d;
+  --ground-deep: #c8b287;
+  --topo-ink: #6b4a2b;
+  --topo-alpha: 0.2;
+  --sign: #5b3a21;
+  --sign-deep: #4a2f1a;
+  --sign-ink: #f3ead6;
+  --board: #ece3cf;
+  --board-edge: #b9a57c;
+  --ink: #2a221b;
+  --ink-dim: #5a4a38;
+  --green: #4f6b3a;
+  --red: #a8342a;
+  --steps: #5b3a21;
+  --steps-alpha: 0.16;
+  --pole: #6a6253;
+
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(90% 60% at 85% 0%, rgb(255 248 230 / 0.45), transparent 60%),
+    radial-gradient(70% 50% at 0% 100%, rgb(79 107 58 / 0.14), transparent 70%),
+    var(--ground);
+  scrollbar-color: var(--sign) var(--ground-deep);
+}
+
+:global([data-theme="dark"]) .root {
+  --ground: #1f1a15;
+  --ground-deep: #2a231c;
+  --topo-ink: #c9b089;
+  --topo-alpha: 0.13;
+  --sign: #6b4426;
+  --sign-deep: #563519;
+  --sign-ink: #f3ead6;
+  --board: #2b241d;
+  --board-edge: #4d4033;
+  --ink: #efe5d2;
+  --ink-dim: #c2b296;
+  --green: #9cba79;
+  --red: #e0705f;
+  --steps: #c9b089;
+  --steps-alpha: 0.12;
+  --pole: #8a806e;
+
+  background:
+    radial-gradient(90% 60% at 85% 0%, rgb(201 176 137 / 0.08), transparent 60%),
+    radial-gradient(70% 50% at 0% 100%, rgb(143 174 110 / 0.08), transparent 70%),
+    var(--ground);
+}
+
+.root ::selection {
+  background: var(--sign);
+  color: var(--sign-ink);
+}
+
+.root :focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* the real contour map of Jerusalem, as a mask tinted with the theme ink */
+.topo {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: var(--topo-ink);
+  opacity: var(--topo-alpha);
+  mask: var(--topo) 70% 30% / max(1400px, 140vw) auto no-repeat;
+  -webkit-mask: var(--topo) 70% 30% / max(1400px, 140vw) auto no-repeat;
+}
+
+/* ---------- the sign band ---------- */
+
+.band {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 10px 12px;
+  background: var(--sign);
+  box-shadow: 0 10px 24px -14px rgb(30 18 8 / 0.7);
+}
+
+.bandInner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  border: 2px solid var(--sign-ink);
+  border-radius: 10px;
+  color: var(--sign-ink);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sign-ink);
+  text-decoration: none;
+  flex: none;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  background: var(--sign-ink);
+  color: var(--sign);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brandName {
+  font-family: var(--font-hand);
+  font-size: 1.9rem;
+}
+
+.brandSub {
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+  margin-inline-start: auto;
+}
+
+.navItem,
+.me {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: var(--sign-ink);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.navItem:hover,
+.me:hover {
+  background: rgb(243 234 214 / 0.14);
+}
+
+.me {
+  border: 1.5px solid rgb(243 234 214 / 0.55);
+}
+
+/* ---------- hero ---------- */
+
+.main {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 20px 80px;
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 56px;
+}
+
+.steps {
+  position: absolute;
+  inset: -40px -20px -40px -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 80px);
+  color: var(--steps);
+  opacity: var(--steps-alpha);
+  pointer-events: none;
+}
+
+.greet {
+  position: relative;
+  padding-top: 10px;
+}
+
+.here {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  color: var(--red);
+  transform: rotate(-3deg);
+}
+
+.hereDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 4px var(--ground), 0 0 0 6px var(--red);
+}
+
+.hello {
+  margin: 0;
+  padding-inline-start: 0.12em;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.05;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.underline {
+  display: block;
+  width: min(100%, 22rem);
+  height: 14px;
+  margin: 2px 0 14px;
+}
+
+.underline path {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.lede {
+  max-width: 34rem;
+  margin: 0 0 18px;
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: var(--ink-dim);
+}
+
+/* a small cream plate, like the distance plates under a site sign */
+.km {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 0 0 26px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: var(--sign-ink);
+  color: var(--sign);
+  font-size: 1.05rem;
+  box-shadow: inset 0 0 0 2px var(--sign);
+  font-variant-numeric: tabular-nums;
+}
+
+.km b {
+  font-weight: 900;
+}
+
+.greet {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.post {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.note {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: 8px;
+}
+
+/* ---------- the signpost: the signature move ---------- */
+
+.post {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 0 70px;
+  /* blades hang on the pole at the right (the start in RTL) and point left, the way forward */
+  padding-inline-start: 26px;
+}
+
+.pole {
+  position: absolute;
+  top: 0;
+  bottom: 22px;
+  inset-inline-start: 34px;
+  width: 16px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(to left, rgb(0 0 0 / 0.18), transparent 40%, rgb(255 255 255 / 0.12) 70%, rgb(0 0 0 / 0.12)), var(--pole);
+}
+
+.stones {
+  position: absolute;
+  bottom: 8px;
+  inset-inline-start: 6px;
+  width: 74px;
+  height: 26px;
+  border-radius: 50% 46% 40% 44%;
+  background: var(--ground-deep);
+  box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.12);
+}
+
+.blade {
+  position: relative;
+  display: block;
+  width: min(100%, 26rem);
+  /* the cream outline of the sign: the blade is cream, its face is brown, inset 3px */
+  background: var(--sign-ink);
+  clip-path: polygon(0 50%, 34px 0, 100% 0, 100% 100%, 34px 100%);
+  filter: drop-shadow(0 8px 10px rgb(30 18 8 / 0.28));
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.blade:hover {
+  transform: rotate(var(--tilt, 0deg)) translateX(-8px);
+}
+
+.blade:focus-visible {
+  outline: none;
+  transform: rotate(var(--tilt, 0deg)) translateX(-8px);
+  background: var(--green);
+}
+
+.bladeFace {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: center;
+  margin: 3px;
+  padding: 12px 18px 12px 46px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  clip-path: polygon(0 50%, 32px 0, 100% 0, 100% 100%, 32px 100%);
+}
+
+.bladeIcon {
+  grid-row: span 2;
+}
+
+.bladeLabel {
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 1.85rem;
+  line-height: 1.05;
+}
+
+.bladeDetail {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.88;
+  font-variant-numeric: tabular-nums;
+}
+
+.alert {
+  justify-self: start;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--sign-ink);
+  color: var(--red);
+  font-weight: 800;
+  opacity: 1;
+}
+
+/* ---------- the interpretation board ---------- */
+
+.board {
+  position: relative;
+  border-radius: 12px;
+  background: var(--board);
+  box-shadow:
+    0 0 0 1px var(--board-edge),
+    0 24px 40px -28px rgb(30 18 8 / 0.6);
+  overflow: hidden;
+}
+
+.boardTitle {
+  margin: 0;
+  padding: 14px 24px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 8px 12px 14px;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 76px;
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.item:hover {
+  background: rgb(91 58 33 / 0.08);
+}
+
+:global([data-theme="dark"]) .item:hover {
+  background: rgb(243 234 214 / 0.06);
+}
+
+.pict {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 7px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  box-shadow: inset 0 0 0 2px var(--sign), inset 0 0 0 3.5px var(--sign-ink);
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.itemTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.itemLine {
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+.badge {
+  min-width: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 1000px) {
+  .nav {
+    display: none;
+  }
+  .me {
+    margin-inline-start: auto;
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .band {
+    padding: 8px;
+  }
+  .bandInner {
+    padding: 6px 10px;
+    gap: 10px;
+  }
+  .mark {
+    width: 40px;
+    height: 40px;
+  }
+  .brandName {
+    font-size: 1.6rem;
+  }
+  .main {
+    padding: 22px 16px 60px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .greet,
+  .post,
+  .note {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .post {
+    padding-bottom: 56px;
+  }
+  .blade {
+    width: 100%;
+  }
+  .bladeLabel {
+    font-size: 1.6rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .note {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blade,
+  .item {
+    transition: none;
+  }
+}
