@@ -1132,14 +1132,14 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
   },
   {
     "id": "kedesh",
-    "caption": "חזית המקדש הרומי בתל קדש.",
-    "alt": "שרידי חזית מקדש מאבן",
+    "caption": "מה שעומד היום מן המקדש הרומי בתל קדש: שני קטעי קיר גבוהים של אבני גזית, בשדה פתוח.",
+    "alt": "שני קטעי קיר עתיקים מאבנים גדולות בתוך שדה של עשב יבש",
     "src": "/learning-map/photos/kedesh.jpg",
     "width": 1280,
-    "height": 749,
-    "author": "Bukvoed",
-    "license": "CC BY 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Tel-Kedesh-temple-NS-20.jpg"
+    "height": 853,
+    "author": "Natalinasser",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:16-0596-101_%D7%AA%D7%9C_%D7%A7%D7%93%D7%A9-%D7%94%D7%A7%D7%99%D7%A8_%D7%A9%D7%A0%D7%A9%D7%90%D7%A8_%D7%9E%D7%94%D7%9E%D7%A7%D7%93%D7%A9_%D7%94%D7%A8%D7%95%D7%9E%D7%90%D7%99.JPG"
   }
 ];
