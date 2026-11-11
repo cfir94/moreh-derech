@@ -20,10 +20,16 @@ export default function Page() {
           <Link href="/design/signs" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
             גרסה א׳: השלטים החומים
           </Link>
+          <Link href="/design/signs/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
+            מסך שאלה בגרסה א׳
+          </Link>
         </li>
         <li>
           <Link href="/design/trails" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
             גרסה ב׳: סימון שבילים
+          </Link>
+          <Link href="/design/trails/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
+            מסך שאלה בגרסה ב׳
           </Link>
         </li>
       </ul>

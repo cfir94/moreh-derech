@@ -16,7 +16,7 @@ import s from "./trails.module.css";
  * הכלים היא המקרא של המפה. קנה המידה מודד כמה שאלות כבר נענו.
  */
 
-type Trail = "red" | "blue" | "green" | "black" | "orange";
+export type Trail = "red" | "blue" | "green" | "black" | "orange";
 
 const TRAIL_OF: Record<string, Trail> = {
   quizzes: "red",
@@ -32,7 +32,7 @@ const TRAIL_OF: Record<string, Trail> = {
 };
 
 const NAV: { href: string; label: string; trail: Trail }[] = [
-  { href: "/quizzes", label: "שאלונים", trail: "red" },
+  { href: "/design/trails/quiz", label: "שאלונים", trail: "red" },
   { href: "/exams", label: "מבחנים", trail: "black" },
   { href: "/map", label: "מפה", trail: "green" },
   { href: "/timelines", label: "עזרי למידה", trail: "blue" },
@@ -42,7 +42,7 @@ const NAV: { href: string; label: string; trail: Trail }[] = [
 type Props = { questionCount: number; examCount: number };
 
 /** A painted blaze: white, colour, white. */
-function Blaze({ trail, className = "" }: { trail: Trail; className?: string }) {
+export function Blaze({ trail, className = "" }: { trail: Trail; className?: string }) {
   return <span aria-hidden className={`${s.blaze} ${s[trail]} ${className}`} />;
 }
 
@@ -74,7 +74,6 @@ function ScaleBar({ answered }: { answered: number }) {
 
 export function TrailsHome({ questionCount, examCount }: Props) {
   const d = useHomeData();
-  const topo = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
 
   const stations: { href: string; icon: FieldIconName; label: string; detail: string; trail: Trail; alert?: boolean }[] = [
     d.reviewCount > 0
@@ -86,38 +85,7 @@ export function TrailsHome({ questionCount, examCount }: Props) {
   ];
 
   return (
-    <div className={s.root} style={topo}>
-      <MapUnfold variant="trails" always storageKey="md_intro_design_trails" />
-      <div aria-hidden className={s.topo} />
-
-      <header className={s.top}>
-        <div className={s.topInner}>
-          <Link href="/" className={s.brand}>
-            <span className={s.mark}>
-              <FieldIcon name="milestone" size={34} />
-              <Blaze trail="red" className={s.markBlaze} />
-            </span>
-            <span className={s.brandText}>
-              <span className={s.brandName}>אבן דרך</span>
-              <span className={s.brandSub}>למורי דרך</span>
-            </span>
-          </Link>
-          <nav aria-label="ניווט ראשי" className={s.nav}>
-            {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className={s.navItem}>
-                <Blaze trail={n.trail} className={s.navBlaze} />
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-          <Link href="/me" className={s.me}>
-            <FieldIcon name="me" size={22} />
-            {d.name ?? "כניסה"}
-          </Link>
-        </div>
-        <span aria-hidden className={s.topTrail} />
-      </header>
-
+    <TrailsFrame name={d.name} intro>
       <main className={s.main}>
         <section className={s.hero}>
           <div className={s.greet}>
@@ -199,6 +167,46 @@ export function TrailsHome({ questionCount, examCount }: Props) {
           </p>
         </section>
       </main>
+    </TrailsFrame>
+  );
+}
+
+/** The frame of version B: the contour ground and the top bar with its painted trail. */
+export function TrailsFrame({ name, intro = false, children }: { name: string | null; intro?: boolean; children: React.ReactNode }) {
+  const topo = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
+  return (
+    <div className={s.root} style={topo}>
+      {intro && <MapUnfold variant="trails" always storageKey="md_intro_design_trails" />}
+      <div aria-hidden className={s.topo} />
+
+      <header className={s.top}>
+        <div className={s.topInner}>
+          <Link href="/design/trails" className={s.brand}>
+            <span className={s.mark}>
+              <FieldIcon name="milestone" size={34} />
+              <Blaze trail="red" className={s.markBlaze} />
+            </span>
+            <span className={s.brandText}>
+              <span className={s.brandName}>אבן דרך</span>
+              <span className={s.brandSub}>למורי דרך</span>
+            </span>
+          </Link>
+          <nav aria-label="ניווט ראשי" className={s.nav}>
+            {NAV.map((n) => (
+              <Link key={n.href} href={n.href} className={s.navItem}>
+                <Blaze trail={n.trail} className={s.navBlaze} />
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+          <Link href="/me" className={s.me}>
+            <FieldIcon name="me" size={22} />
+            {name ?? "כניסה"}
+          </Link>
+        </div>
+        <span aria-hidden className={s.topTrail} />
+      </header>
+      {children}
     </div>
   );
 }

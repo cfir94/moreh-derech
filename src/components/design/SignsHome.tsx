@@ -19,7 +19,7 @@ import s from "./signs.module.css";
 type Props = { questionCount: number; examCount: number };
 
 const NAV: { href: string; label: string; icon: FieldIconName }[] = [
-  { href: "/quizzes", label: "שאלונים", icon: "quizzes" },
+  { href: "/design/signs/quiz", label: "שאלונים", icon: "quizzes" },
   { href: "/exams", label: "מבחנים", icon: "exams" },
   { href: "/map", label: "מפה", icon: "map" },
   { href: "/timelines", label: "עזרי למידה", icon: "timelines" },
@@ -28,7 +28,6 @@ const NAV: { href: string; label: string; icon: FieldIconName }[] = [
 
 export function SignsHome({ questionCount, examCount }: Props) {
   const d = useHomeData();
-  const topo = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
 
   const blades: { href: string; icon: FieldIconName; label: string; detail: string; alert?: boolean }[] = [
     d.reviewCount > 0
@@ -40,36 +39,7 @@ export function SignsHome({ questionCount, examCount }: Props) {
   ];
 
   return (
-    <div className={s.root} style={topo}>
-      <MapUnfold variant="signs" always storageKey="md_intro_design_signs" />
-      <div aria-hidden className={s.topo} />
-
-      <header className={s.band}>
-        <div className={s.bandInner}>
-          <Link href="/" className={s.brand}>
-            <span className={s.mark}>
-              <FieldIcon name="milestone" size={30} />
-            </span>
-            <span className={s.brandText}>
-              <span className={s.brandName}>אבן דרך</span>
-              <span className={s.brandSub}>למורי דרך</span>
-            </span>
-          </Link>
-          <nav aria-label="ניווט ראשי" className={s.nav}>
-            {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className={s.navItem}>
-                <FieldIcon name={n.icon} size={22} />
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-          <Link href="/me" className={s.me}>
-            <FieldIcon name="me" size={22} />
-            {d.name ?? "כניסה"}
-          </Link>
-        </div>
-      </header>
-
+    <SignsFrame name={d.name} intro>
       <main className={s.main}>
         <section className={s.hero}>
           <Footsteps
@@ -151,6 +121,44 @@ export function SignsHome({ questionCount, examCount }: Props) {
           </ul>
         </section>
       </main>
+    </SignsFrame>
+  );
+}
+
+/** The frame of version A: the contour ground and the brown sign band. Shared by every design page. */
+export function SignsFrame({ name, intro = false, children }: { name: string | null; intro?: boolean; children: React.ReactNode }) {
+  const topo = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
+  return (
+    <div className={s.root} style={topo}>
+      {intro && <MapUnfold variant="signs" always storageKey="md_intro_design_signs" />}
+      <div aria-hidden className={s.topo} />
+
+      <header className={s.band}>
+        <div className={s.bandInner}>
+          <Link href="/design/signs" className={s.brand}>
+            <span className={s.mark}>
+              <FieldIcon name="milestone" size={30} />
+            </span>
+            <span className={s.brandText}>
+              <span className={s.brandName}>אבן דרך</span>
+              <span className={s.brandSub}>למורי דרך</span>
+            </span>
+          </Link>
+          <nav aria-label="ניווט ראשי" className={s.nav}>
+            {NAV.map((n) => (
+              <Link key={n.href} href={n.href} className={s.navItem}>
+                <FieldIcon name={n.icon} size={22} />
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+          <Link href="/me" className={s.me}>
+            <FieldIcon name="me" size={22} />
+            {name ?? "כניסה"}
+          </Link>
+        </div>
+      </header>
+      {children}
     </div>
   );
 }
