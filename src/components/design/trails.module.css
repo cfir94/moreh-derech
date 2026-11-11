@@ -841,8 +841,7 @@
  * "Too dark; the colour of the map that unfolds at the start is more interesting: between brown and
  * yellow, a map colour." The ground is old topographic-map paper, and it stays light in dark mode too.
  */
-.pal_map,
-:global([data-theme="dark"]) .pal_map {
+.pal_map {
   --ground: #e4cf9d;
   --ground-deep: #d6bd84;
   --topo-ink: #8a5f2e;
@@ -874,9 +873,44 @@
   scrollbar-color: var(--sign) var(--ground-deep);
 }
 
-.pal_map .top,
-:global([data-theme="dark"]) .pal_map .top {
+.pal_map .top {
   background: color-mix(in srgb, #efdfb4 94%, transparent);
+}
+
+/* "map at dusk" (owner, 11.11): the same map paper in evening light, dark brown and never black */
+:global([data-theme="dark"]) .pal_map {
+  --ground: #3d3122;
+  --ground-deep: #33291c;
+  --topo-ink: #e6c78c;
+  --topo-alpha: 0.16;
+  --paper: #4b3c29;
+  --ink: #f3e5c6;
+  --ink-dim: #d6c19b;
+  --frame: #b89a6b;
+  --paint: #fbf4e2;
+  --rock: #8f7853;
+  --rock-dark: #6c5a3d;
+  --t-red: #dc5a45;
+  --t-blue: #6e9fd0;
+  --t-green: #95ba63;
+  --t-black: #1e1810;
+  --t-orange: #e0924a;
+  --steps: #e6c78c;
+  --steps-alpha: 0.11;
+  --sign: #7c4f29;
+  --sign-ink: #f7edd5;
+  --focus: #9cc3ea;
+
+  color-scheme: dark;
+  background:
+    radial-gradient(80% 55% at 100% 0%, rgb(255 210 140 / 0.12), transparent 60%),
+    radial-gradient(50% 40% at 0% 70%, rgb(149 186 99 / 0.08), transparent 70%),
+    var(--ground);
+  scrollbar-color: var(--sign) var(--ground-deep);
+}
+
+:global([data-theme="dark"]) .pal_map .top {
+  background: color-mix(in srgb, #4b3c29 94%, transparent);
 }
 
 .pal_map .tag {

@@ -26,7 +26,8 @@ export const FREE_PATHS: readonly string[] = [
 ];
 
 /** קידומות שכל מה שמתחתן חינמי. */
-export const FREE_PREFIXES: readonly string[] = ["/legal/", "/welcome/", "/pricing/"];
+// "/design/": the redesign versions the owner reviews from his phone (noindex, not linked from the site).
+export const FREE_PREFIXES: readonly string[] = ["/legal/", "/welcome/", "/pricing/", "/design/"];
 
 function normalize(pathname: string) {
   const clean = pathname.split(/[?#]/)[0] || "/";

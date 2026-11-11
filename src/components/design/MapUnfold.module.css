@@ -33,11 +33,17 @@
 }
 
 /* the "map paper" palette: the stage stays the colour of the page it unfolds into */
-.paperGround,
-:global([data-theme="dark"]) .paperGround {
+.paperGround {
   --ground: #e2cc98;
   --paper: #efdfb4;
   --ink: #7a5228;
+}
+
+/* dark mode: the map comes out of the bag at dusk, onto the same dark-brown ground as the page */
+:global([data-theme="dark"]) .paperGround {
+  --ground: #3d3122;
+  --paper: #e3d3ab;
+  --ink: #6b4a28;
 }
 
 @keyframes stage {
