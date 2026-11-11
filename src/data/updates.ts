@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-era-photos",
+    date: "2026-11-11",
+    kind: "content",
+    title: "תמונות בצירי התקופה הרומית והביזנטית",
+    body: "כשפותחים אירוע רואים את האתר או את הקיסר: קשת אקה הומו, מערת האגרות, מפת מידבא, טיטוס, יוסטיניאנוס ועוד — כ־60 אירועים.",
+    href: "/timelines/roman/",
+  },
+  {
     id: "2026-11-11-learning-map-tours",
     date: "2026-11-11",
     kind: "content",

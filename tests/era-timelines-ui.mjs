@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { chromium, expect } from "@playwright/test";
 
 const out = resolve(fileURLToPath(new URL("../out/", import.meta.url)));
-const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".woff2": "font/woff2" };
+const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2" };
 const server = createServer((req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname).replace(/^\/moreh-derech(?=\/|$)/, "");
   let target = resolve(out, "." + pathname);
@@ -43,6 +43,17 @@ try {
 
   await page.goto(base + "/timelines/roman/#RO-030");
   await expect(page.locator("#RO-030 details")).toHaveAttribute("open", "");
+  // LA-21: an opened event shows its photo (a site, or an emperor's portrait), and the image really loads
+  const loaded = async (selector) => {
+    const img = page.locator(`${selector} details figure img`);
+    await img.scrollIntoViewIfNeeded();
+    await expect(img).toBeVisible();
+    await expect.poll(() => img.evaluate((el) => el.complete && el.naturalWidth > 0)).toBe(true);
+  };
+  await loaded("#RO-030");
+  await page.goto(base + "/timelines/roman/#RO-019");
+  await loaded("#RO-019");
+  await expect(page.locator("#RO-019 figcaption")).toContainText("·");
 
   await page.goto(base + "/timelines/byzantine/");
   await expect(page.getByRole("heading", { name: "התקופה הביזנטית", exact: true })).toBeVisible();
@@ -54,6 +65,9 @@ try {
   await expect(page.getByRole("heading", { name: "אגריה" })).toBeVisible();
   await page.goto(base + "/timelines/byzantine/#BY-036");
   await expect(page.locator("#BY-036 details")).toHaveAttribute("open", "");
+  await loaded("#BY-036");
+  await page.goto(base + "/timelines/byzantine/#BY-023");
+  await loaded("#BY-023");
 
   const phone = await browser.newContext({ viewport: { width: 320, height: 760 } });
   await phone.route("**/*.supabase.co/**", (route) => route.fulfill({ json: [] }));

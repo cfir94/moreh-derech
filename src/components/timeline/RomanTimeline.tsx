@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ROMAN_EMPERORS, ROMAN_ERAS, ROMAN_EVENTS, ROMAN_KINDS, ROMAN_LEGIONS, ROMAN_SITES, type RomanEvent } from "@/data/roman";
 import { matches, useEraTimeline } from "./useEraTimeline";
 import styles from "./RomanTimeline.module.css";
-import { PracticeDeck } from "@/components/learning-aid";
+import { PhotoFigure, PracticeDeck } from "@/components/learning-aid";
+import type { EraPhoto } from "@/lib/eraPhotos";
 import { eraPractice } from "@/lib/eraPractice";
 
 const ID = /^RO-\d{3}$/;
@@ -25,7 +26,7 @@ function roman(n: number) {
   return out;
 }
 
-function Milestone({ event }: { event: RomanEvent }) {
+function Milestone({ event, photo }: { event: RomanEvent; photo?: EraPhoto }) {
   return <article id={event.id} tabIndex={-1} className={`${styles.stop} ${event.key ? styles.keyStop : ""}`}>
     <div className={styles.milestone} aria-hidden>
       <span className={styles.mp}>M·P</span>
@@ -38,6 +39,7 @@ function Milestone({ event }: { event: RomanEvent }) {
         <span className={styles.summary}>{event.summary}</span>
       </summary>
       <div className={styles.body}>
+        {photo && <PhotoFigure {...photo} className="mb-4 max-w-md" />}
         <p>{event.body}</p>
         <div className={styles.tip}><span>לזכור לדרך</span><p>{event.tip}</p></div>
         {event.sites && <p className={styles.sites}><strong>בשטח:</strong> {event.sites}</p>}
@@ -47,7 +49,7 @@ function Milestone({ event }: { event: RomanEvent }) {
   </article>;
 }
 
-export function RomanTimeline() {
+export function RomanTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
   const t = useEraTimeline(ROMAN_EVENTS, ID);
   const empty = <div className={styles.empty}><h2>לא נמצאו אירועים מתאימים</h2><p>אפשר לשנות את החיפוש או להרחיב את התקופה.</p><button type="button" onClick={t.reset}>להציג את כל האירועים</button></div>;
 
@@ -108,7 +110,7 @@ export function RomanTimeline() {
           if (!events.length) return null;
           return <section key={era.id} className={styles.era} aria-labelledby={`era-${era.id}`}>
             <header className={styles.eraStone}><span className={styles.latin}>{era.latin}</span><h2 id={`era-${era.id}`}>{era.title}</h2><p className={styles.range}>{era.range}</p><p>{era.note}</p></header>
-            <div className={styles.road}>{events.map((event) => <Milestone key={event.id} event={event} />)}</div>
+            <div className={styles.road}>{events.map((event) => <Milestone key={event.id} event={event} photo={photos[event.id]} />)}</div>
           </section>;
         })}
       </>}

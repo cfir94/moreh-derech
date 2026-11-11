@@ -4,7 +4,8 @@ import Link from "next/link";
 import { BYZ_COUNCILS, BYZ_EMPERORS, BYZ_ERAS, BYZ_EVENTS, BYZ_KINDS, BYZ_PILGRIMS, BYZ_SITES, type ByzEvent } from "@/data/byzantine";
 import { matches, useEraTimeline } from "./useEraTimeline";
 import styles from "./ByzantineTimeline.module.css";
-import { PracticeDeck } from "@/components/learning-aid";
+import { PhotoFigure, PracticeDeck } from "@/components/learning-aid";
+import type { EraPhoto } from "@/lib/eraPhotos";
 import { eraPractice } from "@/lib/eraPractice";
 
 const ID = /^BY-\d{3}$/;
@@ -19,7 +20,7 @@ const views = [
   { id: "practice", title: "תרגול", count: PRACTICE.length },
 ];
 
-function Panel({ event }: { event: ByzEvent }) {
+function Panel({ event, photo }: { event: ByzEvent; photo?: EraPhoto }) {
   return <article id={event.id} tabIndex={-1} className={`${styles.item} ${event.key ? styles.keyItem : ""}`}>
     <span className={styles.marker} aria-hidden />
     <div className={styles.frame}>
@@ -30,6 +31,7 @@ function Panel({ event }: { event: ByzEvent }) {
           <span className={styles.summary}>{event.summary}</span>
         </summary>
         <div className={styles.body}>
+          {photo && <PhotoFigure {...photo} className="mb-4 max-w-md" />}
           <p>{event.body}</p>
           <div className={styles.tip}><span>לזכור לדרך</span><p>{event.tip}</p></div>
           {event.sites && <p className={styles.sites}><strong>בשטח:</strong> {event.sites}</p>}
@@ -40,7 +42,7 @@ function Panel({ event }: { event: ByzEvent }) {
   </article>;
 }
 
-export function ByzantineTimeline() {
+export function ByzantineTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
   const t = useEraTimeline(BYZ_EVENTS, ID);
 
   return <div className={styles.page} dir="rtl">
@@ -93,7 +95,7 @@ export function ByzantineTimeline() {
           if (!events.length) return null;
           return <section key={era.id} className={styles.era} aria-labelledby={`era-${era.id}`}>
             <header className={styles.niche}><span className={styles.nicheGreek}>{era.greek}</span><h2 id={`era-${era.id}`}>{era.title}</h2><p className={styles.range}>{era.range}</p><p>{era.note}</p></header>
-            <div className={styles.column}>{events.map((event) => <Panel key={event.id} event={event} />)}</div>
+            <div className={styles.column}>{events.map((event) => <Panel key={event.id} event={event} photo={photos[event.id]} />)}</div>
           </section>;
         })}
       </>}

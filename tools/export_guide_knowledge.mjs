@@ -189,6 +189,36 @@ const counts = {};
   counts.arches = a2.write("arches.html", "קשתות וקמרונות", `${SITE}/timelines/arches/`);
 }
 
+// ---- מלכי ישראל ויהודה, שרשרת הספרים וממצאי הברזל (מתוך History_timeline, LA-40) ----
+{
+  const k = await data("history-timeline/kings.ts");
+  const d = new Doc().book("מלכי ישראל ויהודה");
+  const reign = (x) => `${x.start}–${x.end} לפנה״ס`;
+  for (const x of k.UNITED_KINGS) d.item(`${x.name} (${reign(x)})`, `${SITE}/timelines/kings`, [`${x.name} — מלך הממלכה המאוחדת, ${reign(x)}.`]);
+  for (const [kingdom, list] of [["יהודה", k.JUDAH_KINGS], ["ישראל", k.ISRAEL_KINGS]]) {
+    for (const x of list) d.item(`${x.name} — מלך ${kingdom} (${reign(x)})`, `${SITE}/timelines/kings`, [`${x.name}, מלך ${kingdom}, ${reign(x)}.${x.note ? ` ${x.note}` : ""}`, ...lines([["נביאים בני התקופה", x.prophet]])]);
+  }
+  d.book("אבני דרך");
+  for (const x of k.KINGDOM_MILESTONES) d.item(`${x.title} (${x.year} לפנה״ס)`, `${SITE}/timelines/kings`, [x.desc]);
+  d.book("נביאי בית ראשון");
+  for (const [name, x] of Object.entries(k.PROPHETS)) d.item(`הנביא ${name}`, `${SITE}/timelines/kings`, [`${name} — נביא בממלכת ${x.kingdom}, ${x.era}. ${x.known}`]);
+  counts.kings = d.write("kings.html", "מלכי ישראל ויהודה והנביאים", `${SITE}/timelines/kings`);
+
+  const j = await data("history-timeline/judaism.ts");
+  const dj = new Doc().book("שרשרת הספרים של היהדות");
+  for (const x of j.JUDAISM_CHAIN) dj.item(`${x.title} (${x.yearLabel})`, `${SITE}/timelines/judaism`, [x.role, ...lines([["מחבר", x.author], ["מתי", x.when], ["איפה", x.where], ["תקופה", j.JUDAISM_ERAS[x.era]?.label]])]);
+  dj.book("מרכזי התורה");
+  for (const x of j.TORAH_CENTERS) dj.item(`${x.place} (${x.when})`, `${SITE}/timelines/judaism`, [`${x.place}, ${x.when}: ${x.what}`]);
+  dj.book("יסודות");
+  for (const x of j.JUDAISM_FOUNDATIONS) dj.item(x.q, `${SITE}/timelines/judaism`, [x.a, ...lines([["הערה", x.note]])]);
+  counts.judaism = dj.write("judaism.html", "שרשרת הספרים של היהדות", `${SITE}/timelines/judaism`);
+
+  const f = await data("history-timeline/finds.ts");
+  const df = new Doc().book("תקופת הברזל: מסעות, מצורים, כתובות וביצורים");
+  for (const x of f.IRON_FINDS) df.item(`${x.title} (${x.yearLabel})`, `${SITE}/timelines/archaeology`, [x.desc, ...lines([["סוג", f.FIND_KINDS[x.kind]], ["איפה", x.where]])]);
+  counts.ironFinds = df.write("iron-finds.html", "ממצאי תקופת הברזל", `${SITE}/timelines/archaeology`);
+}
+
 // ---- טבלת התקופות ----
 {
   const p = await data("periods.ts");
