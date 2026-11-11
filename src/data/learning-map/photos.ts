@@ -171,6 +171,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Stamp-Impressions_of_the_Legio_X_Fretensis-Round.jpg"
   },
   {
+    "id": "bethesda",
+    "caption": "תוכנית האתר: הבריכה הצפונית והבריכה הדרומית והסכר ביניהן, הבסיליקה הביזנטית מעליהן, אגני המרפא והמקדש הפגאני, המנזר הצלבני, וכנסיית סנט אנה בפינה.",
+    "alt": "תוכנית צבעונית בעברית של בריכות בית חסדא והמבנים שמעליהן",
+    "src": "/learning-map/photos/bethesda.jpg",
+    "width": 900,
+    "height": 671,
+    "author": "Tamar Hayardeni תמר הירדני",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pools_of_Bethesda_-_map22.jpg"
+  },
+  {
     "id": "holy-sepulchre-rotunda",
     "caption": "האדיקולה בתוך הרוטונדה בכנסיית הקבר.",
     "alt": "מבנה קטן מעוטר תחת כיפה גדולה",
