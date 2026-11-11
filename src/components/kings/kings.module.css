@@ -1,0 +1,56 @@
+/* מלכי ישראל ויהודה: טוקנים בלבד, כדי שהציר יעבוד בשני המצבים. יהודה בכחול, ישראל בוורוד. */
+.layout { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr) 18rem; align-items: start; }
+.side { position: sticky; top: 5rem; display: grid; gap: .75rem; }
+.card { border: 1px solid var(--line); background: var(--card); border-radius: .75rem; padding: 1rem 1.1rem; }
+
+.chartWrap { border: 1px solid var(--line); background: var(--card); border-radius: .75rem; padding: 1rem; min-width: 0; }
+.united { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: 1rem; }
+.united div { display: grid; border: 1px solid var(--line); background: var(--card-2); border-radius: .5rem; padding: .35rem .7rem; }
+.united b { font-weight: 900; }
+.united span { font-size: .8rem; color: var(--txt-dim); }
+.united p { flex-basis: 100%; font-size: .85rem; color: var(--txt-dim); }
+
+.heads, .chart { display: grid; grid-template-columns: 1fr 3.2rem 1fr 11rem; }
+.heads { padding: .35rem 0; font-weight: 900; text-align: center; }
+.judahHead { color: var(--blue); }
+.israelHead { color: var(--rose); }
+.chart { position: relative; }
+
+.tick { position: absolute; inset-inline: 0; border-top: 1px dashed var(--line); }
+.tick span { position: absolute; inset-inline-start: calc(50% - 1.6rem); transform: translateY(-50%); width: 3.2rem; text-align: center; font-size: .75rem; color: var(--txt-dim); background: var(--card); }
+.milestone { position: absolute; inset-inline: 0; border-top: 2px solid var(--gold); z-index: 1; pointer-events: none; }
+.milestone span { position: absolute; inset-inline-end: 0; transform: translateY(15%); font-size: .75rem; font-weight: 800; color: var(--gold); background: var(--card); padding: 0 .3rem; border-radius: .25rem; z-index: 3; }
+
+.above span { transform: translateY(-115%); }
+.lane { position: relative; height: 100%; }
+.judahLane { grid-column: 1; --kc: var(--blue); }
+.israelLane { grid-column: 3; --kc: var(--rose); }
+.eventsLane { grid-column: 4; }
+
+.king { position: absolute; inset-inline: .2rem; display: flex; flex-direction: column; justify-content: center; overflow: hidden; border-radius: .4rem; padding: 0 .45rem; text-align: start; line-height: 1.15; cursor: pointer;
+  background: color-mix(in srgb, var(--kc) 16%, var(--card)); border: 1px solid color-mix(in srgb, var(--kc) 45%, transparent); color: var(--txt); transition: background .15s; }
+.king:hover, .king:focus-visible { background: color-mix(in srgb, var(--kc) 28%, var(--card)); }
+.king:focus-visible { outline: 3px solid var(--kc); outline-offset: 1px; }
+.important { box-shadow: inset 0 0 0 2px var(--gold); }
+.active { background: color-mix(in srgb, var(--kc) 40%, var(--card)); border-color: var(--kc); }
+.shifted { inset-inline-start: 50%; z-index: 1; }
+.kingName { font-size: .85rem; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kingYears { font-size: .72rem; color: var(--txt-dim); }
+
+.event { position: absolute; inset-inline: .4rem; height: 18px; font-size: .72rem; font-weight: 700; line-height: 1.2; padding: .1rem .4rem; border-radius: 999px; border-inline-start: 4px solid var(--ec, var(--txt-dim)); background: var(--card-2); color: var(--txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event:hover { color: var(--mc); }
+.k_campaign { --ec: var(--teal); }
+.k_siege { --ec: var(--red); }
+.k_find { --ec: var(--violet); }
+.k_fort { --ec: var(--green); }
+
+@media (max-width: 1279px) {
+  .layout { grid-template-columns: 1fr; }
+  .side { position: static; order: -1; }
+}
+@media (max-width: 760px) {
+  .heads, .chart { grid-template-columns: 1fr 2.6rem 1fr; }
+  .tick span { inset-inline-start: calc(50% - 1.3rem); width: 2.6rem; }
+  .chartWrap { padding: .6rem; }
+  .milestone span { font-size: .7rem; }
+}

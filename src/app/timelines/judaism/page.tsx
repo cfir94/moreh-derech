@@ -1,16 +1,12 @@
-import type { Metadata } from "next";
-import { EmbeddedHistoricalTool } from "@/components/EmbeddedHistoricalTool";
+import { pageMeta } from "@/lib/seo";
+import { JudaismAid } from "@/components/judaism/JudaismAid";
 
-export const metadata: Metadata = {
-  title: "יהדות — ספרים, חכמים ומרכזים | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "ציר הזמן של ספרי היהדות, החכמים ומרכזי התורה",
-};
+export const metadata = pageMeta({
+  title: "שרשרת הספרים של היהדות",
+  description: "ספרי היהדות והחכמים מחתימת התנ״ך ועד ימינו: מי כתב, מתי ואיפה, מרכזי התורה, יסודות ותרגול.",
+  path: "/timelines/judaism",
+});
 
 export default function JudaismTimelinePage() {
-  return (
-    <EmbeddedHistoricalTool
-      view="judaism"
-      title="יהדות — ספרים, חכמים ומרכזים"
-    />
-  );
+  return <JudaismAid />;
 }
