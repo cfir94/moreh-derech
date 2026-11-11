@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-iron-finds",
+    date: "2026-11-11",
+    kind: "tool",
+    title: "ממצאי תקופת הברזל — בעיצוב חדש",
+    body: "25 מסעות, מצורים, ביצורים וכתובות עם תמונות: מתי, איפה רואים אותם היום, ומי מלך באותה עת ביהודה ובישראל. ותרגול.",
+    href: "/timelines/archaeology/",
+  },
+  {
     id: "2026-11-11-judaism-chain",
     date: "2026-11-11",
     kind: "tool",

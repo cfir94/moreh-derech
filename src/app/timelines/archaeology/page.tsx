@@ -1,16 +1,12 @@
-import type { Metadata } from "next";
-import { EmbeddedHistoricalTool } from "@/components/EmbeddedHistoricalTool";
+import { pageMeta } from "@/lib/seo";
+import { IronFindsAid } from "@/components/finds/IronFindsAid";
 
-export const metadata: Metadata = {
-  title: "ממצאים, מצורים וביצורים — הברזל | אֶבֶן דֶּרֶךְ למורי דרך",
-  description: "ממצאים ואירועים מתוארכים מתקופת מלכי ישראל ויהודה",
-};
+export const metadata = pageMeta({
+  title: "ממצאים, מצורים וביצורים — תקופת הברזל",
+  description: "המסעות, המצורים, הביצורים והכתובות של תקופת מלכי ישראל ויהודה: מתי, איפה רואים אותם היום, ומי מלך באותה עת. עם תמונות ותרגול.",
+  path: "/timelines/archaeology",
+});
 
 export default function ArchaeologyTimelinePage() {
-  return (
-    <EmbeddedHistoricalTool
-      view="archaeology"
-      title="ממצאים, מצורים וביצורים — הברזל"
-    />
-  );
+  return <IronFindsAid />;
 }

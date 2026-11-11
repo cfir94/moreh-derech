@@ -77,7 +77,9 @@ MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נ�
 ואת **מלכי ישראל ויהודה** (`/timelines/kings`, `src/components/kings/KingsAid.tsx`), שכבר אינו מוטמע: ציר אנכי
 לשתי הממלכות (`stack` מונע חפיפה בין מלכים קצרי מלוכה בלי לזוז מהשנה), ממצאים, נביאים ותרגול (`src/lib/kingsPractice.ts`).
 באותו אופן **שרשרת הספרים של היהדות** (`/timelines/judaism`, `src/components/judaism/JudaismAid.tsx`, תרגול ב-`src/lib/judaismPractice.ts`).
-ההטמעות הישנות נשארו ב-`/timelines/kings/classic` וב-`/timelines/judaism/classic` (noindex) עד אישור להסרה.
+ו**ממצאי הברזל** (`/timelines/archaeology`, `src/components/finds/IronFindsAid.tsx`): לכל ממצא המלכים שמלכו באותה עת (`kingAt`
+ב-`src/lib/findsPractice.ts`). טווחי שנים בטקסט עוברים דרך `isolateRanges` (`src/lib/bidi.ts`), אחרת הם מוצגים הפוך.
+ההטמעות הישנות נשארו ב-`/timelines/{kings,judaism,archaeology}/classic` (noindex) עד אישור להסרה.
 
 ### תרגול ציר הזמן (`/quizzes/timeline-drag`)
 
