@@ -32,16 +32,55 @@ const TRAIL_OF: Record<string, Trail> = {
 };
 
 const NAV: { href: string; label: string; trail: Trail }[] = [
-  { href: "/design/trails/quiz", label: "שאלונים", trail: "red" },
+  { href: "/quiz", label: "שאלונים", trail: "red" },
   { href: "/exams", label: "מבחנים", trail: "black" },
   { href: "/map", label: "מפה", trail: "green" },
   { href: "/timelines", label: "עזרי למידה", trail: "blue" },
   { href: "/games", label: "משחקים", trail: "orange" },
 ];
 
-type Props = { questionCount: number; examCount: number };
+/** "stone": the first grey-limestone take. "khaki": desert sand and khaki. "journey": the page walks from the Carmel to the Negev. */
+export type TrailPalette = "stone" | "khaki" | "journey";
+
+const BASE: Record<TrailPalette, string> = { stone: "/design/trails", khaki: "/design/khaki", journey: "/design/journey" };
+
+type Props = { questionCount: number; examCount: number; palette?: TrailPalette };
 
 /** A painted blaze: white, colour, white. */
+/**
+ * Low bushes beside the trail (the owner's "a bit of plant green"). Hand-placed, so the static HTML matches.
+ * With `dry`, the lower ones thin out and turn olive-brown: the walk is heading for the Negev.
+ */
+function Shrubs({ dry }: { dry: boolean }) {
+  const bush = (x: number, y: number, r: number, tone: string, leaves = 7) => (
+    <g transform={`translate(${x} ${y})`} fill={tone}>
+      {Array.from({ length: leaves }, (_, i) => {
+        const a = (i / leaves) * Math.PI - Math.PI;
+        return (
+          <ellipse
+            key={i}
+            cx={Math.round(Math.cos(a) * r * 0.9 * 10) / 10}
+            cy={Math.round(Math.sin(a) * r * 0.6 * 10) / 10}
+            rx={r * 0.55}
+            ry={r * 0.38}
+            transform={`rotate(${Math.round((a * 180) / Math.PI + 90)} ${Math.round(Math.cos(a) * r * 0.9 * 10) / 10} ${Math.round(Math.sin(a) * r * 0.6 * 10) / 10})`}
+          />
+        );
+      })}
+      <ellipse cx={0} cy={-r * 0.2} rx={r * 0.7} ry={r * 0.45} />
+    </g>
+  );
+  return (
+    <svg aria-hidden className={s.shrubs} viewBox="0 0 400 520">
+      {bush(392, 108, 16, "var(--t-green)")}
+      {bush(240, 120, 11, "var(--t-green)")}
+      {bush(392, 250, 13, "var(--t-green)", 6)}
+      {bush(206, 372, 12, dry ? "var(--dry-green, #8a8a4a)" : "var(--t-green)", 6)}
+      {bush(388, 500, dry ? 8 : 12, dry ? "var(--dry-green, #9a8a55)" : "var(--t-green)", dry ? 5 : 6)}
+    </svg>
+  );
+}
+
 export function Blaze({ trail, className = "" }: { trail: Trail; className?: string }) {
   return <span aria-hidden className={`${s.blaze} ${s[trail]} ${className}`} />;
 }
@@ -72,7 +111,7 @@ function ScaleBar({ answered }: { answered: number }) {
   );
 }
 
-export function TrailsHome({ questionCount, examCount }: Props) {
+export function TrailsHome({ questionCount, examCount, palette = "stone" }: Props) {
   const d = useHomeData();
 
   const stations: { href: string; icon: FieldIconName; label: string; detail: string; trail: Trail; alert?: boolean }[] = [
@@ -85,8 +124,15 @@ export function TrailsHome({ questionCount, examCount }: Props) {
   ];
 
   return (
-    <TrailsFrame name={d.name} intro>
+    <TrailsFrame name={d.name} intro palette={palette}>
       <main className={s.main}>
+        {palette === "journey" && (
+          <div aria-hidden className={s.regions}>
+            <span>רכס הכרמל</span>
+            <span>השפלה</span>
+            <span>הנגב</span>
+          </div>
+        )}
         <section className={s.hero}>
           <div className={s.greet}>
             <p className={s.here}>
@@ -117,6 +163,7 @@ export function TrailsHome({ questionCount, examCount }: Props) {
               steps={12}
               size={2.2}
             />
+            {palette !== "stone" && <Shrubs dry={palette === "journey"} />}
             <ol className={s.stations}>
               {stations.map((st) => (
                 <li key={st.href} className={s.station}>
@@ -172,16 +219,27 @@ export function TrailsHome({ questionCount, examCount }: Props) {
 }
 
 /** The frame of version B: the contour ground and the top bar with its painted trail. */
-export function TrailsFrame({ name, intro = false, children }: { name: string | null; intro?: boolean; children: React.ReactNode }) {
+export function TrailsFrame({
+  name,
+  intro = false,
+  palette = "stone",
+  children,
+}: {
+  name: string | null;
+  intro?: boolean;
+  palette?: TrailPalette;
+  children: React.ReactNode;
+}) {
   const topo = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
+  const base = BASE[palette];
   return (
-    <div className={s.root} style={topo}>
+    <div className={`${s.root} ${s[`pal_${palette}`] ?? ""}`} style={topo}>
       {intro && <MapUnfold variant="trails" always storageKey="md_intro_design_trails" />}
       <div aria-hidden className={s.topo} />
 
       <header className={s.top}>
         <div className={s.topInner}>
-          <Link href="/design/trails" className={s.brand}>
+          <Link href={base} className={s.brand}>
             <span className={s.mark}>
               <FieldIcon name="milestone" size={34} />
               <Blaze trail="red" className={s.markBlaze} />
@@ -193,7 +251,7 @@ export function TrailsFrame({ name, intro = false, children }: { name: string | 
           </Link>
           <nav aria-label="ניווט ראשי" className={s.nav}>
             {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className={s.navItem}>
+              <Link key={n.href} href={n.href === "/quiz" ? `${base}/quiz` : n.href} className={s.navItem}>
                 <Blaze trail={n.trail} className={s.navBlaze} />
                 {n.label}
               </Link>
