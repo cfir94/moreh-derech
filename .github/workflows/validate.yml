@@ -53,6 +53,8 @@ jobs:
         run: node tests/era-timelines-ui.mjs
       - name: Kings timeline browser checks
         run: node tests/kings-ui.mjs
+      - name: Judaism chain browser checks
+        run: node tests/judaism-ui.mjs
       - name: Classical architecture browser checks
         run: node tests/classical-architecture-ui.mjs
       - name: Classical architecture studio browser checks

@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-11-judaism-chain",
+    date: "2026-11-11",
+    kind: "tool",
+    title: "שרשרת הספרים של היהדות — בעיצוב חדש",
+    body: "34 ספרים וחכמים מחתימת התנ״ך ועד היום, לפי תקופות: מי כתב, מתי, איפה, ומה רואים בשטח. ועוד מרכזי התורה, יסודות ותרגול.",
+    href: "/timelines/judaism/",
+  },
+  {
     id: "2026-11-11-kings",
     date: "2026-11-11",
     kind: "tool",

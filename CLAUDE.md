@@ -76,7 +76,8 @@ MapLibre שלמה (vector tiles, service worker, ~90MB נתונים). היא נ�
 ע"י `node tools/extract_history_timeline.mjs` (generated — לא לערוך ידנית). הם משמשים את מאגר הידע של מוטי
 ואת **מלכי ישראל ויהודה** (`/timelines/kings`, `src/components/kings/KingsAid.tsx`), שכבר אינו מוטמע: ציר אנכי
 לשתי הממלכות (`stack` מונע חפיפה בין מלכים קצרי מלוכה בלי לזוז מהשנה), ממצאים, נביאים ותרגול (`src/lib/kingsPractice.ts`).
-ההטמעה הישנה נשארה ב-`/timelines/kings/classic` (noindex) עד אישור להסרה.
+באותו אופן **שרשרת הספרים של היהדות** (`/timelines/judaism`, `src/components/judaism/JudaismAid.tsx`, תרגול ב-`src/lib/judaismPractice.ts`).
+ההטמעות הישנות נשארו ב-`/timelines/kings/classic` וב-`/timelines/judaism/classic` (noindex) עד אישור להסרה.
 
 ### תרגול ציר הזמן (`/quizzes/timeline-drag`)
 
