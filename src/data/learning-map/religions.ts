@@ -102,6 +102,7 @@ export const SITE_RELIGIONS: Record<string, ReligionId[]> = {
   qumran: ["judaism"],
   hyrcania: ["christianity"],
   "nahal-hever": ["judaism"],
+  "ein-gedi-synagogue": ["judaism"],
   masada: ["judaism"],
   mamshit: ["christianity"],
   haluza: ["christianity"],

@@ -16,7 +16,7 @@ export type FaunaPhotos = Record<string, FaunaPhoto[]>;
 const fromHash = () => typeof window === "undefined" ? null : ANIMALS.find((a) => window.location.hash === `#animal-${a.id}`) ?? null;
 
 function Extra() {
-  return <span className="mr-2 rounded-full border border-line px-2 py-0.5 text-xs font-bold text-txt-dim" title="ידע כללי שאינו בשאלון הקורס">השלמה</span>;
+  return <span className="mr-2 rounded-full border border-line px-2 py-0.5 text-xs font-bold text-txt-dim" title="ידע כללי שאינו בחומר הקורס">השלמה</span>;
 }
 
 export function FaunaGuide({ photos }: { photos: FaunaPhotos }) {
