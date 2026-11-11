@@ -55,6 +55,8 @@ jobs:
         run: node tests/kings-ui.mjs
       - name: Judaism chain browser checks
         run: node tests/judaism-ui.mjs
+      - name: Iron Age finds browser checks
+        run: node tests/iron-finds-ui.mjs
       - name: Classical architecture browser checks
         run: node tests/classical-architecture-ui.mjs
       - name: Classical architecture studio browser checks

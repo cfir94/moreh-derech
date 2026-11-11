@@ -9,6 +9,7 @@ import { AidHeader, AidTabs, PhotoFigure, PracticeDeck, useHashTab, type AidTab 
 import { ISRAEL_KINGS, JUDAH_KINGS, KINGDOM_MILESTONES, KINGS_SOURCE, PROPHETS, UNITED_KINGS, type King } from "@/data/history-timeline/kings";
 import { FIND_KINDS, IRON_FINDS, type IronFind } from "@/data/history-timeline/finds";
 import { kingsPractice } from "@/lib/kingsPractice";
+import { isolateRanges } from "@/lib/bidi";
 import styles from "./kings.module.css";
 
 type Tab = "chart" | "finds" | "prophets" | "practice";
@@ -149,7 +150,7 @@ export function KingsAid() {
 
     {tab === "finds" && <section aria-label="אירועים וממצאים" className="grid gap-4 md:grid-cols-2">
       {IRON_FINDS.map((f) => <article key={f.title} id={`find-${f.year}`} className="rounded-lg border border-line bg-card p-4">
-        <p className="text-sm font-bold text-txt-dim">{f.yearLabel} · {FIND_KINDS[f.kind]}</p>
+        <p className="text-sm font-bold text-txt-dim">{isolateRanges(f.yearLabel)} · {FIND_KINDS[f.kind]}</p>
         <h2 className="text-xl font-black">{f.title}</h2>
         {f.image && <PhotoFigure src={findSrc(f)!} alt={f.image.caption} caption={f.image.caption} credit={`${f.image.credit} · ${f.image.license}`} className="my-3" />}
         <p className="leading-7">{f.desc}</p>
