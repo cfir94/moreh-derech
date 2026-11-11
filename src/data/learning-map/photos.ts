@@ -903,6 +903,18 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "source": "https://commons.wikimedia.org/wiki/File:Cave_in_Qumran_historical_place_bible_scrolls.jpg"
   },
   {
+    "id": "ein-gedi-synagogue",
+    "caption": "רצפת הפסיפס של בית הכנסת העתיק בעין גדי.",
+    "alt": "רצפת פסיפס של בית כנסת עתיק",
+    "src": "/learning-map/photos/ein-gedi-synagogue.jpg",
+    "width": 1280,
+    "height": 857,
+    "author": "Chadica from Jerusalem, Israel",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:A_mosaic_floor_in_an_ancient_synagogue_(3378975801).jpg"
+  },
+  {
     "id": "hyrcania",
     "caption": "פסגת הורקניה.",
     "alt": "שרידים על פסגת גבעה",
