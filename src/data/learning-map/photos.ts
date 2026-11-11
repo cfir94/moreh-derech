@@ -1129,5 +1129,17 @@ export const LEARNING_MAP_PHOTOS: SitePhoto[] = [
     "license": "CC BY-SA 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "source": "https://commons.wikimedia.org/wiki/File:The_Roman_siege_ramp_seen_from_the_hilltop,_Masada_(15444361849).jpg"
+  },
+  {
+    "id": "kedesh",
+    "caption": "חזית המקדש הרומי בתל קדש.",
+    "alt": "שרידי חזית מקדש מאבן",
+    "src": "/learning-map/photos/kedesh.jpg",
+    "width": 1280,
+    "height": 749,
+    "author": "Bukvoed",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tel-Kedesh-temple-NS-20.jpg"
   }
 ];
