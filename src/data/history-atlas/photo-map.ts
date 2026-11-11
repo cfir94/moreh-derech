@@ -41,6 +41,11 @@ export const REUSE:Record<string,string>={
  "BY-003":"arch:nativity","BY-005":"lm:chariton","BY-007":"arch:holy-sepulchre","BY-009":"lm:hamat-tiberias-zodiac","BY-010":"lm:sepphoris","BY-015":"lm:nativity-grotto",
  "BY-019":"arch:capernaum","BY-020":"lm:euthymius","BY-025":"arch:tl-kathisma","BY-026":"lm:mar-saba","BY-027":"lm:gerizim-church","BY-028":"lm:shivta","BY-030":"lm:gerizim",
  "BY-031":"lm:nativity-mosaics","BY-033":"lm:nea","BY-034":"lm:beit-alfa-zodiac","BY-035":"lm:santa-katarina","BY-036":"lm:madaba-jerusalem","BY-037":"lm:rehov-inscription","BY-045":"lm:caesarea",
+ // Events whose subject is an emperor or a Roman official: his portrait
+ "RO-001":"roman:pompey","RO-007":"roman:augustus","RO-010":"roman:varus","RO-011":"roman:quirinius","RO-013":"roman:pilate",
+ "RO-014":"roman:caligula","RO-016":"roman:cestius","RO-017":"roman:vespasian","RO-019":"roman:titus","RO-027":"roman:quietus",
+ "RO-038":"roman:caracalla","RO-045":"roman:diocletian","RO-046":"roman:constantine","RO-047":"roman:licinius","RO-048":"roman:constantine",
+ "BY-001":"roman:constantine","BY-008":"roman:constantine","BY-011":"roman:julian","BY-023":"roman:eudocia","BY-029":"roman:justinian","BY-041":"roman:heraclius",
  "FT-01":"lm:machpelah","FT-06":"lm:city-of-david","FT-20":"lm:lachish","FT-12":"FT-11","FT-13":"FT-14","IR-11":"lm:lachish",
  "BR-03":"B-01","BR-15":"B-04","BR-16":"B-05","BR-22":"BR-08","EC-amarna":"B-06","EC-amenhotep":"F-06",
  // The dimension of Jesus' life and the judges

@@ -1,5 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import { ByzantineTimeline } from "@/components/timeline/ByzantineTimeline";
+import { BYZ_EVENTS } from "@/data/byzantine";
+import { eraPhotos } from "@/lib/eraPhotos";
 
 export const metadata = pageMeta({
   title: "ציר הזמן הביזנטי",
@@ -8,5 +10,5 @@ export const metadata = pageMeta({
 });
 
 export default function ByzantinePage() {
-  return <ByzantineTimeline />;
+  return <ByzantineTimeline photos={eraPhotos(BYZ_EVENTS.map((event) => event.id))} />;
 }
