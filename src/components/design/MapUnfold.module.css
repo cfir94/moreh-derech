@@ -32,6 +32,14 @@
   --ink: #5d4024;
 }
 
+/* the "map paper" palette: the stage stays the colour of the page it unfolds into */
+.paperGround,
+:global([data-theme="dark"]) .paperGround {
+  --ground: #e2cc98;
+  --paper: #efdfb4;
+  --ink: #7a5228;
+}
+
 @keyframes stage {
   0%,
   80% {

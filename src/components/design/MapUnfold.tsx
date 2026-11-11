@@ -18,11 +18,13 @@ type Props = {
   /** Play on every visit (prototype) or only on the first one. */
   always?: boolean;
   storageKey?: string;
+  /** Keep the stage on map paper in dark mode too (the "map paper" palette never goes dark). */
+  paperGround?: boolean;
 };
 
 const DURATION = 3200;
 
-export function MapUnfold({ variant, always = false, storageKey = "md_intro_seen_v1" }: Props) {
+export function MapUnfold({ variant, always = false, storageKey = "md_intro_seen_v1", paperGround = false }: Props) {
   const [phase, setPhase] = useState<"off" | "play" | "done">("off");
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export function MapUnfold({ variant, always = false, storageKey = "md_intro_seen
   const topo = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
 
   return (
-    <div className={s.stage} style={topo} onClick={() => setPhase("done")} aria-hidden>
+    <div className={`${s.stage} ${paperGround ? s.paperGround : ""}`} style={topo} onClick={() => setPhase("done")} aria-hidden>
       <div className={s.map}>
         <div className={s.left}>
           <div className={`${s.q} ${s.bottom}`} />

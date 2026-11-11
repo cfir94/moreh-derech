@@ -17,8 +17,16 @@ export default function Page() {
       </p>
       <ul className="flex flex-col gap-3">
         <li>
+          <Link href="/design/map" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+            גרסה ה׳: צבע מפה (הכי חדש)
+          </Link>
+          <Link href="/design/map/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
+            מסך שאלה בגרסה ה׳
+          </Link>
+        </li>
+        <li>
           <Link href="/design/khaki" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
-            גרסה ג׳: חול וחאקי (חדש)
+            גרסה ג׳: חול וחאקי
           </Link>
           <Link href="/design/khaki/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
             מסך שאלה בגרסה ג׳
@@ -26,7 +34,7 @@ export default function Page() {
         </li>
         <li>
           <Link href="/design/journey" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
-            גרסה ד׳: מהכרמל לנגב (חדש)
+            גרסה ד׳: מהכרמל לנגב
           </Link>
           <Link href="/design/journey/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
             מסך שאלה בגרסה ד׳
