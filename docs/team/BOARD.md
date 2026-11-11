@@ -71,7 +71,7 @@
 | LA-31 | משחק הצמחים: תמונות מוויקישיתוף, וכל אחת נבדקת בעין | Claude | done (40/40 תמונות אושרו אחרי בדיקה בעין, עם כיתוב) | `tools/plants_photos.json`, workflow | LA-30 |
 | LA-32 | משחק הצמחים: המשחק עצמו, במבנה של גלימות ירושלים | Codex | done (נבנה ע"י Claude: Codex החזיר פעמיים סיכום בלי diff, #100) | `src/components/games/Plants*` | LA-31 |
 | LA-33 | משחק הצמחים: בדיקת ממשק, הסרת ה-embed הישן, "מה חדש" | Claude | done (נבדק בדפדפן ב-390/1280; "מה חדש" נוסף; ה-embed הישן נשאר ב-/games/plants/classic עד אישור הבעלים להסיר) | `src/app/games/plants/**`, `public/embeds/games/plants/**` | LA-32 |
-| LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | backlog · נבדק: אפליקציה גדולה עם הרבה מבני נתונים (מלכים, נביאים, שרשרת הספרים). לא בוצע הלילה | `src/data/history-timeline/**` | LA-01 |
+| LA-40 | ברזל, מלכים ויהדות כדפים מקומיים: חילוץ הנתונים מה-HTML | Claude+Codex | in-progress · שלב 1 בוצע: `tools/extract_history_timeline.mjs` מחלץ את המלכים, הנביאים, אבני הדרך, שרשרת הספרים וממצאי הברזל ל-`src/data/history-timeline/` (generated), ומוטי כבר משתמש בהם. נשאר: לבנות את העמודים עצמם באתר | `src/data/history-timeline/**` | LA-01 |
 | LA-41 | הברית החדשה ומצרים–כנען על המעטפת (בלי לגעת בתוכן של ישוע) | Codex | done (#97; הגרסה הישנה ב-`/classic` עד אישור להסרה) | `src/app/timelines/{biblical,egypt-canaan}/**` | LA-01 |
 | LA-50 | טבלת התקופות ו"מי זה מי ברומא" על הטוקנים ובמצב כהה, ואינדקס עזרי הלמידה אחיד | Codex | done (#109) | `src/components/timeline/Periods*`, `RomanPeople*`, `src/app/timelines/page.tsx` | LA-01 |
 
