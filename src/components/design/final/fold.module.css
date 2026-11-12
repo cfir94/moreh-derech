@@ -49,7 +49,6 @@
 /* ---------- the folded map ---------- */
 
 .map {
-  --crease: 1;
   position: absolute;
   left: 0;
   top: 0;
@@ -63,6 +62,7 @@
 .panel {
   position: absolute;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .row {
@@ -88,15 +88,33 @@
   box-shadow: 0 0 0 0.5px rgb(90 60 20 / 0.5);
 }
 
-.face::after {
-  content: "";
+/* the worn crease along each fold; fades as the map settles (opacity set from the script) */
+.crease {
   position: absolute;
   inset: 0;
-  opacity: var(--crease);
   box-shadow:
     inset 0 0 26px rgb(70 45 10 / 0.28),
     inset 0 0 2px rgb(255 250 230 / 0.7);
   pointer-events: none;
+}
+
+/* these three change opacity on every frame: on their own layers that is a compositor job, and the
+   copied page underneath is never repainted */
+.shade,
+.crumple,
+.crease {
+  will-change: opacity;
+}
+
+/* the copies are still pictures: nothing in them may cost a frame */
+.face * {
+  animation: none !important;
+  transition: none !important;
+  backdrop-filter: none !important;
+}
+
+.face g[filter] {
+  filter: none;
 }
 
 /* the underside of the sheet: plain paper with a printed grid */
@@ -152,13 +170,11 @@
   pointer-events: none;
 }
 
-/* crumpled paper: lit fractal noise, multiplied over the page; it smooths out as the map settles */
+/* crumpled paper: lit fractal noise turned into shadow (black with alpha), so it needs no blend mode */
 .crumple {
   position: absolute;
   inset: 0;
-  opacity: calc(var(--crease) * 0.5);
-  mix-blend-mode: multiply;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting><feColorMatrix values='0 0 0 0 .16  0 0 0 0 .1  0 0 0 0 .03  -1.5 0 0 0 1.3'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
   background-size: 420px 420px;
   pointer-events: none;
 }

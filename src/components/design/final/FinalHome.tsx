@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { withBasePath } from "@/lib/basePath";
 import type { FieldIconName } from "../FieldIcons";
-import { Footsteps } from "../Footsteps";
 import { HOME_SECTIONS } from "../homeData";
 import { NotePaper } from "../NotePaper";
 import { useHomeData } from "../useHomeData";
 import { FoldIntro } from "./FoldIntro";
-import { InkArrow, InkCompass, InkDefs, InkIcon, InkLogo, InkRuin, InkTree } from "./Ink";
+import { InkArrow, InkCompass, InkDefs, InkIcon, InkLockup, InkMoon, InkRuin, InkSun, InkTree } from "./Ink";
+import { Birds, Prints, TopoPatch, Waypoints } from "./Zones";
 import s from "./final.module.css";
 
 /*
@@ -20,19 +20,6 @@ import s from "./final.module.css";
  */
 
 type Trail = "red" | "blue" | "green" | "black" | "orange";
-
-const TRAIL_OF: Record<string, Trail> = {
-  quizzes: "red",
-  exams: "black",
-  map: "green",
-  timelines: "blue",
-  notebooks: "green",
-  "guide-reports": "blue",
-  games: "orange",
-  videos: "orange",
-  resources: "black",
-  community: "red",
-};
 
 const NAV: { href: string; label: string; trail: Trail }[] = [
   { href: "/design/final/quiz", label: "שאלונים", trail: "red" },
@@ -46,8 +33,17 @@ function Blaze({ trail, className = "" }: { trail: Trail; className?: string }) 
   return <span aria-hidden className={`${s.blaze} ${s[trail]} ${className}`} />;
 }
 
-const WIDE = "M360 0V65C330 130 280 140 270 195S340 270 360 325 280 410 270 455V520";
-const NARROW = "M360 0V65C345 130 318 140 314 195S350 270 360 325 318 410 314 455V520";
+// the trail runs through the middle of each sign: signs alternate between two columns
+const WIDE = "M285 -8V30C285 110 195 110 195 195S285 250 285 325 195 380 195 455V528";
+const NARROW = "M285 -8V30C285 110 239 110 239 195S285 250 285 325 239 380 239 455V528";
+
+function toggleTheme() {
+  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.documentElement.dataset.theme = next;
+  try {
+    localStorage.setItem("even-derech-theme", next);
+  } catch {}
+}
 
 /** The dashed trail, revealed along its length by a mask: the line draws itself like a pen on the map. */
 function TrailLine({ d, id, className }: { d: string; id: string; className: string }) {
@@ -72,6 +68,30 @@ export function FinalFrame({
 }) {
   const root = useRef<HTMLDivElement>(null);
   const vars = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
+
+  // background zones below the fold wait, and come in when the reader scrolls to them
+  useEffect(() => {
+    const el = root.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const zones = [...el.querySelectorAll<HTMLElement>("[data-zone]")];
+    const seen = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          (e.target as HTMLElement).dataset.zone = "in";
+          seen.unobserve(e.target);
+        }
+      },
+      { root: el, threshold: 0.15 },
+    );
+    for (const zone of zones) {
+      if (zone.getBoundingClientRect().top < window.innerHeight) continue;
+      zone.dataset.zone = "wait";
+      seen.observe(zone);
+    }
+    return () => seen.disconnect();
+  }, []);
+
   return (
     <>
       {intro && (
@@ -85,19 +105,13 @@ export function FinalFrame({
       )}
       <div ref={root} className={s.root} style={vars}>
         <InkDefs />
-        <div aria-hidden className={s.topo} />
-        <div aria-hidden className={s.paper} />
         <div aria-hidden className={s.creases} />
         <div aria-hidden className={s.neat} />
 
         <header className={s.top}>
           <div className={s.topInner}>
             <Link href="/design/final" className={s.brand}>
-              <InkLogo size={54} className={s.logo} />
-              <span className={s.brandText}>
-                <span className={s.brandName}>אבן דרך</span>
-                <span className={s.brandSub}>למורי דרך</span>
-              </span>
+              <InkLockup height={62} className={s.logo} />
             </Link>
             <nav aria-label="ניווט ראשי" className={s.nav}>
               {NAV.map((n) => (
@@ -107,6 +121,14 @@ export function FinalFrame({
                 </Link>
               ))}
             </nav>
+            <button type="button" className={s.theme} onClick={toggleTheme} aria-label="החלפה בין מצב בהיר למצב כהה">
+              <InkSun className={s.sun} />
+              <InkMoon className={s.moon} />
+              <span className={s.themeText}>
+                <span className={s.sun}>מצב בהיר</span>
+                <span className={s.moon}>מצב כהה</span>
+              </span>
+            </button>
             <Link href="/me" className={s.signBtn}>
               <InkIcon name="me" size={24} />
               {name ?? "כניסה"}
@@ -166,19 +188,11 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
           </div>
 
           <nav aria-label="השביל של היום" className={s.trail}>
+            <TopoPatch className={s.trailTopo} />
             <svg aria-hidden className={s.trailSvg} viewBox="0 0 400 520">
               <TrailLine d={WIDE} id="trail-wide" className={s.wide} />
               <TrailLine d={NARROW} id="trail-narrow" className={s.narrow} />
             </svg>
-            <Footsteps
-              className={s.steps}
-              from={{ x: 900, y: 40 }}
-              c1={{ x: 300, y: 120 }}
-              c2={{ x: 900, y: 420 }}
-              to={{ x: 250, y: 590 }}
-              steps={12}
-              size={2.2}
-            />
             <InkTree className={`${s.doodle} ${s.tree}`} />
             <InkRuin className={`${s.doodle} ${s.ruin}`} />
             <p aria-hidden className={s.margin}>
@@ -188,17 +202,12 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
             <ol className={s.stations}>
               {stations.map((st, i) => (
                 <li key={st.href} className={s.station} style={{ "--i": i } as React.CSSProperties}>
-                  <Link href={st.href} className={s.stationLink}>
-                    <span className={s.rock}>
-                      <Blaze trail={st.trail} className={s.rockBlaze} />
+                  <Link href={st.href} className={s.sign}>
+                    <span className={s.signLabel}>
+                      <InkIcon name={st.icon} size={30} />
+                      {st.label}
                     </span>
-                    <span className={s.sign}>
-                      <span className={s.signLabel}>
-                        <InkIcon name={st.icon} size={28} />
-                        {st.label}
-                      </span>
-                      <span className={st.alert ? `${s.signDetail} ${s.alert}` : s.signDetail}>{st.detail}</span>
-                    </span>
+                    <span className={st.alert ? `${s.signDetail} ${s.alert}` : s.signDetail}>{st.detail}</span>
                   </Link>
                 </li>
               ))}
@@ -207,6 +216,20 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
 
           <NotePaper className={s.note} />
         </section>
+
+        <div className={s.band} data-zone="">
+          <Prints
+            shape="boot"
+            from={{ x: 940, y: 60 }}
+            c1={{ x: 700, y: 260 }}
+            c2={{ x: 380, y: 20 }}
+            to={{ x: 60, y: 230 }}
+            steps={15}
+            size={1.9}
+            spread={13}
+            className={s.fill}
+          />
+        </div>
 
         <section aria-labelledby="legend-title" className={s.legend}>
           <h2 id="legend-title" className={s.legendTitle}>
@@ -221,7 +244,6 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
                   </span>
                   <span className={s.legendText}>
                     <span className={s.legendName}>
-                      <Blaze trail={TRAIL_OF[x.slug] ?? "black"} />
                       {x.title}
                       {x.slug === "community" && d.unread > 0 && <span className={s.badge}>{d.unread}</span>}
                     </span>
@@ -243,12 +265,26 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
           </div>
         </section>
 
+        <div className={`${s.band} ${s.bandTall}`} data-zone="">
+          <Waypoints className={s.fill} />
+        </div>
+
         <footer className={s.lockup}>
-          <InkLogo size={120} />
-          <span className={s.lockupText}>
-            <span className={s.lockupName}>אבן דרך</span>
-            <span className={s.lockupSub}>למורי דרך</span>
-          </span>
+          <Birds className={s.lockupBirds} />
+          <InkLockup height={170} className={s.lockupMark} />
+          <div className={s.lockupTracks} data-zone="">
+            <Prints
+              shape="hoof"
+              from={{ x: 80, y: 220 }}
+              c1={{ x: 300, y: 60 }}
+              c2={{ x: 560, y: 260 }}
+              to={{ x: 930, y: 90 }}
+              steps={16}
+              size={1.5}
+              spread={8}
+              className={s.fill}
+            />
+          </div>
         </footer>
       </main>
     </FinalFrame>

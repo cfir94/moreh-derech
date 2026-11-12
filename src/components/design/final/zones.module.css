@@ -1,0 +1,44 @@
+/* אזורי הרקע: כל אחד מתמוסס בקצוות, ואף אחד לא יושב מאחורי טקסט לקריאה. */
+
+.patch,
+.prints,
+.marks,
+.birds {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* contours: the outer box fades the patch out, the inner one draws the real map */
+.patch {
+  -webkit-mask: radial-gradient(closest-side, #000 35%, transparent 100%);
+  mask: radial-gradient(closest-side, #000 35%, transparent 100%);
+}
+
+.patchInk {
+  position: absolute;
+  inset: 0;
+  background: var(--topo-ink);
+  opacity: var(--topo-alpha);
+  -webkit-mask: var(--topo) var(--topo-at, 40% 45%) / var(--topo-size, 1500px) auto no-repeat;
+  mask: var(--topo) var(--topo-at, 40% 45%) / var(--topo-size, 1500px) auto no-repeat;
+}
+
+.prints {
+  color: var(--steps);
+  opacity: var(--steps-alpha);
+  overflow: visible;
+  -webkit-mask: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+  mask: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+}
+
+.marks {
+  color: var(--ink);
+  opacity: 0.6;
+  -webkit-mask: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+  mask: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+}
+
+.birds {
+  color: var(--ink);
+  opacity: 0.55;
+}

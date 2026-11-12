@@ -87,6 +87,9 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
     map.style.height = `${H}px`;
 
     type Panel = { hinge: HTMLElement; shade: HTMLElement; c: number; r: number };
+    // per-frame work touches only these few elements' opacity and transform: no CSS variable on the
+    // map (it would restyle every copied node on every frame; that was the stutter)
+    const wear: HTMLElement[] = [];
     const rowHinges: HTMLElement[] = [];
     const panels: Panel[] = [];
     let rowParent: HTMLElement = map;
@@ -106,7 +109,7 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
         const copy = template.cloneNode(true) as HTMLElement;
         copy.style.cssText += `;position:absolute;inset:auto;left:0;top:0;width:${W}px;height:${H}px;overflow:hidden;z-index:auto;transform:translate(${-c * pw}px,${-r * ph}px)`;
         face.appendChild(copy);
-        el(s.crumple, face);
+        wear.push(el(`${s.crumple} ${s.crease}`, face));
         const shade = el(s.shade, face);
         const back = el(s.back, hinge);
         // the printed cover of the folded sheet
@@ -130,6 +133,10 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
     let raf = 0;
     let start = 0;
     let stopped = false;
+    let lastWorn = -1;
+    let lastShown = -1;
+    // the page under the cover has nothing to draw until the map lies flat
+    target.style.visibility = "hidden";
 
     const frame = (now: number) => {
       if (stopped) return;
@@ -182,8 +189,16 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
       const rz = lerp(lerp(-11, 5, rise), 0, Math.max(inOut(open), settle)) + Math.sin(t / 260) * 1.2 * (1 - settle) * rise;
       map.style.transformOrigin = `${fx}px ${fy}px`;
       map.style.transform = `translate3d(${px - fx}px, ${py - fy}px, 0) rotateX(${tilt}deg) rotateZ(${rz}deg) scale(${scale})`;
-      map.style.setProperty("--crease", String(1 - settle));
-      map.style.opacity = String(seg(t, 380, 620));
+      const worn = 1 - settle;
+      if (worn !== lastWorn) {
+        lastWorn = worn;
+        for (const w of wear) w.style.opacity = String(worn);
+      }
+      const shown = seg(t, 380, 620);
+      if (shown !== lastShown) {
+        lastShown = shown;
+        map.style.opacity = String(shown);
+      }
 
       if (t >= TOTAL) {
         end();
@@ -197,16 +212,22 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
       stopped = true;
       cancelAnimationFrame(raf);
       window.removeEventListener("keydown", end);
+      target.style.visibility = "";
       finish();
     };
     skip.current = end;
     window.addEventListener("keydown", end);
-    raf = requestAnimationFrame(frame);
+    // let the browser paint the copies once before anything moves, so the first frames are not dropped
+    const warm = window.setTimeout(() => {
+      raf = requestAnimationFrame(frame);
+    }, 320);
 
     return () => {
       stopped = true;
+      window.clearTimeout(warm);
       cancelAnimationFrame(raf);
       window.removeEventListener("keydown", end);
+      target.style.visibility = "";
       map.remove();
     };
     // run once: the props are stable for the life of the page
