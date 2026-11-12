@@ -92,36 +92,9 @@
 
 /* ---------- the sheet: contours, paper grain, fold creases, neatline ---------- */
 
-.creases,
 .neat {
   position: fixed;
-  inset: 0;
   pointer-events: none;
-}
-
-/* where the map was folded: 2 by 3 on a phone, 4 by 2 on a desk (the same grid FoldIntro folds along) */
-.creases {
-  --c: rgb(90 60 20 / 0.16);
-  --h: rgb(255 250 225 / 0.35);
-  background:
-    linear-gradient(to right, transparent calc(50% - 1.5px), var(--c) calc(50% - 1.5px) calc(50% - 0.5px), var(--h) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
-    linear-gradient(to bottom, transparent calc(33.33% - 1.5px), var(--c) calc(33.33% - 1.5px) calc(33.33% - 0.5px), var(--h) calc(33.33% - 0.5px) calc(33.33% + 0.5px), transparent calc(33.33% + 0.5px)),
-    linear-gradient(to bottom, transparent calc(66.66% - 1.5px), var(--c) calc(66.66% - 1.5px) calc(66.66% - 0.5px), var(--h) calc(66.66% - 0.5px) calc(66.66% + 0.5px), transparent calc(66.66% + 0.5px));
-}
-
-:global([data-theme="dark"]) .creases {
-  --c: rgb(0 0 0 / 0.3);
-  --h: rgb(255 230 180 / 0.1);
-}
-
-@media (min-width: 900px) {
-  .creases {
-    background:
-      linear-gradient(to right, transparent calc(25% - 1.5px), var(--c) calc(25% - 1.5px) calc(25% - 0.5px), var(--h) calc(25% - 0.5px) calc(25% + 0.5px), transparent calc(25% + 0.5px)),
-      linear-gradient(to right, transparent calc(50% - 1.5px), var(--c) calc(50% - 1.5px) calc(50% - 0.5px), var(--h) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
-      linear-gradient(to right, transparent calc(75% - 1.5px), var(--c) calc(75% - 1.5px) calc(75% - 0.5px), var(--h) calc(75% - 0.5px) calc(75% + 0.5px), transparent calc(75% + 0.5px)),
-      linear-gradient(to bottom, transparent calc(50% - 1.5px), var(--c) calc(50% - 1.5px) calc(50% - 0.5px), var(--h) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
-  }
 }
 
 /* the map's printed frame, with grid numbers along the top */
@@ -169,6 +142,14 @@
 }
 .orange {
   --c: var(--t-orange);
+}
+
+/* print lettering in pencil (the owner: like the rough painted icons, but letters; not cursive) */
+.pencil {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  filter: url(#pencil);
 }
 
 /* ---------- header ---------- */
@@ -253,13 +234,11 @@
 .navItem {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
   min-height: 48px;
-  padding: 0 13px;
+  padding: 0 14px;
   border-radius: 8px;
   color: var(--ink);
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   text-decoration: none;
   transition: background 0.2s;
 }
@@ -302,6 +281,7 @@
 }
 
 .hero {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 400px;
   column-gap: 64px;
@@ -556,6 +536,27 @@
 
 /* ---------- background zones ---------- */
 
+/* the old wall sits behind the greeting and the note only */
+.heroWall {
+  top: -40px;
+  bottom: -50px;
+  inset-inline-start: -70px;
+  width: 68%;
+}
+
+.marksSide {
+  top: 0;
+  inset-inline-end: -4%;
+  width: 60%;
+  height: 100%;
+}
+
+.birdsSide {
+  top: 6px;
+  inset-inline-start: 5%;
+  width: 240px;
+}
+
 .trailTopo {
   inset: -90px -150px -70px -110px;
   --topo-size: 1300px;
@@ -564,7 +565,7 @@
 
 .band {
   position: relative;
-  height: 150px;
+  height: 170px;
   margin: -8px 0 4px;
 }
 
@@ -649,8 +650,7 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 1.3rem;
-  font-weight: 800;
+  font-size: 1.4rem;
 }
 
 .legendLine {
@@ -713,16 +713,10 @@
   overflow: visible;
 }
 
-.lockupBirds {
-  top: -34px;
-  inset-inline-end: 4%;
-  width: 230px;
-}
-
 .lockupTracks {
   position: absolute;
   inset: auto 0 0 0;
-  height: 130px;
+  height: 170px;
 }
 
 /* ---------- the trail draws itself once the map lies flat ---------- */
@@ -872,14 +866,24 @@
     height: 200px;
     overflow: hidden;
   }
-  /* on a phone the survey marks are shown larger, centred on the middle summit */
-  .bandTall .fill {
-    width: 200%;
-    inset-inline-start: -44%;
+  /* on a phone the survey marks are larger and hang off the side */
+  .marksSide {
+    width: 150%;
+    inset-inline-end: -34%;
   }
-  .lockupBirds {
-    width: 150px;
-    top: -20px;
+  .birdsSide {
+    width: 130px;
+    inset-inline-start: 2%;
+  }
+  .heroWall {
+    top: -30px;
+    bottom: auto;
+    height: 430px;
+    inset-inline-start: -18px;
+    width: calc(100% + 36px);
+  }
+  .lockupTracks {
+    height: 120px;
   }
   .main {
     padding: 26px 18px 70px;

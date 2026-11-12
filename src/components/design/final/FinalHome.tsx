@@ -9,7 +9,7 @@ import { NotePaper } from "../NotePaper";
 import { useHomeData } from "../useHomeData";
 import { FoldIntro } from "./FoldIntro";
 import { InkArrow, InkCompass, InkDefs, InkIcon, InkLockup, InkMoon, InkRuin, InkSun, InkTree } from "./Ink";
-import { Birds, Prints, TopoPatch, Waypoints } from "./Zones";
+import { Birds, Prints, TopoPatch, WallPatch, Waypoints } from "./Zones";
 import s from "./final.module.css";
 
 /*
@@ -19,18 +19,24 @@ import s from "./final.module.css";
  * שנפתחת מהתרמיל (FoldIntro). התוכן נשאר גדול, ברור ונקי: הקהל בן 40–60.
  */
 
-type Trail = "red" | "blue" | "green" | "black" | "orange";
-
-const NAV: { href: string; label: string; trail: Trail }[] = [
-  { href: "/design/final/quiz", label: "שאלונים", trail: "red" },
-  { href: "/exams", label: "מבחנים", trail: "black" },
-  { href: "/map", label: "מפה", trail: "green" },
-  { href: "/timelines", label: "עזרי למידה", trail: "blue" },
-  { href: "/games", label: "משחקים", trail: "orange" },
+const NAV: { href: string; label: string }[] = [
+  { href: "/design/final/quiz", label: "שאלונים" },
+  { href: "/exams", label: "מבחנים" },
+  { href: "/map", label: "מפה" },
+  { href: "/timelines", label: "עזרי למידה" },
+  { href: "/games", label: "משחקים" },
 ];
 
-function Blaze({ trail, className = "" }: { trail: Trail; className?: string }) {
-  return <span aria-hidden className={`${s.blaze} ${s[trail]} ${className}`} />;
+/** The dashed trail, revealed along its length by a mask: the line draws itself like a pen on the map. */
+function TrailLine({ d, id, className }: { d: string; id: string; className: string }) {
+  return (
+    <g className={className}>
+      <mask id={id} maskUnits="userSpaceOnUse" x="0" y="-10" width="400" height="540">
+        <path d={d} pathLength={1} className={s.draw} />
+      </mask>
+      <path d={d} className={s.dash} mask={`url(#${id})`} />
+    </g>
+  );
 }
 
 // the trail runs through the middle of each sign: signs alternate between two columns
@@ -43,18 +49,6 @@ function toggleTheme() {
   try {
     localStorage.setItem("even-derech-theme", next);
   } catch {}
-}
-
-/** The dashed trail, revealed along its length by a mask: the line draws itself like a pen on the map. */
-function TrailLine({ d, id, className }: { d: string; id: string; className: string }) {
-  return (
-    <g className={className}>
-      <mask id={id} maskUnits="userSpaceOnUse" x="0" y="-10" width="400" height="540">
-        <path d={d} pathLength={1} className={s.draw} />
-      </mask>
-      <path d={d} className={s.dash} mask={`url(#${id})`} />
-    </g>
-  );
 }
 
 export function FinalFrame({
@@ -105,7 +99,6 @@ export function FinalFrame({
       )}
       <div ref={root} className={s.root} style={vars}>
         <InkDefs />
-        <div aria-hidden className={s.creases} />
         <div aria-hidden className={s.neat} />
 
         <header className={s.top}>
@@ -115,8 +108,7 @@ export function FinalFrame({
             </Link>
             <nav aria-label="ניווט ראשי" className={s.nav}>
               {NAV.map((n) => (
-                <Link key={n.href} href={n.href} className={s.navItem}>
-                  <Blaze trail={n.trail} />
+                <Link key={n.href} href={n.href} className={`${s.navItem} ${s.pencil}`}>
                   {n.label}
                 </Link>
               ))}
@@ -145,19 +137,20 @@ export function FinalFrame({
 export function FinalHome({ questionCount, examCount }: { questionCount: number; examCount: number }) {
   const d = useHomeData();
 
-  const stations: { href: string; icon: FieldIconName; label: string; detail: string; trail: Trail; alert?: boolean }[] = [
+  const stations: { href: string; icon: FieldIconName; label: string; detail: string; alert?: boolean }[] = [
     d.reviewCount > 0
-      ? { href: "/quizzes/review", icon: "review", label: "חזרה על טעויות", detail: `${d.reviewCount} ממתינות לך`, trail: "red", alert: true }
-      : { href: "/quizzes", icon: "quizzes", label: "תרגול שאלות", detail: `${questionCount.toLocaleString("he-IL")} שאלות`, trail: "red" },
-    { href: "/exams", icon: "exams", label: "מבחן רישוי מלא", detail: `${examCount} מועדים`, trail: "black" },
-    { href: "/map/learn", icon: "map", label: "מפת הלמידה", detail: "מי בנה, מתי ואיפה", trail: "green" },
-    { href: "/games/crossword", icon: "notes", label: "תשבץ השבוע", detail: "חדש בכל שישי", trail: "orange" },
+      ? { href: "/quizzes/review", icon: "review", label: "חזרה על טעויות", detail: `${d.reviewCount} ממתינות לך`, alert: true }
+      : { href: "/quizzes", icon: "quizzes", label: "תרגול שאלות", detail: `${questionCount.toLocaleString("he-IL")} שאלות` },
+    { href: "/exams", icon: "exams", label: "מבחן רישוי מלא", detail: `${examCount} מועדים` },
+    { href: "/map/learn", icon: "map", label: "מפת הלמידה", detail: "מי בנה, מתי ואיפה" },
+    { href: "/games/crossword", icon: "notes", label: "תשבץ השבוע", detail: "חדש בכל שישי" },
   ];
 
   return (
     <FinalFrame name={d.name} intro>
       <main className={s.main}>
         <section className={s.hero}>
+          <WallPatch className={s.heroWall} />
           <div className={s.greet}>
             <p className={s.here}>
               <span aria-hidden className={s.hereDot} />
@@ -217,16 +210,18 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
           <NotePaper className={s.note} />
         </section>
 
+        {/* boots come in from the side, turn, wander a little and are gone */}
         <div className={s.band} data-zone="">
           <Prints
             shape="boot"
-            from={{ x: 940, y: 60 }}
-            c1={{ x: 700, y: 260 }}
-            c2={{ x: 380, y: 20 }}
-            to={{ x: 60, y: 230 }}
-            steps={15}
-            size={1.9}
-            spread={13}
+            align="xMaxYMid meet"
+            from={{ x: 1020, y: 60 }}
+            c1={{ x: 800, y: 10 }}
+            c2={{ x: 900, y: 290 }}
+            to={{ x: 560, y: 200 }}
+            steps={13}
+            size={2.7}
+            spread={17}
             className={s.fill}
           />
         </div>
@@ -243,7 +238,7 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
                     <InkIcon name={x.icon} size={34} />
                   </span>
                   <span className={s.legendText}>
-                    <span className={s.legendName}>
+                    <span className={`${s.legendName} ${s.pencil}`}>
                       {x.title}
                       {x.slug === "community" && d.unread > 0 && <span className={s.badge}>{d.unread}</span>}
                     </span>
@@ -266,22 +261,23 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
         </section>
 
         <div className={`${s.band} ${s.bandTall}`} data-zone="">
-          <Waypoints className={s.fill} />
+          <Waypoints className={s.marksSide} />
+          <Birds className={s.birdsSide} />
         </div>
 
         <footer className={s.lockup}>
-          <Birds className={s.lockupBirds} />
           <InkLockup height={170} className={s.lockupMark} />
           <div className={s.lockupTracks} data-zone="">
             <Prints
               shape="hoof"
-              from={{ x: 80, y: 220 }}
-              c1={{ x: 300, y: 60 }}
-              c2={{ x: 560, y: 260 }}
-              to={{ x: 930, y: 90 }}
-              steps={16}
-              size={1.5}
-              spread={8}
+              align="xMinYMax meet"
+              from={{ x: -20, y: 290 }}
+              c1={{ x: 160, y: 250 }}
+              c2={{ x: 120, y: 60 }}
+              to={{ x: 440, y: 110 }}
+              steps={14}
+              size={2.2}
+              spread={11}
               className={s.fill}
             />
           </div>
