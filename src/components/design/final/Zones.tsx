@@ -38,6 +38,7 @@ export function Prints({
   steps,
   size = 1,
   spread = 9,
+  align = "xMidYMid meet",
   className = "",
   style,
 }: {
@@ -49,6 +50,8 @@ export function Prints({
   steps: number;
   size?: number;
   spread?: number;
+  /** Which edge the walk is anchored to (preserveAspectRatio). */
+  align?: string;
   className?: string;
   style?: CSSProperties;
 }) {
@@ -64,11 +67,13 @@ export function Prints({
       y: Math.round((p.y + Math.cos(rad) * spread * side) * 10) / 10,
       a: Math.round(angle + side * 5),
       flip: side,
+      // the walker comes into view quickly and wanders off slowly
+      o: Math.round(Math.min(1, t / 0.1, (1 - t) / 0.45) * 100) / 100,
     };
   });
   const line = shape === "bird";
   return (
-    <svg className={`${z.prints} ${className}`} style={style} viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid slice" aria-hidden>
+    <svg className={`${z.prints} ${className}`} style={style} viewBox="0 0 1000 300" preserveAspectRatio={align} aria-hidden>
       {prints.map((p, i) => (
         <path
           key={i}
@@ -78,6 +83,7 @@ export function Prints({
           stroke={line ? "currentColor" : "none"}
           strokeWidth={line ? 1.6 : 0}
           strokeLinecap="round"
+          opacity={p.o}
           transform={`translate(${p.x} ${p.y}) rotate(${p.a}) scale(${p.flip * size} ${size})`}
         />
       ))}
@@ -145,5 +151,45 @@ export function Birds({ className = "" }: { className?: string }) {
         {bird(252, 66, 0.5, 4)}
       </g>
     </svg>
+  );
+}
+
+/**
+ * An ancient wall, very faint (the owner: "like the Kotel, delicate, fading in from every side").
+ * Courses of large ashlars with drafted margins, the Herodian way, and a caper bush or two in the joints.
+ */
+export function WallPatch({ className = "" }: { className?: string }) {
+  const heights = [82, 76, 84, 74, 80, 72, 78];
+  const widths = [168, 232, 138, 204, 262, 150, 214, 180];
+  const stones: { x: number; y: number; w: number; h: number }[] = [];
+  let y = 0;
+  heights.forEach((h, row) => {
+    let x = -((row * 97) % 150);
+    let i = row * 3;
+    while (x < 960) {
+      const w = widths[i % widths.length];
+      stones.push({ x, y, w, h });
+      x += w;
+      i += 1;
+    }
+    y += h;
+  });
+  return (
+    <div aria-hidden className={`${z.wall} ${className}`}>
+      <svg viewBox="0 0 960 546" preserveAspectRatio="xMidYMid slice">
+        <g filter="url(#ink200)" fill="none" stroke="currentColor" strokeLinejoin="round">
+          {stones.map((s, i) => (
+            <g key={i}>
+              <rect x={s.x + 2} y={s.y + 2} width={s.w - 4} height={s.h - 4} rx="4" strokeWidth="2" />
+              <rect x={s.x + 12} y={s.y + 11} width={s.w - 24} height={s.h - 22} rx="6" strokeWidth="1" opacity="0.55" />
+            </g>
+          ))}
+        </g>
+        <g filter="url(#ink200)" fill="none" stroke="var(--t-green, #4f7a2e)" strokeWidth="2.4" strokeLinecap="round">
+          <path d="M300 158c-8-10-20-12-30-8M300 158c-2-12-10-20-20-22M300 158c6-10 16-14 26-12M300 158c-12-2-22 4-26 12" />
+          <path d="M640 318c-8-8-18-9-26-5M640 318c0-10-7-17-15-19M640 318c7-8 16-10 24-7" />
+        </g>
+      </svg>
+    </div>
   );
 }

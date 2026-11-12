@@ -18,6 +18,14 @@ export function InkDefs() {
           <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="5" />
           <feDisplacementMap in="SourceGraphic" scale="1.3" xChannelSelector="R" yChannelSelector="G" />
         </filter>
+        {/* print lettering that looks pencilled: the edges wobble and the graphite skips on the paper's grain */}
+        <filter id="pencil" x="-4%" y="-12%" width="108%" height="124%" colorInterpolationFilters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="11" result="wob" />
+          <feDisplacementMap in="SourceGraphic" in2="wob" scale="1.7" xChannelSelector="R" yChannelSelector="G" result="rough" />
+          <feTurbulence type="fractalNoise" baseFrequency="1.35" numOctaves="2" seed="23" result="grain" />
+          <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.2 0 0 0 2.05" result="skips" />
+          <feComposite in="rough" in2="skips" operator="in" />
+        </filter>
         <filter id="ink200" x="-5%" y="-5%" width="110%" height="110%">
           <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="8" />
           <feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G" />
@@ -189,7 +197,7 @@ export function InkLockup({ height = 60, ...rest }: { height?: number } & SVGPro
     >
       {/* the trail: out of the stone, behind the letters, down to the flower */}
       <path
-        d="M257 98C246 101 238 90 224 87S200 95 180 88 152 80 130 87 98 95 78 87 50 81 38 91 27 99 24 104"
+        d="M257 98C246 101 238 90 224 87S200 95 180 88 152 80 130 87 98 95 78 87 50 81 38 91 28 100 24 108"
         fill="none"
         stroke="var(--t-red, #b5382a)"
         strokeWidth="3.4"
@@ -199,7 +207,7 @@ export function InkLockup({ height = 60, ...rest }: { height?: number } & SVGPro
       />
 
       {/* the anemone at the end of the trail */}
-      <g filter="url(#ink64)" strokeLinecap="round" strokeLinejoin="round">
+      <g transform="translate(22 122) scale(0.58) translate(-22 -122)" filter="url(#ink64)" strokeLinecap="round" strokeLinejoin="round">
         <path d="M22 122C21 112 24 104 22 96" fill="none" stroke="var(--t-green, #4f7a2e)" strokeWidth="2.2" />
         <path d="M22 112c-5-1-8-4-10-8M22 108c5 0 8-3 10-7M22 116c-4 1-7 0-9-2" fill="none" stroke="var(--t-green, #4f7a2e)" strokeWidth="1.6" />
         <g fill="var(--t-red, #b5382a)" stroke="currentColor" strokeWidth="1.1">
@@ -246,21 +254,38 @@ export function InkLockup({ height = 60, ...rest }: { height?: number } & SVGPro
         <path d="M37.6 44l2-2M37.4 40l2-2M37.2 36l1.9-1.9M37 32l1.7-1.7" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.75" />
       </g>
 
-      {/* the hoopoe, standing on the stone */}
-      <g transform="translate(252 10) scale(0.86)" filter="url(#ink64)" strokeLinecap="round" strokeLinejoin="round">
-        {/* crest: a fan of feathers with black tips */}
-        <path d="M17 13 8 0 13 -1 19 1 25 0 30 4 33 9 22 15z" fill="var(--hoopoe, #d98a4a)" stroke="currentColor" strokeWidth="1.3" />
-        <path d="M8 0l1.5 3M13 -1l1 3.2M19 1l.500 3M25 0l-.500 3.4M30 4l-1.4 2.8M33 9l-2.6 1.6" fill="none" stroke="currentColor" strokeWidth="2.6" />
-        {/* body and head */}
-        <path d="M11 20c0-5 4-8 8-8s7 2 9 5c7 2 13 7 19 13l8 8-12 1c-8 1-16-1-21-5-5-3-9-8-11-14z" fill="var(--hoopoe, #d98a4a)" stroke="currentColor" strokeWidth="1.6" />
-        {/* the long curved bill */}
-        <path d="M11.5 19C5 20 -2 23 -9 29" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <circle cx="16.5" cy="17.5" r="1.2" fill="currentColor" />
-        {/* barred wing and tail */}
-        <path d="M27 22l11 13M32 21l12 14M37 23l11 13" fill="none" stroke="#1d150d" strokeWidth="3" />
-        <path d="M29.5 21.5l11.5 13.5M34.5 22l11.5 13.5" fill="none" stroke="#fbf6e6" strokeWidth="1.5" />
-        <path d="M47 36l9 9-11-1z" fill="#1d150d" stroke="currentColor" strokeWidth="1" />
-        <path d="M26 39v6M31 40v5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      {/* the hoopoe on the stone: a pencil sketch in outline only. Crest fanned open with dark tips, long
+          down-curved bill, barred wing, banded tail. Strokes keep one pencil width at every logo size. */}
+      <g
+        transform="translate(258 30) scale(0.56)"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.9"
+        filter="url(#ink64)"
+      >
+        <g strokeWidth="1.25" vectorEffect="non-scaling-stroke">
+          {/* crest feathers */}
+          <path d="M16 12 7 -1M17 11 11 -5M18 11 16 -7M19 11 22 -7M21 11 27 -4M22 12 31 0M23 13 34 6" vectorEffect="non-scaling-stroke" />
+          <path d="M7 -1c1-4 3-5 4-4 0-3 3-4 5-2 1-3 4-3 6 0 2-2 5-1 5 3 3-1 5 1 4 4 3 0 4 3 3 6" vectorEffect="non-scaling-stroke" />
+          {/* head and the long bill */}
+          <path d="M23 13c-1-3-5-4-8-3s-4 5-2 9" vectorEffect="non-scaling-stroke" />
+          <path d="M12.5 15.5C6 16 -1 19 -9 26C-1 21 6 19 13 19" vectorEffect="non-scaling-stroke" />
+          {/* body: breast, belly, tail, back */}
+          <path d="M13 19c-1 7 3 14 10 17 5 2 10 2.5 15 2l18 4 2.5-4.5-13-6C40 25 32 17 23 13" vectorEffect="non-scaling-stroke" />
+          {/* folded wing */}
+          <path d="M25 20c9 2 17 8 23 15" vectorEffect="non-scaling-stroke" />
+          {/* legs */}
+          <path d="M26 37.5v6.5l-3 1M26 44l3 1M33 38.5v5.5l-3 1M33 44l3 1" vectorEffect="non-scaling-stroke" />
+        </g>
+        {/* the dark parts, shaded with the side of the pencil */}
+        <g strokeWidth="2.6" vectorEffect="non-scaling-stroke">
+          <path d="M7.5 -0.5l1.5 2.5M11.5 -4.5l1 3M16.2 -6.5l.3 3M21.8 -6.5l-.3 3M26.5 -3.5l-1 2.8M30.5 .5l-1.6 2.4M33.3 6.3l-2.3 1.5" vectorEffect="non-scaling-stroke" />
+          <path d="M31 22.5l-3.5 8M36 25l-3.5 9M41 28.5l-3 8M46 32l-2.5 6" vectorEffect="non-scaling-stroke" />
+          <path d="M53 39.5l-1.5 4" vectorEffect="non-scaling-stroke" />
+        </g>
+        <circle cx="16.5" cy="15" r="1" fill="currentColor" stroke="none" />
       </g>
     </svg>
   );

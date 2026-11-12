@@ -23,12 +23,26 @@
   mask: var(--topo) var(--topo-at, 40% 45%) / var(--topo-size, 1500px) auto no-repeat;
 }
 
+/* each print carries its own opacity: the walk fades in and wanders off along its path */
 .prints {
   color: var(--steps);
   opacity: var(--steps-alpha);
   overflow: visible;
-  -webkit-mask: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
-  mask: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+}
+
+/* the old wall: barely there, and gone before it reaches any edge */
+.wall {
+  position: absolute;
+  pointer-events: none;
+  color: var(--ink);
+  opacity: var(--wall-alpha, 0.11);
+  -webkit-mask: radial-gradient(ellipse closest-side, #000 20%, transparent 100%);
+  mask: radial-gradient(ellipse closest-side, #000 20%, transparent 100%);
+}
+
+.wall svg {
+  width: 100%;
+  height: 100%;
 }
 
 .marks {
