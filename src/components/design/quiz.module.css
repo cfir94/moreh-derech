@@ -303,3 +303,19 @@
     stroke-dashoffset: 0;
   }
 }
+
+/* the final version: brown sign for the main action, ink letters on stones */
+.final {
+  --q-accent: var(--sign);
+  --q-accent-ink: var(--sign-ink);
+}
+
+:global([data-theme="dark"]) .final {
+  --q-accent: var(--sign);
+}
+
+.final .letter {
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink) 65%, transparent);
+  color: #2c2014;
+  background: #d9c497;
+}

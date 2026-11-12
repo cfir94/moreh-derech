@@ -25,7 +25,7 @@ export type FieldIconName =
   | "compass"
   | "footprint";
 
-const PATHS: Record<FieldIconName, React.ReactNode> = {
+export const PATHS: Record<FieldIconName, React.ReactNode> = {
   // מחברת שדה עם סימן שאלה
   quizzes: (
     <>

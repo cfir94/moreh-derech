@@ -17,8 +17,16 @@ export default function Page() {
       </p>
       <ul className="flex flex-col gap-3">
         <li>
+          <Link href="/design/final" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+            הגרסה המאוחדת: הדף עצמו נפתח כמפה מהתרמיל (הכי חדש)
+          </Link>
+          <Link href="/design/final/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
+            מסך שאלה בגרסה המאוחדת
+          </Link>
+        </li>
+        <li>
           <Link href="/design/map" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
-            גרסה ה׳: צבע מפה (הכי חדש)
+            גרסה ה׳: צבע מפה
           </Link>
           <Link href="/design/map/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
             מסך שאלה בגרסה ה׳
