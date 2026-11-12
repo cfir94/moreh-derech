@@ -1,0 +1,279 @@
+/* הפתיחה: הדף עצמו כמפה מקופלת שיוצאת מהתרמיל. ראו FoldIntro.tsx. */
+
+.stage {
+  --table: #b89f6c;
+  --table-2: #a58c5c;
+  --paper-back: #dcc893;
+  --bag: #7b8050;
+  --bag-dark: #4b4f2f;
+  --bag-flap: #666b3f;
+  --bag-inside: #2c2a1c;
+  --bag-ink: #2f2216;
+  --strap: #8a5a2e;
+  --buckle: #d0a85c;
+
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  overflow: hidden;
+  perspective: 1500px;
+  perspective-origin: 50% 40%;
+  cursor: pointer;
+  /* the ground the bag stands on: darker than the map, so the paper reads as paper */
+  background:
+    radial-gradient(90% 70% at 50% 35%, rgb(255 240 200 / 0.28), transparent 70%),
+    radial-gradient(120% 60% at 50% 110%, rgb(40 25 5 / 0.45), transparent 70%),
+    repeating-linear-gradient(115deg, rgb(0 0 0 / 0.025) 0 2px, transparent 2px 7px),
+    linear-gradient(var(--table), var(--table-2));
+  /* if scripts never run, the cover must not trap the page */
+  animation: giveUp 0.6s 9s forwards;
+}
+
+:global([data-theme="dark"]) .stage {
+  --table: #2a2118;
+  --table-2: #1c160f;
+  --paper-back: #b9a473;
+  --bag: #5c6140;
+  --bag-dark: #3a3d27;
+  --bag-flap: #4c5034;
+  --bag-ink: #17120b;
+}
+
+@keyframes giveUp {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ---------- the folded map ---------- */
+
+.map {
+  --crease: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  opacity: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.row,
+.panel {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.row {
+  left: 0;
+  transform-origin: 50% 0;
+}
+
+.panel {
+  top: 0;
+  transform-origin: 0 50%;
+}
+
+.face,
+.back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.face {
+  overflow: hidden;
+  /* a hairline of paper edge, and the worn crease along each fold */
+  box-shadow: 0 0 0 0.5px rgb(90 60 20 / 0.5);
+}
+
+.face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: var(--crease);
+  box-shadow:
+    inset 0 0 26px rgb(70 45 10 / 0.28),
+    inset 0 0 2px rgb(255 250 230 / 0.7);
+  pointer-events: none;
+}
+
+/* the underside of the sheet: plain paper with a printed grid */
+.back {
+  transform: rotateY(180deg);
+  background:
+    repeating-linear-gradient(0deg, rgb(120 85 40 / 0.12) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgb(120 85 40 / 0.12) 0 1px, transparent 1px 34px),
+    var(--paper-back);
+  box-shadow: inset 0 0 40px rgb(70 45 10 / 0.3);
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  direction: rtl;
+  color: #4a3218;
+  font-size: clamp(1.4rem, 3.2vw, 2.4rem);
+  text-align: center;
+}
+
+.cover b {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 2.6em;
+  line-height: 1;
+}
+
+.cover span {
+  font-family: var(--font-note);
+  font-weight: 700;
+}
+
+.cover i {
+  margin-top: 0.6em;
+  padding-top: 0.6em;
+  border-top: 2px solid currentColor;
+  font-style: normal;
+  font-size: 0.62em;
+  letter-spacing: 0.04em;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgb(35 20 5 / 0.95), rgb(35 20 5 / 0.6));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* crumpled paper: lit fractal noise, multiplied over the page; it smooths out as the map settles */
+.crumple {
+  position: absolute;
+  inset: 0;
+  opacity: calc(var(--crease) * 0.5);
+  mix-blend-mode: multiply;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background-size: 420px 420px;
+  pointer-events: none;
+}
+
+/* ---------- the backpack: an ink sketch with a colour wash ---------- */
+
+.bag {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 1;
+  width: min(62vw, 330px);
+  aspect-ratio: 240 / 230;
+  transform: translate(-50%, 0);
+  margin-bottom: -4%;
+  perspective: 900px;
+}
+
+.bagFrontWrap {
+  z-index: 3;
+}
+
+.bagBack,
+.bagFront,
+.flap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.flap {
+  transform-origin: 50% 27%;
+  backface-visibility: visible;
+}
+
+.inside {
+  fill: var(--bag-inside);
+  stroke: var(--bag-ink);
+  stroke-width: 2.5;
+}
+
+.canvas {
+  fill: var(--bag);
+  stroke: var(--bag-ink);
+  stroke-width: 3;
+}
+
+.pocket {
+  fill: var(--bag-dark);
+  fill-opacity: 0.55;
+  stroke: var(--bag-ink);
+  stroke-width: 2;
+}
+
+.flapShape {
+  fill: var(--bag-flap);
+  stroke: var(--bag-ink);
+  stroke-width: 3;
+}
+
+.seam {
+  fill: none;
+  stroke: #e3d8a6;
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.strap {
+  fill: var(--strap);
+  stroke: var(--bag-ink);
+  stroke-width: 2;
+}
+
+.strapLine {
+  fill: none;
+  stroke: none;
+}
+
+.buckle {
+  fill: none;
+  stroke: var(--buckle);
+  stroke-width: 4;
+}
+
+.hatch {
+  fill: none;
+  stroke: var(--bag-ink);
+  stroke-width: 1.4;
+  opacity: 0.6;
+}
+
+.skip {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  left: 14px;
+  z-index: 5;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1.5px solid rgb(47 34 22 / 0.5);
+  background: rgb(245 235 205 / 0.9);
+  color: #2f2216;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.skip:focus-visible {
+  outline: 3px solid #2c5c8a;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    display: none;
+  }
+}

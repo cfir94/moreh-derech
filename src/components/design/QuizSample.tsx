@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FieldIcon } from "./FieldIcons";
 import { SignsFrame } from "./SignsHome";
 import { TrailsFrame, type TrailPalette } from "./TrailsHome";
+import { FinalFrame } from "./final/FinalHome";
 import { useHomeData } from "./useHomeData";
 import s from "./quiz.module.css";
 
@@ -27,7 +28,7 @@ export function QuizSample({
   question,
   palette,
 }: {
-  variant: "signs" | "trails";
+  variant: "signs" | "trails" | "final";
   question: SampleQuestion;
   palette?: TrailPalette;
 }) {
@@ -35,7 +36,7 @@ export function QuizSample({
   const [picked, setPicked] = useState<number | null>(null);
   const answered = picked !== null;
   const body = (
-      <main className={`${s.main} ${s[variant]}`}>
+      <main className={`${s.main} ${variant === "final" ? `${s.trails} ${s.final}` : s[variant]}`}>
         <div className={s.top}>
           <p className={s.crumb}>
             <FieldIcon name="quizzes" size={20} />
@@ -109,6 +110,7 @@ export function QuizSample({
         </section>
       </main>
   );
+  if (variant === "final") return <FinalFrame name={d.name}>{body}</FinalFrame>;
   return variant === "signs" ? (
     <SignsFrame name={d.name}>{body}</SignsFrame>
   ) : (

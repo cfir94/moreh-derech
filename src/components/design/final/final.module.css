@@ -1,0 +1,912 @@
+/* הגרסה המאוחדת: נייר מפה, דיו של מחברת שדה, שביל מסומן ושלטים חומים בתחנות. */
+
+.root {
+  /* map paper by day */
+  --ground: #ead8a8;
+  --ground-edge: #d3b97e;
+  --paper: #f6edd0;
+  --ink: #2c2014;
+  --ink-dim: #5f4a31;
+  --frame: #6e5230;
+  --paint: #fbf6e6;
+  --stone: #dcc692;
+  --rock: #d9c497;
+  --rock-dark: #b0986a;
+  --topo-ink: #8a5d2a;
+  --topo-alpha: 0.27;
+  --t-red: #b5382a;
+  --t-blue: #2a5a8c;
+  --t-green: #4f7a2e;
+  --t-black: #2c2014;
+  --t-orange: #c9762a;
+  --sign: #6b4423;
+  --sign-ink: #f8eed6;
+  --steps: #6e4c26;
+  --steps-alpha: 0.16;
+  --focus: #2a5a8c;
+  --grain: 0.13;
+
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: var(--ink);
+  font-size: 1.125rem;
+  /* an old map sheet: lighter where it was handled, browner toward the edges */
+  background:
+    radial-gradient(75% 55% at 78% 8%, rgb(255 247 214 / 0.75), transparent 62%),
+    radial-gradient(60% 45% at 10% 60%, rgb(79 122 46 / 0.13), transparent 70%),
+    radial-gradient(130% 95% at 50% 45%, transparent 55%, rgb(150 105 45 / 0.28) 100%),
+    var(--ground);
+  scrollbar-color: var(--sign) var(--ground-edge);
+  color-scheme: light;
+}
+
+/* the same map at dusk: dark brown paper under a warm lamp, never black */
+:global([data-theme="dark"]) .root {
+  --ground: #382c1e;
+  --ground-edge: #2a2116;
+  --paper: #46382a;
+  --ink: #f5e8c9;
+  --ink-dim: #d9c5a0;
+  --frame: #bfa172;
+  --stone: #a88f62;
+  --rock: #937b55;
+  --rock-dark: #6d5a3e;
+  --topo-ink: #ecc98a;
+  --topo-alpha: 0.17;
+  --t-red: #e06049;
+  --t-blue: #76a6d6;
+  --t-green: #9bc068;
+  --t-black: #17110a;
+  --t-orange: #e6964c;
+  --sign: #7d512b;
+  --steps: #ecc98a;
+  --steps-alpha: 0.11;
+  --focus: #a3c8ee;
+  --grain: 0.2;
+
+  background:
+    radial-gradient(70% 50% at 76% 10%, rgb(255 200 120 / 0.2), transparent 65%),
+    radial-gradient(130% 95% at 50% 45%, transparent 50%, rgb(10 6 2 / 0.5) 100%),
+    var(--ground);
+  color-scheme: dark;
+}
+
+.root ::selection {
+  background: var(--t-red);
+  color: var(--paint);
+}
+
+.root :focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- the sheet: contours, paper grain, fold creases, neatline ---------- */
+
+.topo,
+.paper,
+.creases,
+.neat {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.topo {
+  background: var(--topo-ink);
+  opacity: var(--topo-alpha);
+  mask: var(--topo) 30% 40% / max(1500px, 150vw) auto no-repeat;
+  -webkit-mask: var(--topo) 30% 40% / max(1500px, 150vw) auto no-repeat;
+}
+
+.paper {
+  opacity: var(--grain);
+  mix-blend-mode: multiply;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
+  background-size: 420px 420px;
+}
+
+/* where the map was folded: 2 by 3 on a phone, 4 by 2 on a desk (the same grid FoldIntro folds along) */
+.creases {
+  --c: rgb(90 60 20 / 0.16);
+  --h: rgb(255 250 225 / 0.35);
+  background:
+    linear-gradient(to right, transparent calc(50% - 1.5px), var(--c) calc(50% - 1.5px) calc(50% - 0.5px), var(--h) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(33.33% - 1.5px), var(--c) calc(33.33% - 1.5px) calc(33.33% - 0.5px), var(--h) calc(33.33% - 0.5px) calc(33.33% + 0.5px), transparent calc(33.33% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(66.66% - 1.5px), var(--c) calc(66.66% - 1.5px) calc(66.66% - 0.5px), var(--h) calc(66.66% - 0.5px) calc(66.66% + 0.5px), transparent calc(66.66% + 0.5px));
+}
+
+:global([data-theme="dark"]) .creases {
+  --c: rgb(0 0 0 / 0.3);
+  --h: rgb(255 230 180 / 0.1);
+}
+
+@media (min-width: 900px) {
+  .creases {
+    background:
+      linear-gradient(to right, transparent calc(25% - 1.5px), var(--c) calc(25% - 1.5px) calc(25% - 0.5px), var(--h) calc(25% - 0.5px) calc(25% + 0.5px), transparent calc(25% + 0.5px)),
+      linear-gradient(to right, transparent calc(50% - 1.5px), var(--c) calc(50% - 1.5px) calc(50% - 0.5px), var(--h) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+      linear-gradient(to right, transparent calc(75% - 1.5px), var(--c) calc(75% - 1.5px) calc(75% - 0.5px), var(--h) calc(75% - 0.5px) calc(75% + 0.5px), transparent calc(75% + 0.5px)),
+      linear-gradient(to bottom, transparent calc(50% - 1.5px), var(--c) calc(50% - 1.5px) calc(50% - 0.5px), var(--h) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+  }
+}
+
+/* the map's printed frame, with grid numbers along the top */
+.neat {
+  inset: 6px;
+  border: 1.5px solid color-mix(in srgb, var(--frame) 55%, transparent);
+  outline: 1px solid color-mix(in srgb, var(--frame) 35%, transparent);
+  outline-offset: -5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 7px;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--frame) 80%, transparent);
+  z-index: 6;
+}
+
+/* ---------- blazes ---------- */
+
+.blaze {
+  --c: var(--t-red);
+  display: inline-block;
+  flex: none;
+  width: 20px;
+  height: 15px;
+  background: linear-gradient(var(--paint) 0 30%, var(--c) 30% 70%, var(--paint) 70%);
+  border-radius: 2px 3px 2px 3px;
+  box-shadow: 0 0 0 0.75px rgb(40 25 10 / 0.35);
+  transform: rotate(-3deg);
+}
+
+.red {
+  --c: var(--t-red);
+}
+.blue {
+  --c: var(--t-blue);
+}
+.green {
+  --c: var(--t-green);
+}
+.black {
+  --c: var(--t-black);
+}
+.orange {
+  --c: var(--t-orange);
+}
+
+/* ---------- header ---------- */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.topInner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 22px 8px;
+}
+
+.topTrail {
+  display: block;
+  height: 9px;
+  background: linear-gradient(var(--paint) 0 30%, var(--t-red) 30% 70%, var(--paint) 70%);
+  box-shadow: 0 6px 14px -8px rgb(20 12 4 / 0.55);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.logo {
+  flex: none;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brandName {
+  font-family: var(--font-hand);
+  font-size: 2.15rem;
+}
+
+.brandSub {
+  font-family: var(--font-note);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+.nav {
+  display: flex;
+  gap: 2px;
+  margin-inline-start: auto;
+}
+
+.navItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 13px;
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.navItem:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+/* the one sign in the header: the way in */
+.signBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 8px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow:
+    inset 0 0 0 2.5px var(--sign),
+    inset 0 0 0 4px var(--sign-ink),
+    0 8px 14px -10px rgb(20 12 4 / 0.7);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.signBtn:hover {
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+/* ---------- hero ---------- */
+
+.main {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 24px 90px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  column-gap: 64px;
+  row-gap: 22px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+
+.greet {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.trail {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.note {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.here {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 4px;
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  color: var(--t-red);
+  transform: rotate(-3deg);
+}
+
+.hereDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--t-red);
+  box-shadow: 0 0 0 4px var(--ground), 0 0 0 6px var(--t-red);
+}
+
+.hello {
+  margin: 0;
+  padding-inline-start: 0.12em;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 6.4vw, 5rem);
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.underline {
+  display: block;
+  width: min(100%, 24rem);
+  height: 14px;
+  margin: 4px 0 16px;
+}
+
+.underline path {
+  fill: none;
+  stroke: var(--t-green);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 320;
+}
+
+.lede {
+  max-width: 34rem;
+  margin: 0 0 20px;
+  font-size: 1.3rem;
+  line-height: 1.65;
+  color: var(--ink-dim);
+}
+
+.tally {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin: 0 0 22px;
+  font-family: var(--font-note);
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tally b {
+  font-size: 1.5rem;
+}
+
+.compass {
+  position: absolute;
+  inset-inline-end: -6px;
+  bottom: -150px;
+  width: 150px;
+  height: 150px;
+  color: var(--ink);
+  opacity: 0.5;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+/* ---------- the trail ---------- */
+
+.trail {
+  position: relative;
+  min-height: 528px;
+}
+
+.trailSvg {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 400px;
+  height: 520px;
+  overflow: visible;
+}
+
+.dash {
+  fill: none;
+  stroke: var(--t-red);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-dasharray: 13 11;
+}
+
+.draw {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 14;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.narrow {
+  display: none;
+}
+
+.steps {
+  position: absolute;
+  inset: -20px -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 40px);
+  color: var(--steps);
+  opacity: var(--steps-alpha);
+  pointer-events: none;
+}
+
+.doodle {
+  position: absolute;
+  color: var(--ink);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.tree {
+  width: 84px;
+  height: 84px;
+  top: 196px;
+  inset-inline-start: -64px;
+}
+
+.ruin {
+  width: 76px;
+  height: 76px;
+  top: 462px;
+  inset-inline-start: -22px;
+}
+
+.margin {
+  position: absolute;
+  top: -34px;
+  inset-inline-start: 104px;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  color: var(--t-blue);
+  transform: rotate(-4deg);
+  white-space: nowrap;
+}
+
+.marginArrow {
+  width: 46px;
+  height: 30px;
+  transform: scaleX(-1) rotate(-70deg) translate(8px, -8px);
+  order: -1;
+}
+
+.stations {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.station {
+  height: 130px;
+  display: flex;
+  align-items: center;
+}
+
+.station:nth-child(even) {
+  padding-inline-start: 90px;
+}
+
+.stationLink {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.rock {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 80px;
+  height: 66px;
+  border-radius: 48% 52% 40% 60% / 58% 50% 50% 42%;
+  background:
+    radial-gradient(60% 50% at 35% 28%, rgb(255 255 255 / 0.4), transparent 70%),
+    linear-gradient(160deg, var(--rock), var(--rock-dark));
+  box-shadow:
+    0 0 0 1.5px color-mix(in srgb, var(--ink) 70%, transparent),
+    0 12px 14px -10px rgb(20 12 4 / 0.65),
+    inset 0 -6px 0 rgb(0 0 0 / 0.1);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rockBlaze {
+  width: 32px;
+  height: 25px;
+  transform: rotate(-6deg);
+}
+
+/* the brown site sign at each station */
+.sign {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  box-shadow:
+    inset 0 0 0 3px var(--sign),
+    inset 0 0 0 5px var(--sign-ink),
+    0 12px 18px -12px rgb(20 12 4 / 0.7);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.signLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sign);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+.signDetail {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--sign-ink) 88%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+.alert {
+  align-self: flex-start;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--sign-ink);
+  color: #a8301f;
+  font-weight: 800;
+}
+
+.stationLink:hover .rock,
+.stationLink:focus-visible .rock {
+  transform: translateY(-4px) rotate(-3deg);
+}
+
+.stationLink:hover .sign,
+.stationLink:focus-visible .sign {
+  transform: translateX(-6px) rotate(-1deg);
+}
+
+/* ---------- the legend ---------- */
+
+.legend {
+  position: relative;
+  padding: 22px 24px 14px;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  border: 2px solid var(--frame);
+  outline: 1px solid var(--frame);
+  outline-offset: -7px;
+  box-shadow: 0 26px 40px -30px rgb(20 12 4 / 0.7);
+}
+
+.legendTitle {
+  margin: 0 0 8px;
+  padding: 0 6px;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 2.3rem;
+  line-height: 1.15;
+}
+
+.legendGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 84px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.legendItem:hover {
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.legendIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 45%, transparent);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.legendItem:hover .legendIcon {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.legendText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.legendName {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.legendLine {
+  font-size: 1.05rem;
+  color: var(--ink-dim);
+}
+
+.legendFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  margin: 10px 6px 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--frame);
+  font-size: 0.95rem;
+  color: var(--ink-dim);
+}
+
+.scaleBar {
+  display: inline-flex;
+  width: 160px;
+  height: 10px;
+  border: 1.5px solid var(--ink);
+}
+
+.scaleBar i {
+  flex: 1;
+}
+
+.scaleBar i:nth-child(odd) {
+  background: var(--ink);
+}
+
+.badge {
+  min-width: 26px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--t-red);
+  color: #fff;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ---------- the logo lockup at the foot of the sheet ---------- */
+
+.lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 56px;
+  color: var(--ink);
+}
+
+.lockupText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.lockupName {
+  font-family: var(--font-hand);
+  font-size: 4.4rem;
+}
+
+.lockupSub {
+  font-family: var(--font-note);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--ink-dim);
+}
+
+/* ---------- the trail draws itself once the map lies flat ---------- */
+
+.root[data-anim="wait"] .draw {
+  stroke-dashoffset: 1;
+}
+
+.root[data-anim="wait"] .station,
+.root[data-anim="wait"] .margin,
+.root[data-anim="wait"] .doodle {
+  opacity: 0;
+}
+
+.root[data-anim="wait"] .underline path {
+  stroke-dashoffset: 320;
+}
+
+.root[data-anim="go"] .draw {
+  animation: drawTrail 2.3s 0.15s cubic-bezier(0.45, 0, 0.3, 1) both;
+}
+
+.root[data-anim="go"] .underline path {
+  animation: drawUnder 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.root[data-anim="go"] .station {
+  animation: plant 0.55s calc(0.25s + var(--i) * 0.5s) cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.root[data-anim="go"] .margin {
+  animation: plant 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.root[data-anim="go"] .doodle {
+  animation: sketch 0.8s 1.6s ease-out both;
+}
+
+@keyframes drawTrail {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawUnder {
+  from {
+    stroke-dashoffset: 320;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes plant {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sketch {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 1000px) {
+  .nav {
+    display: none;
+  }
+  .signBtn {
+    margin-inline-start: auto;
+  }
+  .legendGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 880px) {
+  .hero {
+    grid-template-columns: 1fr;
+    margin-bottom: 44px;
+  }
+  .greet,
+  .trail,
+  .note {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .compass {
+    display: none;
+  }
+  .trail {
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 760px) {
+  .root {
+    font-size: 1.06rem;
+  }
+  .topInner {
+    padding: 10px 16px 6px;
+    gap: 10px;
+  }
+  .brandName {
+    font-size: 1.9rem;
+  }
+  .main {
+    padding: 26px 18px 70px;
+  }
+  .lede {
+    font-size: 1.2rem;
+  }
+  .wide {
+    display: none;
+  }
+  .narrow {
+    display: inline;
+  }
+  .station:nth-child(even) {
+    padding-inline-start: 46px;
+  }
+  .signLabel {
+    font-size: 1.65rem;
+  }
+  .tree {
+    inset-inline-start: auto;
+    inset-inline-end: -4px;
+    top: 232px;
+    width: 64px;
+    height: 64px;
+  }
+  .ruin {
+    display: none;
+  }
+  .legend {
+    padding: 18px 14px 12px;
+  }
+  .legendTitle {
+    font-size: 2rem;
+  }
+  .legendGrid {
+    grid-template-columns: 1fr;
+  }
+  .lockupName {
+    font-size: 3.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-anim] .draw,
+  .root[data-anim] .station,
+  .root[data-anim] .margin,
+  .root[data-anim] .doodle,
+  .root[data-anim] .underline path {
+    animation: none;
+    opacity: revert-layer;
+    stroke-dashoffset: 0;
+  }
+  .rock,
+  .sign,
+  .signBtn,
+  .legendIcon {
+    transition: none;
+  }
+}
