@@ -171,3 +171,120 @@ export function InkArrow(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/**
+ * הלוגו המלא (בקשת הבעלים, 12.11): האבן והכיתוב מחוברים. שביל מקווקו יוצא מהאבן ומתפתל מאחורי
+ * האותיות, למעלה ולמטה; דוכיפת (הציפור הלאומית) עומדת על ראש האבן; וכלנית (הפרח הלאומי) צומחת
+ * בקצה השביל. לאותיות יש הילה בצבע הנייר, כך שהשביל נראה עובר מאחוריהן.
+ */
+export function InkLockup({ height = 60, ...rest }: { height?: number } & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 320 124"
+      height={height}
+      width={(height * 320) / 124}
+      role="img"
+      aria-label="אבן דרך למורי דרך"
+      {...rest}
+    >
+      {/* the trail: out of the stone, behind the letters, down to the flower */}
+      <path
+        d="M257 98C246 101 238 90 224 87S200 95 180 88 152 80 130 87 98 95 78 87 50 81 38 91 27 99 24 104"
+        fill="none"
+        stroke="var(--t-red, #b5382a)"
+        strokeWidth="3.4"
+        strokeDasharray="7 6"
+        strokeLinecap="round"
+        filter="url(#ink200)"
+      />
+
+      {/* the anemone at the end of the trail */}
+      <g filter="url(#ink64)" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 122C21 112 24 104 22 96" fill="none" stroke="var(--t-green, #4f7a2e)" strokeWidth="2.2" />
+        <path d="M22 112c-5-1-8-4-10-8M22 108c5 0 8-3 10-7M22 116c-4 1-7 0-9-2" fill="none" stroke="var(--t-green, #4f7a2e)" strokeWidth="1.6" />
+        <g fill="var(--t-red, #b5382a)" stroke="currentColor" strokeWidth="1.1">
+          <ellipse cx="22" cy="80" rx="5" ry="8" />
+          <ellipse cx="22" cy="80" rx="5" ry="8" transform="rotate(60 22 88)" />
+          <ellipse cx="22" cy="80" rx="5" ry="8" transform="rotate(120 22 88)" />
+          <ellipse cx="22" cy="80" rx="5" ry="8" transform="rotate(180 22 88)" />
+          <ellipse cx="22" cy="80" rx="5" ry="8" transform="rotate(240 22 88)" />
+          <ellipse cx="22" cy="80" rx="5" ry="8" transform="rotate(300 22 88)" />
+        </g>
+        <circle cx="22" cy="88" r="4.6" fill="#fbf6e6" stroke="currentColor" strokeWidth="0.8" />
+        <circle cx="22" cy="88" r="3" fill="#1d150d" />
+      </g>
+
+      {/* the words, with a paper halo so the trail passes behind them */}
+      <g
+        fill="currentColor"
+        stroke="var(--halo, #f6edd0)"
+        strokeWidth="5"
+        strokeLinejoin="round"
+        paintOrder="stroke"
+        textAnchor="start"
+        style={{ direction: "rtl" }}
+      >
+        <text x="244" y="76" fontSize="66" style={{ fontFamily: "var(--font-hand)" }}>
+          אבן דרך
+        </text>
+        <text x="236" y="112" fontSize="27" fontWeight="700" strokeWidth="5" style={{ fontFamily: "var(--font-note)" }}>
+          למורי דרך
+        </text>
+      </g>
+
+      {/* the milestone */}
+      <g transform="translate(236 46) scale(1.22)" filter="url(#ink64)" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 53c8-2 15-3 24-3s17 1 24 3" fill="none" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M49 52l1-4M51.5 52.5l2-3.5M15 52l-1-4" fill="none" stroke="var(--t-green, #4f7a2e)" strokeWidth="1.5" />
+        <path d="M19.5 51.5v-5.2h25v5.2z" fill="var(--stone, #dcc692)" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M23.5 46.3 24.6 20C24.9 12 28 7 32 7s7.1 5 7.4 13l1.1 26.3z" fill="var(--stone, #dcc692)" stroke="currentColor" strokeWidth="2" />
+        <g transform="rotate(-4 32 21)">
+          <path d="M25.4 15.5h13.2v11H25.4z" fill="#fbf6e6" stroke="currentColor" strokeWidth="0.8" />
+          <path d="M25.4 19.2h13.2v3.7H25.4z" fill="var(--t-red, #b5382a)" />
+        </g>
+        <path d="M27.5 32h9M27.5 36h9M29 40h6" fill="none" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M37.6 44l2-2M37.4 40l2-2M37.2 36l1.9-1.9M37 32l1.7-1.7" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.75" />
+      </g>
+
+      {/* the hoopoe, standing on the stone */}
+      <g transform="translate(252 10) scale(0.86)" filter="url(#ink64)" strokeLinecap="round" strokeLinejoin="round">
+        {/* crest: a fan of feathers with black tips */}
+        <path d="M17 13 8 0 13 -1 19 1 25 0 30 4 33 9 22 15z" fill="var(--hoopoe, #d98a4a)" stroke="currentColor" strokeWidth="1.3" />
+        <path d="M8 0l1.5 3M13 -1l1 3.2M19 1l.500 3M25 0l-.500 3.4M30 4l-1.4 2.8M33 9l-2.6 1.6" fill="none" stroke="currentColor" strokeWidth="2.6" />
+        {/* body and head */}
+        <path d="M11 20c0-5 4-8 8-8s7 2 9 5c7 2 13 7 19 13l8 8-12 1c-8 1-16-1-21-5-5-3-9-8-11-14z" fill="var(--hoopoe, #d98a4a)" stroke="currentColor" strokeWidth="1.6" />
+        {/* the long curved bill */}
+        <path d="M11.5 19C5 20 -2 23 -9 29" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="16.5" cy="17.5" r="1.2" fill="currentColor" />
+        {/* barred wing and tail */}
+        <path d="M27 22l11 13M32 21l12 14M37 23l11 13" fill="none" stroke="#1d150d" strokeWidth="3" />
+        <path d="M29.5 21.5l11.5 13.5M34.5 22l11.5 13.5" fill="none" stroke="#fbf6e6" strokeWidth="1.5" />
+        <path d="M47 36l9 9-11-1z" fill="#1d150d" stroke="currentColor" strokeWidth="1" />
+        <path d="M26 39v6M31 40v5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      </g>
+    </svg>
+  );
+}
+
+/** Sun and moon for the light/dark switch, in the same pen. */
+export function InkSun(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeLinecap="round" aria-hidden {...props}>
+      <g filter="url(#ink24)" strokeWidth="1.6">
+        <circle cx="12" cy="12" r="4.2" />
+        <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3 7 7M17 17l1.7 1.7M18.7 5.3 17 7M7 17l-1.7 1.7" />
+      </g>
+    </svg>
+  );
+}
+
+export function InkMoon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
+      <g filter="url(#ink24)" strokeWidth="1.6">
+        <path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" />
+        <path d="M16.5 5.5v2M15.5 6.5h2" />
+      </g>
+    </svg>
+  );
+}

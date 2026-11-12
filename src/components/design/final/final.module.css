@@ -13,7 +13,7 @@
   --rock: #d9c497;
   --rock-dark: #b0986a;
   --topo-ink: #8a5d2a;
-  --topo-alpha: 0.27;
+  --topo-alpha: 0.34;
   --t-red: #b5382a;
   --t-blue: #2a5a8c;
   --t-green: #4f7a2e;
@@ -34,11 +34,14 @@
   color: var(--ink);
   font-size: 1.125rem;
   /* an old map sheet: lighter where it was handled, browner toward the edges */
+  /* the paper's grain is part of the sheet itself (background-blend), so it costs nothing to draw */
+  --tex: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23c)'/><rect width='100%' height='100%' fill='%23fff' opacity='.93'/></svg>");
   background:
     radial-gradient(75% 55% at 78% 8%, rgb(255 247 214 / 0.75), transparent 62%),
-    radial-gradient(60% 45% at 10% 60%, rgb(79 122 46 / 0.13), transparent 70%),
     radial-gradient(130% 95% at 50% 45%, transparent 55%, rgb(150 105 45 / 0.28) 100%),
+    var(--tex) 0 0 / 420px 420px,
     var(--ground);
+  background-blend-mode: normal, normal, multiply, normal;
   scrollbar-color: var(--sign) var(--ground-edge);
   color-scheme: light;
 }
@@ -70,7 +73,9 @@
   background:
     radial-gradient(70% 50% at 76% 10%, rgb(255 200 120 / 0.2), transparent 65%),
     radial-gradient(130% 95% at 50% 45%, transparent 50%, rgb(10 6 2 / 0.5) 100%),
+    var(--tex) 0 0 / 420px 420px,
     var(--ground);
+  background-blend-mode: normal, normal, multiply, normal;
   color-scheme: dark;
 }
 
@@ -87,27 +92,11 @@
 
 /* ---------- the sheet: contours, paper grain, fold creases, neatline ---------- */
 
-.topo,
-.paper,
 .creases,
 .neat {
   position: fixed;
   inset: 0;
   pointer-events: none;
-}
-
-.topo {
-  background: var(--topo-ink);
-  opacity: var(--topo-alpha);
-  mask: var(--topo) 30% 40% / max(1500px, 150vw) auto no-repeat;
-  -webkit-mask: var(--topo) 30% 40% / max(1500px, 150vw) auto no-repeat;
-}
-
-.paper {
-  opacity: var(--grain);
-  mix-blend-mode: multiply;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>");
-  background-size: 420px 420px;
 }
 
 /* where the map was folded: 2 by 3 on a phone, 4 by 2 on a desk (the same grid FoldIntro folds along) */
@@ -219,24 +208,40 @@
 
 .logo {
   flex: none;
+  --halo: var(--paper);
+  overflow: visible;
 }
 
-.brandText {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.brandName {
-  font-family: var(--font-hand);
-  font-size: 2.15rem;
-}
-
-.brandSub {
-  font-family: var(--font-note);
+/* the light/dark switch: sun by night, moon by day */
+.theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  color: var(--ink);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--ink-dim);
+  justify-content: center;
+}
+
+.theme:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.sun {
+  display: none;
+}
+
+:global([data-theme="dark"]) .sun {
+  display: inline;
+}
+
+:global([data-theme="dark"]) .moon {
+  display: none;
 }
 
 .nav {
@@ -302,7 +307,7 @@
   column-gap: 64px;
   row-gap: 22px;
   align-items: start;
-  margin-bottom: 64px;
+  margin-bottom: 20px;
 }
 
 .greet {
@@ -435,16 +440,6 @@
   display: none;
 }
 
-.steps {
-  position: absolute;
-  inset: -20px -40px;
-  width: calc(100% + 80px);
-  height: calc(100% + 40px);
-  color: var(--steps);
-  opacity: var(--steps-alpha);
-  pointer-events: none;
-}
-
 .doodle {
   position: absolute;
   color: var(--ink);
@@ -468,8 +463,8 @@
 
 .margin {
   position: absolute;
-  top: -34px;
-  inset-inline-start: 104px;
+  top: -40px;
+  inset-inline-start: 150px;
   margin: 0;
   display: flex;
   align-items: flex-end;
@@ -505,65 +500,46 @@
   padding-inline-start: 90px;
 }
 
-.stationLink {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.rock {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 80px;
-  height: 66px;
-  border-radius: 48% 52% 40% 60% / 58% 50% 50% 42%;
-  background:
-    radial-gradient(60% 50% at 35% 28%, rgb(255 255 255 / 0.4), transparent 70%),
-    linear-gradient(160deg, var(--rock), var(--rock-dark));
-  box-shadow:
-    0 0 0 1.5px color-mix(in srgb, var(--ink) 70%, transparent),
-    0 12px 14px -10px rgb(20 12 4 / 0.65),
-    inset 0 -6px 0 rgb(0 0 0 / 0.1);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.rockBlaze {
-  width: 32px;
-  height: 25px;
-  transform: rotate(-6deg);
-}
-
-/* the brown site sign at each station */
+/* the brown site sign at each station: the trail runs behind it */
 .sign {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 12px 18px;
-  border-radius: 8px;
+  min-width: 236px;
+  padding: 13px 20px;
+  border-radius: 9px;
   background: var(--sign);
   color: var(--sign-ink);
+  text-decoration: none;
   box-shadow:
     inset 0 0 0 3px var(--sign),
     inset 0 0 0 5px var(--sign-ink),
-    0 12px 18px -12px rgb(20 12 4 / 0.7);
+    0 14px 18px -12px rgb(20 12 4 / 0.75);
+  transform: rotate(-1.2deg);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.station:nth-child(even) .sign {
+  transform: rotate(1deg);
+}
+
+.sign:hover,
+.sign:focus-visible {
+  transform: translateY(-4px) rotate(0deg) scale(1.03);
 }
 
 .signLabel {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   font-family: var(--font-sign);
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 2.1rem;
   line-height: 1.05;
 }
 
 .signDetail {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: color-mix(in srgb, var(--sign-ink) 88%, transparent);
   font-variant-numeric: tabular-nums;
@@ -578,14 +554,29 @@
   font-weight: 800;
 }
 
-.stationLink:hover .rock,
-.stationLink:focus-visible .rock {
-  transform: translateY(-4px) rotate(-3deg);
+/* ---------- background zones ---------- */
+
+.trailTopo {
+  inset: -90px -150px -70px -110px;
+  --topo-size: 1300px;
+  --topo-at: 62% 30%;
 }
 
-.stationLink:hover .sign,
-.stationLink:focus-visible .sign {
-  transform: translateX(-6px) rotate(-1deg);
+.band {
+  position: relative;
+  height: 150px;
+  margin: -8px 0 4px;
+}
+
+.bandTall {
+  height: 250px;
+  margin: 26px 0 0;
+}
+
+.fill {
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 /* ---------- the legend ---------- */
@@ -707,30 +698,31 @@
 /* ---------- the logo lockup at the foot of the sheet ---------- */
 
 .lockup {
+  position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-top: 56px;
+  padding: 26px 0 120px;
   color: var(--ink);
 }
 
-.lockupText {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
+.lockupMark {
+  --halo: var(--ground);
+  position: relative;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-.lockupName {
-  font-family: var(--font-hand);
-  font-size: 4.4rem;
+.lockupBirds {
+  top: -34px;
+  inset-inline-end: 4%;
+  width: 230px;
 }
 
-.lockupSub {
-  font-family: var(--font-note);
-  font-weight: 700;
-  font-size: 1.6rem;
-  color: var(--ink-dim);
+.lockupTracks {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 130px;
 }
 
 /* ---------- the trail draws itself once the map lies flat ---------- */
@@ -807,6 +799,17 @@
   }
 }
 
+/* background zones come in as the reader scrolls to them */
+@media (prefers-reduced-motion: no-preference) {
+  .root [data-zone] {
+    transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .root [data-zone="wait"] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
 /* ---------- small screens ---------- */
 
 @media (max-width: 1000px) {
@@ -848,8 +851,35 @@
     padding: 10px 16px 6px;
     gap: 10px;
   }
-  .brandName {
-    font-size: 1.9rem;
+  .logo {
+    height: 54px;
+    width: auto;
+  }
+  .themeText {
+    display: none;
+  }
+  .signBtn {
+    padding: 0 14px;
+  }
+  .trailTopo {
+    inset: -60px -18px -40px -18px;
+    --topo-size: 1100px;
+  }
+  .band {
+    height: 110px;
+  }
+  .bandTall {
+    height: 200px;
+    overflow: hidden;
+  }
+  /* on a phone the survey marks are shown larger, centred on the middle summit */
+  .bandTall .fill {
+    width: 200%;
+    inset-inline-start: -44%;
+  }
+  .lockupBirds {
+    width: 150px;
+    top: -20px;
   }
   .main {
     padding: 26px 18px 70px;
@@ -888,9 +918,6 @@
   .legendGrid {
     grid-template-columns: 1fr;
   }
-  .lockupName {
-    font-size: 3.4rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -903,7 +930,6 @@
     opacity: revert-layer;
     stroke-dashoffset: 0;
   }
-  .rock,
   .sign,
   .signBtn,
   .legendIcon {
