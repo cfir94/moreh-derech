@@ -1,6 +1,8 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SectionCard } from "@/components/SectionCard";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageHead, SectionHead, StepRoad, TrailPage } from "@/components/trail/kit";
 import { REPORTS } from "@/data/guide-reports";
 import { FEATURED_RESOURCES } from "@/data/resources";
 import { ResourceCredit, ResourceList } from "@/components/ResourceList";
@@ -61,7 +63,7 @@ const PRACTICE_CARDS = [
     title: "טיוטות שמורות",
     description:
       "הטיוטות שלכם נשמרות במכשיר, מופרדות לפי חשבון אם התחברתם.",
-    meta: "localStorage",
+    meta: "נשמרות במכשיר ובחשבון",
   },
 ];
 
@@ -72,39 +74,37 @@ export const metadata = pageMeta({
 });
 
 export default function GuideReportsPage() {
+  const drafts = PRACTICE_CARDS.find((c) => c.href.endsWith("/drafts"));
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
-      <header className="screen-in mb-8">
-        <h1 className="grad-text mb-2 text-3xl">דוחות הדרכה</h1>
-        <p className="max-w-2xl leading-relaxed text-txt-dim">
-          ללמוד לכתוב דו״ח סיור בפורמט שדורש הקורס ומשרד התיירות, לראות דוגמאות
-          ממולאות, ולהתאמן לקראת מבחן הרישוי — שבו מתבקשים לבנות יום סיור ולכתוב
-          דו״ח כזה.
-        </p>
-      </header>
+    <TrailPage>
+      <PageHead
+        title="דוחות הדרכה"
+        art={<InkIcon name="guide-reports" size={112} />}
+        lede="ללמוד לכתוב דו״ח סיור בפורמט של הקורס ומשרד התיירות, לראות דוגמאות ממולאות, ולהתאמן לקראת חלק ב׳ של מבחן הרישוי."
+      />
 
-      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        תרגול
-      </h2>
-      <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {PRACTICE_CARDS.map((c, i) => (
-          <SectionCard key={c.href} index={i} {...c} />
-        ))}
+      <div className="mb-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <section aria-labelledby="gr-road">
+          <SectionHead id="gr-road" title="הדרך, שלב אחר שלב" />
+          <StepRoad
+            steps={[
+              ...LEARN_CARDS.map((c) => ({ href: c.href, title: c.title, description: c.description })),
+              ...PRACTICE_CARDS.filter((c) => !c.href.endsWith("/drafts"))
+                .slice()
+                .reverse()
+                .map((c) => ({ href: c.href, title: c.title, description: c.description })),
+            ]}
+          />
+        </section>
+        {drafts && (
+          <aside aria-label="טיוטות" className="lg:pt-16">
+            <SectionCard {...drafts} index={1} />
+          </aside>
+        )}
       </div>
 
-      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        לימוד ודוגמאות
-      </h2>
-      <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {LEARN_CARDS.map((c, i) => (
-          <SectionCard key={c.href} index={i} {...c} />
-        ))}
-      </div>
-
-      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        דוגמאות דו״ח
-      </h2>
-      <div className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <SectionHead title="דוגמאות דו״ח" />
+      <div className="mb-12 grid gap-5 sm:grid-cols-2">
         {REPORTS.map((r, i) => (
           <SectionCard
             key={r.slug}
@@ -118,15 +118,13 @@ export default function GuideReportsPage() {
         ))}
       </div>
 
-      <h2 className="mb-3 text-sm font-bold tracking-[0.05em] text-txt-dim">
-        דוחות ומסלולים מוכנים ברשת
-      </h2>
+      <SectionHead title="דוחות ומסלולים מוכנים ברשת" />
       <div className="mb-10">
         <ResourceList items={EXTERNAL_REPORTS} slug="guide-reports" />
         <ResourceCredit className="mt-2.5" />
       </div>
 
-      <div className="rounded-lg border border-line bg-card p-5 text-[13px] leading-relaxed text-txt-dim">
+      <div className="max-w-3xl rounded-[5px] bg-[var(--paper)] p-5 text-[1.05rem] leading-relaxed text-txt-dim shadow-[0_0_0_1px_var(--line),var(--shadow)]">
         <p className="mb-2 font-extrabold text-txt">איך להתחיל</p>
         <p className="mb-2">
           מומלץ קודם{" "}
@@ -150,6 +148,6 @@ export default function GuideReportsPage() {
           הרישוי (תכנון מסלול לפי קבוצה).
         </p>
       </div>
-    </div>
+    </TrailPage>
   );
 }

@@ -1,0 +1,151 @@
+/* עיוני: תוכן העניינים של מחברת השדה. ראו docs/design/REDESIGN.md, סעיף 3.2. */
+
+.groupHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 14px;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px dashed color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.groupTitle {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.groupNote {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--ink-dim);
+}
+
+.topic {
+  scroll-margin-top: 96px;
+  padding: 16px 18px;
+  border-radius: 5px;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--frame) 35%, transparent),
+    0 14px 20px -16px rgb(20 12 4 / 0.6);
+}
+
+@media (min-width: 768px) {
+  .topic {
+    display: grid;
+    grid-template-columns: 16rem 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 22px;
+  }
+}
+
+.mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  color: var(--ink);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink) 50%, transparent);
+}
+
+.topicTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.button {
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 45%, transparent);
+  color: var(--ink);
+  font-size: 1.06rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.3s var(--lift-ease), background 0.2s;
+}
+
+@media (min-width: 640px) {
+  .button {
+    display: inline-flex;
+    width: auto;
+    justify-content: flex-start;
+    padding: 6px 16px;
+  }
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-3px) rotate(-1deg);
+  background: color-mix(in srgb, var(--ground) 45%, transparent);
+}
+
+.menu {
+  display: flex;
+  min-width: 15rem;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 5px;
+  background: var(--paper);
+  list-style: none;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--frame) 45%, transparent),
+    0 24px 30px -18px rgb(20 12 4 / 0.7);
+}
+
+@media (min-width: 640px) {
+  .menu {
+    position: absolute;
+    z-index: 30;
+  }
+}
+
+.menuItem {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--ink);
+  font-size: 1.08rem;
+  text-decoration: none;
+}
+
+.menuItem:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.groupArt {
+  display: none;
+  gap: 10px;
+  margin-inline-start: auto;
+  color: var(--ink);
+  opacity: 0.55;
+}
+
+@media (min-width: 900px) {
+  .groupArt {
+    display: inline-flex;
+  }
+}

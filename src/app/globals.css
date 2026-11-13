@@ -179,6 +179,8 @@ body {
   background-blend-mode: normal, normal, multiply, normal;
   background-attachment: fixed;
   font-size: 1.0625rem;
+  /* a drawing in the margin must never make the page scroll sideways */
+  overflow-x: clip;
   /* a solid colour under the washes, so contrast checkers (and browsers that
      drop fixed backgrounds) see the real ground and not white */
   background-color: var(--bg);
@@ -200,6 +202,8 @@ h3 {
 .grad-text {
   font-family: var(--font-hand);
   font-weight: 400;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  line-height: 1.12;
   letter-spacing: 0;
   color: var(--ink);
 }

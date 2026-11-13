@@ -3,6 +3,7 @@ import Link from "next/link";
 import { withBasePath } from "@/lib/basePath";
 import { SITES, ROWS, PERIODS } from "@/data/learning-map";
 import styles from "./MapChooser.module.css";
+import { PenUnderline } from "@/components/trail/kit";
 
 
 // one dot per period, scattered over the land in the card's art
@@ -23,6 +24,7 @@ export default function MapChooserPage() {
     <div className={`screen-in ${styles.page}`}>
       <header className={styles.head}>
         <h1 className="grad-text">מפה</h1>
+        <PenUnderline />
         <p>שתי מפות לשתי מטרות: אחת ללמוד את האתרים לקראת המבחן, ואחת לתכנן יום בשטח.</p>
       </header>
 
@@ -49,7 +51,7 @@ export default function MapChooserPage() {
             <span className={styles.meta}>
               {SITES.length} אתרים · {ROWS.length} שלבי בנייה · מפת ירושלים מוגדלת
             </span>
-            <span className={styles.go}>לפתוח את מפת הלמידה ←</span>
+            <span className={styles.go}>לפתוח את מפת הלמידה</span>
           </span>
         </Link>
 
@@ -69,7 +71,7 @@ export default function MapChooserPage() {
               מפת השטח המלאה: שכבות של אזורים, גיאולוגיה, טבע ואתרי ביקור, בניית מסלול ואיתור מה שקרוב אליכם — עובדת גם בלי רשת.
             </span>
             <span className={styles.meta}>מפה וקטורית · עובדת אופליין</span>
-            <span className={styles.go}>לפתוח את מפת השטח ←</span>
+            <span className={styles.go}>לפתוח את מפת השטח</span>
           </span>
         </Link>
       </div>

@@ -1,3 +1,6 @@
+import { InkIcon } from "@/components/trail/Ink";
+import { Chip, PageHead, TrailPage } from "@/components/trail/kit";
+import { TOPIC_HUB } from "@/data/topic-hub";
 import { pageMeta } from "@/lib/seo";
 import { TopicHub } from "@/components/topics/TopicHub";
 
@@ -9,14 +12,16 @@ export const metadata = pageMeta({
 
 export default function TopicsPage() {
   return (
-    <div className="screen-in mx-auto max-w-5xl px-4 py-8">
-      <header className="mb-8">
-        <h1 className="grad-text text-4xl leading-tight font-black">עיוני</h1>
-        <p className="mt-2 max-w-2xl text-lg leading-relaxed text-txt-dim">
-          כל נושאי הלימוד העיוני. בוחרים נושא, ולוחצים על מה שרוצים: שאלון, מאגר מידע, סיכום, עזר למידה או משחק.
-        </p>
-      </header>
+    <TrailPage>
+      <PageHead title="עיוני" art={<InkIcon name="resources" size={112} />} lede="כל נושאי הלימוד העיוני. בוחרים נושא, ולוחצים על מה שרוצים: שאלון, מאגר מידע, סיכום, עזר למידה או משחק." />
+      <nav aria-label="קבוצות נושאים" className="mb-10 flex flex-wrap gap-2.5">
+        {TOPIC_HUB.map((g) => (
+          <Chip key={g.id} href={`#hub-${g.id}`}>
+            {g.title}
+          </Chip>
+        ))}
+      </nav>
       <TopicHub />
-    </div>
+    </TrailPage>
   );
 }

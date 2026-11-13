@@ -265,3 +265,33 @@ export function PenGrade({ children, label }: { children: ReactNode; label?: str
     </span>
   );
 }
+
+/**
+ * Steps on a trail: an ordered list of stations along a dashed red path, each a numbered node in the
+ * guide's hand and a sheet of paper that links on. For things that have a learning order.
+ */
+export function StepRoad({
+  steps,
+}: {
+  steps: { href: string; title: string; description?: ReactNode; meta?: ReactNode; icon?: FieldIconName }[];
+}) {
+  return (
+    <ol className={k.road}>
+      {steps.map((st, i) => (
+        <li key={st.href} className={k.step}>
+          <span aria-hidden className={k.stepNode}>
+            {i + 1}
+          </span>
+          <Link href={st.href} className={cx(k.paper, k.paperLink, k.tilt, i % 2 === 1 && k.tiltAlt, k.stepCard)}>
+            <span className={k.stepTitle}>
+              {st.icon && <InkIcon name={st.icon} size={28} />}
+              {st.title}
+            </span>
+            {st.description && <span className={k.stepDesc}>{st.description}</span>}
+            {st.meta && <span className={cx(k.stepMeta, "pencil")}>{st.meta}</span>}
+          </Link>
+        </li>
+      ))}
+    </ol>
+  );
+}
