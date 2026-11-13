@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { domainOf } from "@/lib/domains";
+import { domainOf, domainStyle } from "@/lib/domains";
 import { InkIcon } from "@/components/trail/Ink";
 import { Blazes, Stamp } from "@/components/trail/kit";
 import s from "./sectionCard.module.css";
@@ -34,19 +34,22 @@ export function SectionCard({
   return (
     <Link
       href={href}
-      style={{ animationDelay: `${0.02 + index * 0.04}s` }}
+      style={{ ...domainStyle(slug), animationDelay: `${0.02 + index * 0.04}s` }}
       className={`screen-in ${s.card} ${index % 2 ? s.alt : ""}`}
     >
       <div className={s.top}>
         <span aria-hidden className={s.mark}>
-          <InkIcon name={ink} size={30} />
+          <InkIcon name={ink} size={36} />
         </span>
-        {badge && (
+        {badge ? (
           <Stamp tone={badge === "רשמי" ? "blue" : badge === "לא רשמי" ? "red" : "brown"}>{badge}</Stamp>
+        ) : (
+          // a painted trail blaze in the subject's colour: white, colour, white
+          <span aria-hidden className={s.blaze} />
         )}
       </div>
 
-      <h3 className={s.title}>{title}</h3>
+      <h3 className={`${s.title} ${title.length <= 22 ? s.hand : ""}`}>{title}</h3>
       <p className={s.desc}>{description}</p>
 
       {progress ? (

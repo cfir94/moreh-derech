@@ -39,7 +39,7 @@ export default function QuizzesPage() {
     <TrailPage>
       <PageHead
         title="מאגר שאלונים"
-        art={<InkIcon name="quizzes" size={112} />}
+        art={<InkIcon name="quizzes" size={72} />}
         lede={
           <>
             <span className="num">{totalQuestions.toLocaleString("he-IL")}</span> שאלות אמריקאיות מחומר הבחינה,

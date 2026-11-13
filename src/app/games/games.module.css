@@ -1,0 +1,201 @@
+/* קופסת המשחקים: לכל משחק דף משלו עם איור משלו. */
+
+.featured {
+  position: relative;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  align-items: center;
+  gap: 26px;
+  margin-bottom: 44px;
+  padding: 22px 28px;
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--frame) 40%, transparent),
+    0 20px 28px -18px rgb(20 12 4 / 0.65);
+  transform: rotate(-0.5deg);
+  transition: transform 0.35s var(--lift-ease), box-shadow 0.35s;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 34px 30px;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  padding: 20px 22px 18px;
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--frame) 38%, transparent),
+    0 16px 22px -16px rgb(20 12 4 / 0.6);
+  transform: rotate(var(--tilt, -0.6deg));
+  transition: transform 0.35s var(--lift-ease), box-shadow 0.35s;
+}
+
+.card:nth-child(even) {
+  --tilt: 0.7deg;
+}
+.card:nth-child(3n) {
+  --tilt: -0.3deg;
+}
+
+.featured:hover,
+.featured:focus-visible,
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-5px) rotate(0deg);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--frame) 50%, transparent),
+    0 26px 30px -18px rgb(20 12 4 / 0.7);
+}
+
+/* a strip of tape holds each sheet to the map */
+.featured::before,
+.card::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  inset-inline-start: 44%;
+  width: 78px;
+  height: 22px;
+  rotate: -3deg;
+  background: color-mix(in srgb, #e9dfb8 72%, transparent);
+  box-shadow: 0 1px 2px rgb(20 12 4 / 0.2);
+}
+
+.card:nth-child(even)::before {
+  inset-inline-start: 22%;
+  rotate: 4deg;
+}
+
+:global([data-theme="dark"]) .featured::before,
+:global([data-theme="dark"]) .card::before {
+  background: color-mix(in srgb, #c9b98a 45%, transparent);
+}
+
+.art {
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+  transition: transform 0.45s var(--lift-ease);
+}
+
+.featured:hover .art,
+.card:hover .art {
+  transform: rotate(-4deg) scale(1.06);
+}
+
+.title {
+  margin: 0 0 4px;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 2.3rem;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.featured .title {
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+}
+
+.desc {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 12px;
+}
+
+.meta {
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+.go {
+  display: inline-block;
+  padding: 7px 18px;
+  border-radius: 7px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow:
+    inset 0 0 0 2.5px var(--sign),
+    inset 0 0 0 4px var(--sign-ink),
+    0 8px 14px -10px rgb(20 12 4 / 0.7);
+  transform: rotate(-1.5deg);
+}
+
+.stamp {
+  position: absolute;
+  top: 14px;
+  inset-inline-end: 16px;
+}
+
+/* the margins: a walk across the page, and the map's contours behind the head */
+.steps {
+  position: relative;
+  height: 150px;
+  margin-top: 26px;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .featured,
+  .card {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px;
+    padding: 18px 16px 16px;
+  }
+  .title {
+    font-size: 1.9rem;
+  }
+  .featured .title {
+    font-size: 2.2rem;
+  }
+  .desc {
+    font-size: 1.05rem;
+  }
+  .stamp {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured,
+  .card,
+  .art {
+    transition: none;
+  }
+}

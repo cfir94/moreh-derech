@@ -38,7 +38,7 @@ export default function ExamsPage() {
     <TrailPage>
       <PageHead
         title="מבחן מלא"
-        art={<InkIcon name="exams" size={112} />}
+        art={<InkIcon name="exams" size={72} />}
         lede={
           <>
             <span className="num">{official.length + derived.length}</span> מועדי מבחן של משרד התיירות ועוד{" "}

@@ -79,7 +79,7 @@ export default function GuideReportsPage() {
     <TrailPage>
       <PageHead
         title="דוחות הדרכה"
-        art={<InkIcon name="guide-reports" size={112} />}
+        art={<InkIcon name="guide-reports" size={72} />}
         lede="ללמוד לכתוב דו״ח סיור בפורמט של הקורס ומשרד התיירות, לראות דוגמאות ממולאות, ולהתאמן לקראת חלק ב׳ של מבחן הרישוי."
       />
 

@@ -224,7 +224,7 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink) 55%, transparent);
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 55%, transparent);
 }
 
 .legendName {
