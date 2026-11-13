@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AidHeader, AidSearch, AidTabs, PracticeDeck, SummaryCard, useHashTab, type PracticeItem } from "@/components/learning-aid";
+import { AidHeader, AidSearch, AidTabs, PracticeDeck, useHashTab, type PracticeItem } from "@/components/learning-aid";
+import { JesusRoad, type ChapterArt } from "@/components/design/final/JesusTimeline";
+import { InkIcon } from "@/components/trail/Ink";
 import { matchesTempleQuery } from "@/data/second-temple";
 import timelines from "@/data/timelines/egypt-canaan";
 import { domainStyle } from "@/lib/domains";
 
 const timeline = timelines[0];
+/** Each chapter's mark on the road: a jar for Egypt and Canaan, a milestone for the beginnings of Israel. */
+const MARKS: ChapterArt["mark"][] = [(p) => <InkIcon {...p} name="jar" />, (p) => <InkIcon {...p} name="milestone" />];
 const groups = [{ id: "egypt", label: "מצרים" }, { id: "israel", label: "ראשית ישראל" }] as const;
 const tabIds = [...groups.map(({ id }) => id), "practice"] as const;
 type TabId = (typeof tabIds)[number];
@@ -38,17 +42,26 @@ export function EgyptCanaanTimeline() {
     if (match?.kind === "egypt" || match?.kind === "israel") selectTab(match.kind);
   };
 
+  const chapter = groups.findIndex((group) => group.id === tab);
+  const numberFrom = 1 + (chapter > 0 ? timeline.events.filter((event) => event.kind === groups[0].id).length : 0);
+
   return <main dir="rtl" className="mx-auto max-w-6xl space-y-4 px-4 py-6" style={domainStyle("egypt-canaan")} data-egypt-canaan-timeline>
     <AidHeader slug="egypt-canaan" title={timeline.title} subtitle={timeline.subtitle} stats={`${timeline.events.length} אירועים · ${groups.length} חלקים`} />
-    <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start lg:gap-5">
-      <AidTabs tabs={tabs} active={tab} onSelect={selectTab} />
-      <section role="tabpanel" className="screen-in min-w-0 space-y-4 pt-4 lg:pt-0" key={tab}>
-        {tab === "practice" ? <PracticeDeck quizSlug="egypt-canaan" label="מצרים וכנען: תרגול" items={practice} /> : <>
-          <AidSearch value={query} onChange={search} placeholder="חיפוש באירועים…" />
-          <div className="grid gap-4 xl:grid-cols-2">{events.map((event) => <SummaryCard key={event.id} id={event.id} title={event.title} date={event.reference} summary={event.body} tags={event.disputed ? ["במחלוקת"] : []}>{event.takeaway && <p><strong className="text-txt">למבחן: </strong>{event.takeaway}</p>}</SummaryCard>)}</div>
-          {!events.length && <p className="rounded-lg border border-line bg-card p-5 text-center text-txt-dim">לא נמצאו תוצאות.</p>}
-        </>}
-      </section>
-    </div>
+    <AidTabs row tabs={tabs} active={tab} onSelect={selectTab} />
+    <section role="tabpanel" className="screen-in min-w-0 space-y-4 pt-2" key={tab}>
+      {tab === "practice" ? <PracticeDeck quizSlug="egypt-canaan" label="מצרים וכנען: תרגול" items={practice} /> : <>
+        <div className="mx-auto max-w-xl"><AidSearch value={query} onChange={search} placeholder="חיפוש באירועים…" /></div>
+        {events.length > 0 && <JesusRoad
+          timelines={[{ id: tab, title: groups[chapter].label, subtitle: "", events }]}
+          chapterIndex={chapter}
+          total={groups.length}
+          numberFrom={numberFrom}
+          decor={false}
+          marks={MARKS}
+          takeawayLabel="למבחן:"
+        />}
+        {!events.length && <p className="rounded-[5px] bg-[var(--paper)] p-5 text-center text-lg text-txt-dim shadow-[0_0_0_1px_var(--line)]">לא נמצאו תוצאות.</p>}
+      </>}
+    </section>
   </main>;
 }

@@ -5,6 +5,7 @@ import { useHomeData } from "../useHomeData";
 import { InkBoat, InkCalvary, InkChalice, InkCross, InkDove, InkFish, InkPalm, InkShip, InkStar, InkTomb } from "@/components/trail/decor/christian";
 import { FinalFrame } from "./FinalHome";
 import { InkTree } from "@/components/trail/Ink";
+import { Stamp } from "@/components/trail/kit";
 import { Birds, Prints, TopoPatch, Waypoints } from "@/components/trail/Zones";
 import s from "./jesus.module.css";
 
@@ -16,7 +17,7 @@ import s from "./jesus.module.css";
  * אותם כותרות, מראי מקום, תקצירים ופסוקים.
  */
 
-type ChapterArt = {
+export type ChapterArt = {
   mark: (p: React.SVGProps<SVGSVGElement>) => React.ReactElement;
   /** Drawings in the margins of this chapter, in the site's ink. */
   side: React.ReactNode;
@@ -91,6 +92,8 @@ export function JesusRoad({
   numberFrom = 1,
   decor = true,
   end = false,
+  marks,
+  takeawayLabel,
 }: {
   timelines: Timeline[];
   /** index of the first chapter given, among all the chapters (for its mark and its sign) */
@@ -100,6 +103,10 @@ export function JesusRoad({
   numberFrom?: number;
   decor?: boolean;
   end?: boolean;
+  /** each chapter's mark, for a road that is not the life of Jesus (the Christian marks are the default) */
+  marks?: ChapterArt["mark"][];
+  /** a word before the takeaway, e.g. "למבחן:" */
+  takeawayLabel?: string;
 }) {
   const offsets = timelines.map((_, i) => timelines.slice(0, i).reduce((sum, x) => sum + x.events.length, 0));
   const count = total ?? timelines.length;
@@ -108,7 +115,7 @@ export function JesusRoad({
       {timelines.map((t, i) => {
         const ci = chapterIndex + i;
         const art = ART[ci] ?? ART[0];
-        const Mark = art.mark;
+        const Mark = marks?.[ci] ?? art.mark;
         return (
           <section key={t.id} id={`ch-${t.id}`} className={s.chapter} aria-labelledby={`ch-title-${t.id}`}>
             {decor && art.side}
@@ -122,7 +129,7 @@ export function JesusRoad({
                   <h2 id={`ch-title-${t.id}`} className={s.signTitle}>
                     {t.title}
                   </h2>
-                  <span className={s.signSub}>{t.subtitle}</span>
+                  {t.subtitle && <span className={s.signSub}>{t.subtitle}</span>}
                 </span>
               </div>
             </div>
@@ -130,7 +137,7 @@ export function JesusRoad({
             <ol className={s.stops}>
               {t.events.map((e, ei) => {
                 const n = numberFrom + offsets[i] + ei;
-                const verses = Boolean(e.quote) || e.sections.length > 0;
+                const verses = Boolean(e.quote) || (e.sections?.length ?? 0) > 0;
                 return (
                   <li key={e.id} id={e.id} className={s.stop} data-zone="">
                     <span aria-hidden className={s.node}>
@@ -143,12 +150,18 @@ export function JesusRoad({
                       <h3 className={s.cardTitle}>{e.title}</h3>
                       <p className={`${s.ref} ${s.pencil}`}>{e.reference}</p>
                       <p className={s.body}>{e.body}</p>
-                      {e.takeaway && <p className={s.takeaway}>{e.takeaway}</p>}
+                      {e.disputed && <Stamp tone="red">במחלוקת</Stamp>}
+                      {e.takeaway && (
+                        <p className={s.takeaway}>
+                          {takeawayLabel && <strong>{takeawayLabel} </strong>}
+                          {e.takeaway}
+                        </p>
+                      )}
                       {verses && (
                         <details className={s.verses}>
                           <summary className={s.more}>לקרוא את הפסוקים</summary>
                           {e.quote && <blockquote className={s.quote}>{e.quote}</blockquote>}
-                          {e.sections.map((sec, si) => (
+                          {(e.sections ?? []).map((sec, si) => (
                             <section key={`${sec.reference}-${si}`} className={s.extra}>
                               <h4 className={`${s.ref} ${s.pencil}`}>{sec.reference}</h4>
                               <blockquote className={s.quote}>{sec.quote}</blockquote>
