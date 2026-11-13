@@ -4,6 +4,8 @@ import { QUIZZES, QUIZ_DESCRIPTIONS } from "@/data/quizzes";
 import { ReviewCallout } from "@/components/quiz/ReviewCallout";
 import { QuizGrid } from "@/components/quiz/QuizGrid";
 import { SectionCard } from "@/components/SectionCard";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageHead, SectionHead, TrailPage } from "@/components/trail/kit";
 
 const timelineExercises = [
   {
@@ -34,35 +36,37 @@ export default function QuizzesPage() {
   const totalQuestions = QUIZZES.reduce((s, q) => s + q.questions.length, 0);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
-      <header className="screen-in mb-7">
-        <h1 className="grad-text mb-2 text-3xl">מאגר שאלונים</h1>
-        <p className="max-w-2xl text-txt-dim">
-          <span className="num">{totalQuestions}</span> שאלות אמריקאיות מחומר
-          הבחינה, מחולקות לפי נושאים. המערכת זוכרת מה עניתם ומה טעיתם — כדי
-          שתוכלו לחזור בדיוק על מה שצריך.
-        </p>
-      </header>
+    <TrailPage>
+      <PageHead
+        title="מאגר שאלונים"
+        art={<InkIcon name="quizzes" size={112} />}
+        lede={
+          <>
+            <span className="num">{totalQuestions.toLocaleString("he-IL")}</span> שאלות אמריקאיות מחומר הבחינה,
+            לפי נושאים. המערכת זוכרת מה עניתם ומה טעיתם, כדי שתחזרו בדיוק על מה שצריך.
+          </>
+        }
+      />
 
       <ReviewCallout />
 
-      <p className="mb-4 text-[13px] text-txt-dim">
+      <p className="mb-8 text-lg text-txt-dim">
         לא בטוחים בחומר עצמו?{" "}
-        <Link href="/resources" className="font-bold text-teal hover:underline">
+        <Link href="/resources" className="font-bold text-teal underline underline-offset-4">
           לסיכומים לפי נושא
         </Link>
       </p>
 
-      <section className="mb-8">
-        <h2 className="mb-3 text-lg">תרגולי תיארוך וסדר כרונולוגי</h2>
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+      <section className="mb-10">
+        <SectionHead title="תיארוך וסדר כרונולוגי" />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {timelineExercises.map((exercise, index) => (
             <SectionCard key={exercise.slug} index={index} {...exercise} />
           ))}
         </div>
       </section>
 
-      <h2 className="mb-3 text-lg">שאלונים לפי נושא</h2>
+      <SectionHead title="שאלונים לפי נושא" />
 
       <QuizGrid
         quizzes={QUIZZES.map((q) => ({
@@ -72,6 +76,6 @@ export default function QuizzesPage() {
           total: q.questions.length,
         }))}
       />
-    </div>
+    </TrailPage>
   );
 }

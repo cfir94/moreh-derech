@@ -11,6 +11,8 @@ import { ReadingLink } from "@/components/ReadingLink";
 import { matchesAnswer } from "@/lib/answerMatching";
 import { setNoteContext } from "@/lib/notes";
 import { openNotes } from "@/components/notes/NotesDrawer";
+import { Blazes, kit as k, PenCircle, PenGrade, PenStrike, PenUnderline } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
 
 type Phase = "setup" | "running" | "results";
 type Axis = "category" | "topic";
@@ -171,7 +173,7 @@ export function QuizRunner({
   /* ---------------------------------------------------------------- setup */
 
   if (phase === "setup") {
-    const { icon } = domainOf(quiz.slug);
+    const { ink } = domainOf(quiz.slug);
 
     return (
       <div
@@ -185,39 +187,32 @@ export function QuizRunner({
           ← חזרה לעיוני
         </Link>
 
-        <div className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-6">
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-mc opacity-20 blur-[8px]"
-          />
-          <div className="relative flex items-start gap-3">
-            <span aria-hidden className="text-[34px] leading-none">
-              {icon}
-            </span>
-            <div>
-              <h1 className="mb-1 text-2xl">{quiz.label}</h1>
-              <p className="text-[13px] text-txt-dim">
-                <span className="num">{quiz.questions.length}</span> שאלות ·{" "}
-                <span className="num">{quiz.categories.length}</span> {noun.many}
-              </p>
-            </div>
-          </div>
-        </div>
+        <header className="relative mb-6">
+          <h1 className={k.title}>
+            {quiz.label}
+          </h1>
+          <PenUnderline />
+          <p className="flex items-center gap-2 text-lg text-txt-dim">
+            <InkIcon name={ink} size={26} />
+            <span className="num">{quiz.questions.length}</span> שאלות ·{" "}
+            <span className="num">{quiz.categories.length}</span> {noun.many}
+          </p>
+        </header>
 
         {quiz.notice && (
-          <p className="mb-5 rounded-md border border-line bg-card px-4 py-3 text-[12.5px] leading-relaxed text-gold">
+          <p className={k.notice}>
             {quiz.notice}
           </p>
         )}
 
-        <div className="flex flex-col gap-6 rounded-lg border border-line bg-card p-5">
+        <div className={`${k.paper} flex flex-col gap-7 p-6!`}>
           <section>
             <div className="mb-2.5 flex items-center justify-between gap-3">
-              <h2 className="text-sm font-bold tracking-[0.05em] text-txt-dim">
+              <h2 className={k.label}>
                 {axis === "topic" ? "נושא" : categoryLabel}
               </h2>
               {topics.length > 1 && (
-                <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
+                <div className={k.seg}>
                   {(
                     [
                       ["category", categoryLabel],
@@ -231,11 +226,8 @@ export function QuizRunner({
                         setAxis(value);
                         setCategory("הכל");
                       }}
-                      className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-bold transition ${
-                        axis === value
-                          ? "bg-sheet text-txt shadow-[var(--shadow)]"
-                          : "text-txt-dim hover:text-txt"
-                      }`}
+                      aria-pressed={axis === value}
+                      className={`${k.chip} ${axis === value ? k.chipOn : ""}`}
                     >
                       לפי {label}
                     </button>
@@ -264,19 +256,8 @@ export function QuizRunner({
                     key={c}
                     type="button"
                     onClick={() => setCategory(c)}
-                    className={`rounded-full border px-4 py-2.5 text-sm font-bold transition active:scale-95 ${
-                      active
-                        ? "border-transparent text-on-accent"
-                        : "border-line bg-card-2 text-txt hover:bg-card"
-                    }`}
-                    style={
-                      active
-                        ? {
-                            background:
-                              "linear-gradient(135deg, var(--teal), var(--blue))",
-                          }
-                        : undefined
-                    }
+                    aria-pressed={active}
+                    className={`${k.chip} ${active ? k.chipOn : ""}`}
                   >
                     {label}{" "}
                     <span className={`num ${active ? "opacity-70" : "text-txt-dim"}`}>
@@ -289,10 +270,10 @@ export function QuizRunner({
           </section>
 
           <section>
-            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+            <h2 className={k.label}>
               סדר השאלות
             </h2>
-            <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
+            <div className={k.seg}>
               {(
                 [
                   ["shuffled", "מעורבב"],
@@ -303,11 +284,8 @@ export function QuizRunner({
                   key={value}
                   type="button"
                   onClick={() => setOrder(value)}
-                  className={`flex-1 rounded-full px-4 py-2.5 text-sm font-bold transition ${
-                    order === value
-                      ? "bg-sheet text-txt shadow-[var(--shadow)]"
-                      : "text-txt-dim hover:text-txt"
-                  }`}
+                  aria-pressed={order === value}
+                      className={`${k.chip} ${order === value ? k.chipOn : ""}`}
                 >
                   {label}
                 </button>
@@ -316,21 +294,18 @@ export function QuizRunner({
           </section>
 
           <section>
-            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+            <h2 className={k.label}>
               כמה שאלות
             </h2>
-            <div className="flex gap-1 rounded-full border border-line bg-card-2 p-1">
+            <div className={k.seg}>
               {[...LENGTHS.filter((n) => n < pool.length), "all" as const].map(
                 (n) => (
                   <button
                     key={String(n)}
                     type="button"
                     onClick={() => setLength(n)}
-                    className={`flex-1 rounded-full px-4 py-2.5 text-sm font-bold transition ${
-                      length === n
-                        ? "bg-sheet text-txt shadow-[var(--shadow)]"
-                        : "text-txt-dim hover:text-txt"
-                    }`}
+                    aria-pressed={length === n}
+                      className={`${k.chip} ${length === n ? k.chipOn : ""}`}
                   >
                     {n === "all" ? (
                       <>
@@ -349,11 +324,7 @@ export function QuizRunner({
             type="button"
             onClick={start}
             disabled={pool.length === 0}
-            className="rounded-full px-7 py-4 text-base font-extrabold text-on-accent transition active:scale-95 disabled:opacity-50"
-            style={{
-              background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-              boxShadow: "0 10px 26px -10px var(--teal)",
-            }}
+            className={`${k.sign} ${k.signPlain}`}
           >
             להתחיל לתרגל
           </button>
@@ -369,7 +340,6 @@ export function QuizRunner({
     const pct = answers.length ? Math.round((correct / answers.length) * 100) : 0;
     const wrong = answers.filter((a) => !a.correct);
     // Three stars at 60 / 80 / 95 percent, as the game scores a level.
-    const stars = [60, 80, 95].map((t) => pct >= t);
 
     return (
       <div
@@ -377,29 +347,8 @@ export function QuizRunner({
         style={domainStyle(quiz.slug)}
       >
         <div className="mb-7 text-center">
-          <div className="mb-4 flex justify-center gap-2.5">
-            {stars.map((on, i) => (
-              <span
-                key={i}
-                className="pop-in text-[46px] leading-none transition-colors"
-                style={{
-                  animationDelay: `${0.1 + i * 0.12}s`,
-                  color: on ? "var(--star)" : "var(--track)",
-                  textShadow: on
-                    ? "0 0 26px color-mix(in srgb, var(--star) 60%, transparent)"
-                    : "none",
-                }}
-                aria-hidden
-              >
-                ★
-              </span>
-            ))}
-          </div>
-
-          <h1 className="mb-1.5 text-3xl">
-            <span className="num">{pct}%</span>
-          </h1>
-          <p className="mb-6 text-sm text-txt-dim">
+          <PenGrade label={`ציון ${pct}`}>{pct}</PenGrade>
+          <p className="mt-2 mb-6 text-lg text-txt-dim">
             {title ?? quiz.label} · <span className="num">{correct}</span> מתוך{" "}
             <span className="num">{answers.length}</span> נכונות
           </p>
@@ -412,10 +361,10 @@ export function QuizRunner({
             ].map((st) => (
               <div
                 key={st.l}
-                className="flex-1 rounded-md border border-line bg-card px-2 py-3.5"
+                className={`${k.paper} flex-1 px-2! py-3!`}
               >
-                <b className="num block text-[22px] text-gold">{st.v}</b>
-                <span className="text-[11px] text-txt-dim">{st.l}</span>
+                <b className={`num block ${k.statNum}`}>{st.v}</b>
+                <span className="text-base text-txt-dim">{st.l}</span>
               </div>
             ))}
           </div>
@@ -423,7 +372,7 @@ export function QuizRunner({
 
         {wrong.length > 0 && (
           <div className="mb-7">
-            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+            <h2 className={k.label}>
               שאלות שטעיתם בהן
             </h2>
             <ul className="flex flex-col gap-2">
@@ -432,14 +381,14 @@ export function QuizRunner({
                 return (
                   <li
                     key={a.questionId}
-                    className="flex gap-2.5 rounded-sm border border-line bg-card p-3"
+                    className={`${k.paper} flex gap-3 p-4!`}
                   >
-                    <span aria-hidden className="text-sm">
+                    <span aria-hidden className="text-xl font-black text-red">
                       ✗
                     </span>
-                    <div className="text-[12.5px] leading-relaxed">
-                      <b className="mb-0.5 block text-[13px]">{a.question}</b>
-                      <p className="text-ok">
+                    <div className="text-base leading-relaxed">
+                      <b className="mb-1 block text-[1.08rem]">{a.question}</b>
+                      <p className="font-bold text-ok">
                         {q?.kind === "fill" ? q.answerText : q?.answers.find((x) => x.correct)?.text}
                       </p>
                       <ReadingLink topic={q?.topic} />
@@ -456,12 +405,7 @@ export function QuizRunner({
             <button
               type="button"
               onClick={retryWrong}
-              className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-                boxShadow: "0 10px 26px -10px var(--teal)",
-              }}
+              className={`${k.sign} ${k.signPlain}`}
             >
               לתרגל רק את הטעויות
             </button>
@@ -469,13 +413,13 @@ export function QuizRunner({
           <button
             type="button"
             onClick={restart}
-            className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95"
+            className={k.ghost}
           >
             סבב נוסף
           </button>
           <Link
             href="/me"
-            className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95"
+            className={k.ghost}
           >
             לאזור האישי
           </Link>
@@ -506,7 +450,7 @@ export function QuizRunner({
       style={domainStyle(quiz.slug)}
     >
       <div className="mb-5">
-        <div className="mb-2 flex items-center justify-between text-[12px] font-bold text-txt-dim">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-base font-bold text-txt-dim">
           <span className="num">
             {index + 1} / {questions.length}
           </span>
@@ -515,25 +459,18 @@ export function QuizRunner({
             <button
               type="button"
               onClick={openNotes}
-              className="min-h-9 rounded-full border border-line bg-card px-3 text-[13px] font-bold text-txt transition active:scale-95"
+              className={k.chip}
             >
-              🗒️ פתק לשאלה
+              <InkIcon name="notes" size={20} />
+              פתק לשאלה
             </button>
           </span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-track">
-          <i
-            className="block h-full rounded-full transition-[width] duration-300"
-            style={{
-              width: `${progress}%`,
-              background: "linear-gradient(90deg, var(--teal), var(--gold))",
-            }}
-          />
-        </div>
+        <Blazes pct={progress} />
       </div>
 
-      <div key={current.id} className="screen-in">
-        <h1 className="mb-4 text-xl leading-relaxed">{current.question}</h1>
+      <div key={current.id} className={`screen-in ${k.paper} p-6! sm:p-7!`}>
+        <h1 className={k.question}>{current.question}</h1>
 
         {current.image && (
           <div className="mb-4 overflow-hidden rounded-md border border-line bg-card">
@@ -556,50 +493,35 @@ export function QuizRunner({
         )}
 
         {current.kind === "fill" ? (
-          <div className="rounded-md border border-line bg-card p-4">
-            <label className="mb-2 block text-sm font-bold" htmlFor="review-fill-answer">התשובה שלכם</label>
+          <div>
+            <label className={k.label} htmlFor="review-fill-answer">התשובה שלכם</label>
             <input id="review-fill-answer" value={typed} disabled={answered}
               onChange={(event) => setTyped(event.target.value)}
               onKeyDown={(event) => { if (event.key === "Enter" && typed.trim() && !answered) pick(typed); }}
-              className="w-full rounded-md border border-line bg-card-2 px-3 py-3 text-txt outline-none focus:border-teal" />
+              className="w-full rounded-md border-[1.5px] border-line bg-[color-mix(in_srgb,var(--paper)_70%,white_30%)] px-4 py-3 text-lg text-txt outline-none focus:border-teal" />
             {!answered ? <button type="button" disabled={!typed.trim()} onClick={() => pick(typed)}
-              className="mt-3 rounded-full bg-teal px-5 py-2.5 font-bold text-on-accent disabled:opacity-40">בדיקת התשובה</button> : (
+              className={`${k.sign} ${k.signPlain} mt-4`}>בדיקת התשובה</button> : (
               <div aria-live="polite" className="mt-3">
-                <p className="text-sm text-txt-dim">התשובה הנכונה: <b className="text-ok">{correctText}</b></p>
+                <p className="text-lg text-txt-dim">התשובה הנכונה: <b className="text-ok">{correctText}</b></p>
                 <button type="button" onClick={() => setAnswers((previous) => previous.map((answer, position) => position === index ? { ...answer, correct: !answer.correct } : answer))}
-                  className="mt-3 rounded-full border border-line bg-card-2 px-4 py-2 text-sm font-bold">
+                  className={`${k.ghost} mt-3`}>
                   {currentCorrect ? "לסמן כטעות" : "בעצם עניתי נכון"}
                 </button>
               </div>
             )}
           </div>
-        ) : <ul className="grid gap-2.5">
+        ) : <ul className="grid gap-2.5" role="list">
           {current.answers.map((a, i) => {
             const isPicked = picked === a.text;
             const isCorrect = a.text === correctText;
 
-            let cls = "border-line bg-card hover:bg-card-2";
-            let style: React.CSSProperties | undefined;
-            let extra = "";
-
-            if (answered && isCorrect) {
-              cls = "";
-              style = {
-                background:
-                  "linear-gradient(120deg, color-mix(in srgb, var(--ok) 26%, transparent), color-mix(in srgb, var(--ok) 9%, transparent))",
-                borderColor: "var(--ok)",
-              };
-            } else if (answered && isPicked) {
-              cls = "";
-              extra = "shake";
-              style = {
-                background:
-                  "linear-gradient(120deg, color-mix(in srgb, var(--red) 22%, transparent), color-mix(in srgb, var(--red) 8%, transparent))",
-                borderColor: "var(--red)",
-              };
-            } else if (answered) {
-              cls = "border-line bg-card opacity-[0.28]";
-            }
+            const state = !answered
+              ? ""
+              : isCorrect
+                ? k.answerRight
+                : isPicked
+                  ? k.answerWrong
+                  : k.answerFaded;
 
             return (
               <li key={a.text}>
@@ -607,15 +529,16 @@ export function QuizRunner({
                   type="button"
                   onClick={() => pick(a.text)}
                   disabled={answered}
-                  style={style}
-                  className={`flex w-full items-start gap-3 rounded-md border p-4 text-right text-[15.5px] font-bold transition-transform duration-150 ${cls} ${extra} ${
-                    answered ? "cursor-default" : "cursor-pointer active:scale-[0.975]"
-                  }`}
+                  className={`${k.answer} ${state}`}
                 >
-                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-line text-[11px] font-extrabold">
+                  <span className={`${k.letter} ${answered && isPicked ? k.letterOn : ""}`}>
                     {OPTION_LETTERS[i]}
                   </span>
-                  <span className="leading-relaxed">{a.text}</span>
+                  <span className={k.penWrap}>
+                    {a.text}
+                    {answered && isCorrect && <PenCircle />}
+                    {answered && isPicked && !isCorrect && <PenStrike />}
+                  </span>
                 </button>
               </li>
             );
@@ -625,12 +548,12 @@ export function QuizRunner({
         {answered && (
           <div className="mt-5">
             {(current.explanation || current.source) && (
-              <div className="mb-4 rounded-md border border-line bg-card-2 p-4">
+              <div className="mb-4 rounded-md border-s-4 border-[var(--t-blue)] bg-card-2 p-4">
                 {current.explanation && (
-                  <p className="text-sm leading-relaxed">{current.explanation}</p>
+                  <p className="text-[1.1rem] leading-relaxed">{current.explanation}</p>
                 )}
                 {current.source && (
-                  <p className="mt-2 text-[11px] leading-relaxed text-txt-dim">
+                  <p className="mt-2 text-sm leading-relaxed text-txt-dim">
                     מקור: {current.source}
                   </p>
                 )}
@@ -638,22 +561,17 @@ export function QuizRunner({
             )}
             <div className="flex items-center justify-between gap-4">
               <p
-                className="text-[15px] font-extrabold"
+                className={k.verdict}
                 style={{
-                  color: currentCorrect ? "var(--ok)" : "var(--red)",
+                  color: currentCorrect ? "var(--t-green)" : "var(--t-red)",
                 }}
               >
-                {currentCorrect ? "נכון! ✓" : "נשמר לחזרה"}
+                {currentCorrect ? "נכון!" : "לא הפעם. נשמר לחזרה."}
               </p>
               <button
                 type="button"
                 onClick={next}
-                className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-                  boxShadow: "0 10px 26px -10px var(--teal)",
-                }}
+                className={`${k.sign} ${k.signPlain}`}
               >
                 {index + 1 < questions.length ? "הבאה" : "לתוצאות"}
               </button>

@@ -194,8 +194,8 @@ function LegacyLogin() {
             disabled={busy}
             className="mt-2 rounded-full px-4 py-4 font-extrabold text-on-accent transition active:scale-95"
             style={{
-              background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-              boxShadow: "0 10px 26px -10px var(--teal)",
+              background: "var(--teal)",
+              boxShadow: "var(--shadow)",
             }}
           >
             {busy ? "מתחבר…" : "כניסה"}

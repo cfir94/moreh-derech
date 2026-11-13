@@ -375,8 +375,8 @@ export function TimelineDrag() {
             className="rounded-full px-6 py-3.5 text-sm font-extrabold text-on-accent transition active:scale-95"
             style={{
               background:
-                "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-              boxShadow: "0 10px 26px -10px var(--teal)",
+                "var(--teal)",
+              boxShadow: "var(--shadow)",
             }}
           >
             בדיקה
@@ -388,8 +388,8 @@ export function TimelineDrag() {
             className="rounded-full px-6 py-3.5 text-sm font-extrabold text-on-accent transition active:scale-95"
             style={{
               background:
-                "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-              boxShadow: "0 10px 26px -10px var(--teal)",
+                "var(--teal)",
+              boxShadow: "var(--shadow)",
             }}
           >
             עוד סיבוב

@@ -124,7 +124,7 @@ export function FirstVisitTour({ id }: { id: TourId }) {
                   type="button"
                   onClick={() => (last ? close() : setStep(step + 1))}
                   className="rounded-full px-5 py-2 text-sm font-extrabold text-on-accent"
-                  style={{ background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" }}
+                  style={{ background: "var(--teal)" }}
                 >
                   {last ? "מתחילים" : "הבא"}
                 </button>

@@ -38,7 +38,7 @@ export function HomeProgress() {
           className="block h-full rounded-full transition-[width] duration-700"
           style={{
             width: `${s.accuracyPct}%`,
-            background: "linear-gradient(90deg, var(--teal), var(--gold))",
+            background: "linear-gradient(var(--paint) 0 28%, var(--t-red) 28% 72%, var(--paint) 72%)",
           }}
         />
       </div>

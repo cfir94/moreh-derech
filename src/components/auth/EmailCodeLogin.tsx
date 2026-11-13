@@ -21,8 +21,8 @@ const field =
   "rounded-md border border-line bg-sheet px-3.5 py-3 text-base outline-none transition focus:border-teal";
 const primary = "mt-2 rounded-full px-4 py-4 font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
 const primaryStyle = {
-  background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-  boxShadow: "0 10px 26px -10px var(--teal)",
+  background: "var(--teal)",
+  boxShadow: "var(--shadow)",
 };
 
 export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {

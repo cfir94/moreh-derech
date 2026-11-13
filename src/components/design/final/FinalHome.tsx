@@ -51,19 +51,8 @@ function toggleTheme() {
   } catch {}
 }
 
-export function FinalFrame({
-  name,
-  intro = false,
-  children,
-}: {
-  name: string | null;
-  intro?: boolean;
-  children: React.ReactNode;
-}) {
-  const root = useRef<HTMLDivElement>(null);
-  const vars = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
-
-  // background zones below the fold wait, and come in when the reader scrolls to them
+/** Background zones below the fold wait, and come in when the reader scrolls to them. */
+function useZoneReveal(root: React.RefObject<HTMLDivElement | null>, ownScroll: boolean) {
   useEffect(() => {
     const el = root.current;
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -76,7 +65,7 @@ export function FinalFrame({
           seen.unobserve(e.target);
         }
       },
-      { root: el, threshold: 0.15 },
+      { root: ownScroll ? el : null, threshold: 0.15 },
     );
     for (const zone of zones) {
       if (zone.getBoundingClientRect().top < window.innerHeight) continue;
@@ -84,7 +73,22 @@ export function FinalFrame({
       seen.observe(zone);
     }
     return () => seen.disconnect();
-  }, []);
+  }, [root, ownScroll]);
+}
+
+export function FinalFrame({
+  name,
+  intro = false,
+  children,
+}: {
+  name: string | null;
+  intro?: boolean;
+  children: React.ReactNode;
+}) {
+  const root = useRef<HTMLDivElement>(null);
+  const vars = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
+
+  useZoneReveal(root, true);
 
   return (
     <>
@@ -133,7 +137,37 @@ export function FinalFrame({
   );
 }
 
-export function FinalHome({ questionCount, examCount }: { questionCount: number; examCount: number }) {
+/** The home page inside the real site: the same sheet, under the site's own header. */
+function SiteSheet({ children }: { children: React.ReactNode }) {
+  const root = useRef<HTMLDivElement>(null);
+  const vars = { "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties;
+  useZoneReveal(root, false);
+  return (
+    <>
+      <FoldIntro
+        storageKey="md_intro_home_v1"
+        getTarget={() => root.current}
+        getHeader={() => document.querySelector<HTMLElement>("body > header, header")}
+        onBefore={() => root.current?.setAttribute("data-anim", "wait")}
+        onDone={() => root.current?.setAttribute("data-anim", "go")}
+      />
+      <div ref={root} className={`${s.root} ${s.inSite}`} style={vars}>
+        {children}
+      </div>
+    </>
+  );
+}
+
+export function FinalHome({
+  questionCount,
+  examCount,
+  site = false,
+}: {
+  questionCount: number;
+  examCount: number;
+  /** render inside the real site (its header, no fixed sheet) */
+  site?: boolean;
+}) {
   const d = useHomeData();
 
   const stations: { href: string; icon: FieldIconName; label: string; detail: string; alert?: boolean }[] = [
@@ -145,9 +179,8 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
     { href: "/games/crossword", icon: "notes", label: "תשבץ השבוע", detail: "חדש בכל שישי" },
   ];
 
-  return (
-    <FinalFrame name={d.name} intro>
-      <main className={s.main}>
+  const content = (
+      <div className={s.main}>
         <section className={s.hero}>
           <WallPatch className={s.heroWall} />
           <div className={s.greet}>
@@ -258,7 +291,13 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
             <span>קווי גובה: ירושלים והעיר העתיקה</span>
           </div>
         </section>
-      </main>
+      </div>
+  );
+  return site ? (
+    <SiteSheet>{content}</SiteSheet>
+  ) : (
+    <FinalFrame name={d.name} intro>
+      {content}
     </FinalFrame>
   );
 }

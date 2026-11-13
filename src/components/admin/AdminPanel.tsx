@@ -31,7 +31,7 @@ const TABS: { id: Tab; label: string }[] = [
 const field = "rounded-md border border-line bg-sheet px-3 py-2.5 text-base outline-none transition focus:border-teal";
 const btn = "rounded-full border border-line bg-card-2 px-3.5 py-2 text-sm font-bold transition active:scale-95 disabled:opacity-60";
 const primary = "rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
-const primaryStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" };
+const primaryStyle = { background: "var(--teal)" };
 
 const day = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("he-IL", { day: "numeric", month: "short", year: "2-digit" }) : "—");
 const DAY = 86_400_000;

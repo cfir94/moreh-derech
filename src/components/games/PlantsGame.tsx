@@ -20,7 +20,7 @@ const PHOTO_BY_ID = new Map(PHOTOS.map((p) => [p.id, p]));
 const PLANT_BY_ID = new Map(PLANTS.map((p) => [p.id, p]));
 const LETTERS = ["א", "ב", "ג", "ד"];
 const primary = "min-h-12 rounded-full px-7 text-base font-extrabold text-on-accent transition active:scale-95";
-const primaryStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)", boxShadow: "0 10px 26px -12px var(--teal)" };
+const primaryStyle = { background: "var(--teal)", boxShadow: "0 10px 26px -12px var(--teal)" };
 
 function prompt(q: Question, plant: Plant) {
   switch (q.kind) {

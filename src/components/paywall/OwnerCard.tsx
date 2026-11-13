@@ -8,7 +8,7 @@ export function OwnerCard() {
       <div
         aria-hidden
         className="grid size-16 shrink-0 place-items-center rounded-full text-xl font-black text-on-accent"
-        style={{ background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" }}
+        style={{ background: "var(--teal)" }}
       >
         כי
       </div>

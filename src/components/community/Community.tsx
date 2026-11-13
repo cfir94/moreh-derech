@@ -15,7 +15,7 @@ import {
 import { isAdmin } from "@/lib/manualAccess";
 
 const primary = "min-h-12 rounded-full px-6 text-base font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
-const primaryStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)", boxShadow: "0 10px 24px -12px var(--teal)" };
+const primaryStyle = { background: "var(--teal)", boxShadow: "0 10px 24px -12px var(--teal)" };
 const small = "min-h-10 rounded-full border border-line px-3 text-sm font-bold text-txt-dim transition hover:text-txt active:scale-95";
 
 export function ago(iso: string | null, now = Date.now()) {

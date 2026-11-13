@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import s from "./examGroup.module.css";
 
 /**
  * One collapsible band on the exams page.
@@ -24,30 +25,20 @@ export function ExamGroup({
   children: ReactNode;
 }) {
   return (
-    <details
-      open={open}
-      className="group mb-3 overflow-hidden rounded-lg border border-line"
-    >
-      <summary className="flex cursor-pointer list-none items-center gap-2.5 bg-card px-4 py-3.5 transition-colors hover:bg-card-2 [&::-webkit-details-marker]:hidden">
-        <span
-          aria-hidden
-          className="text-[13px] text-txt-dim transition-transform duration-200 group-open:-rotate-90"
-        >
-          ◀
-        </span>
-        <h2 className="flex-1 text-sm font-bold tracking-[0.05em]">{title}</h2>
-        <span className="num rounded-full border border-line bg-card px-2.5 py-0.5 text-[11px] font-bold text-txt-dim">
-          {count}
+    <details open={open} className={`group ${s.group}`}>
+      <summary className={s.summary}>
+        <span className={s.sign}>
+          <span aria-hidden className={s.caret}>
+            ◀
+          </span>
+          <h2 className={s.title}>{title}</h2>
+          <span className={`num ${s.count}`}>{count}</span>
         </span>
       </summary>
 
-      <div className="border-t border-line px-4 pt-3.5 pb-4">
-        {note && (
-          <p className="mb-3 max-w-2xl text-[12.5px] leading-relaxed text-txt-dim">
-            {note}
-          </p>
-        )}
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">{children}</div>
+      <div className={s.body}>
+        {note && <p className={s.note}>{note}</p>}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
       </div>
     </details>
   );
