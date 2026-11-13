@@ -42,8 +42,8 @@ export default function ReviewPage() {
           href="/quizzes"
           className="inline-block rounded-full px-7 py-3.5 font-extrabold text-on-accent transition active:scale-95"
           style={{
-            background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-            boxShadow: "0 10px 26px -10px var(--teal)",
+            background: "var(--teal)",
+            boxShadow: "var(--shadow)",
           }}
         >
           לשאלונים

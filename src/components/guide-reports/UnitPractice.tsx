@@ -151,8 +151,8 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
           className="rounded-full px-5 py-3 text-sm font-extrabold text-on-accent transition active:scale-95"
           style={{
             background:
-              "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-            boxShadow: "0 10px 26px -10px var(--teal)",
+              "var(--teal)",
+            boxShadow: "var(--shadow)",
           }}
         >
           בדיקת חמש המ״מים

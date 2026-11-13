@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useProgress } from "@/hooks/useProgress";
 import { needsReview } from "@/lib/progress";
+import { SignLink } from "@/components/trail/kit";
 
-/** Shown on the quizzes index once the user has mistakes worth drilling. */
+/** Shown on the quizzes index once the user has mistakes worth drilling: the first sign on the trail. */
 export function ReviewCallout() {
   const { state, ready } = useProgress();
   if (!ready) return null;
@@ -13,30 +13,13 @@ export function ReviewCallout() {
   if (count === 0) return null;
 
   return (
-    <Link
-      href="/quizzes/review"
-      className="screen-in mb-5 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-card p-5 transition active:scale-[0.98]"
-      style={{ "--mc": "var(--gold)" } as React.CSSProperties}
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute h-24 w-24 rounded-full bg-mc opacity-20 blur-[6px]"
+    <div className="screen-in mb-8">
+      <SignLink
+        href="/quizzes/review"
+        icon="review"
+        title="תרגול טעויות"
+        sub={`${count.toLocaleString("he-IL")} שאלות שטעיתם בהן ועדיין לא עניתם עליהן נכון`}
       />
-      <div className="relative flex items-center gap-3">
-        <span aria-hidden className="text-[26px]">
-          🔁
-        </span>
-        <div>
-          <h2 className="text-base">תרגול טעויות</h2>
-          <p className="text-[12.5px] text-txt-dim">
-            <span className="num">{count}</span> שאלות שטעיתם בהן ועדיין לא
-            עניתם עליהן נכון.
-          </p>
-        </div>
-      </div>
-      <span className="relative rounded-full bg-gold px-5 py-2.5 text-sm font-extrabold text-on-accent">
-        לתרגל עכשיו
-      </span>
-    </Link>
+    </div>
   );
 }

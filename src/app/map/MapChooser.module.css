@@ -1,18 +1,27 @@
 .page { max-width: 1040px; margin: 0 auto; padding: 36px 16px 56px; }
 .head { margin-bottom: 26px; }
-.head h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.1; }
-.head p { margin-top: 8px; color: var(--txt-dim); max-width: 560px; }
+.head h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.08; }
+.head p { margin-top: 10px; color: var(--txt-dim); max-width: 560px; font-size: 1.25rem; line-height: 1.65; }
 
 .cards { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
 
+/* two maps on the table, each folded in three: the folds are drawn on the sheet, because that is the object */
 .card {
   position: relative; display: flex; flex-direction: column; overflow: hidden;
-  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card);
-  transition: transform 0.18s var(--ease-out), border-color 0.18s;
+  border-radius: 4px; background: var(--paper); color: var(--ink); text-decoration: none;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 40%, transparent), 0 18px 26px -18px rgb(20 12 4 / 0.65);
+  transform: rotate(-0.6deg);
+  transition: transform 0.35s var(--lift-ease), box-shadow 0.35s;
 }
-.card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--teal) 45%, var(--line)); }
-.card:active { transform: scale(0.985); }
+.route { transform: rotate(0.6deg); }
+.card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent calc(33.3% - 6px), rgb(60 40 20 / 0.12) 33.3%, transparent calc(33.3% + 6px)),
+    linear-gradient(90deg, transparent calc(66.6% - 6px), rgb(255 255 255 / 0.18) 66.6%, transparent calc(66.6% + 6px));
+}
+.card:hover, .card:focus-visible { transform: var(--lift); box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 50%, transparent), 0 26px 32px -18px rgb(20 12 4 / 0.7); }
 
 /* the learning map's card shows the map itself, with a dot per period */
 .art {
@@ -35,20 +44,23 @@
 .routeArt {
   display: grid; place-items: center; height: 220px; border-bottom: 1px solid var(--line);
   background:
-    repeating-linear-gradient(0deg, transparent 0 27px, var(--line) 27px 28px),
-    repeating-linear-gradient(90deg, transparent 0 27px, var(--line) 27px 28px),
-    var(--card-2);
+    color-mix(in srgb, var(--ground) 60%, var(--paper));
 }
 .routeArt svg { width: 70%; max-width: 280px; overflow: visible; }
-.routeArt path { fill: none; stroke: var(--teal); stroke-width: 4; stroke-dasharray: 10 8; stroke-linecap: round; }
-.routeArt circle { fill: var(--blue); stroke: var(--sheet); stroke-width: 3; }
+.routeArt path { fill: none; stroke: var(--t-red); stroke-width: 4; stroke-dasharray: 10 8; stroke-linecap: round; }
+.routeArt circle { fill: var(--sign); stroke: var(--paper); stroke-width: 3; }
 
-.body { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px; flex: 1; }
-.kicker { font-size: 12px; font-weight: 800; color: var(--teal); letter-spacing: 0.02em; }
-.body strong { font-size: 24px; font-weight: 900; color: var(--title-1); }
-.desc { font-size: 14px; line-height: 1.75; color: var(--txt-dim); }
-.meta { font-size: 12px; font-weight: 700; color: var(--gold); }
-.go { margin-top: auto; padding-top: 10px; font-weight: 800; color: var(--teal); }
+.body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
+.kicker { font-size: 1rem; font-weight: 800; color: var(--ink-dim); filter: url(#pencil); }
+.body strong { font-family: var(--font-hand); font-size: 2.6rem; font-weight: 400; line-height: 1.1; color: var(--ink); }
+.desc { font-size: 1.1rem; line-height: 1.65; color: var(--ink-dim); }
+.meta { font-size: 1rem; font-weight: 700; color: var(--ink-dim); }
+.go {
+  align-self: flex-start; margin-top: auto; padding: 10px 20px; border-radius: 8px;
+  background: var(--sign); color: var(--sign-ink); font-weight: 800; font-size: 1.1rem;
+  box-shadow: inset 0 0 0 2.5px var(--sign), inset 0 0 0 4px var(--sign-ink), 0 10px 16px -12px rgb(20 12 4 / 0.7);
+  transform: rotate(-1deg);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .art i { animation: none; }

@@ -17,7 +17,7 @@ import { isFreePath } from "@/lib/plans";
 
 const cta =
   "inline-block rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
-const ctaStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)", boxShadow: "0 10px 26px -10px var(--teal)" };
+const ctaStyle = { background: "var(--teal)", boxShadow: "var(--shadow)" };
 
 export function PaywallGate({ children }: { children: ReactNode }) {
   const pathname = usePathname();

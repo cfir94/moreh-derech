@@ -943,3 +943,20 @@
     transition: none;
   }
 }
+
+/* ---------- the home page inside the real site ---------- */
+
+/* the same sheet, but in the page's flow under the site header: the ground is the body's */
+.root.inSite {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  overflow: visible;
+  overflow-x: clip;
+  background: none;
+  min-height: 0;
+}
+
+.inSite .main {
+  padding-top: 64px;
+}

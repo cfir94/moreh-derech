@@ -4,6 +4,8 @@ import { EXAMS } from "@/data/exams";
 import { LANG_META } from "@/data/exams/types";
 import { SectionCard } from "@/components/SectionCard";
 import { ExamGroup } from "@/components/ExamGroup";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageHead, TrailPage } from "@/components/trail/kit";
 
 /** The blocks the course examined separately; see tools/import_course_exams.py. */
 const FIRST_BLOCK = "חי, צומח, גיאולוגיה, פרהיסטוריה, מבוא לארכיאולוגיה וברונזה";
@@ -33,18 +35,19 @@ export default function ExamsPage() {
   const total = EXAMS.reduce((s, e) => s + e.questions.length, 0);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
-      <header className="screen-in mb-7">
-        <h1 className="grad-text mb-2 text-3xl">מבחני רישוי — מבחן מלא</h1>
-        <p className="max-w-2xl leading-relaxed text-txt-dim">
-          <span className="num">{official.length + derived.length}</span> מועדי
-          מבחן של משרד התיירות ועוד{" "}
-          <span className="num">{course.length}</span> מבחני תרגול של הקורס,{" "}
-          <span className="num">{total}</span> שאלות בסך הכל, בתנאים של
-          המבחן האמיתי: התשובה לא נחשפת בזמן המענה, אפשר לנוע קדימה ואחורה
-          ולשנות תשובות, וההגשה בסוף היא זו שנותנת את הציון.
-        </p>
-      </header>
+    <TrailPage>
+      <PageHead
+        title="מבחן מלא"
+        art={<InkIcon name="exams" size={112} />}
+        lede={
+          <>
+            <span className="num">{official.length + derived.length}</span> מועדי מבחן של משרד התיירות ועוד{" "}
+            <span className="num">{course.length}</span> מבחני תרגול של הקורס,{" "}
+            <span className="num">{total.toLocaleString("he-IL")}</span> שאלות, בתנאים של המבחן האמיתי: התשובה לא
+            נחשפת בזמן המענה, אפשר לנוע קדימה ואחורה, והציון ניתן רק בהגשה.
+          </>
+        }
+      />
 
       <ExamGroup
         title="משרד התיירות — עם מפתח תשובות רשמי"
@@ -57,6 +60,7 @@ export default function ExamsPage() {
             index={i}
             href={`/exams/${exam.slug}`}
             slug="exams"
+            badge="רשמי"
             title={exam.date}
             description={exam.languages
               .map((l) => LANG_META[l].name)
@@ -148,7 +152,7 @@ export default function ExamsPage() {
         ))}
       </ExamGroup>
 
-      <div className="mt-6 rounded-md border border-line bg-card p-4 text-[12.5px] leading-relaxed text-txt-dim">
+      <div className="mt-10 max-w-3xl rounded-[5px] bg-[var(--paper)] p-5 text-[1.05rem] leading-relaxed text-txt-dim shadow-[0_0_0_1px_var(--line),var(--shadow)]">
         <p className="mb-2">
           <b className="text-txt">מה עוד חסר?</b> לקיץ 2020, קיץ 2022, קיץ 2024,
           חורף 2025 וקיץ 2025 אין בידינו לא מפתח ולא פתרון — הם לא כאן.
@@ -165,6 +169,6 @@ export default function ExamsPage() {
           </Link>
         </p>
       </div>
-    </div>
+    </TrailPage>
   );
 }

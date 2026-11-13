@@ -22,6 +22,9 @@ type Props = {
   /** Play on every visit (the design preview) or only once. */
   always?: boolean;
   storageKey?: string;
+  /** In the site, the page sits under the sticky header: copy the header in too, so the sheet that
+   *  unfolds is exactly the screen the reader then sees. */
+  getHeader?: () => HTMLElement | null;
 };
 
 const TOTAL = 4300;
@@ -33,7 +36,7 @@ const inOut = (p: number) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2,
 const outBack = (p: number) => 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2);
 const lerp = (a: number, b: number, p: number) => a + (b - a) * p;
 
-export function FoldIntro({ getTarget, onBefore, onDone, always = false, storageKey = "md_intro_seen_v2" }: Props) {
+export function FoldIntro({ getTarget, onBefore, onDone, always = false, storageKey = "md_intro_seen_v2", getHeader }: Props) {
   const [done, setDone] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
   const flap = useRef<SVGSVGElement>(null);
@@ -43,6 +46,10 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
 
   useEffect(() => {
     const finish = () => {
+      // remembered only once the intro has played (or was skipped): a dev double-mount must not eat it
+      try {
+        localStorage.setItem(storageKey, "1");
+      } catch {}
       setDone(true);
       onDone?.();
     };
@@ -56,10 +63,6 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
       finish();
       return;
     }
-    try {
-      localStorage.setItem(storageKey, "1");
-    } catch {}
-
     onBefore?.();
     target.scrollTop = 0;
     const W = window.innerWidth;
@@ -70,7 +73,19 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
     const ph = H / rows;
 
     // one inert copy of the page; each panel gets its own copy, shifted to its part
-    const template = target.cloneNode(true) as HTMLElement;
+    const header = getHeader?.() ?? null;
+    let template = target.cloneNode(true) as HTMLElement;
+    if (header) {
+      // the header and the page, stacked as they are on screen
+      const sheet = document.createElement("div");
+      sheet.style.cssText = `position:absolute;left:0;top:0;width:${W}px;height:${H}px;overflow:hidden;background:var(--ground)`;
+      const h = header.cloneNode(true) as HTMLElement;
+      h.style.position = "relative";
+      sheet.appendChild(h);
+      template.style.position = "relative";
+      sheet.appendChild(template);
+      template = sheet;
+    }
     template.removeAttribute("id");
     template.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
     template.setAttribute("inert", "");

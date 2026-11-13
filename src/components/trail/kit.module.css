@@ -96,6 +96,11 @@
   pointer-events: none;
 }
 
+.headArt svg {
+  width: 100%;
+  height: 100%;
+}
+
 @media (max-width: 700px) {
   .headArt {
     width: 72px;
@@ -482,4 +487,239 @@ a.paper:focus-visible,
   a.paper {
     transition: none;
   }
+}
+
+/* a sign used as a plain button: one line of bold print */
+.signPlain {
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+/* a quiet secondary action: pencil outline */
+.ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 22px;
+  border-radius: 8px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform 0.3s var(--lift-ease), background 0.2s;
+}
+
+.ghost:hover,
+.ghost:focus-visible {
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  transform: translateY(-2px);
+}
+
+/* ---------- a multiple-choice answer on a clean sheet ---------- */
+
+.answer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 62px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: color-mix(in srgb, var(--paper) 70%, white 30%);
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: start;
+  transition: border-color 0.2s, opacity 0.3s, transform 0.15s;
+}
+
+:global([data-theme="dark"]) .answer {
+  background: color-mix(in srgb, var(--paper) 85%, white 15%);
+}
+
+.answer:not(:disabled):hover {
+  border-color: var(--sign);
+}
+
+:global([data-theme="dark"]) .answer:not(:disabled):hover {
+  border-color: var(--t-orange);
+}
+
+.answer:not(:disabled):active {
+  transform: scale(0.99);
+}
+
+.answer:disabled {
+  cursor: default;
+}
+
+/* the letter is a small stone with an inked edge */
+.letter {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 46% 54% 42% 58% / 56% 44% 56% 44%;
+  background: #d9c497;
+  color: #2c2014;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink) 65%, transparent);
+}
+
+.letterOn {
+  background: var(--sign);
+  color: var(--sign-ink);
+}
+
+.answerFaded {
+  opacity: 0.42;
+}
+
+.answerRight {
+  border-color: var(--t-green);
+}
+
+.answerWrong {
+  border-color: var(--t-red);
+}
+
+.verdict {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: 1.9rem;
+  line-height: 1.15;
+}
+
+.question {
+  margin: 0 0 20px;
+  font-size: clamp(1.3rem, 3.4vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+/* a taped note: a notice that matters, without a banner */
+.notice {
+  margin: 22px 0 26px;
+  padding: 16px 20px 14px;
+  border-radius: 3px;
+  background: #f3e6a8;
+  color: #3a2c10;
+  font-family: var(--font-note);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  box-shadow: 0 12px 18px -14px rgb(20 12 4 / 0.6);
+  transform: rotate(-0.6deg);
+}
+
+:global([data-theme="dark"]) .notice {
+  background: #d9c77e;
+}
+
+/* a segmented choice in pencil */
+.seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.label {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink-dim);
+}
+
+.statNum {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 1.1;
+}
+
+/* ---------- steps on a trail ---------- */
+
+.road {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.road::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  inset-inline-start: 25px;
+  border-inline-start: 4px dashed color-mix(in srgb, var(--t-red) 85%, transparent);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.stepNode {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--t-blue);
+  font-family: var(--font-hand);
+  font-size: 1.9rem;
+  line-height: 1;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--ink) 75%, transparent),
+    0 8px 12px -8px rgb(20 12 4 / 0.6);
+}
+
+.stepCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 640px;
+}
+
+.stepTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.stepDesc {
+  font-size: 1.06rem;
+  line-height: 1.55;
+  color: var(--ink-dim);
+}
+
+.stepMeta {
+  font-size: 1rem;
+  color: var(--ink-dim);
 }

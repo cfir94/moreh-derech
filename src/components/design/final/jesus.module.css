@@ -551,3 +551,27 @@
     transition: none;
   }
 }
+
+/* the verses open in place: a plain <details>, so it works without JavaScript and Ctrl+F reaches it */
+.verses > summary {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  cursor: pointer;
+}
+
+.verses > summary::-webkit-details-marker {
+  display: none;
+}
+
+.verses[open] > summary {
+  color: var(--ink-dim);
+}
+
+.extra {
+  margin-top: 6px;
+}
+
+.extra h4 {
+  margin: 10px 0 0;
+}

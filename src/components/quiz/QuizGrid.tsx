@@ -17,7 +17,7 @@ export function QuizGrid({
   const byQuiz = ready ? summarize(state).byQuiz : [];
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {quizzes.map((quiz, i) => {
         const stat = byQuiz.find((q) => q.quiz === quiz.slug);
         const seen = stat?.answeredQuestions ?? 0;

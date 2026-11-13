@@ -25,7 +25,7 @@ const questionCount = QUIZZES.reduce((sum, quiz) => sum + quiz.questions.length,
 const round = (n: number) => (n >= 1000 ? `${Math.floor(n / 100) * 100}`.replace(/\B(?=(\d{3})+(?!\d))/, ",") : String(n));
 
 const cta = "inline-flex items-center justify-center rounded-full px-7 py-4 text-base font-extrabold text-on-accent transition active:scale-95";
-const ctaStyle = { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)", boxShadow: "0 12px 30px -10px var(--teal)" };
+const ctaStyle = { background: "var(--teal)", boxShadow: "0 12px 30px -10px var(--teal)" };
 
 const TOOLS = [
   {

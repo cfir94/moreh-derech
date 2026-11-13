@@ -89,7 +89,7 @@ export function PlantsGuide({ photos }: { photos: GuidePhotos }) {
         <p aria-live="polite" className="font-bold text-txt-dim">נשארו {filtered.length} צמחים</p>
         <button type="button" onClick={() => { setGroup(""); setHabit(""); setSeason(""); setQuery(""); }} className="min-h-11 rounded-full border border-line px-4 font-bold">ניקוי סינון</button>
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:grid-cols-4">
         {filtered.map((plant) => <button key={plant.id} type="button" onClick={() => openPlant(plant)} className="overflow-hidden rounded-md border border-line bg-sheet text-right transition hover:border-teal">
           <div className="grid aspect-[4/3] place-items-center bg-card-2 text-sm font-bold text-txt-dim">{photos[plant.id]?.[0] ? <img src={photos[plant.id][0].src} alt="" className="h-full w-full object-cover" /> : "אין עדיין צילום"}</div>
           <span className="block px-3 pt-3 font-black">{plant.name}</span><i dir="ltr" className="block px-3 pb-3 text-sm text-txt-dim">{plant.sci}</i>

@@ -72,7 +72,7 @@ export function MyPlan() {
             {busy ? "מבטל…" : "ביטול מנוי"}
           </button>
         ) : access.kind !== "paid" ? (
-          <Link href="/pricing/" className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent" style={{ background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" }}>
+          <Link href="/pricing/" className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent" style={{ background: "var(--teal)" }}>
             הצטרפות
           </Link>
         ) : null}

@@ -13,6 +13,7 @@ import { matchesAnswer } from "@/lib/answerMatching";
 export { matchesAnswer } from "@/lib/answerMatching";
 import { ReadingLink } from "@/components/ReadingLink";
 import { domainStyle } from "@/lib/domains";
+import { Blazes, kit as k, PenGrade, PenUnderline } from "@/components/trail/kit";
 
 /**
  * Exam mode: the sitting as the Ministry runs it.
@@ -40,8 +41,6 @@ function withBlank(text: string) {
   return text.includes("____") ? text : `${text} ______`;
 }
 
-const ACCENT_BG =
-  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)";
 
 /**
  * Said plainly wherever a sitting without a published key appears. Getting an
@@ -50,7 +49,7 @@ const ACCENT_BG =
 function UnofficialNotice({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`rounded-md border p-3.5 text-[12.5px] leading-relaxed ${className}`}
+      className={`rounded-md border p-3.5 text-base leading-relaxed ${className}`}
       style={{
         borderColor: "var(--gold)",
         background:
@@ -154,14 +153,11 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           ← כל המבחנים
         </Link>
 
-        <div className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-6">
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-mc opacity-20 blur-[8px]"
-          />
+        <div className="relative mb-6">
           <div className="relative">
-            <h1 className="mb-2 text-2xl">{exam.label.he}</h1>
-            <p className="text-[13px] leading-relaxed text-txt-dim">
+            <h1 className={k.title}>{exam.label.he}</h1>
+            <PenUnderline />
+            <p className="text-base leading-relaxed text-txt-dim">
               המבחן המלא כפי שהוגש, <span className="num">{questions.length}</span>{" "}
               שאלות. כמו במבחן האמיתי: התשובה הנכונה לא נחשפת בזמן המענה, אפשר
               לדלג ולחזור אחורה ולשנות תשובות, ורק בהגשה מתקבל הציון.
@@ -171,9 +167,9 @@ export function ExamRunner({ exam }: { exam: Exam }) {
 
         {exam.keySource === "derived" && <UnofficialNotice className="mb-6" />}
 
-        <div className="flex flex-col gap-6 rounded-lg border border-line bg-card p-5">
+        <div className={`${k.paper} flex flex-col gap-6 p-6!`}>
           <section>
-            <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
+            <h2 className={k.label}>
               שפת המבחן
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -184,12 +180,8 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                     key={code}
                     type="button"
                     onClick={() => setLang(code)}
-                    className={`rounded-full border px-4 py-2.5 text-sm font-bold transition active:scale-95 ${
-                      active
-                        ? "border-transparent text-on-accent"
-                        : "border-line bg-card-2 text-txt hover:bg-card"
-                    }`}
-                    style={active ? { background: ACCENT_BG } : undefined}
+                    aria-pressed={active}
+                    className={`${k.chip} ${active ? k.chipOn : ""}`}
                   >
                     <span aria-hidden className="ml-1.5">
                       {LANG_META[code].flag}
@@ -199,12 +191,12 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                 );
               })}
             </div>
-            <p className="mt-2.5 text-[12px] text-txt-dim" dir={dir}>
+            <p className="mt-2.5 text-base text-txt-dim" dir={dir}>
               {exam.label[lang]}
             </p>
           </section>
 
-          <ul className="flex flex-col gap-1.5 text-[12.5px] text-txt-dim">
+          <ul className="flex flex-col gap-1.5 text-base text-txt-dim">
             <li>· <span className="num">{PAGE_SIZE}</span> שאלות בעמוד</li>
             <li>· ניווט חופשי קדימה ואחורה עד ההגשה</li>
             <li>
@@ -221,8 +213,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
               reset();
               setPhase("running");
             }}
-            className="rounded-full px-7 py-4 text-base font-extrabold text-on-accent transition active:scale-95"
-            style={{ background: ACCENT_BG, boxShadow: "0 10px 26px -10px var(--teal)" }}
+            className={`${k.sign} ${k.signPlain}`}
           >
             להתחיל את המבחן
           </button>
@@ -235,7 +226,6 @@ export function ExamRunner({ exam }: { exam: Exam }) {
 
   if (phase === "results") {
     const pct = Math.round((correctCount / questions.length) * 100);
-    const stars = [60, 80, 95].map((t) => pct >= t);
     const shown = onlyWrong ? questions.filter((q) => !isCorrect(q)) : questions;
 
     return (
@@ -244,26 +234,8 @@ export function ExamRunner({ exam }: { exam: Exam }) {
         style={domainStyle("exams")}
       >
         <div className="mb-7 text-center">
-          <div className="mb-4 flex justify-center gap-2.5">
-            {stars.map((on, i) => (
-              <span
-                key={i}
-                aria-hidden
-                className="pop-in text-[46px] leading-none"
-                style={{
-                  animationDelay: `${0.1 + i * 0.12}s`,
-                  color: on ? "var(--star)" : "var(--track)",
-                  textShadow: on
-                    ? "0 0 26px color-mix(in srgb, var(--star) 60%, transparent)"
-                    : "none",
-                }}
-              >
-                ★
-              </span>
-            ))}
-          </div>
-
-          <h1 className="mb-1.5 text-3xl">
+          <PenGrade>{pct}</PenGrade>
+          <h1 className="sr-only">
             <span className="num">{pct}%</span>
           </h1>
           <p className="mb-6 text-sm text-txt-dim">
@@ -279,10 +251,10 @@ export function ExamRunner({ exam }: { exam: Exam }) {
             ].map((st) => (
               <div
                 key={st.l}
-                className="flex-1 rounded-md border border-line bg-card px-2 py-3.5"
+                className={`${k.paper} flex-1 px-2! py-3!`}
               >
-                <b className="num block text-[22px] text-gold">{st.v}</b>
-                <span className="text-[11px] text-txt-dim">{st.l}</span>
+                <b className={`num block ${k.statNum}`}>{st.v}</b>
+                <span className="text-sm text-txt-dim">{st.l}</span>
               </div>
             ))}
           </div>
@@ -319,15 +291,15 @@ export function ExamRunner({ exam }: { exam: Exam }) {
             return (
               <li
                 key={q.number}
-                className="rounded-md border border-line bg-card p-4"
+                className={`${k.paper} p-5!`}
                 dir={dir}
               >
                 <div className="mb-1.5 flex items-center gap-2">
-                  <span className="num grid h-6 w-6 shrink-0 place-items-center rounded-full border border-line text-[11px] font-extrabold">
+                  <span className="num grid h-6 w-6 shrink-0 place-items-center rounded-full border border-line text-sm font-extrabold">
                     {q.number}
                   </span>
                   <span
-                    className="text-[12px] font-extrabold"
+                    className="text-base font-extrabold"
                     style={{ color: right ? "var(--ok)" : "var(--red)" }}
                   >
                     {right
@@ -337,7 +309,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                         : "— לא נענתה"}
                   </span>
                   {q.confidence && q.confidence !== "h" && (
-                    <span className="text-[11px] font-bold text-gold">
+                    <span className="text-sm font-bold text-gold">
                       {q.confidence === "l"
                         ? "· תשובה לא ודאית — לאמת"
                         : "· תשובה פחות ודאית"}
@@ -346,7 +318,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                 </div>
 
                 {q.statement[lang] && (
-                  <p className="mb-1.5 text-[12px] leading-relaxed text-txt-dim">
+                  <p className="mb-1.5 text-base leading-relaxed text-txt-dim">
                     {withBlank(q.statement[lang])}
                     {q.statementAnswer[lang] && (
                       <b className="text-ok"> ← {q.statementAnswer[lang]}</b>
@@ -354,13 +326,13 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                   </p>
                 )}
 
-                <b className="mb-2 block text-[14px] leading-relaxed">
+                <b className="mb-2 block text-[1.1rem] leading-relaxed">
                   {q.question[lang]}
                 </b>
                 {!right && <ReadingLink topic={q.topic} />}
 
                 {q.kind === "fill" ? (
-                  <div className="mt-1.5 flex flex-col gap-1.5 text-[12.5px]">
+                  <div className="mt-1.5 flex flex-col gap-1.5 text-base">
                     <p>
                       <span className="text-txt-dim">התשובה שלכם: </span>
                       <b>{texts[q.number]?.trim() || "—"}</b>
@@ -377,7 +349,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                           if (attemptId.current) correctAttemptAnswer(attemptId.current, q.quizId, !right);
                           setOverrides((prev) => ({ ...prev, [q.number]: !right }));
                         }}
-                        className="self-start rounded-full border border-line bg-card-2 px-3 py-1.5 text-[11.5px] font-bold transition active:scale-95"
+                        className="self-start rounded-full border border-line bg-card-2 px-3 py-1.5 text-sm font-bold transition active:scale-95"
                       >
                         {right ? "לסמן כטעות" : "בעצם עניתי נכון"}
                       </button>
@@ -391,7 +363,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                     return (
                       <li
                         key={i}
-                        className={`rounded-sm border px-3 py-2 text-[12.5px] leading-relaxed ${
+                        className={`rounded-sm border px-3 py-2 text-base leading-relaxed ${
                           isCorrect
                             ? "border-ok text-txt"
                             : isPick
@@ -415,7 +387,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                         <b className="me-1.5">{letters[i]}.</b>
                         {a.text[lang]}
                         {isPick && !isCorrect && (
-                          <span className="text-[11px] text-red"> (התשובה שלכם)</span>
+                          <span className="text-sm text-red"> (התשובה שלכם)</span>
                         )}
                       </li>
                     );
@@ -424,7 +396,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                 )}
 
                 {q.explanation && (
-                  <p className="mt-2 rounded-sm border border-line bg-card-2 px-3 py-2 text-[12px] leading-relaxed text-txt-dim">
+                  <p className="mt-2 rounded-sm border border-line bg-card-2 px-3 py-2 text-base leading-relaxed text-txt-dim">
                     {q.explanation}
                   </p>
                 )}
@@ -440,20 +412,19 @@ export function ExamRunner({ exam }: { exam: Exam }) {
               reset();
               setPhase("running");
             }}
-            className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
-            style={{ background: ACCENT_BG, boxShadow: "0 10px 26px -10px var(--teal)" }}
+            className={`${k.sign} ${k.signPlain}`}
           >
             לעשות את המבחן שוב
           </button>
           <Link
             href="/quizzes/review"
-            className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95"
+            className={k.ghost}
           >
             לתרגל את הטעויות
           </Link>
           <Link
             href="/me"
-            className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95"
+            className={k.ghost}
           >
             לאזור האישי
           </Link>
@@ -470,7 +441,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8" style={domainStyle("exams")}>
       <div className="mb-5">
-        <div className="mb-2 flex items-center justify-between text-[12px] font-bold text-txt-dim">
+        <div className="mb-2 flex items-center justify-between text-base font-bold text-txt-dim">
           <span>
             עמוד <span className="num">{page + 1}</span> מתוך{" "}
             <span className="num">{pages}</span>
@@ -480,15 +451,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
             <span className="num">{questions.length}</span>
           </span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-track">
-          <i
-            className="block h-full rounded-full transition-[width] duration-300"
-            style={{
-              width: `${(answeredCount / questions.length) * 100}%`,
-              background: "linear-gradient(90deg, var(--teal), var(--gold))",
-            }}
-          />
-        </div>
+        <Blazes pct={(answeredCount / questions.length) * 100} />
       </div>
 
       <ol key={page} className="screen-in flex flex-col gap-3" dir={dir}>
@@ -497,19 +460,19 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           return (
             <li
               key={q.number}
-              className="rounded-lg border border-line bg-card p-4"
+              className={`${k.paper} p-5!`}
             >
               <div className="mb-2 flex items-start gap-2.5">
-                <span className="num mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full border border-line bg-card-2 text-[12px] font-extrabold">
+                <span className="num mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full border-[1.5px] border-[color-mix(in_srgb,var(--ink)_55%,transparent)] font-[family-name:var(--font-hand)] text-xl">
                   {q.number}
                 </span>
                 <div>
                   {q.statement[lang] && (
-                    <p className="mb-1 text-[12px] leading-relaxed text-txt-dim">
+                    <p className="mb-1 text-base leading-relaxed text-txt-dim">
                       {withBlank(q.statement[lang])}
                     </p>
                   )}
-                  <b className="block text-[15.5px] leading-relaxed">
+                  <b className="block text-[1.2rem] leading-relaxed">
                     {q.question[lang]}
                   </b>
                 </div>
@@ -523,7 +486,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                     setTexts((prev) => ({ ...prev, [q.number]: e.target.value }))
                   }
                   placeholder="התשובה שלכם"
-                  className="w-full rounded-md border border-line bg-card-2 px-3.5 py-3 text-[15px] font-bold outline-none transition focus:border-mc"
+                  className="w-full rounded-md border border-line bg-card-2 px-3.5 py-3 text-lg font-bold outline-none transition focus:border-mc"
                   dir={dir}
                 />
               ) : (
@@ -547,25 +510,10 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                               : { ...prev, [q.number]: i },
                           )
                         }
-                        className={`flex w-full cursor-pointer items-start gap-3 rounded-md border p-3 text-start text-[14px] font-bold transition-transform duration-150 active:scale-[0.985] ${
-                          selected
-                            ? "border-mc"
-                            : "border-line bg-card-2 hover:bg-card"
-                        }`}
-                        style={
-                          selected
-                            ? {
-                                background:
-                                  "linear-gradient(120deg, color-mix(in srgb, var(--mc) 22%, transparent), color-mix(in srgb, var(--mc) 7%, transparent))",
-                              }
-                            : undefined
-                        }
+                        aria-pressed={selected}
+                        className={`${k.answer} ${selected ? "border-[var(--ink)]!" : ""}`}
                       >
-                        <span
-                          className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border text-[11px] font-extrabold ${
-                            selected ? "border-mc text-mc" : "border-line"
-                          }`}
-                        >
+                        <span className={`${k.letter} ${selected ? k.letterOn : ""}`}>
                           {letters[i]}
                         </span>
                         <span className="leading-relaxed">{a.text[lang]}</span>
@@ -591,10 +539,9 @@ export function ExamRunner({ exam }: { exam: Exam }) {
               type="button"
               onClick={() => goToQuestion(i)}
               aria-label={`שאלה ${q.number}`}
-              className={`num h-8 w-8 rounded-[10px] border text-[11.5px] font-extrabold transition active:scale-90 ${
-                onPage ? "border-mc" : "border-line"
-              } ${done ? "text-on-accent" : "bg-card-2 text-txt-dim"}`}
-              style={done ? { background: ACCENT_BG } : undefined}
+              className={`num grid h-10 w-10 place-items-center rounded-full text-base font-extrabold transition active:scale-90 ${
+                onPage ? "ring-2 ring-[var(--t-blue)]" : ""
+              } ${done ? "bg-[var(--ink)] text-[var(--paper)]" : "border-[1.5px] border-[color-mix(in_srgb,var(--ink)_45%,transparent)] text-txt-dim"}`}
             >
               {q.number}
             </button>
@@ -607,7 +554,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           type="button"
           onClick={() => setPage((p) => Math.max(0, p - 1))}
           disabled={page === 0}
-          className="rounded-full border border-line bg-card-2 px-6 py-3.5 font-extrabold transition active:scale-95 disabled:opacity-40"
+          className={`${k.ghost} disabled:opacity-40`}
         >
           → הקודם
         </button>
@@ -616,8 +563,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(pages - 1, p + 1))}
-            className="rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95"
-            style={{ background: ACCENT_BG, boxShadow: "0 10px 26px -10px var(--teal)" }}
+            className={`${k.sign} ${k.signPlain}`}
           >
             הבא ←
           </button>
@@ -626,21 +572,14 @@ export function ExamRunner({ exam }: { exam: Exam }) {
         <button
           type="button"
           onClick={() => (unanswered.length && !confirming ? setConfirming(true) : submit())}
-          className={`rounded-full px-6 py-3.5 font-extrabold transition active:scale-95 ${
-            lastPage ? "text-on-accent" : "border border-line bg-card-2"
-          }`}
-          style={
-            lastPage
-              ? { background: ACCENT_BG, boxShadow: "0 10px 26px -10px var(--teal)" }
-              : undefined
-          }
+          className={lastPage ? `${k.sign} ${k.signPlain}` : k.ghost}
         >
           {confirming ? "להגיש בכל זאת" : "להגיש את המבחן"}
         </button>
       </div>
 
       {confirming && unanswered.length > 0 && (
-        <p className="mt-3 text-[13px] font-bold text-red">
+        <p className="mt-3 text-base font-bold text-red">
           נותרו <span className="num">{unanswered.length}</span> שאלות ללא מענה
           (
           {unanswered.slice(0, 8).map((q, i) => (

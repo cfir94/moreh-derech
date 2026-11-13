@@ -96,7 +96,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
               className={`mt-5 rounded-full px-4 py-3.5 font-extrabold transition active:scale-95 ${
                 card.featured || plan === card.id ? "text-on-accent" : "border border-line bg-card-2 text-txt"
               }`}
-              style={card.featured || plan === card.id ? { background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" } : undefined}
+              style={card.featured || plan === card.id ? { background: "var(--teal)" } : undefined}
             >
               {plan === card.id ? "נבחר ✓" : `רוצה ${card.title}`}
             </button>
@@ -137,7 +137,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
                 type="submit"
                 disabled={busy}
                 className="mt-1 rounded-full px-4 py-3.5 font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60"
-                style={{ background: "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)" }}
+                style={{ background: "var(--teal)" }}
               >
                 {busy ? "שולח…" : "שליחה"}
               </button>

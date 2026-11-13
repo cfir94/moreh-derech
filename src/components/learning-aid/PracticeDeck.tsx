@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { recordAttempt, type RecordedAnswer } from "@/lib/progress";
+import { kit as k, PenCircle, PenStrike } from "@/components/trail/kit";
 
 export type PracticeItem = { id: number; prompt: string; choices: string[]; answer: number; explain?: string };
 type Choice = { text: string; sourceIndex: number };
@@ -56,28 +57,31 @@ export function PracticeDeck({ quizSlug, label, items }: { quizSlug: string; lab
   };
 
   if (finished) {
-    return <section data-practice-score className="screen-in rounded-lg border border-line bg-card p-6 text-center">
-      <h2 className="text-2xl font-black">סיימת את הסבב</h2>
+    return <section data-practice-score className={`screen-in ${k.paper} p-6! text-center`}>
+      <h2 className={k.sectionTitle}>סיימת את הסבב</h2>
       <p className="mt-3 text-txt-dim">ציון: <strong className="num text-txt">{score} מתוך {questions.length}</strong></p>
-      <button type="button" onClick={restart} className="mt-5 min-h-11 rounded-full bg-mc px-6 py-2.5 font-bold text-on-accent active:scale-95">סבב נוסף</button>
+      <button type="button" onClick={restart} className={`${k.sign} ${k.signPlain} mt-5`}>סבב נוסף</button>
     </section>;
   }
 
-  return <section aria-label="תרגול" className="rounded-lg border border-line bg-card p-5">
-    <p className="mb-4 text-sm text-txt-dim">שאלה <span className="num">{index + 1}</span> מתוך <span className="num">{questions.length}</span></p>
-    <h2 className="text-xl font-black">{item.prompt}</h2>
-    <div className="mt-5 grid gap-3">
+  return <section aria-label="תרגול" className={`${k.paper} p-6!`}>
+    <p className="mb-4 text-base font-bold text-txt-dim">שאלה <span className="num">{index + 1}</span> מתוך <span className="num">{questions.length}</span></p>
+    <h2 className={k.question}>{item.prompt}</h2>
+    <div className="mt-2 grid gap-2.5">
       {choices.map((choice, choiceIndex) => {
         const isAnswer = choice.sourceIndex === item.answer;
         const wasPicked = choiceIndex === picked;
-        const feedback = picked === null ? "border-line bg-card-2 text-txt" : isAnswer ? "border-green bg-green/15 text-txt" : wasPicked ? "shake border-red bg-red/15 text-txt" : "border-line bg-card-2 text-txt opacity-30";
-        return <button key={`${choice.sourceIndex}-${choice.text}`} type="button" disabled={picked !== null} onClick={() => choose(choiceIndex)} data-correct={isAnswer} className={`min-h-11 rounded-md border px-4 py-3 text-right font-bold transition active:scale-95 ${feedback}`}>{choice.text}</button>;
+        const feedback = picked === null ? "" : isAnswer ? k.answerRight : wasPicked ? k.answerWrong : k.answerFaded;
+        return <button key={`${choice.sourceIndex}-${choice.text}`} type="button" disabled={picked !== null} onClick={() => choose(choiceIndex)} data-correct={isAnswer} className={`${k.answer} ${feedback}`}>
+          <span aria-hidden className={`${k.letter} ${wasPicked ? k.letterOn : ""}`}>{"אבגדהו"[choiceIndex]}</span>
+          <span className={k.penWrap}>{choice.text}{picked !== null && isAnswer && <PenCircle />}{wasPicked && !isAnswer && <PenStrike />}</span>
+        </button>;
       })}
     </div>
     {picked !== null && <div data-feedback data-correct={correct} className="screen-in mt-5 border-t border-line pt-4">
-      <p className={`font-bold ${correct ? "text-green" : "text-red"}`}>{correct ? "נכון!" : "לא הפעם."}</p>
-      {item.explain && <p className="mt-2 leading-7 text-txt-dim">{item.explain}</p>}
-      <button type="button" onClick={next} className="mt-4 min-h-11 rounded-full bg-mc px-6 py-2.5 font-bold text-on-accent active:scale-95">הבא</button>
+      <p className={k.verdict} style={{ color: correct ? "var(--t-green)" : "var(--t-red)" }}>{correct ? "נכון!" : "לא הפעם."}</p>
+      {item.explain && <p className="mt-2 text-[1.08rem] leading-relaxed text-txt-dim">{item.explain}</p>}
+      <button type="button" onClick={next} className={`${k.sign} ${k.signPlain} mt-4`}>הבא</button>
     </div>}
   </section>;
 }

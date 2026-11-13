@@ -1,6 +1,8 @@
 import { pageMeta } from "@/lib/seo";
 import { PLANTS } from "@/data/plants/plants";
 import { SectionCard } from "@/components/SectionCard";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageHead, SignLink, TrailPage } from "@/components/trail/kit";
 
 
 const games = [
@@ -58,21 +60,27 @@ export const metadata = pageMeta({
 });
 
 export default function GamesPage() {
+  const [crossword, ...rest] = games;
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
-      <div className="mb-8">
-        <p className="mb-2 text-sm font-bold text-gold">מרכז המשחקים</p>
-        <h1 className="grad-text mb-3 text-4xl">משחקים</h1>
-        <p className="max-w-2xl leading-relaxed text-txt-dim">
-          בחרו משחק והמשיכו לשחק בתוך אֶבֶן דֶּרֶךְ, כשהסרגל העליון נשאר זמין.
-        </p>
+    <TrailPage>
+      <PageHead
+        title="משחקים"
+        art={<InkIcon name="games" size={112} />}
+        lede="קופסת המשחקים שבתרמיל: חזרה על החומר בלי להרגיש שלומדים. ההתקדמות נשמרת בחשבון."
+      />
+      <div className="mb-10">
+        <SignLink
+          href={crossword.href}
+          icon="quizzes"
+          title={crossword.title}
+          sub={crossword.meta}
+        />
       </div>
-
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {games.map((game, index) => (
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((game, index) => (
           <SectionCard key={game.href} index={index} {...game} />
         ))}
       </div>
-    </div>
+    </TrailPage>
   );
 }

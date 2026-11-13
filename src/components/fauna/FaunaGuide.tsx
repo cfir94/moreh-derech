@@ -72,7 +72,7 @@ export function FaunaGuide({ photos }: { photos: FaunaPhotos }) {
         </label>
       </div>
       <p aria-live="polite" className="mt-4 border-t border-line pt-4 font-bold text-txt-dim">נמצאו {list.length}</p>
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:grid-cols-4">
         {list.map((a) => <button key={a.id} type="button" onClick={() => open(a)} className="overflow-hidden rounded-md border border-line bg-sheet text-right transition hover:border-teal active:scale-[.98]">
           <div className="grid aspect-[4/3] place-items-center bg-card-2 text-4xl">{photos[a.id]?.[0] ? <img src={withBasePath(photos[a.id][0].src)} alt="" loading="lazy" className="h-full w-full object-cover" /> : <span aria-hidden>{ANIMAL_GROUPS[a.group].icon}</span>}</div>
           <span className="block px-3 pt-3 text-base font-black">{a.name}</span>

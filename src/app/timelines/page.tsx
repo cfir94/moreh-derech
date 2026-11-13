@@ -1,6 +1,8 @@
 import { pageMeta } from "@/lib/seo";
 import { SectionCard } from "@/components/SectionCard";
 import { LEARNING_AID_GROUPS } from "@/data/learning-aids";
+import { InkIcon } from "@/components/trail/Ink";
+import { Chip, PageHead, SectionHead, TrailPage } from "@/components/trail/kit";
 
 export const metadata = pageMeta({
   title: "צירי זמן ועזרי למידה",
@@ -10,23 +12,26 @@ export const metadata = pageMeta({
 
 export default function TimelinesPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
-      <header className="screen-in mb-7">
-        <h1 className="grad-text mb-2 text-3xl">עזרי למידה</h1>
-        <p className="max-w-2xl text-txt-dim">
-          צירי זמן, טבלאות השוואה, כלי זיכרון והדמיות לפי נושא —
-          ללמידה, להבנה ולחזרה על החומר.
-        </p>
-      </header>
+    <TrailPage>
+      <PageHead
+        title="עזרי למידה"
+        art={<InkIcon name="timelines" size={112} />}
+        lede="מדף הכלים: צירי זמן, אטלס, אדריכלות, גאולוגיה ומגדירי שדה. ללמוד, להבין ולחזור על החומר."
+      >
+        <nav aria-label="קבוצות עזרי הלמידה" className="mt-6 flex flex-wrap gap-2.5">
+          {LEARNING_AID_GROUPS.map((g) => (
+            <Chip key={g.id} href={`#group-${g.id}`}>
+              {g.title}
+            </Chip>
+          ))}
+        </nav>
+      </PageHead>
 
-      <div className="space-y-10">
+      <div className="space-y-12">
         {LEARNING_AID_GROUPS.map((group) => (
-          <section key={group.id} aria-labelledby={`group-${group.id}`}>
-            <h2 id={`group-${group.id}`} className="mb-1 text-2xl font-black">
-              {group.title}
-            </h2>
-            <p className="mb-4 text-sm text-txt-dim">{group.description}</p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <section key={group.id} aria-labelledby={`group-${group.id}`} className="scroll-mt-24">
+            <SectionHead id={`group-${group.id}`} title={group.title} note={group.description} />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {group.aids.map((aid, index) => (
                 <SectionCard key={aid.href} index={index} {...aid} />
               ))}
@@ -34,6 +39,6 @@ export default function TimelinesPage() {
           </section>
         ))}
       </div>
-    </div>
+    </TrailPage>
   );
 }
