@@ -503,8 +503,11 @@
   transform: rotate(1deg);
 }
 
-.sign:hover,
-.sign:focus-visible {
+/* the house gesture: a sign lifts and straightens when the hand comes near (every sign, both columns) */
+.station .sign:hover,
+.station .sign:focus-visible,
+.station:nth-child(even) .sign:hover,
+.station:nth-child(even) .sign:focus-visible {
   transform: translateY(-4px) rotate(0deg) scale(1.03);
 }
 
