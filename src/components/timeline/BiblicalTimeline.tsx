@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AidHeader, AidSearch, AidTabs, PracticeDeck, SummaryCard, useHashTab, type PracticeItem } from "@/components/learning-aid";
+import { AidSearch, AidTabs, PracticeDeck, useHashTab, type PracticeItem } from "@/components/learning-aid";
+import { JesusRoad } from "@/components/design/final/JesusTimeline";
+import { PageHead } from "@/components/trail/kit";
+import { InkFish } from "@/components/trail/decor/christian";
 import { matchesTempleQuery } from "@/data/second-temple";
 import timelines from "@/data/timelines/biblical";
 import { domainStyle } from "@/lib/domains";
@@ -20,14 +23,6 @@ const practice: PracticeItem[] = timelines.flatMap((timeline, timelineIndex) => 
   answer: 0,
   explain: timeline.title,
 })));
-
-type BiblicalEvent = (typeof timelines)[number]["events"][number];
-function EventDetail({ event }: { event: BiblicalEvent }) {
-  return <div className="max-h-[70vh] space-y-4 overflow-y-auto pl-2">
-    {event.quote && <section><h3 className="font-bold text-txt">{event.reference}</h3><p className="mt-1 whitespace-pre-line">{event.quote}</p></section>}
-    {event.sections.map((section, index) => <section key={`${section.reference}-${index}`}><h3 className="font-bold text-txt">{section.reference}</h3><p className="mt-1 whitespace-pre-line">{section.quote}</p></section>)}
-  </div>;
-}
 
 export function BiblicalTimeline() {
   const resolve = (hash: string): TabId | undefined => {
@@ -52,18 +47,22 @@ export function BiblicalTimeline() {
     if (match) selectTab(`period-${match.id}`);
   };
 
-  return <main dir="rtl" className="mx-auto max-w-6xl space-y-4 px-4 py-6" style={domainStyle("biblical")} data-biblical-timeline>
-    <AidHeader slug="biblical" title="צירי הזמן של הברית החדשה" subtitle="האירועים, המקורות והטקסט המלא לפי חלקים." stats={`${timelines.reduce((sum, item) => sum + item.events.length, 0)} אירועים · ${timelines.length} חלקים`} />
-    <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start lg:gap-5">
-      <AidTabs tabs={tabs} active={tab} onSelect={selectTab} />
-      <section role="tabpanel" className="screen-in min-w-0 space-y-4 pt-4 lg:pt-0" key={tab}>
-        {tab === PRACTICE_ID ? <PracticeDeck quizSlug="biblical" label="הברית החדשה: תרגול" items={practice} /> : activeTimeline && <>
-          <div><h2 className="text-2xl font-black">{activeTimeline.title}</h2><p className="mt-1 text-txt-dim">{activeTimeline.subtitle}</p></div>
-          <AidSearch value={query} onChange={search} placeholder="חיפוש באירועים ובמקורות…" />
-          <div className="grid gap-4 xl:grid-cols-2">{events.map((event) => <SummaryCard key={event.id} id={event.id} title={event.title} date={event.reference} summary={event.body}><EventDetail event={event} /></SummaryCard>)}</div>
-          {!events.length && <p className="rounded-lg border border-line bg-card p-5 text-center text-txt-dim">לא נמצאו תוצאות.</p>}
-        </>}
-      </section>
-    </div>
+  const chapter = activeTimeline ? timelines.indexOf(activeTimeline) : 0;
+  const numberFrom = 1 + timelines.slice(0, chapter).reduce((sum, item) => sum + item.events.length, 0);
+
+  return <main dir="rtl" className="mx-auto max-w-6xl px-4 py-8" style={domainStyle("biblical")} data-biblical-timeline>
+    <PageHead
+      title="חיי ישוע והשליחים"
+      art={<InkFish width={112} height={112} />}
+      lede={`מהבשורה למרים ועד מעשי השליחים: ${timelines.reduce((sum, item) => sum + item.events.length, 0)} תחנות בחמישה פרקים, לפי סדר הבשורות. לכל תחנה מראה המקום והפסוקים המלאים.`}
+    />
+    <AidTabs row tabs={tabs} active={tab} onSelect={selectTab} />
+    <section role="tabpanel" className="screen-in mt-6 min-w-0" key={tab}>
+      {tab === PRACTICE_ID ? <PracticeDeck quizSlug="biblical" label="הברית החדשה: תרגול" items={practice} /> : activeTimeline && <>
+        <div className="mx-auto mb-4 max-w-xl"><AidSearch value={query} onChange={search} placeholder="חיפוש באירועים ובמקורות…" /></div>
+        {events.length > 0 && <JesusRoad timelines={[{ ...activeTimeline, events }]} chapterIndex={chapter} total={timelines.length} numberFrom={numberFrom} end={chapter === timelines.length - 1 && !query} />}
+        {!events.length && <p className="rounded-[5px] bg-[var(--paper)] p-5 text-center text-lg text-txt-dim shadow-[0_0_0_1px_var(--line)]">לא נמצאו תוצאות.</p>}
+      </>}
+    </section>
   </main>;
 }
