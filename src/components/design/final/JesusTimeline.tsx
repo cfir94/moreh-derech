@@ -42,7 +42,7 @@ const ART: ChapterArt[] = [
         <InkBoat className={`${s.doodle} ${s.d2}`} />
         <InkFish className={`${s.doodle} ${s.d3}`} />
         <div className={`${s.zone} ${s.z2}`} data-zone="">
-          <Waypoints className={s.fill} />
+          <Waypoints className={s.fill} points={["ירושלים", "כפר נחום", "נצרת"]} spring="הירדן" rings={false} />
         </div>
       </>
     ),
