@@ -534,7 +534,7 @@ export function QuizRunner({
                   disabled={answered}
                   className={`${k.answer} ${state}`}
                 >
-                  <span className={`${k.letter} ${answered && isPicked ? k.letterOn : ""}`}>
+                  <span aria-hidden className={`${k.letter} ${answered && isPicked ? k.letterOn : ""}`}>
                     {OPTION_LETTERS[i]}
                   </span>
                   <span className={k.penWrap}>
