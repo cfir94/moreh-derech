@@ -6,6 +6,7 @@ import { useUser } from "@/contexts/UserContext";
 import { LAUNCH, PRICES } from "@/lib/launch";
 import { fetchMyProfile, requestJoin, type JoinPlan } from "@/lib/manualAccess";
 import { OwnerCard } from "./OwnerCard";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 const INCLUDED = [
   "כל השאלונים, לפי נושאי הסילבוס",
@@ -96,7 +97,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
               className={`mt-5 rounded-full px-4 py-3.5 font-extrabold transition active:scale-95 ${
                 card.featured || plan === card.id ? "text-on-accent" : "border border-line bg-card-2 text-txt"
               }`}
-              style={card.featured || plan === card.id ? { background: "var(--teal)" } : undefined}
+              style={card.featured || plan === card.id ? SIGN_STYLE : undefined}
             >
               {plan === card.id ? "נבחר ✓" : `רוצה ${card.title}`}
             </button>
@@ -137,7 +138,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
                 type="submit"
                 disabled={busy}
                 className="mt-1 rounded-full px-4 py-3.5 font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60"
-                style={{ background: "var(--teal)" }}
+                style={SIGN_STYLE}
               >
                 {busy ? "שולח…" : "שליחה"}
               </button>

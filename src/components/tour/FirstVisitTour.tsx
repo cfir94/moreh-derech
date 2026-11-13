@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { makeStore } from "@/lib/clientStore";
 import { TOURS, type TourId, type TourStep } from "@/data/tours";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 const KEY = "md_tours_seen_v1";
 const EVENT = "md-tours-changed";
@@ -124,7 +125,7 @@ export function FirstVisitTour({ id }: { id: TourId }) {
                   type="button"
                   onClick={() => (last ? close() : setStep(step + 1))}
                   className="rounded-full px-5 py-2 text-sm font-extrabold text-on-accent"
-                  style={{ background: "var(--teal)" }}
+                  style={SIGN_STYLE}
                 >
                   {last ? "מתחילים" : "הבא"}
                 </button>

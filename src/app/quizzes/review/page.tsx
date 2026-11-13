@@ -8,6 +8,7 @@ import type { Question, Quiz } from "@/data/quizzes/types";
 import { QuizRunner } from "@/components/quiz/QuizRunner";
 import { useProgress } from "@/hooks/useProgress";
 import { reviewQuestions } from "@/lib/reviewQuestions";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 /**
  * Drills every question the user most recently got wrong, pooled across all
@@ -42,8 +43,7 @@ export default function ReviewPage() {
           href="/quizzes"
           className="inline-block rounded-full px-7 py-3.5 font-extrabold text-on-accent transition active:scale-95"
           style={{
-            background: "var(--teal)",
-            boxShadow: "var(--shadow)",
+            ...SIGN_STYLE,
           }}
         >
           לשאלונים

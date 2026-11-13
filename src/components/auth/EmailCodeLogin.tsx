@@ -13,6 +13,7 @@ import { friendlyAuthError, requestEmailCode, saveProfileDetails } from "@/lib/c
 import { cohortLabel, fetchCohorts, saveSignupDetails, type Cohort } from "@/lib/manualAccess";
 import { startTrial } from "@/lib/entitlement";
 import { LAUNCH, PRICES } from "@/lib/launch";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 type Step = "email" | "code" | "profile";
 
@@ -21,8 +22,7 @@ const field =
   "rounded-md border border-line bg-sheet px-3.5 py-3 text-base outline-none transition focus:border-teal";
 const primary = "mt-2 rounded-full px-4 py-4 font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
 const primaryStyle = {
-  background: "var(--teal)",
-  boxShadow: "var(--shadow)",
+  ...SIGN_STYLE,
 };
 
 export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {

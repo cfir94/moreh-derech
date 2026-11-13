@@ -6,6 +6,7 @@ import { EXAMS, MINISTRY_EXAMS } from "@/data/exams";
 import { QUIZZES } from "@/data/quizzes";
 import { withBasePath } from "@/lib/basePath";
 import { LAUNCH, PRICES, SITE_URL } from "@/lib/launch";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 export const metadata: Metadata = {
   title: { absolute: "אבן דרך למורי דרך | ללמוד למבחן ולתכנן את הסיור הבא" },
@@ -25,7 +26,7 @@ const questionCount = QUIZZES.reduce((sum, quiz) => sum + quiz.questions.length,
 const round = (n: number) => (n >= 1000 ? `${Math.floor(n / 100) * 100}`.replace(/\B(?=(\d{3})+(?!\d))/, ",") : String(n));
 
 const cta = "inline-flex items-center justify-center rounded-full px-7 py-4 text-base font-extrabold text-on-accent transition active:scale-95";
-const ctaStyle = { background: "var(--teal)", boxShadow: "0 12px 30px -10px var(--teal)" };
+const ctaStyle = SIGN_STYLE;
 
 const TOOLS = [
   {

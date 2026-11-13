@@ -13,6 +13,7 @@ import { createRound, KIND_LABELS, progressId, type PlantPhoto, type Question } 
 import { recordAttempt, type RecordedAnswer } from "@/lib/progress";
 import { withBasePath } from "@/lib/basePath";
 import { domainStyle } from "@/lib/domains";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 const PHOTOS: PlantPhoto[] = Object.values(rawPhotos as Record<string, (PlantPhoto & { status?: string })[]>)
   .flat().filter((p) => p.status === "approved");
@@ -20,7 +21,7 @@ const PHOTO_BY_ID = new Map(PHOTOS.map((p) => [p.id, p]));
 const PLANT_BY_ID = new Map(PLANTS.map((p) => [p.id, p]));
 const LETTERS = ["א", "ב", "ג", "ד"];
 const primary = "min-h-12 rounded-full px-7 text-base font-extrabold text-on-accent transition active:scale-95";
-const primaryStyle = { background: "var(--teal)", boxShadow: "0 10px 26px -12px var(--teal)" };
+const primaryStyle = SIGN_STYLE;
 
 function prompt(q: Question, plant: Plant) {
   switch (q.kind) {

@@ -11,10 +11,11 @@ import { DATING_QUIZZES, type DatingItem } from "@/data/history-timeline/dating"
 import { recordSummaryAttempt } from "@/lib/progress";
 import { isolateRanges } from "@/lib/bidi";
 import { domainStyle } from "@/lib/domains";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 const LETTERS = ["א", "ב", "ג", "ד"];
 const primary = "min-h-12 rounded-full px-7 text-base font-extrabold text-on-accent transition active:scale-95";
-const primaryStyle = { background: "var(--teal)", boxShadow: "0 10px 26px -12px var(--teal)" };
+const primaryStyle = SIGN_STYLE;
 const RATINGS = [["ידעתי", 2], ["חלקית", 1], ["לא ידעתי", 0]] as const;
 
 type Run = { key: string; index: number; picks: (number | null)[]; ratings: (number | null)[]; revealed: boolean };
