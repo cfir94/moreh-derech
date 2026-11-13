@@ -9,6 +9,7 @@ import { useProgress } from "@/hooks/useProgress";
 import { SyncStatusLine, useSyncStatus } from "@/components/SyncStatusLine";
 import { needsReview, resetProgress, summarize } from "@/lib/progress";
 import { domainStyle } from "@/lib/domains";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 function formatDate(ts: number) {
   return new Date(ts).toLocaleDateString("he-IL", {
@@ -72,8 +73,7 @@ export default function MePage() {
             href="/quizzes"
             className="inline-block rounded-full px-7 py-3.5 font-extrabold text-on-accent transition active:scale-95"
             style={{
-              background: "var(--teal)",
-              boxShadow: "var(--shadow)",
+              ...SIGN_STYLE,
             }}
           >
             לשאלונים

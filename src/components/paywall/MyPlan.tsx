@@ -7,6 +7,7 @@ import { readSession } from "@/lib/cloudAuth";
 import { refreshEntitlement, useAccess } from "@/lib/accessStore";
 import { LAUNCH } from "@/lib/launch";
 import { useLaunch } from "@/lib/launchClient";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 const date = (d: Date) => d.toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" });
 
@@ -72,7 +73,7 @@ export function MyPlan() {
             {busy ? "מבטל…" : "ביטול מנוי"}
           </button>
         ) : access.kind !== "paid" ? (
-          <Link href="/pricing/" className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent" style={{ background: "var(--teal)" }}>
+          <Link href="/pricing/" className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent" style={SIGN_STYLE}>
             הצטרפות
           </Link>
         ) : null}

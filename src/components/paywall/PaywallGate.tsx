@@ -14,10 +14,12 @@ import { hasAccess, startTrial } from "@/lib/entitlement";
 import { PRICES } from "@/lib/launch";
 import { useLaunch } from "@/lib/launchClient";
 import { isFreePath } from "@/lib/plans";
+import { SIGN_STYLE } from "@/components/trail/kit";
+import { InkCompass } from "@/components/trail/Ink";
 
 const cta =
   "inline-block rounded-full px-6 py-3.5 font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
-const ctaStyle = { background: "var(--teal)", boxShadow: "var(--shadow)" };
+const ctaStyle = SIGN_STYLE;
 
 export function PaywallGate({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -65,13 +67,8 @@ function Locked({ kind }: { kind: "guest" | "none" | "expired" | "trial" | "paid
 
   return (
     <div className="screen-in mx-auto max-w-3xl px-4 py-14">
-      <div className="relative overflow-hidden rounded-lg border border-line bg-card p-8 text-center">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full blur-[12px]"
-          style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--teal) 26%, transparent), transparent 65%)" }}
-        />
-        <div aria-hidden className="relative mb-3 text-5xl">🧭</div>
+      <div className="relative overflow-hidden rounded-[5px] bg-[var(--paper)] p-8 text-center shadow-[0_0_0_1px_var(--line),var(--shadow)]">
+        <div aria-hidden className="relative mb-3 flex justify-center text-txt"><InkCompass width={84} height={84} /></div>
         {kind === "expired" ? (
           <>
             <h1 className="grad-text relative mb-2 text-3xl">שבוע הניסיון הסתיים</h1>

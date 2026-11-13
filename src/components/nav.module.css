@@ -50,7 +50,7 @@
   list-style: none;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1400px) {
   .links {
     display: flex;
   }
@@ -98,7 +98,7 @@
   margin-inline-start: auto;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1400px) {
   .tools {
     margin-inline-start: 0;
   }

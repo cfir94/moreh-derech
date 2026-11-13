@@ -1,3 +1,4 @@
+import { SIGN_STYLE } from "@/components/trail/kit";
 /**
  * הפנים מאחורי האתר (docs/launch/PAYMENTS-MANUAL.md). התמונה תגיע מהבעלים; עד אז עיגול עם ראשי תיבות.
  * כשתגיע: לשמור ב-public/owner/cfir.webp ולהחליף את העיגול ב-<img>.
@@ -8,7 +9,7 @@ export function OwnerCard() {
       <div
         aria-hidden
         className="grid size-16 shrink-0 place-items-center rounded-full text-xl font-black text-on-accent"
-        style={{ background: "var(--teal)" }}
+        style={SIGN_STYLE}
       >
         כי
       </div>

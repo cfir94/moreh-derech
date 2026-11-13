@@ -295,3 +295,11 @@ export function StepRoad({
     </ol>
   );
 }
+
+/** The brown sign as an inline style, for older buttons styled with utility classes. */
+export const SIGN_STYLE = {
+  background: "var(--sign)",
+  color: "var(--sign-ink)",
+  borderRadius: "8px",
+  boxShadow: "inset 0 0 0 2.5px var(--sign), inset 0 0 0 4px var(--sign-ink), 0 10px 16px -12px rgb(20 12 4 / 0.7)",
+} as const;

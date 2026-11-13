@@ -7,6 +7,7 @@ import { useUser } from "@/contexts/UserContext";
 import { friendlyAuthError, isLegacyPasswordError } from "@/lib/cloudAuth";
 import { useLaunch } from "@/lib/launchClient";
 import { clearUser, readUser } from "@/lib/localAuth";
+import { SIGN_STYLE } from "@/components/trail/kit";
 
 /**
  * כניסה. כשהדגל NEXT_PUBLIC_EMAIL_CODE_LOGIN דולק: קוד חד-פעמי למייל (EmailCodeLogin).
@@ -194,8 +195,7 @@ function LegacyLogin() {
             disabled={busy}
             className="mt-2 rounded-full px-4 py-4 font-extrabold text-on-accent transition active:scale-95"
             style={{
-              background: "var(--teal)",
-              boxShadow: "var(--shadow)",
+              ...SIGN_STYLE,
             }}
           >
             {busy ? "מתחבר…" : "כניסה"}
