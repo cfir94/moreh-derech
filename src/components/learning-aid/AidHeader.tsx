@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { domainStyle } from "@/lib/domains";
+import { domainOf, domainStyle } from "@/lib/domains";
+import { InkIcon } from "@/components/trail/Ink";
+import { PenUnderline } from "@/components/trail/kit";
 
 export type AidHeaderProps = {
   slug: string;
@@ -8,14 +10,20 @@ export type AidHeaderProps = {
   stats?: string;
 };
 
+/** The head of a learning aid, in the trail design: pencil crumbs, the title in the guide's hand, the subject's ink drawing. */
 export function AidHeader({ slug, title, subtitle, stats }: AidHeaderProps) {
-  return <header className="rounded-lg border border-line bg-card px-5 py-5 sm:px-7" style={domainStyle(slug)}>
-    <nav aria-label="פירורי לחם" className="text-sm font-bold text-txt-dim">
-      <Link href="/timelines/" className="transition hover:text-txt">עזרי למידה</Link>
+  const long = title.length > 26;
+  return <header className="relative pt-2 pb-2" style={domainStyle(slug)}>
+    <nav aria-label="פירורי לחם" className="pencil text-base text-txt-dim">
+      <Link href="/timelines/" className="underline underline-offset-4 transition hover:text-txt">עזרי למידה</Link>
       <span aria-hidden> › </span><span>{title}</span>
     </nav>
-    <h1 className="grad-text mt-2 text-3xl font-black sm:text-4xl">{title}</h1>
-    <p className="mt-2 leading-7 text-txt-dim">{subtitle}</p>
-    {stats && <p className="mt-2 text-sm font-bold text-mc">{stats}</p>}
+    <h1 className={long ? "mt-2 max-w-4xl text-[length:clamp(1.9rem,4vw,2.7rem)] leading-tight font-black" : "grad-text mt-2"}>{title}</h1>
+    <PenUnderline />
+    <p className="max-w-3xl text-lg leading-relaxed text-txt-dim">{subtitle}</p>
+    {stats && <p className="pencil mt-2 text-base text-txt-dim">{stats}</p>}
+    <span aria-hidden className="pointer-events-none absolute top-2 left-0 hidden opacity-80 sm:block">
+      <InkIcon name={domainOf(slug).ink} size={96} />
+    </span>
   </header>;
 }
