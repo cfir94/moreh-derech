@@ -464,7 +464,7 @@ export function QuizRunner({
               onClick={openNotes}
               className={k.chip}
             >
-              <InkIcon name="notes" size={20} />
+              <InkIcon name="pencil" size={22} />
               פתק לשאלה
             </button>
           </span>

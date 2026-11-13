@@ -24,7 +24,7 @@ type NavLink = { href: string; label: string; icon: FieldIconName; desc: string 
 const baseLinks: NavLink[] = [
   // "שאלונים", "סיכומים" ו"מאגרי מידע" הוסתרו (10.11, בקשת הבעלים): הם נגישים מ"עיוני" ו"סיורים".
   { href: "/topics", label: "עיוני", icon: "resources", desc: "כל נושאי הסילבוס: שאלונים, צירים וסיכומים" },
-  { href: "/tours", label: "סיורים", icon: "footprint", desc: "סיכומי סיורים לפי אזור" },
+  { href: "/tours", label: "סיורים", icon: "signpost", desc: "סיכומי סיורים לפי אזור" },
   { href: "/community", label: "קהילה", icon: "community", desc: "הפורום של המחזור ולוח הפרסומים" },
   { href: "/games", label: "משחקים", icon: "games", desc: "מי אני?, גלימות, צמחים ותשבץ השבוע" },
   { href: "/exams", label: "מבחן מלא", icon: "exams", desc: "מועדי רישוי ומבחני הקורס בתנאי אמת" },
@@ -143,7 +143,7 @@ export function Navbar() {
               <li className="min-[400px]:hidden">
                 <Link href="/updates/" onClick={() => setOpen(false)} className={s.legendItem}>
                   <span className={s.legendMark}>
-                    <InkIcon name="milestone" size={28} />
+                    <InkIcon name="bell" size={28} />
                   </span>
                   <span>
                     <span className={`${s.legendName} pencil`}>מה חדש</span>
@@ -154,7 +154,7 @@ export function Navbar() {
               <li className={s.legendThemeItem}>
                 <button type="button" onClick={toggleTheme} className={s.legendItem}>
                   <span className={s.legendMark}>
-                    <InkIcon name="compass" size={28} />
+                    <InkIcon name="sun" size={28} />
                   </span>
                   <span>
                     <span className={`${s.legendName} pencil`}>מצב בהיר / כהה</span>
@@ -172,7 +172,7 @@ export function Navbar() {
                   className={s.legendItem}
                 >
                   <span className={s.legendMark}>
-                    <InkIcon name="notes" size={28} />
+                    <InkIcon name="pencil" size={28} />
                   </span>
                   <span>
                     <span className={`${s.legendName} pencil`}>הפתקים שלי</span>

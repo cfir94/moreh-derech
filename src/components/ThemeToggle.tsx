@@ -5,7 +5,7 @@
  * navigation footprint, and shared state with embedded tools such as the map.
  */
 import { useSyncExternalStore } from "react";
-import { InkMoon, InkSun } from "@/components/trail/Ink";
+import { InkIcon } from "@/components/trail/Ink";
 
 type Theme = "light" | "dark";
 
@@ -58,7 +58,7 @@ export function ThemeToggle() {
       title={`מעבר ל${nextLabel}`}
       className="ink-tool"
     >
-      {isDark ? <InkSun /> : <InkMoon />}
+      <InkIcon name={isDark ? "sun" : "moon"} size={26} />
       <span className="sr-only">{nextLabel}</span>
     </button>
   );

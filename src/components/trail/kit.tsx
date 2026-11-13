@@ -59,8 +59,10 @@ export function PageHead({
           </ol>
         </nav>
       )}
-      <h1 className={cx(k.title, long && k.titleLong)}>{title}</h1>
-      <PenUnderline />
+      <div className={k.titleWrap}>
+        <h1 className={cx(k.title, long && k.titleLong)}>{title}</h1>
+        <PenUnderline />
+      </div>
       {lede && <p className={k.lede}>{lede}</p>}
       {children}
       {art && (

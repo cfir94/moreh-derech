@@ -66,7 +66,7 @@ export function NotesButton() {
       title="הפתקים שלי"
       className="ink-tool"
     >
-      <InkIcon name="notes" size={26} />
+      <InkIcon name="pencil" size={26} />
     </button>
     {mounted && open && createPortal(<Drawer onClose={() => setOpen(false)} />, document.body)}
   </>;

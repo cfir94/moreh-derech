@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import { SectionCard } from "@/components/SectionCard";
 import { LEARNING_AID_GROUPS } from "@/data/learning-aids";
+import { domainOf } from "@/lib/domains";
 import { InkIcon } from "@/components/trail/Ink";
 import { Chip, PageHead, SectionHead, TrailPage } from "@/components/trail/kit";
 
@@ -15,7 +16,7 @@ export default function TimelinesPage() {
     <TrailPage>
       <PageHead
         title="עזרי למידה"
-        art={<InkIcon name="timelines" size={112} />}
+        art={<InkIcon name="timelines" size={72} />}
         lede="מדף הכלים: צירי זמן, אטלס, אדריכלות, גאולוגיה ומגדירי שדה. ללמוד, להבין ולחזור על החומר."
       >
         <nav aria-label="קבוצות עזרי הלמידה" className="mt-6 flex flex-wrap gap-2.5">
@@ -30,7 +31,14 @@ export default function TimelinesPage() {
       <div className="space-y-12">
         {LEARNING_AID_GROUPS.map((group) => (
           <section key={group.id} aria-labelledby={`group-${group.id}`} className="scroll-mt-24">
-            <SectionHead id={`group-${group.id}`} title={group.title} note={group.description} />
+            <div className="relative">
+              <SectionHead id={`group-${group.id}`} title={group.title} note={group.description} />
+              <span aria-hidden className="absolute top-1 left-0 hidden gap-3 opacity-60 md:inline-flex">
+                {[...new Set(group.aids.map((aid) => domainOf(aid.slug).ink))].slice(0, 3).map((ink) => (
+                  <InkIcon key={ink} name={ink} size={44} />
+                ))}
+              </span>
+            </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {group.aids.map((aid, index) => (
                 <SectionCard key={aid.href} index={index} {...aid} />

@@ -8,20 +8,20 @@ import s from "./topicHub.module.css";
 
 /** Each subject's ink drawing (trail design), in place of the emoji. */
 const TOPIC_INK: Record<string, FieldIconName> = {
-  geology: "strata", flora: "leaf", fauna: "footprint", geography: "border",
-  prehistory: "handaxe", archaeology: "column", bronze: "jar", iron: "jar",
-  "second-temple": "menorah", "roman-byzantine": "milestone", "classical-architecture": "column",
-  "early-islam": "arch", medieval: "tower", ottoman: "tower", modern: "compass", overview: "timelines",
-  judaism: "menorah", christianity: "cross", islam: "arch", minorities: "community", jerusalem: "map",
+  geology: "hammer", flora: "flower", fauna: "ibex", geography: "hills",
+  prehistory: "handaxe", archaeology: "trowel", bronze: "jar", iron: "crown",
+  "second-temple": "menorah", "roman-byzantine": "column", "classical-architecture": "temple",
+  "early-islam": "dome", medieval: "tower", ottoman: "gate", modern: "flag", overview: "timelines",
+  judaism: "scroll", christianity: "cross", islam: "minaret", minorities: "tent", jerusalem: "gate",
   "guide-reports": "guide-reports", exam: "exams",
 };
 
 /** One drawing per group, in the margin of its heading: it belongs to the group's subject. */
 const GROUP_INK: Record<string, FieldIconName[]> = {
-  nature: ["leaf", "strata"],
+  nature: ["flower", "ibex", "hammer"],
   periods: ["handaxe", "jar", "column"],
-  religions: ["menorah", "cross", "arch"],
-  guiding: ["guide-reports"],
+  religions: ["scroll", "cross", "minaret"],
+  guiding: ["signpost"],
 };
 
 const KIND_INK: Record<string, FieldIconName> = {
@@ -113,7 +113,7 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
               >
                 <div className="mb-3 flex items-center gap-3 md:mb-0">
                   <span aria-hidden className={s.mark}>
-                    <InkIcon name={TOPIC_INK[topic.id] ?? "footprint"} size={30} />
+                    <InkIcon name={TOPIC_INK[topic.id] ?? "signpost"} size={32} />
                   </span>
                   <div className="min-w-0">
                     <h3 className={s.topicTitle}>{topic.title}</h3>

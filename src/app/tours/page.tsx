@@ -13,7 +13,7 @@ export const metadata = pageMeta({
 export default function ToursPage() {
   return (
     <TrailPage>
-      <PageHead title="סיורים" art={<InkIcon name="footprint" size={112} />} lede="בוחרים אזור ופותחים את מאגר המידע של הסיור. כלים נוספים לסיורים יתווספו כאן בהמשך." />
+      <PageHead title="סיורים" art={<InkIcon name="signpost" size={72} />} lede="בוחרים אזור ופותחים את מאגר המידע של הסיור. כלים נוספים לסיורים יתווספו כאן בהמשך." />
       <TopicHub groups={TOUR_HUB} />
     </TrailPage>
   );

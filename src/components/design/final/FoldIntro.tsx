@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from "react";
 import s from "./fold.module.css";
 
 /*
@@ -19,7 +19,7 @@ type Props = {
   /** Called right before the page is copied (hide what should animate in later). */
   onBefore?: () => void;
   onDone?: () => void;
-  /** Play on every visit (the design preview) or only once. */
+  /** Play on every load (the design preview) or once per browser session: each time the site is opened. */
   always?: boolean;
   storageKey?: string;
   /** In the site, the page sits under the sticky header: copy the header in too, so the sheet that
@@ -44,11 +44,21 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
   const bagFront = useRef<HTMLDivElement>(null);
   const skip = useRef<() => void>(() => {});
 
+  // the same check on a client-side mount, before the browser paints
+  useLayoutEffect(() => {
+    if (always || !stage.current) return;
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(storageKey) === "1";
+    } catch {}
+    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) stage.current.style.visibility = "hidden";
+  }, [always, storageKey]);
+
   useEffect(() => {
     const finish = () => {
       // remembered only once the intro has played (or was skipped): a dev double-mount must not eat it
       try {
-        localStorage.setItem(storageKey, "1");
+        sessionStorage.setItem(storageKey, "1");
       } catch {}
       setDone(true);
       onDone?.();
@@ -57,12 +67,13 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let seen = false;
     try {
-      seen = localStorage.getItem(storageKey) === "1";
+      seen = sessionStorage.getItem(storageKey) === "1";
     } catch {}
     if (!target || !stage.current || reduced || (!always && seen)) {
       finish();
       return;
     }
+    stage.current.style.visibility = "visible";
     onBefore?.();
     target.scrollTop = 0;
     const W = window.innerWidth;
@@ -253,6 +264,15 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
 
   return (
     <div ref={stage} className={s.stage} onClick={() => skip.current()} aria-hidden data-fold-intro>
+      {/* in the static HTML the stage covers the page from the first paint; when this visit will skip
+          the intro, hide it before anything is drawn, so the backpack never flashes */}
+      {!always && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem(${JSON.stringify(storageKey)})==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches)document.currentScript.parentNode.style.visibility="hidden"}catch(e){}`,
+          }}
+        />
+      )}
       <div ref={bag} className={s.bag}>
         <svg className={s.bagBack} viewBox="0 0 240 230">
           <path d="M50 80c0-24 30-42 70-42s70 18 70 42v12H50z" className={s.inside} />
