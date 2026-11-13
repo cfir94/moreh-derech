@@ -101,7 +101,18 @@ export function TopoPatch({ className = "", style }: { className?: string; style
 }
 
 /** Survey marks: three real summits with their heights, joined by a dashed footpath, and a spring. */
-export function Waypoints({ className = "" }: { className?: string }) {
+export function Waypoints({
+  className = "",
+  points = ["הכרמל 546", "מירון 1208", "תבור 588"],
+  spring = "מעיין",
+  rings = true,
+}: {
+  className?: string;
+  /** שלוש נקודות על הדרך, מימין לשמאל במסך. בכל דף הן צריכות להיות מקומות מהנושא של הדף. */
+  points?: [string, string, string];
+  spring?: string;
+  rings?: boolean;
+}) {
   const tri = (x: number, y: number) => `M${x} ${y - 9}l9 15h-18z`;
   return (
     <svg className={`${z.marks} ${className}`} viewBox="0 0 1000 260" preserveAspectRatio="xMidYMid meet" aria-hidden>
@@ -114,8 +125,12 @@ export function Waypoints({ className = "" }: { className?: string }) {
         <circle cx="640" cy="196" r="7" strokeWidth="2.2" />
         <path d="M647 198c10 4 14 12 26 12s16-8 28-6" strokeWidth="2" />
         {/* contour rings round the middle summit */}
-        <path d="M410 100c8-34 46-48 80-34s46 44 24 70-66 30-90 12-18-34-14-48z" strokeWidth="1.3" opacity="0.6" />
-        <path d="M376 104c10-58 74-80 128-56s72 74 34 114-108 46-144 14-24-52-18-72z" strokeWidth="1.3" opacity="0.4" />
+        {rings && (
+          <>
+            <path d="M410 100c8-34 46-48 80-34s46 44 24 70-66 30-90 12-18-34-14-48z" strokeWidth="1.3" opacity="0.6" />
+            <path d="M376 104c10-58 74-80 128-56s72 74 34 114-108 46-144 14-24-52-18-72z" strokeWidth="1.3" opacity="0.4" />
+          </>
+        )}
       </g>
       <g fill="currentColor">
         <circle cx="150" cy="172" r="2.2" />
@@ -123,10 +138,10 @@ export function Waypoints({ className = "" }: { className?: string }) {
         <circle cx="850" cy="152" r="2.2" />
       </g>
       <g fill="currentColor" style={{ fontFamily: "var(--font-note)" }} fontSize="24" fontWeight="700" textAnchor="middle">
-        <text x="150" y="212">הכרמל 546</text>
-        <text x="470" y="62">מירון 1208</text>
-        <text x="850" y="192">תבור 588</text>
-        <text x="662" y="240" fontSize="20" fontWeight="400">מעיין</text>
+        <text x="150" y="212">{points[0]}</text>
+        <text x="470" y="62">{points[1]}</text>
+        <text x="850" y="192">{points[2]}</text>
+        <text x="662" y="240" fontSize="20" fontWeight="400">{spring}</text>
       </g>
     </svg>
   );
