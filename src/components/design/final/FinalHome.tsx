@@ -9,7 +9,7 @@ import { NotePaper } from "../NotePaper";
 import { useHomeData } from "../useHomeData";
 import { FoldIntro } from "./FoldIntro";
 import { InkArrow, InkCompass, InkDefs, InkIcon, InkLockup, InkMoon, InkRuin, InkSun, InkTree } from "./Ink";
-import { Birds, Prints, TopoPatch, WallPatch, Waypoints } from "./Zones";
+import { Prints, TopoPatch, WallPatch } from "./Zones";
 import s from "./final.module.css";
 
 /*
@@ -219,9 +219,9 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
             c1={{ x: 800, y: 10 }}
             c2={{ x: 900, y: 290 }}
             to={{ x: 560, y: 200 }}
-            steps={13}
-            size={2.7}
-            spread={17}
+            steps={8}
+            size={2.3}
+            spread={20}
             className={s.fill}
           />
         </div>
@@ -259,29 +259,6 @@ export function FinalHome({ questionCount, examCount }: { questionCount: number;
             <span>קווי גובה: ירושלים והעיר העתיקה</span>
           </div>
         </section>
-
-        <div className={`${s.band} ${s.bandTall}`} data-zone="">
-          <Waypoints className={s.marksSide} />
-          <Birds className={s.birdsSide} />
-        </div>
-
-        <footer className={s.lockup}>
-          <InkLockup height={170} className={s.lockupMark} />
-          <div className={s.lockupTracks} data-zone="">
-            <Prints
-              shape="hoof"
-              align="xMinYMax meet"
-              from={{ x: -20, y: 290 }}
-              c1={{ x: 160, y: 250 }}
-              c2={{ x: 120, y: 60 }}
-              to={{ x: 440, y: 110 }}
-              steps={14}
-              size={2.2}
-              spread={11}
-              className={s.fill}
-            />
-          </div>
-        </footer>
       </main>
     </FinalFrame>
   );

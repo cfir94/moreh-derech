@@ -254,38 +254,38 @@ export function InkLockup({ height = 60, ...rest }: { height?: number } & SVGPro
         <path d="M37.6 44l2-2M37.4 40l2-2M37.2 36l1.9-1.9M37 32l1.7-1.7" fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.75" />
       </g>
 
-      {/* the hoopoe on the stone: a pencil sketch in outline only. Crest fanned open with dark tips, long
-          down-curved bill, barred wing, banded tail. Strokes keep one pencil width at every logo size. */}
+      {/* the hoopoe on the stone, traced from a photo of a perched bird: upright, crest folded back with
+          dark tips, long bill, barred wing, long tail. Pencil outline only; the bars are light strokes that
+          scale with the logo, so the small header mark does not fill in black. */}
       <g
-        transform="translate(258 30) scale(0.56)"
+        transform="translate(265.5 32.5) scale(0.5)"
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.9"
+        opacity="0.88"
         filter="url(#ink64)"
       >
-        <g strokeWidth="1.25" vectorEffect="non-scaling-stroke">
-          {/* crest feathers */}
-          <path d="M16 12 7 -1M17 11 11 -5M18 11 16 -7M19 11 22 -7M21 11 27 -4M22 12 31 0M23 13 34 6" vectorEffect="non-scaling-stroke" />
-          <path d="M7 -1c1-4 3-5 4-4 0-3 3-4 5-2 1-3 4-3 6 0 2-2 5-1 5 3 3-1 5 1 4 4 3 0 4 3 3 6" vectorEffect="non-scaling-stroke" />
-          {/* head and the long bill */}
-          <path d="M23 13c-1-3-5-4-8-3s-4 5-2 9" vectorEffect="non-scaling-stroke" />
-          <path d="M12.5 15.5C6 16 -1 19 -9 26C-1 21 6 19 13 19" vectorEffect="non-scaling-stroke" />
-          {/* body: breast, belly, tail, back */}
-          <path d="M13 19c-1 7 3 14 10 17 5 2 10 2.5 15 2l18 4 2.5-4.5-13-6C40 25 32 17 23 13" vectorEffect="non-scaling-stroke" />
-          {/* folded wing */}
-          <path d="M25 20c9 2 17 8 23 15" vectorEffect="non-scaling-stroke" />
+        <g strokeWidth="1.15">
+          {/* head, and the crest lying back */}
+          <path d="M19 11c-1-4-5-6-9-5s-5 6-2 10" vectorEffect="non-scaling-stroke" />
+          <path d="M12 6.5C18 2 27 1.5 34 5 28 6.5 23 8.5 19 11" vectorEffect="non-scaling-stroke" />
+          {/* the long bill */}
+          <path d="M8.5 11.5C3 12.5 -3 15 -10 20C-3 16.5 3 15 9 14.5" vectorEffect="non-scaling-stroke" />
+          {/* breast and belly, down to the legs */}
+          <path d="M8 16c-1.5 8 .5 17 6 23l5 3" vectorEffect="non-scaling-stroke" />
+          {/* back, wing edge and the long tail */}
+          <path d="M19 11c5 4 8 10 10 16 3 9 6 19 7 27l-5 1c-3-4-7-9-10-13" vectorEffect="non-scaling-stroke" />
           {/* legs */}
-          <path d="M26 37.5v6.5l-3 1M26 44l3 1M33 38.5v5.5l-3 1M33 44l3 1" vectorEffect="non-scaling-stroke" />
+          <path d="M17 41v4.5M21 42v4" vectorEffect="non-scaling-stroke" />
         </g>
-        {/* the dark parts, shaded with the side of the pencil */}
-        <g strokeWidth="2.6" vectorEffect="non-scaling-stroke">
-          <path d="M7.5 -0.5l1.5 2.5M11.5 -4.5l1 3M16.2 -6.5l.3 3M21.8 -6.5l-.3 3M26.5 -3.5l-1 2.8M30.5 .5l-1.6 2.4M33.3 6.3l-2.3 1.5" vectorEffect="non-scaling-stroke" />
-          <path d="M31 22.5l-3.5 8M36 25l-3.5 9M41 28.5l-3 8M46 32l-2.5 6" vectorEffect="non-scaling-stroke" />
-          <path d="M53 39.5l-1.5 4" vectorEffect="non-scaling-stroke" />
+        {/* crest tips, wing bars and tail band */}
+        <g strokeWidth="1.9">
+          <path d="M17 3.8l1 1.8M22 2.6l.6 1.9M27 2.8l-.2 1.9M31.5 4l-1 1.6" />
+          <path d="M16 24c4-1.5 8-1 12 1M17.5 29c4-1.5 8-.5 12 1.5M20 34c3.5-1 7 0 10.5 2M23 39c3-.5 5.5.5 8.5 2.5" />
+          <path d="M29 48.5l6-1.5" />
         </g>
-        <circle cx="16.5" cy="15" r="1" fill="currentColor" stroke="none" />
+        <circle cx="12.5" cy="10.5" r="1" fill="currentColor" stroke="none" />
       </g>
     </svg>
   );

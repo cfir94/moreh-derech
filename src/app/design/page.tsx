@@ -23,6 +23,9 @@ export default function Page() {
           <Link href="/design/final/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
             מסך שאלה בגרסה המאוחדת
           </Link>
+          <Link href="/design/final/jesus" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
+            ציר חיי ישוע בעיצוב החדש
+          </Link>
         </li>
         <li>
           <Link href="/design/map" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
