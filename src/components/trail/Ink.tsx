@@ -3,7 +3,7 @@
  * InkDefs מגדיר פעם אחת את מסנני הרעד; כל שאר הרכיבים מפנים אליהם.
  */
 import type { SVGProps } from "react";
-import { PATHS, type FieldIconName } from "../FieldIcons";
+import { PATHS, type FieldIconName } from "./FieldIcons";
 
 /** Put once per page: the pen-wobble filters, one per drawing scale. */
 export function InkDefs() {

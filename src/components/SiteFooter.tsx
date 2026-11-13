@@ -16,8 +16,13 @@ export function SiteFooter() {
     ["/legal/accessibility/", "נגישות"],
   ] as const;
   return (
-    <footer className="border-t border-line px-4 py-6 text-center text-xs text-txt-dim">
-      <nav aria-label="מסמכים ומידע" className="mb-2 flex flex-wrap justify-center gap-x-4 gap-y-1">
+    <footer className="border-t border-line px-4 py-6 text-center text-base text-txt-dim">
+      {/* the map's scale bar */}
+      <p aria-hidden className="mb-3 flex items-center justify-center gap-3 text-sm">
+        <span className="inline-flex h-2 w-40 border border-[var(--ink)] bg-[linear-gradient(90deg,var(--ink)_0_25%,transparent_25%_50%,var(--ink)_50%_75%,transparent_75%)]" />
+        <span className="num">1:50,000</span>
+      </p>
+      <nav aria-label="מסמכים ומידע" className="mb-2 flex flex-wrap justify-center gap-x-5 gap-y-1 pencil">
         {links.map(([href, label]) => (
           <Link key={href} href={href} className="hover:text-txt">
             {label}

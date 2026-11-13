@@ -8,6 +8,7 @@ import { PaywallGate } from "@/components/paywall/PaywallGate";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PreviewBar } from "@/components/PreviewBar";
 import { UserProvider } from "@/contexts/UserContext";
+import { InkDefs } from "@/components/trail/Ink";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="flex min-h-full flex-col font-sans">
+        <InkDefs />
         <UserProvider>
           <PreviewBar />
           <Navbar />

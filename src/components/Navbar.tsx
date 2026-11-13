@@ -1,80 +1,82 @@
 "use client";
 
 /**
- * ניווט אבן דרך: קישורים קצרים בשורה אחת במחשב ותפריט נגיש בנייד.
- * קישור המחברות מצטרף למרכזי הלמידה בלי להעמיס על שורת הניווט.
+ * הכותרת העליונה של "תרמיל מורה הדרך": לוגו בדיו, הסקציות בכתב דפוס בעיפרון, ושלט חום אחד
+ * לכניסה. מתחת ל-1280px עשרת הקישורים לא נכנסים בשורה בגודל קריא, ולכן כפתור "תפריט" פותח
+ * אותם כמקרא מפה: אייקון, שם ומשפט לכל סקציה.
  */
 import Link from "next/link";
 import { useLaunch } from "@/lib/launchClient";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@/contexts/UserContext";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle, toggleTheme } from "@/components/ThemeToggle";
 import { SiteSearch } from "@/components/SiteSearch";
 import { UpdatesBell } from "@/components/updates/UpdatesBell";
 import { NotesButton, openNotes } from "@/components/notes/NotesDrawer";
 import { CommunityBadge, useCommunityUnread } from "@/components/community/CommunityBadge";
-import brandIcon from "@/assets/brand-icon.png";
+import { InkIcon, InkLockup } from "@/components/trail/Ink";
+import type { FieldIconName } from "@/components/trail/FieldIcons";
+import s from "./nav.module.css";
 
-const baseLinks = [
+type NavLink = { href: string; label: string; icon: FieldIconName; desc: string };
+
+const baseLinks: NavLink[] = [
   // "שאלונים", "סיכומים" ו"מאגרי מידע" הוסתרו (10.11, בקשת הבעלים): הם נגישים מ"עיוני" ו"סיורים".
-  { href: "/topics", label: "עיוני" },
-  { href: "/tours", label: "סיורים" },
-  { href: "/community", label: "קהילה" },
-  { href: "/games", label: "משחקים" },
-  { href: "/exams", label: "מבחן מלא" },
-  { href: "/timelines", label: "עזרי למידה" },
-  { href: "/map", label: "מפה" },
-  { href: "/guide-reports", label: "דוחות הדרכה" },
-  { href: "/videos", label: "סרטונים" },
+  { href: "/topics", label: "עיוני", icon: "resources", desc: "כל נושאי הסילבוס: שאלונים, צירים וסיכומים" },
+  { href: "/tours", label: "סיורים", icon: "footprint", desc: "סיכומי סיורים לפי אזור" },
+  { href: "/community", label: "קהילה", icon: "community", desc: "הפורום של המחזור ולוח הפרסומים" },
+  { href: "/games", label: "משחקים", icon: "games", desc: "מי אני?, גלימות, צמחים ותשבץ השבוע" },
+  { href: "/exams", label: "מבחן מלא", icon: "exams", desc: "מועדי רישוי ומבחני הקורס בתנאי אמת" },
+  { href: "/timelines", label: "עזרי למידה", icon: "timelines", desc: "צירי זמן, אטלס, אדריכלות וגאולוגיה" },
+  { href: "/map", label: "מפה", icon: "map", desc: "מפת הלמידה ותכנון מסלול" },
+  { href: "/guide-reports", label: "דוחות הדרכה", icon: "guide-reports", desc: "דוגמאות, תרגול וטיוטות" },
+  { href: "/videos", label: "סרטונים", icon: "videos", desc: "שיעורים, סיורים והעשרה" },
 ];
 
 export function Navbar() {
   const { user, ready } = useUser();
   const pathname = usePathname();
   const { paywall } = useLaunch();
-  const links = paywall ? [...baseLinks, { href: "/pricing", label: "מחירים" }] : baseLinks;
+  const links: NavLink[] = paywall
+    ? [...baseLinks, { href: "/pricing", label: "מחירים", icon: "milestone", desc: "מחיר אחד, הכול פתוח" }]
+    : baseLinks;
   const [open, setOpen] = useState(false);
   const unread = useCommunityUnread();
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  // Esc closes the legend
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur-md">
-      <nav className="mx-auto flex min-h-[60px] max-w-6xl items-center gap-1.5 px-4">
-        <Link href="/" aria-label="אבן דרך למורי דרך — דף הבית" className="flex shrink-0 items-center gap-2.5">
-          <Image
-            src={brandIcon}
-            alt=""
-            priority
-            className="h-11 w-11 rounded-[15px] shadow-[0_12px_30px_-14px_var(--teal)]"
-          />
-          <span className="grad-text hidden text-lg font-black sm:inline xl:hidden">
-            אֶבֶן דֶּרֶךְ למורי דרך
-          </span>
+    <header className={s.top}>
+      <nav aria-label="ניווט ראשי" className={s.inner}>
+        <Link href="/" aria-label="אבן דרך למורי דרך — דף הבית" className={s.brand}>
+          <InkLockup height={52} className={s.logo} />
         </Link>
 
-        <ul className="mr-2 hidden min-w-0 flex-1 items-center gap-0.5 xl:flex">
+        <ul className={s.links}>
           {links.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-bold transition ${
-                  isActive(link.href)
-                    ? "border border-line bg-card-2 text-txt"
-                    : "text-txt-dim hover:bg-card hover:text-txt"
-                }`}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`${s.link} ${isActive(link.href) ? s.active : ""}`}
               >
-                {link.label}
+                <span className="pencil">{link.label}</span>
                 {link.href === "/community" && <CommunityBadge count={unread} />}
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="mr-auto flex shrink-0 items-center gap-2 xl:mr-0">
+        <div className={s.tools}>
           <SiteSearch />
           <div className="hidden min-[400px]:block">
             <UpdatesBell />
@@ -83,73 +85,104 @@ export function Navbar() {
           <div className="hidden min-[360px]:block">
             <NotesButton />
           </div>
-          <ThemeToggle />
+          <div className={s.themeSlot}>
+            <ThemeToggle />
+          </div>
           {ready && user ? (
-            <Link
-              href="/me"
-              className={`max-w-[9rem] truncate whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-bold transition ${
-                isActive("/me")
-                  ? "border border-line bg-card-2 text-txt"
-                  : "text-txt-dim hover:bg-card hover:text-txt"
-              }`}
-            >
-              {user.name}
+            <Link href="/me" className={s.sign} aria-current={isActive("/me") ? "page" : undefined}>
+              <InkIcon name="me" size={22} />
+              <span>{user.name}</span>
             </Link>
           ) : (
-            <Link
-              href="/login"
-              className="rounded-full px-4 py-2.5 text-sm font-extrabold text-on-accent transition active:scale-95"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%)",
-                boxShadow: "0 10px 26px -10px var(--teal)",
-              }}
-            >
-              כניסה
+            <Link href="/login" className={s.sign}>
+              <InkIcon name="me" size={22} />
+              <span>כניסה</span>
             </Link>
           )}
 
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            aria-label="תפריט"
             aria-expanded={open}
-            className="grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90 xl:hidden"
+            aria-controls="site-legend"
+            className={s.menuBtn}
           >
-            ☰
+            <InkIcon name="map" size={22} />
+            <span className={`${s.menuText} pencil`}>{open ? "סגירה" : "תפריט"}</span>
           </button>
         </div>
       </nav>
+      <span aria-hidden className={s.blaze} />
 
       {open && (
-        <ul className="border-t border-line bg-sheet px-4 pb-3 xl:hidden">
-          <li className="min-[400px]:hidden">
-            <Link href="/updates/" onClick={() => setOpen(false)} className="block rounded-[14px] px-3 py-3 text-sm font-bold text-txt-dim hover:bg-card">
-              🔔 מה חדש
-            </Link>
-          </li>
-          <li className="min-[360px]:hidden">
-            <button type="button" onClick={() => { setOpen(false); openNotes(); }} className="block w-full rounded-[14px] px-3 py-3 text-right text-sm font-bold text-txt-dim hover:bg-card">
-              🗒️ הפתקים שלי
-            </button>
-          </li>
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={`block rounded-[14px] px-3 py-3 text-sm font-bold transition ${
-                  isActive(link.href)
-                    ? "bg-card-2 text-txt"
-                    : "text-txt-dim hover:bg-card"
-                }`}
-              >
-                {link.label}
-                {link.href === "/community" && <CommunityBadge count={unread} />}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div id="site-legend" className={s.legend}>
+          <div className={s.legendInner}>
+            <p className={s.legendTitle}>מקרא: כל מה שיש בתרמיל</p>
+            <ul className={s.legendList}>
+              {links.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={s.legendItem}
+                  >
+                    <span className={s.legendMark}>
+                      <InkIcon name={link.icon} size={28} />
+                    </span>
+                    <span>
+                      <span className={`${s.legendName} pencil`}>
+                        {link.label}
+                        {link.href === "/community" && <CommunityBadge count={unread} />}
+                      </span>
+                      <span className={s.legendDesc}>{link.desc}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+              <li className="min-[400px]:hidden">
+                <Link href="/updates/" onClick={() => setOpen(false)} className={s.legendItem}>
+                  <span className={s.legendMark}>
+                    <InkIcon name="milestone" size={28} />
+                  </span>
+                  <span>
+                    <span className={`${s.legendName} pencil`}>מה חדש</span>
+                    <span className={s.legendDesc}>מה נוסף לאתר לאחרונה</span>
+                  </span>
+                </Link>
+              </li>
+              <li className={s.legendThemeItem}>
+                <button type="button" onClick={toggleTheme} className={s.legendItem}>
+                  <span className={s.legendMark}>
+                    <InkIcon name="compass" size={28} />
+                  </span>
+                  <span>
+                    <span className={`${s.legendName} pencil`}>מצב בהיר / כהה</span>
+                    <span className={s.legendDesc}>נייר מפה ביום, או המפה בשעת דמדומים</span>
+                  </span>
+                </button>
+              </li>
+              <li className="min-[360px]:hidden">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    openNotes();
+                  }}
+                  className={s.legendItem}
+                >
+                  <span className={s.legendMark}>
+                    <InkIcon name="notes" size={28} />
+                  </span>
+                  <span>
+                    <span className={`${s.legendName} pencil`}>הפתקים שלי</span>
+                    <span className={s.legendDesc}>מה שרשמת לעצמך</span>
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       )}
     </header>
   );

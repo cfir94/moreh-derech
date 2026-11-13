@@ -2,51 +2,77 @@
 @source "../";
 
 /*
- * Design tokens adapted from "אבן דרך" (cfir94/israel-geo-game) — the quiz-game
- * project this site shares an audience with. The look is a game, not a
- * document: a cool blue-grey ground washed with teal and blue light,
- * translucent cards over it rather than solid white ones, vibrant accents, and
- * a first-class dark theme in deep navy.
+ * "תרמיל מורה הדרך" — the site's design tokens (docs/design/REDESIGN.md).
+ * Map paper by day, the same map at dusk by night: warm brown, never black or navy.
+ * The trail tokens (--ground, --paper, --ink, --sign…) are the source; the older names
+ * (--bg, --card, --txt, --teal…) are mapped onto them so every screen picks the look up.
  */
 :root {
   color-scheme: light;
 
-  --bg: #eef2f7;
-  --bg-base: #f6f8fb;
-  --bg-grad-1: rgba(13, 148, 136, 0.1);
-  --bg-grad-2: rgba(37, 99, 235, 0.08);
+  /* trail tokens */
+  --ground: #ead8a8;
+  --ground-edge: #d3b97e;
+  --paper: #f6edd0;
+  --ink: #2c2014;
+  --ink-dim: #5f4a31;
+  --frame: #6e5230;
+  --paint: #fbf6e6;
+  --stone: #dcc692;
+  --rock: #d9c497;
+  --rock-dark: #b0986a;
+  --topo-ink: #8a5d2a;
+  --topo-alpha: 0.34;
+  --t-red: #b5382a;
+  --t-blue: #2a5a8c;
+  --t-green: #4f7a2e;
+  --t-black: #2c2014;
+  --t-orange: #b5651d;
+  --sign: #6b4423;
+  --sign-ink: #f8eed6;
+  --steps: #6e4c26;
+  --steps-alpha: 0.16;
+  --focus: #2a5a8c;
+  --grain: 0.13;
+  --tex: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='c' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='.011 .017' numOctaves='3' seed='4' stitchTiles='stitch'/><feDiffuseLighting surfaceScale='11' lighting-color='%23fff' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='58'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23c)'/><rect width='100%' height='100%' fill='%23fff' opacity='.93'/></svg>");
+  --lift: translateY(-4px) rotate(0deg);
+  --lift-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Cards are a tint of the ink over whatever is behind them, so they layer
-     onto the gradient instead of punching holes in it. */
-  --card: rgba(11, 32, 50, 0.045);
-  --card-2: rgba(11, 32, 50, 0.08);
-  --line: rgba(11, 32, 50, 0.14);
-  --sheet: #ffffff;
-  --track: rgba(11, 32, 50, 0.1);
+  /* the older names, on the trail palette */
+  --bg: var(--ground);
+  --bg-base: #efdfb2;
+  --bg-grad-1: rgb(255 247 214 / 0.75);
+  --bg-grad-2: rgb(150 105 45 / 0.22);
 
-  --txt: #0d1f2d;
-  --txt-dim: #4b5e6e;
-  --title-1: #0b2233;
-  --title-2: #0d9488;
+  --card: rgb(246 237 208 / 0.78);
+  --card-2: rgb(110 82 48 / 0.1);
+  --line: rgb(110 82 48 / 0.3);
+  --sheet: var(--paper);
+  --track: rgb(110 82 48 / 0.16);
 
-  /* ≥5:1 on white and on the tinted cards: small teal text and white-on-teal buttons pass WCAG AA (was #0d9488, 3.7:1) */
-  --teal: #0e6e67;
-  --teal-2: #115e59;
-  --blue: #2563eb;
-  --violet: #7c3aed;
-  --rose: #e11d48;
-  --green: #059669;
-  --red: #dc2626;
-  --gold: #8f5a05;
-  --star: #eab308;
-  --ok: #059669;
-  --on-accent: #ffffff;
+  --txt: var(--ink);
+  --txt-dim: var(--ink-dim);
+  --title-1: var(--ink);
+  --title-2: var(--sign);
 
-  --r-lg: 26px;
-  --r-md: 18px;
-  --r-sm: 12px;
+  /* the action colour is the brown sign; as text it reads on paper and ground */
+  --teal: #6b4423;
+  --teal-2: #57361a;
+  --blue: var(--t-blue);
+  --violet: #6e4a7a;
+  --rose: var(--t-red);
+  --green: var(--t-green);
+  --red: var(--t-red);
+  --gold: #87560f;
+  --star: #c9962a;
+  --ok: var(--t-green);
+  --on-accent: var(--sign-ink);
 
-  --shadow: 0 10px 26px -12px rgba(11, 32, 50, 0.4);
+  --r-lg: 10px;
+  --r-md: 8px;
+  --r-sm: 6px;
+
+  --shadow: 0 16px 22px -16px rgb(20 12 4 / 0.6);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -54,35 +80,46 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #070f18;
-  --bg-base: #08131e;
-  --bg-grad-1: rgba(22, 48, 74, 0.9);
-  --bg-grad-2: rgba(18, 58, 53, 0.9);
+  --ground: #382c1e;
+  --ground-edge: #2a2116;
+  --paper: #46382a;
+  --ink: #f5e8c9;
+  --ink-dim: #d9c5a0;
+  --frame: #bfa172;
+  --stone: #a88f62;
+  --rock: #937b55;
+  --rock-dark: #6d5a3e;
+  --topo-ink: #ecc98a;
+  --topo-alpha: 0.17;
+  --t-red: #e06049;
+  --t-blue: #8ab6e0;
+  --t-green: #9bc068;
+  --t-black: #17110a;
+  --t-orange: #e6964c;
+  --sign: #7d512b;
+  --steps: #ecc98a;
+  --steps-alpha: 0.11;
+  --focus: #a3c8ee;
+  --grain: 0.2;
 
-  --card: rgba(255, 255, 255, 0.055);
-  --card-2: rgba(255, 255, 255, 0.09);
-  --line: rgba(255, 255, 255, 0.11);
-  --sheet: #12222f;
-  --track: rgba(255, 255, 255, 0.1);
+  --bg-base: #3d3122;
+  --bg-grad-1: rgb(255 200 120 / 0.14);
+  --bg-grad-2: rgb(10 6 2 / 0.4);
 
-  --txt: #eaf2f8;
-  --txt-dim: #93a7b8;
-  --title-1: #ffffff;
-  --title-2: #9fe8dd;
+  --card: rgb(70 56 42 / 0.82);
+  --card-2: rgb(245 232 201 / 0.08);
+  --line: rgb(191 161 114 / 0.3);
+  --track: rgb(245 232 201 / 0.12);
 
-  --teal: #2ee6c5;
-  --teal-2: #12b3a0;
-  --blue: #4aa8ff;
-  --violet: #a78bfa;
-  --rose: #ff6b81;
-  --green: #46e08a;
-  --red: #ff5d6c;
-  --gold: #ffce4d;
-  --star: #ffce4d;
-  --ok: #34d399;
-  --on-accent: #06121a;
+  /* at dusk the action colour as text is a lamp-lit sand; buttons stay a brown sign with light letters */
+  --teal: #e8b878;
+  --teal-2: #d49b55;
+  --violet: #c9a3d6;
+  --gold: #e8b878;
+  --star: #f0c560;
+  --on-accent: #2a1e12;
 
-  --shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.7);
+  --shadow: 0 16px 22px -16px rgb(0 0 0 / 0.75);
 }
 
 @theme inline {
@@ -132,11 +169,16 @@ body {
   color: var(--txt);
   /* Ambient light from two corners over a vertical base — the ground is lit,
      not flat, and every translucent card above it picks the wash up. */
+  /* an old map sheet: lighter where it was handled, browner toward the edges; the grain is
+     blended into the sheet, so it costs nothing to draw */
   background:
-    radial-gradient(120% 60% at 85% -5%, var(--bg-grad-1) 0%, transparent 60%),
-    radial-gradient(90% 50% at 5% 105%, var(--bg-grad-2) 0%, transparent 60%),
-    linear-gradient(180deg, var(--bg-base) 0%, var(--bg) 100%);
+    radial-gradient(75% 55% at 78% 8%, var(--bg-grad-1), transparent 62%),
+    radial-gradient(130% 95% at 50% 45%, transparent 55%, var(--bg-grad-2) 100%),
+    var(--tex) 0 0 / 420px 420px,
+    var(--ground);
+  background-blend-mode: normal, normal, multiply, normal;
   background-attachment: fixed;
+  font-size: 1.0625rem;
   /* a solid colour under the washes, so contrast checkers (and browsers that
      drop fixed backgrounds) see the real ground and not white */
   background-color: var(--bg);
@@ -154,16 +196,39 @@ h3 {
   letter-spacing: -0.02em;
 }
 
-/* The wordmark reads as one gradient sweep, as it does in the game. */
+/* A page title is the guide's handwriting, not a gradient (the class name stays for old markup). */
 .grad-text {
-  background: linear-gradient(100deg, var(--title-1), var(--title-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+/* print lettering in pencil: nav, labels, item names (the #pencil filter lives in <InkDefs>) */
+.pencil {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  filter: url(#pencil);
+}
+
+/* the house gesture: paper lifts and straightens under the hand */
+.lift {
+  transition: transform 0.35s var(--lift-ease), box-shadow 0.35s;
+}
+.lift:hover,
+.lift:focus-visible,
+.lift:focus-within {
+  transform: var(--lift);
+}
+
+::selection {
+  background: var(--t-red);
+  color: var(--paint);
 }
 
 :where(button, a, input, [tabindex]):focus-visible {
-  outline: 3px solid var(--teal);
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
   border-radius: var(--r-sm);
 }
