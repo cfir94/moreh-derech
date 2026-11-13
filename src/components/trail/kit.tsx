@@ -255,9 +255,9 @@ export function PenStrike(props: SVGProps<SVGSVGElement>) {
 }
 
 /** A grade in red pen, circled. */
-export function PenGrade({ children, label }: { children: ReactNode; label?: string }) {
+export function PenGrade({ children }: { children: ReactNode }) {
   return (
-    <span className={k.grade} aria-label={label}>
+    <span className={k.grade} aria-hidden>
       <svg aria-hidden viewBox="0 0 160 120" preserveAspectRatio="none">
         <path d="M30 22C70 4 140 8 152 44c10 34-30 66-84 68-46 2-66-22-62-50S40 14 96 10" />
       </svg>

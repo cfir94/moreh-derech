@@ -234,8 +234,10 @@ export function ExamRunner({ exam }: { exam: Exam }) {
         style={domainStyle("exams")}
       >
         <div className="mb-7 text-center">
-          <PenGrade label={`ציון ${pct}`}>{pct}</PenGrade>
-          <h1 className="sr-only">ציון {pct}</h1>
+          <PenGrade>{pct}</PenGrade>
+          <h1 className="sr-only">
+            <span className="num">{pct}%</span>
+          </h1>
           <p className="mb-6 text-sm text-txt-dim">
             {exam.label.he} · <span className="num">{correctCount}</span> מתוך{" "}
             <span className="num">{questions.length}</span> נכונות

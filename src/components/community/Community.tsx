@@ -14,8 +14,10 @@ import {
 } from "@/lib/community";
 import { isAdmin } from "@/lib/manualAccess";
 
-const primary = "min-h-12 rounded-full px-6 text-base font-extrabold text-on-accent transition active:scale-95 disabled:opacity-60";
-const primaryStyle = { background: "var(--teal)", boxShadow: "0 10px 24px -12px var(--teal)" };
+import { kit as k, PenUnderline } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
+const primary = `${k.sign} ${k.signPlain} disabled:opacity-60`;
+const primaryStyle = undefined;
 const small = "min-h-10 rounded-full border border-line px-3 text-sm font-bold text-txt-dim transition hover:text-txt active:scale-95";
 
 export function ago(iso: string | null, now = Date.now()) {
@@ -43,7 +45,13 @@ export function PostText({ text }: { text: string }) {
 function Shell({ title, back, children }: { title: string; back?: { href: string; label: string }; children: ReactNode }) {
   return <main dir="rtl" className="screen-in mx-auto w-full max-w-3xl px-4 py-8">
     {back && <Link href={back.href} className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
-    <h1 className="grad-text mb-5 text-3xl font-black">{title}</h1>
+    <div className="relative mb-6">
+      <h1 className="grad-text">{title}</h1>
+      <PenUnderline />
+      <span aria-hidden className="absolute top-0 left-0 hidden opacity-70 sm:block">
+        <InkIcon name="community" size={92} />
+      </span>
+    </div>
     {children}
   </main>;
 }
@@ -56,19 +64,19 @@ function ErrorLine({ error }: { error: string }) {
 
 function ForumList({ forums, onJoin }: { forums: Forum[]; onJoin: (f: Forum) => Promise<void> }) {
   const [busy, setBusy] = useState<number | null>(null);
-  if (!forums.length) return <p className="rounded-lg border border-line bg-card p-5 text-base text-txt-dim">עוד אין כאן פורומים.</p>;
+  if (!forums.length) return <p className="rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] p-5 text-base text-txt-dim">עוד אין כאן פורומים.</p>;
   return <ul className="space-y-3">
     {forums.map((f) => {
       const open = f.member || f.kind === "board";
       const body = <>
         <div className="flex items-start justify-between gap-3">
-          <h2 className="text-xl font-black">{f.kind === "board" ? "📣 " : "💬 "}{f.title}</h2>
+          <h2 className="text-xl font-black">{f.title}</h2>
           {f.member && f.unread > 0 && <span className="shrink-0 rounded-full bg-red px-3 py-1 text-sm font-black text-on-accent">{f.unread} חדשות</span>}
         </div>
         {f.description && <p className="mt-1 text-base leading-7 text-txt-dim">{f.description}</p>}
         {f.last_activity && <p className="mt-2 text-sm text-txt-dim">פעילות אחרונה: {ago(f.last_activity)}</p>}
       </>;
-      return <li key={f.id} className="rounded-lg border border-line bg-card">
+      return <li key={f.id} className="rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)]">
         {open ? <Link href={`/community/?f=${f.slug}`} className="block p-5 transition hover:bg-card-2">{body}</Link> : <div className="p-5">
           {body}
           <div className="mt-4">
@@ -86,10 +94,10 @@ function ForumList({ forums, onJoin }: { forums: Forum[]; onJoin: (f: Forum) => 
 
 function ThreadList({ forum, list, admin, onAdmin }: { forum: Forum; list: Thread[]; admin: boolean; onAdmin: () => void }) {
   const visible = list.filter((t) => admin || !t.hidden);
-  if (!visible.length) return <p className="rounded-lg border border-line bg-card p-5 text-base text-txt-dim">{forum.kind === "board" ? "עוד אין פרסומים." : "עוד אין נושאים. פתחו את הראשון."}</p>;
+  if (!visible.length) return <p className="rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] p-5 text-base text-txt-dim">{forum.kind === "board" ? "עוד אין פרסומים." : "עוד אין נושאים. פתחו את הראשון."}</p>;
   if (forum.kind === "board") {
     return <ul className="space-y-3">
-      {visible.map((t) => <li key={t.id} className={`rounded-lg border border-line bg-card ${t.hidden ? "opacity-50" : ""}`}>
+      {visible.map((t) => <li key={t.id} className={`rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] ${t.hidden ? "opacity-50" : ""}`}>
         <Link href={`/community/?f=${forum.slug}&t=${t.id}`} className="block p-5 transition hover:bg-card-2">
           <p className="text-sm font-bold text-txt-dim">{t.pinned && "📌 "}{new Date(t.created_at).toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" })}{t.hidden && " · מוסתר"}</p>
           <h2 className="mt-1 text-xl font-black">{t.title}</h2>
@@ -99,7 +107,7 @@ function ThreadList({ forum, list, admin, onAdmin }: { forum: Forum; list: Threa
       </li>)}
     </ul>;
   }
-  return <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-card">
+  return <ul className="divide-y divide-line overflow-hidden rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)]">
     {visible.map((t) => <li key={t.id} className={t.hidden ? "opacity-50" : ""}>
       <Link href={`/community/?f=${forum.slug}&t=${t.id}`} className="flex items-center gap-3 p-4 transition hover:bg-card-2">
         <div className="min-w-0 flex-1">
@@ -135,7 +143,7 @@ function NewThread({ forum, onCreated }: { forum: Forum; onCreated: (t: Thread) 
     try { onCreated(await openThread(forum.id, title, body)); }
     catch (err) { setError(`לא נשמר: ${(err as Error).message}`); setBusy(false); }
   };
-  return <form onSubmit={submit} className="space-y-4 rounded-lg border border-line bg-card p-5">
+  return <form onSubmit={submit} className="space-y-4 rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] p-5">
     <ErrorLine error={error} />
     <label className="block text-base font-bold">כותרת
       <input value={title} onChange={(e) => setTitle(e.target.value)} maxLength={140} required className="mt-1 min-h-12 w-full rounded-md border border-line bg-sheet px-4 text-base font-normal outline-none focus:border-teal" />
@@ -171,7 +179,7 @@ function ThreadView({ forum, threadId, admin }: { forum: Forum; threadId: number
     setBusy(false);
   };
   return <div className="space-y-3">
-    <article className={`rounded-lg border border-line bg-card ${t.hidden ? "opacity-50" : ""}`}>
+    <article className={`rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] ${t.hidden ? "opacity-50" : ""}`}>
       <div className="p-5">
         <p className="text-sm font-bold text-txt-dim">{t.author_name} · {ago(t.created_at)}{t.hidden && " · מוסתר"}</p>
         <h2 className="mb-3 mt-1 text-2xl font-black">{t.pinned && "📌 "}{t.title}</h2>
@@ -179,14 +187,14 @@ function ThreadView({ forum, threadId, admin }: { forum: Forum; threadId: number
       </div>
       {admin && <AdminRow thread={t} onDone={() => void load()} />}
     </article>
-    {posts.map((p) => <article key={p.id} className={`rounded-lg border border-line bg-card ${p.hidden ? "opacity-50" : ""}`}>
+    {posts.map((p) => <article key={p.id} className={`rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] ${p.hidden ? "opacity-50" : ""}`}>
       <div className="p-5">
         <p className="mb-2 text-sm font-bold text-txt-dim">{p.author_name} · {ago(p.created_at)}{p.hidden && " · מוסתר"}</p>
         <PostText text={p.body} />
       </div>
       {admin && <AdminRow post={p} onDone={() => void load()} />}
     </article>)}
-    {forum.kind === "forum" && forum.member && <form onSubmit={send} className="space-y-3 rounded-lg border border-line bg-card p-5">
+    {forum.kind === "forum" && forum.member && <form onSubmit={send} className="space-y-3 rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] p-5">
       <ErrorLine error={error} />
       <label className="block text-base font-bold">תגובה
         <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} className="mt-1 w-full rounded-md border border-line bg-sheet px-4 py-3 text-base font-normal leading-7 outline-none focus:border-teal" />
@@ -227,7 +235,7 @@ export function Community() {
 
   if (!ready) return null;
   if (!user) return <Shell title="קהילה">
-    <div className="rounded-lg border border-line bg-card p-6 text-base leading-8">
+    <div className="rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] p-6 text-base leading-8">
       <p>כאן נמצאים פורום המחזור ולוח הפרסומים על השתלמויות וקורסים. כדי לקרוא ולכתוב צריך להתחבר.</p>
       <Link href="/login/" className={`${primary} mt-4 inline-flex items-center`} style={primaryStyle}>כניסה</Link>
     </div>

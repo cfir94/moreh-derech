@@ -347,7 +347,10 @@ export function QuizRunner({
         style={domainStyle(quiz.slug)}
       >
         <div className="mb-7 text-center">
-          <PenGrade label={`ציון ${pct}`}>{pct}</PenGrade>
+          <PenGrade>{pct}</PenGrade>
+          <h1 className="sr-only">
+            <span className="num">{pct}%</span>
+          </h1>
           <p className="mt-2 mb-6 text-lg text-txt-dim">
             {title ?? quiz.label} · <span className="num">{correct}</span> מתוך{" "}
             <span className="num">{answers.length}</span> נכונות
