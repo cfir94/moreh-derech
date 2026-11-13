@@ -1,0 +1,274 @@
+/* הכותרת העליונה: דף מפה, לוגו בדיו, תפריט בעיפרון ושלט חום אחד לכניסה. */
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 8px 18px 6px;
+}
+
+/* a painted trail blaze along the bottom edge: white, red, white */
+.blaze {
+  display: block;
+  height: 8px;
+  background: linear-gradient(var(--paint) 0 30%, var(--t-red) 30% 70%, var(--paint) 70%);
+  box-shadow: 0 6px 14px -8px rgb(20 12 4 / 0.55);
+}
+
+.brand {
+  display: flex;
+  flex: none;
+  align-items: center;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.logo {
+  --halo: var(--paper);
+  overflow: visible;
+}
+
+.links {
+  display: none;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 1280px) {
+  .links {
+    display: flex;
+  }
+  .menuBtn {
+    display: none !important;
+  }
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 48px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--ink);
+  font-size: 1.12rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.link:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+/* the page you are on: a green pen stroke under the word */
+.active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 6px;
+  bottom: 6px;
+  height: 7px;
+  background: var(--t-green);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'><path d='M2 5C20 2 45 3 60 4s28 1 38-2' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'/></svg>") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'><path d='M2 5C20 2 45 3 60 4s28 1 38-2' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'/></svg>") center / 100% 100% no-repeat;
+}
+
+.tools {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  margin-inline-start: auto;
+}
+
+@media (min-width: 1280px) {
+  .tools {
+    margin-inline-start: 0;
+  }
+}
+
+/* the one sign in the header: the way in */
+.sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 11rem;
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 7px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 0 0 2.5px var(--sign),
+    inset 0 0 0 4px var(--sign-ink),
+    0 8px 14px -10px rgb(20 12 4 / 0.7);
+  transform: rotate(-1deg);
+  transition: transform 0.35s var(--lift-ease);
+}
+
+.sign span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sign:hover,
+.sign:focus-visible {
+  transform: translateY(-3px) rotate(0deg);
+}
+
+.menuBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.menuBtn:hover {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+@media (max-width: 520px) {
+  .menuText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .sign {
+    padding: 0 12px;
+  }
+}
+
+/* ---------- the menu as a map legend ---------- */
+
+.legend {
+  max-height: calc(100dvh - 76px);
+  overflow-y: auto;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  box-shadow: 0 22px 30px -22px rgb(20 12 4 / 0.7);
+}
+
+.legendInner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 18px 22px;
+}
+
+.legendTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.legendList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 4px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  text-align: start;
+  width: 100%;
+}
+
+.legendItem:hover,
+.legendItem[aria-current="page"] {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.legendMark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+.legendName {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.legendDesc {
+  display: block;
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+.legendThemeItem {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .inner {
+    gap: 6px;
+    padding: 6px 10px 4px;
+  }
+  .logo {
+    height: 40px;
+    width: 103px;
+  }
+  .themeSlot {
+    display: none;
+  }
+  .legendThemeItem {
+    display: block;
+  }
+  .tools {
+    gap: 4px;
+  }
+  .sign {
+    max-width: 7.5rem;
+    min-height: 44px;
+    padding: 0 10px;
+    gap: 5px;
+    font-size: 1rem;
+  }
+  .menuBtn {
+    min-height: 44px;
+    padding: 0 9px;
+  }
+}

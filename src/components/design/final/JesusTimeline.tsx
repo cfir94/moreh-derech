@@ -3,10 +3,10 @@
 import { useState } from "react";
 import type { Timeline } from "@/data/timelines/types";
 import { useHomeData } from "../useHomeData";
-import { InkBoat, InkCalvary, InkChalice, InkCross, InkDove, InkFish, InkPalm, InkShip, InkStar, InkTomb } from "./Christian";
+import { InkBoat, InkCalvary, InkChalice, InkCross, InkDove, InkFish, InkPalm, InkShip, InkStar, InkTomb } from "@/components/trail/decor/christian";
 import { FinalFrame } from "./FinalHome";
-import { InkTree } from "./Ink";
-import { Birds, Prints, TopoPatch, Waypoints } from "./Zones";
+import { InkTree } from "@/components/trail/Ink";
+import { Birds, Prints, TopoPatch, Waypoints } from "@/components/trail/Zones";
 import s from "./jesus.module.css";
 
 /*

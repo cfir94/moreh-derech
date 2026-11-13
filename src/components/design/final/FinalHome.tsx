@@ -8,8 +8,8 @@ import { HOME_SECTIONS } from "../homeData";
 import { NotePaper } from "../NotePaper";
 import { useHomeData } from "../useHomeData";
 import { FoldIntro } from "./FoldIntro";
-import { InkArrow, InkCompass, InkDefs, InkIcon, InkLockup, InkMoon, InkRuin, InkSun, InkTree } from "./Ink";
-import { Prints, TopoPatch, WallPatch } from "./Zones";
+import { InkArrow, InkCompass, InkIcon, InkLockup, InkMoon, InkRuin, InkSun, InkTree } from "@/components/trail/Ink";
+import { Prints, TopoPatch, WallPatch } from "@/components/trail/Zones";
 import s from "./final.module.css";
 
 /*
@@ -98,7 +98,6 @@ export function FinalFrame({
         />
       )}
       <div ref={root} className={s.root} style={vars}>
-        <InkDefs />
         <div aria-hidden className={s.neat} />
 
         <header className={s.top}>
