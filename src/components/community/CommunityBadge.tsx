@@ -34,5 +34,5 @@ export function useCommunityUnread() {
 
 export function CommunityBadge({ count }: { count: number }) {
   if (!count) return null;
-  return <span className="mr-1 inline-grid min-w-5 place-items-center rounded-full bg-red px-1.5 text-[11px] font-black leading-5 text-on-accent" aria-label={`${count} הודעות חדשות`}>{count}</span>;
+  return <span className="mr-1 inline-grid min-w-[22px] -rotate-6 place-items-center rounded-full bg-[var(--t-red)] px-1.5 text-[0.78rem] font-black leading-[22px] text-[var(--paint)]" aria-label={`${count} הודעות חדשות`}>{count}</span>;
 }

@@ -35,7 +35,8 @@ export type FieldIconName =
   | "handaxe"
   | "border"
   | "search"
-  | "lock";
+  | "lock"
+  | "bell";
 
 export const PATHS: Record<FieldIconName, React.ReactNode> = {
   // מחברת שדה עם סימן שאלה
@@ -252,6 +253,15 @@ export const PATHS: Record<FieldIconName, React.ReactNode> = {
     <>
       <circle cx="10.5" cy="10.5" r="6" />
       <path d="M15 15l5.5 5.5" />
+    </>
+  ),
+  // פעמון של בקתת שטח: מה חדש
+  bell: (
+    <>
+      <path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5" />
+      <path d="M4.5 16.5h15" />
+      <path d="M10.2 19.2a1.9 1.9 0 0 0 3.6 0" />
+      <path d="M12 3.2v2.3" />
     </>
   ),
   // מנעול

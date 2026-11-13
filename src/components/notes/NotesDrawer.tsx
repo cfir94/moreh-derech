@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { InkIcon } from "@/components/trail/Ink";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { useUser } from "@/contexts/UserContext";
@@ -63,9 +64,9 @@ export function NotesButton() {
       aria-label={notes.length ? `הפתקים שלי (${notes.length})` : "הפתקים שלי"}
       aria-expanded={open}
       title="הפתקים שלי"
-      className="relative grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-txt transition active:scale-90"
+      className="ink-tool"
     >
-      <NoteIcon />
+      <InkIcon name="notes" size={26} />
     </button>
     {mounted && open && createPortal(<Drawer onClose={() => setOpen(false)} />, document.body)}
   </>;

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { initUpdates, markAllRead, useUpdates } from "@/lib/updates";
+import { InkIcon } from "@/components/trail/Ink";
 
 const ICON: Record<string, string> = { quiz: "📝", exam: "🎓", game: "🎲", tool: "🧭", content: "📚", feature: "✨" };
 const date = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString("he-IL", { day: "numeric", month: "short" });
@@ -34,11 +35,11 @@ export function UpdatesBell() {
         onClick={() => setOpen((v) => !v)}
         aria-label={unread.length ? `מה חדש — ${unread.length} עדכונים חדשים` : "מה חדש"}
         aria-expanded={open}
-        className="relative grid h-[42px] w-[42px] place-items-center rounded-[14px] border border-line bg-card text-lg transition active:scale-90"
+        className="ink-tool"
       >
-        🔔
+        <InkIcon name="bell" size={26} />
         {unread.length > 0 && (
-          <span className="absolute -top-1 -left-1 grid min-w-5 place-items-center rounded-full bg-red px-1 text-[11px] font-black text-on-accent">
+          <span className="ink-count num">
             {unread.length}
           </span>
         )}

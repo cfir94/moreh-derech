@@ -216,6 +216,49 @@ h3 {
   filter: url(#pencil);
 }
 
+/* a tool in the header: an ink drawing in a pencilled ring (search, what's new, notes, light/dark) */
+.ink-tool {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 42%, transparent);
+  background: transparent;
+  color: var(--ink);
+  transition: background 0.2s, transform 0.3s var(--lift-ease);
+}
+.ink-tool:hover,
+.ink-tool:focus-visible {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  transform: translateY(-2px) rotate(-3deg);
+}
+.ink-tool[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+/* a count in red ink, circled like a note in the margin */
+.ink-count {
+  position: absolute;
+  top: -7px;
+  inset-inline-end: -7px;
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 999px;
+  border: 2px solid var(--paper);
+  background: var(--t-red);
+  color: var(--paint);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(-6deg);
+}
+
 /* the house gesture: paper lifts and straightens under the hand */
 .lift {
   transition: transform 0.35s var(--lift-ease), box-shadow 0.35s;
