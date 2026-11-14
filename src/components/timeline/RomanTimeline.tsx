@@ -7,6 +7,7 @@ import styles from "./RomanTimeline.module.css";
 import { PhotoFigure, PracticeDeck } from "@/components/learning-aid";
 import type { EraPhoto } from "@/lib/eraPhotos";
 import { eraPractice } from "@/lib/eraPractice";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const ID = /^RO-\d{3}$/;
 const kindTitle = new Map(ROMAN_KINDS.map((kind) => [kind.id, kind.title]));
@@ -54,6 +55,7 @@ export function RomanTimeline({ photos = {} }: { photos?: Record<string, EraPhot
   const empty = <div className={styles.empty}><h2>לא נמצאו אירועים מתאימים</h2><p>אפשר לשנות את החיפוש או להרחיב את התקופה.</p><button type="button" onClick={t.reset}>להציג את כל האירועים</button></div>;
 
   return <div className={styles.page} dir="rtl">
+    <PageDecor topo={false} step={520} items={["milestone", "column", "gate", "temple", "arch"]} />
     <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>התקופה הרומית</span></div>
 
     <header className={styles.hero}>

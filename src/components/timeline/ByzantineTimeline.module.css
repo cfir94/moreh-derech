@@ -2,6 +2,7 @@
    era headings cut as arched niches, a column of tesserae as the axis, and
    each event set in a tessera-bordered panel. */
 .page {
+  position: relative; isolation: isolate;
   --ground: #f6f0e1; --raised: #fffaf0; --deep: #ece2cc;
   --ink: #1c2546; --muted: #5d6178; --edge: #dccfae;
   --gold: #a9812e; --gold-hi: #e8c773; --lapis: #1e3270; --purple: #6b2f5d;
