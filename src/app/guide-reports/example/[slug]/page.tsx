@@ -5,6 +5,8 @@ import { ScheduleTable } from "@/components/guide-reports/ScheduleTable";
 import { GuideUnitCard } from "@/components/guide-reports/GuideUnitCard";
 import { ExpandedUnitBlock } from "@/components/guide-reports/ExpandedUnitBlock";
 import { domainStyle } from "@/lib/domains";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export function generateStaticParams() {
   return REPORTS.map((r) => ({ slug: r.slug }));
@@ -21,9 +23,10 @@ export default async function ExampleReportPage({
 
   return (
     <div
-      className="screen-in mx-auto max-w-3xl px-4 py-10"
+      className="screen-in relative mx-auto max-w-3xl px-4 py-10"
       style={domainStyle("guide-reports")}
     >
+      <PageDecor items={["notes", "pencil", "map", "signpost", "canteen"]} />
       <p className="mb-2 text-sm font-semibold text-txt-dim">
         <Link href="/guide-reports" className="hover:text-txt">
           דוחות הדרכה
@@ -31,7 +34,10 @@ export default async function ExampleReportPage({
         {" · "}
         דוגמה
       </p>
-      <h1 className="grad-text mb-2 text-3xl">{report.title}</h1>
+      <div className={`${kit.titleWrap} mb-2`}>
+        <h1 className="grad-text text-3xl">{report.title}</h1>
+        <PenUnderline />
+      </div>
       <p className="mb-2 text-sm text-txt-dim">{report.summary}</p>
       <p className="mb-8 text-sm font-bold text-mc">{report.region}</p>
 

@@ -42,9 +42,13 @@ try {
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (msg) => msg.type() === "error" && /hydrat/i.test(msg.text()) && errors.push(msg.text()));
 
-  await page.goto(base + "/games/");
+  // Click only once the games page has hydrated: a click that lands mid-hydration starts both the
+  // browser's own navigation and the router's, and the second one replaced the page while the test
+  // was already typing ("Execution context was destroyed", seen in CI).
+  await page.goto(base + "/games/", { waitUntil: "networkidle" });
   await page.getByRole("link", { name: /תשבץ השבוע/ }).click();
   await page.waitForURL(/\/games\/crossword\/?$/);
+  await page.waitForLoadState("networkidle");
 
   if (!puzzle) {
     // Until the bank has enough words: an explanation, never an empty grid.

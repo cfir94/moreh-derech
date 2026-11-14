@@ -129,8 +129,9 @@
     height: 68px;
     border-width: 1.5px;
   }
+  /* on a phone the small drawing sits beside the title, not the sentence: the sentence takes the full width */
   .head:has(.headArt) .lede {
-    max-width: calc(100% - 80px);
+    max-width: none;
   }
   .title {
     padding-inline-end: 0;

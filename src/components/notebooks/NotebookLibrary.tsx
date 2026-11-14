@@ -26,6 +26,8 @@ import {
   listStoredNotebooks,
   type StoredNotebook,
 } from "@/lib/notebookStore";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const toneClasses = {
   teal: "border-teal/35 bg-teal/10 text-teal ring-teal/30",
@@ -353,11 +355,15 @@ export function NotebookLibrary() {
   }
 
   return (
-    <main className="screen-in mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+    <main className="screen-in relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+      <PageDecor wide items={["notebooks", "map", "tent", "binoculars", "pencil"]} />
       <header className="mb-8 flex flex-wrap items-end justify-between gap-5">
         <div className="max-w-3xl">
           <div className="mb-3 flex items-center gap-2 text-sm font-bold text-teal"><span aria-hidden="true" className="h-px w-8 bg-teal" />מרכז הלמידה</div>
-          <h1 className="grad-text text-3xl leading-tight sm:text-4xl">מאגרי המידע של הקורס</h1>
+          <div className={kit.titleWrap}>
+            <h1 className="grad-text text-3xl leading-tight sm:text-4xl">מאגרי המידע של הקורס</h1>
+            <PenUnderline />
+          </div>
           <p className="mt-3 leading-relaxed text-txt-dim">מקום אחד למאגרי המידע של הקורס (Gemini Notebook) — סיורים, מפגשים עיוניים ותכנים מקוונים. בוחרים תחום, מוצאים את המאגר ופותחים אותו ישירות.</p>
         </div>
         {isOwner && <button type="button" onClick={() => setManagerOpen((open) => !open)} aria-expanded={managerOpen} className="rounded-full border border-teal/40 bg-teal/10 px-4 py-2.5 text-sm font-extrabold text-teal transition hover:bg-teal/15 active:scale-[0.97]">{managerOpen ? "סגירת הניהול" : "+ הוספת מאגר"}</button>}

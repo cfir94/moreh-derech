@@ -9,7 +9,7 @@ import { useProgress } from "@/hooks/useProgress";
 import { SyncStatusLine, useSyncStatus } from "@/components/SyncStatusLine";
 import { needsReview, resetProgress, summarize } from "@/lib/progress";
 import { domainStyle } from "@/lib/domains";
-import { SIGN_STYLE } from "@/components/trail/kit";
+import { SIGN_STYLE, kit, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
 import { InkIcon } from "@/components/trail/Ink";
 
@@ -43,7 +43,10 @@ export default function MePage() {
       <PageDecor birds items={["me", "notebooks", "canteen", "milestone", "review"]} />
       <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="grad-text text-3xl">שלום, {user.name}</h1>
+          <div className={kit.titleWrap}>
+            <h1 className="grad-text text-3xl">שלום, {user.name}</h1>
+            <PenUnderline />
+          </div>
           <p className="text-sm text-txt-dim">{user.email}</p>
           {user.classCode && (
             <p className="mt-1 text-sm text-txt-dim">כיתה: {user.classCode}</p>

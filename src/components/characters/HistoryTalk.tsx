@@ -8,6 +8,8 @@
 import { useSyncExternalStore } from "react";
 import { HISTORY_TALK_ORIGIN, TALK_CHARACTERS } from "@/data/history-talk";
 import { useTalkAuthBridge } from "@/lib/talkAuth";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 // ערכת הצבעים נקראת פעם אחת, בטעינה: שינוי של src היה טוען את המסגרת מחדש
 // וקוטע שיחה באמצע. (בלי מנוי — החלפת ערכה אחר כך לא משנה את המסגרת.)
@@ -20,13 +22,17 @@ export function HistoryTalk() {
   const src = HISTORY_TALK_ORIGIN ? `${HISTORY_TALK_ORIGIN}/?embed=1&theme=${theme}` : "";
 
   return (
-    <main className="screen-in mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+    <main className="screen-in relative mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+      <PageDecor prints={false} items={["talk", "scroll", "crown", "column"]} />
       <header className="mb-6 max-w-3xl">
         <div className="mb-3 flex items-center gap-2 text-sm font-bold text-teal">
           <span className="h-px w-8 bg-teal" aria-hidden="true" />
           עזרי למידה
         </div>
-        <h1 className="grad-text text-3xl leading-tight sm:text-4xl">דבר עם ההיסטוריה</h1>
+        <div className={kit.titleWrap}>
+          <h1 className="grad-text text-3xl leading-tight sm:text-4xl">דבר עם ההיסטוריה</h1>
+          <PenUnderline />
+        </div>
         <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
           {TALK_CHARACTERS.length} דמויות מתקופת הברזל ועד סוף התקופה הביזנטית: שאלו את חזקיהו איך נחצבה נקבת
           השילוח, את רבן יוחנן בן זכאי מה ביקש מאספסיאנוס, ואת הירונימוס איך נראתה בית לחם בימיו — בקול, בעברית.

@@ -5,6 +5,8 @@ import { TOPICS } from "@/data/topics";
 import { QUIZZES } from "@/data/quizzes";
 import { ResourceCredit, ResourceList } from "@/components/ResourceList";
 import { domainStyle } from "@/lib/domains";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export const metadata = pageMeta({
   title: "סיכומים וחומרי לימוד",
@@ -29,9 +31,13 @@ export default function ResourcesPage() {
     .sort((a, b) => b.count - a.count);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
+    <div className="relative mx-auto max-w-5xl px-4 py-10">
+      <PageDecor items={["resources", "notebooks", "pencil", "scroll"]} />
       <header className="screen-in mb-7">
-        <h1 className="grad-text mb-2 text-3xl">סיכומים וחומרי לימוד</h1>
+        <div className={`${kit.titleWrap} mb-2`}>
+          <h1 className="grad-text text-3xl">סיכומים וחומרי לימוד</h1>
+          <PenUnderline />
+        </div>
         <p className="mb-3 max-w-2xl leading-relaxed text-txt-dim">
           <span className="num">{total}</span> חומרי לימוד וקישורים לנושאי הסילבוס
           של הקורס: סיכום להרצאה, דוחות סיור לפי אתר, מסלולים לדוגמה לחלק ב׳,

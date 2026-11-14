@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export default function HowToWriteReportPage() {
   return (
-    <div className="screen-in mx-auto max-w-2xl px-4 py-10">
+    <div className="screen-in relative mx-auto max-w-2xl px-4 py-10">
+      <PageDecor items={["notes", "pencil", "map", "signpost", "canteen"]} />
       <p className="mb-2 text-sm font-semibold text-txt-dim">
         <Link href="/guide-reports" className="hover:text-txt">
           דוחות הדרכה
@@ -10,7 +13,10 @@ export default function HowToWriteReportPage() {
         {" · "}
         מדריך לימוד
       </p>
-      <h1 className="grad-text mb-3 text-3xl">איך כותבים דו״ח סיור</h1>
+      <div className={`${kit.titleWrap} mb-3`}>
+        <h1 className="grad-text text-3xl">איך כותבים דו״ח סיור</h1>
+        <PenUnderline />
+      </div>
       <p className="mb-8 leading-relaxed text-txt-dim">
         הדו״ח מסכם <b className="text-txt">סיור כפי שבוצע בפועל</b> — לא תוכנית
         על הנייר. זה גם הפורמט שמתרגלים בקורס, וגם מה שנדרש להכיר לקראת מבחן
