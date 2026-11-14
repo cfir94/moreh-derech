@@ -14,8 +14,24 @@ export { k as kit };
 const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
 
 /** The page column, with an optional narrow measure for reading screens. */
-export function TrailPage({ narrow, className, children }: { narrow?: boolean; className?: string; children: ReactNode }) {
-  return <div className={cx(k.page, narrow && k.narrow, className)}>{children}</div>;
+export function TrailPage({
+  narrow,
+  className,
+  decor,
+  children,
+}: {
+  narrow?: boolean;
+  className?: string;
+  /** the page's background decorations: <PageDecor items={[…]} /> with things from its own subject */
+  decor?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className={cx(k.page, narrow && k.narrow, className)}>
+      {decor}
+      {children}
+    </div>
+  );
 }
 
 /** A hand-drawn green stroke under a title. */

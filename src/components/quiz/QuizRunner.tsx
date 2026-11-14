@@ -13,6 +13,7 @@ import { setNoteContext } from "@/lib/notes";
 import { openNotes } from "@/components/notes/NotesDrawer";
 import { Blazes, kit as k, PenCircle, PenGrade, PenStrike, PenUnderline } from "@/components/trail/kit";
 import { InkIcon } from "@/components/trail/Ink";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 type Phase = "setup" | "running" | "results";
 type Axis = "category" | "topic";
@@ -177,9 +178,10 @@ export function QuizRunner({
 
     return (
       <div
-        className="screen-in mx-auto max-w-2xl px-4 py-10"
+        className="screen-in relative mx-auto max-w-2xl px-4 py-10"
         style={domainStyle(quiz.slug)}
       >
+        <PageDecor prints={false} step={300} items={[ink, "pencil", "quizzes"]} />
         <Link
           href="/topics/"
           className="mb-5 inline-block text-sm font-bold text-txt-dim transition hover:text-txt"

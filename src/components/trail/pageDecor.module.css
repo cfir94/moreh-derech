@@ -1,0 +1,98 @@
+/* שכבת הקישוטים של דף: מאחורי התוכן, ונמשכת אל השוליים שמשני צדיו. */
+
+.layer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline: -230px;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* everything else in the page sits above the layer */
+.layer ~ * {
+  position: relative;
+  z-index: 1;
+}
+
+.fill {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* contours behind the head, on the side the text leaves empty */
+.topo {
+  top: -40px;
+  inset-inline-end: 120px;
+  width: 620px;
+  height: 420px;
+  --topo-size: 1200px;
+  --topo-at: 30% 40%;
+}
+
+.birds {
+  top: 210px;
+  inset-inline-end: 40px;
+  width: 190px;
+}
+
+/* pen sketches in the gutters */
+.sketch {
+  position: absolute;
+  color: var(--ink);
+  opacity: 0.5;
+  transform: rotate(var(--turn, 0deg));
+}
+
+.start {
+  inset-inline-start: 84px;
+}
+
+.end {
+  inset-inline-end: 84px;
+}
+
+.steps {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 150px;
+  width: 620px;
+  height: 190px;
+}
+
+.marks {
+  position: absolute;
+  bottom: 190px;
+  inset-inline-end: 160px;
+  width: 520px;
+  height: 150px;
+}
+
+/* the gutters exist only on a wide screen; below that the sketches would sit on the content */
+@media (max-width: 1439px) {
+  .sketch,
+  .birds {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .marks {
+    display: none;
+  }
+  .layer {
+    inset-inline: 0;
+  }
+  .topo {
+    inset-inline-end: -120px;
+    width: 420px;
+    height: 300px;
+  }
+  .steps {
+    inset-inline-start: 0;
+    width: 100%;
+    height: 130px;
+  }
+}
