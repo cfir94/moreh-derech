@@ -265,7 +265,7 @@ export function QuizRunner({
                     className={`${k.chip} ${active ? k.chipOn : ""}`}
                   >
                     {label}{" "}
-                    <span className={`num ${active ? "opacity-70" : "text-txt-dim"}`}>
+                    <span className={`num ${active ? "font-semibold" : "text-txt-dim"}`}>
                       {count}
                     </span>
                   </button>

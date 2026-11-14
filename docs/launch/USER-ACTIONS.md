@@ -93,6 +93,8 @@ Authentication ← **Emails** ← **Magic Link**: נושא `קוד הכניסה 
 **לסדר, כשתתפנה:** `supabase/migrations/20261106_01_admins_notebooks.sql`, `..._02_entitlements.sql`, `..._03_entitlement_reminders.sql`. כל אחד: SQL Editor ← הדבקה ← Run. מותר להריץ שוב. נכנסים ל-Supabase ← SQL Editor ← מדביקים ← Run.
 אפשרות שחוסכת את זה: ליצור Supabase **access token** (Account ← Access Tokens) ולשמור אותו כ-GitHub Secret בשם `SUPABASE_ACCESS_TOKEN`, ואז workflow יריץ את המיגרציות לבד. **מפתח ה-service_role** נכנס כ-`wrangler secret` של ה-Worker בלבד (אכתוב פקודה מדויקת).
 
+**חדש (14.11, C-12, מייל יומי מהקהילה):** `supabase/migrations/20261114_01_community_digest.sql`. אחרי ההרצה מופיע במסך הקהילה מתג "מייל יומי". המיילים עצמם יוצאים רק כשיש ל-Worker של האתר את `SUPABASE_SERVICE_KEY` ו-`RESEND_API_KEY` (אותם סודות של התזכורות, #120). עד אז המתג נשמר ושום מייל לא יוצא.
+
 ## 10. ⬜ צילום אתר המתחרה
 שלח לי צילום, או את הכתובת. זה קובע את המחיר הסופי ואת המסרים בדף הנחיתה.
 

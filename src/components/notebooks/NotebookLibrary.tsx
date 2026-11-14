@@ -178,7 +178,7 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
             const isActive = activeSubject === subject.id;
             return (
               <button key={subject.id} type="button" onClick={() => setActiveSubject(subject.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? toneClasses[subject.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>
-                {subject.title}<span className="num text-sm opacity-70">{count}</span>
+                {subject.title}<span className="num text-sm font-semibold">{count}</span>
               </button>
             );
           })}
@@ -386,7 +386,7 @@ export function NotebookLibrary() {
             const count = mode.id === "tours" ? tourNotebooks.length : mode.id === "theory" ? theoryNotebooks.length : onlineNotebooks.length;
             return (
               <button key={mode.id} type="button" onClick={() => selectMode(mode.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? "border-teal/45 bg-teal/10 text-teal shadow-[0_8px_20px_-14px_var(--teal)]" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>
-                {mode.title}<span className="num opacity-75">{count}</span>
+                {mode.title}<span className="num font-semibold">{count}</span>
               </button>
             );
           })}
@@ -411,7 +411,7 @@ export function NotebookLibrary() {
               {regions.map((region) => {
                 const count = tourNotebooks.filter((notebook) => notebook.region === region.id).length;
                 const isActive = activeRegion === region.id;
-                return <button key={region.id} type="button" onClick={() => setActiveRegion(region.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? toneClasses[region.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>{region.title}<span className="num text-sm opacity-70">{count}</span></button>;
+                return <button key={region.id} type="button" onClick={() => setActiveRegion(region.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? toneClasses[region.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>{region.title}<span className="num text-sm font-semibold">{count}</span></button>;
               })}
             </div>
           </section>

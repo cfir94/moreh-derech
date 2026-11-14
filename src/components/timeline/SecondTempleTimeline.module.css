@@ -8,7 +8,7 @@
 }
 :global([data-theme="dark"]) .page {
   --paper-raised: color-mix(in srgb, var(--paper) 88%, white 12%);
-  --accent: var(--t-orange); --warning-bg: #d9c77e;
+  --accent: #f4ba84; --warning-bg: #d9c77e;
 }
 .page button, .page input, .page select { font: inherit; }
 .page button, .page summary, .page select { cursor: pointer; }

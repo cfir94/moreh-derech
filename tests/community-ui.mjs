@@ -33,7 +33,7 @@ function fakeSupabase() {
     ],
     threads: [{ id: 10, forum_id: 1, author_id: "x", author_name: "דנה", title: "סיכום לשיעור על קיסריה", body: "הנה הסיכום: https://example.com/caesarea\nשורה שנייה", pinned: false, hidden: false, post_count: 1, last_post_at: now, created_at: now }],
     posts: [{ id: 100, thread_id: 10, author_id: "y", author_name: "יוסי", body: "תודה!", hidden: false, created_at: now }],
-    joins: 0, hides: 0,
+    joins: 0, hides: 0, digest: [],
   };
   return async (route) => {
     const url = new URL(route.request().url());
@@ -60,6 +60,8 @@ function fakeSupabase() {
     }
     if (path.endsWith("/md_forum_members") && method === "POST") { db.joins += 1; db.forums[2].request = "pending"; return route.fulfill({ status: 201, body: "" }); }
     if (path.endsWith("/md_forum_reads")) return route.fulfill({ status: 201, body: "" });
+    if (path.endsWith("/md_digest_prefs") && method === "GET") return route.fulfill({ json: db.digest });
+    if (path.endsWith("/md_digest_prefs") && method === "POST") { db.digest = [{ daily: body.daily, user_id: body.user_id }]; return route.fulfill({ status: 201, body: "" }); }
     return route.fulfill({ json: [] });
   };
 }
@@ -84,6 +86,14 @@ try {
 
     await page.getByRole("button", { name: "בקשה להצטרף" }).click();
     await expect(page.getByText("הבקשה ממתינה לאישור")).toBeVisible(); checks += 1;
+
+    // the daily digest (C-12): off until the member turns it on, and saved for that member only
+    const digest = page.getByRole("checkbox", { name: /מייל יומי/ });
+    await expect(digest).not.toBeChecked();
+    await digest.check();
+    await expect(digest).toBeChecked();
+    await page.reload();
+    await expect(page.getByRole("checkbox", { name: /מייל יומי/ })).toBeChecked(); checks += 1;
 
     await page.getByRole("link", { name: /קמ״ד שרון/ }).click();
     await expect(page.getByRole("link", { name: /סיכום לשיעור על קיסריה/ })).toBeVisible();

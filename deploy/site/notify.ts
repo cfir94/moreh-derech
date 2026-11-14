@@ -1,6 +1,8 @@
 // הודעות של התשלום הידני (B-04, docs/launch/PAYMENTS-MANUAL.md):
 //   POST /api/lead-notify — אחרי הרשמה או בקשת הצטרפות, מייל לבעלים (office@) עם הפרטים.
 //   cron יומי            — תזכורת ללקוח חודש לפני סוף המנוי, וסיכום לבעלים (מסתיימים + פניות שלא נשלחו).
+//                          ומייל קהילה מרוכז (C-12) למי שבחר בו: הנושאים והתגובות החדשים בפורומים שלו.
+//   GET/POST /api/digest-off?t=<token> — הסרה מהמייל היומי בלחיצה, בלי התחברות.
 // בלי SUPABASE_SERVICE_KEY או RESEND_API_KEY (wrangler secret) הכול מדלג בשקט, והאתר עובד כרגיל.
 
 export interface NotifyEnv {
@@ -59,6 +61,97 @@ export function digestMail(expiring: Expiring[], leads: Lead[], origin: string) 
   return { subject: `אבן דרך: ${expiring.length} מנויים מסתיימים, ${leads.length} פניות`, html: page(`${parts.join("")}<p><a href="${origin}/admin/">למסך הניהול</a></p>`) };
 }
 
+// --- C-12: מייל קהילה מרוכז ---
+
+export type DigestRecipient = { user_id: string; email: string; full_name: string; token: string; since: string };
+export type DigestItem = {
+  forum_title: string; forum_slug: string; thread_id: number; thread_title: string;
+  kind: "thread" | "post"; author_name: string; excerpt: string; created_at: string;
+};
+
+const time = (iso: string) => new Date(iso).toLocaleString("he-IL", { weekday: "long", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jerusalem" });
+const clip = (s: string, n = 140) => (s.length > n ? `${s.slice(0, n).trimEnd()}…` : s);
+
+/**
+ * המייל עצמו: לכל פורום, הנושאים שהתעדכנו, ובכל נושא מי כתב ומה (קטע קצר). קישור לכל נושא,
+ * וקישור הסרה בתחתית. בלי פריטים אין מייל (null): לא שולחים "אין חדש".
+ */
+export function communityDigestMail(r: DigestRecipient, items: DigestItem[], origin: string) {
+  if (!items.length) return null;
+  const offUrl = `${origin}/api/digest-off?t=${encodeURIComponent(r.token)}`;
+  const forums = new Map<string, { title: string; slug: string; threads: Map<number, { title: string; lines: DigestItem[] }> }>();
+  for (const it of items) {
+    const f = forums.get(it.forum_slug) ?? { title: it.forum_title, slug: it.forum_slug, threads: new Map() };
+    forums.set(it.forum_slug, f);
+    const t = f.threads.get(it.thread_id) ?? { title: it.thread_title, lines: [] };
+    f.threads.set(it.thread_id, t);
+    t.lines.push(it);
+  }
+  const blocks = [...forums.values()].map((f) => {
+    const threads = [...f.threads.entries()].map(([id, t]) => {
+      const href = `${origin}/community/?f=${encodeURIComponent(f.slug)}&t=${id}`;
+      const lines = t.lines
+        .slice()
+        .sort((a, b) => a.created_at.localeCompare(b.created_at))
+        .map((l) => `<li><b>${esc(l.author_name || "חבר/ה")}</b> ${l.kind === "thread" ? "פתח/ה את הנושא" : "הגיב/ה"} · <span style="color:#6b5a44">${time(l.created_at)}</span><br>${esc(clip(l.excerpt))}</li>`)
+        .join("");
+      return `<h3 style="margin:14px 0 4px"><a href="${href}">${esc(t.title)}</a></h3><ul style="margin:0;padding-inline-start:18px">${lines}</ul>`;
+    });
+    return `<h2 style="margin:18px 0 0;font-size:18px">${esc(f.title)}</h2>${threads.join("")}`;
+  });
+  const name = r.full_name ? ` ${esc(r.full_name)}` : "";
+  const count = items.length;
+  return {
+    subject: count === 1 ? "עדכון אחד חדש בקהילת אבן דרך" : `${count} עדכונים חדשים בקהילת אבן דרך`,
+    html: page(`<p>היי${name}, זה מה שנכתב בקהילה מאז המייל הקודם:</p>${blocks.join("")}<p style="margin-top:22px"><a href="${origin}/community/">לקהילה</a></p><p style="font-size:13px;color:#6b5a44">קיבלת את המייל כי ביקשת סיכום יומי מהקהילה. <a href="${offUrl}">להפסיק לקבל אותו</a>.</p>`),
+    headers: { "List-Unsubscribe": `<${offUrl}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" },
+  };
+}
+
+/** cron יומי: לכל מי שבחר, מה חדש בפורומים שלו. מי שאין לו חדש לא מקבל מייל. */
+export async function runCommunityDigest(env: NotifyEnv) {
+  const recipients = (await sb<DigestRecipient[] | null>(env, "/rest/v1/rpc/md_digest_recipients", { method: "POST", body: "{}" })) ?? [];
+  let sent = 0;
+  for (const r of recipients) {
+    try {
+      const items = (await sb<DigestItem[] | null>(env, "/rest/v1/rpc/md_digest_items", { method: "POST", body: JSON.stringify({ uid: r.user_id, since: r.since }) })) ?? [];
+      const mail = communityDigestMail(r, items, env.SITE_ORIGIN);
+      if (!mail) continue;
+      await sendMail(env, r.email, mail);
+      await sb(env, "/rest/v1/rpc/md_digest_mark", { method: "POST", body: JSON.stringify({ uid: r.user_id }) });
+      sent++;
+    } catch {
+      /* one member's failure does not stop the others; their window stays open for tomorrow */
+    }
+  }
+  return sent;
+}
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** GET (לחיצה בקישור) או POST (הסרה בלחיצה אחת של תוכנת הדואר, RFC 8058): מכבה את המייל היומי. */
+export async function handleDigestOff(request: Request, env: NotifyEnv): Promise<Response> {
+  if (request.method !== "GET" && request.method !== "POST") return new Response(null, { status: 405 });
+  const t = new URL(request.url).searchParams.get("t") ?? "";
+  let ok = false;
+  if (UUID.test(t)) {
+    const res = await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/md_digest_off`, {
+      method: "POST",
+      headers: { apikey: env.SUPABASE_ANON_KEY, Authorization: `Bearer ${env.SUPABASE_ANON_KEY}`, "content-type": "application/json" },
+      body: JSON.stringify({ t }),
+    });
+    ok = res.ok && (await res.json().catch(() => false)) === true;
+  }
+  if (request.method === "POST") return new Response(null, { status: ok ? 200 : 400 });
+  const body = ok
+    ? `<h1 style="font-size:22px">הוסרת מהמייל היומי</h1><p>לא יישלחו אליך יותר סיכומים מהקהילה. אפשר להדליק אותם שוב בכל רגע במסך הקהילה.</p>`
+    : `<h1 style="font-size:22px">הקישור לא תקין</h1><p>אפשר לכבות את המייל היומי במסך הקהילה, אחרי כניסה לאתר.</p>`;
+  return new Response(page(`${body}<p><a href="${env.SITE_ORIGIN}/community/">לקהילה</a></p>`), {
+    status: ok ? 200 : 400,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
+}
+
 async function sb<T>(env: NotifyEnv, path: string, init: RequestInit = {}): Promise<T> {
   const res = await fetch(`${env.SUPABASE_URL}${path}`, {
     ...init,
@@ -69,11 +162,15 @@ async function sb<T>(env: NotifyEnv, path: string, init: RequestInit = {}): Prom
   return (text ? JSON.parse(text) : null) as T;
 }
 
-export async function sendMail(env: NotifyEnv, to: string, mail: { subject: string; html: string }, replyTo?: string) {
+export async function sendMail(env: NotifyEnv, to: string, mail: { subject: string; html: string; headers?: Record<string, string> }, replyTo?: string) {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ from: env.MAIL_FROM, to: [to], subject: mail.subject, html: mail.html, ...(replyTo ? { reply_to: replyTo } : {}) }),
+    body: JSON.stringify({
+      from: env.MAIL_FROM, to: [to], subject: mail.subject, html: mail.html,
+      ...(replyTo ? { reply_to: replyTo } : {}),
+      ...(mail.headers ? { headers: mail.headers } : {}),
+    }),
   });
   if (!res.ok) throw new Error(`resend ${res.status}`);
 }
@@ -106,7 +203,7 @@ export async function handleLeadNotify(request: Request, env: NotifyEnv): Promis
 
 /** cron יומי: תזכורות לסוף מנוי, ופניות שהמייל עליהן לא יצא (למשל דפדפן שנסגר). */
 export async function runDaily(env: NotifyEnv) {
-  if (!configured(env)) return { skipped: true, reminded: 0, leads: 0 };
+  if (!configured(env)) return { skipped: true, reminded: 0, leads: 0, community: 0 };
   const expiring = await sb<Expiring[]>(env, "/rest/v1/rpc/md_expiring", { method: "POST", body: JSON.stringify({ days: 30 }) });
   let reminded = 0;
   for (const e of expiring) {
@@ -124,5 +221,7 @@ export async function runDaily(env: NotifyEnv) {
     await sendMail(env, env.OWNER_INBOX, digest);
     await markNotified(env, leads.map((l) => l.id));
   }
-  return { skipped: false, reminded, leads: leads.length };
+  // the community digest runs on its own: a failure there must not hide the owner's digest, and back
+  const community = await runCommunityDigest(env).catch(() => 0);
+  return { skipped: false, reminded, leads: leads.length, community };
 }
