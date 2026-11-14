@@ -20,7 +20,7 @@ type TabId = (typeof TABS)[number]["id"];
 const TAB_IDS = TABS.map((t) => t.id);
 
 function Extra() {
-  return <span className="mr-2 rounded-full border border-line px-2 py-0.5 text-xs font-bold text-txt-dim" title="ידע כללי שאינו בחומר הקורס">השלמה</span>;
+  return <span className="mr-2 rounded-full border border-line px-2 py-0.5 text-sm font-bold text-txt-dim" title="ידע כללי שאינו בחומר הקורס">השלמה</span>;
 }
 
 // ------------------------------------------------------------------ 2D outline

@@ -8,7 +8,7 @@ export function BrowserFrame({ children, label }: { children: React.ReactNode; l
         <span className="size-2.5 rounded-full bg-line" />
         <span className="size-2.5 rounded-full bg-line" />
         <span className="size-2.5 rounded-full bg-line" />
-        {label && <span className="mx-auto truncate text-[11px] text-txt-dim" dir="ltr">{label}</span>}
+        {label && <span className="mx-auto truncate text-[13px] text-txt-dim" dir="ltr">{label}</span>}
       </div>
       {children}
     </div>
@@ -41,7 +41,7 @@ export function Phone({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="overflow-hidden rounded-[28px] border-4 border-line bg-card shadow-[0_24px_50px_-30px_var(--blue)]">
       {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
-      <img src={withBasePath(`/marketing/${src}`)} alt={alt} width={600} height={1298} loading="lazy" className="block h-auto w-full" />
+      <img src={withBasePath(`/marketing/${src}`)} alt={alt} width={600} height={1022} loading="lazy" className="block h-auto w-full" />
     </div>
   );
 }

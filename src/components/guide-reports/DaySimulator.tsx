@@ -103,7 +103,7 @@ function DayEditor({ initialScenarioId, draft }: { initialScenarioId?: string; d
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <label className="mb-1.5 block text-[12px] font-extrabold text-txt-dim">
+        <label className="mb-1.5 block text-sm font-extrabold text-txt-dim">
           בחרו תרחיש קבוצה (כמו במבחן — חלק ב׳)
         </label>
         <select
@@ -164,16 +164,16 @@ function DayEditor({ initialScenarioId, draft }: { initialScenarioId?: string; d
         <table className="w-full min-w-[640px] border-collapse text-sm">
           <thead>
             <tr className="border-b border-line bg-card-2 text-right">
-              <th className="w-8 px-2 py-2 text-[11px] font-extrabold text-txt-dim">
+              <th className="w-8 px-2 py-2 text-[13px] font-extrabold text-txt-dim">
                 #
               </th>
-              <th className="w-[130px] px-2 py-2 text-[11px] font-extrabold text-txt-dim">
+              <th className="w-[130px] px-2 py-2 text-[13px] font-extrabold text-txt-dim">
                 שעות
               </th>
-              <th className="px-2 py-2 text-[11px] font-extrabold text-txt-dim">
+              <th className="px-2 py-2 text-[13px] font-extrabold text-txt-dim">
                 מסלול / פעילות
               </th>
-              <th className="w-[28%] px-2 py-2 text-[11px] font-extrabold text-txt-dim">
+              <th className="w-[28%] px-2 py-2 text-[13px] font-extrabold text-txt-dim">
                 מנהלות
               </th>
             </tr>
@@ -182,14 +182,14 @@ function DayEditor({ initialScenarioId, draft }: { initialScenarioId?: string; d
             {rows.map((row) => (
               <tr key={row.n} className="border-b border-line align-top">
                 <td className="px-2 py-2">
-                  <span className="num text-[12px] text-txt-dim">{row.n}</span>
+                  <span className="num text-sm text-txt-dim">{row.n}</span>
                 </td>
                 <td className="px-2 py-2">
                   <input
                     value={row.time}
                     onChange={(e) => updateRow(row.n, { time: e.target.value })}
                     placeholder="08:00 – 09:00"
-                    className="num w-full rounded border border-line bg-card px-2 py-1.5 text-[12px]"
+                    className="num w-full rounded border border-line bg-card px-2 py-1.5 text-sm"
                   />
                 </td>
                 <td className="px-2 py-2">

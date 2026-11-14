@@ -126,7 +126,7 @@ function ThreadList({ forum, list, admin, onAdmin }: { forum: Forum; list: Threa
 function AdminRow({ thread, post, onDone }: { thread?: Thread; post?: Post; onDone: () => void }) {
   const item = thread ?? post!;
   return <div className="flex flex-wrap gap-2 border-t border-line px-4 py-2">
-    <span className="ml-auto self-center text-xs font-bold text-txt-dim">מנהל</span>
+    <span className="ml-auto self-center text-sm font-bold text-txt-dim">מנהל</span>
     <button type="button" className={small} onClick={async () => { await adminHide(thread ? "thread" : "post", item.id, !item.hidden); onDone(); }}>{item.hidden ? "החזרה" : "הסתרה"}</button>
     {thread && <button type="button" className={small} onClick={async () => { await adminPin(thread.id, !thread.pinned); onDone(); }}>{thread.pinned ? "ביטול הצמדה" : "הצמדה"}</button>}
   </div>;

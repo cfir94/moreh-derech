@@ -190,7 +190,7 @@ export function NotebookManager({
   return (
     <section className="mb-8 overflow-hidden rounded-[var(--r-lg)] border border-teal/30 bg-card" aria-labelledby="notebook-manager-title">
       <div className="border-b border-line bg-teal/5 px-5 py-4 sm:px-6">
-        <p className="mb-1 text-xs font-extrabold tracking-wide text-teal">כלי אישי ל־Cfir94</p>
+        <p className="mb-1 text-sm font-extrabold tracking-wide text-teal">כלי אישי ל־Cfir94</p>
         <h2 id="notebook-manager-title" className="text-xl text-txt sm:text-2xl">ניהול מחברות</h2>
         <p className="mt-1 text-sm leading-relaxed text-txt-dim">ממלאים את הפרטים ושומרים. המחברת מצטרפת מיד לקטגוריה שבחרת.</p>
       </div>
@@ -300,11 +300,11 @@ export function NotebookManager({
               <div key={notebook.id} className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-line bg-sheet px-4 py-3">
                 <div>
                   <p className="font-bold text-txt">{notebook.title}</p>
-                  <p className="mt-0.5 text-xs text-txt-dim">{NOTEBOOK_MODES.find((mode) => mode.id === notebook.mode)?.title} · {notebook.date}</p>
+                  <p className="mt-0.5 text-sm text-txt-dim">{NOTEBOOK_MODES.find((mode) => mode.id === notebook.mode)?.title} · {notebook.date}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button type="button" onClick={() => startEditing(notebook)} disabled={busy} className="rounded-full border border-line px-3 py-1.5 text-xs font-bold text-txt-dim transition hover:border-teal/40 hover:text-teal">עריכה</button>
-                  <button type="button" onClick={() => void removeNotebook(notebook)} disabled={busy} className="rounded-full border border-red/30 px-3 py-1.5 text-xs font-bold text-red transition hover:bg-red/10">מחיקה</button>
+                  <button type="button" onClick={() => startEditing(notebook)} disabled={busy} className="rounded-full border border-line px-3 py-1.5 text-sm font-bold text-txt-dim transition hover:border-teal/40 hover:text-teal">עריכה</button>
+                  <button type="button" onClick={() => void removeNotebook(notebook)} disabled={busy} className="rounded-full border border-red/30 px-3 py-1.5 text-sm font-bold text-red transition hover:bg-red/10">מחיקה</button>
                 </div>
               </div>
             ))}

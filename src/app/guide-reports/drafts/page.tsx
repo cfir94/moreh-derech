@@ -8,7 +8,7 @@ export default function DraftsPage() {
       className="screen-in mx-auto max-w-2xl px-4 py-10"
       style={domainStyle("guide-reports")}
     >
-      <p className="mb-2 text-[12px] font-semibold text-txt-dim">
+      <p className="mb-2 text-sm font-semibold text-txt-dim">
         <Link href="/guide-reports" className="hover:text-txt">
           דוחות הדרכה
         </Link>

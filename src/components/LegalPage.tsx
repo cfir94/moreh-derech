@@ -18,7 +18,7 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
         ))}
       </nav>
       <h1 className="grad-text mb-2 text-3xl">{doc.title}</h1>
-      <p className="mb-2 text-xs text-txt-dim">עודכן: {LEGAL_UPDATED}</p>
+      <p className="mb-2 text-sm text-txt-dim">עודכן: {LEGAL_UPDATED}</p>
       <p className="mb-8 leading-relaxed text-txt">{doc.intro}</p>
       {doc.sections.map((section, i) => (
         <section key={section.title} className="mb-6">

@@ -26,7 +26,7 @@ export function HomeProgress() {
               {w.icon}
             </span>
             <span className="num">{w.value}</span>
-            <small className="text-xs font-semibold text-txt-dim">
+            <small className="text-sm font-semibold text-txt-dim">
               {w.label}
             </small>
           </div>

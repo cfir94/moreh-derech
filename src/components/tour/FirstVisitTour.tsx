@@ -90,7 +90,7 @@ export function FirstVisitTour({ id }: { id: TourId }) {
             onClick={(e) => e.stopPropagation()}
             className="screen-in w-full max-w-md rounded-xl border border-line bg-sheet p-6 outline-none"
           >
-            <p className="mb-1 text-xs font-bold text-teal">
+            <p className="mb-1 text-sm font-bold text-teal">
               {tour.title} · {step + 1}/{tour.steps.length}
             </p>
             <div aria-hidden className="mb-2 text-4xl">{s.icon}</div>
@@ -100,7 +100,7 @@ export function FirstVisitTour({ id }: { id: TourId }) {
               <ul className="mt-3 flex flex-col gap-1.5 text-sm">
                 {s.keys.map(([k, v]) => (
                   <li key={k} className="flex items-start gap-2">
-                    <kbd className="shrink-0 rounded border border-line bg-card px-1.5 py-0.5 text-xs font-bold text-txt">{k}</kbd>
+                    <kbd className="shrink-0 rounded border border-line bg-card px-1.5 py-0.5 text-sm font-bold text-txt">{k}</kbd>
                     <span className="text-txt-dim">{v}</span>
                   </li>
                 ))}

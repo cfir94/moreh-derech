@@ -146,7 +146,7 @@ export function KingsAid() {
           <h2 className="text-xl font-black">אבני הדרך</h2>
           <ul className="mt-2 space-y-3">{KINGDOM_MILESTONES.map((m) => <li key={m.year}><b>{m.year} — {m.title}</b><p className="text-sm leading-6 text-txt-dim">{m.desc}</p></li>)}</ul>
         </div>}
-        <p className="text-xs leading-5 text-txt-dim">{KINGS_SOURCE}. כל השנים לפני הספירה, ובקירוב.</p>
+        <p className="text-sm leading-5 text-txt-dim">{KINGS_SOURCE}. כל השנים לפני הספירה, ובקירוב.</p>
       </div>
     </section>}
 

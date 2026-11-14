@@ -8,6 +8,7 @@ import { ROMAN_TENURES, TENURE_SOURCES } from "@/data/roman-tenures";
 import { ROMAN_PROFILES, PROFILE_SOURCES } from "@/data/roman-profiles";
 import { RomanStory } from "./RomanStory";
 import s from "./RomanPeople.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 function Portrait({ person, large = false }: { person: RomanPerson; large?: boolean }) {
   const portrait = PORTRAITS[person.id];
@@ -164,6 +165,7 @@ export function RomanPeople() {
   function move(direction: number) { const next = people[position + direction]; if (next) setSelectedId(next.id); }
   function clear() { setQuery(""); setRole("all"); setEra("all"); setCore(false); setBrowseOpen(false); setPracticeEra(null); }
   return <div className={s.page} dir="rtl" data-roman-people data-visual-era={visualEra} data-mode={mode}>
+    <PageDecor wide prints={false} topo={false} items={["crown", "column", "arch", "temple", "flag"]} />
     <div className={s.pageInner}>
     <div className={s.topline}><Link className={s.back} href="/timelines">← לכל עזרי הלמידה</Link><span className={s.museumLabel} aria-hidden>PERSONAE · ROMA</span></div>
     <header className={s.hero}>

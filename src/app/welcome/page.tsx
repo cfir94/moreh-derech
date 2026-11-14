@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageDecor } from "@/components/trail/PageDecor";
 import { BrowserFrame, Clip, Phone, Shot } from "@/components/landing/Media";
 import { PricingCards } from "@/components/paywall/PricingCards";
 import { EXAMS, MINISTRY_EXAMS } from "@/data/exams";
@@ -31,21 +33,21 @@ const ctaStyle = SIGN_STYLE;
 const TOOLS = [
   {
     href: "/map/route/",
-    icon: "🗺️",
+    icon: "map" as const,
     title: "בונים מסלול על מפת הארץ",
     text: "פותחים שכבות של אזורים, גאולוגיה, טבע ואתרי ביקור, מסמנים מסלול ובודקים מה נמצא בסביבה. המפה עובדת גם בלי רשת.",
     points: ["שכבות מידע לבחירה", "בניית מסלול על המפה", "גם בלי חיבור לרשת"],
   },
   {
     href: "/tours/",
-    icon: "📓",
+    icon: "notebooks" as const,
     title: "חוזרים למאגר המידע של הסיור או השיעור",
     text: "מאגרי מידע לסיורים מסודרים לפי אזור, ומאגרים עיוניים לפי תחום. כל כרטיס פותח את מאגר המידע המקורי.",
     points: ["סיורים לפי אזורים בארץ", "חומר עיוני לפי תחום", "קישור ישיר למאגר המקורי"],
   },
   {
     href: "/guide-reports/",
-    icon: "🧭",
+    icon: "compass" as const,
     title: "מכינים יום סיור ויחידת הדרכה",
     text: "מדריך, דוגמה מלאה ותרגול לבניית לוח זמנים ויחידת הדרכה, עם טיוטות שנשמרות בחשבון.",
     points: ["מדריך ודוגמה מלאה", "תרגול יום סיור ויחידת הדרכה", "טיוטות שממשיכים מכל מכשיר"],
@@ -136,11 +138,12 @@ const FAQ: [string, string][] = [
 
 export default function WelcomePage() {
   return (
-    <div className="screen-in">
+    <div className="screen-in relative">
+      <PageDecor birds step={620} items={["signpost", "binoculars", "map", "canteen", "butterfly", "lake", "compass", "tent"]} />
       {/* Hero */}
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-12 pb-16 md:grid-cols-[1.05fr_1fr] md:pt-20">
         <div>
-          <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 text-xs font-bold text-teal">
+          <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 text-sm font-bold text-teal">
             לתלמידי הקורס · למורי דרך בעבודה
           </p>
           <h1 className="grad-text text-4xl leading-tight font-black sm:text-5xl">מתחילים בקורס. ממשיכים מכאן לשטח.</h1>
@@ -190,17 +193,17 @@ export default function WelcomePage() {
       {/* Work tools */}
       <section id="tools" aria-labelledby="tools-title" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-10">
         <p className="mb-2 text-center text-sm font-bold text-teal">כלי העבודה למורי דרך</p>
-        <h2 id="tools-title" className="text-center text-3xl font-black text-txt">לפני שיוצאים לסיור</h2>
+        <h2 id="tools-title" className="text-center font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">לפני שיוצאים לסיור</h2>
         <p className="mx-auto mt-3 max-w-2xl text-center leading-relaxed text-txt-dim">
           פותחים מפה, בודקים את חומר הרקע ומסדרים את יום הסיור. הכלים האלה נשארים שימושיים גם אחרי מבחן הרישוי.
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {TOOLS.map((t) => (
             <Link key={t.href} href={t.href} className="group flex flex-col paper-sheet p-5 transition active:scale-95">
-              <span aria-hidden className="text-3xl">{t.icon}</span>
-              <h3 className="mt-2 text-lg font-black text-txt">{t.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-txt-dim">{t.text}</p>
-              <ul className="mt-3 flex flex-col gap-1.5 text-sm text-txt">
+              <InkIcon name={t.icon} size={40} className="text-txt" />
+              <h3 className="mt-2 text-xl font-black text-txt">{t.title}</h3>
+              <p className="mt-1 text-base leading-relaxed text-txt-dim">{t.text}</p>
+              <ul className="mt-3 flex flex-col gap-1.5 text-base text-txt">
                 {t.points.map((p) => (
                   <li key={p} className="flex gap-2"><span aria-hidden className="text-teal">✓</span>{p}</li>
                 ))}
@@ -216,7 +219,7 @@ export default function WelcomePage() {
           <section key={f.id} aria-labelledby={`f-${f.id}`} className={`grid items-center gap-8 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
             <div>
               <p className="mb-2 text-sm font-bold text-teal">{f.kicker}</p>
-              <h2 id={`f-${f.id}`} className="text-3xl leading-tight font-black text-txt">{f.title}</h2>
+              <h2 id={`f-${f.id}`} className="font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">{f.title}</h2>
               <p className="mt-3 leading-relaxed text-txt-dim">{f.text}</p>
               <ul className="mt-4 flex flex-col gap-2 text-sm text-txt">
                 {f.points.map((p) => (
@@ -234,7 +237,7 @@ export default function WelcomePage() {
         {/* Games */}
         <section aria-labelledby="f-games" className="text-center">
           <p className="mb-2 text-sm font-bold text-teal">משחקים</p>
-          <h2 id="f-games" className="text-3xl font-black text-txt">לומדים גם כשמשחקים</h2>
+          <h2 id="f-games" className="font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">לומדים גם כשמשחקים</h2>
           <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-txt-dim">
             &quot;מי אני?&quot; עם דמויות מהתנ&quot;ך ועד ביזנטיון, &quot;גלימות ירושלים&quot; לזיהוי אנשי דת לפי הלבוש, ותשבץ חדש בכל שבוע מתוך חומר הקורס.
           </p>
@@ -251,7 +254,7 @@ export default function WelcomePage() {
           <img src={withBasePath("/marketing/moti.webp")} alt="איור של מוטי, מורה הדרך הוותיק" width={220} height={275} loading="lazy" className="mx-auto h-auto w-44 md:w-full" />
           <div>
             <p className="mb-2 text-sm font-bold text-teal">מוטי</p>
-            <h2 id="f-moti" className="text-3xl font-black text-txt">מורה דרך ותיק שבוחן אתכם, בכתב או בקול</h2>
+            <h2 id="f-moti" className="font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">מורה דרך ותיק שבוחן אתכם, בכתב או בקול</h2>
             <p className="mt-3 leading-relaxed text-txt-dim">
               שואלים את מוטי כל שאלה על החומר, או מבקשים ממנו בוחן בנושא מסוים. ואפשר לדבר גם עם הורדוס, עם יוסף בן מתתיהו, עם הלנה ועוד תשע דמויות היסטוריות, שמחפשות במקורות לפני שהן עונות.
             </p>
@@ -261,7 +264,7 @@ export default function WelcomePage() {
 
       {/* How it works */}
       <section aria-labelledby="how" className="mx-auto max-w-5xl px-4 py-14">
-        <h2 id="how" className="mb-8 text-center text-3xl font-black text-txt">איך מתחילים</h2>
+        <h2 id="how" className="mb-8 text-center font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">איך מתחילים</h2>
         <ol className="grid gap-4 md:grid-cols-3">
           {[
             ["נרשמים עם הפרטים", "שם, מייל, טלפון ומחזור. מקבלים קוד כניסה למייל, בלי סיסמה ובלי כרטיס אשראי."],
@@ -281,14 +284,14 @@ export default function WelcomePage() {
 
       {/* Pricing */}
       <section aria-labelledby="pricing" className="mx-auto max-w-4xl px-4 py-14">
-        <h2 id="pricing" className="mb-2 text-center text-3xl font-black text-txt">מנוי אחד ללימודים ולעבודה</h2>
+        <h2 id="pricing" className="mb-2 text-center font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">מנוי אחד ללימודים ולעבודה</h2>
         <p className="mb-8 text-center text-txt-dim">אחרי {PRICES.trialDays} ימי ניסיון חינם בוחרים חצי שנה או שנה. משלמים פעם אחת, בלי חיוב חודשי.</p>
         <PricingCards />
       </section>
 
       {/* FAQ */}
       <section aria-labelledby="faq" className="mx-auto max-w-3xl px-4 py-14">
-        <h2 id="faq" className="mb-6 text-center text-3xl font-black text-txt">שאלות נפוצות</h2>
+        <h2 id="faq" className="mb-6 text-center font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">שאלות נפוצות</h2>
         <div className="flex flex-col gap-3">
           {FAQ.map(([q, a]) => (
             <details key={q} className="group paper-sheet p-4">

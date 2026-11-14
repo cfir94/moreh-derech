@@ -271,7 +271,7 @@ export function TimelineDrag() {
                   <span aria-hidden className="text-[15px] leading-none">
                     ⠿
                   </span>
-                  <span aria-hidden className="num text-[11px] font-extrabold">
+                  <span aria-hidden className="num text-[13px] font-extrabold">
                     {i + 1}
                   </span>
                 </button>
@@ -308,7 +308,7 @@ export function TimelineDrag() {
                     </span>
                   ) : (
                     <>
-                      <span aria-hidden className="text-[12px] text-rose">
+                      <span aria-hidden className="text-sm text-rose">
                         ✗
                       </span>
                       <span className="num rounded-full bg-rose/15 px-1.5 py-0.5 text-[11.5px] font-extrabold text-rose">

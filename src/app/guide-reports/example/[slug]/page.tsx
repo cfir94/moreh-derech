@@ -24,7 +24,7 @@ export default async function ExampleReportPage({
       className="screen-in mx-auto max-w-3xl px-4 py-10"
       style={domainStyle("guide-reports")}
     >
-      <p className="mb-2 text-[12px] font-semibold text-txt-dim">
+      <p className="mb-2 text-sm font-semibold text-txt-dim">
         <Link href="/guide-reports" className="hover:text-txt">
           דוחות הדרכה
         </Link>
@@ -33,7 +33,7 @@ export default async function ExampleReportPage({
       </p>
       <h1 className="grad-text mb-2 text-3xl">{report.title}</h1>
       <p className="mb-2 text-sm text-txt-dim">{report.summary}</p>
-      <p className="mb-8 text-[12px] font-bold text-mc">{report.region}</p>
+      <p className="mb-8 text-sm font-bold text-mc">{report.region}</p>
 
       {/* Part I */}
       <section className="mb-10">

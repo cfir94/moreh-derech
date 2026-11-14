@@ -188,7 +188,7 @@ function Users({ users, onEnd, onCopy }: { users: AdminUser[]; onEnd: (u: AdminU
                   <p className="text-sm text-txt-dim">
                     <span dir="ltr">{u.email}</span>{u.phone && <> · <span dir="ltr">{u.phone}</span></>}{u.cohort && <> · {u.cohort}</>}
                   </p>
-                  <p className="text-xs text-txt-dim">נרשם {day(u.signed_up)} · כניסה אחרונה {day(u.last_sign_in)}</p>
+                  <p className="text-sm text-txt-dim">נרשם {day(u.signed_up)} · כניסה אחרונה {day(u.last_sign_in)}</p>
                 </div>
                 <div className="flex flex-col items-end gap-1.5">
                   <span className={`text-sm font-bold ${color}`}>{a.text}</span>

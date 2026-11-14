@@ -84,7 +84,7 @@ export function DraftsList() {
         >
           <div>
             <p className="font-extrabold">{d.title}</p>
-            <p className="text-[12px] text-txt-dim">
+            <p className="text-sm text-txt-dim">
               {draftKind(d) === "exam" ? "סימולציית מבחן" : d.kind === "day" ? "יום סיור" : "יחידת הדרכה"}
               {" · "}
               {formatWhen(d.updatedAt)}
@@ -93,14 +93,14 @@ export function DraftsList() {
           <div className="flex gap-2">
             <Link
               href={draftHref(d)}
-              className="rounded-full border border-line bg-card-2 px-3 py-1.5 text-[12px] font-extrabold"
+              className="rounded-full border border-line bg-card-2 px-3 py-1.5 text-sm font-extrabold"
             >
               פתיחה
             </Link>
             <button
               type="button"
               onClick={() => deleteDraft(d.id)}
-              className="rounded-full border border-line px-3 py-1.5 text-[12px] font-extrabold text-txt-dim transition active:scale-95"
+              className="rounded-full border border-line px-3 py-1.5 text-sm font-extrabold text-txt-dim transition active:scale-95"
             >
               מחיקה
             </button>

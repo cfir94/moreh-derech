@@ -8,6 +8,8 @@ import { friendlyAuthError, isLegacyPasswordError } from "@/lib/cloudAuth";
 import { useLaunch } from "@/lib/launchClient";
 import { clearUser, readUser } from "@/lib/localAuth";
 import { SIGN_STYLE } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 /**
  * כניסה. כשהדגל NEXT_PUBLIC_EMAIL_CODE_LOGIN דולק: קוד חד-פעמי למייל (EmailCodeLogin).
@@ -28,18 +30,12 @@ export default function LoginPage() {
 
 function Shell({ title, intro, children }: { title: string; intro: string; children: React.ReactNode }) {
   return (
-    <div className="screen-in flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
+    <div className="screen-in relative flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
+      <PageDecor birds items={["signpost", "canteen", "binoculars", "butterfly"]} />
       <div className="relative w-full max-w-md overflow-hidden paper-sheet p-8">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -top-16 -left-16 h-56 w-56 rounded-full blur-[10px]"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in srgb, var(--teal) 28%, transparent), transparent 65%)",
-          }}
-        />
+        <InkIcon name="signpost" size={44} className="mb-1 text-txt" />
         <h1 className="grad-text relative mb-2 text-3xl">{title}</h1>
-        <p className="relative mb-6 text-sm leading-relaxed text-txt-dim">{intro}</p>
+        <p className="relative mb-6 text-base leading-relaxed text-txt-dim">{intro}</p>
         {children}
       </div>
     </div>
@@ -113,18 +109,12 @@ function LegacyLogin() {
   };
 
   return (
-    <div className="screen-in flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
+    <div className="screen-in relative flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
+      <PageDecor birds items={["signpost", "canteen", "binoculars", "butterfly"]} />
       <div className="relative w-full max-w-md overflow-hidden paper-sheet p-8">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -top-16 -left-16 h-56 w-56 rounded-full blur-[10px]"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in srgb, var(--teal) 28%, transparent), transparent 65%)",
-          }}
-        />
+        <InkIcon name="signpost" size={44} className="mb-1 text-txt" />
         <h1 className="grad-text relative mb-2 text-3xl">כניסה למערכת</h1>
-        <p className="relative mb-6 text-sm leading-relaxed text-txt-dim">
+        <p className="relative mb-6 text-base leading-relaxed text-txt-dim">
           זה אותו חשבון של משחק אבן דרך. הזינו את אותו אימייל ותיכנסו בלי
           סיסמה; בחשבון ישן עם סיסמה השדה יופיע אוטומטית.
         </p>

@@ -45,7 +45,7 @@ export default function MePage() {
           <h1 className="grad-text text-3xl">שלום, {user.name}</h1>
           <p className="text-sm text-txt-dim">{user.email}</p>
           {user.classCode && (
-            <p className="mt-1 text-xs text-txt-dim">כיתה: {user.classCode}</p>
+            <p className="mt-1 text-sm text-txt-dim">כיתה: {user.classCode}</p>
           )}
           <SyncStatusLine />
         </div>
@@ -100,7 +100,7 @@ export default function MePage() {
                 <div className="num text-[22px] font-black text-gold">
                   {stat.value}
                 </div>
-                <div className="mt-0.5 text-[11px] text-txt-dim">{stat.label}</div>
+                <div className="mt-0.5 text-[13px] text-txt-dim">{stat.label}</div>
               </div>
             ))}
           </section>
@@ -143,7 +143,7 @@ export default function MePage() {
                       style={{ width: `${q.accuracyPct}%` }}
                     />
                   </div>
-                  <div className="flex flex-wrap gap-x-4 text-[11px] font-bold text-txt-dim">
+                  <div className="flex flex-wrap gap-x-4 text-[13px] font-bold text-txt-dim">
                     <span>{q.accuracyPct}% הצלחה</span>
                     {q.reviewCount > 0 && (
                       <span className="text-gold">
@@ -166,7 +166,7 @@ export default function MePage() {
                     className="rounded-sm border border-line bg-card px-4 py-3"
                   >
                     <p className="mb-1 text-[13px] font-bold leading-relaxed">{q.question}</p>
-                    <p className="text-[11px] text-txt-dim">
+                    <p className="text-[13px] text-txt-dim">
                       {q.category} · טעיתם {q.wrong}{" "}
                       {q.wrong === 1 ? "פעם" : "פעמים"} מתוך {q.seen}
                     </p>

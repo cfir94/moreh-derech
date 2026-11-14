@@ -57,7 +57,7 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <label className="mb-1.5 block text-[12px] font-extrabold text-txt-dim">
+        <label className="mb-1.5 block text-sm font-extrabold text-txt-dim">
           בחרו תרחיש תרגול
         </label>
         <select
@@ -81,7 +81,7 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
 
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
+          <label className="mb-1 block text-sm font-extrabold text-txt-dim">
             האתר
           </label>
           <input
@@ -91,7 +91,7 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
           />
         </div>
         <div>
-          <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
+          <label className="mb-1 block text-sm font-extrabold text-txt-dim">
             משך ההדרכה
           </label>
           <input
@@ -103,7 +103,7 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
       </div>
 
       <div>
-        <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
+        <label className="mb-1 block text-sm font-extrabold text-txt-dim">
           יחידת ההדרכה (עד ~180 מילים) — שלבו את חמש המ״מים
         </label>
         <textarea
@@ -116,13 +116,13 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
           placeholder="כתבו כאילו אתם מדברים אל הקבוצה בשטח…"
           className="w-full rounded-md border border-line bg-card px-3 py-3 text-[13.5px] leading-relaxed"
         />
-        <p className="mt-1 text-[11px] text-txt-dim">
+        <p className="mt-1 text-[13px] text-txt-dim">
           <span className="num">{feedback.wordCount}</span> מילים
         </p>
       </div>
 
       <div>
-        <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
+        <label className="mb-1 block text-sm font-extrabold text-txt-dim">
           אמצעים מתודיים
         </label>
         <input
@@ -204,7 +204,7 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-[12px] text-txt-dim">
+          <p className="mt-3 text-sm text-txt-dim">
             זה משוב אוטומטי לפי מילות מפתח — לא ציון של בוחן. השתמשו בו כדי
             לוודא שכיסיתם את חמש המ״מים, ואז ערכו לפי שיקול דעת.
           </p>
