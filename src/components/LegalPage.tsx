@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { LEGAL_DOCS, LEGAL_UPDATED, type LegalDoc } from "@/data/legal";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 /** תבנית אחידה לדפי המשפט: ניווט ביניהם, תוכן עניינים קצר, ותאריך עדכון. */
 export function LegalPage({ doc }: { doc: LegalDoc }) {
   return (
-    <div className="screen-in mx-auto max-w-2xl px-4 py-10">
+    <div className="screen-in relative mx-auto max-w-2xl px-4 py-10">
+      <PageDecor prints={false} items={["scroll", "pencil", "notebooks"]} />
       <nav aria-label="מסמכים" className="mb-6 flex flex-wrap gap-2 text-sm">
         {LEGAL_DOCS.map((d) => (
           <Link
@@ -17,7 +20,10 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
           </Link>
         ))}
       </nav>
-      <h1 className="grad-text mb-2 text-3xl">{doc.title}</h1>
+      <div className={`${kit.titleWrap} mb-2`}>
+        <h1 className="grad-text text-3xl">{doc.title}</h1>
+        <PenUnderline />
+      </div>
       <p className="mb-2 text-sm text-txt-dim">עודכן: {LEGAL_UPDATED}</p>
       <p className="mb-8 leading-relaxed text-txt">{doc.intro}</p>
       {doc.sections.map((section, i) => (

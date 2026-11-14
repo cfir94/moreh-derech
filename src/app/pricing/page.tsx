@@ -2,6 +2,8 @@ import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { PricingCards } from "@/components/paywall/PricingCards";
 import { PRICES } from "@/lib/launch";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export const metadata = pageMeta({
   title: "מחירים ומנויים",
@@ -11,9 +13,13 @@ export const metadata = pageMeta({
 
 export default function PricingPage() {
   return (
-    <div className="screen-in mx-auto max-w-4xl px-4 py-12">
+    <div className="screen-in relative mx-auto max-w-4xl px-4 py-12">
+      <PageDecor birds items={["signpost", "canteen", "tent", "binoculars"]} />
       <header className="mb-10 text-center">
-        <h1 className="grad-text text-4xl">מחיר אחד, הכול פתוח</h1>
+        <div className={kit.titleWrap}>
+          <h1 className="grad-text text-4xl">מחיר אחד, הכול פתוח</h1>
+          <PenUnderline />
+        </div>
         <p className="mx-auto mt-3 max-w-xl leading-relaxed text-txt-dim">
           {PRICES.trialDays} ימים ראשונים חינם, בלי כרטיס אשראי. אחר כך בוחרים חצי שנה או שנה, משאירים פרטים, ואני חוזר אליכם.
         </p>

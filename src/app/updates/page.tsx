@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { markAllRead, useUpdates } from "@/lib/updates";
+import { kit, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export default function UpdatesPage() {
   const { list, isNew } = useUpdates();
@@ -11,8 +13,12 @@ export default function UpdatesPage() {
     return () => window.clearTimeout(t);
   }, []);
   return (
-    <div className="screen-in mx-auto max-w-2xl px-4 py-10">
-      <h1 className="grad-text mb-2 text-3xl">מה חדש באתר</h1>
+    <div className="screen-in relative mx-auto max-w-2xl px-4 py-10">
+      <PageDecor birds items={["bell", "signpost", "butterfly", "binoculars"]} />
+      <div className={`${kit.titleWrap} mb-2`}>
+        <h1 className="grad-text text-3xl">מה חדש באתר</h1>
+        <PenUnderline />
+      </div>
       <p className="mb-8 text-txt-dim">האתר מתעדכן כל הזמן: שאלונים, מבחנים, משחקים ועזרי למידה חדשים.</p>
       <ol className="flex flex-col gap-3">
         {list.map((u) => (
