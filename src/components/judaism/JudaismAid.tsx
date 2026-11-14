@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { AidHeader, AidTabs, PracticeDeck, useHashTab, type AidTab } from "@/components/learning-aid";
 import { JUDAISM_CHAIN, JUDAISM_ERAS, JUDAISM_FOUNDATIONS, TORAH_CENTERS, type JudaismBook } from "@/data/history-timeline/judaism";
 import { judaismPractice } from "@/lib/judaismPractice";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 type Tab = "chain" | "centers" | "foundations" | "practice";
 const PRACTICE = judaismPractice(JUDAISM_CHAIN, JUDAISM_ERAS);
@@ -53,7 +54,8 @@ export function JudaismAid() {
   const [keyOnly, setKeyOnly] = useState(false);
   const books = keyOnly ? JUDAISM_CHAIN.filter((b) => b.important) : JUDAISM_CHAIN;
 
-  return <div dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <div dir="rtl" className="relative mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+    <PageDecor wide prints={false} items={["scroll","menorah","pencil","notebooks"]} />
     <AidHeader slug="judaism-timeline" title="שרשרת הספרים של היהדות" subtitle="מחתימת התנ״ך ועד הפסיקה בת זמננו: מי כתב מה, מתי ואיפה, ואיך כל ספר נשען על קודמו." stats={`${JUDAISM_CHAIN.length} ספרים וחכמים · ${Object.keys(JUDAISM_ERAS).length} תקופות · ${TORAH_CENTERS.length} מרכזי תורה`} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">
       <AidTabs tabs={TABS} active={tab} onSelect={setTab} />

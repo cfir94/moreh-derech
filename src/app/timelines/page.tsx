@@ -1,3 +1,4 @@
+import { PageDecor } from "@/components/trail/PageDecor";
 import { pageMeta } from "@/lib/seo";
 import { SectionCard } from "@/components/SectionCard";
 import { LEARNING_AID_GROUPS } from "@/data/learning-aids";
@@ -13,7 +14,7 @@ export const metadata = pageMeta({
 
 export default function TimelinesPage() {
   return (
-    <TrailPage>
+    <TrailPage decor={<PageDecor step={400} items={["tree", "crown", "column", "flower", "ibex", "hammer", "temple", "arch", "talk", "map"]} />}>
       <PageHead
         title="עזרי למידה"
         art={<InkIcon name="timelines" size={72} />}

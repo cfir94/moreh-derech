@@ -90,14 +90,24 @@ const HATCH: Partial<Record<FieldIconName, string>> = {
   sort: "M9 13l1.6-1.600M11.4 13l1.6-1.600M13.8 13l1.6-1.6",
   border: "M14 19.400l1.6-1.600M15.6 19.600l1.4-1.4",
   leaf: "M8 17.600l3-3M9 14.600l2-2M11.6 17l2.6-2.6",
+  butterfly: "M6.4 9.6l1.600-1.600M8.600 10.400l1.600-1.600M15.400 9.200l1.600-1.600M8.400 16.400l1.200-1.200M14.800 16l1.200-1.200",
+  lake: "M5.400 16.800l1.200-1.200M15.800 15l1.600-1.600M18.500 6.200c-.700.900-.700 2.200 0 3.100M20.300 8.300c-.6.800-.6 1.800 0 2.600",
+  binoculars: "M5.200 18.600l2.800-2.800M5.200 16l2-2M15.200 18.600l2.800-2.800M15.200 16l2-2",
+  canteen: "M10.600 15.800l2.800-2.800M11.800 16.400l2-2M7 16l1-1",
   strata: "M5 11.600l1.2-1.200M9 12l1.2-1.200M14 11.600l1.2-1.200M5 16.600l1.2-1.200M14 16.600l1.2-1.2",
 };
 
 export function InkIcon({
   name,
   size = 28,
+  sketch = false,
   ...rest
-}: { name: FieldIconName; size?: number } & Omit<SVGProps<SVGSVGElement>, "name">) {
+}: {
+  name: FieldIconName;
+  size?: number;
+  /** drawn large in a page's margin: a thinner pen, so it reads as a sketch and not as a blown-up icon */
+  sketch?: boolean;
+} & Omit<SVGProps<SVGSVGElement>, "name">) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -111,8 +121,8 @@ export function InkIcon({
       {...rest}
     >
       <g filter="url(#ink24)">
-        <g strokeWidth={1.55}>{PATHS[name]}</g>
-        {HATCH[name] && <path d={HATCH[name]} strokeWidth={0.85} opacity={0.75} />}
+        <g strokeWidth={sketch ? 0.75 : 1.55}>{PATHS[name]}</g>
+        {HATCH[name] && <path d={HATCH[name]} strokeWidth={sketch ? 0.42 : 0.85} opacity={0.75} />}
       </g>
     </svg>
   );

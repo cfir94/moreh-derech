@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { CrosswordGame } from "@/components/crossword/CrosswordGame";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export const metadata = pageMeta({
   title: "תשבץ השבוע למורי דרך",
@@ -10,8 +11,9 @@ export const metadata = pageMeta({
 
 export default function CrosswordPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:py-10">
-      <Link href="/games" className="mb-5 inline-block text-sm text-txt-dim hover:text-teal">← לכל המשחקים</Link>
+    <div className="relative mx-auto max-w-6xl px-4 py-6 sm:py-10">
+      <PageDecor prints={false} items={["grid","pencil","notebooks","quizzes"]} />
+      <Link href="/games" className="pencil mb-5 inline-flex min-h-11 items-center text-base text-txt-dim underline underline-offset-4 hover:text-txt">→ לכל המשחקים</Link>
       <CrosswordGame />
     </div>
   );

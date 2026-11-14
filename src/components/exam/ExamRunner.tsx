@@ -14,6 +14,7 @@ export { matchesAnswer } from "@/lib/answerMatching";
 import { ReadingLink } from "@/components/ReadingLink";
 import { domainStyle } from "@/lib/domains";
 import { Blazes, kit as k, PenGrade, PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 /**
  * Exam mode: the sitting as the Ministry runs it.
@@ -143,9 +144,10 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   if (phase === "intro") {
     return (
       <div
-        className="screen-in mx-auto max-w-2xl px-4 py-10"
+        className="screen-in relative mx-auto max-w-2xl px-4 py-10"
         style={domainStyle("exams")}
       >
+        <PageDecor prints={false} step={300} items={["exams", "pencil", "quizzes"]} />
         <Link
           href="/exams"
           className="mb-5 inline-block text-sm font-bold text-txt-dim transition hover:text-txt"

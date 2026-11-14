@@ -10,6 +10,7 @@ import { SyncStatusLine, useSyncStatus } from "@/components/SyncStatusLine";
 import { needsReview, resetProgress, summarize } from "@/lib/progress";
 import { domainStyle } from "@/lib/domains";
 import { SIGN_STYLE } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 function formatDate(ts: number) {
   return new Date(ts).toLocaleDateString("he-IL", {
@@ -37,7 +38,8 @@ export default function MePage() {
   const hasData = s.totalAttempts > 0;
 
   return (
-    <div className="screen-in mx-auto max-w-3xl px-4 py-10">
+    <div className="screen-in relative mx-auto max-w-3xl px-4 py-10">
+      <PageDecor birds items={["me", "notebooks", "canteen", "milestone", "review"]} />
       <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="grad-text text-3xl">שלום, {user.name}</h1>

@@ -7,6 +7,7 @@ import styles from "./ByzantineTimeline.module.css";
 import { PhotoFigure, PracticeDeck } from "@/components/learning-aid";
 import type { EraPhoto } from "@/lib/eraPhotos";
 import { eraPractice } from "@/lib/eraPractice";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const ID = /^BY-\d{3}$/;
 const kindTitle = new Map(BYZ_KINDS.map((kind) => [kind.id, kind.title]));
@@ -46,6 +47,7 @@ export function ByzantineTimeline({ photos = {} }: { photos?: Record<string, Era
   const t = useEraTimeline(BYZ_EVENTS, ID);
 
   return <div className={styles.page} dir="rtl">
+    <PageDecor topo={false} step={520} items={["church", "cross", "dome", "scroll", "hood"]} />
     <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>התקופה הביזנטית</span></div>
 
     <header className={styles.hero}>

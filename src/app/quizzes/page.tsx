@@ -1,3 +1,4 @@
+import { PageDecor } from "@/components/trail/PageDecor";
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { QUIZZES, QUIZ_DESCRIPTIONS } from "@/data/quizzes";
@@ -36,7 +37,7 @@ export default function QuizzesPage() {
   const totalQuestions = QUIZZES.reduce((s, q) => s + q.questions.length, 0);
 
   return (
-    <TrailPage>
+    <TrailPage decor={<PageDecor items={["pencil", "quizzes", "notebooks", "review", "exams", "resources"]} />}>
       <PageHead
         title="מאגר שאלונים"
         art={<InkIcon name="quizzes" size={72} />}

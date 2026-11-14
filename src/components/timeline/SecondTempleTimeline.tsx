@@ -6,6 +6,7 @@ import { SECOND_TEMPLE as research, TEMPLE_EVENTS, TEMPLE_PERIODS, matchesTemple
 import { PracticeDeck } from "@/components/learning-aid";
 import { templePractice } from "@/lib/templePractice";
 import styles from "./SecondTempleTimeline.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const PRACTICE = templePractice();
 
@@ -110,10 +111,11 @@ export function SecondTempleTimeline() {
   function reset() { setQuery(""); setPeriod("all"); setCategory("all"); setAnchorsOnly(false); }
 
   return <div className={styles.page} dir="rtl">
+    <PageDecor topo={false} items={["menorah", "column", "gate", "scroll", "jar", "temple"]} step={520} />
     <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>בית שני</span></div>
     <header className={styles.hero}>
       <div className={styles.heroCopy}>
-        <p className={styles.eyebrow}><span aria-hidden>◆</span> אבן דרך · מסע בזמן</p>
+        <p className={styles.eyebrow}>עזר למידה · מסע בזמן</p>
         <h1>בית שני</h1>
         <p className={styles.heroSubtitle}>מן השיבה אל החורבן</p>
         <p className={styles.heroDescription}>עליות וממלכות, אנשים ומאבקים, אבנים שסיפרו היסטוריה. מסע בעקבות התקופה שעיצבה את ירושלים ואת הארץ.</p>

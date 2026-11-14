@@ -1,3 +1,4 @@
+import { PageDecor } from "@/components/trail/PageDecor";
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { EXAMS } from "@/data/exams";
@@ -35,7 +36,7 @@ export default function ExamsPage() {
   const total = EXAMS.reduce((s, e) => s + e.questions.length, 0);
 
   return (
-    <TrailPage>
+    <TrailPage decor={<PageDecor items={["exams", "pencil", "quizzes", "milestone", "resources", "review"]} step={420} />}>
       <PageHead
         title="מבחן מלא"
         art={<InkIcon name="exams" size={72} />}

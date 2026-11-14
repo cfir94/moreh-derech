@@ -27,6 +27,7 @@ import { LessonPlaylist } from "./LessonPlaylist";
 import { YouTubePlayer } from "./YouTubePlayer";
 import { InkIcon } from "@/components/trail/Ink";
 import { PenUnderline } from "@/components/trail/kit";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const accentClasses = {
   teal: {
@@ -371,7 +372,8 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
   }
 
   return (
-    <main className="screen-in mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+    <main className="screen-in relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+      <PageDecor wide step={520} items={["videos", "talk", "binoculars", "notebooks", "signpost"]} />
       <header className="mb-7 max-w-3xl">
         <div className="mb-3 flex items-center gap-2 text-base font-bold text-txt-dim pencil">
           <InkIcon name="videos" size={24} />

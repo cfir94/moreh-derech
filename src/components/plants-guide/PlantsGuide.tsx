@@ -6,6 +6,7 @@ import { AidHeader, PhotoFigure } from "@/components/learning-aid";
 import { PLANTS, PLANT_GROUPS, type Plant, type PlantGroup } from "@/data/plants/plants";
 import { MONTHS, parseSeasonMonths } from "./season";
 import styles from "./plants-guide.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export type GuidePhoto = { src: string; caption: string; credit: string };
 export type GuidePhotos = Record<string, GuidePhoto[]>;
@@ -59,7 +60,8 @@ export function PlantsGuide({ photos }: { photos: GuidePhotos }) {
   };
   const closePlant = () => { history.replaceState(null, "", `${location.pathname}${location.search}`); setSelected(null); };
 
-  return <main dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+  return <main dir="rtl" className="relative mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+    <PageDecor wide birds items={["flower","leaf","butterfly","tree","lake","binoculars"]} />
     <AidHeader slug="plants" title="מגדיר צמחים" subtitle="מצמצמים לפי מה שרואים בשטח, ומגיעים לצמח המתאים." stats={`${PLANTS.length} צמחים · ${Object.keys(PLANT_GROUPS).length} קבוצות`} />
 
     <section aria-labelledby="identify-title" className="rounded-lg border border-line bg-card p-4 sm:p-6">

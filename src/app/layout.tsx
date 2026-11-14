@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { PreviewBar } from "@/components/PreviewBar";
 import { UserProvider } from "@/contexts/UserContext";
 import { InkDefs } from "@/components/trail/Ink";
+import { withBasePath } from "@/lib/basePath";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -56,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="flex min-h-full flex-col font-sans" style={{ "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties}>
         <InkDefs />
         <UserProvider>
           <PreviewBar />

@@ -1,3 +1,4 @@
+import { PageDecor } from "@/components/trail/PageDecor";
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SectionCard } from "@/components/SectionCard";
@@ -76,7 +77,7 @@ export const metadata = pageMeta({
 export default function GuideReportsPage() {
   const drafts = PRACTICE_CARDS.find((c) => c.href.endsWith("/drafts"));
   return (
-    <TrailPage>
+    <TrailPage decor={<PageDecor birds items={["signpost", "guide-reports", "binoculars", "pencil", "lake", "compass", "butterfly", "map"]} />}>
       <PageHead
         title="דוחות הדרכה"
         art={<InkIcon name="guide-reports" size={72} />}

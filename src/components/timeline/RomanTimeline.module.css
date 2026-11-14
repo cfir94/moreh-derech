@@ -2,6 +2,7 @@
    via down the side, a milestone at every event, and each event cut as a
    tabula ansata — the dovetailed tablet of Roman inscriptions. */
 .page {
+  position: relative;
   --stone: #f2ebdd; --stone-raised: #fbf7ee; --stone-deep: #e6dbc6;
   --ink: #2a1f18; --muted: #5f5247; --edge: #d5c6ab;
   --red: #8b2a1d; --red-fill: #8b2a1d; --bronze: #7a5220; --road-a: #c9bca3; --road-b: #b3a58b;

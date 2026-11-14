@@ -1,3 +1,4 @@
+import { PageDecor } from "@/components/trail/PageDecor";
 import { pageMeta } from "@/lib/seo";
 import { PLANTS } from "@/data/plants/plants";
 import Link from "next/link";
@@ -81,7 +82,7 @@ export default function GamesPage() {
   const [crossword, ...rest] = games;
   const CrosswordArt = ART.crossword;
   return (
-    <TrailPage>
+    <TrailPage decor={<PageDecor prints={false} items={["games", "grid", "who", "hood"]} />}>
       <PageHead
         title="משחקים"
         art={<InkIcon name="games" size={72} />}
