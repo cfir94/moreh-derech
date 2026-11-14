@@ -15,6 +15,7 @@ import { ReadingLink } from "@/components/ReadingLink";
 import { domainStyle } from "@/lib/domains";
 import { Blazes, kit as k, PenGrade, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { RangeText } from "@/components/RangeText";
 
 /**
  * Exam mode: the sitting as the Ministry runs it.
@@ -325,13 +326,13 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                   <p className="mb-1.5 text-base leading-relaxed text-txt-dim">
                     {withBlank(q.statement[lang])}
                     {q.statementAnswer[lang] && (
-                      <b className="text-ok"> ← {q.statementAnswer[lang]}</b>
+                      <b className="text-ok"> ← <RangeText text={q.statementAnswer[lang]} /></b>
                     )}
                   </p>
                 )}
 
                 <b className="mb-2 block text-[1.1rem] leading-relaxed">
-                  {q.question[lang]}
+                  <RangeText text={q.question[lang]} />
                 </b>
                 {!right && <ReadingLink topic={q.topic} />}
 
@@ -389,7 +390,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                         }
                       >
                         <b className="me-1.5">{letters[i]}.</b>
-                        {a.text[lang]}
+                        <RangeText text={a.text[lang]} />
                         {isPick && !isCorrect && (
                           <span className="text-sm text-red"> (התשובה שלכם)</span>
                         )}
@@ -401,7 +402,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
 
                 {q.explanation && (
                   <p className="mt-2 rounded-sm border border-line bg-card-2 px-3 py-2 text-base leading-relaxed text-txt-dim">
-                    {q.explanation}
+                    <RangeText text={q.explanation} />
                   </p>
                 )}
               </li>
@@ -477,7 +478,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                     </p>
                   )}
                   <b className="block text-[1.2rem] leading-relaxed">
-                    {q.question[lang]}
+                    <RangeText text={q.question[lang]} />
                   </b>
                 </div>
               </div>
@@ -520,7 +521,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
                         <span className={`${k.letter} ${selected ? k.letterOn : ""}`}>
                           {letters[i]}
                         </span>
-                        <span className="leading-relaxed">{a.text[lang]}</span>
+                        <span className="leading-relaxed"><RangeText text={a.text[lang]} /></span>
                       </button>
                     </li>
                   );

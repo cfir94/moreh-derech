@@ -14,6 +14,7 @@ import { openNotes } from "@/components/notes/NotesDrawer";
 import { Blazes, kit as k, PenCircle, PenGrade, PenStrike, PenUnderline } from "@/components/trail/kit";
 import { InkIcon } from "@/components/trail/Ink";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { RangeText } from "@/components/RangeText";
 
 type Phase = "setup" | "running" | "results";
 type Axis = "category" | "topic";
@@ -394,9 +395,9 @@ export function QuizRunner({
                       ✗
                     </span>
                     <div className="text-base leading-relaxed">
-                      <b className="mb-1 block text-[1.08rem]">{a.question}</b>
+                      <b className="mb-1 block text-[1.08rem]"><RangeText text={a.question} /></b>
                       <p className="font-bold text-ok">
-                        {q?.kind === "fill" ? q.answerText : q?.answers.find((x) => x.correct)?.text}
+                        <RangeText text={q?.kind === "fill" ? q.answerText : q?.answers.find((x) => x.correct)?.text} />
                       </p>
                       <ReadingLink topic={q?.topic} />
                     </div>
@@ -477,7 +478,7 @@ export function QuizRunner({
       </div>
 
       <div key={current.id} className={`screen-in ${k.paper} p-6! sm:p-7!`}>
-        <h1 className={k.question}>{current.question}</h1>
+        <h1 className={k.question}><RangeText text={current.question} /></h1>
 
         {current.image && (
           <div className="mb-4 overflow-hidden rounded-md border border-line bg-card">
@@ -509,7 +510,7 @@ export function QuizRunner({
             {!answered ? <button type="button" disabled={!typed.trim()} onClick={() => pick(typed)}
               className={`${k.sign} ${k.signPlain} mt-4`}>בדיקת התשובה</button> : (
               <div aria-live="polite" className="mt-3">
-                <p className="text-lg text-txt-dim">התשובה הנכונה: <b className="text-ok">{correctText}</b></p>
+                <p className="text-lg text-txt-dim">התשובה הנכונה: <b className="text-ok"><RangeText text={correctText ?? ""} /></b></p>
                 <button type="button" onClick={() => setAnswers((previous) => previous.map((answer, position) => position === index ? { ...answer, correct: !answer.correct } : answer))}
                   className={`${k.ghost} mt-3`}>
                   {currentCorrect ? "לסמן כטעות" : "בעצם עניתי נכון"}
@@ -542,7 +543,7 @@ export function QuizRunner({
                     {OPTION_LETTERS[i]}
                   </span>
                   <span className={k.penWrap}>
-                    {a.text}
+                    <RangeText text={a.text} />
                     {answered && isCorrect && <PenCircle />}
                     {answered && isPicked && !isCorrect && <PenStrike />}
                   </span>
@@ -557,7 +558,7 @@ export function QuizRunner({
             {(current.explanation || current.source) && (
               <div className="mb-4 rounded-md border-s-4 border-[var(--t-blue)] bg-card-2 p-4">
                 {current.explanation && (
-                  <p className="text-[1.1rem] leading-relaxed">{current.explanation}</p>
+                  <p className="text-[1.1rem] leading-relaxed"><RangeText text={current.explanation} /></p>
                 )}
                 {current.source && (
                   <p className="mt-2 text-sm leading-relaxed text-txt-dim">
