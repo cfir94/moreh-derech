@@ -258,6 +258,11 @@ h3 {
   transform: rotate(-6deg);
 }
 
+/* dark mode's red ink is light: under white digits it needs a deeper red (contrast 5.1) */
+:root[data-theme="dark"] .ink-count {
+  background: #b8402b;
+}
+
 /* a sheet of paper laid on the map: the site's card (replaces the old translucent rounded box) */
 .paper-sheet {
   border-radius: 5px;
@@ -282,10 +287,16 @@ h3 {
   color: var(--paint);
 }
 
-:where(button, a, input, [tabindex]):focus-visible {
+:where(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
   border-radius: var(--r-sm);
+}
+
+/* an embedded video or game takes focus from the keyboard too: show where the reader is */
+iframe:focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 
 /* Numbers stay LTR inside RTL text so "12/25" never flips. */

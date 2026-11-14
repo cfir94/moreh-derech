@@ -524,7 +524,7 @@
 .signDetail {
   font-size: 1.1rem;
   font-weight: 600;
-  color: color-mix(in srgb, var(--sign-ink) 88%, transparent);
+  color: var(--sign-ink);
   font-variant-numeric: tabular-nums;
 }
 

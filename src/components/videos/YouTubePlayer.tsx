@@ -81,15 +81,28 @@ export function YouTubePlayer({ src, title, onEnded }: {
     }).catch(() => {
       // The ordinary embedded player still works if the optional API is blocked.
     });
+    // A cross-origin frame never matches :focus in this document, so a keyboard user tabbing into the
+    // player would see no focus ring. When focus moves into the frame this window blurs and the frame
+    // becomes the active element: mark the box then, and clear it when focus comes back.
+    const box = container.current;
+    const onBlur = () => window.setTimeout(() => {
+      if (document.activeElement === frame) box.dataset.frameFocus = "";
+    });
+    const onFocus = () => { delete box.dataset.frameFocus; };
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("focus", onFocus);
     return () => {
       disposed = true;
+      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("focus", onFocus);
+      delete box.dataset.frameFocus;
       player?.destroy();
       frame.remove();
     };
   }, [src, title]);
 
   return (
-    <div ref={container} className="absolute inset-0">
+    <div ref={container} className="absolute inset-0 data-[frame-focus]:outline-3 data-[frame-focus]:outline-offset-[-3px] data-[frame-focus]:outline-(--focus) data-[frame-focus]:outline-solid">
       {error !== undefined && (
         <div role="status" className="absolute inset-x-0 bottom-0 z-10 bg-[#07131c]/95 p-3 text-sm text-on-media">
           YouTube לא מאפשר כרגע לנגן את הסרטון הזה (קוד {error}). אפשר לבחור חלק אחר ברשימה למטה.

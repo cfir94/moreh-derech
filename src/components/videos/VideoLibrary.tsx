@@ -418,7 +418,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
             const count = section.groups.reduce((total, group) => total + group.items.length, 0);
             return (
               <button key={section.id} type="button" onClick={() => selectSection(section)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-base font-black transition duration-200 ease-out active:scale-[0.97] ${isActive ? "border-teal/45 bg-teal/10 text-teal shadow-[0_7px_18px_-12px_var(--teal)]" : "border-line bg-card text-txt-dim hover:border-teal/35 hover:bg-card-2 hover:text-txt"}`}>
-                {section.title}<span className="num text-sm opacity-70">{count}</span>
+                {section.title}<span className="num text-sm font-semibold">{count}</span>
               </button>
             );
           })}
@@ -498,7 +498,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
                 >
                   <span className={`size-2 rounded-full ${optionAccent.dot}`} aria-hidden="true" />
                   {subtopic.title}
-                  <span className="num text-sm opacity-70">{items.length}</span>
+                  <span className="num text-sm font-semibold">{items.length}</span>
                 </button>
               );
             })}

@@ -36,7 +36,7 @@ export function AidTabs<T extends string>({ tabs, active, onSelect, row = false 
         onClick={() => onSelect(tab.id)}
         className={`${k.chip} ${tab.id === active ? k.chipOn : ""}`}
       >
-        <span className="pencil">{tab.label}</span>{tab.count === undefined ? null : <span className="num opacity-75">{tab.count}</span>}
+        <span className="pencil">{tab.label}</span>{tab.count === undefined ? null : <span className="num font-semibold">{tab.count}</span>}
       </button>)}
     </div>
   </nav>;
@@ -54,7 +54,7 @@ export function AidTabs<T extends string>({ tabs, active, onSelect, row = false 
         onClick={() => onSelect(tab.id)}
         className={`min-h-11 rounded-md px-4 py-2 text-right text-sm font-bold transition active:scale-95 ${tab.id === active ? "bg-mc text-on-accent" : "text-txt-dim hover:bg-card-2 hover:text-txt"}`}
       >
-        {tab.label}{tab.count === undefined ? null : <span className="num mr-1 opacity-75">({tab.count})</span>}
+        {tab.label}{tab.count === undefined ? null : <span className="num mr-1 font-semibold">({tab.count})</span>}
       </button>)}
     </div>
   </nav>;
