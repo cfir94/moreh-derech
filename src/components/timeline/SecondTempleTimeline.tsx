@@ -1,206 +1,153 @@
 "use client";
 
+/*
+ * בית שני כ"פרקים במחברת" (EraChapters, בקשת הבעלים 14.11): תשעה פרקים מהשיבה ועד אחרי החורבן,
+ * בכל אחד עד שלושה אירועי מפתח לזכור, שביל של תחנות ודף פירוט, ותרגול קצר על הפרק.
+ * הנתונים (research.json) לא השתנו; דף האירוע מציג גם סיבות, תוצאות, אנשים, ארכאולוגיה,
+ * הסתייגויות תיארוך ומקור, כמו קודם.
+ */
 import Link from "next/link";
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
-import { SECOND_TEMPLE as research, TEMPLE_EVENTS, TEMPLE_PERIODS, matchesTempleQuery, type TempleEvent } from "@/data/second-temple";
-import { PracticeDeck } from "@/components/learning-aid";
+import { SECOND_TEMPLE as research, TEMPLE_EVENTS, TEMPLE_PERIODS, type TempleEvent } from "@/data/second-temple";
+import { EraChapters, type ChapterEvent, type ChapterKind } from "@/components/chapters/EraChapters";
+import x from "@/components/chapters/extras.module.css";
+import t from "@/components/chapters/temple.module.css";
+import { InkIcon } from "@/components/trail/Ink";
+import type { EraPhoto } from "@/lib/eraPhotos";
 import { templePractice } from "@/lib/templePractice";
-import styles from "./SecondTempleTimeline.module.css";
-import { PageDecor } from "@/components/trail/PageDecor";
+import { matches } from "./useEraTimeline";
 
 const PRACTICE = templePractice();
 
-type View = "timeline" | "people" | "sites" | "processes" | "sources" | "practice";
-const views: { id: View; title: string; count?: number }[] = [
-  { id: "timeline", title: "ציר הזמן", count: TEMPLE_EVENTS.length },
-  { id: "people", title: "אנשי התקופה", count: research.people.length },
-  { id: "sites", title: "אתרים וממצאים", count: research.sites.length },
-  { id: "processes", title: "התמונה הרחבה", count: research.processes.length },
-  { id: "sources", title: "מקורות ודיוק" },
-  { id: "practice", title: "תרגול" },
+/** The old filter's categories, now the kinds of station on the trail. An event belongs to the first that matches. */
+const CATEGORIES: (ChapterKind & { pattern: RegExp | null })[] = [
+  { id: "conflict", title: "מלחמות ומרידות", icon: "tower", pattern: /קרב|מרד|מצור|מלחמה|חורבן|דיכוי|הגליה/ },
+  { id: "rule", title: "שלטון והנהגה", icon: "crown", pattern: /שלטון|מינוי|מלכות|מנהיגות|כהונה|ירושה/ },
+  { id: "building", title: "בנייה ומקדש", icon: "temple", pattern: /בנייה|בניית|מקדש|מזבח|חומה|ארמון|נמל|ריצוף/ },
+  { id: "society", title: "עלייה, דת וחברה", icon: "scroll", pattern: /עלייה|שיבה|דת|חברה|תרגום|פולחן|רפורמ/ },
+  { id: "other", title: "עוד", icon: "jar", pattern: null },
 ];
-const categories = [
-  { id: "all", title: "כל הנושאים", pattern: null },
-  { id: "conflict", title: "מלחמות ומרידות", pattern: /קרב|מרד|מצור|מלחמה|חורבן|דיכוי|הגליה/ },
-  { id: "rule", title: "שלטון והנהגה", pattern: /שלטון|מינוי|מלכות|מנהיגות|כהונה|ירושה/ },
-  { id: "building", title: "בנייה ומקדש", pattern: /בנייה|בניית|מקדש|מזבח|חומה|ארמון|נמל|ריצוף/ },
-  { id: "society", title: "עלייה, דת וחברה", pattern: /עלייה|שיבה|דת|חברה|תרגום|פולחן|רפורמ/ },
-];
-const eventById = new Map(TEMPLE_EVENTS.map((event) => [event.id, event]));
+const kindOf = (e: TempleEvent) => CATEGORIES.find((c) => c.pattern?.test(`${e.kind} ${e.title}`))?.id ?? "other";
 
-function revealEvent(id: string) {
-  const target = document.getElementById(id);
-  if (!target) return;
-  const details = target.querySelector("details");
-  if (details) details.open = true;
-  target.scrollIntoView({ block: "start" });
-  target.focus({ preventScroll: true });
-}
+const EVENTS: ChapterEvent[] = TEMPLE_EVENTS.map((e) => ({
+  id: e.id, era: e.period, date: e.date, title: e.title, kind: kindOf(e),
+  summary: e.summary, body: e.body, tip: e.takeaway, sites: e.places, key: e.anchor,
+}));
+const ERAS = TEMPLE_PERIODS.map(({ id, title, range, note }) => ({ id, title, range, note }));
+const byId = new Map(TEMPLE_EVENTS.map((e) => [e.id, e]));
+const title = (id: string) => byId.get(id)?.title;
 
-function Field({ label, children }: { label: string; children: ReactNode }) {
-  return <div className={styles.field}><h4>{label}</h4><div>{children}</div></div>;
-}
-
-function EventLinks({ text, onJump }: { text: string; onJump: (id: string) => void }) {
-  const ids = [...new Set(text.match(/ST-\d{3}/g) ?? [])].filter((id) => eventById.has(id));
+function Related({ text }: { text: string }) {
+  const ids = [...new Set(text.match(/ST-\d{3}/g) ?? [])].filter((id) => byId.has(id));
   if (!ids.length) return null;
-  return <div className={styles.related}>{ids.map((id) => <a key={id} href={`#${id}`} onClick={(event) => { event.preventDefault(); onJump(id); }}>{eventById.get(id)!.title}<span aria-hidden> ←</span></a>)}</div>;
+  return <div className={t.related}>{ids.map((id) => <a key={id} href={`#${id}`}>{title(id)} <span aria-hidden>←</span></a>)}</div>;
 }
 
-function EventCard({ event, onJump }: { event: TempleEvent; onJump: (id: string) => void }) {
-  return <article id={event.id} tabIndex={-1} className={`${styles.event} ${event.anchor ? styles.anchorEvent : ""}`}>
-    <span className={styles.eventDot} aria-hidden />
-    <details>
-      <summary className={styles.eventSummary}>
-        <span className={styles.eventTop}><span className={styles.date}>{event.date}</span><span className={styles.kind}>{event.kind}</span></span>
-        <h3 className={styles.eventTitle}>{event.title}<span className={styles.plus} aria-hidden>＋</span></h3>
-        <span className={styles.summaryText}>{event.summary}</span>
-        {event.warning && <span className={styles.warning}><strong>דיוק במקור:</strong> {event.warning}</span>}
-      </summary>
-      <div className={styles.eventBody}>
-        <p className={styles.bodyLead}>{event.body}</p>
-        <div className={styles.takeaway}><span>נקודה לדרך</span><p>{event.takeaway}</p></div>
-        <div className={styles.fieldGrid}>
-          <Field label="מה הוביל לאירוע?">{event.causes}</Field>
-          <Field label="מה השתנה בעקבותיו?">{event.consequences}</Field>
-          <Field label="אנשים וסמכויות">{event.people}<p className={styles.muted}>{event.rule}</p></Field>
-          <Field label="בשטח">{event.places}<p className={styles.muted}>{event.archaeology}</p></Field>
-        </div>
-        <div className={styles.caution}><strong>תיארוך והסתייגויות</strong><p>{event.precision}. {event.caution}</p></div>
-        <EventLinks text={event.connections ?? ""} onJump={onJump} />
-        <footer className={styles.eventSource}><span>מקור ומילות איתור</span><p dir="auto">{event.source}</p><a href={`#${event.id}`}>קישור ישיר לאירוע</a></footer>
-      </div>
-    </details>
-  </article>;
+function More({ id }: { id: string }) {
+  const e = byId.get(id);
+  if (!e) return null;
+  return <>
+    <div className={t.fields}>
+      {e.causes && <div className={t.field}><h4>מה הוביל לאירוע?</h4><p>{e.causes}</p></div>}
+      {e.consequences && <div className={t.field}><h4>מה השתנה בעקבותיו?</h4><p>{e.consequences}</p></div>}
+      {e.people && <div className={t.field}><h4>אנשים וסמכויות</h4><p>{e.people}</p>{e.rule && <p className={t.muted}>{e.rule}</p>}</div>}
+      {e.archaeology && <div className={t.field}><h4>מה מצאו בשטח</h4><p>{e.archaeology}</p></div>}
+    </div>
+    {(e.warning || e.caution) && <div className={t.caution}>
+      <b>תיארוך והסתייגויות</b>
+      {e.warning && <span>{e.warning} </span>}{e.precision}. {e.caution}
+    </div>}
+    <Related text={e.connections ?? ""} />
+    <p className={t.source} dir="auto">מקור ומילות איתור: {e.source}</p>
+  </>;
 }
 
-export function SecondTempleTimeline() {
-  const [view, setView] = useState<View>("timeline");
-  const [period, setPeriod] = useState("all");
-  const [category, setCategory] = useState("all");
-  const [query, setQuery] = useState("");
-  const [anchorsOnly, setAnchorsOnly] = useState(false);
-  const selectedCategory = categories.find((entry) => entry.id === category)!;
-  const visibleEvents = TEMPLE_EVENTS.filter((event) =>
-    (period === "all" || event.period === period) &&
-    (!anchorsOnly || event.anchor) &&
-    (!selectedCategory.pattern || selectedCategory.pattern.test(`${event.kind} ${event.title}`)) &&
-    matchesTempleQuery(Object.values(event).join(" "), query));
-  const search = (value: unknown) => matchesTempleQuery(JSON.stringify(value), query);
-
-  useEffect(() => {
-    const revealCurrent = () => {
-      const id = window.location.hash.slice(1);
-      if (/^ST-\d{3}$/.test(id)) revealEvent(id);
-    };
-    const onHash = () => {
-      if (!eventById.has(window.location.hash.slice(1))) return;
-      setView("timeline"); setPeriod("all"); setCategory("all"); setQuery(""); setAnchorsOnly(false);
-      window.setTimeout(revealCurrent, 0);
-    };
-    revealCurrent();
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
-
-  function jump(id: string) {
-    setView("timeline"); setPeriod("all"); setCategory("all"); setQuery(""); setAnchorsOnly(false);
-    window.setTimeout(() => { window.location.hash = id; revealEvent(id); }, 0);
-  }
-
-  function reset() { setQuery(""); setPeriod("all"); setCategory("all"); setAnchorsOnly(false); }
-
-  return <div className={styles.page} dir="rtl">
-    <PageDecor topo={false} items={["menorah", "column", "gate", "scroll", "jar", "temple"]} step={520} />
-    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>בית שני</span></div>
-    <header className={styles.hero}>
-      <div className={styles.heroCopy}>
-        <p className={styles.eyebrow}>עזר למידה · מסע בזמן</p>
-        <h1>בית שני</h1>
-        <p className={styles.heroSubtitle}>מן השיבה אל החורבן</p>
-        <p className={styles.heroDescription}>עליות וממלכות, אנשים ומאבקים, אבנים שסיפרו היסטוריה. מסע בעקבות התקופה שעיצבה את ירושלים ואת הארץ.</p>
-        <a className={styles.start} href="#temple-content">לצאת לדרך <span aria-hidden>↓</span></a>
-      </div>
-      <div className={styles.heroArt} aria-hidden>
-        <svg viewBox="0 0 450 310" fill="none"><circle cx="230" cy="130" r="112" stroke="currentColor" strokeOpacity=".16"/><circle cx="230" cy="130" r="130" stroke="currentColor" strokeOpacity=".08"/><path d="M40 280h370M60 268h330M80 256h290M100 244h250M118 232h215M118 224V103h215v121M107 103h237V88H107zM119 82h213l-16-15H135z" stroke="currentColor" strokeWidth="2"/><path d="M178 224V140h95v84M188 224v-74h75v74M202 224v-64h47v64M215 224v-54h21v54" stroke="currentColor" strokeOpacity=".6"/><path d="M133 120h28v104h-28zM290 120h28v104h-28zM126 114h41M284 114h40M126 229h41M284 229h40M147 125v92M304 125v92M119 181h50M283 181h49M119 153h50M283 153h49" stroke="currentColor"/><path d="M225 40l4 7-4 7-4-7zM88 167l4 7-4 7-4-7zM368 149l3 6-3 6-3-6z" stroke="currentColor" strokeOpacity=".55"/><path d="M36 294h380" stroke="currentColor" strokeDasharray="2 6"/></svg>
-        <span>שיבה · מקדש · ממלכה · מרד</span>
-      </div>
-      <div className={styles.heroStats}>
-        <div><strong>{TEMPLE_EVENTS.length}</strong><span>אירועים ותהליכים מתוארכים</span></div>
-        <div><strong>{research.people.length}</strong><span>ערכים במפתח הדמויות</span></div>
-        <div><strong>{research.sites.length}</strong><span>אתרים וממצאים</span></div>
-        <div><strong>{research.sources.length}</strong><span>מקורות בחומר הקורס</span></div>
-      </div>
-    </header>
-
-    <div className={styles.introNote}><span aria-hidden>◈</span><p>עיקר הציר עוסק בשיבת ציון ועד חורבן שנת 70. הרקע הקדום ואחרית המרד מוצגים בפרקים נפרדים. התאריכים הם לפי חומר הקורס; כשיש קירוב או קושי במקור, הם מסומנים לצד האירוע.</p></div>
-
-    <section id="temple-content" className={styles.workspace} aria-label="עיון בתקופת בית שני">
-      <nav className={styles.viewNav} aria-label="תצוגות בית שני">{views.map((item) => <button key={item.id} type="button" aria-pressed={view === item.id} onClick={() => { setView(item.id); setQuery(""); }}><span>{item.title}</span>{item.count !== undefined && <small>{item.count}</small>}</button>)}</nav>
-      <div className={styles.searchRow}>
-        {view !== "practice" && <label className={styles.search}><span aria-hidden>⌕</span><span className={styles.srOnly}>חיפוש בתצוגה הנוכחית</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={view === "timeline" ? "לחפש אירוע, דמות, מקום או שנה…" : "לחפש בתצוגה הנוכחית…"} /></label>}
-        {view === "timeline" && <label className={styles.checkbox}><input type="checkbox" checked={anchorsOnly} onChange={(event) => setAnchorsOnly(event.target.checked)} />אירועי מפתח בלבד</label>}
-      </div>
-
-      {view === "timeline" && <div className={styles.timelineLayout}>
-        <aside className={styles.periodNav} aria-label="סינון לפי תקופה">
-          <p>פרקי המסע</p>
-          <button type="button" aria-pressed={period === "all"} onClick={() => setPeriod("all")}><span className={styles.periodMark} aria-hidden>◈</span><span>המסע המלא<small>כל התקופות</small></span></button>
-          {TEMPLE_PERIODS.map((entry, index) => <button key={entry.id} type="button" aria-pressed={period === entry.id} onClick={() => setPeriod(entry.id)} style={{ "--period-color": entry.color } as CSSProperties}><span className={styles.periodMark} aria-hidden>{String(index + 1).padStart(2, "0")}</span><span>{entry.title}<small>{entry.range}</small></span></button>)}
-        </aside>
-        <div className={styles.timelineMain}>
-          <div className={styles.filters}><label>נושא<select value={category} onChange={(event) => setCategory(event.target.value)}>{categories.map((entry) => <option key={entry.id} value={entry.id}>{entry.title}</option>)}</select></label><p role="status">{visibleEvents.length} מתוך {TEMPLE_EVENTS.length} אירועים</p>{(query || period !== "all" || category !== "all" || anchorsOnly) && <button type="button" onClick={reset}>ניקוי סינון</button>}</div>
-          <p className={styles.scaleNote}>הרצף מוצג לפי פרקי התקופה. המרווחים בין הכרטיסים אינם מייצגים משך זמן; טווחים ותהליכים עשויים לחפוף.</p>
-          {visibleEvents.length === 0 && <div className={styles.empty}><h2>לא נמצאו אירועים מתאימים</h2><p>אפשר לשנות את החיפוש או להרחיב את התקופה.</p><button type="button" onClick={reset}>להציג את כל האירועים</button></div>}
-          {TEMPLE_PERIODS.map((entry, index) => {
-            const events = visibleEvents.filter((event) => event.period === entry.id);
-            if (!events.length) return null;
-            return <section key={entry.id} className={styles.periodSection} style={{ "--period-color": entry.color } as CSSProperties} aria-labelledby={`period-${entry.id}`}>
-              <header className={styles.periodHeading}><span className={styles.chapterNumber} aria-hidden>{String(index + 1).padStart(2, "0")}</span><div><p>{entry.range}</p><h2 id={`period-${entry.id}`}>{entry.title}</h2><span>{entry.note}</span></div><small>{events.length} אירועים</small></header>
-              <div className={styles.eventRail}>{events.map((event) => <EventCard key={event.id} event={event} onJump={jump} />)}</div>
-            </section>;
-          })}
-        </div>
-      </div>}
-
-      {view === "people" && <div className={styles.secondary}>
-        <header className={styles.sectionIntro}><p>מי פעל, מי ירש, ומי פעל במקביל?</p><h2>אנשי התקופה</h2><span>שנות הפעילות בחומר אינן בהכרח שנות חיים. חלק מהערכים כוללים קבוצת דמויות.</span></header>
-        <details className={styles.wideDetail}><summary>רצפי ההנהגה והסמכויות המקבילות</summary>{research.successions.map((text, index) => <p key={index}>{text}</p>)}</details>
-        <div className={styles.directory}>{research.people.filter(search).map((person) => <article key={person.id} className={styles.directoryCard}>
-          <div className={styles.cardId}>{person.id}{person.mentionOnly && <span>אזכור בלבד · חסר פירוט</span>}</div><h3>{person.name}</h3><p className={styles.role}>{person.role}</p><p>{person.relationships}</p><p>{person.summary}</p><EventLinks text={person.summary} onJump={jump} /><p className={styles.sourceLine}>מקור: {person.source}</p>
-        </article>)}</div>
-        {!research.people.filter(search).length && <p className={styles.empty} role="status">לא נמצאו דמויות התואמות לחיפוש.</p>}
-      </div>}
-
-      {view === "sites" && <div className={styles.secondary}>
-        <header className={styles.sectionIntro}><p>מהסיפור אל השטח</p><h2>אתרים וממצאים</h2><span>ממצא יכול לתמוך בחלק מן הסיפור. זיהוי מסורתי, שחזור מודרני וממצא מתוארך אינם אותה ראיה.</span></header>
-        <div className={styles.directory}>{research.sites.filter(search).map((site) => <article key={site.id} className={styles.directoryCard}><span className={styles.cardId}>{site.id}</span><h3>{site.name}</h3><p>{site.context}</p><p className={styles.siteCaution}>{site.caution}</p><EventLinks text={site.context} onJump={jump} /><p className={styles.sourceLine}>מקור ואיתור: {site.source}</p></article>)}</div>
-        {!research.sites.filter(search).length && <p className={styles.empty} role="status">לא נמצאו אתרים התואמים לחיפוש.</p>}
-      </div>}
-
-      {view === "processes" && <div className={styles.secondary}>
-        <header className={styles.sectionIntro}><p>החוטים שמחברים את האירועים</p><h2>התמונה הרחבה</h2><span>תהליכים נמשכים לאורך זמן וחוצים חילופי שלטון. הם אינם נקודה אחת על הציר.</span></header>
-        <div className={styles.processList}>{research.processes.filter(search).map((process) => <article key={process.id} className={styles.processCard}><span className={styles.cardId}>{process.id}</span><h3>{process.title}</h3>{process.paragraphs.map((paragraph, index) => <p key={index}>{paragraph.replace(/^\* /, "")}</p>)}{process.table.length > 0 && <div className={styles.tableWrap}><table><caption>השוואת הקבוצות לפי עמדת ההרצאה בלבד</caption><thead><tr>{process.table[0].map((cell) => <th key={cell} scope="col">{cell}</th>)}</tr></thead><tbody>{process.table.slice(1).map((row, index) => <tr key={index}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>}<EventLinks text={process.paragraphs.join(" ")} onJump={jump} /></article>)}</div>
-        {!research.processes.filter(search).length && <p className={styles.empty} role="status">לא נמצאו תהליכים התואמים לחיפוש.</p>}
-      </div>}
-
-      {view === "practice" && <div className={styles.secondary}>
-        <header className={styles.sectionIntro}><p>מה זוכרים מהציר?</p><h2>תרגול</h2><span>עשר שאלות בכל סבב, מתוך האירועים שבציר: מה קרה בשנה מסוימת, ובאיזו תקופה. התשובות נרשמות במעקב שלכם.</span></header>
-        <PracticeDeck quizSlug="second-temple" label="בית שני: תרגול ציר" items={PRACTICE} />
-      </div>}
-
-      {view === "sources" && <div className={styles.secondary}>
-        <header className={styles.sectionIntro}><p>לקרוא את הסיפור, וגם את המקור</p><h2>מקורות ודיוק</h2><span>הציר מבוסס על תיק המחקר שנאסף מהמחברת ב־15.10.2026. לא בוצע כאן אימות היסטורי חיצוני.</span></header>
-        <div className={styles.method}><h3>איך לקרוא את ההפניות?</h3><p>בכל אירוע מופיעים שם קובץ ומילות איתור בתמלול. במחקר לא היו חותמות זמן, עמודים או קישורי קטע יציבים, ולכן הקישור להלן פותח את המחברת כולה. התמלולים נבדקו במחקר; האודיו עצמו לא הושמע.</p><p>״מדויק לפי המקור״ מציין שנה שנמסרה בחומר, ולא הסכמה מחקרית. הסיכום הוא מקור נגזר; דף המטלה מציין מה ללמוד ואינו מספק כשלעצמו תשובות.</p><a href={research.notebookUrl} target="_blank" rel="noopener noreferrer">למחברת תקופת הבית השני ↗</a></div>
-        <h3 className={styles.subheading}>שמונת מקורות המחברת</h3>
-        <div className={styles.directory}>{research.sources.filter(search).map((source) => <article key={source.id} className={styles.directoryCard}><span className={styles.cardId}>{source.id}</span><h4 dir="auto">{source.title}</h4><p>{source.type}</p><p>{source.coverage}</p></article>)}</div>
-        <h3 className={styles.subheading}>מה עדיין חסר?</h3>
-        <div className={styles.gapNotice}><strong>יוחנן בן זכאי וההמשכיות לאחר החורבן · ST-086</strong><p>רשומת יעד לימוד בלבד. דף המטלה אינו מפרט את מעשיו, ולכן אין בציר אירוע היסטורי מלא או סיפור על יבנה המבוסס על אזכור זה.</p></div>
-        {research.gaps.filter(search).map((gap) => <details key={gap.id} className={styles.wideDetail}><summary>{gap.topic}<small>{gap.id}</small></summary><p>{gap.coverage}</p><p>{gap.guidance}</p></details>)}
-        <h3 className={styles.subheading}>מחלוקות ובקרת התוכן</h3>
-        {research.issues.filter(search).map((issue) => <details key={issue.id} className={styles.wideDetail}><summary>{issue.topic}<small>{issue.id}</small></summary><p>{issue.decision}</p><p className={styles.sourceLine}>מקור ואיתור: {issue.source}</p></details>)}
-      </div>}
-    </section>
-    <footer className={styles.pageFooter}><span>אבן דרך למורי דרך · תקופת בית שני</span><Link href="/timelines">לכל עזרי הלמידה ←</Link></footer>
-  </div>;
+export function SecondTempleTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
+  return <EraChapters
+    title="בית שני"
+    lede="מן השיבה אל החורבן: עליות וממלכות, אנשים ומאבקים, ואבנים שסיפרו היסטוריה. תשעה פרקים, מהרקע האשורי והבבלי ועד אחרי שנת 70, ובכל אחד הדברים שכדאי לזכור."
+    art="temple"
+    decor={["menorah", "column", "gate", "scroll", "jar", "temple"]}
+    accent={{ light: "#7a5418", dark: "#e9c27a" }}
+    eras={ERAS}
+    events={EVENTS}
+    kinds={CATEGORIES}
+    photos={photos}
+    idPattern={/^ST-\d{3}$/}
+    practice={PRACTICE}
+    quizSlug="second-temple"
+    practiceLabel="בית שני: תרגול ציר"
+    more={(id) => <More id={id} />}
+    extras={[
+      {
+        id: "people", label: "אנשי התקופה", count: research.people.length,
+        render: (q) => <section className={x.section} aria-labelledby="st-people">
+          <h2 id="st-people" className={x.head}>אנשי התקופה</h2>
+          <p className={x.intro}>מי פעל, מי ירש, ומי פעל במקביל. שנות הפעילות בחומר אינן בהכרח שנות חיים, וחלק מהערכים הם קבוצת דמויות.</p>
+          <details className={t.details}><summary>רצפי ההנהגה והסמכויות המקבילות</summary>{research.successions.map((text, i) => <p key={i}>{text}</p>)}</details>
+          <ul className={x.grid}>{research.people.filter((person) => matches(person, q)).map((person) => <li key={person.id} className={`${x.item} ${x.single}`}>
+            <div>
+              <h3>{person.name}</h3>
+              <p className={x.when}>{person.role}{person.mentionOnly ? " · אזכור בלבד" : ""}</p>
+              {person.relationships && <p>{person.relationships}</p>}
+              <p>{person.summary}</p>
+              <Related text={person.summary} />
+            </div>
+          </li>)}</ul>
+          {!research.people.filter((person) => matches(person, q)).length && <p className={x.intro} role="status">לא נמצאו דמויות התואמות לחיפוש.</p>}
+        </section>,
+      },
+      {
+        id: "sites", label: "אתרים וממצאים", count: research.sites.length,
+        render: (q) => <section className={x.section} aria-labelledby="st-sites">
+          <h2 id="st-sites" className={x.head}>אתרים וממצאים</h2>
+          <p className={x.intro}>מהסיפור אל השטח. זיהוי מסורתי, שחזור מודרני וממצא מתוארך אינם אותה ראיה.</p>
+          <ul className={x.grid}>{research.sites.filter((site) => matches(site, q)).map((site) => <li key={site.id} className={x.item}>
+            <span className={x.icon} aria-hidden><InkIcon name="trowel" size={34} /></span>
+            <div><h3>{site.name}</h3><p>{site.context}</p>{site.caution && <p className={x.when}>{site.caution}</p>}<Related text={site.context} /></div>
+          </li>)}</ul>
+          {!research.sites.filter((site) => matches(site, q)).length && <p className={x.intro} role="status">לא נמצאו אתרים התואמים לחיפוש.</p>}
+        </section>,
+      },
+      {
+        id: "processes", label: "התמונה הרחבה", count: research.processes.length,
+        render: (q) => <section className={x.section} aria-labelledby="st-processes">
+          <h2 id="st-processes" className={x.head}>התמונה הרחבה</h2>
+          <p className={x.intro}>החוטים שמחברים את האירועים: תהליכים שנמשכים לאורך זמן וחוצים חילופי שלטון.</p>
+          <ul className={x.grid}>{research.processes.filter((process) => matches(process, q)).map((process) => <li key={process.id} className={`${x.item} ${x.single}`} style={process.table.length ? { gridColumn: "1 / -1" } : undefined}>
+            <div>
+              <h3>{process.title}</h3>
+              {process.paragraphs.map((paragraph, i) => <p key={i}>{paragraph.replace(/^\* /, "")}</p>)}
+              {process.table.length > 0 && <div className={t.tableWrap}><table>
+                <caption>השוואת הקבוצות לפי עמדת ההרצאה בלבד</caption>
+                <thead><tr>{process.table[0].map((cell) => <th key={cell} scope="col">{cell}</th>)}</tr></thead>
+                <tbody>{process.table.slice(1).map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody>
+              </table></div>}
+              <Related text={process.paragraphs.join(" ")} />
+            </div>
+          </li>)}</ul>
+        </section>,
+      },
+      {
+        id: "sources", label: "מקורות ודיוק",
+        render: (q) => <section className={x.section} aria-labelledby="st-sources">
+          <h2 id="st-sources" className={x.head}>מקורות ודיוק</h2>
+          <div className={t.method}>
+            <p>הציר מבוסס על תיק המחקר שנאסף מהמחברת ב־15.10.2026. בכל אירוע מופיעים שם קובץ ומילות איתור בתמלול. לא היו חותמות זמן או עמודים יציבים, ולכן הקישור פותח את המחברת כולה.</p>
+            <p>״מדויק לפי המקור״ מציין שנה שנמסרה בחומר, ולא הסכמה מחקרית. הסיכום הוא מקור נגזר; דף המטלה מציין מה ללמוד ואינו מספק תשובות.</p>
+            <a href={research.notebookUrl} target="_blank" rel="noopener noreferrer">למחברת תקופת הבית השני ↗</a>
+          </div>
+          <h3 className={t.subhead}>שמונת מקורות המחברת</h3>
+          <ul className={x.grid}>{research.sources.filter((source) => matches(source, q)).map((source) => <li key={source.id} className={`${x.item} ${x.single}`}>
+            <div><h4 dir="auto" className="text-lg font-black">{source.title}</h4><p className={x.when}>{source.type}</p><p>{source.coverage}</p></div>
+          </li>)}</ul>
+          <h3 className={t.subhead}>מה עדיין חסר?</h3>
+          <div className={t.caution}><b>יוחנן בן זכאי וההמשכיות לאחר החורבן · ST-086</b>רשומת יעד לימוד בלבד. דף המטלה אינו מפרט את מעשיו, ולכן אין בציר אירוע היסטורי מלא או סיפור על יבנה המבוסס על אזכור זה.</div>
+          {research.gaps.filter((gap) => matches(gap, q)).map((gap) => <details key={gap.id} className={t.details}><summary>{gap.topic}</summary><p>{gap.coverage}</p><p>{gap.guidance}</p></details>)}
+          <h3 className={t.subhead}>מחלוקות ובקרת התוכן</h3>
+          {research.issues.filter((issue) => matches(issue, q)).map((issue) => <details key={issue.id} className={t.details}><summary>{issue.topic}</summary><p>{issue.decision}</p><p className={t.source}>מקור ואיתור: {issue.source}</p></details>)}
+        </section>,
+      },
+    ]}
+    note={<>עיקר הציר עוסק בשיבת ציון ועד חורבן שנת 70; הרקע הקדום ואחרית המרד הם פרקים נפרדים. התאריכים לפי חומר הקורס, וכשיש קירוב או קושי במקור הם מסומנים בדף האירוע. התקופה הבאה: <Link href="/timelines/roman">ציר התקופה הרומית</Link>.</>}
+  />;
 }

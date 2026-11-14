@@ -47,6 +47,8 @@ export type EraChaptersProps = {
   extras?: readonly ChapterExtra[];
   /** a sentence under the chapters about the sources and the neighbouring timelines */
   note?: ReactNode;
+  /** more for the event's page, after "on the ground" (Second Temple: causes, consequences, the source) */
+  more?: (id: string) => ReactNode;
 };
 
 const HEB = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ז׳", "ח׳", "ט׳", "י׳", "י״א", "י״ב"];
@@ -76,8 +78,8 @@ function useWide() {
   );
 }
 
-function EventPage({ event, kind, photo, onStep, step }: {
-  event: ChapterEvent; kind?: ChapterKind; photo?: EraPhoto;
+function EventPage({ event, kind, photo, onStep, step, more }: {
+  event: ChapterEvent; kind?: ChapterKind; photo?: EraPhoto; more?: ReactNode;
   onStep: (dir: -1 | 1) => void; step: { prev: boolean; next: boolean };
 }) {
   return <article className={s.page} aria-labelledby={`${event.id}-title`}>
@@ -95,6 +97,7 @@ function EventPage({ event, kind, photo, onStep, step }: {
       <p><RangeText text={event.tip} /></p>
     </aside>}
     {event.sites && <p className={s.sites}><InkIcon name="map" size={22} /><span><b>בשטח:</b> {event.sites}</span></p>}
+    {more}
     <div className={s.pageFoot}>
       <button type="button" className={s.stepBtn} disabled={!step.prev} onClick={() => onStep(-1)}><span aria-hidden>→</span> הקודם</button>
       <a className={`${s.permalink} pencil`} href={`#${event.id}`}>קישור ישיר</a>
@@ -134,7 +137,12 @@ export function EraChapters(p: EraChaptersProps) {
     setView("chapters"); setQuery(""); setKind("all"); setConceptOnly(false);
     setEraId(e.era); setSelected(id);
     if (opts.hash) history.replaceState(null, "", `#${id}`);
-    if (opts.scroll) window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: "center" }), 30);
+    // the station takes the focus too, so a keyboard or screen-reader user lands where the link pointed
+    if (opts.scroll) window.setTimeout(() => {
+      const el = document.getElementById(id);
+      el?.scrollIntoView({ block: "center" });
+      el?.focus({ preventScroll: true });
+    }, 30);
   }, [byId]);
 
   const goEra = (id: string) => {
@@ -172,13 +180,24 @@ export function EraChapters(p: EraChaptersProps) {
     event={shownEvent}
     kind={kindOf.get(shownEvent.kind)}
     photo={p.photos?.[shownEvent.id]}
+    more={p.more?.(shownEvent.id)}
     onStep={stepIn}
     step={{ prev: shownIndex > 0, next: shownIndex >= 0 && shownIndex < (trail.length ? trail : eraEvents).length - 1 }}
   />;
 
   const style = { "--era-ink": p.accent.light, "--era-ink-dark": p.accent.dark } as CSSProperties;
 
-  return <div className={s.wrap} style={style} dir="rtl">
+  // a link to an event anywhere on the page (from a person, a site, a related event) opens it, even when
+  // the address already holds that id and no hashchange would fire
+  const onLink = (ev: React.MouseEvent<HTMLDivElement>) => {
+    const a = (ev.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+    const id = a ? decodeURIComponent(a.getAttribute("href")!.slice(1)) : "";
+    if (!a || !p.idPattern.test(id) || !byId.has(id)) return;
+    ev.preventDefault();
+    open(id, { hash: true, scroll: true });
+  };
+
+  return <div className={s.wrap} style={style} dir="rtl" onClick={onLink}>
     <PageDecor wide prints={false} items={p.decor} />
     <PageHead
       title={p.title}

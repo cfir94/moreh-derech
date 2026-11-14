@@ -75,26 +75,20 @@ try {
   await loaded("RO-019");
   await expect(page.locator('article[aria-labelledby="RO-019-title"] figcaption')).toContainText("·");
 
-  // the Byzantine timeline still has its old cards (until it moves to the chapters too)
-  const loadedCard = async (selector) => {
-    const img = page.locator(`${selector} details figure img`);
-    await img.scrollIntoViewIfNeeded();
-    await expect(img).toBeVisible();
-    await expect.poll(() => img.evaluate((el) => el.complete && el.naturalWidth > 0)).toBe(true);
-  };
   await page.goto(base + "/timelines/byzantine/");
   await expect(page.getByRole("heading", { name: "התקופה הביזנטית", exact: true })).toBeVisible();
-  await expect(page.locator('article[id^="BY-"]')).toHaveCount(45);
-  await page.getByRole("button", { name: /תור הזהב של יוסטיניאנוס/ }).click();
+  const byzStrip = page.getByRole("navigation", { name: "פס הזמן: הפרקים" });
+  await expect(byzStrip.getByRole("button")).toHaveCount(5);
+  await byzStrip.getByRole("button", { name: /תור הזהב של יוסטיניאנוס/ }).click();
   await expect(page.locator("#BY-033")).toBeVisible();
   await expect(page.locator("#BY-002")).toHaveCount(0);
-  await page.getByRole("button", { name: /^צליינים/ }).click();
+  await page.getByRole("tab", { name: /^צליינים/ }).click();
   await expect(page.getByRole("heading", { name: "אגריה" })).toBeVisible();
   await page.goto(base + "/timelines/byzantine/#BY-036");
-  await expect(page.locator("#BY-036 details")).toHaveAttribute("open", "");
-  await loadedCard("#BY-036");
+  await expect(page.locator("#BY-036 > button")).toHaveAttribute("aria-expanded", "true");
+  await loaded("BY-036");
   await page.goto(base + "/timelines/byzantine/#BY-023");
-  await loadedCard("#BY-023");
+  await loaded("BY-023");
 
   const phone = await browser.newContext({ viewport: { width: 320, height: 760 } });
   await phone.route("**/*.supabase.co/**", (route) => route.fulfill({ json: [] }));

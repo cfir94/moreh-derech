@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { SecondTempleTimeline } from "@/components/timeline/SecondTempleTimeline";
+import { TEMPLE_EVENTS } from "@/data/second-temple";
+import { eraPhotos } from "@/lib/eraPhotos";
 
 export const metadata: Metadata = {
   title: "בית שני — מן השיבה אל החורבן | אֶבֶן דֶּרֶךְ למורי דרך",
@@ -7,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function SecondTemplePage() {
-  return <SecondTempleTimeline />;
+  return <SecondTempleTimeline photos={eraPhotos(TEMPLE_EVENTS.map((event) => event.id))} />;
 }

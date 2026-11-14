@@ -190,7 +190,7 @@
 }
 .tag:hover, .tag:focus-visible { transform: rotate(0deg) translateY(-3px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 50%, transparent), 0 16px 22px -14px rgb(20 12 4 / 0.6); }
 .tagOn { box-shadow: 0 0 0 2.5px var(--ink-era), 0 10px 16px -12px rgb(20 12 4 / 0.55); }
-.tagStamp { justify-self: start; font-size: 1.05rem; color: var(--ink-era); }
+.tagStamp { justify-self: start; max-width: calc(100% - 26px); white-space: normal; font-size: 1.05rem; color: var(--ink-era); }
 .tagTitle { font-size: 1.2rem; font-weight: 800; line-height: 1.4; }
 .tagTip { font-size: 1.02rem; line-height: 1.6; color: var(--ink-dim); }
 
@@ -226,9 +226,9 @@
 .stationBtn {
   position: relative;
   display: grid;
-  grid-template-columns: 30px auto 1fr auto;
+  grid-template-columns: 30px 1fr auto;
   align-items: center;
-  gap: 4px 12px;
+  gap: 0 12px;
   width: 100%;
   min-height: 56px;
   padding: 8px 10px 8px 12px;
@@ -247,20 +247,16 @@
   background: var(--paper);
 }
 .stationKey .marker { width: 22px; height: 22px; border-color: var(--ink-era); background: var(--ink-era); }
-.stationDate { min-width: 7.5em; font-size: 1.02rem; font-weight: 700; color: var(--ink-dim); }
-.stationTitle { font-size: 1.12rem; font-weight: 700; line-height: 1.4; }
+.marker { grid-row: 1 / span 2; }
+.stationDate { grid-column: 2; font-size: 0.98rem; font-weight: 700; line-height: 1.4; color: var(--ink-dim); }
+.stationTitle { grid-column: 2; font-size: 1.12rem; font-weight: 700; line-height: 1.4; }
+.stationKind { grid-column: 3; grid-row: 1 / span 2; }
 .stationKey .stationTitle { font-weight: 900; }
 .stationKind { color: var(--ink-dim); }
 .stationOn > .stationBtn { background: color-mix(in srgb, var(--ground) 60%, var(--paper)); box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink-era) 70%, transparent); }
 .stationOn .marker { box-shadow: 0 0 0 5px color-mix(in srgb, var(--ink-era) 25%, transparent); }
 .emptyTrail { padding: 16px 44px; font-size: 1.05rem; color: var(--ink-dim); }
 
-@media (max-width: 640px) {
-  .stationBtn { grid-template-columns: 30px 1fr auto; }
-  .stationDate { grid-column: 2; min-width: 0; font-size: 0.98rem; }
-  .stationTitle { grid-column: 2; grid-row: 2; }
-  .stationKind { grid-column: 3; grid-row: 1 / span 2; }
-}
 
 /* ---------------------------------------------------------------- the event page beside the trail */
 
