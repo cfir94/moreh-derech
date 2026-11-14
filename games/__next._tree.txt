@@ -1,5 +1,5 @@
 :HL["/moreh-derech/_next/static/chunks/04pq3iow808zi.css","style"]
-:HL["/moreh-derech/_next/static/chunks/399k_4j_mk861.css","style"]
+:HL["/moreh-derech/_next/static/chunks/0vcip2st_rdpe.css","style"]
 :HL["/moreh-derech/_next/static/media/frank_ruhl_libre_hebrew_wght_normal-s.p.1f40cji2rrmlk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/frank_ruhl_libre_latin_wght_normal.p.1p_ev8fauqki_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/gveret_levin_hebrew_400_normal-s.p.1woxhoaebplg4.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -15,4 +15,4 @@
 :HL["/moreh-derech/_next/static/media/playpen_sans_hebrew_latin_400_normal.p.07rejf5f_6t9e.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/media/playpen_sans_hebrew_latin_700_normal.p.039d_qh960e8u.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/moreh-derech/_next/static/chunks/0831xk65ytvdi.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"games","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"RB0tAFC_zczHzlEk3ZF9d"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"games","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"QPVolA49h7reO2WRASbOl"}
