@@ -41,7 +41,7 @@ function LoadedDraft({ kind, children }: Props) {
       : EXAM_PAPERS.some((paper) => paper.slug === (draft.payload as ExamDraftPayload).paperSlug && paper.groups.some((group) => group.n === (draft.payload as ExamDraftPayload).groupN && group.shortUnits.length === (draft.payload as ExamDraftPayload).units.length));
     if (!valid) error = "התרחיש של הטיוטה אינו זמין כרגע. התוכן השמור לא שונה.";
   }
-  if (error) return <div role="status" className="rounded-lg border border-line bg-card p-5"><p className="mb-3 text-txt-dim">{error}</p><Link href="/guide-reports/drafts" className="font-bold text-teal">לרשימת הטיוטות</Link></div>;
+  if (error) return <div role="status" className="paper-sheet p-5"><p className="mb-3 text-txt-dim">{error}</p><Link href="/guide-reports/drafts" className="font-bold text-teal">לרשימת הטיוטות</Link></div>;
   return <Fragment key={`${user?.id ?? "guest"}:${id ?? "new"}`}>{children(draft)}</Fragment>;
 }
 

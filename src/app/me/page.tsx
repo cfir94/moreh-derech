@@ -108,7 +108,7 @@ export default function MePage() {
           {s.reviewCount > 0 && (
             <Link
               href="/quizzes/review"
-              className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-card p-5 transition active:scale-[0.98]"
+              className="flex flex-wrap items-center justify-between gap-4 paper-sheet p-5 transition active:scale-[0.98]"
             >
               <div>
                 <h2 className="text-lg text-gold">🔁 תרגול טעויות</h2>

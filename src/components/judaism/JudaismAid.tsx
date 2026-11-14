@@ -75,7 +75,7 @@ export function JudaismAid() {
         </div>}
 
         {tab === "centers" && <section aria-label="מרכזי התורה" className="grid gap-3 md:grid-cols-2">
-          {TORAH_CENTERS.map((c) => <article key={c.place} className="rounded-lg border border-line bg-card p-4">
+          {TORAH_CENTERS.map((c) => <article key={c.place} className="paper-sheet p-4">
             <p className="text-sm font-bold text-txt-dim">{c.when}</p>
             <h2 className="text-xl font-black">{c.place}</h2>
             <p className="mt-1 leading-7">{c.what}</p>
@@ -83,14 +83,14 @@ export function JudaismAid() {
         </section>}
 
         {tab === "foundations" && <section aria-label="יסודות" className="space-y-3">
-          {JUDAISM_FOUNDATIONS.map((f) => <article key={f.q} className="rounded-lg border border-line bg-card p-4">
+          {JUDAISM_FOUNDATIONS.map((f) => <article key={f.q} className="paper-sheet p-4">
             <h2 className="text-lg font-black">{f.q}</h2>
             <p className="mt-1 leading-7">{f.a}</p>
             {f.note && <p className="mt-2 rounded-md bg-card-2 p-3 text-sm leading-6 text-txt-dim">{f.note}</p>}
           </article>)}
         </section>}
 
-        {tab === "practice" && <section aria-label="תרגול" className="rounded-lg border border-line bg-card p-4 sm:p-6">
+        {tab === "practice" && <section aria-label="תרגול" className="paper-sheet p-4 sm:p-6">
           <PracticeDeck quizSlug="judaism-chain" label="שרשרת הספרים: תרגול" items={PRACTICE} />
         </section>}
       </div>

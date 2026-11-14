@@ -30,7 +30,7 @@ export function PracticeDeck({ quizSlug, label, items }: { quizSlug: string; lab
   const choices = useMemo<Choice[]>(() => item ? shuffled(item.choices.map((text, sourceIndex) => ({ text, sourceIndex })), item.id + round * 997) : [], [item, round]);
   const correct = picked !== null && choices[picked]?.sourceIndex === item?.answer;
 
-  if (!item) return <p className="rounded-lg border border-line bg-card p-5 text-txt-dim">אין שאלות לתרגול.</p>;
+  if (!item) return <p className="paper-sheet p-5 text-txt-dim">אין שאלות לתרגול.</p>;
 
   const choose = (choiceIndex: number) => {
     if (picked !== null) return;

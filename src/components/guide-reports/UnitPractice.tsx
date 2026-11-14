@@ -177,7 +177,7 @@ function UnitEditor({ initialPromptId, draft }: { initialPromptId?: string; draf
       )}
 
       {showFeedback && (
-        <div className="rounded-lg border border-line bg-card p-4">
+        <div className="paper-sheet p-4">
           <div className="mb-3 flex items-baseline justify-between gap-2">
             <h3 className="text-base">משוב מ״מים</h3>
             <span className="num text-sm font-extrabold text-mc">

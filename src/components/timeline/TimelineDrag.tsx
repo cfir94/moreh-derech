@@ -160,7 +160,7 @@ export function TimelineDrag() {
           ← חזרה לעיוני
         </Link>
         <div
-          className="relative mb-6 overflow-hidden rounded-lg border border-line bg-card p-5"
+          className="relative mb-6 overflow-hidden paper-sheet p-5"
           style={domainStyle("timeline-drag")}
         >
           <span
@@ -189,7 +189,7 @@ export function TimelineDrag() {
               key={s.key}
               type="button"
               onClick={() => begin(s)}
-              className="rounded-lg border border-line bg-card p-4 text-right transition hover:bg-card-2 active:scale-[0.99]"
+              className="paper-sheet p-4 text-right transition hover:bg-card-2 active:scale-[0.99]"
             >
               <div className="mb-1 flex items-baseline justify-between gap-3">
                 <h3 className="text-[15px]">{s.title}</h3>
@@ -345,7 +345,7 @@ export function TimelineDrag() {
       </ol>
 
       {checked && set.sourceUrls && (
-        <details className="mt-5 rounded-lg border border-line bg-card p-4 text-[12.5px]">
+        <details className="mt-5 paper-sheet p-4 text-[12.5px]">
           <summary className="cursor-pointer font-bold">מקורות והערות לתיארוך</summary>
           <p className="mt-2 leading-relaxed text-txt-dim">הכרטיסים מציינים אירוע או תחילת כהונה, ולא את כל חיי הדמות. תאריכים מקורבים מסומנים ככאלה; 324 הוא עוגן החלוקה לתקופה הביזנטית בארץ. תאריכי בנייה עשויים לציין תחילת מפעל ממושך.</p>
           <div className="mt-2 flex flex-wrap gap-3">{set.sourceUrls.map((url, index) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="font-bold text-teal hover:underline">{["מחברת בית שני", "מחברת רומא וביזנטיון", "מחברת אדריכלות קלאסית"][index]} ↗</a>)}</div>
@@ -353,7 +353,7 @@ export function TimelineDrag() {
       )}
 
       {checked && (
-        <div className="mt-5 rounded-lg border border-line bg-card p-4">
+        <div className="mt-5 paper-sheet p-4">
           <p className="mb-1 text-base">
             <span className="num font-extrabold text-mc">{correct}</span> מתוך{" "}
             <span className="num font-extrabold">{cards.length}</span> במקום

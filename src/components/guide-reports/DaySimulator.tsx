@@ -119,7 +119,7 @@ function DayEditor({ initialScenarioId, draft }: { initialScenarioId?: string; d
         </select>
       </div>
 
-      <div className="rounded-lg border border-line bg-card p-4 text-[13px] leading-relaxed">
+      <div className="paper-sheet p-4 text-[13px] leading-relaxed">
         <p className="mb-2">
           <b>הקבוצה: </b>
           {scenario.group}

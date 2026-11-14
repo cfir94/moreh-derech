@@ -54,7 +54,7 @@ export function FaunaGuide({ photos }: { photos: FaunaPhotos }) {
     <PageDecor wide birds prints="hoof" items={["ibex","binoculars","butterfly","footprint","hills","lake"]} />
     <AidHeader slug="fauna" title="מגדיר החי והציפורים" subtitle="מי זה שם על הסלע? מצמצמים לפי קבוצה ואזור, ומגיעים לכרטיס שדה קצר." stats={`${ANIMALS.length} בעלי חיים · ${Object.keys(ANIMAL_GROUPS).length} קבוצות`} />
 
-    <section aria-labelledby="fauna-filter" className="rounded-lg border border-line bg-card p-4 sm:p-6">
+    <section aria-labelledby="fauna-filter" className="paper-sheet p-4 sm:p-6">
       <h2 id="fauna-filter" className="text-2xl font-black">מה ראיתם?</h2>
       <div role="group" aria-label="קבוצה" className="mt-4 flex flex-wrap gap-2">
         {([["", "הכול", "✨"], ...Object.entries(ANIMAL_GROUPS).map(([id, g]) => [id, g.title, g.icon])] as [AnimalGroup | "", string, string][]).map(([id, label, icon]) =>

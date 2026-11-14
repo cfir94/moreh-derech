@@ -106,7 +106,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
       </div>
 
       {plan && (
-        <div className="screen-in mt-5 rounded-lg border border-line bg-card p-5" data-join-form>
+        <div className="screen-in mt-5 paper-sheet p-5" data-join-form>
           <OwnerCard />
           {sent ? (
             <p role="status" className="mt-4 text-base font-bold text-txt">

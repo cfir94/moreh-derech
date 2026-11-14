@@ -521,7 +521,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
               type="button"
               onClick={() => scrollCarousel("previous")}
               aria-label={`הצגת מקורות קודמים ב${activeSubtopic.title}`}
-              className="rounded-lg border border-line bg-card px-3 py-1.5 text-sm font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
+              className="paper-sheet px-3 py-1.5 text-sm font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
             >
               הקודם
             </button>
@@ -529,7 +529,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
               type="button"
               onClick={() => scrollCarousel("next")}
               aria-label={`הצגת מקורות נוספים ב${activeSubtopic.title}`}
-              className="rounded-lg border border-line bg-card px-3 py-1.5 text-sm font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
+              className="paper-sheet px-3 py-1.5 text-sm font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
             >
               הבא
             </button>

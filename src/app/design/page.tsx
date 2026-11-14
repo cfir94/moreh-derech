@@ -17,7 +17,7 @@ export default function Page() {
       </p>
       <ul className="flex flex-col gap-3">
         <li>
-          <Link href="/design/final" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+          <Link href="/design/final" className="block paper-sheet px-5 py-4 text-xl font-bold">
             הגרסה המאוחדת: הדף עצמו נפתח כמפה מהתרמיל (הכי חדש)
           </Link>
           <Link href="/design/final/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
@@ -28,7 +28,7 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/design/map" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+          <Link href="/design/map" className="block paper-sheet px-5 py-4 text-xl font-bold">
             גרסה ה׳: צבע מפה
           </Link>
           <Link href="/design/map/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
@@ -36,7 +36,7 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/design/khaki" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+          <Link href="/design/khaki" className="block paper-sheet px-5 py-4 text-xl font-bold">
             גרסה ג׳: חול וחאקי
           </Link>
           <Link href="/design/khaki/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
@@ -44,7 +44,7 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/design/journey" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+          <Link href="/design/journey" className="block paper-sheet px-5 py-4 text-xl font-bold">
             גרסה ד׳: מהכרמל לנגב
           </Link>
           <Link href="/design/journey/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
@@ -52,7 +52,7 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/design/signs" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+          <Link href="/design/signs" className="block paper-sheet px-5 py-4 text-xl font-bold">
             גרסה א׳: השלטים החומים
           </Link>
           <Link href="/design/signs/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">
@@ -60,7 +60,7 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/design/trails" className="block rounded-lg border border-line bg-card px-5 py-4 text-xl font-bold">
+          <Link href="/design/trails" className="block paper-sheet px-5 py-4 text-xl font-bold">
             גרסה ב׳: סימון שבילים
           </Link>
           <Link href="/design/trails/quiz" className="mt-1 block px-5 py-2 text-lg font-bold text-teal">

@@ -64,7 +64,7 @@ export function PlantsGuide({ photos }: { photos: GuidePhotos }) {
     <PageDecor wide birds items={["flower","leaf","butterfly","tree","lake","binoculars"]} />
     <AidHeader slug="plants" title="מגדיר צמחים" subtitle="מצמצמים לפי מה שרואים בשטח, ומגיעים לצמח המתאים." stats={`${PLANTS.length} צמחים · ${Object.keys(PLANT_GROUPS).length} קבוצות`} />
 
-    <section aria-labelledby="identify-title" className="rounded-lg border border-line bg-card p-4 sm:p-6">
+    <section aria-labelledby="identify-title" className="paper-sheet p-4 sm:p-6">
       <h2 id="identify-title" className="text-2xl font-black">מה ראיתם בדרך?</h2>
       <p className="mt-1 text-txt-dim">בחרו רק מה שאתם יודעים. כל בחירה מצמצמת את התוצאות.</p>
       <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -99,7 +99,7 @@ export function PlantsGuide({ photos }: { photos: GuidePhotos }) {
       </div>
     </section>
 
-    <section aria-labelledby="wheel-title" className="rounded-lg border border-line bg-card p-4 sm:p-6">
+    <section aria-labelledby="wheel-title" className="paper-sheet p-4 sm:p-6">
       <h2 id="wheel-title" className="text-2xl font-black">גלגל העונות</h2>
       <p className="mt-1 text-txt-dim">בחרו חודש כדי לראות מה פורח, מבשיל או בולט בו לפי המגדיר.</p>
       <div className={styles.wheel} role="group" aria-label="חודשי השנה">

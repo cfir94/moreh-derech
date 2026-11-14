@@ -106,13 +106,13 @@ function ModelTab({ typeId, setTypeId }: { typeId: string; setTypeId: (id: strin
     </div>
     <aside className="space-y-3 lg:sticky lg:top-24 lg:self-start" aria-live="polite">
       <TypeCard type={type} />
-      {forces && <p className="rounded-lg border border-line bg-card p-4 text-sm leading-6 text-txt-dim">החצים מראים לאן הקשת דוחפת את התומכים שלה. בקשת עגולה הדחיפה לצדדים גדולה; בקשת מחודדת היא יורדת תלולה יותר; בקשת מדורגת אין דחיפה לצדדים כלל, כי אין בה אבני קשת.</p>}
+      {forces && <p className="paper-sheet p-4 text-sm leading-6 text-txt-dim">החצים מראים לאן הקשת דוחפת את התומכים שלה. בקשת עגולה הדחיפה לצדדים גדולה; בקשת מחודדת היא יורדת תלולה יותר; בקשת מדורגת אין דחיפה לצדדים כלל, כי אין בה אבני קשת.</p>}
     </aside>
   </div>;
 }
 
 function TypeCard({ type }: { type: ArchType }) {
-  return <article className="screen-in rounded-lg border border-line bg-card p-5">
+  return <article className="screen-in paper-sheet p-5">
     <p className="text-sm font-bold text-mc">{type.period}</p>
     <h2 className="mt-1 text-xl font-black">{type.name}{type.extra && <Extra />}</h2>
     <p className="mt-3 leading-7"><strong>איך מזהים: </strong>{type.sign}</p>
@@ -132,7 +132,7 @@ function CompareTab() {
   const [on, setOn] = useState<Profile[]>(["round", "pointed"]);
   const toggle = (p: Profile) => setOn((cur) => cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]);
   return <section className="space-y-4" aria-labelledby="compare-title">
-    <div className="rounded-lg border border-line bg-card p-5">
+    <div className="paper-sheet p-5">
       <h2 id="compare-title" className="text-2xl font-black">ארבע צורות על אותו פתח</h2>
       <p className="mt-1 leading-7 text-txt-dim">כל הקשתות כאן מגשרות על אותו רוחב. בחרו שתיים או יותר כדי לראות אותן זו על זו.</p>
       <div role="group" aria-label="קשתות להשוואה" className="mt-4 flex flex-wrap gap-2">
@@ -140,7 +140,7 @@ function CompareTab() {
       </div>
     </div>
     <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
-      <figure className="rounded-lg border border-line bg-card p-4">
+      <figure className="paper-sheet p-4">
         <svg viewBox="-2.8 -3.7 5.6 4.1" className={styles.overlay} role="img" aria-label={`השוואה: ${on.map((p) => PROFILES[p].name).join(", ")}`}>
           <g transform="scale(1,-1)">
             <line x1={-2.7} y1={0} x2={2.7} y2={0} className={styles.springing} />
@@ -152,7 +152,7 @@ function CompareTab() {
         <figcaption className="mt-2 text-center text-sm text-txt-dim">הקו האופקי הוא קו הזינוק: המקום שבו הקשת יוצאת מהעמוד.</figcaption>
       </figure>
       <div className="space-y-3">
-        {on.map((p) => <div key={p} className={`rounded-lg border border-line bg-card p-4 ${styles.legend} ${styles[`c_${p}`]}`}>
+        {on.map((p) => <div key={p} className={`paper-sheet p-4 ${styles.legend} ${styles[`c_${p}`]}`}>
           <h3 className="font-black">{PROFILES[p].name}</h3>
           <p className="mt-1 text-sm leading-6 text-txt-dim">{PROFILES[p].how}</p>
         </div>)}
@@ -166,7 +166,7 @@ function CompareTab() {
 function AgesTab({ onShow }: { onShow: (id: string) => void }) {
   const list = [...ARCH_TYPES].sort((a, b) => a.year - b.year);
   return <ol className="space-y-3">
-    {list.map((t) => <li key={t.id} className="flex gap-4 rounded-lg border border-line bg-card p-4">
+    {list.map((t) => <li key={t.id} className="flex gap-4 paper-sheet p-4">
       <ArchOutline profile={t.profile} className={styles.ageIcon} />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-bold text-mc">{t.period}</p>
@@ -204,12 +204,12 @@ function PracticeTab() {
   const [score, setScore] = useState(0);
   const q = order[i];
   const choices = useMemo(() => q ? shuffle([q.answer, ...shuffle([...new Set(q.pool)].filter((c) => c !== q.answer), round + i).slice(0, 3)], i + round * 31) : [], [q, i, round]);
-  if (!q) return <section className="rounded-lg border border-line bg-card p-6 text-center">
+  if (!q) return <section className="paper-sheet p-6 text-center">
     <h2 className="text-2xl font-black">סיימתם</h2>
     <p className="mt-2 text-txt-dim"><span className="num">{score}</span> מתוך <span className="num">{order.length}</span></p>
     <button type="button" onClick={() => { setRound(round + 1); setI(0); setPicked(null); setScore(0); }} className={`${styles.primary} mt-4`}>סבב נוסף</button>
   </section>;
-  return <section aria-label="זיהוי קשתות" className="rounded-lg border border-line bg-card p-5">
+  return <section aria-label="זיהוי קשתות" className="paper-sheet p-5">
     <p className="mb-3 text-sm text-txt-dim">שאלה <span className="num">{i + 1}</span> מתוך <span className="num">{order.length}</span></p>
     <h2 className="text-xl font-black leading-8">{q.prompt}</h2>
     <div className="mt-4 grid gap-3">

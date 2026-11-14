@@ -2,7 +2,7 @@ import type { GuideUnit } from "@/data/guide-reports";
 
 export function GuideUnitCard({ unit }: { unit: GuideUnit }) {
   return (
-    <article className="rounded-lg border border-line bg-card p-4">
+    <article className="paper-sheet p-4">
       <header className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-base">
           <span className="num ml-1.5 text-txt-dim">{unit.n}.</span>
