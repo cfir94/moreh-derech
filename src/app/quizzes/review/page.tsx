@@ -9,6 +9,7 @@ import { QuizRunner } from "@/components/quiz/QuizRunner";
 import { useProgress } from "@/hooks/useProgress";
 import { reviewQuestions } from "@/lib/reviewQuestions";
 import { SIGN_STYLE } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
 
 /**
  * Drills every question the user most recently got wrong, pooled across all
@@ -34,7 +35,7 @@ export default function ReviewPage() {
   if (questions.length === 0) {
     return (
       <div className="screen-in mx-auto max-w-2xl px-4 py-16 text-center">
-        <div aria-hidden className="mb-4 text-[46px]">🎉</div>
+        <InkIcon name="milestone" size={60} className="mx-auto mb-4 text-txt" />
         <h1 className="mb-3 text-2xl">אין טעויות לתרגול</h1>
         <p className="mb-6 text-txt-dim">
           {unavailable ? `${unavailable} שאלות שמורות אינן זמינות כרגע במאגר. ההיסטוריה נשמרה.` : "כל השאלות שטעיתם בהן כבר נענו נכון מאז. כל הכבוד!"}

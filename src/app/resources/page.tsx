@@ -121,10 +121,6 @@ export default function ResourcesPage() {
             style={{ ...domainStyle(group.slug), animationDelay: `${i * 0.03}s` }}
             className="screen-in relative overflow-hidden paper-sheet p-4"
           >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -top-8 -left-8 h-24 w-24 rounded-full bg-mc opacity-[0.16] blur-[6px]"
-            />
             <div className="relative">
               <h2 className="mb-1 text-base">{group.title}</h2>
               <p className="mb-3 text-sm leading-relaxed text-txt-dim">

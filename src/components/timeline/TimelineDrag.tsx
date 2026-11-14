@@ -6,6 +6,9 @@ import { TIMELINE_SETS } from "@/data/timelines/drag-sets";
 import type { TimelineSet } from "@/data/timelines/types";
 import { recordSummaryAttempt } from "@/lib/progress";
 import { domainStyle } from "@/lib/domains";
+import { PageHead } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 /**
  * Put the cards in chronological order.
@@ -152,32 +155,20 @@ export function TimelineDrag() {
 
   if (!set) {
     return (
-      <div className="screen-in mx-auto max-w-2xl px-4 py-10">
+      <div className="screen-in relative mx-auto max-w-2xl px-4 py-10">
+        <PageDecor prints={false} items={["sort", "sundial", "scroll", "pencil"]} />
         <Link
           href="/topics/"
           className="mb-4 inline-block text-[13px] font-bold text-txt-dim hover:underline"
         >
           ← חזרה לעיוני
         </Link>
-        <div
-          className="relative mb-6 overflow-hidden paper-sheet p-5"
-          style={domainStyle("timeline-drag")}
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-mc opacity-20 blur-[8px]"
+        <div style={domainStyle("timeline-drag")}>
+          <PageHead
+            title="תרגול ציר זמן"
+            art={<InkIcon name="sort" />}
+            lede="סדרו את הכרטיסים מן המוקדם למאוחר, בגרירה או בחיצים."
           />
-          <div className="relative flex items-start gap-3">
-            <span aria-hidden className="text-[34px] leading-none">
-              🧩
-            </span>
-            <div>
-              <h1 className="mb-1 text-2xl">תרגול ציר זמן</h1>
-              <p className="text-[13px] text-txt-dim">
-                סדרו את הכרטיסים מן המוקדם למאוחר — בגרירה או בחיצים.
-              </p>
-            </div>
-          </div>
         </div>
 
         <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
