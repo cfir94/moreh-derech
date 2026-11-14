@@ -3,7 +3,7 @@ import Link from "next/link";
 import { withBasePath } from "@/lib/basePath";
 import { SITES, ROWS, PERIODS } from "@/data/learning-map";
 import styles from "./MapChooser.module.css";
-import { PenUnderline } from "@/components/trail/kit";
+import { kit, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
 
 
@@ -25,8 +25,10 @@ export default function MapChooserPage() {
     <div className={`screen-in relative ${styles.page}`}>
       <PageDecor birds items={["compass", "hills", "signpost", "lake", "binoculars"]} step={300} />
       <header className={styles.head}>
-        <h1 className="grad-text">מפה</h1>
-        <PenUnderline />
+        <div className={kit.titleWrap}>
+          <h1 className="grad-text">מפה</h1>
+          <PenUnderline />
+        </div>
         <p>שתי מפות לשתי מטרות: אחת ללמוד את האתרים לקראת המבחן, ואחת לתכנן יום בשטח.</p>
       </header>
 

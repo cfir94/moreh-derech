@@ -117,12 +117,20 @@
   height: 62%;
 }
 
+/* on a narrow page the sentence would run under the drawing: it stops short of it */
+.head:has(.headArt) .lede {
+  max-width: min(40rem, calc(100% - 132px));
+}
+
 @media (max-width: 700px) {
   .headArt {
     top: 0;
     width: 68px;
     height: 68px;
     border-width: 1.5px;
+  }
+  .head:has(.headArt) .lede {
+    max-width: calc(100% - 80px);
   }
   .title {
     padding-inline-end: 0;

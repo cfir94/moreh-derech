@@ -12,6 +12,7 @@ import { RELIGION_BY_ID, SITE_RELIGIONS } from "@/data/learning-map/religions";
 import { setMark, siteStatus, type SiteStat } from "@/lib/learningMapProgress";
 import { withBasePath } from "@/lib/basePath";
 import styles from "./LearningMap.module.css";
+import { InkIcon } from "@/components/trail/Ink";
 
 function Credit({ photo }: { photo: SitePhoto }) {
   return (
@@ -179,7 +180,7 @@ export function SiteCard({ site, activeLayerId, links, arch, stat, colorOf, onCl
           <div className={styles.media}>
             <Gallery site={site} index={photoIndex} setIndex={setPhotoIndex} />
             <aside className={styles.tip}>
-              <span aria-hidden>💡</span>
+              <InkIcon name="pencil" size={24} />
               <div>
                 <strong>טיפ לזכירה</strong>
                 <p>{site.tip}</p>

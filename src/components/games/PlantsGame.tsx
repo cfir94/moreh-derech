@@ -95,7 +95,6 @@ export function PlantsGame() {
 
     {!session && <section className="screen-in space-y-5">
       <div className="relative overflow-hidden paper-sheet p-6">
-        <span aria-hidden className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-mc opacity-25 blur-3xl" />
         <ArtAnemone aria-hidden width={92} height={92} className="text-txt" />
         <h1 className="grad-text mt-2 text-3xl font-black">זיהוי צמחים</h1>
         <p className="mt-2 text-base leading-7 text-txt-dim">עשר שאלות בכל סבב, מתוך {PLANTS.length} הצמחים שפוגשים בסיור: צילום אמיתי, סימן מזהה, &quot;מי מהשניים&quot; ואיפה הוא גדל. צמח שטעיתם בו יחזור בסבב הבא.</p>

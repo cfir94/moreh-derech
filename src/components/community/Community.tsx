@@ -48,8 +48,10 @@ function Shell({ title, back, children }: { title: string; back?: { href: string
     <PageDecor birds items={["community", "tent", "talk", "canteen", "butterfly"]} />
     {back && <Link href={back.href} className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
     <div className="relative mb-6">
-      <h1 className="grad-text">{title}</h1>
-      <PenUnderline />
+      <div className={k.titleWrap}>
+        <h1 className="grad-text">{title}</h1>
+        <PenUnderline />
+      </div>
       <span aria-hidden className="absolute top-0 left-0 hidden opacity-70 sm:block">
         <InkIcon name="community" size={92} />
       </span>

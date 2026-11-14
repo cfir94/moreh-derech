@@ -223,7 +223,7 @@ button.findTitle { color: var(--teal); }
 .about { font-size: 15px; line-height: 1.8; }
 
 .tip { display: flex; gap: 10px; padding: 11px 13px; border-radius: 14px; background: var(--lm-tip); border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
-.tip > span { font-size: 23px; line-height: 1.2; }
+.tip > svg { flex-shrink: 0; color: var(--gold); margin-top: 2px; }
 .tip strong { font-size: 14.5px; color: var(--gold); }
 .tip p { font-size: 15px; line-height: 1.75; margin-top: 2px; }
 .caution { display: flex; gap: 10px; padding: 9px 12px; border-radius: 12px; border: 1px dashed color-mix(in srgb, var(--rose) 50%, transparent); font-size: 14.5px; line-height: 1.7; color: var(--txt-dim); }

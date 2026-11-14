@@ -157,8 +157,10 @@ export function ExamRunner({ exam }: { exam: Exam }) {
 
         <div className="relative mb-6">
           <div className="relative">
-            <h1 className={k.title}>{exam.label.he}</h1>
-            <PenUnderline />
+            <div className={k.titleWrap}>
+              <h1 className={k.title}>{exam.label.he}</h1>
+              <PenUnderline />
+            </div>
             <p className="text-base leading-relaxed text-txt-dim">
               המבחן המלא כפי שהוגש, <span className="num">{questions.length}</span>{" "}
               שאלות. כמו במבחן האמיתי: התשובה הנכונה לא נחשפת בזמן המענה, אפשר

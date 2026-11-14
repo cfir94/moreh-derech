@@ -190,10 +190,12 @@ export function QuizRunner({
         </Link>
 
         <header className="relative mb-6">
-          <h1 className={k.title}>
-            {quiz.label}
-          </h1>
-          <PenUnderline />
+          <div className={k.titleWrap}>
+            <h1 className={k.title}>
+              {quiz.label}
+            </h1>
+            <PenUnderline />
+          </div>
           <p className="flex items-center gap-2 text-lg text-txt-dim">
             <InkIcon name={ink} size={26} />
             <span className="num">{quiz.questions.length}</span> שאלות ·{" "}

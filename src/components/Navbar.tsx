@@ -38,7 +38,8 @@ export function Navbar() {
   const { user, ready } = useUser();
   const pathname = usePathname();
   const { paywall } = useLaunch();
-  const links: NavLink[] = paywall
+  // prices are for whoever hasn't signed up yet; a signed-in user finds their plan under "me"
+  const links: NavLink[] = paywall && !(ready && user)
     ? [...baseLinks, { href: "/pricing", label: "מחירים", icon: "milestone", desc: "מחיר אחד, הכול פתוח" }]
     : baseLinks;
   const [open, setOpen] = useState(false);

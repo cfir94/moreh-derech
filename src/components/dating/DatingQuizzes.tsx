@@ -12,6 +12,9 @@ import { recordSummaryAttempt } from "@/lib/progress";
 import { isolateRanges } from "@/lib/bidi";
 import { domainStyle } from "@/lib/domains";
 import { SIGN_STYLE } from "@/components/trail/kit";
+import { PageHead } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const LETTERS = ["א", "ב", "ג", "ד"];
 const primary = "min-h-12 rounded-full px-7 text-base font-extrabold text-on-accent transition active:scale-95";
@@ -42,15 +45,13 @@ export function DatingQuizzes() {
   const pick = (choice: number) => { if (!run || run.picks[run.index] != null) return; const picks = [...run.picks]; picks[run.index] = choice; setRun({ ...run, picks }); };
   const rate = (value: number) => { if (!run) return; const ratings = [...run.ratings]; ratings[run.index] = value; setRun({ ...run, ratings }); };
 
-  return <div dir="rtl" style={domainStyle("timelines")} className="mx-auto min-h-screen w-full max-w-2xl space-y-5 px-4 py-8">
+  return <div dir="rtl" style={domainStyle("timelines")} className="relative mx-auto min-h-screen w-full max-w-2xl space-y-5 px-4 py-8">
+    <PageDecor prints={false} items={["sundial", "scroll", "sort", "column"]} />
     <Link href="/quizzes/" className="inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ כל השאלונים</Link>
 
     {!run && <section className="screen-in space-y-4">
-      <header className="relative overflow-hidden paper-sheet p-6">
-        <span aria-hidden className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-mc opacity-25 blur-3xl" />
-        <h1 className="grad-text text-3xl font-black">שאלוני תיארוך</h1>
-        <p className="mt-2 leading-7 text-txt-dim">מה קדם למה, ובאיזו שנה. בשאלת השלמה חושבים על התשובה, חושפים אותה ומדרגים את עצמכם ביושר.</p>
-      </header>
+      <PageHead title="שאלוני תיארוך" art={<InkIcon name="sundial" />}
+        lede="מה קדם למה, ובאיזו שנה. בשאלת השלמה חושבים על התשובה, חושפים אותה ומדרגים את עצמכם ביושר." />
       <ul className="grid gap-3 sm:grid-cols-2">
         {Object.entries(DATING_QUIZZES).map(([key, q]) => <li key={key}>
           <button type="button" onClick={() => start(key)} className="flex min-h-24 w-full flex-col items-start justify-center paper-sheet p-4 text-right transition hover:border-mc active:scale-[.98]">

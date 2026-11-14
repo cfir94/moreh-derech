@@ -11,6 +11,7 @@ import { needsReview, resetProgress, summarize } from "@/lib/progress";
 import { domainStyle } from "@/lib/domains";
 import { SIGN_STYLE } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { InkIcon } from "@/components/trail/Ink";
 
 function formatDate(ts: number) {
   return new Date(ts).toLocaleDateString("he-IL", {
@@ -65,7 +66,7 @@ export default function MePage() {
 
       {!hasData ? (
         <div className="rounded-lg border border-dashed border-line bg-card p-10 text-center">
-          <div aria-hidden className="mb-3 text-[40px]">🎯</div>
+          <InkIcon name="signpost" size={52} className="mx-auto mb-3 text-txt" />
           <h2 className="mb-2 text-xl">עוד לא התחלתם לתרגל</h2>
           <p className="mb-6 text-txt-dim">
             אחרי הסבב הראשון יופיעו כאן אחוזי ההצלחה, הפילוח לפי נושא, ורשימת
@@ -85,22 +86,20 @@ export default function MePage() {
         <div className="flex flex-col gap-8">
           <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              { label: "סבבי תרגול", value: s.totalAttempts, icon: "🎮" },
-              { label: "אחוז הצלחה", value: `${s.accuracyPct}%`, icon: "🎯" },
-              { label: "שאלות שנענו", value: s.totalAnswered, icon: "📝" },
-              { label: "ממתינות לחזרה", value: s.reviewCount, icon: "🔁" },
+              { label: "סבבי תרגול", value: s.totalAttempts, icon: "quizzes" as const },
+              { label: "אחוז הצלחה", value: `${s.accuracyPct}%`, icon: "milestone" as const },
+              { label: "שאלות שנענו", value: s.totalAnswered, icon: "pencil" as const },
+              { label: "ממתינות לחזרה", value: s.reviewCount, icon: "review" as const },
             ].map((stat) => (
               <div
                 key={stat.label}
                 className="rounded-md border border-line bg-card p-4"
               >
-                <div aria-hidden className="mb-1 text-lg">
-                  {stat.icon}
-                </div>
-                <div className="num text-[22px] font-black text-gold">
+                <InkIcon name={stat.icon} size={30} className="mb-1 text-txt" />
+                <div className="num text-[26px] font-black text-gold">
                   {stat.value}
                 </div>
-                <div className="mt-0.5 text-[13px] text-txt-dim">{stat.label}</div>
+                <div className="mt-0.5 text-sm text-txt-dim">{stat.label}</div>
               </div>
             ))}
           </section>
@@ -111,7 +110,7 @@ export default function MePage() {
               className="flex flex-wrap items-center justify-between gap-4 paper-sheet p-5 transition active:scale-[0.98]"
             >
               <div>
-                <h2 className="text-lg text-gold">🔁 תרגול טעויות</h2>
+                <h2 className="flex items-center gap-2 text-lg text-gold"><InkIcon name="review" size={24} /> תרגול טעויות</h2>
                 <p className="text-sm text-txt-dim">
                   {s.reviewCount} שאלות שטעיתם בהן ועדיין לא עניתם עליהן נכון.
                 </p>

@@ -26,7 +26,7 @@ import { useClassMember } from "@/hooks/useClassMember";
 import { LessonPlaylist } from "./LessonPlaylist";
 import { YouTubePlayer } from "./YouTubePlayer";
 import { InkIcon } from "@/components/trail/Ink";
-import { PenUnderline } from "@/components/trail/kit";
+import { kit, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
 
 const accentClasses = {
@@ -379,8 +379,10 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
           <InkIcon name="videos" size={24} />
           מרכז הלמידה
         </div>
-        <h1 className="grad-text text-[length:clamp(2.6rem,6vw,4.4rem)] leading-tight">ספריית הסרטונים</h1>
-        <PenUnderline />
+        <div className={kit.titleWrap}>
+          <h1 className="grad-text text-[length:clamp(2.6rem,6vw,4.4rem)] leading-tight">ספריית הסרטונים</h1>
+          <PenUnderline />
+        </div>
         {classMember ? (
           <>
             <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">

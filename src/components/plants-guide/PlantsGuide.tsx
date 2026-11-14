@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- optional static-export photos have runtime paths */
 
+import { withBasePath } from "@/lib/basePath";
 import { useEffect, useMemo, useState } from "react";
 import { AidHeader, PhotoFigure } from "@/components/learning-aid";
 import { PLANTS, PLANT_GROUPS, type Plant, type PlantGroup } from "@/data/plants/plants";
@@ -93,7 +94,7 @@ export function PlantsGuide({ photos }: { photos: GuidePhotos }) {
       </div>
       <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:grid-cols-4">
         {filtered.map((plant) => <button key={plant.id} type="button" onClick={() => openPlant(plant)} className="overflow-hidden rounded-md border border-line bg-sheet text-right transition hover:border-teal">
-          <div className="grid aspect-[4/3] place-items-center bg-card-2 text-sm font-bold text-txt-dim">{photos[plant.id]?.[0] ? <img src={photos[plant.id][0].src} alt="" className="h-full w-full object-cover" /> : "אין עדיין צילום"}</div>
+          <div className="grid aspect-[4/3] place-items-center bg-card-2 text-sm font-bold text-txt-dim">{photos[plant.id]?.[0] ? <img src={withBasePath(photos[plant.id][0].src)} alt="" className="h-full w-full object-cover" /> : "אין עדיין צילום"}</div>
           <span className="block px-3 pt-3 font-black">{plant.name}</span><i dir="ltr" className="block px-3 pb-3 text-sm text-txt-dim">{plant.sci}</i>
         </button>)}
       </div>
