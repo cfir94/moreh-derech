@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { useUser } from "@/contexts/UserContext";
 import {
-  adminHide, adminPin, markRead, myForums, openThread, reply, requestJoin, thread as loadThread, threads as loadThreads,
+  adminHide, adminPin, digestPref, markRead, myForums, setDigestPref, openThread, reply, requestJoin, thread as loadThread, threads as loadThreads,
   type Forum, type Post, type Thread,
 } from "@/lib/community";
 import { isAdmin } from "@/lib/manualAccess";
@@ -92,6 +92,35 @@ function ForumList({ forums, onJoin }: { forums: Forum[]; onJoin: (f: Forum) => 
       </li>;
     })}
   </ul>;
+}
+
+/**
+ * מייל יומי מרוכז (C-12): כבוי עד שהמשתמש מדליק. לא מוצג אם הטבלה עוד לא קיימת (digestPref מחזיר null).
+ * המייל נשלח פעם ביום, רק כשיש חדש, ובכל מייל יש קישור הסרה.
+ */
+function DigestToggle() {
+  const [on, setOn] = useState<boolean | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => { void digestPref().then(setOn); }, []);
+  if (on === null) return null;
+  return <section aria-labelledby="digest-title" className="mt-6 rounded-[5px] bg-[var(--paper)] p-5 shadow-[0_0_0_1px_var(--line),var(--shadow)]">
+    <label className="flex cursor-pointer items-start gap-3">
+      <input type="checkbox" checked={on} disabled={busy} className="mt-1.5 size-5 shrink-0 accent-[var(--teal)]"
+        onChange={async (e) => {
+          // the box answers the click at once; if saving fails it goes back and says why
+          const next = e.target.checked;
+          setOn(next); setBusy(true); setError("");
+          try { await setDigestPref(next); } catch (err) { setOn(!next); setError(`לא נשמר: ${(err as Error).message}`); }
+          setBusy(false);
+        }} />
+      <span>
+        <span id="digest-title" className="block text-lg font-black">מייל יומי עם ההודעות החדשות</span>
+        <span className="block text-base leading-7 text-txt-dim">פעם ביום, ורק כשנכתב משהו חדש בפורומים שלכם. בכל מייל יש קישור להפסקה.</span>
+      </span>
+    </label>
+    {error && <p role="alert" className="mt-2 font-bold text-red">{error}</p>}
+  </section>;
 }
 
 // ------------------------------------------------------------------ one forum
@@ -252,6 +281,7 @@ export function Community() {
     <ForumList forums={forums} onJoin={async (f) => {
       try { await requestJoin(f.id); await loadForums(); } catch (e) { setError(`הבקשה לא נשלחה: ${(e as Error).message}`); }
     }} />
+    {forums.some((f) => f.member) && <DigestToggle />}
   </Shell>;
 
   if (!forum) return <Shell title="קהילה" back={{ href: "/community/", label: "כל הפורומים" }}><p className="text-base text-txt-dim">הפורום לא נמצא, או שאין לכם גישה אליו.</p></Shell>;

@@ -94,6 +94,30 @@ export async function requestJoin(forumId: number) {
   });
 }
 
+// --- מייל יומי מרוכז (C-12, supabase/migrations/20261114_01_community_digest.sql) ---
+
+/** האם ביקשתי מייל יומי. null: אין התחברות, או שהטבלה עוד לא קיימת (המיגרציה לא רצה), ואז לא מציגים את המתג. */
+export async function digestPref(): Promise<boolean | null> {
+  const session = readSession();
+  if (!session) return null;
+  try {
+    const rows = await authenticatedSupabaseRequest<{ daily: boolean }[]>(`/rest/v1/md_digest_prefs?user_id=eq.${session.user_id}&select=daily`);
+    return Array.isArray(rows) ? Boolean(rows[0]?.daily) : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function setDigestPref(daily: boolean) {
+  const session = readSession();
+  if (!session) throw new Error("צריך להתחבר");
+  await authenticatedSupabaseRequest("/rest/v1/md_digest_prefs?on_conflict=user_id", {
+    method: "POST",
+    headers: { Prefer: "resolution=merge-duplicates,return=minimal" },
+    body: { user_id: session.user_id, daily, updated_at: new Date().toISOString() },
+  });
+}
+
 // --- מנהל ---
 export const adminHide = (kind: "thread" | "post", id: number, hidden: boolean) =>
   rpc<void>("md_admin_forum_hide", { p_kind: kind, p_id: id, p_hidden: hidden });
