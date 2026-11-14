@@ -50,7 +50,7 @@ export function FaunaGuide({ photos }: { photos: FaunaPhotos }) {
   function close() { history.replaceState(null, "", `${location.pathname}${location.search}`); setSelected(null); }
   const byId = (id: string) => ANIMALS.find((a) => a.id === id);
 
-  return <main dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+  return <main dir="rtl" className="relative mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
     <PageDecor wide birds prints="hoof" items={["ibex","binoculars","butterfly","footprint","hills","lake"]} />
     <AidHeader slug="fauna" title="מגדיר החי והציפורים" subtitle="מי זה שם על הסלע? מצמצמים לפי קבוצה ואזור, ומגיעים לכרטיס שדה קצר." stats={`${ANIMALS.length} בעלי חיים · ${Object.keys(ANIMAL_GROUPS).length} קבוצות`} />
 

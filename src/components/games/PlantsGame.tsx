@@ -89,7 +89,7 @@ export function PlantsGame() {
 
   const missedPlants = useMemo(() => finished && session ? session.questions.filter((x, i) => session.picked[i] !== x.plant).map((x) => PLANT_BY_ID.get(x.plant)!) : [], [finished, session]);
 
-  return <main dir="rtl" style={domainStyle("plants-game")} className="relative isolate mx-auto min-h-screen w-full max-w-2xl px-4 py-8">
+  return <main dir="rtl" style={domainStyle("plants-game")} className="relative mx-auto min-h-screen w-full max-w-2xl px-4 py-8">
     <PageDecor prints={false} items={["flower","leaf","butterfly"]} />
     <Link href="/games/" className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ כל המשחקים</Link>
 

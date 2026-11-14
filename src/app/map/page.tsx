@@ -22,7 +22,7 @@ export const metadata = pageMeta({
 
 export default function MapChooserPage() {
   return (
-    <div className={`screen-in relative isolate ${styles.page}`}>
+    <div className={`screen-in relative ${styles.page}`}>
       <PageDecor birds items={["compass", "hills", "signpost", "lake", "binoculars"]} step={300} />
       <header className={styles.head}>
         <h1 className="grad-text">מפה</h1>

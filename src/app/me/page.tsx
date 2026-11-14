@@ -38,7 +38,7 @@ export default function MePage() {
   const hasData = s.totalAttempts > 0;
 
   return (
-    <div className="screen-in relative isolate mx-auto max-w-3xl px-4 py-10">
+    <div className="screen-in relative mx-auto max-w-3xl px-4 py-10">
       <PageDecor birds items={["me", "notebooks", "canteen", "milestone", "review"]} />
       <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>

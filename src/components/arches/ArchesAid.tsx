@@ -227,7 +227,7 @@ function PracticeTab() {
 export function ArchesAid() {
   const [tab, setTab] = useHashTab<TabId>(TAB_IDS, "model");
   const [typeId, setTypeId] = useState(ARCH_TYPES[1].id);
-  return <main dir="rtl" style={domainStyle("arches")} className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <main dir="rtl" style={domainStyle("arches")} className="relative mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
     <PageDecor wide items={["arch","column","dome","tower","temple"]} />
     <AidHeader slug="arches" title="קשתות וקמרונות" subtitle="מהקשת הכנענית בתל דן, דרך רומא וביזנטיון, ועד האבלק והמוקרנס של הממלוכים. בונים, מסובבים ומשווים." stats={`${ARCH_TYPES.length} סוגים · 4 צורות קשת`} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">

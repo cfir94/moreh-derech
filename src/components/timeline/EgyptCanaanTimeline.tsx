@@ -46,7 +46,7 @@ export function EgyptCanaanTimeline() {
   const chapter = groups.findIndex((group) => group.id === tab);
   const numberFrom = 1 + (chapter > 0 ? timeline.events.filter((event) => event.kind === groups[0].id).length : 0);
 
-  return <main dir="rtl" className="relative isolate mx-auto max-w-6xl space-y-4 px-4 py-6" style={domainStyle("egypt-canaan")} data-egypt-canaan-timeline>
+  return <main dir="rtl" className="relative mx-auto max-w-6xl space-y-4 px-4 py-6" style={domainStyle("egypt-canaan")} data-egypt-canaan-timeline>
     <PageDecor items={["jar","crown","hills","tent","scroll"]} />
     <AidHeader slug="egypt-canaan" title={timeline.title} subtitle={timeline.subtitle} stats={`${timeline.events.length} אירועים · ${groups.length} חלקים`} />
     <AidTabs row tabs={tabs} active={tab} onSelect={selectTab} />

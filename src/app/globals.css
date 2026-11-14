@@ -167,8 +167,16 @@ body {
 
 body {
   color: var(--txt);
-  /* Ambient light from two corners over a vertical base — the ground is lit,
-     not flat, and every translucent card above it picks the wash up. */
+  font-size: 1.0625rem;
+  /* a drawing in the margin must never make the page scroll sideways */
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* the ground is painted on <html>, not <body>: a page's background decorations (PageDecor, z-index -1)
+   then sit between the map paper and the page, with no stacking context to trap the page's own
+   overlays (dialogs, drawers) under the header */
+html {
   /* an old map sheet: lighter where it was handled, browner toward the edges; the grain is
      blended into the sheet, so it costs nothing to draw */
   background:
@@ -178,16 +186,7 @@ body {
     var(--ground);
   background-blend-mode: normal, normal, multiply, normal;
   background-attachment: fixed;
-  font-size: 1.0625rem;
-  /* a drawing in the margin must never make the page scroll sideways */
-  overflow-x: clip;
-  /* a solid colour under the washes, so contrast checkers (and browsers that
-     drop fixed backgrounds) see the real ground and not white */
-  background-color: var(--bg);
-  -webkit-font-smoothing: antialiased;
-}
-
-html {
+  /* a solid colour under the washes, for contrast checkers and browsers that drop fixed backgrounds */
   background-color: var(--bg);
 }
 

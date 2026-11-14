@@ -51,7 +51,7 @@ export function BiblicalTimeline() {
   const chapter = activeTimeline ? timelines.indexOf(activeTimeline) : 0;
   const numberFrom = 1 + timelines.slice(0, chapter).reduce((sum, item) => sum + item.events.length, 0);
 
-  return <main dir="rtl" className="relative isolate mx-auto max-w-6xl px-4 py-8" style={domainStyle("biblical")} data-biblical-timeline>
+  return <main dir="rtl" className="relative mx-auto max-w-6xl px-4 py-8" style={domainStyle("biblical")} data-biblical-timeline>
     <PageDecor prints={false} items={["cross","church","lake","scroll"]} />
     <PageHead
       title="חיי ישוע והשליחים"

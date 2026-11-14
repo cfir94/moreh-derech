@@ -11,7 +11,7 @@ export const metadata = pageMeta({
 
 export default function CrosswordPage() {
   return (
-    <div className="relative isolate mx-auto max-w-6xl px-4 py-6 sm:py-10">
+    <div className="relative mx-auto max-w-6xl px-4 py-6 sm:py-10">
       <PageDecor prints={false} items={["grid","pencil","notebooks","quizzes"]} />
       <Link href="/games" className="pencil mb-5 inline-flex min-h-11 items-center text-base text-txt-dim underline underline-offset-4 hover:text-txt">→ לכל המשחקים</Link>
       <CrosswordGame />

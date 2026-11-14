@@ -4,7 +4,6 @@
 
 .page {
   position: relative;
-  isolation: isolate;
   max-width: 1120px;
   margin: 0 auto;
   padding: 34px 20px 80px;

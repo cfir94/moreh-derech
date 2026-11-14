@@ -6,8 +6,8 @@
   bottom: 0;
   /* out to the edges of the window, never past them: the page must not scroll sideways */
   inset-inline: min(0px, calc((100% - 100vw) / 2 + 10px));
-  /* behind the content: the parent is its own stacking context (isolation: isolate), so -1 stays
-     above the page ground and under every element of the page, sticky ones included */
+  /* behind the page: the ground is painted on <html>, so -1 sits on the map paper and under every
+     element of the page, sticky bars and dialogs included */
   z-index: -1;
   overflow: hidden;
   pointer-events: none;

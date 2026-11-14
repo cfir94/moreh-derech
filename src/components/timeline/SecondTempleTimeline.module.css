@@ -3,7 +3,7 @@
   --paper-raised: color-mix(in srgb, var(--paper) 80%, white 20%); --paper-muted: color-mix(in srgb, var(--ground) 55%, var(--paper));
   --muted: var(--ink-dim); --edge: color-mix(in srgb, var(--frame) 35%, transparent); --accent: var(--sign);
   --warning-bg: #f3e6a8; --warning-ink: #3a2c10;
-  position: relative; isolation: isolate;
+  position: relative;
   max-width: 1200px; margin: auto; padding: 24px 24px 36px; color: var(--ink); font-size: 1.0625rem;
 }
 :global([data-theme="dark"]) .page {

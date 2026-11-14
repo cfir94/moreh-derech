@@ -10,7 +10,7 @@ export const metadata = pageMeta({
 });
 
 export default function JerusalemRobesPage() {
-  return <div className="relative isolate mx-auto max-w-6xl px-4 py-6 sm:py-10">
+  return <div className="relative mx-auto max-w-6xl px-4 py-6 sm:py-10">
       <PageDecor prints={false} items={["hood","cross","church","gate"]} />
     <Link href="/games" className="pencil mb-5 inline-flex min-h-11 items-center text-base text-txt-dim underline underline-offset-4 hover:text-txt">→ לכל המשחקים</Link>
     <JerusalemRobesGame />

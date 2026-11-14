@@ -298,7 +298,7 @@ export function GeologyAid({ photos, practice }: { photos: GeoPhotos; practice: 
   const [focusAge, setFocusAge] = useState<AgeId | null>(null);
   const stats = useMemo(() => `${AGES.length} תקופות · ${ROCKS.length} סלעים · ${SOILS.length} קרקעות`, []);
 
-  return <main dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <main dir="rtl" className="relative mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
     <PageDecor wide items={["hammer","strata","hills","lake","handaxe"]} />
     <AidHeader slug="geology" title="גאולוגיה של ארץ ישראל" subtitle="מה בנוי מה, ומתי. מפה בתלת־ממד, עמוד הזמן, הסלעים והקרקעות שרואים בסיור." stats={stats} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">

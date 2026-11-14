@@ -144,7 +144,7 @@ export function ExamRunner({ exam }: { exam: Exam }) {
   if (phase === "intro") {
     return (
       <div
-        className="screen-in relative isolate mx-auto max-w-2xl px-4 py-10"
+        className="screen-in relative mx-auto max-w-2xl px-4 py-10"
         style={domainStyle("exams")}
       >
         <PageDecor prints={false} step={300} items={["exams", "pencil", "quizzes"]} />
