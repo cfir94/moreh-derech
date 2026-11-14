@@ -15,6 +15,7 @@ import { withBasePath } from "@/lib/basePath";
 import { domainStyle } from "@/lib/domains";
 import { SIGN_STYLE } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { ArtAnemone } from "@/components/trail/decor/games";
 
 const PHOTOS: PlantPhoto[] = Object.values(rawPhotos as Record<string, (PlantPhoto & { status?: string })[]>)
   .flat().filter((p) => p.status === "approved");
@@ -95,7 +96,7 @@ export function PlantsGame() {
     {!session && <section className="screen-in space-y-5">
       <div className="relative overflow-hidden rounded-lg border border-line bg-card p-6">
         <span aria-hidden className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-mc opacity-25 blur-3xl" />
-        <p className="text-4xl" aria-hidden>🌿</p>
+        <ArtAnemone aria-hidden width={92} height={92} className="text-txt" />
         <h1 className="grad-text mt-2 text-3xl font-black">זיהוי צמחים</h1>
         <p className="mt-2 text-base leading-7 text-txt-dim">עשר שאלות בכל סבב, מתוך {PLANTS.length} הצמחים שפוגשים בסיור: צילום אמיתי, סימן מזהה, &quot;מי מהשניים&quot; ואיפה הוא גדל. צמח שטעיתם בו יחזור בסבב הבא.</p>
       </div>
@@ -139,7 +140,7 @@ export function PlantsGame() {
 
     {finished && session && <section className="screen-in space-y-4">
       <div className="rounded-lg border border-line bg-card p-6 text-center">
-        <p className="text-4xl" aria-hidden>{correctCount >= 8 ? "🌳" : correctCount >= 5 ? "🌿" : "🌱"}</p>
+        <ArtAnemone aria-hidden width={92} height={92} className="mx-auto text-txt" />
         <h1 className="mt-2 text-2xl font-black">סיימתם את הסבב</h1>
         <p className="mt-1 text-lg text-txt-dim"><span className="num font-black text-txt">{correctCount}</span> מתוך <span className="num">{session.questions.length}</span></p>
       </div>

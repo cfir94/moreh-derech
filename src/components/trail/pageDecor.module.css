@@ -4,7 +4,8 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  inset-inline: -230px;
+  /* out to the edges of the window, never past them: the page must not scroll sideways */
+  inset-inline: min(0px, calc((100% - 100vw) / 2 + 10px));
   /* behind the content: the parent is its own stacking context (isolation: isolate), so -1 stays
      above the page ground and under every element of the page, sticky ones included */
   z-index: -1;
@@ -43,11 +44,11 @@
 }
 
 .start {
-  inset-inline-start: 84px;
+  inset-inline-start: 18px;
 }
 
 .end {
-  inset-inline-end: 84px;
+  inset-inline-end: 18px;
 }
 
 .steps {
@@ -74,13 +75,19 @@
   }
 }
 
+/* a wide page (max-w-7xl) leaves gutters only on a very wide screen */
+@media (max-width: 1719px) {
+  .wide .sketch,
+  .wide .birds {
+    display: none;
+  }
+}
+
 @media (max-width: 1100px) {
   .marks {
     display: none;
   }
-  .layer {
-    inset-inline: 0;
-  }
+
   .topo {
     inset-inline-end: -120px;
     width: 420px;

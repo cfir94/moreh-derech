@@ -61,7 +61,7 @@ export function PlantsGuide({ photos }: { photos: GuidePhotos }) {
   const closePlant = () => { history.replaceState(null, "", `${location.pathname}${location.search}`); setSelected(null); };
 
   return <main dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-    <PageDecor birds items={["flower","leaf","butterfly","tree","lake","binoculars"]} />
+    <PageDecor wide birds items={["flower","leaf","butterfly","tree","lake","binoculars"]} />
     <AidHeader slug="plants" title="מגדיר צמחים" subtitle="מצמצמים לפי מה שרואים בשטח, ומגיעים לצמח המתאים." stats={`${PLANTS.length} צמחים · ${Object.keys(PLANT_GROUPS).length} קבוצות`} />
 
     <section aria-labelledby="identify-title" className="rounded-lg border border-line bg-card p-4 sm:p-6">

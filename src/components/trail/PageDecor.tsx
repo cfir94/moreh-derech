@@ -18,6 +18,7 @@ export function PageDecor({
   birds = false,
   topo = true,
   step = 360,
+  wide = false,
 }: {
   /** pen sketches for the margins, top to bottom: things that belong to this page's subject */
   items?: FieldIconName[];
@@ -27,9 +28,11 @@ export function PageDecor({
   topo?: boolean;
   /** distance between sketches down the page */
   step?: number;
+  /** the page is wide (max-w-7xl): the sketches wait for a wider screen */
+  wide?: boolean;
 }) {
   return (
-    <div aria-hidden className={d.layer}>
+    <div aria-hidden className={`${d.layer} ${wide ? d.wide : ""}`}>
       {topo && <TopoPatch className={d.topo} />}
       {birds && <Birds className={d.birds} />}
       {items.map((name, i) => (
