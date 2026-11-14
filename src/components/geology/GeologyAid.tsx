@@ -32,7 +32,7 @@ const AGE_BY_ID = new Map(AGES.map((a) => [a.id, a]));
 const ageOrder = (id: string) => AGES.findIndex((a) => a.id === id);
 
 function Extra() {
-  return <span className="mr-2 rounded-full border border-line px-2 py-0.5 text-xs font-bold text-txt-dim" title="ידע כללי שאינו בחומר הקורס">השלמה</span>;
+  return <span className="mr-2 rounded-full border border-line px-2 py-0.5 text-sm font-bold text-txt-dim" title="ידע כללי שאינו בחומר הקורס">השלמה</span>;
 }
 
 function Swatch({ color }: { color: string }) {
@@ -157,7 +157,7 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
         {hover && hoverName && <div className={styles.tooltip} style={{ transform: `translate(${hover.x}px, ${hover.y}px)` }}>{hoverName}</div>}
         <p className={styles.hint}>גררו לסיבוב · גלגלת או צביטה לזום · הקישו על אזור</p>
       </div>
-      <p className="text-xs leading-5 text-txt-dim">{level === "official"
+      <p className="text-sm leading-5 text-txt-dim">{level === "official"
         ? <>השכבה הרשמית: <a href={GSI_CREDIT.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">{GSI_CREDIT.text}</a>, בצבעים של המפה המודפסת. הקווים מוכללים לתצוגה ארצית.</>
         : "צבעי האזורים הם צבעי גיל הסלע, כמו במפות גאולוגיות. תחומי היחידות סכמטיים: הכללה ללימוד, לא מיפוי מדויק."} גבהים: Mapzen Terrain Tiles.</p>
     </div>
@@ -187,7 +187,7 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
           {units?.map((u) => <li key={u.id}>
             <button type="button" aria-pressed={picked === u.id} onClick={() => choose(picked === u.id ? null : u.id)} className={`flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2 text-right transition ${picked === u.id ? "bg-card-2 font-black" : "hover:bg-card-2"}`}>
               <Swatch color={u.color} />
-              <span className="min-w-0 flex-1"><span className="block">{u.name}</span><span className="block text-xs text-txt-dim">{AGE_BY_ID.get(u.age as AgeId)?.name} · {u.rockClass}</span></span>
+              <span className="min-w-0 flex-1"><span className="block">{u.name}</span><span className="block text-sm text-txt-dim">{AGE_BY_ID.get(u.age as AgeId)?.name} · {u.rockClass}</span></span>
             </button>
           </li>)}
         </ul>
@@ -246,7 +246,7 @@ function RocksList({ photos }: { photos: GeoPhotos }) {
         return <article key={rock.id} id={`rock-${rock.id}`} className="scroll-mt-36 overflow-hidden paper-sheet">
           {photo && <img src={withBasePath(photo.src)} alt={photo.alt || rock.name} loading="lazy" className="aspect-[16/9] w-full object-cover" />}
           <div className="p-5">
-            <p className="text-xs font-bold text-txt-dim">{ROCK_FAMILIES[rock.family].title} · {rock.kind}</p>
+            <p className="text-sm font-bold text-txt-dim">{ROCK_FAMILIES[rock.family].title} · {rock.kind}</p>
             <h3 className="mt-1 text-xl font-black">{rock.name}{rock.extra && <Extra />}</h3>
             <p className="mt-2 leading-7"><strong>סימן בשטח: </strong>{rock.sign}</p>
             <p className="mt-1 leading-7 text-txt-dim"><strong className="text-txt">בסיור: </strong>{rock.tour}</p>
@@ -256,7 +256,7 @@ function RocksList({ photos }: { photos: GeoPhotos }) {
               <p><strong>בדיקה: </strong><span className="text-txt-dim">{rock.test}</span></p>
               <p><strong>איפה בארץ: </strong><span className="text-txt-dim">{rock.where}</span></p>
               {rock.confuse?.map((c) => <p key={c.with}><strong>לא להתבלבל עם <a href={`#rock-${c.with}`} onClick={(e) => { e.preventDefault(); document.getElementById(`rock-${c.with}`)?.scrollIntoView({ behavior: "smooth" }); }} className="text-mc underline underline-offset-4">{nameOf(c.with)}</a>: </strong><span className="text-txt-dim">{c.how}</span></p>)}
-              {photo && <p className="mt-2 text-xs text-txt-dim">{photo.caption} · צילום: {photo.credit}</p>}
+              {photo && <p className="mt-2 text-sm text-txt-dim">{photo.caption} · צילום: {photo.credit}</p>}
             </details>
           </div>
         </article>;

@@ -8,7 +8,7 @@ export function GuideUnitCard({ unit }: { unit: GuideUnit }) {
           <span className="num ml-1.5 text-txt-dim">{unit.n}.</span>
           {unit.site}
         </h3>
-        <span className="rounded-full border border-line bg-card-2 px-2.5 py-1 text-[11px] font-extrabold text-mc">
+        <span className="rounded-full border border-line bg-card-2 px-2.5 py-1 text-[13px] font-extrabold text-mc">
           {unit.duration}
         </span>
       </header>
@@ -16,7 +16,7 @@ export function GuideUnitCard({ unit }: { unit: GuideUnit }) {
         {unit.content}
       </p>
       {unit.methods && (
-        <p className="rounded-md border border-dashed border-line bg-card-2/50 px-3 py-2 text-[12px] text-txt-dim">
+        <p className="rounded-md border border-dashed border-line bg-card-2/50 px-3 py-2 text-sm text-txt-dim">
           <span className="font-extrabold text-txt">אמצעים מתודיים: </span>
           {unit.methods}
         </p>

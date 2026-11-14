@@ -28,7 +28,7 @@ export function ResourceList({
             <span>
               <b className="block text-[14px] leading-snug">{item.title}</b>
               {item.note && (
-                <span className="mt-0.5 block text-[12px] leading-relaxed text-txt-dim">
+                <span className="mt-0.5 block text-sm leading-relaxed text-txt-dim">
                   {item.note}
                 </span>
               )}
@@ -43,7 +43,7 @@ export function ResourceList({
 /** One line of credit, used under any list of her material. */
 export function ResourceCredit({ className = "" }: { className?: string }) {
   return (
-    <p className={`text-[12px] leading-relaxed text-txt-dim ${className}`}>
+    <p className={`text-sm leading-relaxed text-txt-dim ${className}`}>
       החומרים הם של{" "}
       <a
         href={RESOURCE_SOURCE.page}

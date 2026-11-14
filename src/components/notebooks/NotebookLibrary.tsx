@@ -98,7 +98,7 @@ function SortControls({ order, onChange }: { order: SortOrder; onChange: (order:
     <section aria-label="מיון מאגרי מידע" className="mb-6 flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-line bg-card/45 px-3 py-3 sm:px-4">
       <span className="ml-1 text-sm font-bold text-txt">מיון לפי תאריך:</span>
       {options.map((option) => (
-        <button key={option.id} type="button" onClick={() => onChange(option.id)} aria-pressed={order === option.id} className={`rounded-full border px-3 py-1.5 text-xs font-bold transition duration-200 ease-out active:scale-[0.97] ${order === option.id ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>
+        <button key={option.id} type="button" onClick={() => onChange(option.id)} aria-pressed={order === option.id} className={`rounded-full border px-3 py-1.5 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${order === option.id ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>
           {option.label}
         </button>
       ))}
@@ -167,7 +167,7 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
             <h2 id="theory-subjects-heading" className="text-lg text-txt">עיוני לפי תחום לימוד</h2>
             <p className="mt-1 text-sm text-txt-dim">בחרו תחום כדי לצמצם את המאגרים לרצף לימוד אחד.</p>
           </div>
-          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{shownNotebooks.length} מאגרים</span>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-sm font-bold text-txt-dim">{shownNotebooks.length} מאגרים</span>
         </div>
         <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
           <button type="button" onClick={() => setActiveSubject("all")} aria-pressed={activeSubject === "all"} className={`shrink-0 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${activeSubject === "all" ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>כל התחומים</button>
@@ -176,7 +176,7 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
             const isActive = activeSubject === subject.id;
             return (
               <button key={subject.id} type="button" onClick={() => setActiveSubject(subject.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? toneClasses[subject.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>
-                {subject.title}<span className="num text-xs opacity-70">{count}</span>
+                {subject.title}<span className="num text-sm opacity-70">{count}</span>
               </button>
             );
           })}
@@ -189,7 +189,7 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
             <h2 className="text-xl text-txt sm:text-2xl">{selectedSubject?.title ?? "כל המאגרים העיוניים"}</h2>
             {selectedSubject && <p className="mt-1 text-sm text-txt-dim">{selectedSubject.description}</p>}
           </div>
-          <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למאגרים</p>
+          <p className="text-sm font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למאגרים</p>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -199,8 +199,8 @@ function TheorySection({ notebooks }: { notebooks: TheoryNotebook[] }) {
               <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת מאגר המידע ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
                 <span aria-hidden="true" className={`absolute inset-y-0 right-0 w-1 ${toneClasses[subject.tone].split(" ")[1]}`} />
                 <div className="mb-5 flex items-center justify-between gap-3">
-                  <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${toneClasses[subject.tone]}`}><NotebookIcon />{subject.title}</span>
-                  <span className="num text-xs font-bold text-txt-dim">{notebook.date}</span>
+                  <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-bold ${toneClasses[subject.tone]}`}><NotebookIcon />{subject.title}</span>
+                  <span className="num text-sm font-bold text-txt-dim">{notebook.date}</span>
                 </div>
                 <h3 className="text-lg leading-snug text-txt">{notebook.title}</h3>
                 <p className="mt-2 flex items-center gap-1.5 text-sm text-txt-dim"><span className="font-bold text-txt">מוביל/ה:</span> {notebook.guide}</p>
@@ -224,7 +224,7 @@ function OnlineSection({ notebooks }: { notebooks: OnlineNotebook[] }) {
             <h2 className="text-lg text-txt">שיעורים מקוונים</h2>
             <p className="mt-1 text-sm text-txt-dim">רצף מאגרים בארכאולוגיה, פרהיסטוריה ותקופות ארץ ישראל.</p>
           </div>
-          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{notebooks.length} מאגרים</span>
+          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-sm font-bold text-txt-dim">{notebooks.length} מאגרים</span>
         </div>
       </div>
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
@@ -232,15 +232,15 @@ function OnlineSection({ notebooks }: { notebooks: OnlineNotebook[] }) {
           <h2 className="text-xl text-txt sm:text-2xl">כל השיעורים המקוונים</h2>
           <p className="mt-1 text-sm text-txt-dim">סדר המאגרים משתנה בהתאם לבחירת המיון.</p>
         </div>
-        <p className="text-xs font-bold text-txt-dim">{notebooks.length} קישורים ישירים למאגרים</p>
+        <p className="text-sm font-bold text-txt-dim">{notebooks.length} קישורים ישירים למאגרים</p>
       </div>
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {notebooks.map((notebook, index) => (
           <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת מאגר המידע ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
             <span aria-hidden="true" className="absolute inset-y-0 right-0 w-1 bg-violet/10" />
             <div className="mb-5 flex items-center justify-between gap-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/35 bg-violet/10 px-2.5 py-1 text-xs font-bold text-violet"><NotebookIcon />מקוון</span>
-              <span className="num text-xs font-bold text-txt-dim">{notebook.date || "שיעור"}</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-violet/35 bg-violet/10 px-2.5 py-1 text-sm font-bold text-violet"><NotebookIcon />מקוון</span>
+              <span className="num text-sm font-bold text-txt-dim">{notebook.date || "שיעור"}</span>
             </div>
             <h3 className="text-lg leading-snug text-txt">{notebook.title}</h3>
             {notebook.lecturer && <p className="mt-2 flex items-center gap-1.5 text-sm text-txt-dim"><span className="font-bold text-txt">מרצה:</span> {notebook.lecturer}</p>}
@@ -398,14 +398,14 @@ export function NotebookLibrary() {
           <section aria-labelledby="tour-regions-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
             <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
               <div><h2 id="tour-regions-heading" className="text-lg text-txt">סיורים לפי אזור</h2><p className="mt-1 text-sm text-txt-dim">בחרו אזור כדי לצמצם את המאגרים למרחב שטח אחד.</p></div>
-              <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-xs font-bold text-txt-dim">{shownNotebooks.length} מאגרים</span>
+              <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-sm font-bold text-txt-dim">{shownNotebooks.length} מאגרים</span>
             </div>
             <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
               <button type="button" onClick={() => setActiveRegion("all")} aria-pressed={activeRegion === "all"} className={`shrink-0 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${activeRegion === "all" ? "border-teal/45 bg-teal/10 text-teal" : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>כל האזורים</button>
               {regions.map((region) => {
                 const count = tourNotebooks.filter((notebook) => notebook.region === region.id).length;
                 const isActive = activeRegion === region.id;
-                return <button key={region.id} type="button" onClick={() => setActiveRegion(region.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? toneClasses[region.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>{region.title}<span className="num text-xs opacity-70">{count}</span></button>;
+                return <button key={region.id} type="button" onClick={() => setActiveRegion(region.id)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-bold transition duration-200 ease-out active:scale-[0.97] ${isActive ? toneClasses[region.tone] : "border-line bg-card text-txt-dim hover:bg-card-2 hover:text-txt"}`}>{region.title}<span className="num text-sm opacity-70">{count}</span></button>;
               })}
             </div>
           </section>
@@ -416,7 +416,7 @@ export function NotebookLibrary() {
                 <h2 className="text-xl text-txt sm:text-2xl">{activeRegion === "all" ? "כל מאגרי הסיורים" : activeRegionDetails?.title}</h2>
                 {activeRegionDetails && <p className="mt-1 text-sm text-txt-dim">{activeRegionDetails.description}</p>}
               </div>
-              <p className="text-xs font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למאגרים</p>
+              <p className="text-sm font-bold text-txt-dim">{shownNotebooks.length} קישורים ישירים למאגרים</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {shownNotebooks.map((notebook, index) => {
@@ -424,7 +424,7 @@ export function NotebookLibrary() {
                 return (
                   <a key={notebook.id} href={notebook.url} target="_blank" rel="noopener noreferrer" aria-label={`פתיחת מאגר המידע ${notebook.title}`} style={{ animationDelay: `${index * 0.04}s` }} className="screen-in group relative flex min-h-60 flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-card p-5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal">
                     <span aria-hidden="true" className={`absolute inset-y-0 right-0 w-1 ${toneClasses[region.tone].split(" ")[1]}`} />
-                    <div className="mb-5 flex items-center justify-between gap-3"><span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-bold ${toneClasses[region.tone]}`}><PinIcon />{region.title}</span><span className="num text-xs font-bold text-txt-dim">{notebook.date}</span></div>
+                    <div className="mb-5 flex items-center justify-between gap-3"><span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-bold ${toneClasses[region.tone]}`}><PinIcon />{region.title}</span><span className="num text-sm font-bold text-txt-dim">{notebook.date}</span></div>
                     <h3 className="text-lg leading-snug text-txt">{notebook.title}</h3>
                     <p className="mt-2 flex items-center gap-1.5 text-sm text-txt-dim"><span className="font-bold text-txt">מוביל/ה:</span> {notebook.guide}</p>
                     <p className="mt-2 text-sm leading-relaxed text-txt-dim">{notebook.places}</p>

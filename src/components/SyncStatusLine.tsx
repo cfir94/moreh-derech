@@ -24,7 +24,7 @@ export function SyncStatusLine() {
   const status = useSyncStatus();
   if (status === "idle") return null;
   return (
-    <p className="mt-1 text-xs text-txt-dim" role="status" data-sync-status={status}>
+    <p className="mt-1 text-sm text-txt-dim" role="status" data-sync-status={status}>
       {TEXT[status]}
     </p>
   );

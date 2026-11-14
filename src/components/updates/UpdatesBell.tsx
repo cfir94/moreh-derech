@@ -49,7 +49,7 @@ export function UpdatesBell() {
           <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
             <span className="font-black text-txt">מה חדש</span>
             {unread.length > 0 && (
-              <button type="button" onClick={markAllRead} className="text-xs font-bold text-teal">
+              <button type="button" onClick={markAllRead} className="text-sm font-bold text-teal">
                 סימון הכול כנקרא
               </button>
             )}
@@ -62,10 +62,10 @@ export function UpdatesBell() {
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-2 text-sm font-bold text-txt">
                       {u.title}
-                      {isNew(u) && <span className="rounded-full bg-teal/15 px-1.5 text-[10px] text-teal">חדש</span>}
+                      {isNew(u) && <span className="rounded-full bg-teal/15 px-1.5 text-[13px] text-teal">חדש</span>}
                     </span>
-                    <span className="block text-xs leading-relaxed text-txt-dim">{u.body}</span>
-                    <span className="block text-[11px] text-txt-dim">{date(u.date)}</span>
+                    <span className="block text-sm leading-relaxed text-txt-dim">{u.body}</span>
+                    <span className="block text-[13px] text-txt-dim">{date(u.date)}</span>
                   </span>
                 </>
               );

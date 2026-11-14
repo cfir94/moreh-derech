@@ -27,7 +27,7 @@ const quizAnswer = async (page) => {
   await quizFlow(page);
   const answers = page.locator("main button").filter({ hasText: /\S/ });
   // first answer-like button inside the question card
-  const opts = page.locator('main button[class*="items-start"]');
+  const opts = page.locator("main li > button");
   if (await opts.count()) await opts.first().click();
   else await answers.nth(3).click();
   await wait(900);
@@ -35,8 +35,15 @@ const quizAnswer = async (page) => {
 
 (async () => {
   const browser = await chromium.launch();
-  const desk = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2, locale: "he-IL" });
-  const phone = await browser.newContext({ ...devices["iPhone 14"], locale: "he-IL" });
+  const desk = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2, locale: "he-IL", colorScheme: "light" });
+  const phone = await browser.newContext({ ...devices["iPhone 14"], locale: "he-IL", colorScheme: "light" });
+  // the home page's opening (the map unfolding) plays once per session: skip it, the shot is of the page
+  // and shoot in the light map-paper theme, the one the landing page itself is in
+  for (const ctx of [desk, phone])
+    await ctx.addInitScript(() => {
+      sessionStorage.setItem("md_intro_home_v1", "1");
+      localStorage.setItem("even-derech-theme", "light");
+    });
   const plan = [
     ["home", "/"],
     ["quizzes", "/quizzes/"],

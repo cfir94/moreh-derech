@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function HowToWriteReportPage() {
   return (
     <div className="screen-in mx-auto max-w-2xl px-4 py-10">
-      <p className="mb-2 text-[12px] font-semibold text-txt-dim">
+      <p className="mb-2 text-sm font-semibold text-txt-dim">
         <Link href="/guide-reports" className="hover:text-txt">
           דוחות הדרכה
         </Link>
@@ -24,7 +24,7 @@ export default function HowToWriteReportPage() {
           טבלה של עד 16 שורות, מתחילת הסיור בנקודת היציאה ועד החזרה/פרידה.
         </p>
         <div className="overflow-hidden rounded-lg border border-line">
-          <div className="grid grid-cols-3 border-b border-line bg-card-2 text-[12px] font-extrabold">
+          <div className="grid grid-cols-3 border-b border-line bg-card-2 text-sm font-extrabold">
             <div className="border-l border-line px-3 py-2.5">לוח זמנים</div>
             <div className="border-l border-line px-3 py-2.5">
               פירוט המסלול

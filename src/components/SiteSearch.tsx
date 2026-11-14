@@ -122,7 +122,7 @@ export function SiteSearch() {
                 <input ref={inputRef} type="search" value={query} onChange={(event) => updateQuery(event.target.value)} placeholder="חפשו מקום, תקופה, דת או נושא — למשל מגידו" className="min-w-0 flex-1 bg-transparent text-base text-txt outline-none placeholder:text-txt-dim" />
                 <button type="button" onClick={close} aria-label="סגירת החיפוש" className="grid size-9 shrink-0 place-items-center rounded-full text-txt-dim transition hover:bg-card-2 hover:text-txt active:scale-90"><CloseIcon /></button>
               </div>
-              <div className="mt-2 flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-txt-dim">
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-2 px-1 text-sm text-txt-dim">
                 <span>מאגרי מידע, סרטונים, שאלונים, מבחנים, סיכומים ועזרי למידה</span>
                 {query.trim().length >= 2 && !loading && <span className="num font-bold">{results.length} תוצאות</span>}
               </div>
@@ -146,11 +146,11 @@ export function SiteSearch() {
                   {results.map((result) => (
                     <a key={result.id} href={result.external ? result.href : withBasePath(result.href)} target={result.external ? "_blank" : undefined} rel={result.external ? "noopener noreferrer" : undefined} onClick={close} className="group rounded-[var(--r-md)] border border-line bg-card p-3.5 transition duration-200 ease-out hover:-translate-y-0.5 hover:border-teal/40 hover:bg-card-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal">
                       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                        <span className={`rounded-full border px-2 py-0.5 text-[11px] font-black ${kindTone[result.kind]}`}>{result.kindLabel}</span>
-                        <span className="text-xs font-bold text-teal opacity-0 transition group-hover:opacity-100">פתיחה ←</span>
+                        <span className={`rounded-full border px-2 py-0.5 text-[13px] font-black ${kindTone[result.kind]}`}>{result.kindLabel}</span>
+                        <span className="text-sm font-bold text-teal opacity-0 transition group-hover:opacity-100">פתיחה ←</span>
                       </div>
                       <h3 className="text-sm font-black leading-snug text-txt sm:text-base">{result.title}</h3>
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-txt-dim sm:text-sm">{result.description}</p>
+                      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-txt-dim sm:text-sm">{result.description}</p>
                     </a>
                   ))}
                 </div>

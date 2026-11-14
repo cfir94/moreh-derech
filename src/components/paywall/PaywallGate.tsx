@@ -86,7 +86,7 @@ function Locked({ kind }: { kind: "guest" | "none" | "expired" | "trial" | "paid
             <button type="button" onClick={() => void begin()} disabled={busy} className={cta} style={ctaStyle}>
               {busy ? "פותח…" : "מתחילים את שבוע הניסיון"}
             </button>
-            <p className="relative mt-3 text-xs text-txt-dim">
+            <p className="relative mt-3 text-sm text-txt-dim">
               בלחיצה אתם מאשרים את <Link href="/legal/terms" className="font-bold text-teal">תנאי השימוש</Link>.
             </p>
             {error && <p role="alert" className="relative mt-3 text-sm font-bold text-red">{error}</p>}

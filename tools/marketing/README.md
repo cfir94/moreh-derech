@@ -2,7 +2,8 @@
 
 כל התמונות והסרטונים ב-`public/marketing/` צולמו מהאתר עצמו ב-Playwright, ולא בגרפיקה מומצאת.
 
-1. בנייה בשורש: `NEXT_PUBLIC_BASE_PATH="" npm run build`, ואז הגשה מקומית: `cd out && python3 -m http.server 8811 --bind 127.0.0.1`.
+1. בנייה בשורש: `NEXT_PUBLIC_BASE_PATH="" npm run build`, ואז הגשה מקומית: `cd out && ln -sfn . moreh-derech && python3 -m http.server 8811 --bind 127.0.0.1`. הקישור נחוץ כי תמונות האטלס ו"מי זה מי ברומא" כתובות עם `/moreh-derech` (ה-Worker באתר מגיש גם את הנתיב הזה).
+   הסקריפטים מצלמים במצב בהיר ומדלגים על הפתיחה של דף הבית, כמו דף הנחיתה עצמו.
 2. `node tools/marketing/capture-screenshots.cjs`: מחשב (1440×900 @2x) וטלפון (iPhone 14), לתיקייה זמנית.
 3. `node tools/marketing/record-clips.cjs`: סרטוני webm של שאלון, אטלס הזמן ואדריכלות בתלת-ממד.
 4. המרה (כמו שנעשה ב-6.11):

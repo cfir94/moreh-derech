@@ -4,7 +4,10 @@ const BASE = "http://127.0.0.1:8811";
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 async function record(name, ctxOpts, fn) {
   const browser = await chromium.launch();
-  const ctx = await browser.newContext({ ...ctxOpts, locale: "he-IL", recordVideo: { dir: `/tmp/claude-0/mkt/video/${name}`, size: ctxOpts.viewport } });
+  const dir = `${process.env.OUT || "/tmp/marketing-raw"}/video/${name}`;
+  const ctx = await browser.newContext({ ...ctxOpts, locale: "he-IL", colorScheme: "light", recordVideo: { dir, size: ctxOpts.viewport } });
+  // the light map-paper theme, like the landing page around the clip
+  await ctx.addInitScript(() => localStorage.setItem("even-derech-theme", "light"));
   const page = await ctx.newPage();
   try { await fn(page); console.log("ok", name); } catch (e) { console.log("FAIL", name, e.message.split("\n")[0]); }
   await ctx.close(); await browser.close();
@@ -14,7 +17,7 @@ const smoothScroll = async (page, dy, steps = 30) => { for (let i = 0; i < steps
   await record("quiz", { viewport: { width: 1280, height: 800 } }, async (page) => {
     await page.goto(BASE + "/quizzes/second-temple/", { waitUntil: "networkidle" }); await wait(1500);
     await page.getByRole("button", { name: "להתחיל לתרגל" }).click(); await wait(2200);
-    const opts = page.locator('main button[class*="items-start"]');
+    const opts = page.locator("main li > button");
     await opts.nth(1).hover(); await wait(700); await opts.nth(1).click(); await wait(3500);
   });
   await record("atlas", { viewport: { width: 1280, height: 800 } }, async (page) => {

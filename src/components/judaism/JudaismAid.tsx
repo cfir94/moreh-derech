@@ -34,7 +34,7 @@ function Book({ book }: { book: JudaismBook }) {
       <summary className="flex min-h-14 cursor-pointer list-none items-start gap-3 p-4">
         <span className="num w-24 shrink-0 pt-0.5 text-sm font-bold text-txt-dim">{book.yearLabel}</span>
         <span className="min-w-0 flex-1">
-          <span className="block text-lg font-black leading-7">{book.title}{book.important && <span className="mr-2 rounded-full bg-mc/15 px-2 py-0.5 align-middle text-xs font-bold text-mc">מרכזי</span>}</span>
+          <span className="block text-lg font-black leading-7">{book.title}{book.important && <span className="mr-2 rounded-full bg-mc/15 px-2 py-0.5 align-middle text-sm font-bold text-mc">מרכזי</span>}</span>
           {!open && book.role && <span className="mt-1 line-clamp-2 block text-sm leading-6 text-txt-dim">{book.role}</span>}
         </span>
         <span aria-hidden className="text-xl text-txt-dim">{open ? "−" : "+"}</span>

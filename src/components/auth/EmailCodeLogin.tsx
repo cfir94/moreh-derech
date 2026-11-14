@@ -157,7 +157,7 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
 
   return (
     <div className="relative">
-      <ol className="relative mb-6 flex items-center gap-2 text-xs font-bold text-txt-dim" aria-label="שלבי הכניסה">
+      <ol className="relative mb-6 flex items-center gap-2 text-sm font-bold text-txt-dim" aria-label="שלבי הכניסה">
         {(["email", "code", "profile"] as const).map((s, i) => (
           <li key={s} className="flex items-center gap-2" aria-current={step === s ? "step" : undefined}>
             <span
@@ -299,7 +299,7 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
       )}
 
       {onUseLegacy && step === "email" && (
-        <p className="relative mt-5 text-center text-xs text-txt-dim">
+        <p className="relative mt-5 text-center text-sm text-txt-dim">
           בעיה בקבלת המייל? כתבו לנו ל-<a className="font-bold text-teal" href={`mailto:${LAUNCH.supportEmail}`} dir="ltr">{LAUNCH.supportEmail}</a>{" "}
           או <button type="button" onClick={onUseLegacy} className="font-bold text-teal underline-offset-2 hover:underline">היכנסו בדרך הישנה</button>.
         </p>

@@ -7,7 +7,7 @@
 
 .masthead { display: flex; flex-wrap: wrap; gap: 6px 24px; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
 .masthead p:first-child { margin-bottom: 6px; }
-.masthead h1 { font-size: clamp(24px, 3vw, 32px); font-weight: 900; line-height: 1.1; }
+.masthead h1 { font-family: var(--font-hand); font-size: clamp(38px, 4.4vw, 56px); font-weight: 400; line-height: 1.05; }
 .tagline { margin-top: 6px; font-size: 13.5px; color: var(--muted); max-width: 640px; line-height: 1.7; }
 .classic { font-size: 12.5px; color: var(--muted) !important; border-bottom: 1px dashed var(--edge); padding-bottom: 2px; }
 .classic:hover { color: var(--accent) !important; }
@@ -276,7 +276,7 @@
   .stage3d { height: clamp(300px, 52vh, 460px); }
 }
 @media (max-width: 560px) {
-  .masthead h1 { font-size: 26px; }
+  .masthead h1 { font-size: 36px; }
   .chapterHead { align-items: flex-start; }
   .hint { display: none; }
   .pager button { padding: 8px 12px; font-size: 12.5px; }

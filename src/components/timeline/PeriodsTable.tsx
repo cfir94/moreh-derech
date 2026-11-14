@@ -7,6 +7,7 @@ import {
   filterPeriodRows, type PeriodRow,
 } from "@/data/periods";
 import s from "./PeriodsTable.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 function eraStyle(id: string): CSSProperties {
   return { "--era-color": PERIOD_GROUPS.find(group => group.id === id)?.color } as CSSProperties;
@@ -49,6 +50,7 @@ export function PeriodsTable() {
   const reset = () => { setQuery(""); setGroup("all"); };
 
   return <div className={s.page} dir="rtl" data-periods-page>
+    <PageDecor wide prints={false} items={["crown", "scroll", "column", "dome", "minaret"]} />
     <Link className={s.back} href="/timelines"><span aria-hidden>→</span> לכל עזרי הלמידה</Link>
 
     <header className={s.hero}>

@@ -72,7 +72,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
             className={`relative flex flex-col rounded-lg border bg-card p-6 ${card.featured ? "border-teal shadow-[0_18px_40px_-24px_var(--teal)]" : "border-line"}`}
           >
             {card.featured && (
-              <span className="absolute -top-3 right-5 rounded-full bg-teal px-3 py-1 text-xs font-extrabold text-on-accent">הכי משתלם</span>
+              <span className="absolute -top-3 right-5 rounded-full bg-teal px-3 py-1 text-sm font-extrabold text-on-accent">הכי משתלם</span>
             )}
             <h3 className="text-lg font-black text-txt">{card.title}</h3>
             <p className="mt-2 flex items-baseline gap-2">
@@ -148,7 +148,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
         </div>
       )}
 
-      <p className="mt-4 text-center text-xs leading-relaxed text-txt-dim">
+      <p className="mt-4 text-center text-sm leading-relaxed text-txt-dim">
         תשלום אחד לכל התקופה, בהעברה, עם קבלה · שאלות?{" "}
         <a href={`mailto:${LAUNCH.supportEmail}`} className="font-bold text-teal" dir="ltr">{LAUNCH.supportEmail}</a> ·{" "}
         <Link href="/legal/cancellation" className="font-bold text-teal">מדיניות ביטול</Link>

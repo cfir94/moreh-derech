@@ -36,7 +36,7 @@ function Counter({ n, max }: { n: number; max: number }) {
   const color =
     state === "over" ? "text-rose" : state === "good" ? "text-ok" : "text-txt-dim";
   return (
-    <span className={`num text-[11px] font-bold ${color}`}>
+    <span className={`num text-[13px] font-bold ${color}`}>
       {n}/{max} מילים
       {state === "thin" && " · קצר מדי, נצלו את המכסה"}
       {state === "over" && " · חורג"}
@@ -86,7 +86,7 @@ function Timer({ hours }: { hours: number }) {
       <button
         type="button"
         onClick={() => setLeft(null)}
-        className="text-[12px] font-bold text-txt-dim hover:underline"
+        className="text-sm font-bold text-txt-dim hover:underline"
       >
         איפוס
       </button>
@@ -217,7 +217,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
       <section className="paper-sheet p-4">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
+            <label className="mb-1 block text-sm font-extrabold text-txt-dim">
               מועד המבחן
             </label>
             <select
@@ -259,7 +259,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
           )}
         </p>
         {paper.note && (
-          <p className="mt-2 text-[12px] leading-relaxed text-txt-dim opacity-80">
+          <p className="mt-2 text-sm leading-relaxed text-txt-dim opacity-80">
             {paper.note}
           </p>
         )}
@@ -289,7 +289,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
                     {g.title ? ` — ${g.title}` : ""}
                   </h3>
                   {active && (
-                    <span className="text-[11px] font-extrabold text-teal">
+                    <span className="text-[13px] font-extrabold text-teal">
                       נבחרה
                     </span>
                   )}
@@ -313,7 +313,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
               <b>הדרישות שלכם:</b> {group.brief} היציאה מ{group.start}, הסיום ב
               {group.end}.
             </p>
-            <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
+            <label className="mb-1 block text-sm font-extrabold text-txt-dim">
               מאפייני הקבוצה וההנחות שלכם
             </label>
             <textarea
@@ -572,7 +572,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-[12px] text-txt-dim">
+              <p className="mt-3 text-sm text-txt-dim">
                 הבדיקה כאן היא לפי כללים ומילות מפתח, לא ציון של בוחן. היא תופסת
                 את מה שנופל בפועל: יחידה חסרה, יחידה קצרה מדי, מ״ם שלא נאמרה,
                 טבלה שלא מכסה את היום.

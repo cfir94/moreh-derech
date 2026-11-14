@@ -18,7 +18,7 @@ export function PreviewBar() {
   useEffect(() => applyPreviewFromUrl(), []);
   if (!preview.on) return null;
   return (
-    <div className="sticky top-0 z-[60] flex flex-wrap items-center justify-center gap-2 border-b border-gold/40 bg-card px-3 py-2 text-xs">
+    <div className="sticky top-0 z-[60] flex flex-wrap items-center justify-center gap-2 border-b border-gold/40 bg-card px-3 py-2 text-sm">
       <span className="font-bold text-gold">תצוגה מקדימה של ההשקה (רק בדפדפן הזה):</span>
       <label className="flex items-center gap-1">
         מצב:

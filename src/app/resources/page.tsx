@@ -45,7 +45,7 @@ export default function ResourcesPage() {
         aria-labelledby="class-materials-title"
         className="screen-in mb-8 rounded-lg border border-teal/30 bg-card p-5 sm:p-6"
       >
-        <p className="mb-1 text-xs font-bold tracking-wide text-teal">מהכיתה</p>
+        <p className="mb-1 text-sm font-bold tracking-wide text-teal">מהכיתה</p>
         <h2 id="class-materials-title" className="mb-2 text-xl">סיכומים של בועז</h2>
         <p className="mb-4 max-w-2xl text-sm leading-relaxed text-txt-dim">
           מצגות לשיעור החזרה על תקופת בית שני, התקופה הרומית־ביזנטית ואדריכלות קלאסית.
@@ -76,7 +76,7 @@ export default function ResourcesPage() {
         <h2 className="mb-1.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
           לפי נושא — כמה נשאל עליו במבחנים, ומה לקרוא
         </h2>
-        <p className="mb-3 max-w-2xl text-[12px] leading-relaxed text-txt-dim">
+        <p className="mb-3 max-w-2xl text-sm leading-relaxed text-txt-dim">
           מספר השאלות הוא מתוך{" "}
           <span className="num">{bankSize}</span> שאלות מבחני הרישוי שבאתר —
           כלומר כמה באמת נשאלו על הנושא הזה במבחנים שבידינו. אפשר לתרגל כל נושא
@@ -104,7 +104,7 @@ export default function ResourcesPage() {
                   href={reading.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 text-[12px] font-bold text-teal hover:underline"
+                  className="shrink-0 text-sm font-bold text-teal hover:underline"
                 >
                   לסיכום ↗
                 </a>
@@ -127,7 +127,7 @@ export default function ResourcesPage() {
             />
             <div className="relative">
               <h2 className="mb-1 text-base">{group.title}</h2>
-              <p className="mb-3 text-[12px] leading-relaxed text-txt-dim">
+              <p className="mb-3 text-sm leading-relaxed text-txt-dim">
                 {group.description}
               </p>
               <ResourceList items={group.items} slug={group.slug} />

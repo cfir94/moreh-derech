@@ -17,7 +17,7 @@ export default function UpdatesPage() {
       <ol className="flex flex-col gap-3">
         {list.map((u) => (
           <li key={u.id} className={`rounded-lg border bg-card p-4 ${isNew(u) ? "border-teal" : "border-line"}`}>
-            <p className="text-xs text-txt-dim">{new Date(`${u.date}T12:00:00`).toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" })}</p>
+            <p className="text-sm text-txt-dim">{new Date(`${u.date}T12:00:00`).toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" })}</p>
             <h2 className="mt-1 font-black text-txt">{u.title}</h2>
             <p className="mt-1 text-sm leading-relaxed text-txt-dim">{u.body}</p>
             {u.href && (

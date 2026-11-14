@@ -6,16 +6,16 @@ export function ScheduleTable({ rows }: { rows: ScheduleRow[] }) {
       <table className="w-full min-w-[640px] border-collapse text-sm">
         <thead>
           <tr className="border-b border-line bg-card-2 text-right">
-            <th className="w-10 px-3 py-2.5 text-[11px] font-extrabold text-txt-dim">
+            <th className="w-10 px-3 py-2.5 text-[13px] font-extrabold text-txt-dim">
               #
             </th>
-            <th className="w-[140px] px-3 py-2.5 text-[11px] font-extrabold text-txt-dim">
+            <th className="w-[140px] px-3 py-2.5 text-[13px] font-extrabold text-txt-dim">
               לוח זמנים
             </th>
-            <th className="px-3 py-2.5 text-[11px] font-extrabold text-txt-dim">
+            <th className="px-3 py-2.5 text-[13px] font-extrabold text-txt-dim">
               פירוט המסלול ואופי הפעילות
             </th>
-            <th className="w-[28%] px-3 py-2.5 text-[11px] font-extrabold text-txt-dim">
+            <th className="w-[28%] px-3 py-2.5 text-[13px] font-extrabold text-txt-dim">
               תיאומים ומנהלות
             </th>
           </tr>
@@ -27,7 +27,7 @@ export function ScheduleTable({ rows }: { rows: ScheduleRow[] }) {
               className="border-b border-line last:border-0 even:bg-card/60"
             >
               <td className="px-3 py-3 align-top">
-                <span className="num text-[12px] font-bold text-txt-dim">
+                <span className="num text-sm font-bold text-txt-dim">
                   {row.n}
                 </span>
               </td>
