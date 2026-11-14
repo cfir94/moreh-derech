@@ -9,6 +9,7 @@ import { AidHeader, PhotoFigure } from "@/components/learning-aid";
 import { ANIMALS, ANIMAL_GROUPS, REGIONS, STATUS_LABEL, type Animal, type AnimalGroup, type Region } from "@/data/fauna/animals";
 import { withBasePath } from "@/lib/basePath";
 import styles from "./fauna.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export type FaunaPhoto = { src: string; caption: string; credit: string; alt: string };
 export type FaunaPhotos = Record<string, FaunaPhoto[]>;
@@ -49,7 +50,8 @@ export function FaunaGuide({ photos }: { photos: FaunaPhotos }) {
   function close() { history.replaceState(null, "", `${location.pathname}${location.search}`); setSelected(null); }
   const byId = (id: string) => ANIMALS.find((a) => a.id === id);
 
-  return <main dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+  return <main dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+    <PageDecor birds prints="hoof" items={["ibex","binoculars","butterfly","footprint","hills","lake"]} />
     <AidHeader slug="fauna" title="מגדיר החי והציפורים" subtitle="מי זה שם על הסלע? מצמצמים לפי קבוצה ואזור, ומגיעים לכרטיס שדה קצר." stats={`${ANIMALS.length} בעלי חיים · ${Object.keys(ANIMAL_GROUPS).length} קבוצות`} />
 
     <section aria-labelledby="fauna-filter" className="rounded-lg border border-line bg-card p-4 sm:p-6">

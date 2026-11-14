@@ -10,6 +10,7 @@ import type { ReliefViewer, Unit } from "./relief3d";
 import { GSI_CREDIT, gsiAge } from "@/data/geology/gsi";
 import { GSI_UNITS } from "@/data/geology/gsi-units";
 import styles from "./geology.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 export type GeoPhoto = { src: string; caption: string; credit: string; alt: string };
 export type GeoPhotos = Record<string, GeoPhoto[]>;
@@ -297,7 +298,8 @@ export function GeologyAid({ photos, practice }: { photos: GeoPhotos; practice: 
   const [focusAge, setFocusAge] = useState<AgeId | null>(null);
   const stats = useMemo(() => `${AGES.length} תקופות · ${ROCKS.length} סלעים · ${SOILS.length} קרקעות`, []);
 
-  return <main dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <main dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+    <PageDecor items={["hammer","strata","hills","lake","handaxe"]} />
     <AidHeader slug="geology" title="גאולוגיה של ארץ ישראל" subtitle="מה בנוי מה, ומתי. מפה בתלת־ממד, עמוד הזמן, הסלעים והקרקעות שרואים בסיור." stats={stats} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">
       <AidTabs tabs={TABS} active={tab} onSelect={setTab} />

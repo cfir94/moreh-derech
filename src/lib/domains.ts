@@ -70,6 +70,7 @@ export const DOMAINS: Record<string, Domain> = {
   crossword: {color: "var(--gold)", icon: "✏️", ink: "grid" },
   arches: {color: "var(--gold)", icon: "🌉", ink: "arch" },
   fauna: {color: "var(--green)", icon: "🦌", ink: "ibex" },
+  plants: { color: "var(--green)", icon: "🌿", ink: "flower" },
   review: {color: "var(--gold)", icon: "🔁", ink: "review" },
 };
 

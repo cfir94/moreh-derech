@@ -7,6 +7,7 @@ import { InkIcon } from "@/components/trail/Ink";
 import { matchesTempleQuery } from "@/data/second-temple";
 import timelines from "@/data/timelines/egypt-canaan";
 import { domainStyle } from "@/lib/domains";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 const timeline = timelines[0];
 /** Each chapter's mark on the road: a jar for Egypt and Canaan, a milestone for the beginnings of Israel. */
@@ -45,7 +46,8 @@ export function EgyptCanaanTimeline() {
   const chapter = groups.findIndex((group) => group.id === tab);
   const numberFrom = 1 + (chapter > 0 ? timeline.events.filter((event) => event.kind === groups[0].id).length : 0);
 
-  return <main dir="rtl" className="mx-auto max-w-6xl space-y-4 px-4 py-6" style={domainStyle("egypt-canaan")} data-egypt-canaan-timeline>
+  return <main dir="rtl" className="relative isolate mx-auto max-w-6xl space-y-4 px-4 py-6" style={domainStyle("egypt-canaan")} data-egypt-canaan-timeline>
+    <PageDecor items={["jar","crown","hills","tent","scroll"]} />
     <AidHeader slug="egypt-canaan" title={timeline.title} subtitle={timeline.subtitle} stats={`${timeline.events.length} אירועים · ${groups.length} חלקים`} />
     <AidTabs row tabs={tabs} active={tab} onSelect={selectTab} />
     <section role="tabpanel" className="screen-in min-w-0 space-y-4 pt-2" key={tab}>

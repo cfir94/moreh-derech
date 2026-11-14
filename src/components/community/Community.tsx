@@ -44,7 +44,7 @@ export function PostText({ text }: { text: string }) {
 }
 
 function Shell({ title, back, children }: { title: string; back?: { href: string; label: string }; children: ReactNode }) {
-  return <main dir="rtl" className="screen-in relative mx-auto w-full max-w-3xl px-4 py-8">
+  return <main dir="rtl" className="screen-in relative isolate mx-auto w-full max-w-3xl px-4 py-8">
     <PageDecor birds items={["community", "tent", "talk", "canteen", "butterfly"]} />
     {back && <Link href={back.href} className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
     <div className="relative mb-6">

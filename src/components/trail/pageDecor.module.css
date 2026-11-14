@@ -5,15 +5,11 @@
   top: 0;
   bottom: 0;
   inset-inline: -230px;
-  z-index: 0;
+  /* behind the content: the parent is its own stacking context (isolation: isolate), so -1 stays
+     above the page ground and under every element of the page, sticky ones included */
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
-}
-
-/* everything else in the page sits above the layer */
-.layer ~ * {
-  position: relative;
-  z-index: 1;
 }
 
 .fill {

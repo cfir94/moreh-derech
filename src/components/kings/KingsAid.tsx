@@ -11,6 +11,7 @@ import { FIND_KINDS, IRON_FINDS, type IronFind } from "@/data/history-timeline/f
 import { kingsPractice } from "@/lib/kingsPractice";
 import { isolateRanges } from "@/lib/bidi";
 import styles from "./kings.module.css";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 type Tab = "chart" | "finds" | "prophets" | "practice";
 type Pick = { king: King; kingdom: "יהודה" | "ישראל" };
@@ -131,7 +132,8 @@ export function KingsAid() {
   const [picked, setPicked] = useState<Pick | null>(null);
   const kings = JUDAH_KINGS.length + ISRAEL_KINGS.length + UNITED_KINGS.length;
 
-  return <div dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <div dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+    <PageDecor items={["crown","scroll","gate","jar"]} />
     <AidHeader slug="kings" title="מלכי ישראל ויהודה" subtitle="מהממלכה המאוחדת ועד חורבן ירושלים: שתי הממלכות על ציר אחד, הנביאים בני התקופה, והמסעות, המצורים והכתובות שמאמתים את הסיפור." stats={`${kings} מלכים · ${Object.keys(PROPHETS).length} נביאים · ${IRON_FINDS.length} אירועים וממצאים`} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">
     <AidTabs tabs={TABS} active={tab} onSelect={setTab} />

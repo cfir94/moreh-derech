@@ -11,6 +11,7 @@ import { FIND_KINDS, IRON_FINDS, type IronFind } from "@/data/history-timeline/f
 import { ISRAEL_KINGS, JUDAH_KINGS } from "@/data/history-timeline/kings";
 import { findsPractice, kingAt } from "@/lib/findsPractice";
 import { isolateRanges } from "@/lib/bidi";
+import { PageDecor } from "@/components/trail/PageDecor";
 
 type Tab = "finds" | "practice";
 const PRACTICE = findsPractice(IRON_FINDS, JUDAH_KINGS, ISRAEL_KINGS);
@@ -41,7 +42,8 @@ export function IronFindsAid() {
   const [kind, setKind] = useState<string>("");
   const list = kind ? IRON_FINDS.filter((f) => f.kind === kind) : IRON_FINDS;
 
-  return <div dir="rtl" className="mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+  return <div dir="rtl" className="relative isolate mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
+    <PageDecor items={["trowel","jar","crown","gate","handaxe"]} />
     <AidHeader slug="archaeology" title="ממצאים, מצורים וביצורים — תקופת הברזל" subtitle="המסעות, המצורים, הביצורים והכתובות שמאמתים את סיפור ממלכות ישראל ויהודה: מתי, איפה רואים אותם היום, ומי מלך באותה עת." stats={`${IRON_FINDS.length} אירועים וממצאים · ${Object.keys(FIND_KINDS).length} סוגים`} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">
       <AidTabs tabs={TABS} active={tab} onSelect={setTab} />
