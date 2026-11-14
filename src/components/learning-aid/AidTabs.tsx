@@ -42,7 +42,7 @@ export function AidTabs<T extends string>({ tabs, active, onSelect, row = false 
   </nav>;
 
   return <nav aria-label="חלקי עזר הלמידה" className="sticky top-16 z-30 -mx-4 overflow-x-auto bg-bg/90 px-4 py-2 backdrop-blur-md lg:top-20 lg:m-0 lg:self-start lg:overflow-visible lg:bg-transparent lg:p-0 lg:backdrop-blur-none">
-    <div role="tablist" aria-orientation="vertical" onKeyDown={move} className="flex min-w-max gap-2 rounded-lg border border-line bg-card p-2 lg:min-w-48 lg:flex-col">
+    <div role="tablist" aria-orientation="vertical" onKeyDown={move} className="flex min-w-max gap-2 paper-sheet p-2 lg:min-w-48 lg:flex-col">
       {tabs.map((tab) => <button
         key={tab.id}
         id={`aid-tab-${tab.id}`}

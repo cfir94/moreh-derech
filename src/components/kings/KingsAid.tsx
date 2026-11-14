@@ -151,7 +151,7 @@ export function KingsAid() {
     </section>}
 
     {tab === "finds" && <section aria-label="אירועים וממצאים" className="grid gap-4 md:grid-cols-2">
-      {IRON_FINDS.map((f) => <article key={f.title} id={`find-${f.year}`} className="rounded-lg border border-line bg-card p-4">
+      {IRON_FINDS.map((f) => <article key={f.title} id={`find-${f.year}`} className="paper-sheet p-4">
         <p className="text-sm font-bold text-txt-dim">{isolateRanges(f.yearLabel)} · {FIND_KINDS[f.kind]}</p>
         <h2 className="text-xl font-black">{f.title}</h2>
         {f.image && <PhotoFigure src={findSrc(f)!} alt={f.image.caption} caption={f.image.caption} credit={`${f.image.credit} · ${f.image.license}`} className="my-3" />}
@@ -163,7 +163,7 @@ export function KingsAid() {
     {tab === "prophets" && <section aria-label="הנביאים" className="grid gap-3 md:grid-cols-2">
       {Object.entries(PROPHETS).map(([name, p]) => {
         const kingsOf = JUDAH_KINGS.concat(ISRAEL_KINGS).filter((k) => (k.prophet ?? "").includes(name)).map((k) => k.name);
-        return <article key={name} className="rounded-lg border border-line bg-card p-4">
+        return <article key={name} className="paper-sheet p-4">
           <p className="text-sm font-bold text-txt-dim">{p.kingdom} · {p.era}</p>
           <h2 className="text-xl font-black">{name}</h2>
           <p className="mt-1 leading-7">{p.known}</p>
@@ -172,7 +172,7 @@ export function KingsAid() {
       })}
     </section>}
 
-    {tab === "practice" && <section aria-label="תרגול" className="rounded-lg border border-line bg-card p-4 sm:p-6">
+    {tab === "practice" && <section aria-label="תרגול" className="paper-sheet p-4 sm:p-6">
       <PracticeDeck quizSlug="kings" label="מלכי ישראל ויהודה: תרגול" items={PRACTICE} />
     </section>}
     </div>

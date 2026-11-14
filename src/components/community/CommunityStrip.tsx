@@ -7,7 +7,7 @@ import { useCommunityUnread } from "./CommunityBadge";
 export function CommunityStrip() {
   const unread = useCommunityUnread();
   if (!unread) return null;
-  return <Link href="/community/" className="screen-in mb-6 flex min-h-14 items-center gap-3 rounded-lg border border-line bg-card px-5 py-3 transition hover:bg-card-2 active:scale-[.99]">
+  return <Link href="/community/" className="screen-in mb-6 flex min-h-14 items-center gap-3 paper-sheet px-5 py-3 transition hover:bg-card-2 active:scale-[.99]">
     <span aria-hidden className="text-2xl">💬</span>
     <span className="flex-1 text-base font-bold">
       {unread === 1 ? "הודעה חדשה אחת בקהילה" : <><span className="num">{unread}</span> הודעות חדשות בקהילה</>}

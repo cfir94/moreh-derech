@@ -3,7 +3,7 @@ import { withBasePath } from "@/lib/basePath";
 
 /** `fit="contain"` shows the whole picture (a portrait or a bust) instead of cropping it to the frame. */
 export function PhotoFigure({ src, alt, caption, credit, fit = "cover", className = "" }: { src: string; alt: string; caption: string; credit: string; fit?: "cover" | "contain"; className?: string }) {
-  return <figure className={`overflow-hidden rounded-lg border border-line bg-card ${className}`}>
+  return <figure className={`overflow-hidden paper-sheet ${className}`}>
     <div className="aspect-[3/2] overflow-hidden bg-card-2">
       <img src={withBasePath(src)} alt={alt} loading="lazy" decoding="async" className={`h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`} />
     </div>

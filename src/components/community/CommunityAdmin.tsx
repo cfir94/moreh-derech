@@ -26,11 +26,11 @@ export function CommunityAdmin() {
   return <section className="space-y-3">
     {error && <p role="alert" className="font-bold text-red">{error}</p>}
     <p className="text-sm text-txt-dim">{rows.filter((r) => r.status === "pending").length} בקשות ממתינות · {rows.length} רשומות</p>
-    {!sorted.length && <p className="rounded-lg border border-line bg-card p-4 text-txt-dim">אין בקשות.</p>}
+    {!sorted.length && <p className="paper-sheet p-4 text-txt-dim">אין בקשות.</p>}
     <ul className="space-y-2">
       {sorted.map((r) => {
         const key = `${r.forum_id}:${r.user_id}`;
-        return <li key={key} className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-card p-4">
+        return <li key={key} className="flex flex-wrap items-center gap-3 paper-sheet p-4">
           <div className="min-w-0 flex-1">
             <p className="font-black">{r.full_name || r.email}</p>
             <p className="text-sm text-txt-dim">{r.email} · {r.forum_title} · {STATUS[r.status]}{r.role === "poster" ? " · מפרסם" : ""}</p>

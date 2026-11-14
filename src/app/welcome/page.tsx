@@ -176,7 +176,7 @@ export default function WelcomePage() {
             [String(EXAMS.length - MINISTRY_EXAMS.length), "מבחני קורס"],
             ["13", "דמויות לשיחה, כולל מוטי"],
           ].map(([value, label]) => (
-            <div key={label} className="rounded-lg border border-line bg-card p-4 text-center">
+            <div key={label} className="paper-sheet p-4 text-center">
               <dt className="sr-only">{label}</dt>
               <dd>
                 <span className="block text-3xl font-black text-txt">{value}</span>
@@ -196,7 +196,7 @@ export default function WelcomePage() {
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {TOOLS.map((t) => (
-            <Link key={t.href} href={t.href} className="group flex flex-col rounded-lg border border-line bg-card p-5 transition active:scale-95">
+            <Link key={t.href} href={t.href} className="group flex flex-col paper-sheet p-5 transition active:scale-95">
               <span aria-hidden className="text-3xl">{t.icon}</span>
               <h3 className="mt-2 text-lg font-black text-txt">{t.title}</h3>
               <p className="mt-1 text-sm leading-relaxed text-txt-dim">{t.text}</p>
@@ -268,7 +268,7 @@ export default function WelcomePage() {
             [`${PRICES.trialDays} ימים כל הכלים פתוחים`, "מפות, מאגרי מידע, דוחות, שאלונים, מבחנים, צירים, משחקים ומוטי."],
             ["ממשיכים אם זה שימושי לכם", `"רוצה להצטרף": חצי שנה (${PRICES.halfyear} ₪) או שנה (${PRICES.yearly} ₪). חוזרים אליכם, והתשלום בביט.`],
           ].map(([title, text], i) => (
-            <li key={title} className="rounded-lg border border-line bg-card p-5">
+            <li key={title} className="paper-sheet p-5">
               <span className="mb-3 grid size-9 place-items-center rounded-full text-lg font-black text-on-accent" style={ctaStyle}>
                 {i + 1}
               </span>
@@ -291,7 +291,7 @@ export default function WelcomePage() {
         <h2 id="faq" className="mb-6 text-center text-3xl font-black text-txt">שאלות נפוצות</h2>
         <div className="flex flex-col gap-3">
           {FAQ.map(([q, a]) => (
-            <details key={q} className="group rounded-lg border border-line bg-card p-4">
+            <details key={q} className="group paper-sheet p-4">
               <summary className="cursor-pointer list-none font-bold text-txt">
                 <span className="me-2 inline-block text-teal transition group-open:rotate-45">+</span>
                 {q}

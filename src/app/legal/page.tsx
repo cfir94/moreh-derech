@@ -11,7 +11,7 @@ export default function LegalIndex() {
       <ul className="flex flex-col gap-3">
         {LEGAL_DOCS.map((doc) => (
           <li key={doc.slug}>
-            <Link href={`/legal/${doc.slug}/`} className="block rounded-lg border border-line bg-card p-4 font-bold text-txt hover:border-teal">
+            <Link href={`/legal/${doc.slug}/`} className="block paper-sheet p-4 font-bold text-txt hover:border-teal">
               {doc.title}
               <span className="mt-1 block text-sm font-normal text-txt-dim">{doc.intro}</span>
             </Link>

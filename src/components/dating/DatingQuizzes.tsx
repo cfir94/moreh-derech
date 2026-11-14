@@ -46,14 +46,14 @@ export function DatingQuizzes() {
     <Link href="/quizzes/" className="inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ כל השאלונים</Link>
 
     {!run && <section className="screen-in space-y-4">
-      <header className="relative overflow-hidden rounded-lg border border-line bg-card p-6">
+      <header className="relative overflow-hidden paper-sheet p-6">
         <span aria-hidden className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-mc opacity-25 blur-3xl" />
         <h1 className="grad-text text-3xl font-black">שאלוני תיארוך</h1>
         <p className="mt-2 leading-7 text-txt-dim">מה קדם למה, ובאיזו שנה. בשאלת השלמה חושבים על התשובה, חושפים אותה ומדרגים את עצמכם ביושר.</p>
       </header>
       <ul className="grid gap-3 sm:grid-cols-2">
         {Object.entries(DATING_QUIZZES).map(([key, q]) => <li key={key}>
-          <button type="button" onClick={() => start(key)} className="flex min-h-24 w-full flex-col items-start justify-center rounded-lg border border-line bg-card p-4 text-right transition hover:border-mc active:scale-[.98]">
+          <button type="button" onClick={() => start(key)} className="flex min-h-24 w-full flex-col items-start justify-center paper-sheet p-4 text-right transition hover:border-mc active:scale-[.98]">
             <span className="text-lg font-black leading-7">{q.title}</span>
             <span className="mt-1 text-sm text-txt-dim">{q.items.length} שאלות · {q.items.filter((i) => i.type === "fill").length} השלמה</span>
           </button>
@@ -91,7 +91,7 @@ export function DatingQuizzes() {
             </div>
           </div>)}
 
-        {done && <div className="screen-in space-y-3 rounded-lg border border-line bg-card p-4">
+        {done && <div className="screen-in space-y-3 paper-sheet p-4">
           {item.type === "mc" && <p className={`text-lg font-black ${chosen === item.correct ? "text-green" : "text-red"}`}>{chosen === item.correct ? "נכון!" : `התשובה: ${isolateRanges(item.options[item.correct])}`}</p>}
           {item.exp && <p className="leading-7 text-txt-dim">{isolateRanges(item.exp)}</p>}
           <button type="button" onClick={next} className={primary} style={primaryStyle}>{run.index + 1 < quiz.items.length ? "הבא" : "לתוצאות"}</button>
@@ -103,11 +103,11 @@ export function DatingQuizzes() {
       const missed = quiz.items.map((it, i) => ({ it, ok: isRight(it, run.picks[i] ?? null, run.ratings[i] ?? null) })).filter((x) => !x.ok);
       const correct = quiz.items.length - missed.length;
       return <section className="screen-in space-y-4">
-        <div className="rounded-lg border border-line bg-card p-6 text-center">
+        <div className="paper-sheet p-6 text-center">
           <h1 className="text-2xl font-black">{quiz.title}</h1>
           <p className="mt-1 text-lg text-txt-dim"><span className="num font-black text-txt">{correct}</span> מתוך <span className="num">{quiz.items.length}</span></p>
         </div>
-        {missed.length > 0 && <div className="rounded-lg border border-line bg-card p-5">
+        {missed.length > 0 && <div className="paper-sheet p-5">
           <h2 className="text-lg font-black">לחזור עליהן</h2>
           <ul className="mt-2 space-y-3">{missed.map(({ it }) => <li key={it.q} className="rounded-md bg-card-2 p-3">
             <p className="font-bold leading-7">{isolateRanges(it.q)}</p>

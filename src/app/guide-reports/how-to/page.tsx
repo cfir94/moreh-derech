@@ -80,7 +80,7 @@ export default function HowToWriteReportPage() {
           </li>
         </ul>
 
-        <div className="rounded-lg border border-line bg-card p-4">
+        <div className="paper-sheet p-4">
           <p className="mb-2 text-sm font-extrabold">חמש המ״מים</p>
           <dl className="grid gap-2 text-[13px] sm:grid-cols-2">
             <div>
@@ -145,7 +145,7 @@ export default function HowToWriteReportPage() {
       </section>
 
       {/* Exam connection */}
-      <section className="mb-8 rounded-lg border border-line bg-card p-5">
+      <section className="mb-8 paper-sheet p-5">
         <h2 className="mb-2 text-lg">הקשר למבחן הרישוי</h2>
         <p className="mb-3 text-[13.5px] leading-relaxed text-txt-dim">
           שלושת החלקים למעלה אינם המצאה של הקורס — הם{" "}

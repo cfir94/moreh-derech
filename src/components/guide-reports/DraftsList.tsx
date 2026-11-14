@@ -80,7 +80,7 @@ export function DraftsList() {
       {drafts.map((d) => (
         <li
           key={d.id}
-          className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-line bg-card px-4 py-3"
+          className="flex flex-wrap items-center justify-between gap-3 paper-sheet px-4 py-3"
         >
           <div>
             <p className="font-extrabold">{d.title}</p>

@@ -214,7 +214,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
 
   return (
     <div className="flex flex-col gap-7">
-      <section className="rounded-lg border border-line bg-card p-4">
+      <section className="paper-sheet p-4">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div>
             <label className="mb-1 block text-[12px] font-extrabold text-txt-dim">
@@ -425,7 +425,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
                 const u = units[i] ?? emptyUnit();
                 const fb = analyzeFiveMs(u.body);
                 return (
-                  <div key={i} className="rounded-lg border border-line bg-card p-4">
+                  <div key={i} className="paper-sheet p-4">
                     <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
                       <h3 className="text-[14px]">
                         <span className="num text-txt-dim">{i + 1}. </span>
@@ -511,7 +511,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
               {group.extendedUnit}. עד 400 מילים, כולל מיקום הקבוצה בזמן
               ההדרכה, פתיחה, עזרים והצבעות בשטח, וסיום.
             </p>
-            <div className="rounded-lg border border-line bg-card p-4">
+            <div className="paper-sheet p-4">
               <div className="mb-2 grid gap-2 sm:grid-cols-2">
                 <input
                   value={expanded.site}
@@ -553,7 +553,7 @@ function ExamEditor({ draft }: { draft?: GuideDraft }) {
           </section>
 
           {check && (
-            <section className="rounded-lg border border-line bg-card p-4">
+            <section className="paper-sheet p-4">
               <h2 className="mb-3 text-base">בדיקה עצמית</h2>
               <ul className="flex flex-col gap-2">
                 {check.items.map((it) => (

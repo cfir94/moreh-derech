@@ -29,7 +29,7 @@ export default function LoginPage() {
 function Shell({ title, intro, children }: { title: string; intro: string; children: React.ReactNode }) {
   return (
     <div className="screen-in flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
-      <div className="relative w-full max-w-md overflow-hidden rounded-lg border border-line bg-card p-8">
+      <div className="relative w-full max-w-md overflow-hidden paper-sheet p-8">
         <span
           aria-hidden
           className="pointer-events-none absolute -top-16 -left-16 h-56 w-56 rounded-full blur-[10px]"
@@ -114,7 +114,7 @@ function LegacyLogin() {
 
   return (
     <div className="screen-in flex min-h-[calc(100vh-60px)] items-center justify-center px-4 py-12">
-      <div className="relative w-full max-w-md overflow-hidden rounded-lg border border-line bg-card p-8">
+      <div className="relative w-full max-w-md overflow-hidden paper-sheet p-8">
         <span
           aria-hidden
           className="pointer-events-none absolute -top-16 -left-16 h-56 w-56 rounded-full blur-[10px]"

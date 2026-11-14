@@ -119,7 +119,7 @@ export default function ResourcesPage() {
           <section
             key={group.slug}
             style={{ ...domainStyle(group.slug), animationDelay: `${i * 0.03}s` }}
-            className="screen-in relative overflow-hidden rounded-lg border border-line bg-card p-4"
+            className="screen-in relative overflow-hidden paper-sheet p-4"
           >
             <span
               aria-hidden

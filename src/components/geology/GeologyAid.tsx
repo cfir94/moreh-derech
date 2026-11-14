@@ -163,7 +163,7 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
     </div>
 
     <aside className="space-y-3 lg:sticky lg:top-24 lg:self-start" aria-live="polite">
-      {info ? <article className="screen-in rounded-lg border border-line bg-card p-5">
+      {info ? <article className="screen-in paper-sheet p-5">
         <div className="flex items-start justify-between gap-3">
           <h2 className="text-xl font-black">{info.name}</h2>
           <button type="button" onClick={() => setPicked(null)} aria-label="סגירה" className="min-h-11 min-w-11 rounded-full border border-line text-lg">×</button>
@@ -172,17 +172,17 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
         <p className="mt-3 font-bold leading-7">{info.summary}</p>
         <p className="mt-2 leading-7 text-txt-dim">{info.description}</p>
         {info.sources.length > 0 && <p className="mt-3 text-sm text-txt-dim">מקור: {info.sources.map((s, i) => <span key={s.url}>{i > 0 && " · "}<a href={s.url} target="_blank" rel="noreferrer" className="underline underline-offset-4">{s.title}</a></span>)}</p>}
-      </article> : age ? <article className="rounded-lg border border-line bg-card p-5">
+      </article> : age ? <article className="paper-sheet p-5">
         <p className="flex items-center gap-2 text-sm font-bold text-txt-dim"><Swatch color={age.color} />מוצג רק:</p>
         <h2 className="mt-1 text-xl font-black">{age.name}</h2>
         <p className="mt-2 leading-7 text-txt-dim">{age.story}</p>
         <button type="button" onClick={() => onAge(null)} className="mt-3 min-h-11 rounded-full border border-line px-4 font-bold">כל התקופות</button>
-      </article> : <article className="rounded-lg border border-line bg-card p-5">
+      </article> : <article className="paper-sheet p-5">
         <h2 className="text-xl font-black">איך קוראים את המפה</h2>
         <p className="mt-2 leading-7 text-txt-dim">כל צבע הוא גיל: ורוד הוא הסלע העתיק ביותר, בהרי אילת; ירוק הוא חבורת יהודה, שדרת ההר; צהוב הוא הצעיר, בעמקים ובחוף. הקישו על אזור, או בחרו מהרשימה.</p>
       </article>}
 
-      <nav aria-label="אזורי המפה" className="rounded-lg border border-line bg-card p-2">
+      <nav aria-label="אזורי המפה" className="paper-sheet p-2">
         <ul className="max-h-[22rem] space-y-1 overflow-y-auto">
           {units?.map((u) => <li key={u.id}>
             <button type="button" aria-pressed={picked === u.id} onClick={() => choose(picked === u.id ? null : u.id)} className={`flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2 text-right transition ${picked === u.id ? "bg-card-2 font-black" : "hover:bg-card-2"}`}>
@@ -201,7 +201,7 @@ function ReliefMap({ focusAge, onAge }: { focusAge: AgeId | null; onAge: (age: A
 function AgesColumn({ onShow }: { onShow: (age: AgeId) => void }) {
   const youngestFirst = [...AGES].reverse();
   return <section aria-labelledby="ages-title" className="space-y-3">
-    <div className="rounded-lg border border-line bg-card p-5">
+    <div className="paper-sheet p-5">
       <h2 id="ages-title" className="text-2xl font-black">עמוד הזמן של ארץ ישראל</h2>
       <p className="mt-1 leading-7 text-txt-dim">כמו בחתך בשטח: הצעיר למעלה, העתיק למטה. כל שכבה מספרת איזו סביבה הייתה כאן כשהסלע נוצר.</p>
     </div>
@@ -232,7 +232,7 @@ function RocksList({ photos }: { photos: GeoPhotos }) {
   const list = ROCKS.filter((r) => !family || r.family === family);
   const nameOf = (id: string) => ROCKS.find((r) => r.id === id)?.name ?? id;
   return <section aria-labelledby="rocks-title" className="space-y-4">
-    <div className="rounded-lg border border-line bg-card p-5">
+    <div className="paper-sheet p-5">
       <h2 id="rocks-title" className="text-2xl font-black">סלעים</h2>
       <p className="mt-1 leading-7 text-txt-dim">שלוש משפחות, לפי הדרך שבה הסלע נוצר. בכל כרטיס: הסימן בשטח, הבדיקה, ומה מספרים עליו בסיור.</p>
       <div role="group" aria-label="סינון לפי משפחה" className="mt-4 flex flex-wrap gap-2">
@@ -243,7 +243,7 @@ function RocksList({ photos }: { photos: GeoPhotos }) {
     <div className="grid gap-4 md:grid-cols-2">
       {list.map((rock) => {
         const photo = photos[rock.id]?.[0];
-        return <article key={rock.id} id={`rock-${rock.id}`} className="scroll-mt-36 overflow-hidden rounded-lg border border-line bg-card">
+        return <article key={rock.id} id={`rock-${rock.id}`} className="scroll-mt-36 overflow-hidden paper-sheet">
           {photo && <img src={withBasePath(photo.src)} alt={photo.alt || rock.name} loading="lazy" className="aspect-[16/9] w-full object-cover" />}
           <div className="p-5">
             <p className="text-xs font-bold text-txt-dim">{ROCK_FAMILIES[rock.family].title} · {rock.kind}</p>
@@ -267,14 +267,14 @@ function RocksList({ photos }: { photos: GeoPhotos }) {
 
 function SoilsList({ photos }: { photos: GeoPhotos }) {
   return <section aria-labelledby="soils-title" className="space-y-4">
-    <div className="rounded-lg border border-line bg-card p-5">
+    <div className="paper-sheet p-5">
       <h2 id="soils-title" className="text-2xl font-black">קרקעות</h2>
       <p className="mt-1 leading-7 text-txt-dim">הקרקע היא הסלע אחרי בליה, והיא שקובעת מה צומח ואיפה התיישבו. כך קוראים את הנוף מחלון האוטובוס.</p>
     </div>
     <div className="grid gap-4 md:grid-cols-2">
       {SOILS.map((soil) => {
         const photo = photos[`soil-${soil.id}`]?.[0];
-        return <article key={soil.id} id={`soil-${soil.id}`} className="overflow-hidden rounded-lg border border-line bg-card">
+        return <article key={soil.id} id={`soil-${soil.id}`} className="overflow-hidden paper-sheet">
           {photo && <PhotoFigure src={photo.src} alt={photo.alt || soil.name} caption={photo.caption} credit={photo.credit} />}
           <div className="p-5">
             <h3 className="text-xl font-black">{soil.name}{soil.extra && <Extra />}</h3>
@@ -309,7 +309,7 @@ export function GeologyAid({ photos, practice }: { photos: GeoPhotos; practice: 
         {tab === "rocks" && <RocksList photos={photos} />}
         {tab === "soils" && <SoilsList photos={photos} />}
         {tab === "practice" && <section className="space-y-3">
-          <p className="rounded-lg border border-line bg-card p-4 leading-7 text-txt-dim">עשר שאלות משאלון הגאולוגיה. התשובות נרשמות במעקב שלכם, ושאלה שטעיתם בה תחזור בתרגול הטעויות.</p>
+          <p className="paper-sheet p-4 leading-7 text-txt-dim">עשר שאלות משאלון הגאולוגיה. התשובות נרשמות במעקב שלכם, ושאלה שטעיתם בה תחזור בתרגול הטעויות.</p>
           <PracticeDeck quizSlug="geology" label="גיאולוגיה" items={practice} />
         </section>}
       </div>

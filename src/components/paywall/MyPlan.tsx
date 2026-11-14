@@ -62,7 +62,7 @@ export function MyPlan() {
   }
 
   return (
-    <section className="mb-8 rounded-lg border border-line bg-card p-5" aria-labelledby="my-plan-title">
+    <section className="mb-8 paper-sheet p-5" aria-labelledby="my-plan-title">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 id="my-plan-title" className="text-lg font-black text-txt">התוכנית שלי: {title}</h2>

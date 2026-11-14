@@ -35,7 +35,7 @@ function prompt(q: Question, plant: Plant) {
 }
 
 function Photo({ photo, revealed }: { photo: PlantPhoto; revealed: boolean }) {
-  return <figure className="overflow-hidden rounded-lg border border-line bg-card">
+  return <figure className="overflow-hidden paper-sheet">
     <div className="flex max-h-[52vh] justify-center bg-card-2">
       <img src={withBasePath(photo.src)} alt={revealed ? photo.alt : "צילום של צמח. איזה צמח זה?"} width={photo.width} height={photo.height} className="max-h-[52vh] w-auto object-contain" />
     </div>
@@ -94,7 +94,7 @@ export function PlantsGame() {
     <Link href="/games/" className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ כל המשחקים</Link>
 
     {!session && <section className="screen-in space-y-5">
-      <div className="relative overflow-hidden rounded-lg border border-line bg-card p-6">
+      <div className="relative overflow-hidden paper-sheet p-6">
         <span aria-hidden className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-mc opacity-25 blur-3xl" />
         <ArtAnemone aria-hidden width={92} height={92} className="text-txt" />
         <h1 className="grad-text mt-2 text-3xl font-black">זיהוי צמחים</h1>
@@ -128,7 +128,7 @@ export function PlantsGame() {
             </button>;
           })}
         </div>
-        {picked !== null && <div className="screen-in space-y-2 rounded-lg border border-line bg-card p-4">
+        {picked !== null && <div className="screen-in space-y-2 paper-sheet p-4">
           <p className={`text-lg font-black ${right ? "text-green" : "text-red"}`}>{right ? "נכון!" : `זה ${plant.name}.`}</p>
           {q.how && <p className="text-base leading-7"><strong>איך מבדילים: </strong>{q.how}</p>}
           <p className="text-base leading-7 text-txt-dim"><strong className="text-txt">סימן מזהה: </strong>{plant.sign}</p>
@@ -139,12 +139,12 @@ export function PlantsGame() {
     })()}
 
     {finished && session && <section className="screen-in space-y-4">
-      <div className="rounded-lg border border-line bg-card p-6 text-center">
+      <div className="paper-sheet p-6 text-center">
         <ArtAnemone aria-hidden width={92} height={92} className="mx-auto text-txt" />
         <h1 className="mt-2 text-2xl font-black">סיימתם את הסבב</h1>
         <p className="mt-1 text-lg text-txt-dim"><span className="num font-black text-txt">{correctCount}</span> מתוך <span className="num">{session.questions.length}</span></p>
       </div>
-      {missedPlants.length > 0 && <div className="rounded-lg border border-line bg-card p-5">
+      {missedPlants.length > 0 && <div className="paper-sheet p-5">
         <h2 className="text-lg font-black">לחזור עליהם</h2>
         <ul className="mt-2 space-y-2">
           {missedPlants.map((p) => <li key={p.id}>

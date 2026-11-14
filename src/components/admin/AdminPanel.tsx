@@ -146,7 +146,7 @@ function Leads({ leads, onToggle }: { leads: Lead[]; onToggle: (l: Lead) => Prom
   return (
     <ul className="flex flex-col gap-2" data-admin-leads>
       {leads.map((l) => (
-        <li key={l.id} className={`rounded-lg border border-line bg-card p-4 ${l.handled ? "opacity-60" : ""}`}>
+        <li key={l.id} className={`paper-sheet p-4 ${l.handled ? "opacity-60" : ""}`}>
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="min-w-0">
               <p className="font-black text-txt">
@@ -181,7 +181,7 @@ function Users({ users, onEnd, onCopy }: { users: AdminUser[]; onEnd: (u: AdminU
           const a = accessLine(u);
           const color = a.tone === "ok" ? "text-green" : a.tone === "warn" ? "text-gold" : a.tone === "trial" ? "text-teal" : "text-txt-dim";
           return (
-            <li key={u.user_id} className="rounded-lg border border-line bg-card p-4">
+            <li key={u.user_id} className="paper-sheet p-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="min-w-0">
                   <p className="font-black text-txt">{u.full_name || u.email}</p>
@@ -233,7 +233,7 @@ function Grant({ pending, onGrant }: { pending: PendingGrant[]; onGrant: (email:
   };
   return (
     <div data-admin-grant>
-      <form onSubmit={submit} className="flex flex-col gap-3 rounded-lg border border-line bg-card p-5 sm:max-w-md">
+      <form onSubmit={submit} className="flex flex-col gap-3 paper-sheet p-5 sm:max-w-md">
         <p className="text-sm text-txt-dim">אחרי שהתשלום התקבל. מנוי קיים מוארך מסוף התקופה הנוכחית.</p>
         <label className="flex flex-col gap-1.5 text-sm font-bold">
           המייל של המנוי
@@ -283,7 +283,7 @@ function Cohorts({ cohorts, onSave }: { cohorts: Cohort[]; onSave: (c: Omit<Coho
   };
   return (
     <div data-admin-cohorts>
-      <form onSubmit={submit} className="mb-6 grid gap-3 rounded-lg border border-line bg-card p-5 sm:grid-cols-2">
+      <form onSubmit={submit} className="mb-6 grid gap-3 paper-sheet p-5 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5 text-sm font-bold">בית ספר<input name="school" required className={field} placeholder="למשל: קמ״ד" /></label>
         <label className="flex flex-col gap-1.5 text-sm font-bold">שם המחזור<input name="name" required className={field} placeholder="למשל: שרון" /></label>
         <label className="flex flex-col gap-1.5 text-sm font-bold">שנה<input name="year" type="number" required min={2000} max={2100} defaultValue={new Date().getFullYear()} className={field} /></label>
@@ -296,7 +296,7 @@ function Cohorts({ cohorts, onSave }: { cohorts: Cohort[]; onSave: (c: Omit<Coho
       </form>
       <ul className="flex flex-col gap-2">
         {cohorts.map((c) => (
-          <li key={c.id} className={`flex items-center justify-between gap-2 rounded-lg border border-line bg-card p-3 ${c.active === false ? "opacity-60" : ""}`}>
+          <li key={c.id} className={`flex items-center justify-between gap-2 paper-sheet p-3 ${c.active === false ? "opacity-60" : ""}`}>
             <span className="text-sm text-txt">{cohortLabel(c)} <span className="text-txt-dim">· קוד: {c.code}</span></span>
             <button type="button" className={btn} onClick={() => void onSave({ ...c, active: c.active === false })}>
               {c.active === false ? "הפעלה" : "הסתרה מההרשמה"}

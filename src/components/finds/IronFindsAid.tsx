@@ -25,7 +25,7 @@ const clean = (name: string) => name.replace(/\s*\(.*?\)\s*/g, "").trim();
 function Find({ find }: { find: IronFind }) {
   const judah = kingAt(JUDAH_KINGS, find.year), israel = kingAt(ISRAEL_KINGS, find.year);
   const reigning = [judah && `ביהודה: ${clean(judah.name)}`, israel && `בישראל: ${clean(israel.name)}`].filter(Boolean).join(" · ");
-  return <article id={anchor(find)} className="scroll-mt-24 rounded-lg border border-line bg-card p-4">
+  return <article id={anchor(find)} className="scroll-mt-24 paper-sheet p-4">
     <p className="text-sm font-bold text-txt-dim">{isolateRanges(find.yearLabel)} · {FIND_KINDS[find.kind]}</p>
     <h2 className="text-xl font-black leading-8">{find.title}</h2>
     {find.image && <PhotoFigure src={`/embeds/history-timeline/${find.image.file}`} alt={find.image.caption} caption={find.image.caption} credit={`${find.image.credit} · ${find.image.license}`} className="my-3" />}
@@ -56,7 +56,7 @@ export function IronFindsAid() {
           <p aria-live="polite" className="font-bold text-txt-dim">{list.length} פריטים</p>
           <div className="grid gap-4 md:grid-cols-2">{list.map((f) => <Find key={anchor(f)} find={f} />)}</div>
         </div>}
-        {tab === "practice" && <section aria-label="תרגול" className="rounded-lg border border-line bg-card p-4 sm:p-6">
+        {tab === "practice" && <section aria-label="תרגול" className="paper-sheet p-4 sm:p-6">
           <PracticeDeck quizSlug="iron-finds" label="ממצאי הברזל: תרגול" items={PRACTICE} />
         </section>}
       </div>

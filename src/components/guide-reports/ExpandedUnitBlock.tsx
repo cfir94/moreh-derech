@@ -2,7 +2,7 @@ import type { ExpandedUnit } from "@/data/guide-reports";
 
 export function ExpandedUnitBlock({ unit }: { unit: ExpandedUnit }) {
   return (
-    <article className="rounded-lg border border-line bg-card p-5">
+    <article className="paper-sheet p-5">
       <dl className="mb-4 grid gap-2 text-sm sm:grid-cols-[auto_1fr]">
         <dt className="font-extrabold text-txt-dim">האתר</dt>
         <dd>{unit.site}</dd>
