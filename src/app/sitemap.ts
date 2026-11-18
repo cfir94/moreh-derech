@@ -1,3 +1,4 @@
+import { ARTICLES } from "@/data/articles";
 import type { MetadataRoute } from "next";
 import { EXAMS } from "@/data/exams";
 import { QUIZZES } from "@/data/quizzes";
@@ -23,6 +24,7 @@ const PUBLIC_ROUTES = [
   "/legal/accessibility",
   "/legal/cancellation",
   "/cancel",
+  "/articles",
   "/games/crossword",
   "/games/who-am-i",
   "/games/jerusalem-robes",
@@ -53,5 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...primaryPages, ...quizPages, ...examPages];
+  const articlePages: MetadataRoute.Sitemap = ARTICLES.map(({ slug, date }) => ({
+    url: absoluteUrl(`/articles/${slug}`),
+    lastModified: date,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...primaryPages, ...quizPages, ...examPages, ...articlePages];
 }
