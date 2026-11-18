@@ -18,31 +18,90 @@
   margin-bottom: 30px;
 }
 
-/* a band of colour from edge to edge behind the head, with a painted stripe under it.
-   box-shadow + clip-path widen it to the whole window without making the page scroll sideways. */
+/* a band of colour from edge to edge behind the head, and under it an edge that belongs to the
+   section: a wave, a torn page, a stamp's perforation, a ruler... (owner, 18.11: every section its
+   own character). The band sits under the page's drawings (z-index -2; the drawings are at -1), so
+   it never covers them; body has overflow-x: clip, so the full width never scrolls sideways. */
 .toned {
-  isolation: isolate;
-  padding: 26px 0 30px;
-  margin-bottom: 40px;
+  padding: 26px 0 34px;
+  margin-bottom: 46px;
 }
 .toned::before,
 .toned::after {
   content: "";
   position: absolute;
-  inset-inline: 0;
-  z-index: -1;
-  clip-path: inset(0 -100vmax);
+  inset-inline: calc(50% - 50vw);
+  z-index: -2;
+  pointer-events: none;
 }
 .toned::before {
-  inset-block: -40px 0;
-  background: color-mix(in srgb, var(--tone) 15%, var(--ground));
-  box-shadow: 0 0 0 100vmax color-mix(in srgb, var(--tone) 15%, var(--ground));
+  top: -40px;
+  bottom: 0;
+  background: color-mix(in srgb, var(--tone) 17%, var(--ground));
 }
 .toned::after {
-  bottom: -8px;
-  height: 8px;
+  top: 100%;
+  height: 14px;
   background: var(--tone);
-  box-shadow: 0 0 0 100vmax var(--tone);
+  -webkit-mask: var(--edge) left top / 80px 14px repeat-x;
+  mask: var(--edge) left top / 80px 14px repeat-x;
+}
+.edge_topics {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V5C66 13 54 13 40 6S14-1 0 5Z'/></svg>");
+}
+.edge_quizzes {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V6L75 10L69 5L63 11L57 6L50 9L44 4L38 10L31 5L25 11L18 6L12 9L6 4L0 6Z'/></svg>");
+}
+.edge_exams {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V5A5 5 0 0 1 70 5A5 5 0 0 1 60 5A5 5 0 0 1 50 5A5 5 0 0 1 40 5A5 5 0 0 1 30 5A5 5 0 0 1 20 5A5 5 0 0 1 10 5A5 5 0 0 1 0 5Z'/></svg>");
+}
+.edge_aids {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V5H0ZM0 8H80V10.5H0Z'/></svg>");
+}
+.edge_games {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V4L75 11L70 4L65 11L60 4L55 11L50 4L45 11L40 4L35 11L30 4L25 11L20 4L15 11L10 4L5 11L0 4Z'/></svg>");
+}
+.edge_tours {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V4H0ZM6 7.5H30V11H6ZM46 7.5H70V11H46Z'/></svg>");
+}
+.edge_reports {
+  --edge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 14' preserveAspectRatio='none'><path d='M0 0H80V4H0ZM0 4H1.8V13H0ZM10 4H11.2V8.5H10ZM20 4H21.2V11H20ZM30 4H31.2V8.5H30ZM40 4H41.8V13H40ZM50 4H51.2V8.5H50ZM60 4H61.2V11H60ZM70 4H71.2V8.5H70Z'/></svg>");
+}
+
+/* a small figure of the period, standing on the band's edge under the page's drawing */
+.headFigure {
+  position: absolute;
+  bottom: 2px;
+  inset-inline-end: 22px;
+  --lane: 34px;
+}
+
+/* a drawing that lives: a flower sways, a tree leans, a butterfly beats its wings, in a few
+   hard frames, like a flip-book (owner, 18.11) */
+.move_flower,
+.move_leaf {
+  transform-origin: 50% 90%;
+  animation: kitSway 3.4s steps(3, jump-none) infinite alternate;
+}
+.move_tree {
+  transform-origin: 50% 95%;
+  animation: kitSway 5s steps(3, jump-none) infinite alternate;
+}
+.move_butterfly {
+  animation: kitFlap 1.6s steps(1, end) infinite;
+}
+@keyframes kitSway {
+  from { rotate: -6deg; }
+  to { rotate: 7deg; }
+}
+@keyframes kitFlap {
+  0% { scale: 1 1; }
+  40% { scale: 0.45 1; }
+  55% { scale: 1 1; }
+  100% { scale: 1 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .move_flower, .move_leaf, .move_tree, .move_butterfly { animation: none; }
 }
 
 .crumbs {
@@ -165,6 +224,14 @@
   }
   .head {
     padding-inline-end: 78px;
+  }
+  .headFigure {
+    inset-inline-end: 6px;
+    --lane: 18px;
+  }
+  /* on a phone the text runs the full width: the figure gets its own strip under it */
+  .toned:has(> .headFigure) {
+    padding-bottom: 78px;
   }
 }
 

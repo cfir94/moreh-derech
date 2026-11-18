@@ -10,7 +10,6 @@ import type { CSSProperties } from "react";
 import { InkIcon } from "./Ink";
 import type { FieldIconName } from "./FieldIcons";
 import { Birds, Prints, TopoPatch } from "./Zones";
-import { Marcher, type MarcherName } from "./Marchers";
 import d from "./pageDecor.module.css";
 
 /**
@@ -31,7 +30,6 @@ export function PageDecor({
   topo = true,
   step = 360,
   wide = false,
-  marchers = [],
 }: {
   /** pen sketches for the margins, top to bottom: things that belong to this page's subject */
   items?: FieldIconName[];
@@ -43,8 +41,6 @@ export function PageDecor({
   step?: number;
   /** the page is wide (max-w-7xl): the sketches wait for a wider screen */
   wide?: boolean;
-  /** figures of the page's periods that march along the foot of the page (Marchers.tsx) */
-  marchers?: MarcherName[];
 }) {
   return (
     <div aria-hidden data-decor className={`${d.layer} ${wide ? d.wide : ""}`}>
@@ -60,13 +56,6 @@ export function PageDecor({
           style={{ top: 250 + i * step, "--turn": `${[-7, 5, -4, 8, -6, 4][i % 6]}deg` } as CSSProperties}
         />
       ))}
-      {marchers.length > 0 && (
-        <div className={d.parade} data-parade>
-          {marchers.map((name, i) => (
-            <Marcher key={name} name={name} delay={-i * 9} className={d.marcher} style={{ insetInlineEnd: `${i * 170}px` }} />
-          ))}
-        </div>
-      )}
       {prints && (
         <div className={d.steps}>
           <Prints

@@ -6,7 +6,7 @@
 .lane {
   position: absolute;
   display: block;
-  width: var(--lane, 380px);
+  width: calc(var(--lane, 34px) + var(--h) * 0.84);
   height: var(--h);
   color: var(--ink);
   pointer-events: none;
@@ -20,14 +20,14 @@
 }
 
 .walk .figure {
-  animation: pace 30s steps(26) infinite;
+  animation: pace 16s steps(8) infinite;
   animation-delay: var(--delay, 0s);
 }
 
 @keyframes pace {
   0% { transform: translateX(0) scaleX(1); }
-  47% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.84)) scaleX(1); }
-  50% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.84)) scaleX(-1); }
+  47% { transform: translateX(calc(var(--lane, 34px))) scaleX(1); }
+  50% { transform: translateX(calc(var(--lane, 34px))) scaleX(-1); }
   97% { transform: translateX(0) scaleX(-1); }
   100% { transform: translateX(0) scaleX(1); }
 }

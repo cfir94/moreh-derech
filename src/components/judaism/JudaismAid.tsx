@@ -55,8 +55,8 @@ export function JudaismAid() {
   const books = keyOnly ? JUDAISM_CHAIN.filter((b) => b.important) : JUDAISM_CHAIN;
 
   return <div dir="rtl" className="relative mx-auto min-h-screen w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8">
-    <PageDecor wide prints={false} items={["scroll","menorah","pencil","notebooks"]} marchers={["priest"]} />
-    <AidHeader slug="judaism-timeline" title="שרשרת הספרים של היהדות" subtitle="מחתימת התנ״ך ועד הפסיקה בת זמננו: מי כתב מה, מתי ואיפה, ואיך כל ספר נשען על קודמו." stats={`${JUDAISM_CHAIN.length} ספרים וחכמים · ${Object.keys(JUDAISM_ERAS).length} תקופות · ${TORAH_CENTERS.length} מרכזי תורה`} />
+    <PageDecor wide prints={false} items={["scroll","menorah","pencil","notebooks"]} />
+    <AidHeader figure="priest" slug="judaism-timeline" title="שרשרת הספרים של היהדות" subtitle="מחתימת התנ״ך ועד הפסיקה בת זמננו: מי כתב מה, מתי ואיפה, ואיך כל ספר נשען על קודמו." stats={`${JUDAISM_CHAIN.length} ספרים וחכמים · ${Object.keys(JUDAISM_ERAS).length} תקופות · ${TORAH_CENTERS.length} מרכזי תורה`} />
     <div className="lg:grid lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-6">
       <AidTabs tabs={TABS} active={tab} onSelect={setTab} />
       <div role="tabpanel" aria-labelledby={`aid-tab-${tab}`} className="mt-4 min-w-0 lg:mt-0">

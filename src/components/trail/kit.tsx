@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { cloneElement, isValidElement, type ComponentProps, type ReactNode, type SVGProps } from "react";
 import { InkIcon } from "./Ink";
+import { Marcher, type MarcherName } from "./Marchers";
 import type { FieldIconName } from "./FieldIcons";
 import k from "./kit.module.css";
 
@@ -47,17 +48,33 @@ export function PenUnderline({ className }: { className?: string }) {
  * The head of a page: breadcrumbs in pencil, the title in the guide's hand with a pen stroke under it,
  * one sentence, and room for a single drawing that belongs to the page.
  */
+/** The sections of the site, each with its own band colour (and, in globals.css, its own paper). */
+export type Section = "topics" | "quizzes" | "exams" | "aids" | "games" | "tours" | "reports";
+export const SECTION_TONE: Record<Section, string> = {
+  topics: "color-mix(in srgb, var(--t-blue) 65%, var(--ink))",
+  quizzes: "var(--t-blue)",
+  exams: "var(--t-red)",
+  aids: "var(--t-orange)",
+  games: "var(--t-green)",
+  tours: "color-mix(in srgb, var(--t-green) 55%, var(--t-orange))",
+  reports: "var(--sign)",
+};
+
 export function PageHead({
   title,
   lede,
   crumbs,
   art,
-  tone,
+  section,
+  figure,
   children,
 }: {
   title: string;
-  /** a band of colour across the page behind the head, in one of the trail-marking colours (owner, 18.11) */
-  tone?: "red" | "blue" | "green" | "orange";
+  /** the site section this page belongs to: its band, the shape of the band's edge, and the paper
+      the whole page is drawn on (owner, 18.11: every section its own colour and character) */
+  section?: Section;
+  /** a small figure of the period, standing on the band's edge and marking time */
+  figure?: MarcherName;
   lede?: ReactNode;
   crumbs?: { href: string; label: string }[];
   /** one drawing that belongs to this page's subject, e.g. <InkIcon name="exams" /> */
@@ -66,7 +83,7 @@ export function PageHead({
 }) {
   const long = title.length > 26;
   return (
-    <header className={cx(k.head, tone && k.toned)} data-ground={tone} style={tone ? ({ "--tone": `var(--t-${tone})` } as React.CSSProperties) : undefined}>
+    <header className={cx(k.head, section && k.toned, section && k[`edge_${section}`])} data-ground={section} style={section ? ({ "--tone": SECTION_TONE[section] } as React.CSSProperties) : undefined}>
       {crumbs && crumbs.length > 0 && (
         <nav aria-label="פירורי לחם">
           <ol className={cx(k.crumbs, "pencil")}>
@@ -87,9 +104,15 @@ export function PageHead({
       {art && (
         <span aria-hidden className={k.headArt}>
           {/* the page's drawing is coloured in, like the tree in the margins (owner, 18.11) */}
-          {isValidElement(art) && art.type === InkIcon ? cloneElement(art as React.ReactElement<{ tint?: boolean }>, { tint: true }) : art}
+          {isValidElement(art) && art.type === InkIcon
+            ? cloneElement(art as React.ReactElement<{ tint?: boolean; name: string; className?: string }>, {
+                tint: true,
+                className: k[`move_${(art.props as { name: string }).name}`],
+              })
+            : art}
         </span>
       )}
+      {figure && <Marcher name={figure} size={68} className={k.headFigure} />}
     </header>
   );
 }

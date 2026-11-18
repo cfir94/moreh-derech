@@ -50,7 +50,7 @@ export function DatingQuizzes() {
     <Link href="/quizzes/" className="inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ כל השאלונים</Link>
 
     {!run && <section className="screen-in space-y-4">
-      <PageHead title="שאלוני תיארוך" art={<InkIcon name="sundial" />}
+      <PageHead section="aids" title="שאלוני תיארוך" art={<InkIcon name="sundial" />}
         lede="מה קדם למה, ובאיזו שנה. בשאלת השלמה חושבים על התשובה, חושפים אותה ומדרגים את עצמכם ביושר." />
       <ul className="grid gap-3 sm:grid-cols-2">
         {Object.entries(DATING_QUIZZES).map(([key, q]) => <li key={key}>
