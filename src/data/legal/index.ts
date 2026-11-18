@@ -13,6 +13,7 @@ export const OPERATOR = {
   /** כתובת למשלוח דואר, כנדרש בעסקה מרחוק. */
   address: "המייסדים 7, נתניה",
   email: LAUNCH.supportEmail,
+  phone: LAUNCH.supportPhone,
   /** ספק הסליקה, כשייבחר (docs/launch/research/payments.md). */
   paymentProvider: "[חברת הסליקה — תעודכן]",
 };
@@ -29,7 +30,7 @@ export const TERMS: LegalDoc = {
   title: "תנאי שימוש",
   intro: `ברוכים הבאים ל${site}. השימוש באתר כפוף לתנאים האלה. כתבנו אותם בשפה פשוטה. אם משהו לא ברור, כתבו לנו ל-${OPERATOR.email}.`,
   sections: [
-    { title: "מי אנחנו", body: [`האתר מופעל ע"י ${OPERATOR.name}, ${OPERATOR.registration}, ${OPERATOR.address}. יצירת קשר: ${OPERATOR.email}.`] },
+    { title: "מי אנחנו", body: [`האתר מופעל ע"י ${OPERATOR.name}, ${OPERATOR.registration}, ${OPERATOR.address}. יצירת קשר: ${OPERATOR.email}, טלפון ${OPERATOR.phone}.`] },
     {
       title: "מה השירות",
       body: [
@@ -127,7 +128,7 @@ export const PRIVACY: LegalDoc = {
       body: [`לעיין במידע, לתקן אותו או לבקש למחוק את החשבון: כתבו ל-${OPERATOR.email} ונטפל תוך 30 יום. מחיקת חשבון מוחקת גם את ההתקדמות השמורה בחשבון.`],
     },
     { title: "עוגיות ואחסון מקומי", body: ["האתר משתמש באחסון המקומי של הדפדפן לשמירת התחברות, התקדמות והעדפות תצוגה. אין עוגיות פרסום או מעקב."] },
-    { title: "מי אחראי למידע", body: [`בעל השליטה במאגר: ${OPERATOR.name}, ${OPERATOR.address} · ${OPERATOR.email}`] },
+    { title: "מי אחראי למידע", body: [`בעל השליטה במאגר: ${OPERATOR.name}, ${OPERATOR.address} · ${OPERATOR.email} · ${OPERATOR.phone}`] },
   ],
 };
 
@@ -151,12 +152,12 @@ export const CANCELLATION: LegalDoc = {
       title: "איך מבטלים",
       body: [
         "בקישור \"ביטול מנוי\" שבתחתית כל עמוד באתר.",
-        `במייל ל-${OPERATOR.email}, או בדואר ל-${OPERATOR.name}, ${OPERATOR.address}.`,
+        `במייל ל-${OPERATOR.email}, בטלפון ${OPERATOR.phone}, או בדואר ל-${OPERATOR.name}, ${OPERATOR.address}.`,
         "בהודעה מספיק לכתוב שם, כתובת המייל של החשבון, ושאתם מבקשים לבטל.",
       ],
     },
     { title: "איך מקבלים החזר", body: ["ההחזר מבוצע בהעברה, באותה דרך שבה שולם, תוך 14 יום מהביטול, עם מסמך זיכוי."] },
-    { title: "שאלות", body: [`כתבו ל-${OPERATOR.email}. עונים בדרך כלל תוך יום עסקים.`] },
+    { title: "שאלות", body: [`כתבו ל-${OPERATOR.email} או התקשרו ל-${OPERATOR.phone}. עונים בדרך כלל תוך יום עסקים.`] },
   ],
 };
 
@@ -180,7 +181,7 @@ export const ACCESSIBILITY: LegalDoc = {
       title: "פטור, ומה בכל זאת עשינו",
       body: ["מפעיל האתר הוא עוסק פטור, ולכן פטור מחובת ביצוע התאמות הנגישות לאתר (תקנה 35ו(ז) לתקנות שוויון זכויות לאנשים עם מוגבלות). למרות זאת, ביצענו את ההתאמות שמפורטות למעלה, ונמשיך לשפר."],
     },
-    { title: "נתקלתם בבעיה?", body: [`כתבו לרכז הנגישות, ${OPERATOR.name}: ${OPERATOR.email}. נשתדל לתקן תוך 14 יום, ובינתיים לתת את המידע בדרך אחרת.`] },
+    { title: "נתקלתם בבעיה?", body: [`כתבו לרכז הנגישות, ${OPERATOR.name}: ${OPERATOR.email}, טלפון ${OPERATOR.phone}. נשתדל לתקן תוך 14 יום, ובינתיים לתת את המידע בדרך אחרת.`] },
   ],
 };
 

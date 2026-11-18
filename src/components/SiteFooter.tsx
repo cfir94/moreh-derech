@@ -32,6 +32,9 @@ export function SiteFooter() {
         <a href={`mailto:${LAUNCH.supportEmail}`} dir="ltr" className="hover:text-txt">
           {LAUNCH.supportEmail}
         </a>
+        <a href={`tel:${LAUNCH.supportPhone.replace(/-/g, "")}`} dir="ltr" className="hover:text-txt">
+          {LAUNCH.supportPhone}
+        </a>
       </nav>
       <p>{LAUNCH.siteName} · אינו קשור למשרד התיירות</p>
     </footer>

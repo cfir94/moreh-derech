@@ -173,6 +173,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* each section of the site has its own ground: the page head's tone tints the whole sheet
+   (owner, 18.11: "הרקע של הדפים כולם באותו צבע"). Fixed hexes, so --ground never refers to itself. */
+:root:has([data-ground="green"]) { --ground: color-mix(in srgb, #4f7a2e 15%, #ead8a8); }
+:root:has([data-ground="blue"]) { --ground: color-mix(in srgb, #2a5a8c 13%, #ead8a8); }
+:root:has([data-ground="red"]) { --ground: color-mix(in srgb, #b5382a 11%, #ead8a8); }
+:root:has([data-ground="orange"]) { --ground: color-mix(in srgb, #b5651d 14%, #ead8a8); }
+:root[data-theme="dark"]:has([data-ground="green"]) { --ground: color-mix(in srgb, #9bc068 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="blue"]) { --ground: color-mix(in srgb, #8ab6e0 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="red"]) { --ground: color-mix(in srgb, #e06049 9%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="orange"]) { --ground: color-mix(in srgb, #e6964c 9%, #382c1e); }
+
 /* the ground is painted on <html>, not <body>: a page's background decorations (PageDecor, z-index -1)
    then sit between the map paper and the page, with no stacking context to trap the page's own
    overlays (dialogs, drawers) under the header */
@@ -373,4 +384,14 @@ select option,
 select optgroup {
   background-color: var(--sheet);
   color: var(--txt);
+}
+
+/* a page with figures marching at its foot keeps a strip free for them below the content */
+:where(*):has(> [data-decor] > [data-parade]) {
+  padding-bottom: 170px !important;
+}
+@media (max-width: 700px) {
+  :where(*):has(> [data-decor] > [data-parade]) {
+    padding-bottom: 124px !important;
+  }
 }

@@ -40,7 +40,7 @@ export default function CancelPage() {
       <section className="mb-6">
         <h2 className="mb-2 text-lg font-black text-txt">דרכים נוספות</h2>
         <p className="mb-2 leading-relaxed text-txt-dim">
-          במייל ישיר ל-<a href={`mailto:${LAUNCH.supportEmail}`} dir="ltr" className="font-bold text-teal">{LAUNCH.supportEmail}</a>, או בדואר ל{OPERATOR.name}, {OPERATOR.address}.
+          במייל ישיר ל-<a href={`mailto:${LAUNCH.supportEmail}`} dir="ltr" className="font-bold text-teal">{LAUNCH.supportEmail}</a>, בטלפון <a href={`tel:${LAUNCH.supportPhone.replace(/-/g, "")}`} dir="ltr" className="font-bold text-teal">{LAUNCH.supportPhone}</a>, או בדואר ל{OPERATOR.name}, {OPERATOR.address}.
           בהודעה מספיק לכתוב שם, כתובת המייל של החשבון, ושאתם מבקשים לבטל.
         </p>
       </section>

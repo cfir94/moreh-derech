@@ -43,8 +43,9 @@
   min-width: 0;
   flex: 1;
   align-items: center;
-  justify-content: center;
-  gap: 0;
+  /* the links share whatever room the bar has, so they breathe on a wide screen (owner, 18.11) */
+  justify-content: space-evenly;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -273,15 +274,23 @@
   }
 }
 
-/* between 1400 and 1600 the links and the tools share a tight row: less padding, so they never touch */
-@media (min-width: 1400px) and (max-width: 1599px) {
-  .link {
-    padding: 0 7px;
+/* the links share the row's spare room (space-evenly) and never touch the tools beside them */
+@media (min-width: 1400px) {
+  .inner {
+    gap: 22px;
   }
+  .link {
+    padding: 0 6px;
+  }
+}
+@media (min-width: 1400px) and (max-width: 1599px) {
   .tools {
     gap: 10px;
   }
+}
+/* a wide screen gives the bar more room, so the links can breathe */
+@media (min-width: 1600px) {
   .inner {
-    gap: 18px;
+    max-width: 1560px;
   }
 }

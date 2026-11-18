@@ -1,0 +1,76 @@
+/*
+ * הדמויות הצועדות. הכול ב-steps(): התנועה קופצת מפריים לפריים כמו ציור במחברת שמדפדפים בה,
+ * לא מחליקה (בקשת הבעלים). בלי תנועה למי שביקש פחות תנועה.
+ */
+
+.lane {
+  position: absolute;
+  display: block;
+  width: var(--lane, 380px);
+  height: var(--h);
+  color: var(--ink);
+  pointer-events: none;
+}
+
+.figure {
+  display: block;
+  overflow: visible;
+  /* the figure is drawn facing right; it paces to the end of its lane and back */
+  transform-origin: 50% 100%;
+}
+
+.walk .figure {
+  animation: pace 30s steps(26) infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes pace {
+  0% { transform: translateX(0) scaleX(1); }
+  47% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.84)) scaleX(1); }
+  50% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.84)) scaleX(-1); }
+  97% { transform: translateX(0) scaleX(-1); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+
+/* the two frames of a step, swapped in a hard cut */
+.frameA {
+  animation: frameA 0.9s steps(1, end) infinite;
+  animation-delay: var(--delay, 0s);
+}
+.frameB {
+  opacity: 0;
+  animation: frameB 0.9s steps(1, end) infinite;
+  animation-delay: var(--delay, 0s);
+}
+.bob {
+  animation: bob 0.9s steps(1, end) infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes frameA {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes frameB {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes bob {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-0.7px); }
+  100% { transform: translateY(-0.7px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walk .figure,
+  .frameA,
+  .frameB,
+  .bob {
+    animation: none;
+  }
+  .frameB {
+    opacity: 0;
+  }
+}

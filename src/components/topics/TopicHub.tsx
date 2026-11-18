@@ -84,11 +84,26 @@ function HubButton({ link }: { link: HubLink }) {
   );
 }
 
+/**
+ * Each group is a block of colour across the whole window, in one of the trail-marking colours,
+ * joined to the one before it by a hand-drawn wave (owner, 18.11: "בלוקים של צבע שמתחברים").
+ */
+const GROUP_COLOR: Record<string, string> = {
+  nature: "green", periods: "orange", religions: "blue", guiding: "red", tours: "green",
+};
+const CYCLE = ["green", "orange", "blue", "red"];
+
 export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: boolean; groups?: HubGroup[] }) {
   return (
-    <div className="flex flex-col gap-10" data-topic-hub>
-      {groups.map((group) => (
-        <section key={group.id} aria-labelledby={`hub-${group.id}`}>
+    <div className={s.blocks} data-topic-hub>
+      {groups.map((group, i) => (
+        <section
+          key={group.id}
+          aria-labelledby={`hub-${group.id}`}
+          className={s.block}
+          style={{ "--bc": `var(--t-${GROUP_COLOR[group.id] ?? CYCLE[i % CYCLE.length]})` } as React.CSSProperties}
+        >
+          {i === groups.length - 1 && <span aria-hidden className={s.blockEnd} />}
           <div className={s.groupHead}>
             <h2 id={`hub-${group.id}`} className={s.groupTitle}>{group.title}</h2>
             <p className={s.groupNote}>{group.note}</p>
