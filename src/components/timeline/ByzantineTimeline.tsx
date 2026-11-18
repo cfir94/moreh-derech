@@ -30,6 +30,7 @@ export function ByzantineTimeline({ photos = {} }: { photos?: Record<string, Era
     lede="מקונסטנטינוס ועד הכיבוש המוסלמי, 324–638: שלוש מאות שנה שבהן הארץ נעשתה ״ארץ הקודש״. כנסיות ומנזרים, צליינים ומפת מידבא, ולצידם התלמוד הירושלמי, בתי הכנסת עם גלגלי המזלות ומרידות השומרונים. חמישה פרקים, ובכל אחד שלושה דברים לזכור."
     art="church"
     decor={["church", "cross", "dome", "menorah", "footprint"]}
+    material="byzantine"
     accent={{ light: "#8a5a12", dark: "#e8c472" }}
     eras={BYZ_ERAS}
     events={BYZ_EVENTS}
