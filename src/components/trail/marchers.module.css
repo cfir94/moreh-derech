@@ -26,8 +26,8 @@
 
 @keyframes pace {
   0% { transform: translateX(0) scaleX(1); }
-  47% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.66)) scaleX(1); }
-  50% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.66)) scaleX(-1); }
+  47% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.84)) scaleX(1); }
+  50% { transform: translateX(calc(var(--lane, 380px) - var(--h) * 0.84)) scaleX(-1); }
   97% { transform: translateX(0) scaleX(-1); }
   100% { transform: translateX(0) scaleX(1); }
 }

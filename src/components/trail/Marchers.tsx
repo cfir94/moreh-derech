@@ -3,29 +3,40 @@
  * באותו קו עט של שאר הרישומים. התנועה בכוונה קטועה, שני פריימים בלבד (steps), כמו דפדוף במחברת,
  * ולא אנימציה חלקה. כל דמות נשענת על מקור חזותי מוכר: תבליטי לכיש (האשורי), הלגיונר של המאה
  * ה־1 עם לוריקה סגמנטטה ומגן סקוטום, והכהן בכתונת לבנה, מצנפת ואבנט.
+ * הסגנון הוא של שאר האיורים באתר (decor/games.tsx): רשת 64, קו עט של 1.8, מילוי בצבעי האתר,
+ * וגוף בגובה של כארבעה ראשים. הציור עצמו ב-tools/marchers/figures.py.
  */
 import type { CSSProperties } from "react";
-import { ART, type Stroke, type Wash } from "./marcherArt";
+import { ART, type Stroke } from "./marcherArt";
 import m from "./marchers.module.css";
 
 export type MarcherName = keyof typeof ART;
 
-/** the colours the drawings are washed in, from the site's own tokens (so dark mode follows) */
-const WASH: Record<string, string> = {
-  orange: "var(--t-orange)",
-  red: "var(--t-red)",
-  blue: "var(--t-blue)",
-  green: "var(--t-green)",
-  stone: "color-mix(in srgb, var(--stone) 70%, var(--ink))",
-  sand: "color-mix(in srgb, var(--t-orange) 35%, var(--stone))",
-  sand2: "var(--stone)",
-  white: "var(--paint)",
-  skin: "color-mix(in srgb, var(--t-orange) 55%, #ecc9a0)",
+/** fills and coloured lines, from the site's own tokens, as in decor/games.tsx (so dark mode follows) */
+const C: Record<string, string> = {
+  paint: "var(--paint, #fbf6e6)",
+  stone: "var(--stone, #dcc692)",
+  red: "var(--t-red, #b5382a)",
+  orange: "var(--t-orange, #b5651d)",
+  blue: "var(--t-blue, #2a5a8c)",
+  sign: "var(--sign, #6b4423)",
+  gold: "var(--gold, #87560f)",
+  skin: "#d9a679",
+  dark: "#231a10",
 };
 
-const strokes = (list: Stroke[]) =>
-  list.map((p, i) => <path key={i} d={p.d} strokeWidth={p.w * 1.3} fill={p.fill ? "currentColor" : undefined} />);
-const washes = (list: Wash[] = []) => list.map((w, i) => <path key={i} d={w.d} fill={WASH[w.c]} />);
+const draw = (list: Stroke[]) =>
+  list.map((p, i) => (
+    <path
+      key={i}
+      d={p.d}
+      strokeWidth={p.w ?? 1.8}
+      stroke={p.w === 0 ? "none" : p.s ? C[p.s] : undefined}
+      fill={p.f ? C[p.f] : "none"}
+      fillOpacity={p.fo}
+      opacity={p.o}
+    />
+  ));
 
 /**
  * One figure, marching. `walk` sends it back and forth along its lane (the parent sets the lane's
@@ -33,7 +44,7 @@ const washes = (list: Wash[] = []) => list.map((w, i) => <path key={i} d={w.d} f
  */
 export function Marcher({
   name,
-  size = 172,
+  size = 132,
   walk = true,
   delay = 0,
   className = "",
@@ -46,23 +57,18 @@ export function Marcher({
   className?: string;
   style?: CSSProperties;
 }) {
-  const art = ART[name];
   return (
     <span
       aria-hidden
       className={`${m.lane} ${walk ? m.walk : ""} ${className}`}
       style={{ ...style, "--h": `${size}px`, "--delay": `${delay}s` } as CSSProperties}
     >
-      <svg viewBox="0 -2 120 182" width={Math.round(size * (120 / 182))} height={size} className={m.figure} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <g stroke="none" fillOpacity="0.5">
-          <g className={m.bob}>{washes(art.wash)}</g>
-          <g className={m.frameA}>{washes(art.washA)}</g>
-          <g className={m.frameB}>{washes(art.washB)}</g>
-        </g>
-        <g filter="url(#ink24)">
-          <g className={m.bob}>{strokes(art.ink)}</g>
-          <g className={m.frameA}>{strokes(art.a)}</g>
-          <g className={m.frameB}>{strokes(art.b)}</g>
+      <svg viewBox="6 0 54 64" width={Math.round(size * (54 / 64))} height={size} className={m.figure} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        <g filter="url(#ink64)">
+          {/* the legs (or the hem) come first, so the kilt or the robe covers their tops */}
+          <g className={m.frameA}>{draw(ART[name].a)}</g>
+          <g className={m.frameB}>{draw(ART[name].b)}</g>
+          <g className={m.bob}>{draw(ART[name].body)}</g>
         </g>
       </svg>
     </span>
