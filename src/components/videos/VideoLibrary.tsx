@@ -89,7 +89,6 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
   const [autoplay, setAutoplay] = useState(false);
   const [autoAdvance, setAutoAdvance] = useState(true);
   const stageRef = useRef<HTMLElement>(null);
-  const railRef = useRef<HTMLOListElement>(null);
 
   const section = sections.find((x) => x.id === sectionId) ?? sections[0];
   const entries = useMemo(() => entriesOf(section), [section]);
@@ -123,16 +122,6 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
       window.removeEventListener("popstate", readSelection);
     };
   }, [sections]);
-
-  // keep the card on stage in view inside the carousel
-  useEffect(() => {
-    const rail = railRef.current;
-    const card = rail?.querySelector<HTMLElement>(`[data-video-id="${videoId}"]`);
-    if (!rail || !card) return;
-    const box = rail.getBoundingClientRect();
-    const r = card.getBoundingClientRect();
-    if (r.left < box.left || r.right > box.right) rail.scrollBy({ left: r.left - box.left - (box.width - r.width) / 2, behavior: "instant" });
-  }, [videoId, sectionId, category]);
 
   function writeUrl(item: VideoItem, part?: string) {
     const url = new URL(window.location.href);
@@ -189,14 +178,6 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
     if (autoAdvance && next) pickPart(next);
   }
 
-  function scrollRail(step: 1 | -1) {
-    const rail = railRef.current;
-    if (!rail) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // RTL: "next" runs to the left
-    rail.scrollBy({ left: -step * rail.clientWidth * 0.8, behavior: reduce ? "auto" : "smooth" });
-  }
-
   return (
     <main className={`screen-in ${s.page}`} dir="rtl">
       <PageDecor wide step={520} items={["videos", "talk", "binoculars", "notebooks", "signpost"]} />
@@ -215,6 +196,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
         </div>
         {sections.length > 1 && (
           <nav aria-label="סוג החומר" className={s.sections}>
+            <span className={s.sectionsLabel}>מה לראות?</span>
             {sections.map((x) => {
               const on = x.id === section.id;
               return <button key={x.id} type="button" onClick={() => pickSection(x)} aria-pressed={on} className={`${kit.chip} ${on ? kit.chipOn : ""}`}>
@@ -227,6 +209,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
         )}
       </header>
 
+      <div className={s.layout}>
       <section ref={stageRef} aria-label="הנגן הנבחר" className={s.stage}>
         <div className={s.stageMain}>
           <div className={s.stageHead} aria-live="polite">
@@ -256,9 +239,9 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
           </div>
           <div className={s.info}>
             <div className={s.flip}>
-              <button type="button" onClick={() => flip(-1)} className={s.step} aria-label="האוסף הקודם בקרוסלה"><Chevron dir="prev" />הקודם</button>
+              <button type="button" onClick={() => flip(-1)} className={s.step} aria-label="האוסף הקודם"><Chevron dir="prev" />הקודם</button>
               <span className={s.flipAt}><span className="num">{at + 1 || "–"}</span> / <span className="num">{shown.length}</span></span>
-              <button type="button" onClick={() => flip(1)} className={`${s.step} ${s.stepNext}`} aria-label="האוסף הבא בקרוסלה">הבא<Chevron dir="next" /></button>
+              <button type="button" onClick={() => flip(1)} className={`${s.step} ${s.stepNext}`} aria-label="האוסף הבא">הבא<Chevron dir="next" /></button>
             </div>
             <div className={s.meta}>
               <span className={s.kind}>{kindLabel(video)}</span>
@@ -274,7 +257,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
           </div>
         </div>
 
-        <aside className={s.side} aria-label={part ? "סרטוני האוסף" : "הבא בתור"}>
+        <aside className={`${s.side} ${part ? "" : s.sideNext}`} aria-label={part ? "סרטוני האוסף" : "הבא בתור"}>
           {part ? (
             <LessonPlaylist
               key={video.id}
@@ -306,23 +289,19 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
 
       <section aria-label="בחירת קורס או אוסף" className={s.browse}>
         <div className={s.browseHead}>
-          <h2 className={s.browseTitle}>{section.title}: כל האוספים</h2>
-          <div className={s.railNav}>
-            <button type="button" onClick={() => scrollRail(-1)} className={s.round} aria-label="גלילת הקרוסלה אחורה"><Chevron dir="prev" /></button>
-            <button type="button" onClick={() => scrollRail(1)} className={s.round} aria-label="גלילת הקרוסלה קדימה"><Chevron dir="next" /></button>
-          </div>
+          <h2 className={s.browseTitle}>כל האוספים: {section.title}</h2>
+          <p className={s.browseCount}><span className="num">{shown.length}</span> אוספים. לחיצה על אוסף פותחת אותו בנגן.</p>
         </div>
         {showCategories && (
-          <div className={s.cats} role="group" aria-label="סינון לפי תחום">
-            {[{ id: ALL, category: "הכול", n: entries.length }, ...section.groups.map((g) => ({ id: g.id, category: g.category, n: g.items.length }))].map((g) => {
-              const on = g.id === category;
-              return <button key={g.id} type="button" onClick={() => pickCategory(g.id)} aria-pressed={on} className={`${s.cat} ${on ? s.catOn : ""}`}>
-                {g.category} <span className="num">{g.n}</span>
-              </button>;
-            })}
-          </div>
+          <label className={s.catPick}>
+            <span>תחום:</span>
+            <select value={category} onChange={(e) => pickCategory(e.target.value)}>
+              <option value={ALL}>הכול ({entries.length})</option>
+              {section.groups.map((g) => <option key={g.id} value={g.id}>{g.category} ({g.items.length})</option>)}
+            </select>
+          </label>
         )}
-        <ol ref={railRef} className={s.rail}>
+        <ol className={s.rail}>
           {shown.map(({ item, group }) => {
             const on = item.id === video.id;
             return <li key={item.id}>
@@ -339,6 +318,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
           })}
         </ol>
       </section>
+      </div>
     </main>
   );
 }

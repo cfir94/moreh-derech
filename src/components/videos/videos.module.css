@@ -40,6 +40,12 @@
   margin-inline: -2px;
 }
 .sections > * { flex-shrink: 0; }
+.sectionsLabel { align-self: center; color: var(--ink-dim); font-weight: 800; font-size: 1.05rem; }
+@media (max-width: 640px) {
+  .sections { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; width: 100%; }
+  .sectionsLabel { grid-column: 1 / -1; }
+  .sections > button { justify-content: center; }
+}
 .sections :global(.num) { font-size: 0.92rem; opacity: 0.8; }
 
 /* ---------------------------------------------------------------- the stage */
@@ -50,7 +56,8 @@
   margin-bottom: 30px;
 }
 @media (min-width: 1024px) {
-  .stage { grid-template-columns: minmax(0, 1fr) 360px; align-items: start; }
+  /* a modest player, so the parts and the other collections fit on the same screen (owner, 18.11) */
+  .stage { grid-template-columns: minmax(0, 640px) minmax(300px, 1fr); align-items: start; }
 }
 .stageMain {
   min-width: 0;
@@ -189,7 +196,7 @@
   padding: 2px;
 }
 @media (min-width: 1024px) {
-  .partsList { max-height: min(520px, calc(100vh - 330px)); }
+  .partsList { max-height: 330px; }
 }
 .part {
   display: flex;
@@ -266,18 +273,15 @@
 .catOn :global(.num) { color: inherit; opacity: 0.75; }
 .catOn:hover { background: var(--ink); }
 
+/* every collection in view at once: a wrapping grid, not a sideways carousel that older users miss */
+.browseCount { color: var(--ink-dim); font-size: 1rem; }
 .rail {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(250px, 72vw);
-  gap: 14px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 2px;
-  scrollbar-width: thin;
-  padding: 6px 2px 14px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  padding: 4px 2px 8px;
 }
-.rail > li { scroll-snap-align: start; min-width: 0; }
+.rail > li { min-width: 0; }
 .card {
   display: flex;
   flex-direction: column;
@@ -331,7 +335,7 @@
 }
 .cardBody { display: grid; align-content: start; gap: 4px; padding: 10px 12px 12px; flex: 1; }
 .cardKind { color: var(--teal); font-size: 0.88rem; font-weight: 800; }
-.cardTitle { color: var(--ink); font-weight: 800; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cardTitle { color: var(--ink); font-weight: 800; font-size: 1.02rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .cardWhere { color: var(--ink-dim); font-size: 0.9rem; }
 
 @media (max-width: 640px) {
@@ -339,5 +343,67 @@
   .stageHead { padding: 10px 14px 8px; }
   .info { padding: 10px 14px 14px; }
   .partThumb, .thumbSmall { width: 96px; }
-  .partsList { max-height: 340px; }
+  .partsList { max-height: 300px; }
+  /* phone: the collections as a plain list, a still beside each title */
+  .rail { grid-template-columns: 1fr; gap: 8px; }
+  .card { flex-direction: row; align-items: stretch; }
+  .card .thumb { flex-shrink: 0; width: 132px; aspect-ratio: 16 / 9; align-self: center; margin: 8px; border-radius: 6px; }
+  .card .play { width: 26px; height: 26px; bottom: 4px; left: 4px; }
+  .cardBody { padding: 8px 4px 8px 10px; }
+  .browseHead { flex-wrap: wrap; }
+}
+
+/* wide screens: three columns on one screen, collections | player | the collection's parts (owner, 18.11:
+   "everything in a small screen area"). The collections stay in their own scrolling column. */
+@media (min-width: 1200px) {
+  .head { margin-bottom: 12px; }
+  .title { font-size: clamp(2.1rem, 3vw, 2.7rem); }
+  .layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 20px; align-items: start; }
+  .stage { grid-column: 2; grid-row: 1; margin-bottom: 0; }
+  .browse {
+    grid-column: 1;
+    grid-row: 1;
+    position: sticky;
+    top: 84px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 100px);
+    padding: 12px;
+    border: 1px solid var(--frame);
+    border-radius: var(--r-lg);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+  }
+  .browseTitle { font-size: 1.7rem; }
+  .browseHead { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .cats { flex-wrap: wrap; overflow: visible; }
+  .cat { min-height: 38px; padding: 2px 12px; }
+  .rail { grid-template-columns: 1fr; gap: 6px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; min-height: 0; }
+  .card { flex-direction: row; align-items: center; box-shadow: none; }
+  .card:hover { transform: none; }
+  .card .thumb { flex-shrink: 0; width: 112px; margin: 6px; border-radius: 6px; }
+  .card .play { display: none; }
+  .cardBody { padding: 6px 4px 6px 8px; gap: 1px; }
+  .cardTitle { font-size: 0.98rem; }
+  .card .coord { display: none; }
+}
+
+/* the field filter: a plain select, the most familiar control there is */
+.catPick { display: flex; align-items: center; gap: 10px; margin: 4px 0 10px; font-weight: 800; color: var(--ink); }
+.catPick select {
+  flex: 1;
+  min-width: 0;
+  min-height: 46px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--frame);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+}
+
+/* "up next" only beside the player on a wide screen; narrower, the full list of collections follows at once */
+@media (max-width: 1199px) {
+  .sideNext { display: none; }
+  .stage:has(.sideNext) { grid-template-columns: minmax(0, 760px); justify-content: center; }
 }
