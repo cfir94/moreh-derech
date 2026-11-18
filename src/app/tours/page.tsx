@@ -13,8 +13,8 @@ export const metadata = pageMeta({
 
 export default function ToursPage() {
   return (
-    <TrailPage decor={<PageDecor birds items={["signpost", "butterfly", "hills", "lake", "binoculars", "tent", "canteen", "compass"]} step={300} />}>
-      <PageHead section="tours" title="סיורים" art={<InkIcon name="signpost" size={72} />} lede="בוחרים אזור ופותחים את מאגר המידע של הסיור. כלים נוספים לסיורים יתווספו כאן בהמשך." />
+    <TrailPage decor={<PageDecor figures={["monk"]} birds items={["signpost", "butterfly", "hills", "lake", "binoculars", "tent", "canteen", "compass"]} step={300} />}>
+      <PageHead section="tours" figure="nabataean" title="סיורים" art={<InkIcon name="signpost" size={72} />} lede="בוחרים אזור ופותחים את מאגר המידע של הסיור. כלים נוספים לסיורים יתווספו כאן בהמשך." />
       <TopicHub groups={TOUR_HUB} />
     </TrailPage>
   );

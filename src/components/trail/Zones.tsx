@@ -149,21 +149,21 @@ export function Waypoints({
 
 /** A few birds on the wing, drawn the way a guide would in the margin. */
 export function Birds({ className = "" }: { className?: string }) {
-  const bird = (x: number, y: number, s: number, tilt = 0) => (
-    <path
-      key={`${x}-${y}`}
-      d="M-14 2C-9-6-4-6 0 0 4-6 9-6 14 2"
-      transform={`translate(${x} ${y}) rotate(${tilt}) scale(${s})`}
-    />
+  // two frames per bird, wings up and wings down, swapped in a hard cut (owner, 18.11)
+  const bird = (x: number, y: number, s: number, tilt = 0, i = 0) => (
+    <g key={`${x}-${y}`} transform={`translate(${x} ${y}) rotate(${tilt}) scale(${s})`} style={{ animationDelay: `${-i * 0.37}s` }} className={z.bird}>
+      <path className={z.wingsUp} d="M-14 2C-9-6-4-6 0 0 4-6 9-6 14 2" />
+      <path className={z.wingsDown} d="M-14 -3C-9 4-4 4 0 0 4 4 9 4 14 -3" />
+    </g>
   );
   return (
     <svg className={`${z.birds} ${className}`} viewBox="0 0 300 140" aria-hidden>
       <g filter="url(#ink200)" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-        {bird(60, 90, 1.3, -8)}
-        {bird(120, 54, 1, -4)}
-        {bird(172, 82, 0.8, 6)}
-        {bird(214, 36, 0.65, -10)}
-        {bird(252, 66, 0.5, 4)}
+        {bird(60, 90, 1.3, -8, 0)}
+        {bird(120, 54, 1, -4, 1)}
+        {bird(172, 82, 0.8, 6, 2)}
+        {bird(214, 36, 0.65, -10, 3)}
+        {bird(252, 66, 0.5, 4, 4)}
       </g>
     </svg>
   );

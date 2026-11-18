@@ -82,7 +82,7 @@ export default function GamesPage() {
   const [crossword, ...rest] = games;
   const CrosswordArt = ART.crossword;
   return (
-    <TrailPage decor={<PageDecor prints={false} items={["games", "grid", "who", "hood"]} />}>
+    <TrailPage decor={<PageDecor figures={["assyrian", "monk"]} prints={false} items={["games", "grid", "who", "hood"]} />}>
       <PageHead section="games"
         title="משחקים"
         art={<InkIcon name="games" size={72} />}

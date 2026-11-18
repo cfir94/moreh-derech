@@ -28,8 +28,8 @@ const GROUP_INK: Record<string, FieldIconName[]> = {
 
 /** small figures of the periods, marking time beside a group's heading */
 const GROUP_FIGURES: Record<string, MarcherName[]> = {
-  periods: ["assyrian", "roman"],
-  religions: ["priest"],
+  periods: ["assyrian", "roman", "crusader"],
+  religions: ["priest", "monk"],
 };
 
 const KIND_INK: Record<string, FieldIconName> = {

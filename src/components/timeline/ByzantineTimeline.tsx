@@ -26,6 +26,7 @@ const SITE: Record<string, { title: string; icon: ChapterKind["icon"] }> = {
 
 export function ByzantineTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
   return <EraChapters
+    marchers={["monk"]}
     title="התקופה הביזנטית"
     lede="מקונסטנטינוס ועד הכיבוש המוסלמי, 324–638: שלוש מאות שנה שבהן הארץ נעשתה ״ארץ הקודש״. כנסיות ומנזרים, צליינים ומפת מידבא, ולצידם התלמוד הירושלמי, בתי הכנסת עם גלגלי המזלות ומרידות השומרונים. חמישה פרקים, ובכל אחד שלושה דברים לזכור."
     art="church"

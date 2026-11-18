@@ -67,6 +67,11 @@
   height: 150px;
 }
 
+/* the figures that wander in the margins: a short lane, so they never reach the text */
+.wanderer {
+  --lane: 40px;
+}
+
 /* between 1280 and 1440 the gutters are narrower: the sketches shrink to fit them */
 @media (min-width: 1280px) and (max-width: 1439px) {
   .sketch {
@@ -83,6 +88,7 @@
 
 /* the gutters exist only on a wide screen; below that the sketches would sit on the content */
 @media (max-width: 1279px) {
+  .wanderer,
   .sketch,
   .birds {
     display: none;
@@ -91,6 +97,7 @@
 
 /* a wide page (max-w-7xl) leaves gutters only on a very wide screen */
 @media (max-width: 1719px) {
+  .wide .wanderer,
   .wide .sketch,
   .wide .birds {
     display: none;
@@ -128,6 +135,17 @@
 .flap {
   animation: flap 1.6s steps(1, end) infinite;
 }
+/* the campfire: the flame jumps between three shapes */
+.flicker {
+  transform-origin: 50% 85%;
+  animation: flicker 0.9s steps(1, end) infinite;
+}
+@keyframes flicker {
+  0% { scale: 1 1; }
+  33% { scale: 0.92 1.08; }
+  66% { scale: 1.06 0.95; }
+  100% { scale: 1 1; }
+}
 
 @keyframes sway {
   from { rotate: -6deg; }
@@ -147,7 +165,8 @@
 @media (prefers-reduced-motion: reduce) {
   .sway,
   .lean,
-  .flap {
+  .flap,
+  .flicker {
     animation: none;
   }
 }

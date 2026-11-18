@@ -53,7 +53,7 @@ function Shell({ title, back, children }: { title: string; back?: { href: string
         <PenUnderline />
       </div>
       <span aria-hidden className="absolute top-0 left-0 hidden opacity-70 sm:block">
-        <InkIcon name="community" size={92} />
+        <InkIcon name="community" size={92} tint className={k.move_community} />
       </span>
     </div>
     {children}

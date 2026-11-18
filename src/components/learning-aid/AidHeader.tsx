@@ -17,7 +17,7 @@ export type AidHeaderProps = {
 export function AidHeader({ slug, title, subtitle, stats, figure }: AidHeaderProps) {
   const long = title.length > 26;
   // the band takes the aid's own colour (its domain), so every aid looks a little different (owner, 18.11)
-  return <header className={`relative pt-2 pb-2 ${kit.toned} ${kit.edge_aids}`} data-ground="aids" style={{ ...domainStyle(slug), "--tone": "var(--mc)" } as React.CSSProperties}>
+  return <header className={`relative pt-2 pb-2 toned-head ${kit.toned} ${kit.motif_aids}`} data-ground="aids" style={{ ...domainStyle(slug), "--tone": "var(--mc)" } as React.CSSProperties}>
     <nav aria-label="פירורי לחם" className="pencil text-base text-txt-dim">
       <Link href="/timelines/" className="underline underline-offset-4 transition hover:text-txt">עזרי למידה</Link>
       <span aria-hidden> › </span><span>{title}</span>
