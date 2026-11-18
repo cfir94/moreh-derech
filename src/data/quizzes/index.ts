@@ -4,7 +4,6 @@ import archaeologyIntro from "@/data/quizzes/archaeology-intro";
 import bronzeAge from "@/data/quizzes/bronze-age";
 import christianity from "@/data/quizzes/christianity";
 import courseBank from "@/data/quizzes/course-bank";
-import examBank from "@/data/quizzes/exam-bank";
 import floraFauna from "@/data/quizzes/flora-fauna";
 import geology from "@/data/quizzes/geology";
 import ironAge from "@/data/quizzes/iron-age";
@@ -19,10 +18,14 @@ import earlyIslam from "@/data/quizzes/early-islam";
 import medieval from "@/data/quizzes/medieval";
 import ottoman from "@/data/quizzes/ottoman";
 
+/*
+ * "exam-bank" (Efrat Nakash's topic-sorted collection with her solutions) is withdrawn from the site
+ * (owner, 18.11, after the legal research: a collection and its solutions are protected). The file
+ * stays until Codex rebuilds the bank from the Ministry's own exam files with our own key and topics.
+ */
 export const QUIZZES: Quiz[] = [
   mosheUpcomingExam,
   pastExams,
-  examBank,
   courseBank,
   floraFauna,
   geology,
