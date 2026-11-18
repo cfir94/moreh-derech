@@ -16,6 +16,7 @@ import { AidTabs, PhotoFigure, PracticeDeck, type PracticeItem } from "@/compone
 import { PageHead, Stamp, kit as k } from "@/components/trail/kit";
 import { InkIcon } from "@/components/trail/Ink";
 import type { FieldIconName } from "@/components/trail/FieldIcons";
+import type { MarcherName } from "@/components/trail/Marchers";
 import { PageDecor } from "@/components/trail/PageDecor";
 import { RangeText } from "@/components/RangeText";
 import type { EraPhoto } from "@/lib/eraPhotos";
@@ -34,6 +35,8 @@ export type EraChaptersProps = {
   lede: ReactNode;
   art: FieldIconName;
   decor: FieldIconName[];
+  /** figures of the period marching at the foot of the page */
+  marchers?: MarcherName[];
   /** the colour of this period's ink: chapter numbers, key stations, the remember-tags */
   accent: { light: string; dark: string };
   /** the period's own material laid over the notebook (owner, 18.11: keep them special, the layout matters
@@ -203,7 +206,7 @@ export function EraChapters(p: EraChaptersProps) {
   };
 
   return <div className={s.wrap} style={style} dir="rtl" onClick={onLink} data-material={p.material}>
-    <PageDecor wide prints={false} items={p.decor} />
+    <PageDecor wide prints={false} items={p.decor} marchers={p.marchers} />
     <PageHead
       title={p.title}
       crumbs={[{ href: "/timelines/", label: "עזרי למידה" }]}

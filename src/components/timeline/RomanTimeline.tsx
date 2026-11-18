@@ -20,6 +20,7 @@ const PRACTICE = eraPractice(ROMAN_EVENTS, ROMAN_ERAS);
 
 export function RomanTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
   return <EraChapters
+    marchers={["roman"]}
     title="התקופה הרומית"
     lede="מפומפיוס ועד קונסטנטינוס, 63 לפנה״ס – 324 לספירה: החורבן ויבנה, בר כוכבא ואיליה קפיטולינה, המשנה בציפורי והדרך אל הנצרות. שבעה פרקים, ובכל אחד שלושה דברים לזכור."
     art="milestone"

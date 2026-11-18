@@ -99,3 +99,72 @@
     height: 130px;
   }
 }
+
+
+/* ---------- a little life in the margins, frame by frame ---------- */
+
+.sway {
+  transform-origin: 50% 92%;
+  animation: sway 3.6s steps(3, jump-none) infinite alternate;
+}
+.lean {
+  transform-origin: 50% 95%;
+  animation: lean 5s steps(3, jump-none) infinite alternate;
+}
+.flap {
+  animation: flap 1.6s steps(1, end) infinite;
+}
+
+@keyframes sway {
+  from { rotate: -6deg; }
+  to { rotate: 7deg; }
+}
+@keyframes lean {
+  from { rotate: -2deg; }
+  to { rotate: 3deg; }
+}
+@keyframes flap {
+  0% { scale: 1 1; translate: 0 0; }
+  40% { scale: 0.45 1; translate: 0 -4px; }
+  55% { scale: 1 1; translate: 6px -8px; }
+  100% { scale: 1 1; translate: 6px -8px; }
+}
+
+/* the figures of the page's periods march along the foot of the page, in every screen size */
+.parade {
+  position: absolute;
+  bottom: 14px;
+  inset-inline-end: 40px;
+  width: 560px;
+  height: 160px;
+}
+
+.marcher {
+  bottom: 0;
+  --lane: 400px;
+  opacity: 0.85;
+}
+
+@media (max-width: 700px) {
+  .parade {
+    inset-inline-end: 6px;
+    width: 300px;
+    height: 100px;
+  }
+  .marcher {
+    --lane: 220px;
+    --h: 96px !important;
+  }
+  .marcher svg {
+    width: 68px;
+    height: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sway,
+  .lean,
+  .flap {
+    animation: none;
+  }
+}

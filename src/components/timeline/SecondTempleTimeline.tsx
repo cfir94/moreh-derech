@@ -63,6 +63,7 @@ function More({ id }: { id: string }) {
 
 export function SecondTempleTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
   return <EraChapters
+    marchers={["priest"]}
     title="בית שני"
     lede="מן השיבה אל החורבן: עליות וממלכות, אנשים ומאבקים, ואבנים שסיפרו היסטוריה. תשעה פרקים, מהרקע האשורי והבבלי ועד אחרי שנת 70, ובכל אחד הדברים שכדאי לזכור."
     art="temple"

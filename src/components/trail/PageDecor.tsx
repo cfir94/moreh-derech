@@ -10,7 +10,19 @@ import type { CSSProperties } from "react";
 import { InkIcon } from "./Ink";
 import type { FieldIconName } from "./FieldIcons";
 import { Birds, Prints, TopoPatch } from "./Zones";
+import { Marcher, type MarcherName } from "./Marchers";
 import d from "./pageDecor.module.css";
+
+/**
+ * A few sketches come alive, in a jerky, flip-book way (owner, 18.11): flowers sway in the wind,
+ * a butterfly beats its wings, a tree leans. Not every drawing: only where it adds a little taste.
+ */
+const MOVES: Partial<Record<FieldIconName, "sway" | "flap" | "lean">> = {
+  flower: "sway",
+  leaf: "sway",
+  butterfly: "flap",
+  tree: "lean",
+};
 
 export function PageDecor({
   items = [],
@@ -19,6 +31,7 @@ export function PageDecor({
   topo = true,
   step = 360,
   wide = false,
+  marchers = [],
 }: {
   /** pen sketches for the margins, top to bottom: things that belong to this page's subject */
   items?: FieldIconName[];
@@ -30,9 +43,11 @@ export function PageDecor({
   step?: number;
   /** the page is wide (max-w-7xl): the sketches wait for a wider screen */
   wide?: boolean;
+  /** figures of the page's periods that march along the foot of the page (Marchers.tsx) */
+  marchers?: MarcherName[];
 }) {
   return (
-    <div aria-hidden className={`${d.layer} ${wide ? d.wide : ""}`}>
+    <div aria-hidden data-decor className={`${d.layer} ${wide ? d.wide : ""}`}>
       {topo && <TopoPatch className={d.topo} />}
       {birds && <Birds className={d.birds} />}
       {items.map((name, i) => (
@@ -41,10 +56,17 @@ export function PageDecor({
           name={name}
           sketch
           size={104}
-          className={`${d.sketch} ${i % 2 ? d.end : d.start}`}
+          className={`${d.sketch} ${i % 2 ? d.end : d.start} ${MOVES[name] ? d[MOVES[name]] : ""}`}
           style={{ top: 250 + i * step, "--turn": `${[-7, 5, -4, 8, -6, 4][i % 6]}deg` } as CSSProperties}
         />
       ))}
+      {marchers.length > 0 && (
+        <div className={d.parade} data-parade>
+          {marchers.map((name, i) => (
+            <Marcher key={name} name={name} delay={-i * 9} className={d.marcher} style={{ insetInlineEnd: `${i * 150}px` }} />
+          ))}
+        </div>
+      )}
       {prints && (
         <div className={d.steps}>
           <Prints
