@@ -37,6 +37,31 @@ description: Write an open article for the site's article section (/articles), i
   - no "בעולם של היום";
   - no "חשוב לציין".
 
+## What we learned from the "Tanach Israeli" post (Sennacherib and Hezekiah, 17.11.2026)
+The craft only; the content is his.
+- **A question that reverses a familiar truth:** "We all know about the wars between brothers… but is there an opposite example?" This makes the reader stop.
+- **A personal invitation and a reading time:** "four minutes of reading". This lowers the barrier for someone scrolling through Facebook.
+- **The map as a character:** "Let's start from the blue dot on the right of the map". A real map the guide makes, which the text walks through step by step.
+- **Three layers in one story:**
+  - the land (the Gihon, the tunnel, the wall);
+  - the source (a short verse, a midrash, an Assyrian inscription);
+  - the people (Rabshakeh, Shebna).
+- **A precise number that sticks:** the tunnel is half a kilometre long and drops only 33 centimetres, and 46 cities fell.
+- **An ending that brings the lesson to today's Israeli society.** One idea, not a sermon.
+- **A call to respond** at the end, which feeds the reach.
+
+## A topical hook (the owner, 18.11)
+- **What people read:** content that connects to the news.
+- **Good triggers:**
+  - a new discovery or find;
+  - a species going extinct or rediscovered;
+  - floods in the desert, explained through geology and geography;
+  - an anniversary;
+  - a site opening or closing.
+- **Evergreen articles are fine too.** Not every article has to be topical, but when news is fresh it's worth writing quickly.
+- **A topical article still needs a source** (the IAA, the Nature and Parks Authority, a news site), cited by name and date, and the course material behind it.
+- **The audience is guides, not the general public.** The lesson at the end is "what to tell the group about this", not a sermon about society.
+
 ## Structure
 1. **Title as a question or a promise**, up to 60 characters. For example: "למה כנסיית המולד נבנתה פעמיים?"
 2. **Lede:** 2–3 sentences that answer the title in short. This is also the meta `description`, up to 155 characters.
