@@ -16,6 +16,8 @@ const server = createServer((req, res) => {
   res.end(readFileSync(path));
 });
 await new Promise(done => server.listen(0, "127.0.0.1", done));
+/** PERIOD_ROWS.length; tests/periods-table.test.mjs checks that it still matches */
+const ROWS = 68;
 const base = process.env.PERIODS_TEST_BASE_URL ?? `http://127.0.0.1:${server.address().port}/moreh-derech`;
 const browser = await chromium.launch({ headless: true });
 const errors = [];
@@ -26,7 +28,7 @@ try {
   await page.getByRole("link", { name: /טבלת התקופות — מבט משווה/ }).click();
   await expect(page.getByRole("heading", { name: "טבלת התקופות", exact: true })).toBeVisible();
   await expect(page.getByRole("table")).toBeVisible();
-  await expect(page.locator("[data-period-row]")).toHaveCount(26);
+  await expect(page.locator("[data-period-row]")).toHaveCount(ROWS);
   const spans = await page.locator("tbody").evaluate(tbody => [...tbody.rows].reduce((remaining, row) => {
     let column = 0;
     for (const cell of row.cells) {
@@ -46,7 +48,7 @@ try {
   await page.getByRole("button", { name: /^פרס\s/ }).click();
   await expect(page.getByRole("heading", { name: "לא נמצאו אירועים מתאימים" })).toBeVisible();
   await page.getByRole("button", { name: "להציג את כל התקופות" }).click();
-  await expect(page.locator("[data-period-row]")).toHaveCount(26);
+  await expect(page.locator("[data-period-row]")).toHaveCount(ROWS);
   await page.getByRole("button", { name: /^רומא\s/ }).click();
   await expect(page.locator("[data-period-row]")).toHaveCount(9);
   await page.getByRole("button", { name: /ניקוי סינון/ }).click();
@@ -56,7 +58,7 @@ try {
       await page.evaluate(value => { document.documentElement.dataset.theme = value; }, theme);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${theme}, ${width}px overflow`).toBe(true);
       if (width < 980) {
-        await expect(page.locator("[data-period-card]")).toHaveCount(26);
+        await expect(page.locator("[data-period-card]")).toHaveCount(ROWS);
         await expect(page.locator('[data-period-card="herods-sons"]')).toContainText("לפנה״ס");
         await expect(page.locator('[data-period-card="herods-sons"]')).toContainText("לספירה");
       }

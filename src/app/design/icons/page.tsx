@@ -13,7 +13,7 @@ export default function IconSheet() {
         {names.map((n) => (
           <li key={n} className="flex flex-col items-center gap-2 text-center">
             <span className="grid size-[84px] place-items-center rounded-full border-[1.5px] border-dashed border-[color-mix(in_srgb,var(--ink)_55%,transparent)]">
-              <InkIcon name={n} size={52} />
+              <InkIcon name={n} size={52} tint />
             </span>
             <span className="flex items-center gap-2 text-sm text-txt-dim" dir="ltr">
               <InkIcon name={n} size={24} />

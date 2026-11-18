@@ -103,7 +103,7 @@ export const LEARNING_AID_GROUPS: LearningAidGroup[] = [
         slug: "periods",
         href: "/timelines/periods",
         title: "טבלת התקופות — מבט משווה",
-        description: "מהמקרא עד הכיבוש המוסלמי: שלטונות, אירועים ושנים, לצד בית ראשון, בית שני ותקופות היצירה היהודית.",
+        description: "מראשית האדם ועד מדינת ישראל: שלטונות, אירועים ושנים, לצד המסגרות ההיסטוריות ותקופות היצירה היהודית.",
         meta: `${PERIOD_ROWS.length} ציוני דרך · חיפוש והשוואת תקופות`,
       },
     ],

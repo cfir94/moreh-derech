@@ -24,6 +24,7 @@ export function RomanTimeline({ photos = {} }: { photos?: Record<string, EraPhot
     lede="מפומפיוס ועד קונסטנטינוס, 63 לפנה״ס – 324 לספירה: החורבן ויבנה, בר כוכבא ואיליה קפיטולינה, המשנה בציפורי והדרך אל הנצרות. שבעה פרקים, ובכל אחד שלושה דברים לזכור."
     art="milestone"
     decor={["milestone", "column", "gate", "temple", "arch"]}
+    material="roman"
     accent={{ light: "#9b3324", dark: "#f0a08c" }}
     eras={ROMAN_ERAS}
     events={ROMAN_EVENTS}

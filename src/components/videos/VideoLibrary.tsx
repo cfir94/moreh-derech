@@ -1,188 +1,72 @@
 "use client";
 
 /**
- * עיצוב "שכבות של דרך": ניווט נושאי ובחירת אוסף לפני נגן יחיד קומפקטי.
- * הסדר מכוון לסריקה מהירה: קטגוריה → תת־נושא → אוסף נבחר → נגן → חלקי האוסף.
+ * ספריית הסרטונים (עיצוב מחדש, בקשת הבעלים 18.11): נכנסים ורואים סרטון.
+ * הנגן עומד בראש הדף, ולידו (או מתחתיו בטלפון) הסרטונים של האוסף או "הבא בתור".
+ * מתחתיו קרוסלה אחת של אוספים לפי סוג החומר, עם סינון לפי תחום. במקום שלוש שכבות של
+ * בחירה (סוג → תחום → תת־נושא) לפני הנגן: לשונית אחת, שורת סינון אחת ושורת כרטיסים אחת.
+ * הקישור הישיר (?video=…&part=…) נשמר.
  */
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  videoCount,
-  videoGroups,
-  type TopicTone,
-  type VideoGroup,
-  type VideoItem,
-  type VideoPart,
-  type VideoSubtopic,
-} from "@/data/videos";
-import {
-  CLASS_VIDEO_SECTIONS,
-  classVideoCount,
-  classRecordingCount,
-  classVideoScanDate,
-  type VideoSection,
-} from "@/data/class-videos";
+import { videoCount, videoGroups, type TopicTone, type VideoGroup, type VideoItem, type VideoPart } from "@/data/videos";
+import { CLASS_VIDEO_SECTIONS, classRecordingCount, classVideoCount, type VideoSection } from "@/data/class-videos";
 import { findVideoSelection, selectedVideoPart, videoPlayerUrl } from "@/lib/videoPlayback";
 import { useClassMember } from "@/hooks/useClassMember";
 import { LessonPlaylist } from "./LessonPlaylist";
 import { YouTubePlayer } from "./YouTubePlayer";
-import { InkIcon } from "@/components/trail/Ink";
+import { Chevron } from "./Chevron";
+import { InkIcon, type Wash } from "@/components/trail/Ink";
+import type { FieldIconName } from "@/components/trail/FieldIcons";
 import { kit, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
-
-const accentClasses = {
-  teal: {
-    dot: "bg-teal",
-    bar: "bg-teal",
-    chip: "border-teal/30 bg-teal/10 text-teal",
-    ring: "ring-teal/50",
-  },
-  blue: {
-    dot: "bg-blue",
-    bar: "bg-blue",
-    chip: "border-blue/30 bg-blue/10 text-blue",
-    ring: "ring-blue/50",
-  },
-  violet: {
-    dot: "bg-violet",
-    bar: "bg-violet",
-    chip: "border-violet/30 bg-violet/10 text-violet",
-    ring: "ring-violet/50",
-  },
-  gold: {
-    dot: "bg-gold",
-    bar: "bg-gold",
-    chip: "border-gold/30 bg-gold/10 text-gold",
-    ring: "ring-gold/50",
-  },
-  rose: {
-    dot: "bg-rose",
-    bar: "bg-rose",
-    chip: "border-rose/30 bg-rose/10 text-rose",
-    ring: "ring-rose/50",
-  },
-} as const;
-
-const subtopicAccentClasses: Record<
-  TopicTone,
-  { dot: string; bar: string; chip: string; ring: string }
-> = {
-  teal: {
-    dot: "bg-teal",
-    bar: "bg-teal",
-    chip: "border-teal/30 bg-teal/10 text-teal",
-    ring: "ring-teal/45",
-  },
-  blue: {
-    dot: "bg-blue",
-    bar: "bg-blue",
-    chip: "border-blue/30 bg-blue/10 text-blue",
-    ring: "ring-blue/45",
-  },
-  violet: {
-    dot: "bg-violet",
-    bar: "bg-violet",
-    chip: "border-violet/30 bg-violet/10 text-violet",
-    ring: "ring-violet/45",
-  },
-  gold: {
-    dot: "bg-gold",
-    bar: "bg-gold",
-    chip: "border-gold/30 bg-gold/10 text-gold",
-    ring: "ring-gold/45",
-  },
-  rose: {
-    dot: "bg-rose",
-    bar: "bg-rose",
-    chip: "border-rose/30 bg-rose/10 text-rose",
-    ring: "ring-rose/45",
-  },
-};
-
-const generalSubtopic: VideoSubtopic = {
-  id: "general",
-  title: "העשרה כללית",
-  description: "מקורות העשרה בנושאי הקורס.",
-  tone: "teal",
-};
+import s from "./videos.module.css";
 
 const enrichmentSection: VideoSection = {
   id: "enrichment",
   title: "העשרה",
-  description: "סדרות, הרצאות וסרטונים משלימים שנבחרו לפי נושאי הליבה של קורס מורי הדרך.",
+  description: "סדרות, הרצאות וסרטונים משלימים לפי נושאי הליבה של הקורס.",
   groups: videoGroups,
 };
-
 const classSections: VideoSection[] = [...CLASS_VIDEO_SECTIONS, enrichmentSection];
 const publicSections: VideoSection[] = [enrichmentSection];
 
-function groupItemsBySubtopic(items: VideoItem[]) {
-  return items.reduce<{ subtopic: VideoSubtopic; items: VideoItem[] }[]>(
-    (groups, item) => {
-      const subtopic = item.subtopic ?? generalSubtopic;
-      const existingGroup = groups.find((group) => group.subtopic.id === subtopic.id);
-      if (existingGroup) {
-        existingGroup.items.push(item);
-      } else {
-        groups.push({ subtopic, items: [item] });
-      }
-      return groups;
-    },
-    [],
-  );
+const SECTION_ICON = { theory: "notebooks", online: "videos", tours: "footprint", enrichment: "binoculars" } as const;
+const TONE_WASH: Record<TopicTone, Wash> = { teal: "green", blue: "blue", violet: "blue", gold: "orange", rose: "red" };
+const ALL = "all";
+/** a drawing for a collection that has no still of its own (YouTube playlists), by its field */
+const GROUP_ICON: Record<string, FieldIconName> = {
+  "history-jerusalem": "scroll", archaeology: "trowel", "religions-communities": "dome", "art-architecture": "column",
+  "geography-landscape": "hills", "water-nature-ecology": "leaf", "israel-guiding-skills": "flag",
+};
+
+type Entry = { item: VideoItem; group: VideoGroup };
+
+function entriesOf(section: VideoSection): Entry[] {
+  return section.groups.flatMap((group) => group.items.map((item) => ({ item, group })));
 }
 
-function PlayIcon() {
-  return (
-    <svg aria-hidden="true" className="size-4" viewBox="0 0 24 24" fill="none">
-      <path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor" />
-    </svg>
-  );
-}
-
-function PlaylistIcon() {
-  return (
-    <svg aria-hidden="true" className="size-3.5" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M4 6h11M4 12h11M4 18h7M18 10v8l4-4-4-4Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg aria-hidden="true" className="size-3.5" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M14 5h5v5M19 5l-8 8M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+/** A still for the card: the first lesson of a collection, or the video itself. Playlists have none. */
+function thumbOf(item: VideoItem) {
+  if (item.parts?.length) return item.parts[0].id;
+  const id = item.embedUrl.match(/youtube\.com\/embed\/([\w-]{11})(?:[?#]|$)/)?.[1];
+  return id === "videoseries" ? undefined : id;
 }
 
 function kindLabel(item: VideoItem) {
-  if (item.externalProvider) return "סדרה";
-  if (item.parts?.length) return "אוסף סרטונים";
+  if (item.externalProvider) return `סדרה ב${item.externalProvider}`;
+  if (item.parts?.length) return `${item.parts.length} סרטונים`;
   return item.type === "playlist" ? "פלייליסט" : "סרטון";
 }
 
-function CoordinatorRecommendation() {
-  return (
-    <span className="rounded-full border border-gold/35 bg-gold/10 px-2.5 py-1 text-sm font-bold text-gold">
-      המלצת רכז הקורס
-    </span>
-  );
+function firstWatchable(entries: Entry[]) {
+  return (entries.find(({ item }) => !item.embedRestricted) ?? entries[0]).item;
 }
 
-function firstEmbeddableItem(items: VideoItem[]) {
-  return items.find((item) => !item.embedRestricted) ?? items[0];
+function ExternalLinkIcon() {
+  return <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
+    <path d="M14 5h5v5M19 5l-8 8M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>;
 }
 
 /**
@@ -196,75 +80,40 @@ export function VideoLibrary() {
 }
 
 function VideoLibraryView({ classMember }: { classMember: boolean }) {
-  const videoSections = classMember ? classSections : publicSections;
-  const totalVideoCount = (classMember ? classVideoCount : 0) + videoCount;
-  const firstSection = videoSections[0];
-  const firstGroup = firstSection.groups[0];
-  const firstItem = firstGroup.items[0];
-  const [activeSection, setActiveSection] = useState(firstSection.id);
-  const [activeCategory, setActiveCategory] = useState(firstGroup.id);
-  const [activeVideoId, setActiveVideoId] = useState(firstItem.id);
-  const [activePartId, setActivePartId] = useState(firstItem.parts?.[0]?.id ?? "");
+  const sections = classMember ? classSections : publicSections;
+  const total = (classMember ? classVideoCount : 0) + videoCount;
+  const [sectionId, setSectionId] = useState(sections[0].id);
+  const [category, setCategory] = useState<string>(ALL);
+  const [videoId, setVideoId] = useState(() => firstWatchable(entriesOf(sections[0])).id);
+  const [partId, setPartId] = useState(() => firstWatchable(entriesOf(sections[0])).parts?.[0]?.id ?? "");
   const [autoplay, setAutoplay] = useState(false);
   const [autoAdvance, setAutoAdvance] = useState(true);
-  const [activeSubtopicByGroup, setActiveSubtopicByGroup] = useState<Record<string, string>>(
-    () =>
-      Object.fromEntries(
-        videoSections.flatMap((section) => section.groups).map((group) => [group.id, groupItemsBySubtopic(group.items)[0].subtopic.id]),
-      ),
-  );
-  const playerRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLElement>(null);
+  const railRef = useRef<HTMLOListElement>(null);
 
-  const selectedSection = useMemo(
-    () => videoSections.find((section) => section.id === activeSection) ?? firstSection,
-    [activeSection, firstSection, videoSections],
-  );
-  const selectedGroup = useMemo(
-    () => selectedSection.groups.find((group) => group.id === activeCategory) ?? selectedSection.groups[0],
-    [activeCategory, selectedSection],
-  );
-  const subtopicGroups = useMemo(
-    () => groupItemsBySubtopic(selectedGroup.items),
-    [selectedGroup],
-  );
-  const activeSubtopicGroup = useMemo(
-    () =>
-      subtopicGroups.find(
-        ({ subtopic }) => subtopic.id === activeSubtopicByGroup[selectedGroup.id],
-      ) ?? subtopicGroups[0],
-    [activeSubtopicByGroup, selectedGroup.id, subtopicGroups],
-  );
-  const activeVideo = useMemo(
-    () =>
-      videoSections
-        .flatMap((section) => section.groups)
-        .flatMap((group) => group.items)
-        .find((item) => item.id === activeVideoId) ?? firstItem,
-    [activeVideoId, firstItem, videoSections],
-  );
-
-  const activeAccent = accentClasses[selectedGroup.accent];
-  const activeSubtopic = activeSubtopicGroup.subtopic;
-  const subtopicAccent = subtopicAccentClasses[activeSubtopic.tone];
-  const isUnifiedOnline = selectedSection.id === "online";
-  const activePart = selectedVideoPart(activeVideo, activePartId);
-  const activePartIndex = activeVideo.parts?.findIndex((part) => part.id === activePart?.id) ?? -1;
-  const playerSource = videoPlayerUrl(activeVideo, activePartId, autoplay);
+  const section = sections.find((x) => x.id === sectionId) ?? sections[0];
+  const entries = useMemo(() => entriesOf(section), [section]);
+  const shown = useMemo(() => category === ALL ? entries : entries.filter(({ group }) => group.id === category), [entries, category]);
+  const all = useMemo(() => sections.flatMap(entriesOf), [sections]);
+  const current = all.find(({ item }) => item.id === videoId) ?? entries[0];
+  const video = current.item;
+  const part = selectedVideoPart(video, partId);
+  const partIndex = video.parts?.findIndex((p) => p.id === part?.id) ?? -1;
+  const at = shown.findIndex(({ item }) => item.id === video.id);
+  const upNext = at < 0 ? shown.slice(0, 5) : [...shown.slice(at + 1), ...shown.slice(0, at)].slice(0, 5);
+  const showCategories = section.groups.length > 1;
 
   useEffect(() => {
     function readSelection() {
       const params = new URLSearchParams(window.location.search);
-      const requestedId = params.get("video");
-      if (!requestedId) return;
-      const nextSelection = findVideoSelection(videoSections, requestedId);
-      if (!nextSelection) return;
-      const { section, group, item } = nextSelection;
-      const itemSubtopic = item.subtopic ?? generalSubtopic;
-      setActiveSection(section.id);
-      setActiveCategory(group.id);
-      setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: itemSubtopic.id }));
-      setActiveVideoId(item.id);
-      setActivePartId(selectedVideoPart(item, params.get("part") ?? undefined)?.id ?? "");
+      const requested = params.get("video");
+      if (!requested) return;
+      const found = findVideoSelection(sections, requested);
+      if (!found) return;
+      setSectionId(found.section.id);
+      setCategory(ALL);
+      setVideoId(found.item.id);
+      setPartId(selectedVideoPart(found.item, params.get("part") ?? undefined)?.id ?? "");
       setAutoplay(false);
     }
     const timer = window.setTimeout(readSelection, 0);
@@ -273,419 +122,233 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
       window.clearTimeout(timer);
       window.removeEventListener("popstate", readSelection);
     };
-  }, [videoSections]);
+  }, [sections]);
 
+  // keep the card on stage in view inside the carousel
   useEffect(() => {
-    const carousel = document.getElementById(`carousel-${selectedGroup.id}`);
-    const card = carousel?.querySelector<HTMLElement>(`[data-video-id="${activeVideoId}"]`);
-    if (!carousel || !card) return;
-    const bounds = carousel.getBoundingClientRect();
-    const selectedBounds = card.getBoundingClientRect();
-    if (selectedBounds.left < bounds.left || selectedBounds.right > bounds.right) {
-      carousel.scrollBy({
-        left: selectedBounds.left - bounds.left - (bounds.width - selectedBounds.width) / 2,
-        behavior: "instant",
-      });
-    }
-  }, [activeVideoId, selectedGroup.id]);
+    const rail = railRef.current;
+    const card = rail?.querySelector<HTMLElement>(`[data-video-id="${videoId}"]`);
+    if (!rail || !card) return;
+    const box = rail.getBoundingClientRect();
+    const r = card.getBoundingClientRect();
+    if (r.left < box.left || r.right > box.right) rail.scrollBy({ left: r.left - box.left - (box.width - r.width) / 2, behavior: "instant" });
+  }, [videoId, sectionId, category]);
 
-  function updateSelectionUrl(item: VideoItem, partId?: string) {
+  function writeUrl(item: VideoItem, part?: string) {
     const url = new URL(window.location.href);
     url.searchParams.set("video", item.id);
-    if (partId) url.searchParams.set("part", partId);
+    if (part) url.searchParams.set("part", part);
     else url.searchParams.delete("part");
     window.history.replaceState(window.history.state, "", url);
   }
 
-  function chooseItem(item: VideoItem) {
-    const partId = item.parts?.[0]?.id;
-    setActiveVideoId(item.id);
-    setActivePartId(partId ?? "");
-    setAutoplay(false);
-    updateSelectionUrl(item, partId);
-  }
-
-  function selectSection(section: VideoSection) {
-    const group = section.groups[0];
-    const firstSubtopic = groupItemsBySubtopic(group.items)[0];
-    const nextItem = firstEmbeddableItem(firstSubtopic.items);
-    setActiveSection(section.id);
-    setActiveCategory(group.id);
-    setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
-    chooseItem(nextItem);
-  }
-
-  function selectCategory(group: VideoGroup) {
-    const firstSubtopic = groupItemsBySubtopic(group.items)[0];
-    const nextItem = firstEmbeddableItem(firstSubtopic.items);
-    setActiveCategory(group.id);
-    setActiveSubtopicByGroup((current) => ({ ...current, [group.id]: firstSubtopic.subtopic.id }));
-    chooseItem(nextItem);
-  }
-
-  function selectSubtopic(subtopic: VideoSubtopic) {
-    const nextSubtopicGroup = subtopicGroups.find(
-      (group) => group.subtopic.id === subtopic.id,
-    );
-    if (!nextSubtopicGroup) return;
-
-    setActiveSubtopicByGroup((current) => ({ ...current, [selectedGroup.id]: subtopic.id }));
-    chooseItem(firstEmbeddableItem(nextSubtopicGroup.items));
-  }
-
-  function scrollToPlayer() {
+  function reveal() {
     requestAnimationFrame(() => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      playerRef.current?.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-        block: "start",
-      });
+      const stage = stageRef.current;
+      if (!stage || stage.getBoundingClientRect().top >= 0) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      stage.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     });
   }
 
-  function scrollCarousel(direction: "previous" | "next") {
-    const carousel = document.getElementById(`carousel-${selectedGroup.id}`);
-    if (!carousel) return;
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    carousel.scrollBy({
-      left: direction === "next" ? -330 : 330,
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-    });
+  function choose(item: VideoItem, scroll = true) {
+    const first = item.parts?.[0]?.id;
+    setVideoId(item.id);
+    setPartId(first ?? "");
+    setAutoplay(false);
+    writeUrl(item, first);
+    if (scroll) reveal();
   }
 
-  function selectVideo(item: VideoItem) {
-    chooseItem(item);
-    scrollToPlayer();
+  function pickSection(next: VideoSection) {
+    setSectionId(next.id);
+    setCategory(ALL);
+    choose(firstWatchable(entriesOf(next)), false);
   }
 
-  function selectPart(part: VideoPart, scroll = true) {
-    setActivePartId(part.id);
+  function pickCategory(id: string) {
+    setCategory(id);
+    const list = id === ALL ? entries : entries.filter(({ group }) => group.id === id);
+    if (!list.some(({ item }) => item.id === video.id)) choose(firstWatchable(list), false);
+  }
+
+  function flip(step: 1 | -1) {
+    if (!shown.length) return;
+    const from = at < 0 ? (step === 1 ? -1 : 0) : at;
+    choose(shown[(from + step + shown.length) % shown.length].item, false);
+  }
+
+  function pickPart(next: VideoPart) {
+    setPartId(next.id);
     setAutoplay(true);
-    updateSelectionUrl(activeVideo, part.id);
-    if (scroll) scrollToPlayer();
+    writeUrl(video, next.id);
   }
 
   function onPartEnded() {
-    const nextPart = activeVideo.parts?.[activePartIndex + 1];
-    if (autoAdvance && nextPart) selectPart(nextPart, false);
+    const next = video.parts?.[partIndex + 1];
+    if (autoAdvance && next) pickPart(next);
+  }
+
+  function scrollRail(step: 1 | -1) {
+    const rail = railRef.current;
+    if (!rail) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // RTL: "next" runs to the left
+    rail.scrollBy({ left: -step * rail.clientWidth * 0.8, behavior: reduce ? "auto" : "smooth" });
   }
 
   return (
-    <main className="screen-in relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10" dir="rtl">
+    <main className={`screen-in ${s.page}`} dir="rtl">
       <PageDecor wide step={520} items={["videos", "talk", "binoculars", "notebooks", "signpost"]} />
-      <header className="mb-7 max-w-3xl">
-        <div className="mb-3 flex items-center gap-2 text-base font-bold text-txt-dim pencil">
-          <InkIcon name="videos" size={24} />
-          מרכז הלמידה
-        </div>
-        <div className={kit.titleWrap}>
-          <h1 className="grad-text text-[length:clamp(2.6rem,6vw,4.4rem)] leading-tight">ספריית הסרטונים</h1>
-          <PenUnderline />
-        </div>
-        {classMember ? (
-          <>
-            <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-              {totalVideoCount} מקורות צפייה המחברים בין הקלטות הקורס, יחידות מקוונות,
-              סיורי השטח וספריית ההעשרה.
-            </p>
-            <p className="mt-2 text-base text-txt-dim">
-              ערוץ הכיתה כולל כעת {classRecordingCount} הקלטות שונות ב־{classVideoCount} אוספים.
-              כל סרטוני השיעור או הסיור זמינים לבחירה בנגן כאן באתר.
-            </p>
-            <p className="mt-1 text-sm text-txt-dim">סריקת ערוץ הכיתה: {classVideoScanDate.split("-").reverse().join(".")}</p>
-          </>
-        ) : (
-          <p className="mt-3 max-w-2xl leading-relaxed text-txt-dim">
-            {totalVideoCount} סדרות, הרצאות וסרטונים משלימים, לפי נושאי הליבה של קורס מורי הדרך.
+
+      <header className={s.head}>
+        <div className={s.headTitle}>
+          <div className={kit.titleWrap}>
+            <h1 className={s.title}>ספריית הסרטונים</h1>
+            <PenUnderline />
+          </div>
+          <p className={s.lede}>
+            {classMember
+              ? <><span className="num">{total}</span> אוספים: הקלטות הכיתה (<span className="num">{classRecordingCount}</span> סרטונים), קורסים מקוונים, סיורים והעשרה.</>
+              : <><span className="num">{total}</span> סדרות, הרצאות וסרטונים משלימים לפי נושאי הקורס.</>}
           </p>
+        </div>
+        {sections.length > 1 && (
+          <nav aria-label="סוג החומר" className={s.sections}>
+            {sections.map((x) => {
+              const on = x.id === section.id;
+              return <button key={x.id} type="button" onClick={() => pickSection(x)} aria-pressed={on} className={`${kit.chip} ${on ? kit.chipOn : ""}`}>
+                <InkIcon name={SECTION_ICON[x.id]} size={22} />
+                {x.title}
+                <span className="num">{entriesOf(x).length}</span>
+              </button>;
+            })}
+          </nav>
         )}
       </header>
 
-      <section aria-labelledby="video-sections-heading" className="mb-6 rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
-        <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h2 id="video-sections-heading" className="text-lg text-txt">בחירת סוג החומר</h2>
-            <p className="mt-1 text-base text-txt-dim">הקלטות הקורס נפרדות מחומרי ההעשרה, כדי להגיע ישר למה שחובה או רלוונטי עכשיו.</p>
+      <section ref={stageRef} aria-label="הנגן הנבחר" className={s.stage}>
+        <div className={s.stageMain}>
+          <div className={s.stageHead} aria-live="polite">
+            <p className={s.where}>{section.title} · {current.group.category}</p>
+            <h2 className={s.nowTitle}>{video.title}</h2>
           </div>
-          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-sm font-bold text-txt-dim">
-            {selectedSection.groups.reduce((total, group) => total + group.items.length, 0)} מקורות
-          </span>
-        </div>
-        <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
-          {videoSections.map((section) => {
-            const isActive = selectedSection.id === section.id;
-            const count = section.groups.reduce((total, group) => total + group.items.length, 0);
-            return (
-              <button key={section.id} type="button" onClick={() => selectSection(section)} aria-pressed={isActive} className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-base font-black transition duration-200 ease-out active:scale-[0.97] ${isActive ? "border-teal/45 bg-teal/10 text-teal shadow-[0_7px_18px_-12px_var(--teal)]" : "border-line bg-card text-txt-dim hover:border-teal/35 hover:bg-card-2 hover:text-txt"}`}>
-                {section.title}<span className="num text-sm font-semibold">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="mt-3 text-base leading-relaxed text-txt-dim">{selectedSection.description}</p>
-      </section>
-
-      {!isUnifiedOnline && (
-      <section aria-label="סינון לפי תחום" className="mb-6">
-        <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]">
-          {selectedSection.groups.map((group) => {
-            const accent = accentClasses[group.accent];
-            const isActive = selectedGroup.id === group.id;
-            return (
-              <button
-                key={group.id}
-                type="button"
-                onClick={() => selectCategory(group)}
-                aria-pressed={isActive}
-                className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-base font-bold transition duration-200 ease-out active:scale-[0.97] ${
-                  isActive
-                    ? `border-current ${accent.chip} shadow-[0_7px_18px_-12px_var(--teal)]`
-                    : "border-line bg-card text-txt-dim hover:border-line hover:bg-card-2 hover:text-txt"
-                }`}
-              >
-                <span className={`size-2 rounded-full ${accent.dot}`} aria-hidden="true" />
-                {group.category}
-              </button>
-            );
-          })}
-        </div>
-      </section>
-      )}
-
-      {!isUnifiedOnline && (
-      <section aria-labelledby={`${selectedGroup.id}-heading`} className="mb-4">
-        <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <span className={`h-5 w-1 rounded-full ${activeAccent.bar}`} aria-hidden="true" />
-              <h2 id={`${selectedGroup.id}-heading`} className="text-xl text-txt sm:text-2xl">
-                {selectedGroup.category}
-              </h2>
-            </div>
-            <p className="pr-3 text-base text-txt-dim">{selectedGroup.intro}</p>
-          </div>
-          <span className="num rounded-full border border-line bg-card px-2.5 py-1 text-sm font-bold text-txt-dim">
-            {selectedGroup.items.length} מקורות
-          </span>
-        </div>
-
-        <div className="rounded-[var(--r-md)] border border-line bg-card/55 p-3 sm:p-4">
-          <div className="mb-2 flex items-center justify-between gap-3">
-            <p className="text-sm font-bold tracking-wide text-txt-dim">בחירת תת־נושא</p>
-            <span className={`num rounded-full border px-2.5 py-1 text-sm font-bold ${subtopicAccent.chip}`}>
-              {activeSubtopicGroup.items.length} מקורות
-            </span>
-          </div>
-          <div
-            className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]"
-            aria-label={`תתי־נושאים ב${selectedGroup.category}`}
-          >
-            {subtopicGroups.map(({ subtopic, items }) => {
-              const optionAccent = subtopicAccentClasses[subtopic.tone];
-              const isActive = subtopic.id === activeSubtopic.id;
-              return (
-                <button
-                  key={subtopic.id}
-                  type="button"
-                  onClick={() => selectSubtopic(subtopic)}
-                  aria-pressed={isActive}
-                  className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-base font-bold transition duration-200 ease-out active:scale-[0.97] ${
-                    isActive
-                      ? `${optionAccent.chip} shadow-[0_7px_18px_-12px_var(--teal)]`
-                      : "border-line bg-card text-txt-dim hover:border-teal/45 hover:text-txt"
-                  }`}
-                >
-                  <span className={`size-2 rounded-full ${optionAccent.dot}`} aria-hidden="true" />
-                  {subtopic.title}
-                  <span className="num text-sm font-semibold">{items.length}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-      )}
-
-      <section aria-label="בחירת קורס או אוסף" aria-labelledby={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="mb-5">
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <span className={`size-2.5 rounded-full ${subtopicAccent.dot}`} aria-hidden="true" />
-            <div>
-              <h3 id={`${selectedGroup.id}-${activeSubtopic.id}-carousel-heading`} className="text-base font-black text-txt">
-                {isUnifiedOnline ? "כל הקורסים המקוונים" : `בחירת אוסף: ${activeSubtopic.title}`}
-              </h3>
-              <p className="mt-0.5 text-sm text-txt-dim">{isUnifiedOnline ? selectedSection.description : activeSubtopic.description}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => scrollCarousel("previous")}
-              aria-label={`הצגת מקורות קודמים ב${activeSubtopic.title}`}
-              className="paper-sheet px-3 py-1.5 text-sm font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
-            >
-              הקודם
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollCarousel("next")}
-              aria-label={`הצגת מקורות נוספים ב${activeSubtopic.title}`}
-              className="paper-sheet px-3 py-1.5 text-sm font-bold text-txt-dim transition duration-200 ease-out hover:border-teal/45 hover:text-txt active:scale-[0.97]"
-            >
-              הבא
-            </button>
-          </div>
-        </div>
-
-        <div
-          id={`carousel-${selectedGroup.id}`}
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:thin]"
-        >
-          {activeSubtopicGroup.items.map((item, index) => {
-            const isSelected = item.id === activeVideo.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                data-video-id={item.id}
-                onClick={() => selectVideo(item)}
-                aria-pressed={isSelected}
-                className={`group relative flex min-h-44 w-[min(17rem,80vw)] shrink-0 snap-start flex-col overflow-hidden rounded-[var(--r-md)] border p-4 text-right transition duration-200 ease-out active:scale-[0.985] ${
-                  isSelected
-                    ? `border-transparent bg-card-2 ring-2 ${subtopicAccent.ring} shadow-[var(--shadow)]`
-                    : "border-line bg-card hover:-translate-y-0.5 hover:border-teal/45 hover:bg-card-2 hover:shadow-[var(--shadow)]"
-                }`}
-              >
-                <span className={`absolute inset-y-0 right-0 w-1 ${subtopicAccent.bar}`} aria-hidden="true" />
-                <div className="mb-4 flex items-center justify-between gap-3 pl-1">
-                  <span className={`flex items-center gap-1.5 rounded-full border px-2 py-1 text-sm font-bold ${subtopicAccent.chip}`}>
-                    {item.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
-                    {kindLabel(item)}
-                  </span>
-                  <span className={`num text-sm font-bold ${isSelected ? "text-teal" : "text-txt-dim"}`}>{isSelected ? "נבחר לצפייה" : String(index + 1).padStart(2, "0")}</span>
-                </div>
-                <div className="mb-2">{item.recommendedByCoordinator && <CoordinatorRecommendation />}</div>
-                <h4 className="line-clamp-2 text-base leading-snug text-txt">{item.title}</h4>
-                <p className="mt-2 line-clamp-2 text-base leading-relaxed text-txt-dim">{item.description}</p>
-                {!!item.parts?.length && <span className="mt-2 text-sm font-bold text-teal">{item.parts.length} סרטונים לצפייה באתר</span>}
-                <span className="mt-auto pt-4 text-sm font-bold text-txt-dim">{item.source}</span>
-                <span
-                  className={`absolute bottom-4 left-4 flex size-8 items-center justify-center rounded-full border transition duration-200 ${
-                    isSelected
-                      ? `${subtopicAccent.chip}`
-                      : "border-line text-txt-dim group-hover:border-teal/50 group-hover:bg-teal/10 group-hover:text-teal"
-                  }`}
-                  aria-hidden="true"
-                >
-                  <PlayIcon />
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      <section
-        ref={playerRef}
-        aria-label="הנגן הנבחר"
-        className="mx-auto mb-5 max-w-5xl scroll-mt-24 overflow-hidden rounded-[var(--r-lg)] border border-line bg-card shadow-[var(--shadow)]"
-      >
-        <div className="border-b border-line px-4 py-3 sm:px-5" aria-live="polite">
-          <p className="text-sm font-bold text-teal">{selectedSection.title} · נבחר לצפייה</p>
-          <h2 className="mt-1 text-lg leading-snug text-txt">{activeVideo.title}</h2>
-        </div>
-        <div className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(15rem,0.7fr)]">
-          <div className="relative aspect-video min-h-[10rem] bg-[#07131c]">
-            {activeVideo.embedRestricted ? (
-              <div className="absolute inset-0 flex flex-col justify-center bg-[radial-gradient(circle_at_78%_20%,rgba(234,179,8,0.22),transparent_32%),linear-gradient(135deg,#07131c,#122b35)] p-5 text-right text-on-media sm:p-7">
-                <span className="mb-3 w-fit rounded-full border border-gold/50 bg-gold/15 px-2.5 py-1 text-sm font-bold text-gold">
-                  {activeVideo.externalProvider
-                    ? `מקור רשמי של ${activeVideo.externalProvider}`
-                    : "מקור מומלץ עם זמינות משתנה"}
-                </span>
-                <h2 className="max-w-md text-lg leading-snug sm:text-xl">
-                  {activeVideo.externalProvider
-                    ? `הסדרה זמינה לצפייה באתר ${activeVideo.externalProvider}.`
-                    : "הפלייליסט אינו זמין כעת להטמעה ממיקום זה."}
-                </h2>
-                <p className="mt-2 max-w-lg text-base leading-relaxed text-on-media/70">
-                  {activeVideo.externalProvider
-                    ? `${activeVideo.externalProvider} חוסם הטמעה בתוך אתרים חיצוניים. הקישור פותח את כל פרקי הסדרה באיכות המקורית.`
-                    : "הוא נשמר בספרייה כהמלצה ישירה של רכז הקורס. אפשר לנסות לפתוח אותו ישירות ביוטיוב."}
-                </p>
-                <a
-                  href={activeVideo.directUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-gold px-3.5 py-2.5 text-base font-bold text-[#07131c] transition duration-200 ease-out hover:brightness-110 active:scale-[0.97]"
-                >
-                  פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
-                  <ExternalLinkIcon />
+          <div className={s.screen}>
+            {video.embedRestricted ? (
+              <div className={s.blocked}>
+                <p className={s.blockedTag}>{video.externalProvider ? `מקור רשמי של ${video.externalProvider}` : "מקור מומלץ עם זמינות משתנה"}</p>
+                <p className={s.blockedTitle}>{video.externalProvider ? `הסדרה זמינה לצפייה באתר ${video.externalProvider}.` : "הפלייליסט אינו זמין כעת להטמעה."}</p>
+                <p className={s.blockedText}>{video.externalProvider
+                  ? `${video.externalProvider} חוסם הטמעה באתרים אחרים. הקישור פותח את כל פרקי הסדרה.`
+                  : "הוא נשמר בספרייה כהמלצה של רכז הקורס. אפשר לפתוח אותו ישירות ביוטיוב."}</p>
+                <a href={video.directUrl} target="_blank" rel="noopener noreferrer" className={s.blockedLink}>
+                  פתיחה ב{video.externalProvider ?? "יוטיוב"} <ExternalLinkIcon />
                 </a>
               </div>
             ) : (
               <YouTubePlayer
-                key={`${activeVideo.id}-${activePart?.id ?? "single"}-${autoplay}`}
-                src={playerSource}
-                title={activePart?.title ?? activeVideo.title}
+                key={`${video.id}-${part?.id ?? "single"}-${autoplay}`}
+                src={videoPlayerUrl(video, partId, autoplay)}
+                title={part?.title ?? video.title}
                 onEnded={onPartEnded}
               />
             )}
           </div>
-          <div className="flex flex-col justify-between p-4 sm:p-5">
-            <div>
-              <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-bold ${activeAccent.chip}`}>
-              {activeVideo.type === "playlist" ? <PlaylistIcon /> : <PlayIcon />}
-                  {kindLabel(activeVideo)}
-                </span>
-                {activeVideo.recommendedByCoordinator && <CoordinatorRecommendation />}
-                <span className="text-sm text-txt-dim">{activeVideo.source}</span>
-              </div>
-              {activePart ? (
-                <div className="mt-3 border-t border-line pt-3" aria-live="polite">
-                  <p className="mb-1 text-sm font-bold text-teal">סרטון {activePartIndex + 1} מתוך {activeVideo.parts?.length}</p>
-                  <p className="text-base leading-snug text-txt">{activePart.title}</p>
-                  <p className="mt-2 text-sm text-txt-dim">בחרו סרטון אחר ברשימה שמתחת לנגן, או עברו לסרטון הבא.</p>
-                </div>
-              ) : <p className="mt-2 text-base leading-relaxed text-txt-dim">{activeVideo.description}</p>}
+          <div className={s.info}>
+            <div className={s.flip}>
+              <button type="button" onClick={() => flip(-1)} className={s.step} aria-label="האוסף הקודם בקרוסלה"><Chevron dir="prev" />הקודם</button>
+              <span className={s.flipAt}><span className="num">{at + 1 || "–"}</span> / <span className="num">{shown.length}</span></span>
+              <button type="button" onClick={() => flip(1)} className={`${s.step} ${s.stepNext}`} aria-label="האוסף הבא בקרוסלה">הבא<Chevron dir="next" /></button>
             </div>
-            {activePart ? (
-              <details className="mt-4 text-sm text-txt-dim">
-                <summary className="cursor-pointer">מידע על האוסף וקישור המקור</summary>
-                <p className="mt-2 leading-relaxed">{activeVideo.description}</p>
-                <a href={activeVideo.directUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-teal underline underline-offset-4">
-                  פלייליסט המקור ביוטיוב (לא נדרש לצפייה)
-                  <ExternalLinkIcon />
-                </a>
-              </details>
-            ) : (
-            <a
-              href={activeVideo.directUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg border border-line bg-card-2 px-3.5 py-2.5 text-base font-bold text-txt transition duration-200 ease-out hover:border-teal/60 hover:bg-teal/10 hover:text-teal active:scale-[0.97]"
-            >
-              פתיחה ב{activeVideo.externalProvider ?? "יוטיוב"}
-              <ExternalLinkIcon />
-            </a>
-            )}
+            <div className={s.meta}>
+              <span className={s.kind}>{kindLabel(video)}</span>
+              {video.recommendedByCoordinator && <span className={s.coord}>המלצת רכז הקורס</span>}
+              <span className={s.source}>{video.source}</span>
+            </div>
+            {part && <p className={s.partNow}>סרטון <span className="num">{partIndex + 1}</span>: {part.title}</p>}
+            <details className={s.about}>
+              <summary>על האוסף וקישור למקור</summary>
+              <p>{video.description}</p>
+              <a href={video.directUrl} target="_blank" rel="noopener noreferrer">פתיחה ב{video.externalProvider ?? "יוטיוב"} <ExternalLinkIcon /></a>
+            </details>
           </div>
         </div>
+
+        <aside className={s.side} aria-label={part ? "סרטוני האוסף" : "הבא בתור"}>
+          {part ? (
+            <LessonPlaylist
+              key={video.id}
+              item={video}
+              selectedPart={part}
+              onSelect={pickPart}
+              autoAdvance={autoAdvance}
+              onAutoAdvanceChange={setAutoAdvance}
+            />
+          ) : (
+            <section aria-labelledby="up-next-heading" className={s.parts}>
+              <div className={s.partsHead}><h3 id="up-next-heading" className={s.partsTitle}>הבא בתור</h3></div>
+              <p className={s.desc}>{video.description}</p>
+              <ol className={s.partsList}>
+                {upNext.map(({ item, group }) => <li key={item.id}>
+                  <button type="button" onClick={() => choose(item, false)} className={s.part}>
+                    <Thumb item={item} icon={GROUP_ICON[group.id]} tone={item.subtopic?.tone} small />
+                    <span className={s.partText}>
+                      <span className={s.partNum}>{group.category}</span>
+                      <span className={s.partName}>{item.title}</span>
+                    </span>
+                  </button>
+                </li>)}
+              </ol>
+            </section>
+          )}
+        </aside>
       </section>
 
-      {activePart && (
-        <LessonPlaylist
-          key={activeVideo.id}
-          item={activeVideo}
-          selectedPart={activePart}
-          onSelect={selectPart}
-          autoAdvance={autoAdvance}
-          onAutoAdvanceChange={setAutoAdvance}
-        />
-      )}
-
+      <section aria-label="בחירת קורס או אוסף" className={s.browse}>
+        <div className={s.browseHead}>
+          <h2 className={s.browseTitle}>{section.title}: כל האוספים</h2>
+          <div className={s.railNav}>
+            <button type="button" onClick={() => scrollRail(-1)} className={s.round} aria-label="גלילת הקרוסלה אחורה"><Chevron dir="prev" /></button>
+            <button type="button" onClick={() => scrollRail(1)} className={s.round} aria-label="גלילת הקרוסלה קדימה"><Chevron dir="next" /></button>
+          </div>
+        </div>
+        {showCategories && (
+          <div className={s.cats} role="group" aria-label="סינון לפי תחום">
+            {[{ id: ALL, category: "הכול", n: entries.length }, ...section.groups.map((g) => ({ id: g.id, category: g.category, n: g.items.length }))].map((g) => {
+              const on = g.id === category;
+              return <button key={g.id} type="button" onClick={() => pickCategory(g.id)} aria-pressed={on} className={`${s.cat} ${on ? s.catOn : ""}`}>
+                {g.category} <span className="num">{g.n}</span>
+              </button>;
+            })}
+          </div>
+        )}
+        <ol ref={railRef} className={s.rail}>
+          {shown.map(({ item, group }) => {
+            const on = item.id === video.id;
+            return <li key={item.id}>
+              <button type="button" data-video-id={item.id} onClick={() => choose(item)} aria-pressed={on} className={s.card}>
+                <Thumb item={item} icon={GROUP_ICON[group.id]} tone={item.subtopic?.tone} />
+                <span className={s.cardBody}>
+                  <span className={s.cardKind}>{on ? "בנגן עכשיו" : kindLabel(item)}</span>
+                  <span className={s.cardTitle}>{item.title}</span>
+                  <span className={s.cardWhere}>{showCategories ? group.category : item.subtopic?.title ?? group.category}</span>
+                  {item.recommendedByCoordinator && <span className={s.coord}>המלצת רכז הקורס</span>}
+                </span>
+              </button>
+            </li>;
+          })}
+        </ol>
+      </section>
     </main>
   );
+}
+
+function Thumb({ item, icon, tone, small = false }: { item: VideoItem; icon?: FieldIconName; tone?: TopicTone; small?: boolean }) {
+  const still = thumbOf(item);
+  return <span className={`${s.thumb} ${small ? s.thumbSmall : ""}`} aria-hidden>
+    {still
+      ? <Image src={`https://i.ytimg.com/vi/${still}/mqdefault.jpg`} alt="" width={320} height={180} unoptimized />
+      : <span className={s.thumbDrawn}><InkIcon name={icon ?? (item.externalProvider ? "videos" : "binoculars")} size={small ? 30 : 46} tint={tone ? TONE_WASH[tone] : true} /></span>}
+    {!small && <span className={s.play}><svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor" /></svg></span>}
+  </span>;
 }

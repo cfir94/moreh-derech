@@ -144,6 +144,16 @@ export function SiteCard({ site, activeLayerId, links, arch, stat, colorOf, onCl
 
       <div className={styles.cardScroll}>
         <div className={styles.hero}>
+          <div className={styles.media}>
+            <Gallery site={site} index={photoIndex} setIndex={setPhotoIndex} />
+            <aside className={styles.tip}>
+              <InkIcon name="pencil" size={24} />
+              <div>
+                <strong>טיפ לזכירה</strong>
+                <p>{site.tip}</p>
+              </div>
+            </aside>
+          </div>
           <div className={styles.facts}>
             <div className={styles.markRow} role="group" aria-label="סימון אישי">
               <button type="button" aria-pressed={stat?.mark === "known"} onClick={() => setMark(site.id, "known")} className={styles.markKnown}>✓ יודע</button>
@@ -177,16 +187,6 @@ export function SiteCard({ site, activeLayerId, links, arch, stat, colorOf, onCl
             </section>
           </div>
 
-          <div className={styles.media}>
-            <Gallery site={site} index={photoIndex} setIndex={setPhotoIndex} />
-            <aside className={styles.tip}>
-              <InkIcon name="pencil" size={24} />
-              <div>
-                <strong>טיפ לזכירה</strong>
-                <p>{site.tip}</p>
-              </div>
-            </aside>
-          </div>
         </div>
 
         {arch.length > 0 && (

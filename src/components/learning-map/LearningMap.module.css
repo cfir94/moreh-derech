@@ -149,11 +149,16 @@
 .stepper button { width: 32px; height: 32px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); }
 .close { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); font-size: 16.5px; font-weight: 900; }
 .close:hover, .stepper button:hover { background: var(--card-2); color: var(--teal); }
-.cardScroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 14px 18px 22px; scrollbar-width: thin; }
+.cardScroll { flex: 1; min-height: 0; overflow-y: auto; display: block; padding: 14px 18px 22px; scrollbar-width: thin; }
+.cardScroll > * + * { margin-top: 16px; }
+.cardScroll::after { content: ""; display: block; clear: both; }
 
 /* facts beside a modest photo: the information is visible without scrolling past the picture */
-.hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(220px, 1fr); gap: 18px; align-items: start; }
+/* the photo and the tip float at the side, and everything after them (about the site, exam wording, links)
+   flows into the space beside them: no empty gap under "who built it" when the photo column is taller */
+.hero { display: block; }
 .facts, .media { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.media { float: left; width: min(44%, 460px); margin: 0 0 14px 20px; }
 
 .gallery { display: flex; flex-direction: column; gap: 6px; }
 .mainPhoto { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 300px; overflow: hidden; border-radius: 16px; background: var(--card-2); border: 1px solid var(--line); }
@@ -235,13 +240,14 @@ button.findTitle { color: var(--teal); }
 .links a { display: block; font-size: 15px; padding: 6px 10px; border-radius: 10px; color: var(--teal); background: var(--card); }
 .links a:hover { background: var(--card-2); }
 .links small { color: var(--txt-dim); font-weight: 700; margin-inline-end: 4px; }
-.provenance { font-size: 13px; line-height: 1.6; color: var(--txt-dim); padding-top: 6px; border-top: 1px solid var(--line); }
+.provenance { clear: both; font-size: 13px; line-height: 1.6; color: var(--txt-dim); padding-top: 6px; border-top: 1px solid var(--line); }
 
 /* a narrow window (phone, or a wide map): photo on top, kept short */
 @container site (max-width: 640px) {
-  .hero { grid-template-columns: minmax(0, 1fr); }
-  .media { display: contents; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .media { display: contents; float: none; width: auto; margin: 0; }
   .gallery { order: -1; }
+  .tip { order: 1; }
   .mainPhoto { aspect-ratio: 16 / 9; max-height: 180px; }
   .cardTop, .cardScroll { padding-inline: 14px; }
 }

@@ -4,7 +4,7 @@
  * סימוני שביל להתקדמות, ועיגול עט של מורה לתשובה נכונה. הצבעים רק מטוקנים, כך ששני המצבים עובדים.
  */
 import Link from "next/link";
-import type { ComponentProps, ReactNode, SVGProps } from "react";
+import { cloneElement, isValidElement, type ComponentProps, type ReactNode, type SVGProps } from "react";
 import { InkIcon } from "./Ink";
 import type { FieldIconName } from "./FieldIcons";
 import k from "./kit.module.css";
@@ -83,7 +83,8 @@ export function PageHead({
       {children}
       {art && (
         <span aria-hidden className={k.headArt}>
-          {art}
+          {/* the page's drawing is coloured in, like the tree in the margins (owner, 18.11) */}
+          {isValidElement(art) && art.type === InkIcon ? cloneElement(art as React.ReactElement<{ tint?: boolean }>, { tint: true }) : art}
         </span>
       )}
     </header>

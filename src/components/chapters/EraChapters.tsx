@@ -36,6 +36,9 @@ export type EraChaptersProps = {
   decor: FieldIconName[];
   /** the colour of this period's ink: chapter numbers, key stations, the remember-tags */
   accent: { light: string; dark: string };
+  /** the period's own material laid over the notebook (owner, 18.11: keep them special, the layout matters
+   *  more): a paved Roman road with milestones and an inscription plaque, or a Byzantine mosaic */
+  material?: "roman" | "byzantine";
   eras: readonly ChapterEra[];
   events: readonly ChapterEvent[];
   kinds: readonly ChapterKind[];
@@ -52,6 +55,8 @@ export type EraChaptersProps = {
 };
 
 const HEB = ["א׳", "ב׳", "ג׳", "ד׳", "ה׳", "ו׳", "ז׳", "ח׳", "ט׳", "י׳", "י״א", "י״ב"];
+/** a Roman road counts its miles in Roman numerals */
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
 /** Up to three things to carry away: key events that are also exam concepts first, then the other
  *  key events, then concepts; always shown in time order. */
@@ -197,7 +202,7 @@ export function EraChapters(p: EraChaptersProps) {
     open(id, { hash: true, scroll: true });
   };
 
-  return <div className={s.wrap} style={style} dir="rtl" onClick={onLink}>
+  return <div className={s.wrap} style={style} dir="rtl" onClick={onLink} data-material={p.material}>
     <PageDecor wide prints={false} items={p.decor} />
     <PageHead
       title={p.title}
@@ -224,7 +229,7 @@ export function EraChapters(p: EraChaptersProps) {
             const on = e.id === eraId && !query;
             return <li key={e.id}>
               <button type="button" aria-current={on ? "step" : undefined} className={`${s.stop} ${on ? s.stopOn : ""}`} onClick={() => goEra(e.id)}>
-                <span className={s.stopNum} aria-hidden>{HEB[i]}</span>
+                <span className={s.stopNum} aria-hidden>{p.material === "roman" ? ROMAN[i] : HEB[i]}</span>
                 <span className={s.stopTitle}>{e.title}</span>
                 <span className={s.stopRange}><RangeText text={e.range} /></span>
               </button>

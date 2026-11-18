@@ -97,17 +97,39 @@ const HATCH: Partial<Record<FieldIconName, string>> = {
   strata: "M5 11.600l1.2-1.200M9 12l1.2-1.200M14 11.600l1.2-1.200M5 16.600l1.2-1.200M14 16.600l1.2-1.2",
 };
 
+/**
+ * The wash under an icon when it is coloured in, the way the tree in the margins is (owner, 18.11): the same
+ * ink drawing, with a watercolour of the thing's own colour laid under it, a touch off register.
+ */
+const WASH = { green: "var(--t-green)", blue: "var(--t-blue)", red: "var(--t-red)", orange: "var(--t-orange)", sand: "color-mix(in srgb, var(--t-orange) 40%, var(--stone))" } as const;
+export type Wash = keyof typeof WASH;
+const WASH_OF: Partial<Record<FieldIconName, Wash>> = {
+  tree: "green", leaf: "green", flower: "green", ibex: "green", butterfly: "green", hills: "green",
+  review: "green", notebooks: "green",
+  lake: "blue", canteen: "blue", map: "blue", binoculars: "blue", compass: "blue", search: "blue",
+  videos: "blue", quizzes: "blue", timelines: "blue", grid: "blue", who: "blue", hammer: "blue", moon: "blue",
+  strata: "orange", handaxe: "orange", trowel: "orange", jar: "orange", crown: "orange", menorah: "orange",
+  sundial: "orange", sort: "orange", border: "orange", sun: "orange", signpost: "orange", pencil: "orange",
+  footprint: "orange", me: "orange", lock: "orange",
+  flag: "red", tent: "red", bell: "red", community: "red", talk: "red", games: "red", exams: "red",
+  hood: "red", resources: "red",
+};
+
 export function InkIcon({
   name,
   size = 28,
   sketch = false,
+  tint,
   ...rest
 }: {
   name: FieldIconName;
   size?: number;
   /** drawn large in a page's margin: a thinner pen, so it reads as a sketch and not as a blown-up icon */
   sketch?: boolean;
+  /** colour it in: true takes the thing's own colour (green for a tree, blue for a lake, sand for stone) */
+  tint?: boolean | Wash;
 } & Omit<SVGProps<SVGSVGElement>, "name">) {
+  const wash = tint ? WASH[tint === true ? WASH_OF[name] ?? "sand" : tint] : null;
   return (
     <svg
       viewBox="0 0 24 24"
@@ -120,6 +142,7 @@ export function InkIcon({
       aria-hidden
       {...rest}
     >
+      {wash && <g style={{ color: wash }} fill="currentColor" fillOpacity={0.5} stroke="none" transform="translate(0.7 0.55)">{PATHS[name]}</g>}
       <g filter="url(#ink24)">
         <g strokeWidth={sketch ? 0.75 : 1.55}>{PATHS[name]}</g>
         {HATCH[name] && <path d={HATCH[name]} strokeWidth={sketch ? 0.42 : 0.85} opacity={0.75} />}

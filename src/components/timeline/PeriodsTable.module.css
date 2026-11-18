@@ -40,11 +40,11 @@
 .search input { min-width: 0; width: 100%; height: 44px; background: transparent; outline: none; font-size: 15px; color: var(--ink); }
 .search input::placeholder { color: var(--muted); opacity: .9; }
 .filters { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
-.filters button { display: inline-flex; align-items: center; gap: 7px; padding: 9px 11px; min-height: 39px; border: 1px solid var(--rule); border-radius: 8px; color: var(--ink); font-size: 13px; font-weight: 700; cursor: pointer; transition: background .15s, border-color .15s; }
+.filters button { display: inline-flex; align-items: center; gap: 7px; padding: 9px 11px; min-height: 39px; border: 1px solid var(--rule); border-radius: 8px; color: var(--ink); font-size: 15px; font-weight: 700; cursor: pointer; transition: background .15s, border-color .15s; }
 .filters button:hover { background: var(--paper-soft); }
 .filters button[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 11%, var(--paper)); border-color: var(--accent); color: var(--ink); }
 .filters button i { width: 6px; height: 6px; border-radius: 50%; background: var(--era-color); }
-.filters button > span { padding-inline-start: 5px; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.filters button > span { padding-inline-start: 5px; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 .resultBar { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 49px; margin-top: 6px; font-size: 12px; color: var(--muted); }
 .resultBar strong { color: var(--ink); }
 .resultBar button { color: var(--accent); font-weight: 700; padding: 10px 0; cursor: pointer; }
@@ -169,4 +169,10 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .filters button, .rowNote summary > span { transition: none; }
+}
+
+/* 15 periods: one scrolling row on a phone instead of six rows of chips (18.11) */
+@media (max-width: 700px) {
+  .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; padding-bottom: 6px; margin-inline: -4px; padding-inline: 4px; }
+  .filters button { flex-shrink: 0; }
 }

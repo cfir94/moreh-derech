@@ -58,6 +58,27 @@ try {
     await context.close();
   }
 
+  // Saved drafts open in a window over the guide-reports page, with a close button (owner, 18.11).
+  {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    page.on("pageerror", error => errors.push(error.message));
+    await page.addInitScript(draft => localStorage.setItem("md_guide_drafts_v1", JSON.stringify([{ ...draft, createdAt: 100, updatedAt: 100 }])), cases[1]);
+    await page.goto(base + "/guide-reports/");
+    await page.getByRole("button", { name: /טיוטות שמורות/ }).click();
+    const dialog = page.getByRole("dialog", { name: "טיוטות שמורות" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("link", { name: "פתיחה", exact: true })).toBeVisible();
+    await expect(page).toHaveURL(/\/guide-reports\/$/);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await page.getByRole("button", { name: /טיוטות שמורות/ }).click();
+    await dialog.getByRole("button", { name: "סגירת חלון הטיוטות" }).click();
+    await expect(dialog).toBeHidden();
+    checks++;
+    await context.close();
+  }
+
   // Both input formats enter the same review session and clear their real owner.
   for (const quizId of [12001, 20001]) {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 } });

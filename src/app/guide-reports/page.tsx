@@ -7,6 +7,7 @@ import { PageHead, SectionHead, StepRoad, TrailPage } from "@/components/trail/k
 import { REPORTS } from "@/data/guide-reports";
 import { FEATURED_RESOURCES } from "@/data/resources";
 import { ResourceCredit, ResourceList } from "@/components/ResourceList";
+import { DraftsDialog } from "@/components/guide-reports/DraftsDialog";
 
 // The per-site reports and the model route plans on Efrat Nakash's site cover
 // the same ground as this section, in far more places than we ever will.
@@ -99,7 +100,7 @@ export default function GuideReportsPage() {
         </section>
         {drafts && (
           <aside aria-label="טיוטות" className="lg:pt-16">
-            <SectionCard {...drafts} index={1} />
+            <DraftsDialog {...drafts} />
           </aside>
         )}
       </div>
