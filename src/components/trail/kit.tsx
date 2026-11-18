@@ -52,9 +52,12 @@ export function PageHead({
   lede,
   crumbs,
   art,
+  tone,
   children,
 }: {
   title: string;
+  /** a band of colour across the page behind the head, in one of the trail-marking colours (owner, 18.11) */
+  tone?: "red" | "blue" | "green" | "orange";
   lede?: ReactNode;
   crumbs?: { href: string; label: string }[];
   /** one drawing that belongs to this page's subject, e.g. <InkIcon name="exams" /> */
@@ -63,7 +66,7 @@ export function PageHead({
 }) {
   const long = title.length > 26;
   return (
-    <header className={k.head}>
+    <header className={cx(k.head, tone && k.toned)} style={tone ? ({ "--tone": `var(--t-${tone})` } as React.CSSProperties) : undefined}>
       {crumbs && crumbs.length > 0 && (
         <nav aria-label="פירורי לחם">
           <ol className={cx(k.crumbs, "pencil")}>

@@ -583,16 +583,45 @@
   height: 100%;
 }
 
-/* ---------- the legend ---------- */
+/* ---------- the legend: a coloured panel, like the key printed on a hiking map ---------- */
 
 .legend {
+  --lg-bg: #2e4a3c;
+  --lg-ink: #f6ecd2;
+  --lg-dim: color-mix(in srgb, #f6ecd2 78%, transparent);
+  --lg-disc-ink: #fffaf0;
   position: relative;
-  padding: 22px 24px 14px;
-  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  padding: 34px 24px 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgb(255 255 255 / 0.07), transparent 60%),
+    var(--lg-bg);
+  color: var(--lg-ink);
   border: 2px solid var(--frame);
-  outline: 1px solid var(--frame);
-  outline-offset: -7px;
+  outline: 1px solid color-mix(in srgb, var(--lg-ink) 35%, transparent);
+  outline-offset: -9px;
+  border-radius: 6px;
   box-shadow: 0 26px 40px -30px rgb(20 12 4 / 0.7);
+}
+
+:root[data-theme="dark"] .legend {
+  --lg-bg: #24382d;
+  --lg-disc-ink: #1d1710;
+}
+
+/* a trail blaze across the top: red, blue, green and orange, as painted on the rocks */
+.legendBlaze {
+  position: absolute;
+  inset: 0 0 auto;
+  display: block;
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    var(--t-red) 0 25%,
+    var(--t-blue) 25% 50%,
+    var(--t-green) 50% 75%,
+    var(--t-orange) 75% 100%
+  );
 }
 
 .legendTitle {
@@ -602,6 +631,7 @@
   font-weight: 400;
   font-size: 2.3rem;
   line-height: 1.15;
+  color: var(--lg-ink);
 }
 
 .legendGrid {
@@ -619,13 +649,14 @@
   min-height: 84px;
   padding: 10px 8px;
   border-radius: 8px;
-  color: var(--ink);
+  color: var(--lg-ink);
   text-decoration: none;
   transition: background 0.2s;
 }
 
-.legendItem:hover {
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
+.legendItem:hover,
+.legendItem:focus-visible {
+  background: rgb(255 255 255 / 0.08);
 }
 
 .legendIcon {
@@ -635,7 +666,10 @@
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  border: 1.5px dashed color-mix(in srgb, var(--ink) 45%, transparent);
+  background: var(--c, var(--t-green));
+  color: var(--lg-disc-ink);
+  border: 2px solid color-mix(in srgb, var(--lg-ink) 70%, transparent);
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.25);
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -658,7 +692,7 @@
 
 .legendLine {
   font-size: 1.05rem;
-  color: var(--ink-dim);
+  color: var(--lg-dim);
 }
 
 .legendFoot {
@@ -668,16 +702,16 @@
   gap: 6px 18px;
   margin: 10px 6px 0;
   padding-top: 10px;
-  border-top: 1px solid var(--frame);
+  border-top: 1px solid color-mix(in srgb, var(--lg-ink) 35%, transparent);
   font-size: 0.95rem;
-  color: var(--ink-dim);
+  color: var(--lg-dim);
 }
 
 .scaleBar {
   display: inline-flex;
   width: 160px;
   height: 10px;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--lg-ink);
 }
 
 .scaleBar i {
@@ -685,7 +719,7 @@
 }
 
 .scaleBar i:nth-child(odd) {
-  background: var(--ink);
+  background: var(--lg-ink);
 }
 
 .badge {

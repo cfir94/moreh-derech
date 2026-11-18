@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { withBasePath } from "@/lib/basePath";
 import type { FieldIconName } from "../FieldIcons";
 import { HOME_SECTIONS } from "../homeData";
@@ -158,6 +158,9 @@ function SiteSheet({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** each item of the legend takes a trail-marking colour, as on a hiking map */
+const TRAIL_COLORS = ["red", "blue", "green", "orange"] as const;
+
 export function FinalHome({
   questionCount,
   examCount,
@@ -226,7 +229,7 @@ export function FinalHome({
             </p>
             <ol className={s.stations}>
               {stations.map((st, i) => (
-                <li key={st.href} className={s.station} style={{ "--i": i } as React.CSSProperties}>
+                <li key={st.href} className={s.station} style={{ "--i": i } as CSSProperties}>
                   <Link href={st.href} className={s.sign}>
                     <span className={s.signLabel}>
                       <InkIcon name={st.icon} size={30} />
@@ -259,13 +262,14 @@ export function FinalHome({
         </div>
 
         <section aria-labelledby="legend-title" className={s.legend}>
+          <span aria-hidden className={s.legendBlaze} />
           <h2 id="legend-title" className={s.legendTitle}>
             מקרא: כל מה שיש בתרמיל
           </h2>
           <ul className={s.legendGrid}>
-            {HOME_SECTIONS.map((x) => (
+            {HOME_SECTIONS.map((x, i) => (
               <li key={x.slug}>
-                <Link href={x.href} className={s.legendItem}>
+                <Link href={x.href} className={s.legendItem} style={{ "--c": `var(--t-${TRAIL_COLORS[i % TRAIL_COLORS.length]})` } as CSSProperties}>
                   <span className={s.legendIcon}>
                     <InkIcon name={x.icon} size={34} />
                   </span>

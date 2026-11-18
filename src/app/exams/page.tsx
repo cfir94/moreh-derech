@@ -37,7 +37,7 @@ export default function ExamsPage() {
 
   return (
     <TrailPage decor={<PageDecor items={["exams", "pencil", "quizzes", "milestone", "resources", "review"]} step={420} />}>
-      <PageHead
+      <PageHead tone="blue"
         title="מבחן מלא"
         art={<InkIcon name="exams" size={72} />}
         lede={

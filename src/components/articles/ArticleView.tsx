@@ -5,6 +5,7 @@ import { resolvePhoto } from "@/data/articles/photos";
 import { absoluteUrl, SITE_NAME } from "@/lib/seo";
 import { withBasePath } from "@/lib/basePath";
 import { PenUnderline } from "@/components/trail/kit";
+import k from "@/components/trail/kit.module.css";
 import { ArticlePhoto } from "./Photo";
 import { ShareBar } from "./ShareBar";
 import s from "./articles.module.css";
@@ -39,8 +40,10 @@ export function ArticleView({ article }: { article: Article }) {
             <span aria-hidden> · </span>
             <span>{article.category}</span>
           </nav>
-          <h1 className={s.title}>{article.title}</h1>
-          <PenUnderline />
+          <div className={k.titleWrap}>
+            <h1 className={s.title}>{article.title}</h1>
+            <PenUnderline />
+          </div>
           <p className={s.lede}>{article.lede}</p>
           <p className={s.meta}>
             <time dateTime={article.date}>{articleDate(article.date)}</time>
