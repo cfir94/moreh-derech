@@ -15,8 +15,8 @@ import {
 import { isAdmin } from "@/lib/manualAccess";
 
 import { kit as k, PenUnderline } from "@/components/trail/kit";
-import { InkIcon } from "@/components/trail/Ink";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { LiveFire } from "@/components/trail/decor/live";
 const primary = `${k.sign} ${k.signPlain} disabled:opacity-60`;
 const primaryStyle = undefined;
 const small = "min-h-10 rounded-full border border-line px-3 text-sm font-bold text-txt-dim transition hover:text-txt active:scale-95";
@@ -53,7 +53,7 @@ function Shell({ title, back, children }: { title: string; back?: { href: string
         <PenUnderline />
       </div>
       <span aria-hidden className="absolute top-0 left-0 hidden opacity-70 sm:block">
-        <InkIcon name="community" size={92} tint className={k.move_community} />
+        <LiveFire width={92} height={92} className={k.move_community} />
       </span>
     </div>
     {children}

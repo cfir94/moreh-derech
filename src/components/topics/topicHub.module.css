@@ -259,15 +259,3 @@
   .blockEnd { height: 40px; }
   .blocks { margin-top: 46px; }
 }
-
-/* the figures of the periods stand beside the group's title, marking time */
-.groupFigures {
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 4px;
-  margin-bottom: -6px;
-}
-.groupFigures > span {
-  position: relative;
-  --lane: 16px;
-}

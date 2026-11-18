@@ -67,9 +67,15 @@
   height: 150px;
 }
 
-/* the figures that wander in the margins: a short lane, so they never reach the text */
-.wanderer {
-  --lane: 40px;
+/* the coloured, moving drawings are drawn in full, not as a faint sketch */
+.live {
+  opacity: 0.92;
+}
+
+/* the figures in the margins: tilted like the sketches, marking time on the spot */
+.figure {
+  --lane: 0px;
+  rotate: var(--turn, 0deg);
 }
 
 /* between 1280 and 1440 the gutters are narrower: the sketches shrink to fit them */
@@ -88,7 +94,7 @@
 
 /* the gutters exist only on a wide screen; below that the sketches would sit on the content */
 @media (max-width: 1279px) {
-  .wanderer,
+  .figure,
   .sketch,
   .birds {
     display: none;
@@ -97,7 +103,6 @@
 
 /* a wide page (max-w-7xl) leaves gutters only on a very wide screen */
 @media (max-width: 1719px) {
-  .wide .wanderer,
   .wide .sketch,
   .wide .birds {
     display: none;
@@ -168,5 +173,23 @@
   .flap,
   .flicker {
     animation: none;
+  }
+}
+
+/* a wide page has narrow gutters until 1720px: the figures (narrower than the sketches) come in from 1440 */
+@media (min-width: 1440px) and (max-width: 1719px) {
+  .wide .figure {
+    --h: 58px !important;
+  }
+  .wide .figure svg {
+    width: 49px;
+    height: 58px;
+  }
+  .wide .start { inset-inline-start: 6px; }
+  .wide .end { inset-inline-end: 6px; }
+}
+@media (max-width: 1439px) {
+  .wide .figure {
+    display: none;
   }
 }
