@@ -8,6 +8,7 @@ import {
 } from "@/data/periods";
 import s from "./PeriodsTable.module.css";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { RangeText } from "@/components/RangeText";
 
 function eraStyle(id: string): CSSProperties {
   return { "--era-color": PERIOD_GROUPS.find(group => group.id === id)?.color } as CSSProperties;
@@ -55,7 +56,7 @@ export function PeriodsTable() {
 
     <header className={s.hero}>
       <div className={s.heroText}>
-        <p className={s.eyebrow}><span aria-hidden /> מהמקרא אל ראשית האסלאם</p>
+        <p className={s.eyebrow}><span aria-hidden /> מראשית האדם ועד מדינת ישראל</p>
         <h1>טבלת <span>התקופות</span></h1>
         <p className={s.intro}>האירועים ברצף אחד, לצד השלטונות, המסגרות ההיסטוריות ותקופות היצירה היהודית.</p>
         <div className={s.heroMeta}><span><strong>{PERIOD_ROWS.length}</strong> ציוני דרך</span><i aria-hidden /><span><strong>{PERIOD_GROUPS.length}</strong> תקופות שלטוניות</span><i aria-hidden /><span>שלוש חלוקות מקבילות</span></div>
@@ -102,7 +103,7 @@ export function PeriodsTable() {
               const literatureSpan = spanAt(rows, index, "literature");
               const era = PERIOD_GROUPS.find(era => era.id === row.political)!;
               return <tr key={row.id} data-period-row={row.id} style={eraStyle(row.political)} className={politicalSpan ? s.groupStart : undefined}>
-                {politicalSpan > 0 && <td rowSpan={politicalSpan} className={s.politicalCell}><div><span className={s.eraDot} aria-hidden /><strong>{era.label}</strong><small><bdi dir="ltr">{era.range}</bdi></small></div></td>}
+                {politicalSpan > 0 && <td rowSpan={politicalSpan} className={s.politicalCell}><div><span className={s.eraDot} aria-hidden /><strong>{era.label}</strong><small><RangeText text={era.range} /></small></div></td>}
                 <td className={s.yearCell}><DateLabel row={row} /></td>
                 <th scope="row" className={s.eventCell}><span>{row.event}</span><RowNote row={row} /></th>
                 {historicalSpan > 0 && <td rowSpan={historicalSpan} className={s.historyCell}><span>{HISTORY_FRAMES[row.historical]}</span></td>}
@@ -117,7 +118,7 @@ export function PeriodsTable() {
             const era = PERIOD_GROUPS.find(era => era.id === row.political)!;
             const startsGroup = index === 0 || rows[index - 1].political !== row.political;
             return <li key={row.id} data-period-card={row.id} style={eraStyle(row.political)}>
-              {startsGroup && <div className={s.mobileEra}><span className={s.eraDot} aria-hidden /><h3>{era.label}</h3><span><bdi dir="ltr">{era.range}</bdi></span></div>}
+              {startsGroup && <div className={s.mobileEra}><span className={s.eraDot} aria-hidden /><h3>{era.label}</h3><span><RangeText text={era.range} /></span></div>}
               <article className={s.eventCard}>
                 <div className={s.cardTop}><DateLabel row={row} /><span className={s.cardIndex} aria-hidden>{String(PERIOD_ROWS.indexOf(row) + 1).padStart(2, "0")}</span></div>
                 <h4>{row.event}</h4>
@@ -131,6 +132,6 @@ export function PeriodsTable() {
     </section>
 
     <aside className={s.readingNote}><span className={s.noteIcon} aria-hidden>i</span><div><strong>החלוקות מקבילות, הגבולות לא תמיד זהים.</strong><p>תקופות שלטון, מסגרות היסטוריות ותקופות יצירה אינן חופפות במדויק. תאריכי עריכת המשנה והתלמודים מוצגים בקירוב; ספרות שנערכה בבבל מופיעה כאן לצד המתרחש בארץ.</p></div></aside>
-    <details className={s.sources}><summary>על הטבלה ומקורות התיארוך <span aria-hidden>＋</span></summary><div><p>מבוסס על המסמך ״טבלת התקופות״. השורה שכללה גם את המרד וגם את המדינה החשמונאית פוצלה לשני ציוני דרך. פרס הופרדה מאשור ובבל, ושמות העמודות הובהרו.</p><p>תוקנו תאריכים בהצהרת כורש, בכיבוש אלכסנדר, במשבר המאה השלישית, במרד גאלוס ובכיבוש הפרסי. השינויים מצוינים בשורות עצמן לצד התאריך המקורי. חומר הקורס נבדק במחברות בית שני ורומית־ביזנטית.</p><p>״רקע למשנה ותקופת התנאים״ כולל גם את התקופה שקדמה לתנאים; פעילות התנאים עצמם מזוהה בעיקר עם המאות הראשונה והשנייה לספירה. <a href="https://www.jewishencyclopedia.com/articles/14238-tanna" target="_blank" rel="noreferrer">להרחבה על התנאים והאמוראים ↗</a></p></div></details>
+    <details className={s.sources}><summary>על הטבלה ומקורות התיארוך <span aria-hidden>＋</span></summary><div><p>הליבה היא המסמך ״טבלת התקופות״, מגלות שומרון ועד הכיבוש המוסלמי. לבקשת הבעלים הוא הורחב לאחור עד ראשית האדם, וקדימה עד מדינת ישראל. התוספות לקוחות מחומר הקורס: תרגולי ציר הזמן (פרהיסטוריה וברונזה, אירועי התנ״ך, תקופות שלטון וספרות ישראל), שאלוני התקופה המוסלמית הקדומה, ימי הביניים והתקופה העות׳מאנית, ומאגר מבחני הרישוי. האבות ויציאת מצרים מתוארכים לפי המסורת.</p><p>במסמך עצמו: השורה שכללה גם את המרד וגם את המדינה החשמונאית פוצלה לשני ציוני דרך. פרס הופרדה מאשור ובבל, ושמות העמודות הובהרו.</p><p>תוקנו תאריכים בהצהרת כורש, בכיבוש אלכסנדר, במשבר המאה השלישית, במרד גאלוס ובכיבוש הפרסי. השינויים מצוינים בשורות עצמן לצד התאריך המקורי. חומר הקורס נבדק במחברות בית שני ורומית־ביזנטית.</p><p>״רקע למשנה ותקופת התנאים״ כולל גם את התקופה שקדמה לתנאים; פעילות התנאים עצמם מזוהה בעיקר עם המאות הראשונה והשנייה לספירה. <a href="https://www.jewishencyclopedia.com/articles/14238-tanna" target="_blank" rel="noreferrer">להרחבה על התנאים והאמוראים ↗</a></p></div></details>
   </div>;
 }
