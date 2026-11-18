@@ -206,8 +206,10 @@ export function EraChapters(p: EraChaptersProps) {
   };
 
   return <div className={s.wrap} style={style} dir="rtl" onClick={onLink} data-material={p.material}>
-    <PageDecor wide prints={false} items={p.decor} marchers={p.marchers} />
+    <PageDecor wide prints={false} items={p.decor} />
     <PageHead
+      section="aids"
+      figure={p.marchers?.[0]}
       title={p.title}
       crumbs={[{ href: "/timelines/", label: "עזרי למידה" }]}
       lede={p.lede}

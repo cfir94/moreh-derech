@@ -54,6 +54,7 @@ export function BiblicalTimeline() {
   return <main dir="rtl" className="relative mx-auto max-w-6xl px-4 py-8" style={domainStyle("biblical")} data-biblical-timeline>
     <PageDecor prints={false} items={["cross","church","lake","scroll"]} />
     <PageHead
+      section="aids"
       title="חיי ישוע והשליחים"
       art={<InkFish width={112} height={112} />}
       lede={`מהבשורה למרים ועד מעשי השליחים: ${timelines.reduce((sum, item) => sum + item.events.length, 0)} תחנות בחמישה פרקים, לפי סדר הבשורות. לכל תחנה מראה המקום והפסוקים המלאים.`}

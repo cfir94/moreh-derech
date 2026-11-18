@@ -186,7 +186,6 @@
 .block {
   --block: color-mix(in srgb, var(--bc) 22%, var(--ground));
   position: relative;
-  isolation: isolate;
   padding: 26px 0 64px;
   scroll-margin-top: 110px;
 }
@@ -199,7 +198,8 @@
   content: "";
   position: absolute;
   inset-inline: calc(50% - 50vw);
-  z-index: -1;
+  /* under the page's drawings (-1), so the colour never covers them */
+  z-index: -2;
   background: var(--block);
 }
 
@@ -258,4 +258,16 @@
   .block::after { height: 44px; }
   .blockEnd { height: 40px; }
   .blocks { margin-top: 46px; }
+}
+
+/* the figures of the periods stand beside the group's title, marking time */
+.groupFigures {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-bottom: -6px;
+}
+.groupFigures > span {
+  position: relative;
+  --lane: 16px;
 }

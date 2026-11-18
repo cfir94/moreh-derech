@@ -83,7 +83,7 @@ export default function GamesPage() {
   const CrosswordArt = ART.crossword;
   return (
     <TrailPage decor={<PageDecor prints={false} items={["games", "grid", "who", "hood"]} />}>
-      <PageHead tone="green"
+      <PageHead section="games"
         title="משחקים"
         art={<InkIcon name="games" size={72} />}
         lede="קופסת המשחקים שבתרמיל: חזרה על החומר בלי להרגיש שלומדים. ההתקדמות נשמרת בחשבון."

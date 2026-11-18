@@ -165,6 +165,7 @@ export function TimelineDrag() {
         </Link>
         <div style={domainStyle("timeline-drag")}>
           <PageHead
+            section="aids"
             title="תרגול ציר זמן"
             art={<InkIcon name="sort" />}
             lede="סדרו את הכרטיסים מן המוקדם למאוחר, בגרירה או בחיצים."

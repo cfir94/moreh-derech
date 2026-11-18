@@ -4,6 +4,7 @@ import { QUIZZES } from "@/data/quizzes";
 import { TopicProgress } from "./TopicProgress";
 import { TopicFold } from "./TopicFold";
 import { InkIcon } from "@/components/trail/Ink";
+import { Marcher, type MarcherName } from "@/components/trail/Marchers";
 import type { FieldIconName } from "@/components/trail/FieldIcons";
 import s from "./topicHub.module.css";
 
@@ -23,6 +24,12 @@ const GROUP_INK: Record<string, FieldIconName[]> = {
   periods: ["handaxe", "jar", "column"],
   religions: ["scroll", "cross", "minaret"],
   guiding: ["signpost"],
+};
+
+/** small figures of the periods, marking time beside a group's heading */
+const GROUP_FIGURES: Record<string, MarcherName[]> = {
+  periods: ["assyrian", "roman"],
+  religions: ["priest"],
 };
 
 const KIND_INK: Record<string, FieldIconName> = {
@@ -107,6 +114,13 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
           <div className={s.groupHead}>
             <h2 id={`hub-${group.id}`} className={s.groupTitle}>{group.title}</h2>
             <p className={s.groupNote}>{group.note}</p>
+            {GROUP_FIGURES[group.id] && (
+              <span aria-hidden className={s.groupFigures}>
+                {GROUP_FIGURES[group.id].map((n, k) => (
+                  <Marcher key={n} name={n} size={60} delay={-k * 5} />
+                ))}
+              </span>
+            )}
             {GROUP_INK[group.id] && (
               <span aria-hidden className={s.groupArt}>
                 {GROUP_INK[group.id].map((n) => (
