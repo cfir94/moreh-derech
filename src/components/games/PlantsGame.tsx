@@ -53,7 +53,7 @@ export function PlantsGame() {
   const missed = useRef<string[]>([]);
   const recorded = useRef(false);
   const q = session ? session.questions[session.index] : null;
-  const picked = session && q ? session.picked[session.index] : null;
+  const picked = session && q ? session.picked[session.index] ?? null : null;
   const finished = session !== null && session.index >= session.questions.length;
   const correctCount = session ? session.questions.filter((x, i) => session.picked[i] === x.plant).length : 0;
 
