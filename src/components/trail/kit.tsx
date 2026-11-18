@@ -66,7 +66,7 @@ export function PageHead({
 }) {
   const long = title.length > 26;
   return (
-    <header className={cx(k.head, tone && k.toned)} style={tone ? ({ "--tone": `var(--t-${tone})` } as React.CSSProperties) : undefined}>
+    <header className={cx(k.head, tone && k.toned)} data-ground={tone} style={tone ? ({ "--tone": `var(--t-${tone})` } as React.CSSProperties) : undefined}>
       {crumbs && crumbs.length > 0 && (
         <nav aria-label="פירורי לחם">
           <ol className={cx(k.crumbs, "pencil")}>
