@@ -52,6 +52,16 @@ export default summary;
 
 `src/data/summaries/types.ts` defines `Summary` with exactly these fields. Claude creates it, together with the page `/summaries/<key>`.
 
+**Who the summary is for:** a tour guide, active or a student, preparing for the licensing exam and for guiding in the field. Not a school pupil and not an academic. So every summary:
+- **opens with the big picture** in 3–4 sentences: when, who ruled, what changed in the land;
+- **is arranged by what a guide needs:**
+  - the periods and the main events, by date;
+  - the key figures, with one line each on what they did;
+  - the sites where you meet the topic in the field, and what you see there today;
+  - the terms the exam asks about;
+- **ends every section with `remember`:** 2–4 short facts, worded like an exam question ("מי בנה את…", "באיזו שנה…"), taken from the questions on the site;
+- **leaves no fact without a place or a date**, wherever there is one. "In the Byzantine period" is not enough; write "בתקופה הביזנטית (324–638)".
+
 **Style:**
 - **Language and length:** clear Hebrew, paragraphs of 3–5 sentences, 1,500–3,000 words per topic.
 - **Voice:** what a guide would tell a group, not an encyclopedia.

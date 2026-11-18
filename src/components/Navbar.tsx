@@ -32,6 +32,7 @@ const baseLinks: NavLink[] = [
   { href: "/map", label: "מפה", icon: "map", desc: "מפת הלמידה ותכנון מסלול" },
   { href: "/guide-reports", label: "דוחות הדרכה", icon: "guide-reports", desc: "דוגמאות, תרגול וטיוטות" },
   { href: "/videos", label: "סרטונים", icon: "videos", desc: "שיעורים, סיורים והעשרה" },
+  { href: "/articles", label: "מאמרים", icon: "scroll", desc: "סיפורים מהשטח ומהחדשות, ומה אומרים לקבוצה" },
 ];
 
 export function Navbar() {

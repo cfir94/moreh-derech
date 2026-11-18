@@ -1,0 +1,198 @@
+/* מדור המאמרים. רצועות שמתחלפות בין נייר לגוון אדמה, טקסט גדול לגיל 40–60, וכל צבע מטוקן. */
+
+.article { position: relative; }
+
+/* ---------------------------------------------------------------- head: a dark band with the title */
+.top {
+  background:
+    radial-gradient(120% 90% at 85% 0%, color-mix(in srgb, var(--sign) 55%, transparent), transparent 60%),
+    color-mix(in srgb, var(--ink) 88%, var(--sign));
+  color: var(--paper);
+  padding: 44px 16px 120px;
+}
+.topInner { max-width: 760px; margin-inline: auto; }
+.crumbs { font-size: 1rem; font-weight: 700; opacity: 0.85; margin-bottom: 14px; }
+.crumbs a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+.title {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5.2vw, 3.6rem);
+  line-height: 1.12;
+  color: var(--paper);
+}
+.top :global(svg) { color: color-mix(in srgb, var(--t-orange) 80%, var(--paper)); }
+.lede { margin-top: 14px; font-size: clamp(1.15rem, 2vw, 1.3rem); line-height: 1.65; font-weight: 600; opacity: 0.95; }
+.meta { margin-top: 12px; font-size: 1rem; opacity: 0.8; }
+
+/* ---------------------------------------------------------------- hero photo overlapping the band */
+.heroWrap { max-width: 900px; margin: -96px auto 0; padding-inline: 16px; position: relative; }
+.heroFigure, .figure { margin: 0; }
+.heroFigure img, .figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-lg);
+  border: 6px solid var(--paper);
+  box-shadow: var(--shadow);
+  background: var(--stone);
+}
+.heroFigure img { max-height: 520px; object-fit: cover; }
+.figure { margin-top: 22px; }
+.figure img { max-height: 460px; object-fit: cover; }
+.heroFigure figcaption, .figure figcaption { display: grid; gap: 2px; margin-top: 8px; padding-inline: 4px; }
+.caption { color: var(--ink); font-size: 1rem; line-height: 1.5; }
+.credit { color: var(--ink-dim); font-size: 0.85rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.credit a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------------- the news box */
+.news {
+  max-width: 760px;
+  margin: 28px auto 0;
+  margin-inline: max(16px, calc((100% - 760px) / 2));
+  padding: 18px 20px;
+  border: 1.5px solid color-mix(in srgb, var(--t-red) 45%, transparent);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--t-red) 8%, var(--paper));
+}
+.newsTag { width: fit-content; padding: 2px 12px; border-radius: 999px; background: var(--t-red); color: #fff; font-weight: 800; font-size: 0.95rem; }
+.newsText { margin-top: 10px; color: var(--ink); font-size: 1.12rem; line-height: 1.7; }
+.newsSource { margin-top: 8px; color: var(--ink-dim); font-size: 0.95rem; }
+.newsSource a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------------- numbered sections, alternating bands */
+.band { padding: 34px 16px; }
+.band:first-of-type { padding-top: 40px; }
+.bandTint { background: color-mix(in srgb, var(--stone) 38%, transparent); }
+.bandInner { max-width: 760px; margin-inline: auto; }
+.secTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--ink);
+  font-size: clamp(1.5rem, 2.6vw, 1.85rem);
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+.secNum {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  font-size: 1.15rem;
+  font-weight: 900;
+  transform: translateY(-3px);
+}
+.para { color: var(--ink); font-size: 1.15rem; line-height: 1.85; margin-top: 12px; }
+.quote { position: relative; margin: 18px 0 0; padding: 18px 24px 14px; background: var(--paper); border: 1px solid var(--frame); border-radius: var(--r-md); }
+.quote::before { content: "״"; position: absolute; top: -18px; inset-inline-start: 14px; font-family: "Frank Ruhl Libre", serif; font-size: 3.4rem; line-height: 1; color: var(--sign); }
+.quote p { font-family: "Frank Ruhl Libre", serif; font-size: 1.25rem; line-height: 1.7; color: var(--ink); }
+.quote cite { display: block; margin-top: 6px; font-style: normal; color: var(--ink-dim); font-size: 0.95rem; }
+
+/* ---------------------------------------------------------------- what to tell the group: a notebook page */
+.say {
+  max-width: 760px;
+  margin: 36px auto 0;
+  margin-inline: max(16px, calc((100% - 760px) / 2));
+  padding: 22px 24px 18px;
+  border-radius: var(--r-md);
+  background:
+    repeating-linear-gradient(180deg, transparent 0 33px, color-mix(in srgb, var(--t-blue) 22%, transparent) 33px 34px),
+    var(--paper);
+  border: 1px solid var(--frame);
+  box-shadow: var(--shadow);
+  transform: rotate(-0.4deg);
+}
+.sayTitle { font-family: var(--font-hand); font-weight: 400; font-size: 2rem; color: var(--t-red); line-height: 1.1; }
+.say ul { margin-top: 10px; display: grid; gap: 10px; }
+.say li { font-family: var(--font-note); font-size: 1.15rem; line-height: 1.7; color: var(--ink); }
+
+/* ---------------------------------------------------------------- for the exam: a stamp */
+.exam {
+  max-width: 760px;
+  margin: 26px auto 0;
+  margin-inline: max(16px, calc((100% - 760px) / 2));
+  padding: 16px 20px;
+  border: 2px dashed color-mix(in srgb, var(--t-green) 70%, transparent);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--t-green) 7%, transparent);
+}
+.examTitle { color: var(--t-green); font-weight: 900; font-size: 1.25rem; }
+.exam ul { margin-top: 8px; display: grid; gap: 6px; list-style: disc; padding-inline-start: 22px; }
+.exam li { color: var(--ink); font-size: 1.08rem; line-height: 1.6; }
+
+/* ---------------------------------------------------------------- the site's tools */
+.tools { max-width: 760px; margin: 30px auto 0; margin-inline: max(16px, calc((100% - 760px) / 2)); }
+.toolsTitle { color: var(--ink); font-weight: 900; font-size: 1.25rem; margin-bottom: 10px; }
+.toolRow { display: flex; flex-wrap: wrap; gap: 10px; }
+.tool {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  font-weight: 800;
+  box-shadow: 0 6px 12px -10px rgb(20 12 4 / 0.7);
+  transition: transform 160ms ease-out;
+}
+.tool:hover { transform: translateY(-2px); }
+
+/* ---------------------------------------------------------------- end: share and sources */
+.end { max-width: 760px; margin: 36px auto 0; margin-inline: max(16px, calc((100% - 760px) / 2)); display: grid; gap: 22px; }
+.share { padding: 18px 20px; border-radius: var(--r-md); border: 1px solid var(--frame); background: var(--paper); text-align: center; }
+.shareTitle { color: var(--ink); font-weight: 800; font-size: 1.15rem; }
+.shareRow { margin-top: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.shareBtn {
+  min-height: 46px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--frame);
+  color: var(--ink);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+}
+.shareWa { background: #1f8b4c; border-color: #1f8b4c; color: #fff; }
+.sources h2 { color: var(--ink); font-weight: 900; font-size: 1.1rem; }
+.sources ul { margin-top: 6px; display: grid; gap: 4px; list-style: disc; padding-inline-start: 22px; }
+.sources li { color: var(--ink-dim); font-size: 0.98rem; line-height: 1.55; }
+.sources a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------------------------------------------------------------- cards (index and related) */
+.related { max-width: 1100px; margin: 44px auto 0; padding: 0 16px 56px; }
+.relatedTitle { font-family: var(--font-hand); font-weight: 400; font-size: 2.1rem; color: var(--ink); margin-bottom: 12px; }
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); }
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--frame);
+  background: var(--paper);
+  box-shadow: 0 10px 18px -14px rgb(20 12 4 / 0.6);
+  transition: transform 180ms ease-out, box-shadow 180ms ease-out;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--stone); }
+.cardBody { display: grid; gap: 6px; padding: 14px 16px 16px; flex: 1; align-content: start; }
+.cardMeta { color: var(--t-red); font-weight: 800; font-size: 0.92rem; }
+.cardTitle { color: var(--ink); font-weight: 900; font-size: 1.28rem; line-height: 1.3; }
+.cardLede { color: var(--ink-dim); font-size: 1rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.cardMore { margin-top: 4px; color: var(--teal); font-weight: 800; }
+@media (min-width: 900px) {
+  .cardBig { grid-column: 1 / -1; flex-direction: row; }
+  .cardBig img { width: 55%; aspect-ratio: auto; min-height: 320px; }
+  .cardBig .cardBody { padding: 26px 28px; align-content: center; }
+  .cardBig .cardTitle { font-size: 1.9rem; }
+  .cardBig .cardLede { -webkit-line-clamp: 4; font-size: 1.1rem; }
+}
+
+/* ---------------------------------------------------------------- index page */
+.indexTop { padding-bottom: 56px; }
+.indexBody { max-width: 1100px; margin: -32px auto 0; padding: 0 16px 56px; position: relative; }

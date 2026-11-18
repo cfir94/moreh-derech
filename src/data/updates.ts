@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-18-articles",
+    date: "2026-11-18",
+    kind: "content",
+    title: "מדור חדש: מאמרים",
+    body: "עשרה מאמרים קצרים, מהחדשות ומהשטח: השיטפונות בנגב, השימור בבית אלפא, החרפושית מתל גזר, כנסיית המולד ועוד. בכל מאמר: מה אומרים לקבוצה, ומה שואלים במבחן.",
+    href: "/articles/",
+  },
+  {
     id: "2026-11-11-dating",
     date: "2026-11-11",
     kind: "quiz",
