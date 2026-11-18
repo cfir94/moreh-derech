@@ -388,10 +388,10 @@ select optgroup {
 
 /* a page with figures marching at its foot keeps a strip free for them below the content */
 :where(*):has(> [data-decor] > [data-parade]) {
-  padding-bottom: 170px !important;
+  padding-bottom: 200px !important;
 }
 @media (max-width: 700px) {
   :where(*):has(> [data-decor] > [data-parade]) {
-    padding-bottom: 124px !important;
+    padding-bottom: 136px !important;
   }
 }

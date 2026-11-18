@@ -63,7 +63,7 @@ export function PageDecor({
       {marchers.length > 0 && (
         <div className={d.parade} data-parade>
           {marchers.map((name, i) => (
-            <Marcher key={name} name={name} delay={-i * 9} className={d.marcher} style={{ insetInlineEnd: `${i * 150}px` }} />
+            <Marcher key={name} name={name} delay={-i * 9} className={d.marcher} style={{ insetInlineEnd: `${i * 170}px` }} />
           ))}
         </div>
       )}
