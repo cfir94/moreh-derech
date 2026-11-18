@@ -6,7 +6,7 @@
 import Link from "next/link";
 import { cloneElement, isValidElement, type ComponentProps, type ReactNode, type SVGProps } from "react";
 import { InkIcon } from "./Ink";
-import { Marcher, type MarcherName } from "./Marchers";
+import { LIVE } from "./decor/live";
 import type { FieldIconName } from "./FieldIcons";
 import k from "./kit.module.css";
 
@@ -60,21 +60,27 @@ export const SECTION_TONE: Record<Section, string> = {
   reports: "var(--sign)",
 };
 
+/** The page's drawing: a living one (decor/live.tsx) when there is one, coloured and moving; else the ink icon, coloured in. */
+function headArt(art: ReactNode) {
+  if (!isValidElement(art) || art.type !== InkIcon) return art;
+  const name = (art.props as { name: string }).name;
+  const Live = LIVE[name as keyof typeof LIVE];
+  if (Live) return <Live width="72%" height="72%" className={k[`move_${name}`]} />;
+  return cloneElement(art as React.ReactElement<{ tint?: boolean }>, { tint: true });
+}
+
 export function PageHead({
   title,
   lede,
   crumbs,
   art,
   section,
-  figure,
   children,
 }: {
   title: string;
   /** the site section this page belongs to: its band, the shape of the band's edge, and the paper
       the whole page is drawn on (owner, 18.11: every section its own colour and character) */
   section?: Section;
-  /** a small figure of the period, standing on the band's edge and marking time */
-  figure?: MarcherName;
   lede?: ReactNode;
   crumbs?: { href: string; label: string }[];
   /** one drawing that belongs to this page's subject, e.g. <InkIcon name="exams" /> */
@@ -104,15 +110,9 @@ export function PageHead({
       {art && (
         <span aria-hidden className={k.headArt}>
           {/* the page's drawing is coloured in, like the tree in the margins (owner, 18.11) */}
-          {isValidElement(art) && art.type === InkIcon
-            ? cloneElement(art as React.ReactElement<{ tint?: boolean; name: string; className?: string }>, {
-                tint: true,
-                className: k[`move_${(art.props as { name: string }).name}`],
-              })
-            : art}
+          {headArt(art)}
         </span>
       )}
-      {figure && <Marcher name={figure} size={68} className={k.headFigure} />}
     </header>
   );
 }

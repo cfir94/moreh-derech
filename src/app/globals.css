@@ -173,26 +173,27 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Every section has its own sheet, kept quiet (owner, 18.11: "refine it, it is too busy"): the same
-   map paper everywhere, only washed a little toward the section's colour. The colour itself lives in
-   the page head (kit.module.css, .toned). Fixed hexes, so --ground never refers to itself. */
+/* Every section has its own sheet (owner, 18.11: "the body of the page is the same everywhere"):
+   the map paper washed clearly toward the section's colour, flat (no patterns), so it stays calm.
+   Community is a deeper purple, the video library a dark room. Fixed hexes, so --ground never refers to itself. */
 :root:has([data-ground="topics"]) { --ground: color-mix(in srgb, #2a5a8c 5%, #ead8a8); }
-:root:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #2a5a8c 7%, #ead8a8); }
-:root:has([data-ground="exams"]) { --ground: color-mix(in srgb, #b5382a 6%, #ead8a8); }
-:root:has([data-ground="aids"]) { --ground: color-mix(in srgb, #b5651d 8%, #ead8a8); }
-:root:has([data-ground="games"]) { --ground: color-mix(in srgb, #4f7a2e 8%, #ead8a8); }
-:root:has([data-ground="tours"]) { --ground: color-mix(in srgb, #6a7a2e 8%, #ead8a8); }
-:root:has([data-ground="reports"]) { --ground: color-mix(in srgb, #6b4423 7%, #ead8a8); }
-:root[data-theme="dark"]:has([data-ground="topics"]) { --ground: color-mix(in srgb, #8ab6e0 6%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #8ab6e0 6%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="exams"]) { --ground: color-mix(in srgb, #e06049 6%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="aids"]) { --ground: color-mix(in srgb, #e6964c 6%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="games"]) { --ground: color-mix(in srgb, #9bc068 6%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="tours"]) { --ground: color-mix(in srgb, #b8c068 6%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="reports"]) { --ground: color-mix(in srgb, #c9a46a 6%, #382c1e); }
-/* the video library: a darker room, for watching */
-:root:has([data-ground="videos"]) { --ground: color-mix(in srgb, #3a2a18 22%, #ead8a8); }
-:root[data-theme="dark"]:has([data-ground="videos"]) { --ground: #2a2117; }
+:root:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #2a5a8c 17%, #ead8a8); }
+:root:has([data-ground="exams"]) { --ground: color-mix(in srgb, #b5382a 13%, #ead8a8); }
+:root:has([data-ground="aids"]) { --ground: color-mix(in srgb, #b5651d 17%, #ead8a8); }
+:root:has([data-ground="games"]) { --ground: color-mix(in srgb, #4f7a2e 19%, #ead8a8); }
+:root:has([data-ground="tours"]) { --ground: color-mix(in srgb, #6a7a2e 19%, #ead8a8); }
+:root:has([data-ground="reports"]) { --ground: color-mix(in srgb, #6b4423 16%, #ead8a8); }
+:root:has([data-ground="community"]) { --ground: color-mix(in srgb, #4e2470 38%, #ead8a8); }
+:root[data-theme="dark"]:has([data-ground="topics"]) { --ground: color-mix(in srgb, #8ab6e0 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #8ab6e0 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="exams"]) { --ground: color-mix(in srgb, #e06049 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="aids"]) { --ground: color-mix(in srgb, #e6964c 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="games"]) { --ground: color-mix(in srgb, #9bc068 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="tours"]) { --ground: color-mix(in srgb, #b8c068 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="reports"]) { --ground: color-mix(in srgb, #c9a46a 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="community"]) { --ground: color-mix(in srgb, #b48ac8 14%, #382c1e); }
+:root:has([data-ground="videos"]) { --ground: color-mix(in srgb, #3a2a18 36%, #ead8a8); }
+:root[data-theme="dark"]:has([data-ground="videos"]) { --ground: #1f1811; }
 
 /* the topographic patch behind a page head is for pages without a coloured head */
 :root:has(.toned-head) [data-topo] {

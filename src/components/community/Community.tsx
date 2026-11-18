@@ -15,8 +15,8 @@ import {
 import { isAdmin } from "@/lib/manualAccess";
 
 import { kit as k, PenUnderline } from "@/components/trail/kit";
-import { InkIcon } from "@/components/trail/Ink";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { LiveFire } from "@/components/trail/decor/live";
 const primary = `${k.sign} ${k.signPlain} disabled:opacity-60`;
 const primaryStyle = undefined;
 const small = "min-h-10 rounded-full border border-line px-3 text-sm font-bold text-txt-dim transition hover:text-txt active:scale-95";
@@ -47,13 +47,13 @@ function Shell({ title, back, children }: { title: string; back?: { href: string
   return <main dir="rtl" className="screen-in relative mx-auto w-full max-w-3xl px-4 py-8">
     <PageDecor birds items={["community", "tent", "talk", "canteen", "butterfly"]} />
     {back && <Link href={back.href} className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
-    <div className="relative mb-6">
+    <div className="relative mb-6" data-ground="community">
       <div className={k.titleWrap}>
         <h1 className="grad-text">{title}</h1>
         <PenUnderline />
       </div>
       <span aria-hidden className="absolute top-0 left-0 hidden opacity-70 sm:block">
-        <InkIcon name="community" size={92} tint className={k.move_community} />
+        <LiveFire width={92} height={92} className={k.move_community} />
       </span>
     </div>
     {children}

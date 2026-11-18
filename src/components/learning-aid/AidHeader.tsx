@@ -2,20 +2,21 @@ import Link from "next/link";
 import { domainOf, domainStyle } from "@/lib/domains";
 import { InkIcon } from "@/components/trail/Ink";
 import { kit, PenUnderline } from "@/components/trail/kit";
-import { Marcher, type MarcherName } from "@/components/trail/Marchers";
+import { LIVE } from "@/components/trail/decor/live";
 
 export type AidHeaderProps = {
   slug: string;
   title: string;
   subtitle: string;
   stats?: string;
-  /** a small figure of the period, standing on the edge of the band */
-  figure?: MarcherName;
 };
 
 /** The head of a learning aid, in the trail design: pencil crumbs, the title in the guide's hand, the subject's ink drawing. */
-export function AidHeader({ slug, title, subtitle, stats, figure }: AidHeaderProps) {
+export function AidHeader({ slug, title, subtitle, stats }: AidHeaderProps) {
   const long = title.length > 26;
+  // a living, coloured drawing when the subject has one (a flower, a tree...), else the ink icon
+  const ink = domainOf(slug).ink;
+  const Live = LIVE[ink as keyof typeof LIVE];
   // the band takes the aid's own colour (its domain), so every aid looks a little different (owner, 18.11)
   return <header className={`relative pt-2 pb-2 toned-head ${kit.toned} ${kit.motif_aids}`} data-ground="aids" style={{ ...domainStyle(slug), "--tone": "var(--mc)" } as React.CSSProperties}>
     <nav aria-label="פירורי לחם" className="pencil text-base text-txt-dim">
@@ -29,8 +30,7 @@ export function AidHeader({ slug, title, subtitle, stats, figure }: AidHeaderPro
     <p className="max-w-3xl text-lg leading-relaxed text-txt-dim">{subtitle}</p>
     {stats && <p className="pencil mt-2 text-base text-txt-dim">{stats}</p>}
     <span aria-hidden className="pointer-events-none absolute top-2 left-0 hidden opacity-80 sm:block">
-      <InkIcon name={domainOf(slug).ink} size={96} className={kit[`move_${domainOf(slug).ink}`]} />
+      {Live ? <Live width={96} height={96} className={kit[`move_${ink}`]} /> : <InkIcon name={ink} size={96} />}
     </span>
-    {figure && <Marcher name={figure} size={68} className={kit.headFigure} />}
   </header>;
 }

@@ -14,8 +14,8 @@ export const metadata = pageMeta({
 
 export default function TimelinesPage() {
   return (
-    <TrailPage decor={<PageDecor figures={["crusader", "nabataean"]} step={400} items={["tree", "crown", "column", "flower", "ibex", "hammer", "temple", "arch", "talk", "map"]} />}>
-      <PageHead section="aids" figure="assyrian"
+    <TrailPage decor={<PageDecor figures={["assyrian", "crusader", "nabataean", "roman"]} step={400} items={["tree", "crown", "column", "flower", "ibex", "hammer", "temple", "arch", "talk", "map"]} />}>
+      <PageHead section="aids"
         title="עזרי למידה"
         art={<InkIcon name="timelines" size={72} />}
         lede="מדף הכלים: צירי זמן, אטלס, אדריכלות, גאולוגיה ומגדירי שדה. ללמוד, להבין ולחזור על החומר."

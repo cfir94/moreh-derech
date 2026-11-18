@@ -11,6 +11,7 @@ import { InkIcon } from "./Ink";
 import type { FieldIconName } from "./FieldIcons";
 import { Birds, Prints, TopoPatch } from "./Zones";
 import { Marcher, type MarcherName } from "./Marchers";
+import { LIVE } from "./decor/live";
 import d from "./pageDecor.module.css";
 
 /**
@@ -44,32 +45,35 @@ export function PageDecor({
   step?: number;
   /** the page is wide (max-w-7xl): the sketches wait for a wider screen */
   wide?: boolean;
-  /** figures of the periods that wander in the margins, a few steps each way (owner, 18.11) */
+  /** figures of the periods, scattered in the margins among the sketches (owner, 18.11) */
   figures?: MarcherName[];
 }) {
   return (
     <div aria-hidden data-decor className={`${d.layer} ${wide ? d.wide : ""}`}>
       {topo && <div data-topo><TopoPatch className={d.topo} /></div>}
       {birds && <Birds className={d.birds} />}
-      {items.map((name, i) => (
-        <InkIcon
-          key={`${name}-${i}`}
-          name={name}
-          sketch
-          tint={MOVES[name] ? true : undefined}
-          size={104}
-          className={`${d.sketch} ${i % 2 ? d.end : d.start} ${MOVES[name] ? d[MOVES[name]] : ""}`}
-          style={{ top: 250 + i * step, "--turn": `${[-7, 5, -4, 8, -6, 4][i % 6]}deg` } as CSSProperties}
-        />
-      ))}
+      {items.map((name, i) => {
+        const cls = `${d.sketch} ${i % 2 ? d.end : d.start} ${MOVES[name] ? d[MOVES[name]] : ""}`;
+        const style = { top: 250 + i * step, "--turn": `${[-7, 5, -4, 8, -6, 4][i % 6]}deg` } as CSSProperties;
+        // the drawings that move are coloured in as the thing really is (decor/live.tsx)
+        const Live = LIVE[name as keyof typeof LIVE];
+        return Live ? (
+          <Live key={`${name}-${i}`} width={104} height={104} className={`${cls} ${d.live}`} style={style} />
+        ) : (
+          <InkIcon key={`${name}-${i}`} name={name} sketch size={104} className={cls} style={style} />
+        );
+      })}
+      {/* the figures stand among the sketches, each in a gap between two of them on its side, tilted a
+          little, marking time on the spot (owner, 18.11: scattered like the other drawings) */}
       {figures.map((name, i) => (
         <Marcher
           key={`f-${name}`}
           name={name}
-          size={64}
-          delay={-i * 4}
-          className={`${d.wanderer} ${i % 2 ? d.start : d.end}`}
-          style={{ top: 250 + step * (i + 0.5) * 1.6 }}
+          size={72}
+          walk={false}
+          delay={-i * 0.35}
+          className={`${d.figure} ${i % 2 ? d.end : d.start}`}
+          style={{ top: 250 + (i + 1) * step, "--turn": `${[-9, 7, -5, 10][i % 4]}deg` } as CSSProperties}
         />
       ))}
       {prints && (
