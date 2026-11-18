@@ -95,16 +95,15 @@ test("duration labels support short and long recordings", () => {
   assert.equal(formatVideoDuration(), "");
 });
 
-test("collection selection and current collection title appear before the player, parts below it", () => {
+test("the player comes first: title, player, the collection's parts, then the carousel of collections", () => {
   const source = readFileSync(new URL("../src/components/videos/VideoLibrary.tsx", import.meta.url), "utf8");
-  const selection = source.indexOf('<section aria-label="בחירת קורס או אוסף"');
   const player = source.indexOf('aria-label="הנגן הנבחר"');
-  const heading = source.indexOf('<h2 className="mt-1 text-lg leading-snug text-txt">{activeVideo.title}</h2>');
+  const heading = source.indexOf('<h2 className={s.nowTitle}>{video.title}</h2>');
   const frame = source.indexOf('<YouTubePlayer');
   const parts = source.indexOf('<LessonPlaylist');
-  assert.ok(selection > 0 && selection < player);
-  assert.ok(player < heading && heading < frame);
-  assert.ok(frame < parts);
+  const selection = source.indexOf('<section aria-label="בחירת קורס או אוסף"');
+  assert.ok(player > 0 && player < heading && heading < frame);
+  assert.ok(frame < parts && parts < selection);
   assert.equal(source.split('<section aria-label="בחירת קורס או אוסף"').length - 1, 1);
 });
 
