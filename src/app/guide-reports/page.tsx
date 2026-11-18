@@ -79,7 +79,7 @@ export default function GuideReportsPage() {
   const drafts = PRACTICE_CARDS.find((c) => c.href.endsWith("/drafts"));
   return (
     <TrailPage decor={<PageDecor birds items={["signpost", "guide-reports", "binoculars", "pencil", "lake", "compass", "butterfly", "map"]} />}>
-      <PageHead
+      <PageHead tone="orange"
         title="דוחות הדרכה"
         art={<InkIcon name="guide-reports" size={72} />}
         lede="ללמוד לכתוב דו״ח סיור בפורמט של הקורס ומשרד התיירות, לראות דוגמאות ממולאות, ולהתאמן לקראת חלק ב׳ של מבחן הרישוי."

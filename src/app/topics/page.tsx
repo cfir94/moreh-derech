@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 export default function TopicsPage() {
   return (
     <TrailPage decor={<PageDecor birds prints="hoof" step={330} items={["flower", "ibex", "butterfly", "hammer", "handaxe", "jar", "crown", "menorah", "column", "dome", "tower", "scroll", "cross", "minaret", "signpost"]} />}>
-      <PageHead title="עיוני" art={<InkIcon name="resources" size={72} />} lede="כל נושאי הלימוד העיוני. בוחרים נושא, ולוחצים על מה שרוצים: שאלון, מאגר מידע, סיכום, עזר למידה או משחק." />
+      <PageHead tone="blue" title="עיוני" art={<InkIcon name="resources" size={72} />} lede="כל נושאי הלימוד העיוני. בוחרים נושא, ולוחצים על מה שרוצים: שאלון, מאגר מידע, סיכום, עזר למידה או משחק." />
       <nav aria-label="קבוצות נושאים" className="mb-10 flex flex-wrap gap-2.5">
         {TOPIC_HUB.map((g) => (
           <Chip key={g.id} href={`#hub-${g.id}`}>

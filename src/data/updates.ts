@@ -19,6 +19,14 @@ export type SiteUpdate = {
 
 export const UPDATES: SiteUpdate[] = [
   {
+    id: "2026-11-18-nature-articles",
+    date: "2026-11-18",
+    kind: "content",
+    title: "שלושה מאמרים על הטבע",
+    body: "19,600 עגורים באגמון החולה, חיפושית שנעלמה ל־104 שנים ונמצאה בפארק בנתניה, ומה צומח בהרי ירושלים שנה וחצי אחרי השריפה.",
+    href: "/articles/",
+  },
+  {
     id: "2026-11-18-articles",
     date: "2026-11-18",
     kind: "content",

@@ -38,7 +38,7 @@ export default function QuizzesPage() {
 
   return (
     <TrailPage decor={<PageDecor items={["pencil", "quizzes", "notebooks", "review", "exams", "resources"]} />}>
-      <PageHead
+      <PageHead tone="red"
         title="מאגר שאלונים"
         art={<InkIcon name="quizzes" size={72} />}
         lede={

@@ -220,14 +220,18 @@ h3 {
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   flex: none;
   border-radius: 50%;
   border: 1.5px dashed color-mix(in srgb, var(--ink) 55%, transparent);
   background: transparent;
   color: var(--ink);
   transition: background 0.2s, transform 0.3s var(--lift-ease);
+}
+.ink-tool > svg {
+  width: 22px;
+  height: 22px;
 }
 .ink-tool:hover,
 .ink-tool:focus-visible {

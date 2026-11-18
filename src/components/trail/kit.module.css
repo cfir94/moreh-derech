@@ -18,6 +18,33 @@
   margin-bottom: 30px;
 }
 
+/* a band of colour from edge to edge behind the head, with a painted stripe under it.
+   box-shadow + clip-path widen it to the whole window without making the page scroll sideways. */
+.toned {
+  isolation: isolate;
+  padding: 26px 0 30px;
+  margin-bottom: 40px;
+}
+.toned::before,
+.toned::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  z-index: -1;
+  clip-path: inset(0 -100vmax);
+}
+.toned::before {
+  inset-block: -40px 0;
+  background: color-mix(in srgb, var(--tone) 15%, var(--ground));
+  box-shadow: 0 0 0 100vmax color-mix(in srgb, var(--tone) 15%, var(--ground));
+}
+.toned::after {
+  bottom: -8px;
+  height: 8px;
+  background: var(--tone);
+  box-shadow: 0 0 0 100vmax var(--tone);
+}
+
 .crumbs {
   display: flex;
   flex-wrap: wrap;

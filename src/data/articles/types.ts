@@ -6,7 +6,9 @@ export type PhotoRef =
   | { set: "lm"; id: string }      // src/data/learning-map/photos.ts
   | { set: "arch"; id: string }    // src/data/classical-architecture/photos.ts
   | { set: "atlas"; id: string }   // src/data/history-atlas/photos.ts
-  | { set: "robes"; id: string };  // src/data/christian-dress/photos.json
+  | { set: "robes"; id: string }   // src/data/christian-dress/photos.json
+  | { set: "plants"; id: string }  // src/data/plants/photos.json (approved only)
+  | { set: "fauna"; id: string };  // src/data/fauna/photos.json (approved only)
 
 export type ArticleSection = {
   /** כותרת קצרה. הסעיפים ממוספרים בעמוד. */

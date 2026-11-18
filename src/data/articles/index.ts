@@ -9,10 +9,16 @@ import whatTheExamAsks from "./what-the-exam-asks";
 import twoEarthquakes from "./two-earthquakes";
 import qumranEinGedi from "./qumran-ein-gedi";
 import tourReport from "./tour-report";
+import hulaCranes from "./hula-cranes";
+import lostBeetles from "./lost-beetles";
+import afterTheFire from "./after-the-fire";
 
 /** הסדר כאן הוא סדר ההצגה במדור: האקטואליים קודם. */
 export const ARTICLES: Article[] = [
+  hulaCranes,
   desertFloods,
+  lostBeetles,
+  afterTheFire,
   beitAlfaMosaic,
   gezerScarab,
   nativityTwice,

@@ -2,6 +2,7 @@ import { pageMeta } from "@/lib/seo";
 import { ARTICLES } from "@/data/articles";
 import { ArticleCard } from "@/components/articles/ArticleView";
 import { PenUnderline } from "@/components/trail/kit";
+import k from "@/components/trail/kit.module.css";
 import s from "@/components/articles/articles.module.css";
 
 export const metadata = pageMeta({
@@ -16,8 +17,10 @@ export default function ArticlesPage() {
     <div dir="rtl">
       <header className={`${s.top} ${s.indexTop}`}>
         <div className={s.topInner}>
-          <h1 className={s.title}>מאמרים</h1>
-          <PenUnderline />
+          <div className={k.titleWrap}>
+            <h1 className={s.title}>מאמרים</h1>
+            <PenUnderline />
+          </div>
           <p className={s.lede}>
             סיפורים קצרים מהשטח ומהחדשות, למורי דרך ולתלמידי הקורס. בכל מאמר: מה קרה, מה אומרים לקבוצה, ומה שואלים במבחן.
           </p>

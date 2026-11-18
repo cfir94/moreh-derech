@@ -94,7 +94,7 @@
   display: flex;
   flex: none;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
   margin-inline-start: auto;
 }
 
@@ -258,7 +258,7 @@
     display: block;
   }
   .tools {
-    gap: 4px;
+    gap: 6px;
   }
   .sign {
     max-width: 7.5rem;
@@ -270,5 +270,18 @@
   .menuBtn {
     min-height: 44px;
     padding: 0 9px;
+  }
+}
+
+/* between 1400 and 1600 the links and the tools share a tight row: less padding, so they never touch */
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .link {
+    padding: 0 7px;
+  }
+  .tools {
+    gap: 10px;
+  }
+  .inner {
+    gap: 18px;
   }
 }
