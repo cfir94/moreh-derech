@@ -49,7 +49,7 @@ function HubButton({ link }: { link: HubLink }) {
   const kind = HUB_KINDS[link.kind];
   const face = (
     <>
-      <InkIcon name={KIND_INK[link.kind] ?? "milestone"} size={22} />
+      <InkIcon name={KIND_INK[link.kind] ?? "milestone"} size={22} tint />
       {kind.label}
     </>
   );
@@ -95,7 +95,7 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
             {GROUP_INK[group.id] && (
               <span aria-hidden className={s.groupArt}>
                 {GROUP_INK[group.id].map((n) => (
-                  <InkIcon key={n} name={n} size={46} />
+                  <InkIcon key={n} name={n} size={46} tint />
                 ))}
               </span>
             )}
@@ -113,7 +113,7 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
                 className={s.topic}
               >
                 <TopicFold
-                  mark={<span aria-hidden className={s.mark}><InkIcon name={TOPIC_INK[topic.id] ?? "signpost"} size={32} /></span>}
+                  mark={<span aria-hidden className={s.mark}><InkIcon name={TOPIC_INK[topic.id] ?? "signpost"} size={32} tint /></span>}
                   title={topic.title}
                   below={<>
                     {!compact && <p className="text-base text-txt-dim">{topic.sub}</p>}
@@ -125,7 +125,7 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
                     ? // רק סוג תוכן אחד (סיורים): כל פריט ככפתור גלוי, בלי רשימה נפתחת.
                       topic.links[0].items.map((item) => (
                         <ItemLink key={item.href} item={item} className={`${button} col-span-2 min-w-0 whitespace-normal! text-center sm:col-span-1`}>
-                          <InkIcon name={KIND_INK[topic.links[0].kind] ?? "milestone"} size={22} />
+                          <InkIcon name={KIND_INK[topic.links[0].kind] ?? "milestone"} size={22} tint />
                           {item.title}
                           {item.external && <span aria-hidden className="text-sm text-txt-dim">↗</span>}
                         </ItemLink>

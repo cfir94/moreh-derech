@@ -39,7 +39,7 @@ export function SectionCard({
     >
       <div className={s.top}>
         <span aria-hidden className={s.mark}>
-          <InkIcon name={ink} size={36} />
+          <InkIcon name={ink} size={36} tint />
         </span>
         {badge ? (
           <Stamp tone={badge === "רשמי" ? "blue" : badge === "לא רשמי" ? "red" : "brown"}>{badge}</Stamp>
