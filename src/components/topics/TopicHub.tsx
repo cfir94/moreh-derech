@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HUB_KINDS, TOPIC_HUB, type HubGroup, type HubItem, type HubLink } from "@/data/topic-hub";
 import { QUIZZES } from "@/data/quizzes";
 import { TopicProgress } from "./TopicProgress";
+import { TopicFold } from "./TopicFold";
 import { InkIcon } from "@/components/trail/Ink";
 import type { FieldIconName } from "@/components/trail/FieldIcons";
 import s from "./topicHub.module.css";
@@ -111,16 +112,14 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
                 id={`topic-${topic.id}`}
                 className={s.topic}
               >
-                <div className="mb-3 flex items-center gap-3 md:mb-0">
-                  <span aria-hidden className={s.mark}>
-                    <InkIcon name={TOPIC_INK[topic.id] ?? "signpost"} size={32} />
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className={s.topicTitle}>{topic.title}</h3>
+                <TopicFold
+                  mark={<span aria-hidden className={s.mark}><InkIcon name={TOPIC_INK[topic.id] ?? "signpost"} size={32} /></span>}
+                  title={topic.title}
+                  below={<>
                     {!compact && <p className="text-base text-txt-dim">{topic.sub}</p>}
                     {quizData && <TopicProgress quiz={quizData.slug} total={quizData.questions.length} />}
-                  </div>
-                </div>
+                  </>}
+                >
                 <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                   {topic.links.length === 1 && topic.links[0].items.length > 1
                     ? // רק סוג תוכן אחד (סיורים): כל פריט ככפתור גלוי, בלי רשימה נפתחת.
@@ -133,6 +132,7 @@ export function TopicHub({ compact = false, groups = TOPIC_HUB }: { compact?: bo
                       ))
                     : topic.links.map((linkItem) => <HubButton key={linkItem.kind} link={linkItem} />)}
                 </div>
+                </TopicFold>
               </li>
               );
             })}

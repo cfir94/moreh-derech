@@ -149,3 +149,27 @@
     display: inline-flex;
   }
 }
+
+/* ---- on a phone a topic folds to its name (owner, 18.11); on a wide screen all is open ---- */
+.foldHead { display: flex; align-items: center; gap: 12px; }
+.foldBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0;
+  text-align: right;
+  color: inherit;
+  font: inherit;
+}
+.foldChevron { flex: none; width: 24px; height: 24px; color: var(--ink-dim); transition: transform 0.2s ease-out; }
+.foldBtn[aria-expanded="true"] .foldChevron { transform: rotate(180deg); }
+.foldBody { margin-top: 14px; }
+@media (min-width: 768px) {
+  /* the static page is built folded; a wide screen shows everything before the script arrives */
+  .foldBody[hidden], .foldBelow[hidden] { display: block !important; }
+  .foldBody { margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .foldChevron { transition: none; } }
