@@ -317,6 +317,15 @@ iframe:focus {
   animation: screen-in 0.34s var(--ease-out);
 }
 
+/* every page on arrival (src/app/template.tsx); a page that already rises keeps a single motion */
+.page-in {
+  animation: screen-in 0.34s var(--ease-out);
+}
+.page-in > .screen-in,
+.page-in > * > .screen-in:first-child {
+  animation: none;
+}
+
 @keyframes shake {
   25% {
     transform: translateX(-7px);
