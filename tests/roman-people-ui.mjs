@@ -60,7 +60,9 @@ try {
   }
   await page.locator('[data-person-button="pompey"]').click();
   await expect(page.locator('[data-person-button="pompey"]')).toBeVisible();
-  await expect.poll(() => page.locator("[data-era-art] img").evaluateAll(images => images.length === 3 && images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
+  // the three eras are a strip of numbered stops, like the period timelines (redesign 14.11), each with its own ink icon-free label
+  await expect(page.getByRole("button", { name: /הכיבוש והחורבן/ }).first()).toBeVisible();
+  await expect(page.locator("[data-era-art]")).toHaveCount(0);
   await expect(page.getByRole("button", { name: "הדמות הקודמת", exact: true })).toBeDisabled();
   await page.getByRole("button", { name: "הדמות הבאה", exact: true }).click();
   await expect(page.locator('[data-person-detail="antony"]')).toBeVisible();
@@ -109,10 +111,10 @@ try {
   await page.getByRole("button", { name: /המעבר לביזנטיון/ }).click();
   await expect(page.locator("[data-person-button]")).toHaveCount(12);
   await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "byzantine");
-  const byzantineScene = await page.locator("[data-roman-people]").evaluate(node => getComputedStyle(node).getPropertyValue("--scene"));
+  const byzantineScene = await page.locator("[data-roman-people]").evaluate(node => getComputedStyle(node).getPropertyValue("--accent"));
   await page.getByRole("button", { name: /רומא האימפריאלית/ }).click();
   await expect(page.locator("[data-roman-people]")).toHaveAttribute("data-visual-era", "empire");
-  expect(await page.locator("[data-roman-people]").evaluate(node => getComputedStyle(node).getPropertyValue("--scene"))).not.toBe(byzantineScene);
+  expect(await page.locator("[data-roman-people]").evaluate(node => getComputedStyle(node).getPropertyValue("--accent"))).not.toBe(byzantineScene);
   await page.getByRole("button", { name: /ניקוי הסינון/ }).click();
   await page.getByLabel("רק דמויות הליבה").check();
   await expect(page.locator("[data-person-button]")).toHaveCount(29);

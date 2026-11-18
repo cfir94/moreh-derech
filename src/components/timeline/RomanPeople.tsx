@@ -9,22 +9,22 @@ import { ROMAN_PROFILES, PROFILE_SOURCES } from "@/data/roman-profiles";
 import { RomanStory } from "./RomanStory";
 import s from "./RomanPeople.module.css";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { InkIcon } from "@/components/trail/Ink";
+import type { FieldIconName } from "@/components/trail/FieldIcons";
+import { RangeText } from "@/components/RangeText";
+
+/** each role draws its own ink icon (the old unicode symbols were not an icon set) */
+const ROLE_ICON: Record<RomanPerson["roles"][number], FieldIconName> = { emperor: "crown", general: "tower", governor: "scroll", deputy: "column", court: "gate" };
+const HEB: Record<RomanPerson["era"], string> = { conquest: "א׳", empire: "ב׳", byzantine: "ג׳" };
 
 function Portrait({ person, large = false }: { person: RomanPerson; large?: boolean }) {
   const portrait = PORTRAITS[person.id];
   const [failed, setFailed] = useState(false);
   return <div data-portrait={person.id} className={`${s.portrait} ${large ? s.largePortrait : ""}`}>
-    {(!portrait || failed) && <span className={s.monogram} aria-label={`מונוגרמה של ${person.name}`}><span aria-hidden>❧</span><b>{person.latin.split(" ")[0].slice(0, 2)}</b><span aria-hidden>❧</span></span>}
+    {(!portrait || failed) && <span className={s.monogram} aria-label={`מונוגרמה של ${person.name}`}><b>{person.latin.split(" ")[0].slice(0, 2)}</b></span>}
     {portrait && !failed && <a href={portraitUrl(portrait)} target="_blank" rel="noreferrer" aria-label={`הגדלת התמונה של ${person.name}`}><img src={portraitUrl(portrait)} alt={portrait.alt} loading="lazy" width="500" height="660" style={{ objectFit: portrait.fit ?? "cover" }} onError={() => setFailed(true)} /></a> /* eslint-disable-line @next/next/no-img-element */}
     <span className={s.portraitCaption}>{portrait && !failed ? portrait.caption : failed ? "התמונה לא נטענה" : "לא נמצא דיוקן מזוהה"}</span>
   </div>;
-}
-
-function EraArtwork({ era }: { era: RomanPerson["era"] }) {
-  const index = { conquest: 0, empire: 1, byzantine: 2 }[era];
-  return <span className={s.eraArt} data-era-art={era} aria-hidden="true">
-    <img src="/moreh-derech/images/roman-people/era-emblems.webp" alt="" width="1536" height="564" style={{ left: `${-index * 100}%` }} />{/* eslint-disable-line @next/next/no-img-element */}
-  </span>;
 }
 
 function Face({ person }: { person: RomanPerson }) {
@@ -44,7 +44,7 @@ function PersonContext({ id }: {id: string}) {
   const sources = [...new Set([...profile.points.flatMap(point => point.sources), ...(profile.jewish?.sources ?? [])])];
   return <div className={s.personContext} data-person-context={id}>
     <section className={s.contextPanel}><h3>עוד קצת הקשר</h3><ul>{profile.points.map(point => <li key={point.label}><b>{point.label}</b>{point.supplement && <span className={s.supplement}>השלמת רקע</span>}<p>{point.text}</p></li>)}</ul></section>
-    {profile.jewish && <section className={s.jewishPanel} data-jewish-context={id}><h3><span aria-hidden>✦</span> הקשר ליהודים</h3><p>{profile.jewish.text}</p></section>}
+    {profile.jewish && <section className={s.jewishPanel} data-jewish-context={id}><h3><InkIcon name="menorah" size={22} /> הקשר ליהודים</h3><p>{profile.jewish.text}</p></section>}
     <details className={s.contextSources}><summary>מקורות להרחבה</summary><ul>{sources.map(key => <li key={key}>{PROFILE_SOURCES[key].href ? <a href={PROFILE_SOURCES[key].href} target="_blank" rel="noreferrer">{PROFILE_SOURCES[key].title} ↗</a> : PROFILE_SOURCES[key].title}</li>)}</ul></details>
   </div>;
 }
@@ -60,17 +60,15 @@ function PersonDetail({ person, compact = false }: { person: RomanPerson; compac
   const portrait = PORTRAITS[person.id];
   return <article className={`${s.detail} ${compact ? s.compact : ""}`} data-era={person.era} data-person-detail={person.id}>
     <div className={s.exhibitPortrait}>
-      <span className={s.portraitHalo} aria-hidden />
       <div className={s.effigy}><Portrait key={person.id} person={person} large />{portrait && <a className={s.imageSource} href={portrait.sourceUrl} target="_blank" rel="noreferrer">מקור התמונה ↗</a>}</div>
       <p className={s.portraitLatin} lang="la" dir="ltr">{person.latin}</p>
-      <span className={s.exhibitMark} aria-hidden>{ERAS.find(era => era.id === person.era)?.mark} · PERSONA</span>
     </div>
     <div className={s.exhibitCopy}>
-      <div className={s.identity}><p className={s.sectionLabel}>{person.roles.map(id => ROLES[id].symbol).join(" ")} {person.role}</p><h2>{person.name}</h2><p className={s.date}><span>האירוע בכרטיס: </span>{person.date}</p><Tenure person={person} /></div>
+      <div className={s.identity}><p className={s.sectionLabel}>{person.roles.map(id => <InkIcon key={id} name={ROLE_ICON[id]} size={22} />)} {person.role}</p><h2>{person.name}</h2><p className={s.date}><span>האירוע בכרטיס: </span>{person.date}</p><Tenure person={person} /></div>
       <section className={s.factPanel}><p className={s.sectionLabel}>המעשה שמחבר את השם לסיפור</p><h3>{person.hook}</h3><p className={s.action}>{person.action}</p></section>
       <div className={s.learningCards}>
-        <section className={s.memory}><span aria-hidden>✦</span><div><b>איך זוכרים?</b><p>{person.memory}</p></div></section>
-        <section className={s.trap}><b><span aria-hidden>↔</span> לא להתבלבל</b><p>{person.trap}</p></section>
+        <section className={s.memory}><InkIcon name="pencil" size={24} /><div><b>איך זוכרים?</b><p>{person.memory}</p></div></section>
+        <section className={s.trap}><b>לא להתבלבל</b><p>{person.trap}</p></section>
       </div>
       <PersonContext id={person.id} />
       {!compact && <details className={s.more}><summary>עוד הקשר ומקורות <span aria-hidden>＋</span></summary>
@@ -103,7 +101,7 @@ function Practice({ people, short, onEraChange }: { people: RomanPerson[]; short
   }
   if (!people.length) return null;
   if (index >= deck.length) return <section className={s.practice} aria-live="polite">
-    <span className={s.bigMark} aria-hidden>❧</span><h2 ref={focus} tabIndex={-1}>הסבב הושלם</h2>
+    <span className={s.bigMark} aria-hidden><InkIcon name="milestone" size={56} /></span><h2 ref={focus} tabIndex={-1}>הסבב הושלם</h2>
     <p>זכרת {remembered} מתוך {deck.length} דמויות.</p>
     <div className={s.practiceActions}>{missed.length > 0 && <button className={s.primary} onClick={() => start(missed, true)}>חזרה על {missed.length} דמויות לחיזוק</button>}<button onClick={() => start(people, true, true)}>סבב חדש בערבוב</button></div>
   </section>;
@@ -167,25 +165,24 @@ export function RomanPeople() {
   return <div className={s.page} dir="rtl" data-roman-people data-visual-era={visualEra} data-mode={mode}>
     <PageDecor wide prints={false} topo={false} items={["crown", "column", "arch", "temple", "flag"]} />
     <div className={s.pageInner}>
-    <div className={s.topline}><Link className={s.back} href="/timelines">← לכל עזרי הלמידה</Link><span className={s.museumLabel} aria-hidden>PERSONAE · ROMA</span></div>
+    <div className={s.topline}><Link className={s.back} href="/timelines">← לכל עזרי הלמידה</Link></div>
     <header className={s.hero}>
-      <div className={s.heroText}><p className={s.eyebrow}><span aria-hidden>SPQR</span> מסע בין הפנים שמאחורי השמות</p>
-        <h1>מי זה מי <span>ברומא?</span></h1>
+      <div className={s.heroText}>        <h1>מי זה מי <span>ברומא?</span></h1>
         <p className={s.intro}>קיסר. מצביא. נציב.<br />לכל שם יש פנים. לכל דמות יש סיפור.</p>
         <div className={s.heroActions}><button className={s.goldButton} onClick={challenge}>אתגר של 5 דמויות <span aria-hidden>←</span></button><a href="#roman-learning">או לגלות בקצב שלי ↓</a></div>
         <p className={s.range}>63 לפנה״ס — המאה ה־7 <span>·</span> {ROMAN_PEOPLE.length} דמויות <span>·</span> {COMPARISONS.length} השוואות</p>
       </div>
       <div className={s.heroGallery} aria-label="הפנים של האימפריה">
         {["augustus", "hadrian", "constantine"].map((id, index) => { const person = ROMAN_PEOPLE.find(item => item.id === id)!; return <button key={id} className={s.heroFigure} data-figure={index} onClick={() => { clear(); choose(id); }} aria-label={`להכיר את ${person.name}`}><Face person={person} /><span>{person.name}</span></button>; })}
-        <span className={s.heroOrbit} aria-hidden /><span className={s.heroInscription} aria-hidden>VENI · VIDI · MEMINI</span>
+        
       </div>
     </header>
-    <div className={s.chapterIntro}><div><p className={s.eyebrow}>שלוש תקופות. מפת קשרים אחת.</p><h2>באיזה עולם מתחילים?</h2></div><p>בחר תקופה, הכר דמות, בדוק מה נשאר בזיכרון.</p></div>
+    <div className={s.chapterIntro}><h2>באיזה עולם מתחילים?</h2><p>בוחרים תקופה, מכירים דמות, ובודקים מה נשאר בזיכרון.</p></div>
 
-    <div id="roman-learning" className={s.modes} aria-label="מצבי לימוד">{[["timeline", "◈", "להכיר את הדמויות"], ["compare", "↔", "להבדיל בין שמות"], ["practice", "✦", "לבדוק מה זכרתי"], ["story", "⌘", "הרצף והקשרים"]].map(([id, number, label]) => <button key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setShortPractice(false); setPracticeEra(null); }}><span aria-hidden>{number}</span>{label}</button>)}</div>
+    <div id="roman-learning" className={s.modes} aria-label="מצבי לימוד">{([["timeline", "who", "להכיר את הדמויות"], ["compare", "sort", "להבדיל בין שמות"], ["practice", "pencil", "לבדוק מה זכרתי"], ["story", "scroll", "הרצף והקשרים"]] as const).map(([id, icon, label]) => <button key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setShortPractice(false); setPracticeEra(null); }}><InkIcon name={icon} size={24} />{label}</button>)}</div>
 
     {mode !== "compare" && mode !== "story" && <>
-      <div className={s.eras} aria-label="סינון לפי תקופה"><button className={s.allEras} aria-pressed={era === "all"} onClick={() => { setEra("all"); setPracticeEra(null); }}>כל<br /><b>התקופות</b></button>{ERAS.map(item => <button key={item.id} data-era={item.id} aria-pressed={era === item.id} onClick={() => { setEra(item.id); setPracticeEra(null); }}><span className={s.eraNumber} aria-hidden>{item.mark}</span><EraArtwork era={item.id} /><div><b>{item.label}</b><small>{item.dates}</small><span className={s.eraSubtitle}>{item.subtitle}</span></div><span className={s.eraArrow} aria-hidden>←</span></button>)}</div>
+      <div className={s.eras} aria-label="סינון לפי תקופה"><button className={s.allEras} aria-pressed={era === "all"} onClick={() => { setEra("all"); setPracticeEra(null); }}>כל<br /><b>התקופות</b></button>{ERAS.map(item => <button key={item.id} data-era={item.id} aria-pressed={era === item.id} onClick={() => { setEra(item.id); setPracticeEra(null); }}><span className={s.eraNumber} aria-hidden>{HEB[item.id]}</span><div><b>{item.label}</b><small><RangeText text={item.dates} /></small><span className={s.eraSubtitle}>{item.subtitle}</span></div></button>)}</div>
       <div className={s.filters}>
         <div className={s.search}><label htmlFor={searchId}>חיפוש דמות, אירוע או מקום</label><input id={searchId} type="search" placeholder="למשל: גליל, פילטוס, אוקטביאנוס…" value={query} onChange={event => { setQuery(event.target.value); setPracticeEra(null); setBrowseOpen(Boolean(event.target.value)); }} /></div>
         <div><label htmlFor={roleId}>תפקיד</label><select id={roleId} value={role} onChange={event => { setRole(event.target.value); setPracticeEra(null); }}><option value="all">כל התפקידים</option>{Object.entries(ROLES).map(([id, item]) => <option key={id} value={id}>{item.label}</option>)}</select></div>
@@ -197,17 +194,17 @@ export function RomanPeople() {
     {mode === "story" ? <RomanStory renderPerson={id => { const person = ROMAN_PEOPLE.find(item => item.id === id); return person ? <PersonDetail key={id} person={person} /> : <CompanionDetail key={id} person={HERODIAN_COMPANIONS.find(item => item.id === id)!} />; }} /> : mode === "compare" ? <section className={s.comparison}>
       <div className={s.compareHeading}><div><p className={s.sectionLabel}>שני שמות. הבדל אחד לזכור.</p><h2>מי מתבלבל עם מי?</h2></div><div><label htmlFor={pairSelectId}>בחר זוג להשוואה</label><select id={pairSelectId} value={pairId} onChange={event => setPairId(event.target.value)}>{COMPARISONS.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></div></div>
       <div className={s.pairRail} aria-label="זוגות להשוואה">{COMPARISONS.map(item => <button key={item.id} aria-pressed={pairId === item.id} onClick={() => setPairId(item.id)}>{item.people.map(id => <Face key={id} person={ROMAN_PEOPLE.find(person => person.id === id)!} />)}<span>{item.label}</span></button>)}</div>
-      <div className={s.compareRule}><span aria-hidden>↔</span><p>{pair.rule}</p></div>
+      <div className={s.compareRule}><InkIcon name="sort" size={30} /><p>{pair.rule}</p></div>
       <div className={s.compareGrid}>{pair.people.map(id => <PersonDetail key={id} person={ROMAN_PEOPLE.find(person => person.id === id)!} compact />)}</div>
     </section> : !people.length ? <div className={s.empty}><h2>לא נמצאו דמויות מתאימות</h2><button onClick={clear}>להציג את כולן</button></div> : mode === "practice" ? <Practice key={`${query}-${era}-${role}-${core}-${shortPractice}-${practiceSession}`} people={people} short={shortPractice} onEraChange={setPracticeEra} /> : <section className={s.atlas} aria-label="ציר הדמויות">
       <div className={s.navigator}><button className={s.stepButton} aria-label="הדמות הקודמת" disabled={position <= 0} onClick={() => move(-1)}><span aria-hidden>→</span><span>הקודמת</span></button><span className={s.position}>{position + 1} / {people.length}</span><button className={s.browseToggle} aria-expanded={browseVisible} aria-controls={browseId} onClick={() => setBrowseOpen(open => !open)}><span>{position + 1} / {people.length}</span>בחירת דמות <span aria-hidden>{browseVisible ? "−" : "+"}</span></button><button className={s.stepButton} aria-label="הדמות הבאה" disabled={position >= people.length - 1} onClick={() => move(1)}><span>הבאה</span><span aria-hidden>←</span></button></div>
       <div className={s.timeline} id={browseId} hidden={!browseVisible}><div className={s.timelineHeading}><h2>רצף הדמויות</h2><span>בוחרים שם ומגלים את הסיפור</span></div><p className={s.timelineNote}>{query.trim() ? "בחיפוש, התאמות לשם מופיעות לפני אזכורים בתוכן." : "מסודר לפי האירוע המוצג, לא לפי שנות כהונה. כמה תפקידים פועלים במקביל."}</p>
-        <div className={s.timelineList}>{ERAS.map(item => { const group = people.filter(person => person.era === item.id); return group.length ? <div key={item.id} data-era={item.id}><h3 className={s.groupTitle}><span>{item.mark}</span>{item.label}</h3><ol>{group.map(person => <li key={person.id}><button data-person-button={person.id} aria-pressed={selected?.id === person.id} onClick={() => choose(person.id)}><Face person={person} /><span className={s.timelineEntry}><span className={s.entryDate}>{person.date}</span><span className={s.entryName}>{person.name}<span className={s.entryRole}>{person.roles.map(id => ROLES[id].symbol).join(" ")}</span></span></span><span className={s.entryArrow} aria-hidden>←</span></button></li>)}</ol></div> : null; })}</div>
+        <div className={s.timelineList}>{ERAS.map(item => { const group = people.filter(person => person.era === item.id); return group.length ? <div key={item.id} data-era={item.id}><h3 className={s.groupTitle}><span aria-hidden>{HEB[item.id]}</span>{item.label}</h3><ol>{group.map(person => <li key={person.id}><button data-person-button={person.id} aria-pressed={selected?.id === person.id} onClick={() => choose(person.id)}><Face person={person} /><span className={s.timelineEntry}><span className={s.entryDate}>{person.date}</span><span className={s.entryName}>{person.name}<span className={s.entryRole}>{person.roles.map(id => <InkIcon key={id} name={ROLE_ICON[id]} size={18} />)}</span></span></span><span className={s.entryArrow} aria-hidden>←</span></button></li>)}</ol></div> : null; })}</div>
       </div>
       <div ref={detailRef} className={s.detailColumn} aria-live="polite" tabIndex={0} aria-label="הדמות הנבחרת. חץ שמאלה לדמות הבאה, חץ ימינה לקודמת" onKeyDown={event => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowLeft") { event.preventDefault(); move(1); } if (event.key === "ArrowRight") { event.preventDefault(); move(-1); } }}>{selected && <PersonDetail key={selected.id} person={selected} />}<div className={s.studyTip}><div><b>שם ← תפקיד ← מעשה</b><p>שלוש מילים בראש. עכשיו נסה בלי להסתכל.</p></div><button onClick={challenge}>לתרגול קצר <span aria-hidden>←</span></button></div></div>
     </section>}
 
-    <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><span aria-hidden>{item.symbol}</span><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details data-herodian-context><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p><div className={s.companionGrid}>{HERODIAN_COMPANIONS.map(person => <CompanionDetail key={person.id} person={person} />)}</div><p className={s.companionHint}>לחיצה על תמונה פותחת אותה להגדלה.</p></details></section>
+    <section className={s.roleGuide}><h2>לפני שזוכרים שם, מבינים תפקיד</h2><div>{Object.entries(ROLES).map(([id, item]) => <article key={id}><InkIcon name={ROLE_ICON[id as keyof typeof ROLE_ICON]} size={34} /><h3>{item.label}</h3><p>{item.description}</p></article>)}</div><details data-herodian-context><summary>ואיפה הורדוס, אנטיפס ואגריפס?</summary><p>הורדוס הגדול ואגריפס הראשון היו מלכי חסות מקומיים תחת רומא. אנטיפס היה טטררך בגליל ובעבר הירדן. הם חלק מהסיפור, בתפקיד נפרד מהקיסר ומן הנציב. אוגוסטוס מאשר את הורדוס; אנטיפס בונה את טבריה על שם טיבריוס; קלאודיוס מעניק לאגריפס את יהודה ב־41.</p><div className={s.companionGrid}>{HERODIAN_COMPANIONS.map(person => <CompanionDetail key={person.id} person={person} />)}</div><p className={s.companionHint}>לחיצה על תמונה פותחת אותה להגדלה.</p></details></section>
     <footer className={s.footer}><p>הבסיס: הקלטות מחברות בית שני והתקופה הרומית־ביזנטית. התאריכים בכרטיסים מציינים את האירוע או התקופה הנדונים. טיפי הזיכרון הם אסוציאציות ללמידה.</p>
       <details><summary>מקורות, השלמות וקרדיט לתמונות</summary><p>השלמות חיצוניות ממוקדות מסומנות במקורות הדמות: טיבריוס וטבריה, תיקון קלאודיוס, נירון והרקליוס. דמויות המוזכרות בשיעור רק להשלמת הרצף מסומנות כדמויות נוספות וניתנות להסתרה במסלול הליבה.</p><ul>{Object.entries(SOURCES).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : <b>{source.title}</b>} — {source.detail}</li>)}</ul><h3>מקורות להרחבות ולמפת הרצף</h3><ul>{Object.entries(PROFILE_SOURCES).filter(([id]) => !SOURCES[id]).map(([id, source]) => <li key={id}>{source.href ? <a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a> : source.title} — {source.detail}</li>)}</ul><h3>שנות שלטון וכהונה</h3><p>משכי הכהונה מקורבים ונועדו ללמידה; אינם חישוב מדויק בחודשים. שנים של שלטון משותף נכללות כשמצוין. תאריך האירוע המקורי בכרטיס מוצג בנפרד. במעבר מלפני הספירה לספירה אין שנת אפס.</p><ul>{Object.entries(TENURE_SOURCES).map(([id, source]) => <li key={id}><a href={source.href} target="_blank" rel="noreferrer">{source.title} ↗</a></li>)}</ul><h3>דיוקנאות באמנות</h3><p>הרחבות הרקע מבוססות על השיעורים; השלמות חיצוניות מסומנות בנקודת המידע עצמה. לכל דמות נרשם קשר ליהודים רק כאשר נמצא לו בסיס בחומר שנבדק. 35 תמונות של פסלים, מטבעות, פסיפסים וציורים. לחיצה על תמונה פותחת אותה להגדלה. יצירות מאוחרות וייחוסים מסופקים מסומנים; אין לראות בהם תיעוד ודאי של מראה הדמות. התמונות הוקטנו והומרו ל־WebP, והמסגרת עשויה לחתוך את התצוגה. לכל תמונה נשמר הרישיון המקורי. לפלורוס לא נמצא דיוקן מזוהה במקורות שנבדקו.</p><ul>{Object.entries(PORTRAITS).map(([id, portrait]) => <li key={id}><a href={portrait.sourceUrl} target="_blank" rel="noreferrer">{ROMAN_PEOPLE.find(person => person.id === id)?.name} · {portrait.alt}</a> — {portrait.credit} · <a href={portrait.licenseUrl} target="_blank" rel="noreferrer">{portrait.license}</a></li>)}</ul><p>איורי הקסדות, החרבות והצלב נוצרו לצורכי עיצוב בעזרת בינה מלאכותית; הם איורים סמליים, ולא תיעוד של ממצא מסוים.</p></details>
       <div className={s.related}><Link href="/timelines/second-temple">ציר בית שני ←</Link><Link href="/timelines/roman">הציר הרומי המלא ←</Link><Link href="/timelines/byzantine">הציר הביזנטי המלא ←</Link></div>
