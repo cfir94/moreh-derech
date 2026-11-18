@@ -37,7 +37,7 @@ export default function QuizzesPage() {
   const totalQuestions = QUIZZES.reduce((s, q) => s + q.questions.length, 0);
 
   return (
-    <TrailPage decor={<PageDecor items={["pencil", "quizzes", "notebooks", "review", "exams", "resources"]} />}>
+    <TrailPage decor={<PageDecor figures={["crusader"]} items={["pencil", "quizzes", "notebooks", "review", "exams", "resources"]} />}>
       <PageHead section="quizzes"
         title="מאגר שאלונים"
         art={<InkIcon name="quizzes" size={72} />}

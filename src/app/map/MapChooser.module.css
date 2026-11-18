@@ -1,5 +1,21 @@
 .page { max-width: 1040px; margin: 0 auto; padding: 36px 16px 56px; }
-.head { margin-bottom: 26px; }
+.head { position: relative; margin-bottom: 26px; }
+/* the compass of the home page, coloured in, beside the title */
+.compass {
+  position: absolute;
+  top: -10px;
+  inset-inline-end: 10px;
+  width: 150px;
+  height: 150px;
+  color: var(--ink);
+  pointer-events: none;
+}
+.compass circle:first-of-type { fill: color-mix(in srgb, var(--t-blue) 14%, var(--paper)); }
+@media (max-width: 700px) {
+  .compass { width: 84px; height: 84px; top: -4px; inset-inline-end: 0; }
+  .head h1, .head p { padding-inline-end: 0; }
+  .head p { max-width: calc(100% - 90px); }
+}
 .head h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.08; }
 .head p { margin-top: 10px; color: var(--txt-dim); max-width: 560px; font-size: 1.25rem; line-height: 1.65; }
 

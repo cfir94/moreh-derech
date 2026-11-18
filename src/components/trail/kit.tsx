@@ -83,7 +83,7 @@ export function PageHead({
 }) {
   const long = title.length > 26;
   return (
-    <header className={cx(k.head, section && k.toned, section && k[`edge_${section}`])} data-ground={section} style={section ? ({ "--tone": SECTION_TONE[section] } as React.CSSProperties) : undefined}>
+    <header className={cx(k.head, section && k.toned, section && k[`motif_${section}`], section && "toned-head")} data-ground={section} style={section ? ({ "--tone": SECTION_TONE[section] } as React.CSSProperties) : undefined}>
       {crumbs && crumbs.length > 0 && (
         <nav aria-label="פירורי לחם">
           <ol className={cx(k.crumbs, "pencil")}>

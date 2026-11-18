@@ -5,6 +5,7 @@ import { SITES, ROWS, PERIODS } from "@/data/learning-map";
 import styles from "./MapChooser.module.css";
 import { kit, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
+import { InkCompass } from "@/components/trail/Ink";
 
 
 // one dot per period, scattered over the land in the card's art
@@ -30,6 +31,7 @@ export default function MapChooserPage() {
           <PenUnderline />
         </div>
         <p>שתי מפות לשתי מטרות: אחת ללמוד את האתרים לקראת המבחן, ואחת לתכנן יום בשטח.</p>
+        <InkCompass live className={styles.compass} />
       </header>
 
       <div className={styles.cards}>

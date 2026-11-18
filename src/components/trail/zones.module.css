@@ -56,3 +56,27 @@
   color: var(--ink);
   opacity: 0.55;
 }
+
+/* the birds beat their wings in two frames */
+.bird .wingsUp,
+.bird .wingsDown {
+  animation: wingsUp 0.7s steps(1, end) infinite;
+  animation-delay: inherit;
+}
+.bird .wingsDown {
+  animation-name: wingsDown;
+}
+@keyframes wingsUp {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes wingsDown {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bird .wingsUp { animation: none; opacity: 1; }
+  .bird .wingsDown { animation: none; opacity: 0; }
+}

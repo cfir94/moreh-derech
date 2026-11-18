@@ -223,14 +223,16 @@ export function InkRuin(props: SVGProps<SVGSVGElement>) {
 }
 
 /** Compass rose, with צ for north in the guide's own hand. */
-export function InkCompass(props: SVGProps<SVGSVGElement>) {
+export function InkCompass({ live = false, ...props }: SVGProps<SVGSVGElement> & { live?: boolean }) {
   return (
     <svg viewBox="0 0 200 200" aria-hidden {...props}>
       <g filter="url(#ink200)" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="100" cy="108" r="62" strokeWidth="2.2" />
         <circle cx="100" cy="108" r="52" strokeWidth="1" strokeDasharray="2 7" />
-        <path d="M100 38 112 96 100 108 88 96z" fill="var(--t-red, #b5382a)" strokeWidth="2" />
-        <path d="M100 178 88 120 100 108 112 120z" strokeWidth="2" />
+        <g className={live ? "compass-needle" : undefined}>
+          <path d="M100 38 112 96 100 108 88 96z" fill="var(--t-red, #b5382a)" strokeWidth="2" />
+          <path d="M100 178 88 120 100 108 112 120z" fill={live ? "var(--t-blue, #2a5a8c)" : undefined} fillOpacity={live ? 0.55 : undefined} strokeWidth="2" />
+        </g>
         <path d="M30 108 88 96 100 108 88 120zM170 108 112 120 100 108 112 96z" strokeWidth="2" />
         <path d="M56 64l24 24M144 64l-24 24M56 152l24-24M144 152l-24-24" strokeWidth="1.3" />
         <path d="M104 100l6-6M104 106l8-8M106 112l6-6" strokeWidth="1" opacity="0.7" />
