@@ -1,0 +1,60 @@
+/* הלשוניות הנוספות של צירי התקופה: קיסרים כמטבעות, לגיונות כחותמות, אתרים כשלטים, צליינים כרשימות יומן. */
+
+.section + .section { margin-top: 34px; }
+.head { margin: 0; font-family: var(--font-hand); font-weight: 400; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1.1; }
+.intro { margin: 4px 0 0; max-width: 62ch; font-size: 1.12rem; line-height: 1.7; color: var(--ink-dim); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 14px; margin: 16px 0 0; padding: 0; list-style: none; }
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 18px;
+  border-radius: 5px;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 35%, transparent), 0 12px 18px -16px rgb(20 12 4 / 0.55);
+}
+.item > * { min-width: 0; }
+.item h3 { margin: 0; font-size: 1.2rem; font-weight: 900; line-height: 1.35; }
+.item p { margin: 4px 0 0; font-size: 1.05rem; line-height: 1.7; }
+.when { font-weight: 700; color: var(--ink-dim); }
+
+/* a coin, struck in ink: the ruler's Latin or Greek name runs round the rim */
+.coin {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  border: 2.5px solid var(--ink-era, var(--ink));
+  box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 5.5px color-mix(in srgb, var(--ink) 40%, transparent);
+  color: var(--ink-era, var(--ink));
+  font-family: Georgia, "Frank Ruhl Libre", serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  line-height: 1.15;
+  padding: 6px;
+  word-break: break-word;
+}
+
+.seal {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 2px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  border-radius: 3px;
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+  transform: rotate(-3deg);
+}
+
+.icon { color: var(--ink); }
+.single { grid-template-columns: 1fr; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}

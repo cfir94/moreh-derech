@@ -1,0 +1,51 @@
+/* בית שני: מה שיש לכל אירוע מעבר לסיפור (סיבות, תוצאות, אנשים, ארכאולוגיה, מקור), וטבלת הכיתות. */
+
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 18px; margin-top: 18px; }
+.field h4 { margin: 0; font-family: var(--font-hand); font-weight: 400; font-size: 1.4rem; line-height: 1.1; }
+.field p { margin: 4px 0 0; font-size: 1.04rem; line-height: 1.75; }
+.muted { color: var(--ink-dim); }
+
+.caution {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--t-orange) 12%, transparent);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--t-orange) 45%, transparent);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+.caution b { display: block; }
+
+.related { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.related a {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 45%, transparent);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.related a:hover { background: color-mix(in srgb, var(--ground) 45%, transparent); }
+
+.source { margin: 14px 0 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink-dim); }
+
+.details {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 5px;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 35%, transparent);
+}
+.details summary { cursor: pointer; font-size: 1.12rem; font-weight: 800; }
+.details p { margin: 8px 0 0; font-size: 1.05rem; line-height: 1.75; }
+
+.tableWrap { margin-top: 12px; overflow-x: auto; }
+.tableWrap table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.tableWrap caption { padding-bottom: 6px; text-align: right; color: var(--ink-dim); }
+.tableWrap th, .tableWrap td { padding: 8px 10px; border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); text-align: right; vertical-align: top; line-height: 1.6; }
+.tableWrap th { background: color-mix(in srgb, var(--ground) 45%, transparent); font-weight: 800; }
+
+.subhead { margin: 28px 0 0; font-family: var(--font-hand); font-weight: 400; font-size: 1.9rem; }
+.method { margin-top: 14px; max-width: 72ch; }
+.method p { margin: 8px 0 0; font-size: 1.08rem; line-height: 1.8; }
+.method a { display: inline-block; margin-top: 10px; font-weight: 800; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }

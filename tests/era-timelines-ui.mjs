@@ -29,45 +29,66 @@ try {
   await page.goto(base + "/timelines/");
   await page.getByRole("link", { name: /התקופה הרומית — מפומפיוס עד קונסטנטינוס/ }).click();
   await expect(page.getByRole("heading", { name: "התקופה הרומית", exact: true })).toBeVisible();
-  await expect(page.locator('article[id^="RO-"]')).toHaveCount(48);
-  await page.getByRole("checkbox", { name: "מושגים למבחן" }).check();
-  expect(await page.locator('article[id^="RO-"]').count()).toBeLessThan(48);
-  await page.getByRole("button", { name: "ניקוי סינון" }).click();
-  await page.getByRole("searchbox", { name: "חיפוש בתצוגה הנוכחית" }).fill("ביתר");
-  await expect(page.locator("#RO-033")).toBeVisible();
-  await page.getByRole("searchbox", { name: "חיפוש בתצוגה הנוכחית" }).fill("לאקייםבכלל");
-  await expect(page.getByRole("heading", { name: "לא נמצאו אירועים מתאימים" })).toBeVisible();
-  await page.getByRole("button", { name: "להציג את כל האירועים" }).click();
-  await page.getByRole("button", { name: /הקיסרים והלגיונות/ }).click();
+
+  // notebook chapters (owner, 14.11): the strip of all eras, one chapter on screen, three things to remember
+  const strip = page.getByRole("navigation", { name: "פס הזמן: הפרקים" });
+  await expect(strip.getByRole("button")).toHaveCount(7);
+  await expect(page.getByRole("heading", { name: "רומא מגיעה", level: 2 })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "שלושה דברים לזכור" })).toBeVisible();
+  await expect(page.locator('li[id^="RO-"]')).toHaveCount(5);
+
+  await strip.getByRole("button", { name: /המרד והשושלת הפלבית/ }).click();
+  await expect(page.getByRole("heading", { name: "המרד והשושלת הפלבית", level: 2 })).toBeVisible();
+  await expect(strip.getByRole("button", { name: /המרד והשושלת הפלבית/ })).toHaveAttribute("aria-current", "step");
+  const stations = await page.locator('li[id^="RO-"]').count();
+  await page.getByRole("button", { name: "מושגים למבחן" }).click();
+  expect(await page.locator('li[id^="RO-"]').count()).toBeLessThan(stations);
+  await page.getByRole("button", { name: "מושגים למבחן" }).click();
+  // the chapter's own practice, then the way on
+  await expect(page.getByRole("heading", { name: "בדקו את עצמכם על הפרק" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /הפרק הבא/ })).toBeVisible();
+
+  // search reaches every chapter; a result opens its chapter and the event
+  const search = page.getByRole("searchbox", { name: "חיפוש" });
+  await search.fill("ביתר");
+  await page.getByRole("button", { name: /נפילת ביתר/ }).click();
+  await expect(page.getByRole("heading", { name: "מטריאנוס עד בר כוכבא", level: 2 })).toBeVisible();
+  await expect(page.locator("#RO-033 > button")).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByRole("heading", { name: "נפילת ביתר", level: 3 })).toBeVisible();
+  await search.fill("לאקייםבכלל");
+  await expect(page.getByText("לא נמצאו אירועים מתאימים")).toBeVisible();
+  await page.getByRole("button", { name: "לנקות את החיפוש" }).click();
+  await page.getByRole("tab", { name: /הקיסרים והלגיונות/ }).click();
   await expect(page.getByRole("heading", { name: "אדריאנוס" })).toBeVisible();
 
-  await page.goto(base + "/timelines/roman/#RO-030");
-  await expect(page.locator("#RO-030 details")).toHaveAttribute("open", "");
-  // LA-21: an opened event shows its photo (a site, or an emperor's portrait), and the image really loads
-  const loaded = async (selector) => {
-    const img = page.locator(`${selector} details figure img`);
+  // a direct link opens the event's chapter and its page, with the photo really loaded
+  const loaded = async (id) => {
+    const img = page.locator(`article[aria-labelledby="${id}-title"] figure img`);
     await img.scrollIntoViewIfNeeded();
     await expect(img).toBeVisible();
     await expect.poll(() => img.evaluate((el) => el.complete && el.naturalWidth > 0)).toBe(true);
   };
-  await loaded("#RO-030");
+  await page.goto(base + "/timelines/roman/#RO-030");
+  await expect(page.locator("#RO-030 > button")).toHaveAttribute("aria-expanded", "true");
+  await loaded("RO-030");
   await page.goto(base + "/timelines/roman/#RO-019");
-  await loaded("#RO-019");
-  await expect(page.locator("#RO-019 figcaption")).toContainText("·");
+  await loaded("RO-019");
+  await expect(page.locator('article[aria-labelledby="RO-019-title"] figcaption')).toContainText("·");
 
   await page.goto(base + "/timelines/byzantine/");
   await expect(page.getByRole("heading", { name: "התקופה הביזנטית", exact: true })).toBeVisible();
-  await expect(page.locator('article[id^="BY-"]')).toHaveCount(45);
-  await page.getByRole("button", { name: /תור הזהב של יוסטיניאנוס/ }).click();
+  const byzStrip = page.getByRole("navigation", { name: "פס הזמן: הפרקים" });
+  await expect(byzStrip.getByRole("button")).toHaveCount(5);
+  await byzStrip.getByRole("button", { name: /תור הזהב של יוסטיניאנוס/ }).click();
   await expect(page.locator("#BY-033")).toBeVisible();
   await expect(page.locator("#BY-002")).toHaveCount(0);
-  await page.getByRole("button", { name: /^צליינים/ }).click();
+  await page.getByRole("tab", { name: /^צליינים/ }).click();
   await expect(page.getByRole("heading", { name: "אגריה" })).toBeVisible();
   await page.goto(base + "/timelines/byzantine/#BY-036");
-  await expect(page.locator("#BY-036 details")).toHaveAttribute("open", "");
-  await loaded("#BY-036");
+  await expect(page.locator("#BY-036 > button")).toHaveAttribute("aria-expanded", "true");
+  await loaded("BY-036");
   await page.goto(base + "/timelines/byzantine/#BY-023");
-  await loaded("#BY-023");
+  await loaded("BY-023");
 
   const phone = await browser.newContext({ viewport: { width: 320, height: 760 } });
   await phone.route("**/*.supabase.co/**", (route) => route.fulfill({ json: [] }));

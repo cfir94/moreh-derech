@@ -1,134 +1,88 @@
 "use client";
 
+/*
+ * הציר הביזנטי כ"פרקים במחברת" (EraChapters, בקשת הבעלים 14.11): חמישה פרקים, בכל אחד שלושה
+ * דברים לזכור, שביל של תחנות ודף פירוט, ותרגול קצר. הנתונים ב-src/data/byzantine/index.ts לא השתנו.
+ */
 import Link from "next/link";
-import { BYZ_COUNCILS, BYZ_EMPERORS, BYZ_ERAS, BYZ_EVENTS, BYZ_KINDS, BYZ_PILGRIMS, BYZ_SITES, type ByzEvent } from "@/data/byzantine";
-import { matches, useEraTimeline } from "./useEraTimeline";
-import styles from "./ByzantineTimeline.module.css";
-import { PhotoFigure, PracticeDeck } from "@/components/learning-aid";
+import { BYZ_COUNCILS, BYZ_EMPERORS, BYZ_ERAS, BYZ_EVENTS, BYZ_KINDS, BYZ_PILGRIMS, BYZ_SITES } from "@/data/byzantine";
+import { EraChapters, type ChapterKind } from "@/components/chapters/EraChapters";
+import x from "@/components/chapters/extras.module.css";
+import { InkIcon } from "@/components/trail/Ink";
+import { RangeText } from "@/components/RangeText";
 import type { EraPhoto } from "@/lib/eraPhotos";
 import { eraPractice } from "@/lib/eraPractice";
-import { PageDecor } from "@/components/trail/PageDecor";
+import { matches } from "./useEraTimeline";
 
-const ID = /^BY-\d{3}$/;
-const kindTitle = new Map(BYZ_KINDS.map((kind) => [kind.id, kind.title]));
-const siteType = { church: "כנסייה", monastery: "מנזר", synagogue: "בית כנסת", city: "עיר" } as const;
+const ICONS: Record<string, ChapterKind["icon"]> = { empire: "crown", war: "tower", jewish: "menorah", church: "church", pilgrim: "footprint" };
+const KINDS = BYZ_KINDS.map((k) => ({ ...k, icon: ICONS[k.id] }));
 const PRACTICE = eraPractice(BYZ_EVENTS, BYZ_ERAS);
-const views = [
-  { id: "timeline", title: "ציר הזמן", count: BYZ_EVENTS.length },
-  { id: "emperors", title: "קיסרים ומועצות", count: BYZ_EMPERORS.length + BYZ_COUNCILS.length },
-  { id: "sites", title: "כנסיות, מנזרים ובתי כנסת", count: BYZ_SITES.length },
-  { id: "pilgrims", title: "צליינים", count: BYZ_PILGRIMS.length },
-  { id: "practice", title: "תרגול", count: PRACTICE.length },
-];
-
-function Panel({ event, photo }: { event: ByzEvent; photo?: EraPhoto }) {
-  return <article id={event.id} tabIndex={-1} className={`${styles.item} ${event.key ? styles.keyItem : ""}`}>
-    <span className={styles.marker} aria-hidden />
-    <div className={styles.frame}>
-      <details className={styles.panel}>
-        <summary>
-          <span className={styles.meta}><span className={styles.date}>{event.date}</span><span className={styles.kind}>{kindTitle.get(event.kind)}</span>{event.concept && <span className={styles.concept} title="מופיע ברשימת המושגים של היחידה">מושג למבחן</span>}</span>
-          <h3>{event.title}<span className={styles.plus} aria-hidden>＋</span></h3>
-          <span className={styles.summary}>{event.summary}</span>
-        </summary>
-        <div className={styles.body}>
-          {photo && <PhotoFigure {...photo} className="mb-4 max-w-md" />}
-          <p>{event.body}</p>
-          <div className={styles.tip}><span>לזכור לדרך</span><p>{event.tip}</p></div>
-          {event.sites && <p className={styles.sites}><strong>בשטח:</strong> {event.sites}</p>}
-          <a className={styles.permalink} href={`#${event.id}`}>קישור ישיר · {event.id}</a>
-        </div>
-      </details>
-    </div>
-  </article>;
-}
+const SITE: Record<string, { title: string; icon: ChapterKind["icon"] }> = {
+  church: { title: "כנסייה", icon: "church" },
+  monastery: { title: "מנזר", icon: "cross" },
+  synagogue: { title: "בית כנסת", icon: "menorah" },
+  city: { title: "עיר", icon: "gate" },
+};
 
 export function ByzantineTimeline({ photos = {} }: { photos?: Record<string, EraPhoto> }) {
-  const t = useEraTimeline(BYZ_EVENTS, ID);
-
-  return <div className={styles.page} dir="rtl">
-    <PageDecor topo={false} step={520} items={["church", "cross", "dome", "scroll", "hood"]} />
-    <div className={styles.breadcrumb}><Link href="/timelines">עזרי למידה</Link><span aria-hidden> / </span><span>התקופה הביזנטית</span></div>
-
-    <header className={styles.hero}>
-      <div className={styles.apse}>
-        <svg className={styles.chiRho} viewBox="0 0 120 120" aria-hidden fill="none">
-          <circle cx="60" cy="60" r="52" stroke="currentColor" strokeWidth="2" />
-          <circle cx="60" cy="60" r="44" stroke="currentColor" strokeOpacity=".45" />
-          <path d="M60 22v76M36 42l48 36M84 42L36 78" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
-          <path d="M60 22c14 0 20 8 20 16s-6 16-20 16" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
-        </svg>
-        <p className={styles.greek}>ΙΕΡΟΥΣΑΛΗΜ · ΑΓΙΑ ΠΟΛΙΣ</p>
-        <h1>התקופה הביזנטית</h1>
-        <p className={styles.subtitle}>מקונסטנטינוס ועד הכיבוש המוסלמי · 324–638</p>
-        <p className={styles.lead}>שלוש מאות שנה שבהן הארץ נעשתה ״ארץ הקודש״: כנסיות ומנזרים, צליינים ומפת מידבא — ולצידם התלמוד הירושלמי, בתי הכנסת עם גלגלי המזלות, ומרידות השומרונים.</p>
-        <a className={styles.start} href="#byzantine-mosaic">להיכנס <span aria-hidden>↓</span></a>
-      </div>
-      <div className={styles.stats}>
-        <div><strong>{BYZ_EVENTS.length}</strong><span>אירועים</span></div>
-        <div><strong>{BYZ_EVENTS.filter((event) => event.concept).length}</strong><span>מושגים מרשימת המבחן</span></div>
-        <div><strong>{BYZ_COUNCILS.length}</strong><span>מועצות כנסייה</span></div>
-        <div><strong>{BYZ_SITES.length}</strong><span>אתרים לסיור</span></div>
-      </div>
-    </header>
-
-    <p className={styles.note}>הציר מבוסס על הרצאת אייל מירון על התקופה הביזנטית, על הרצאות האדריכלות הקלאסית ועל רשימות המושגים של הקורס. התקופה הקודמת — ב<Link href="/timelines/roman">ציר התקופה הרומית</Link>.</p>
-
-    <section id="byzantine-mosaic" className={styles.workspace} aria-label="עיון בתקופה הביזנטית">
-      <nav className={styles.views} aria-label="תצוגות התקופה הביזנטית">{views.map((view) => <button key={view.id} type="button" aria-pressed={t.view === view.id} onClick={() => { t.setView(view.id); t.setQuery(""); }}>{view.title}<small>{view.count}</small></button>)}</nav>
-      <div className={styles.toolbar}>
-        {t.view !== "practice" && <label className={styles.search}><span aria-hidden>⌕</span><span className={styles.srOnly}>חיפוש בתצוגה הנוכחית</span><input type="search" value={t.query} onChange={(event) => t.setQuery(event.target.value)} placeholder={t.view === "timeline" ? "לחפש אירוע, דמות, אתר או שנה…" : "לחפש בתצוגה הנוכחית…"} /></label>}
-        {t.view === "timeline" && <>
-          <label className={styles.select}>נושא<select value={t.kind} onChange={(event) => t.setKind(event.target.value)}><option value="all">כל הנושאים</option>{BYZ_KINDS.map((kind) => <option key={kind.id} value={kind.id}>{kind.title}</option>)}</select></label>
-          <label className={styles.check}><input type="checkbox" checked={t.keyOnly} onChange={(event) => t.setKeyOnly(event.target.checked)} />אירועי מפתח</label>
-          <label className={styles.check}><input type="checkbox" checked={t.conceptOnly} onChange={(event) => t.setConceptOnly(event.target.checked)} />מושגים למבחן</label>
-        </>}
-      </div>
-
-      {t.view === "timeline" && <>
-        <nav className={styles.eras} aria-label="סינון לפי תקופה">
-          <button type="button" aria-pressed={t.era === "all"} onClick={() => t.setEra("all")}><b>כל התקופה</b><small>324–641</small></button>
-          {BYZ_ERAS.map((era) => <button key={era.id} type="button" aria-pressed={t.era === era.id} onClick={() => t.setEra(era.id)}><b>{era.title}</b><small>{era.range}</small></button>)}
-        </nav>
-        <div className={styles.status}><p role="status">{t.visible.length} מתוך {BYZ_EVENTS.length} אירועים</p>{t.filtered && <button type="button" onClick={t.reset}>ניקוי סינון</button>}</div>
-        {t.visible.length === 0 && <div className={styles.empty}><h2>לא נמצאו אירועים מתאימים</h2><p>אפשר לשנות את החיפוש או להרחיב את התקופה.</p><button type="button" onClick={t.reset}>להציג את כל האירועים</button></div>}
-        {BYZ_ERAS.map((era) => {
-          const events = t.visible.filter((event) => event.era === era.id);
-          if (!events.length) return null;
-          return <section key={era.id} className={styles.era} aria-labelledby={`era-${era.id}`}>
-            <header className={styles.niche}><span className={styles.nicheGreek}>{era.greek}</span><h2 id={`era-${era.id}`}>{era.title}</h2><p className={styles.range}>{era.range}</p><p>{era.note}</p></header>
-            <div className={styles.column}>{events.map((event) => <Panel key={event.id} event={event} photo={photos[event.id]} />)}</div>
-          </section>;
-        })}
-      </>}
-
-      {t.view === "practice" && <div className={styles.view}>
-        <PracticeDeck quizSlug="byzantine" label="הציר הביזנטי: תרגול" items={PRACTICE} />
-      </div>}
-
-      {t.view === "emperors" && <div className={styles.view}>
-        <header className={styles.viewIntro}><h2>הקיסרים</h2><p>מי שלט בקונסטנטינופול — ומה זה שינה בארץ.</p></header>
-        <div className={styles.icons}>{BYZ_EMPERORS.filter((emperor) => matches(emperor, t.query)).map((emperor) => <article key={emperor.name} className={styles.icon}>
-          <div className={styles.halo} aria-hidden><span>{emperor.greek}</span></div>
-          <h3>{emperor.name}</h3><p className={styles.reign}>{emperor.reign}</p><p>{emperor.note}</p>
-        </article>)}</div>
-        <header className={styles.viewIntro}><h2>מועצות הכנסייה</h2><p>המועצות האקומניות שעיצבו את הנצרות — ואת הפילוג בין העדות שבכנסיית הקבר.</p></header>
-        <ol className={styles.councils}>{BYZ_COUNCILS.filter((council) => matches(council, t.query)).map((council) => <li key={council.name}><span className={styles.councilYear}>{council.year}</span><div><h3>{council.name}</h3><p className={styles.place}>{council.place}</p><p>{council.decision}</p></div></li>)}</ol>
-      </div>}
-
-      {t.view === "sites" && <div className={styles.view}>
-        <header className={styles.viewIntro}><h2>כנסיות, מנזרים ובתי כנסת</h2><p>היכן פוגשים את התקופה הביזנטית בשטח.</p></header>
-        <div className={styles.tiles}>{BYZ_SITES.filter((site) => matches(site, t.query)).map((site) => <article key={site.name} className={`${styles.tile} ${styles[site.type] ?? ""}`}>
-          <span className={styles.tileType}>{siteType[site.type]}</span><h3>{site.name}</h3><p>{site.what}</p>
-        </article>)}</div>
-      </div>}
-
-      {t.view === "pilgrims" && <div className={styles.view}>
-        <header className={styles.viewIntro}><h2>צליינים ומקורות</h2><p>מי ביקר, מי כתב — ומה אנחנו יודעים בזכותם על ארץ הקודש הביזנטית.</p></header>
-        <ol className={styles.councils}>{BYZ_PILGRIMS.filter((pilgrim) => matches(pilgrim, t.query)).map((pilgrim) => <li key={pilgrim.name}><span className={styles.councilYear}>{pilgrim.when}</span><div><h3>{pilgrim.name}</h3><p>{pilgrim.note}</p></div></li>)}</ol>
-      </div>}
-    </section>
-
-    <footer className={styles.footer}><span>אבן דרך למורי דרך · התקופה הביזנטית</span><Link href="/timelines">לכל עזרי הלמידה ←</Link></footer>
-  </div>;
+  return <EraChapters
+    title="התקופה הביזנטית"
+    lede="מקונסטנטינוס ועד הכיבוש המוסלמי, 324–638: שלוש מאות שנה שבהן הארץ נעשתה ״ארץ הקודש״. כנסיות ומנזרים, צליינים ומפת מידבא, ולצידם התלמוד הירושלמי, בתי הכנסת עם גלגלי המזלות ומרידות השומרונים. חמישה פרקים, ובכל אחד שלושה דברים לזכור."
+    art="church"
+    decor={["church", "cross", "dome", "menorah", "footprint"]}
+    accent={{ light: "#8a5a12", dark: "#e8c472" }}
+    eras={BYZ_ERAS}
+    events={BYZ_EVENTS}
+    kinds={KINDS}
+    photos={photos}
+    idPattern={/^BY-\d{3}$/}
+    practice={PRACTICE}
+    quizSlug="byzantine"
+    practiceLabel="הציר הביזנטי: תרגול"
+    extras={[
+      {
+        id: "emperors", label: "קיסרים ומועצות", count: BYZ_EMPERORS.length + BYZ_COUNCILS.length,
+        render: (q) => <>
+          <section className={x.section} aria-labelledby="byz-emperors">
+            <h2 id="byz-emperors" className={x.head}>הקיסרים</h2>
+            <p className={x.intro}>מי שלט בקונסטנטינופול, ומה זה שינה בארץ.</p>
+            <ul className={x.grid}>{BYZ_EMPERORS.filter((e) => matches(e, q)).map((e) => <li key={e.name} className={x.item}>
+              <span className={x.coin} aria-hidden>{e.greek}</span>
+              <div><h3>{e.name}</h3><p className={x.when}><RangeText text={e.reign} /></p><p>{e.note}</p></div>
+            </li>)}</ul>
+          </section>
+          <section className={x.section} aria-labelledby="byz-councils">
+            <h2 id="byz-councils" className={x.head}>מועצות הכנסייה</h2>
+            <p className={x.intro}>המועצות האקומניות שעיצבו את הנצרות, ואת הפילוג בין העדות שבכנסיית הקבר.</p>
+            <ul className={x.grid}>{BYZ_COUNCILS.filter((c) => matches(c, q)).map((c) => <li key={c.name} className={`${x.item} ${x.single}`}>
+              <div><span className={x.seal}><RangeText text={c.year} /></span><h3 className="mt-2">{c.name}</h3><p className={x.when}>{c.place}</p><p>{c.decision}</p></div>
+            </li>)}</ul>
+          </section>
+        </>,
+      },
+      {
+        id: "sites", label: "כנסיות, מנזרים ובתי כנסת", count: BYZ_SITES.length,
+        render: (q) => <section className={x.section} aria-labelledby="byz-sites">
+          <h2 id="byz-sites" className={x.head}>כנסיות, מנזרים ובתי כנסת</h2>
+          <p className={x.intro}>היכן פוגשים את התקופה הביזנטית בשטח.</p>
+          <ul className={x.grid}>{BYZ_SITES.filter((site) => matches(site, q)).map((site) => <li key={site.name} className={x.item}>
+            <span className={x.icon} aria-hidden><InkIcon name={SITE[site.type]?.icon ?? "signpost"} size={34} /></span>
+            <div><h3>{site.name}</h3><p className={x.when}>{SITE[site.type]?.title}</p><p>{site.what}</p></div>
+          </li>)}</ul>
+        </section>,
+      },
+      {
+        id: "pilgrims", label: "צליינים", count: BYZ_PILGRIMS.length,
+        render: (q) => <section className={x.section} aria-labelledby="byz-pilgrims">
+          <h2 id="byz-pilgrims" className={x.head}>צליינים ומקורות</h2>
+          <p className={x.intro}>מי ביקר, מי כתב, ומה אנחנו יודעים בזכותם על ארץ הקודש הביזנטית.</p>
+          <ul className={x.grid}>{BYZ_PILGRIMS.filter((p) => matches(p, q)).map((p) => <li key={p.name} className={x.item}>
+            <span className={x.icon} aria-hidden><InkIcon name="footprint" size={34} /></span>
+            <div><h3>{p.name}</h3><p className={x.when}><RangeText text={p.when} /></p><p>{p.note}</p></div>
+          </li>)}</ul>
+        </section>,
+      },
+    ]}
+    note={<>הציר מבוסס על הרצאת אייל מירון על התקופה הביזנטית, על הרצאות האדריכלות הקלאסית ועל רשימות המושגים של הקורס. התקופה הקודמת: <Link href="/timelines/roman">ציר התקופה הרומית</Link>.</>}
+  />;
 }

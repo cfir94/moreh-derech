@@ -31,76 +31,74 @@ try {
   await page.goto(base + "/timelines/");
   await page.getByRole("link", { name: /בית שני — מן השיבה אל החורבן/ }).click();
   await expect(page.getByRole("heading", { name: "בית שני", exact: true })).toBeVisible();
-  await expect(page.locator('article[id^="ST-"]')).toHaveCount(88);
+  // notebook chapters (owner, 14.11): nine chapters, one on screen
+  const strip = page.getByRole("navigation", { name: "פס הזמן: הפרקים" });
+  await expect(strip.getByRole("button")).toHaveCount(9);
   await expect(page.locator("#ST-086")).toHaveCount(0);
-  await expect(page.locator("#ST-014 summary")).toContainText("שנת העלייה דורשת בירור");
   checks++;
 
-  await page.locator("#ST-007 summary").focus();
-  await page.keyboard.press("Enter");
-  await expect(page.locator("#ST-007 details")).toHaveAttribute("open", "");
-  await expect(page.locator("#ST-007 footer")).toContainText("Eyal_lesson11_mobile.mp3");
+  // an event's page keeps everything the old card had: the source, and the dating caveat
+  await page.goto(base + "/timelines/second-temple/#ST-007");
+  await expect(page.locator("#ST-007 > button")).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator('article[aria-labelledby="ST-007-title"]')).toContainText("Eyal_lesson11_mobile.mp3");
+  await page.goto(base + "/timelines/second-temple/#ST-014");
+  await expect(page.locator('article[aria-labelledby="ST-014-title"]')).toContainText("שנת העלייה דורשת בירור");
   await page.screenshot({ path: join(screenshots, "event-desktop-light.png") });
   checks++;
 
-  await page.getByRole("button", { name: /ממרד לממלכה/ }).click();
-  await expect(page.locator('article[id^="ST-"]')).toHaveCount(21);
-  const search = page.getByRole("searchbox", { name: "חיפוש בתצוגה הנוכחית" });
+  await strip.getByRole("button", { name: /ממרד לממלכה/ }).click();
+  await expect(page.locator('li[id^="ST-"]')).toHaveCount(21);
+  const search = page.getByRole("searchbox", { name: "חיפוש" });
   await search.fill("ניקנור");
+  await page.getByRole("button", { name: /ניקנור/ }).first().click();
   await expect(page.locator("#ST-035")).toBeVisible();
   await search.fill("לאקייםבמחקרהזה");
-  await expect(page.getByRole("heading", { name: "לא נמצאו אירועים מתאימים" })).toBeVisible();
-  await page.getByRole("button", { name: "להציג את כל האירועים" }).click();
-  await expect(page.locator('article[id^="ST-"]')).toHaveCount(88);
-  await page.getByRole("checkbox", { name: "אירועי מפתח בלבד" }).check();
-  expect(await page.locator('article[id^="ST-"]').count()).toBeLessThan(88);
-  await page.getByRole("button", { name: "ניקוי סינון" }).click();
-  await page.getByRole("combobox", { name: "נושא" }).selectOption("building");
+  await expect(page.getByText("לא נמצאו אירועים מתאימים")).toBeVisible();
+  await page.getByRole("button", { name: "לנקות את החיפוש" }).click();
+  await strip.getByRole("button", { name: /מלך ובנאי/ }).click();
+  await page.getByRole("group", { name: "סינון התחנות" }).getByRole("button", { name: /בנייה ומקדש/ }).click();
   await expect(page.locator("#ST-055")).toBeVisible();
-  await page.getByRole("button", { name: "ניקוי סינון" }).click();
   checks++;
 
-  await page.getByRole("button", { name: /אנשי התקופה/ }).click();
-  await expect(page.getByRole("heading", { level: 3 })).toHaveCount(78);
+  await page.getByRole("tab", { name: /אנשי התקופה/ }).click();
+  await expect(page.locator('section[aria-labelledby="st-people"] li h3')).toHaveCount(78);
   await search.fill("הורדוס הגדול");
   await expect(page.getByRole("heading", { name: "הורדוס הגדול", exact: true })).toBeVisible();
   await page.getByRole("link", { name: /מינוי הורדוס ברומא/ }).click();
-  await expect(page.locator("#ST-051 details")).toHaveAttribute("open", "");
-  await expect(page.locator('article[id^="ST-"]')).toHaveCount(88);
+  await expect(page.locator("#ST-051 > button")).toHaveAttribute("aria-expanded", "true");
   checks++;
 
-  await page.getByRole("button", { name: /אתרים וממצאים/ }).click();
-  await expect(page.getByRole("heading", { level: 3 })).toHaveCount(54);
+  await page.getByRole("tab", { name: /אתרים וממצאים/ }).click();
+  await expect(page.locator('section[aria-labelledby="st-sites"] li h3')).toHaveCount(54);
   await search.fill("חניון גבעתי");
   await expect(page.getByRole("heading", { name: "חניון גבעתי והחקרא" })).toBeVisible();
   await expect(page.getByText(/זיהוי כחקרא סלאוקית מול ביצור חשמונאי/)).toBeVisible();
   checks++;
 
-  await page.getByRole("button", { name: /התמונה הרחבה/ }).click();
-  await expect(page.getByRole("heading", { level: 3 })).toHaveCount(10);
+  await page.getByRole("tab", { name: /התמונה הרחבה/ }).click();
+  await expect(page.locator('section[aria-labelledby="st-processes"] li h3')).toHaveCount(10);
   await expect(page.getByRole("table")).toHaveCount(1);
   await expect(page.getByRole("table").getByRole("row")).toHaveCount(4);
-  await page.getByRole("button", { name: "מקורות ודיוק" }).click();
+  await page.getByRole("tab", { name: "מקורות ודיוק" }).click();
   await expect(page.getByRole("link", { name: /למחברת תקופת הבית השני/ })).toHaveAttribute("href", /e1eef0d4/);
   await expect(page.getByText(/רשומת יעד לימוד בלבד/)).toBeVisible();
   await expect(page.getByRole("heading", { name: "שמונת מקורות המחברת" })).toBeVisible();
   checks++;
 
   await page.goto(base + "/timelines/second-temple/#ST-082");
-  await expect(page.locator("#ST-082 details")).toHaveAttribute("open", "");
-  await expect(page.locator("#ST-082 summary")).toContainText("חודש אב מופיע בתמלול");
+  await expect(page.locator("#ST-082 > button")).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator('article[aria-labelledby="ST-082-title"]')).toContainText("חודש אב מופיע בתמלול");
   await expect(page.locator("#ST-082")).toBeFocused();
   checks++;
 
-  // The global search uses same-page fragment navigation. It must clear hidden filters.
-  await page.getByRole("button", { name: /שיבה ובניין/ }).click();
+  // The global search uses same-page fragment navigation: it opens the event's chapter.
+  await strip.getByRole("button", { name: /שיבה ובניין/ }).click();
   await page.getByRole("button", { name: "חיפוש בכל חומרי האתר", exact: true }).click();
   await page.getByRole("dialog").getByRole("searchbox").fill("טיהור המקדש");
   const globalResult = page.locator('a[href$="/timelines/second-temple/#ST-033"]');
   await expect(globalResult).toBeVisible({ timeout: 20000 });
   await globalResult.click();
-  await expect(page.locator("#ST-033 details")).toHaveAttribute("open", "");
-  await expect(page.locator('article[id^="ST-"]')).toHaveCount(88);
+  await expect(page.locator("#ST-033 > button")).toHaveAttribute("aria-expanded", "true");
   checks++;
 
   for (const width of [1440, 390, 320]) {
@@ -113,10 +111,10 @@ try {
       if (width !== 320) await page.screenshot({ path: join(screenshots, `${width}-${theme}.png`) });
       if (width === 390 && theme === "dark") {
         await page.goto(base + "/timelines/second-temple/#ST-082");
-        await expect(page.locator("#ST-082 details")).toHaveAttribute("open", "");
+        await expect(page.locator("#ST-082 > button")).toHaveAttribute("aria-expanded", "true");
         await page.screenshot({ path: join(screenshots, "event-mobile-dark.png") });
       }
-      await page.getByRole("button", { name: /התמונה הרחבה/ }).click();
+      await page.getByRole("tab", { name: /התמונה הרחבה/ }).click();
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${width} ${theme}: process overflow`).toBe(true);
       checks++;
     }

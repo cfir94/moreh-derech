@@ -1,0 +1,386 @@
+/* "פרקים במחברת": ציר תקופה כמחברת שדה. כל הצבעים טוקנים של האתר; לכל תקופה צבע דיו אחד (--era-ink). */
+
+.wrap {
+  --ink-era: var(--era-ink);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 26px 20px 56px;
+  color: var(--ink);
+}
+:global([data-theme="dark"]) .wrap { --ink-era: var(--era-ink-dark); }
+
+/* ---------------------------------------------------------------- search */
+
+.tools { margin: 18px 0 6px; }
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 640px;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  background: color-mix(in srgb, var(--paper) 85%, transparent);
+  color: var(--ink-dim);
+}
+.search:focus-within { border-color: var(--sign); color: var(--ink); }
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.12rem;
+}
+.search input::placeholder { color: var(--ink-dim); opacity: 0.85; }
+
+/* ---------------------------------------------------------------- ribbon: the whole period at a glance */
+
+.ribbonWrap {
+  margin: 18px -20px 0;
+  padding: 6px 20px 10px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+.ribbon {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  min-width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* the trail the stops stand on */
+.ribbon::before {
+  content: "";
+  position: absolute;
+  inset-inline: 22px;
+  top: 27px;
+  border-top: 3px dashed color-mix(in srgb, var(--t-red) 70%, transparent);
+  pointer-events: none;
+}
+.ribbon li { scroll-snap-align: start; }
+
+.stop {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  width: 168px;
+  padding: 0 4px 6px;
+  border-radius: 8px;
+  text-align: right;
+  color: var(--ink);
+  transition: transform 0.18s ease-out;
+}
+.stop:hover { transform: translateY(-2px); }
+.stopNum {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  background: var(--paper);
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+.stopTitle { font-size: 1.04rem; font-weight: 800; line-height: 1.3; }
+.stopRange { font-size: 0.95rem; color: var(--ink-dim); }
+
+.stopOn .stopNum {
+  border-color: var(--sign);
+  background: var(--sign);
+  color: var(--sign-ink);
+  box-shadow: 0 6px 12px -6px rgb(20 12 4 / 0.55);
+}
+.stopOn .stopTitle { color: var(--ink); text-decoration: underline 3px var(--t-green); text-underline-offset: 6px; }
+
+@media (min-width: 1024px) {
+  .ribbonWrap { overflow: visible; margin-inline: 0; padding-inline: 0; }
+  .ribbon { min-width: 0; }
+  .ribbon li { flex: 1 1 0; min-width: 0; }
+  .stop { width: 100%; }
+}
+
+/* ---------------------------------------------------------------- the chapter sheet: a notebook page */
+
+.sheet {
+  position: relative;
+  margin-top: 18px;
+  padding: 34px 54px 40px 34px;
+  border-radius: 6px;
+  background:
+    linear-gradient(to left, transparent 30px, color-mix(in srgb, var(--t-red) 45%, transparent) 30px 32px, transparent 32px),
+    repeating-linear-gradient(to bottom, transparent 0 37px, color-mix(in srgb, var(--t-blue) 16%, transparent) 37px 38px),
+    var(--paper);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 35%, transparent), 0 18px 30px -22px rgb(20 12 4 / 0.6);
+  scroll-margin-top: 140px;
+}
+
+.chapterHead { max-width: 760px; }
+.chapterNo { margin: 0; font-size: 1.15rem; color: var(--ink-era); }
+.chapterTitle {
+  margin: 2px 0 0;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  line-height: 1.05;
+  color: var(--ink);
+}
+.chapterRange { margin: 6px 0 0; font-size: 1.2rem; font-weight: 700; color: var(--ink-dim); }
+.chapterNote { margin: 12px 0 0; font-size: 1.32rem; line-height: 1.75; }
+
+.handHead {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* three things to remember: luggage tags tied on the page */
+.remember { margin-top: 30px; }
+.tags {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tag {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 20px 20px 18px;
+  border-radius: 4px 4px 4px 18px;
+  background: color-mix(in srgb, var(--ground) 55%, var(--paper));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 40%, transparent), 0 10px 16px -12px rgb(20 12 4 / 0.55);
+  text-align: right;
+  color: var(--ink);
+  transform: rotate(-0.8deg);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.tags li:nth-child(2) .tag { transform: rotate(0.7deg); }
+.tags li:nth-child(3) .tag { transform: rotate(-0.4deg); }
+/* the eyelet where the string goes through */
+.tag::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--frame) 70%, transparent);
+  background: var(--paper);
+}
+.tag:hover, .tag:focus-visible { transform: rotate(0deg) translateY(-3px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 50%, transparent), 0 16px 22px -14px rgb(20 12 4 / 0.6); }
+.tagOn { box-shadow: 0 0 0 2.5px var(--ink-era), 0 10px 16px -12px rgb(20 12 4 / 0.55); }
+.tagStamp { justify-self: start; max-width: calc(100% - 26px); white-space: normal; font-size: 1.05rem; color: var(--ink-era); }
+.tagTitle { font-size: 1.2rem; font-weight: 800; line-height: 1.4; }
+.tagTip { font-size: 1.02rem; line-height: 1.6; color: var(--ink-dim); }
+
+/* ---------------------------------------------------------------- the trail of the chapter */
+
+.trailSection { margin-top: 38px; }
+.trailHead { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 20px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters > button { min-height: 42px; padding: 2px 12px; font-size: 1rem; }
+
+.trailGrid { margin-top: 18px; }
+@media (min-width: 1024px) {
+  .trailGrid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 30px; align-items: start; }
+  .side { position: sticky; top: 140px; max-height: calc(100vh - 160px); overflow-y: auto; scrollbar-width: thin; }
+}
+
+.trail {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.trail::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  inset-inline-start: 13px;
+  border-inline-start: 3px dashed color-mix(in srgb, var(--ink) 30%, transparent);
+}
+.station { position: relative; scroll-margin-top: 150px; }
+.station + .station { margin-top: 4px; }
+.stationBtn {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  align-items: center;
+  gap: 0 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 10px 8px 12px;
+  border-radius: 8px;
+  text-align: right;
+  color: var(--ink);
+  transition: background 0.15s ease-out;
+}
+.stationBtn:hover { background: color-mix(in srgb, var(--ground) 40%, transparent); }
+.marker {
+  justify-self: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid color-mix(in srgb, var(--ink) 60%, transparent);
+  background: var(--paper);
+}
+.stationKey .marker { width: 22px; height: 22px; border-color: var(--ink-era); background: var(--ink-era); }
+.marker { grid-row: 1 / span 2; }
+.stationDate { grid-column: 2; font-size: 0.98rem; font-weight: 700; line-height: 1.4; color: var(--ink-dim); }
+.stationTitle { grid-column: 2; font-size: 1.12rem; font-weight: 700; line-height: 1.4; }
+.stationKind { grid-column: 3; grid-row: 1 / span 2; }
+.stationKey .stationTitle { font-weight: 900; }
+.stationKind { color: var(--ink-dim); }
+.stationOn > .stationBtn { background: color-mix(in srgb, var(--ground) 60%, var(--paper)); box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink-era) 70%, transparent); }
+.stationOn .marker { box-shadow: 0 0 0 5px color-mix(in srgb, var(--ink-era) 25%, transparent); }
+.emptyTrail { padding: 16px 44px; font-size: 1.05rem; color: var(--ink-dim); }
+
+
+/* ---------------------------------------------------------------- the event page beside the trail */
+
+.page {
+  padding: 24px 26px 18px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--paper) 70%, white 30%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--frame) 35%, transparent), 0 14px 22px -16px rgb(20 12 4 / 0.55);
+}
+:global([data-theme="dark"]) .page { background: color-mix(in srgb, var(--paper) 88%, white 12%); }
+.station .page { margin: 8px 0 14px 0; margin-inline-start: 34px; }
+.pageMeta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 0; font-size: 1.05rem; color: var(--ink-dim); }
+.metaDate { font-weight: 800; color: var(--ink-era); }
+.pageKind { display: inline-flex; align-items: center; gap: 5px; }
+.conceptTag {
+  padding: 0 8px;
+  border: 1.5px solid var(--t-blue);
+  border-radius: 4px;
+  color: var(--t-blue);
+  font-weight: 800;
+}
+.pageTitle { margin: 8px 0 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); font-weight: 900; line-height: 1.3; }
+.pageLead { margin: 10px 0 0; font-size: 1.2rem; font-weight: 600; line-height: 1.7; }
+.pagePhoto { margin-top: 16px; max-width: 520px; }
+.pageBody { margin: 14px 0 0; font-size: 1.12rem; line-height: 1.9; max-width: 68ch; }
+
+/* a pencilled note in the margin: what to carry to the trail */
+.tip {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--t-green) 12%, transparent);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--t-green) 45%, transparent);
+  transform: rotate(-0.4deg);
+}
+.tipHead { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-hand); font-size: 1.5rem; line-height: 1; color: var(--ink); }
+.tip p { margin: 6px 0 0; font-size: 1.1rem; line-height: 1.75; }
+.sites { display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; font-size: 1.08rem; line-height: 1.7; }
+.sites > svg { flex-shrink: 0; margin-top: 2px; color: var(--ink-dim); }
+
+.pageFoot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 20px; padding-top: 12px; border-top: 1px dashed color-mix(in srgb, var(--ink) 25%, transparent); }
+.permalink { font-size: 0.98rem; color: var(--ink-dim); text-decoration: underline; text-underline-offset: 4px; }
+.stepBtn {
+  min-height: 44px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 45%, transparent);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.stepBtn:hover:not(:disabled) { background: color-mix(in srgb, var(--ground) 45%, transparent); }
+.stepBtn:disabled { opacity: 0.4; cursor: default; }
+
+/* ---------------------------------------------------------------- practice and the way on */
+
+.check { margin-top: 40px; }
+.check > :last-child { margin-top: 14px; }
+
+.chapterNav { display: flex; justify-content: space-between; gap: 14px; margin-top: 38px; }
+.navSign {
+  display: grid;
+  gap: 2px;
+  max-width: 48%;
+  padding: 12px 18px;
+  border-radius: 4px;
+  background: var(--sign);
+  color: var(--sign-ink);
+  text-align: right;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--sign-ink) 35%, transparent), 0 10px 16px -10px rgb(20 12 4 / 0.6);
+  transition: transform 0.18s ease-out;
+}
+.navSign:hover { transform: translateY(-2px); }
+.navSign b { font-size: 1.12rem; line-height: 1.35; }
+.navSign span { font-size: 1rem; }
+.navNext { margin-inline-start: auto; text-align: left; }
+
+/* ---------------------------------------------------------------- search results */
+
+.results { margin-top: 18px; }
+.count { margin: 0 0 10px; font-size: 1.12rem; color: var(--ink-dim); }
+.resultGroup { margin-top: 18px; }
+.resultHead { margin: 0 0 6px; font-size: 1.3rem; font-weight: 900; }
+.resultNum { font-family: var(--font-hand); font-weight: 400; font-size: 1.5rem; color: var(--ink-era); }
+.resultGroup ul { margin: 0; padding: 0; list-style: none; }
+.resultBtn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-align: right;
+  color: var(--ink);
+}
+.resultBtn:hover { background: color-mix(in srgb, var(--ground) 45%, transparent); }
+.resultDate { min-width: 7.5em; font-weight: 700; color: var(--ink-dim); }
+.resultTitle { font-size: 1.12rem; font-weight: 700; }
+
+/* ---------------------------------------------------------------- the other tabs and the foot */
+
+.extra { margin-top: 18px; }
+.note { max-width: 860px; margin: 34px 0 0; font-size: 1.05rem; line-height: 1.8; color: var(--ink-dim); }
+.note a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.back { margin: 18px 0 0; font-size: 1.1rem; }
+.back a { color: var(--ink-dim); text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 760px) {
+  .wrap { padding-inline: 16px; }
+  .ribbonWrap { margin-inline: -16px; padding-inline: 16px; }
+  .sheet { padding: 22px 34px 30px 14px; background-position: 0 0; }
+  .sheet { background:
+    linear-gradient(to left, transparent 18px, color-mix(in srgb, var(--t-red) 45%, transparent) 18px 20px, transparent 20px),
+    repeating-linear-gradient(to bottom, transparent 0 37px, color-mix(in srgb, var(--t-blue) 16%, transparent) 37px 38px),
+    var(--paper); padding-inline-start: 30px; }
+  .chapterNote { font-size: 1.18rem; }
+  .station .page { margin-inline-start: 0; padding: 18px 16px 14px; }
+  .navSign { max-width: 100%; }
+  .chapterNav { flex-direction: column; }
+  .navNext { margin-inline-start: 0; text-align: right; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stop, .tag, .navSign, .stationBtn { transition: none; }
+  .tag, .tags li:nth-child(2) .tag, .tags li:nth-child(3) .tag, .tip { transform: none; }
+}
