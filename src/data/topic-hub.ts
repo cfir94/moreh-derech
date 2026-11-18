@@ -133,7 +133,7 @@ export const TOPIC_HUB: HubGroup[] = [
           summary("tourism"), link("map", ["תכנון מסלול", "/map/route/"])] },
       { id: "exam", title: "מבחן הרישוי", sub: "מבחנים מלאים ושאלות מכל השנים", icon: "🖊️",
         links: [link("practice", ["מבחנים מלאים", "/exams/"], ["תרגול טעויות", "/quizzes/review/"]),
-          quiz("exam-bank", "מאגר מבחני הרישוי לפי נושא")] },
+          quiz("past-exams", "שאלות ממבחני הרישוי")] },
     ],
   },
 ];

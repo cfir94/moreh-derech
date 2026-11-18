@@ -13,6 +13,7 @@ export function SiteFooter() {
     ["/legal/terms/", "תנאי שימוש"],
     ["/legal/privacy/", "פרטיות"],
     ["/legal/cancellation/", "ביטול והחזרים"],
+    ["/cancel/", "ביטול מנוי"],
     ["/legal/accessibility/", "נגישות"],
   ] as const;
   return (
@@ -24,7 +25,7 @@ export function SiteFooter() {
       </p>
       <nav aria-label="מסמכים ומידע" className="mb-2 flex flex-wrap justify-center gap-x-5 gap-y-1 pencil">
         {links.map(([href, label]) => (
-          <Link key={href} href={href} className="hover:text-txt">
+          <Link key={href} href={href} className={href === "/cancel/" ? "font-bold text-txt underline underline-offset-4" : "hover:text-txt"}>
             {label}
           </Link>
         ))}
