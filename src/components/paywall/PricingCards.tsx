@@ -151,6 +151,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
       <p className="mt-4 text-center text-sm leading-relaxed text-txt-dim">
         תשלום אחד לכל התקופה, בהעברה, עם קבלה · שאלות?{" "}
         <a href={`mailto:${LAUNCH.supportEmail}`} className="font-bold text-teal" dir="ltr">{LAUNCH.supportEmail}</a> ·{" "}
+        <a href={`tel:${LAUNCH.supportPhone.replace(/-/g, "")}`} className="font-bold text-teal" dir="ltr">{LAUNCH.supportPhone}</a> ·{" "}
         <Link href="/legal/cancellation" className="font-bold text-teal">מדיניות ביטול</Link>
       </p>
     </div>
