@@ -21,6 +21,8 @@ const PUBLIC_ROUTES = [
   "/legal/terms",
   "/legal/privacy",
   "/legal/accessibility",
+  "/legal/cancellation",
+  "/cancel",
   "/games/crossword",
   "/games/who-am-i",
   "/games/jerusalem-robes",

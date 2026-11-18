@@ -12,6 +12,7 @@ export const FREE_PATHS: readonly string[] = [
   "/login/",
   "/me/",
   "/legal/",
+  "/cancel/",
   "/pricing/",
   "/welcome/",
   "/games/",

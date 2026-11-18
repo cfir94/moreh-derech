@@ -263,7 +263,11 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
           </label>
           <label className="flex flex-col gap-1.5 text-sm font-bold">
             טלפון
-            <input name="phone" type="tel" required inputMode="tel" autoComplete="tel" dir="ltr" className={field} placeholder="050-0000000" />
+            <input name="phone" type="tel" required inputMode="tel" autoComplete="tel" dir="ltr" className={field} placeholder="050-0000000" aria-describedby="phone-why" />
+            <span id="phone-why" className="font-normal leading-relaxed text-txt-dim">
+              לתמיכה ולשירות בחשבון שלכם. פניות שיווקיות רק אם תסמנו זאת למטה. הפרטים נשמרים לפי{" "}
+              <Link href="/legal/privacy" className="font-bold text-teal underline-offset-2 hover:underline" target="_blank">מדיניות הפרטיות</Link>.
+            </span>
           </label>
           {cohorts && cohorts.length > 0 ? (
             <label className="flex flex-col gap-1.5 text-sm font-bold">
@@ -284,13 +288,14 @@ export function EmailCodeLogin({ onUseLegacy }: { onUseLegacy?: () => void }) {
           <label className="flex items-start gap-2.5 text-sm leading-relaxed">
             <input name="terms" type="checkbox" required className="mt-1 size-4 accent-[var(--teal)]" />
             <span>
-              קראתי ואני מסכים/ה ל<Link href="/legal/terms" className="font-bold text-teal underline-offset-2 hover:underline" target="_blank">תנאי השימוש</Link>{" "}
-              ול<Link href="/legal/privacy" className="font-bold text-teal underline-offset-2 hover:underline" target="_blank">מדיניות הפרטיות</Link>.
+              קראתי ואני מסכים/ה ל<Link href="/legal/terms" className="font-bold text-teal underline-offset-2 hover:underline" target="_blank">תנאי השימוש</Link>,{" "}
+              ל<Link href="/legal/cancellation" className="font-bold text-teal underline-offset-2 hover:underline" target="_blank">מדיניות הביטול</Link>{" "}
+              ול<Link href="/legal/privacy" className="font-bold text-teal underline-offset-2 hover:underline" target="_blank">מדיניות הפרטיות</Link>, כולל עיבוד המידע אצל ספקי האתר בחו״ל.
             </span>
           </label>
           <label className="flex items-start gap-2.5 text-sm leading-relaxed text-txt-dim">
             <input name="marketing" type="checkbox" className="mt-1 size-4 accent-[var(--teal)]" />
-            <span>אשמח לקבל במייל טיפים ללימוד ועדכונים על תכנים חדשים (אפשר להסיר בכל עת).</span>
+            <span>אשמח לקבל עדכונים, טיפים והצעות להמשך מנוי, במייל, ב-SMS ובטלפון. לא חובה, אינו התחייבות לרכישה, ואפשר לבטל בכל עת.</span>
           </label>
           <button type="submit" disabled={busy} className={primary} style={primaryStyle}>
             {busy ? "שומר…" : `מתחילים — ${PRICES.trialDays} ימים חינם`}
