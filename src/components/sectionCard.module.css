@@ -115,3 +115,6 @@
     transition: none;
   }
 }
+
+/* the same card as a button (it opens a window on the page) */
+.asButton { width: 100%; text-align: right; font: inherit; color: inherit; cursor: pointer; }

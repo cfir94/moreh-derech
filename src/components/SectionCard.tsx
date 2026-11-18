@@ -18,6 +18,7 @@ export function SectionCard({
   badge,
   progress,
   index = 0,
+  onClick,
 }: {
   href: string;
   slug: string;
@@ -28,15 +29,15 @@ export function SectionCard({
   /** 0-100; renders the trail blazes when present. */
   progress?: { pct: number; label: string };
   index?: number;
+  /** open something on the page (a window) instead of going to `href`; the card looks the same */
+  onClick?: () => void;
 }) {
   const { ink } = domainOf(slug);
-
-  return (
-    <Link
-      href={href}
-      style={{ ...domainStyle(slug), animationDelay: `${0.02 + index * 0.04}s` }}
-      className={`screen-in ${s.card} ${index % 2 ? s.alt : ""}`}
-    >
+  const look = {
+    style: { ...domainStyle(slug), animationDelay: `${0.02 + index * 0.04}s` },
+    className: `screen-in ${s.card} ${index % 2 ? s.alt : ""} ${onClick ? s.asButton : ""}`,
+  };
+  const body = <>
       <div className={s.top}>
         <span aria-hidden className={s.mark}>
           <InkIcon name={ink} size={36} tint />
@@ -57,6 +58,9 @@ export function SectionCard({
       ) : (
         meta && <div className={`${s.foot} ${s.meta} pencil`}>{meta}</div>
       )}
-    </Link>
-  );
+  </>;
+
+  return onClick
+    ? <button type="button" onClick={onClick} aria-haspopup="dialog" {...look}>{body}</button>
+    : <Link href={href} {...look}>{body}</Link>;
 }
