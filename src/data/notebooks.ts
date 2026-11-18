@@ -150,6 +150,12 @@ export const THEORY_SUBJECTS: {
     tone: "teal",
   },
   {
+    id: "guiding",
+    title: "מיומנויות הדרכה",
+    description: "עבודה מול גורמי תיירות, ניהול קבוצה, תקשורת בין־תרבותית ותכנון סיור ודוח.",
+    tone: "violet",
+  },
+  {
     id: "modern",
     title: "העת החדשה",
     description: "המחתרות, מלחמת העצמאות והדרך למדינה.",
@@ -164,6 +170,16 @@ export const THEORY_SUBJECTS: {
 ];
 
 export const TOUR_NOTEBOOKS: CourseNotebook[] = [
+  {
+    id: "haifa-markets-art",
+    mode: "tours",
+    region: "carmel-coast",
+    title: "חיפה: שווקים ואומנות",
+    date: "16.11.2026",
+    guide: "גילי",
+    places: "שווקי חיפה · אומנות בעיר",
+    url: "https://notebook.google.com/notebook/cc6a11fa-0953-45fc-875b-7dd56beaaa60",
+  },
   {
     id: "qumran-ein-gedi",
     mode: "tours",
@@ -193,6 +209,16 @@ export const TOUR_NOTEBOOKS: CourseNotebook[] = [
     guide: "חנה",
     places: "גן הקבר · כנסיית הקבר · כנסיית סנט אנה · ויה דולורוזה",
     url: "https://notebook.google.com/notebook/12bd020f-0b03-4d10-a6d4-fe793a7e5795",
+  },
+  {
+    id: "mount-of-olives-zion",
+    mode: "tours",
+    region: "jerusalem",
+    title: "נצרות בהר הזיתים ובהר ציון",
+    date: "19.10.2026",
+    guide: "חנה",
+    places: "הר הזיתים · הר ציון",
+    url: "https://notebook.google.com/notebook/c6262640-3309-49ba-8c1c-7d9d439b298a",
   },
   {
     id: "golan-campus-day-three",
@@ -398,13 +424,53 @@ export const TOUR_NOTEBOOKS: CourseNotebook[] = [
 
 export const THEORY_NOTEBOOKS: TheoryNotebook[] = [
   {
+    id: "trip-report-planning",
+    mode: "theory",
+    subject: "guiding",
+    title: "תכנון דוח הדרכה ותוכנית טיול",
+    date: "13.11.2026",
+    guide: "גיא",
+    focus: "תכנון תוכנית טיול · דוח הדרכה",
+    url: "https://notebook.google.com/notebook/c6cca3fd-2d19-4ef0-9351-982d78714cfe",
+  },
+  {
+    id: "intercultural-heritage",
+    mode: "theory",
+    subject: "guiding",
+    title: "תקשורת בין־תרבותית, אתרי מורשת עולמית ואתרים ברש״פ",
+    date: "30.10.2026",
+    guide: "גיל ליינר",
+    focus: "תקשורת בין־תרבותית · מורשת עולמית · אתרים ברשות הפלסטינית",
+    url: "https://notebook.google.com/notebook/e5ed4778-ac3e-48bd-b1de-09f175fc5508",
+  },
+  {
+    id: "ecology-conservation",
+    mode: "theory",
+    subject: "nature",
+    title: "אקולוגיה ושימור טבע בישראל",
+    date: "04.09.2026",
+    guide: "נועם נחשון",
+    focus: "משאבי טבע וסביבה · שימור טבע",
+    url: "https://notebook.google.com/notebook/bafb35f0-91a8-418a-8c52-1d62306c97e8",
+  },
+  {
+    id: "tourism-partners-groups",
+    mode: "theory",
+    subject: "guiding",
+    title: "עבודה מול גורמי תיירות וניהול קבוצה",
+    date: "21.08.2026",
+    guide: "גיא נוימן",
+    focus: "גורמי תיירות · ניהול קבוצה",
+    url: "https://notebook.google.com/notebook/7d61291a-cac0-4a21-8898-ce4a0078409d",
+  },
+  {
     id: "war-of-independence",
     mode: "theory",
     subject: "modern",
     title: "מחתרות ומלחמת השחרור",
     date: "06.11.2026",
     guide: "אביחי ברג",
-    focus: "המחתרות · מלחמת העצמאות",
+    focus: "המחתרות · מלחמת העצמאות · ובסוף: אופן כתיבת דו״ח",
     url: "https://notebook.google.com/notebook/f3475273-fada-4a4f-964a-f995023f8a46",
   },
   {
