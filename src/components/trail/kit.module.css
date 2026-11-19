@@ -150,9 +150,9 @@
 .move_butterfly {
   animation: kitFlap 1.6s steps(1, end) infinite;
 }
+/* the campfire's flame flickers inside the drawing (decor/live.tsx); the logs stay put */
 .move_community {
-  transform-origin: 50% 85%;
-  animation: kitFlicker 0.9s steps(1, end) infinite;
+  animation: none;
 }
 @keyframes kitFlicker {
   0% { scale: 1 1; }
