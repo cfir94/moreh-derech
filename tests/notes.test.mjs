@@ -32,5 +32,7 @@ test("two devices merge: the later edit wins, a deletion does not come back", ()
 });
 
 test("notes sync last, so a server that does not know them yet blocks nothing", () => {
-  assert.equal(SYNC_STORES.at(-1), NOTES_STORE);
+  // the stores added after the first four (notes, then the route map's routes) come after them
+  assert.deepEqual(SYNC_STORES.slice(0, 4).map((s) => s.name), ["progress", "learning-map", "crossword", "guide-drafts"]);
+  assert.equal(SYNC_STORES[4], NOTES_STORE);
 });

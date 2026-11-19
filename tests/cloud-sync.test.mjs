@@ -116,6 +116,7 @@ test("every store round-trips its local format unchanged", () => {
     crossword: { "2026-11-01": { sig: "s", fill: { "0,0": "א" }, revealed: [], checks: 0, ms: 10, startedAt: 2, savedAt: 3 } },
     "guide-drafts": [{ id: "d", kind: "unit", title: "t", payload: {}, createdAt: 1, updatedAt: 2 }],
     notes: { n1: { id: "n1", title: "t", body: "b", context: { label: "l", href: "/x" }, createdAt: 1, updatedAt: 2 } },
+    routes: { r1: { id: "r1", name: "גליל", note: "n", stops: ["capernaum", "tabgha"], layers: { "toggle-religions": true }, updatedAt: 2 } },
   };
   for (const store of SYNC_STORES) {
     const raw = JSON.stringify(samples[store.name]);
