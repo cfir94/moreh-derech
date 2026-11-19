@@ -10,6 +10,7 @@ import { withBasePath } from "@/lib/basePath";
 import { LAUNCH, PRICES, SITE_URL } from "@/lib/launch";
 import { SIGN_STYLE, SECTION_TONE } from "@/components/trail/kit";
 import k from "@/components/trail/kit.module.css";
+import L from "@/components/landing/landing.module.css";
 import { LiveButterfly, LiveFire, LiveFlower, LiveTree } from "@/components/trail/decor/live";
 import type { FieldIconName } from "@/components/trail/FieldIcons";
 
@@ -240,15 +241,19 @@ export default function WelcomePage() {
       </section>
 
       {/* What's inside: the student's shelf, then the guide's */}
-      <section id="inside" aria-label="מה יש באתר" className="mx-auto flex max-w-6xl scroll-mt-20 flex-col gap-14 px-4 py-12">
-        <Shelf title="לתלמיד" art={<LiveFlower className={k.move_flower} />} blocks={FOR_STUDENT} />
-        <Shelf title="למדריך" art={<LiveTree className={k.move_tree} />} blocks={FOR_GUIDE} />
+      <section id="inside" aria-label="מה יש באתר" className="mx-auto mt-16 flex max-w-6xl scroll-mt-20 flex-col px-4">
+        <div className={L.block} style={{ "--bc": SECTION_TONE.quizzes } as React.CSSProperties}>
+          <Shelf title="לתלמיד" art={<LiveFlower className={k.move_flower} />} blocks={FOR_STUDENT} />
+        </div>
+        <div className={L.block} style={{ "--bc": SECTION_TONE.tours } as React.CSSProperties}>
+          <Shelf title="למדריך" art={<LiveTree className={k.move_tree} />} blocks={FOR_GUIDE} />
+        </div>
       </section>
 
       {/* Features */}
-      <div id="features" className="mx-auto flex max-w-6xl scroll-mt-20 flex-col gap-20 px-4 py-14">
+      <div id="features" className="mx-auto mt-16 flex max-w-6xl scroll-mt-20 flex-col px-4 pb-14">
         {FEATURES.map((f, i) => (
-          <section key={f.id} aria-labelledby={`f-${f.id}`} className={`grid items-center gap-8 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
+          <section key={f.id} aria-labelledby={`f-${f.id}`} style={{ "--bc": [SECTION_TONE.quizzes, SECTION_TONE.map, SECTION_TONE.aids, SECTION_TONE.tours, SECTION_TONE.exams, SECTION_TONE.reports][i] } as React.CSSProperties} className={`${L.block} grid items-center gap-8 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
             <div>
               <p className="mb-3 inline-block rounded-full px-3 py-1 text-sm font-extrabold text-[var(--paint)]" style={{ background: WHO[f.who].tone }}>{WHO[f.who].label}</p>
               <h2 id={`f-${f.id}`} className="font-[family-name:var(--font-hand)] text-[length:clamp(2.4rem,4.4vw,3.2rem)] leading-[1.1] font-normal text-txt">{f.title}</h2>
@@ -267,7 +272,7 @@ export default function WelcomePage() {
         ))}
 
         {/* Games */}
-        <section aria-labelledby="f-games" className="relative">
+        <section aria-labelledby="f-games" className={`relative ${L.block}`} style={{ "--bc": SECTION_TONE.games } as React.CSSProperties}>
           <LiveButterfly aria-hidden className={`absolute -top-6 left-2 hidden w-16 md:block ${k.move_butterfly}`} />
           <div className="text-center">
             <p className="mb-3 inline-block rounded-full px-3 py-1 text-sm font-extrabold text-[var(--paint)]" style={{ background: SECTION_TONE.games }}>משחקים</p>
@@ -288,7 +293,7 @@ export default function WelcomePage() {
         </section>
 
         {/* Moti */}
-        <section id="moti" aria-labelledby="f-moti" className="relative grid scroll-mt-20 items-center gap-8 rounded-2xl border border-line bg-card p-6 md:grid-cols-[240px_1fr] md:p-10">
+        <section id="moti" aria-labelledby="f-moti" className="relative mt-20 grid scroll-mt-20 items-center gap-8 rounded-2xl border border-line bg-card p-6 md:grid-cols-[240px_1fr] md:p-10">
           <LiveFire aria-hidden className={`absolute -bottom-5 left-6 hidden w-14 md:block ${k.move_community}`} />
           {/* eslint-disable-next-line @next/next/no-img-element -- static export */}
           <img src={withBasePath("/marketing/moti.webp")} alt="איור של מוטי, מורה הדרך הוותיק" width={220} height={275} loading="lazy" className="mx-auto h-auto w-44 md:w-full" />
