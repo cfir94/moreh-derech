@@ -71,7 +71,8 @@ function headArt(art: ReactNode) {
   const name = (art.props as { name: string }).name;
   const Live = LIVE[name as keyof typeof LIVE];
   if (Live) return <Live width="72%" height="72%" className={k[`move_${name}`]} />;
-  return cloneElement(art as React.ReactElement<{ tint?: boolean }>, { tint: true });
+  // the rest are coloured in and move too, each in its own way: the book turns a page, the die rolls (owner, 19.11)
+  return cloneElement(art as React.ReactElement<{ tint?: boolean; className?: string }>, { tint: true, className: k[`anim_${name}`] ?? k.anim_bob });
 }
 
 export function PageHead({

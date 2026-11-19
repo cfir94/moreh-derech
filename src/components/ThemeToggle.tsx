@@ -58,7 +58,7 @@ export function ThemeToggle() {
       title={`מעבר ל${nextLabel}`}
       className="ink-tool"
     >
-      <InkIcon name={isDark ? "sun" : "moon"} size={26} />
+      <InkIcon name={isDark ? "sun" : "moon"} size={26} tint={isDark ? "orange" : "blue"} />
       <span className="sr-only">{nextLabel}</span>
     </button>
   );

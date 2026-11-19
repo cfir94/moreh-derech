@@ -109,7 +109,7 @@ export function SiteSearch() {
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} aria-label="חיפוש בכל חומרי האתר" title="חיפוש (Ctrl+K)" className="ink-tool">
-        <InkIcon name="search" size={26} />
+        <InkIcon name="search" size={26} tint="blue" />
         <span className="sr-only">חיפוש</span>
       </button>
 
