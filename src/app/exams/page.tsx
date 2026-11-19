@@ -36,7 +36,7 @@ export default function ExamsPage() {
   const total = EXAMS.reduce((s, e) => s + e.questions.length, 0);
 
   return (
-    <TrailPage decor={<PageDecor figures={["priest"]} items={["exams", "pencil", "quizzes", "milestone", "resources", "review"]} step={420} />}>
+    <TrailPage decor={<PageDecor figures={["priest"]} items={["sundial", "pencil", "quizzes", "milestone", "resources", "review"]} step={420} />}>
       <PageHead section="exams"
         title="מבחן מלא"
         art={<InkIcon name="exams" size={72} />}

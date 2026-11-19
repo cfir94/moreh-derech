@@ -6,7 +6,7 @@ import { emptyDoc, type SyncDoc, type TimeOf } from "./merge";
 
 export type SyncStore = {
   /** שם השורה בטבלה md_user_data. */
-  name: "progress" | "learning-map" | "crossword" | "guide-drafts" | "notes";
+  name: "progress" | "learning-map" | "crossword" | "guide-drafts" | "notes" | "routes";
   /** המפתח ב-localStorage, לפני `:<user_id>`. */
   localKey: string;
   /** האירוע שהמאגר משדר כשהוא משתנה. */
@@ -138,5 +138,16 @@ export const NOTES_STORE: SyncStore = {
   fromDoc: (doc) => JSON.stringify(doc.collections.notes?.items ?? {}),
 };
 
-// הפתקים אחרונים: עד שהמיגרציה שלהם רצה, השרת דוחה אותם, וזה לא יעצור את השאר.
-export const SYNC_STORES: SyncStore[] = [PROGRESS_STORE, LEARNING_MAP_STORE, CROSSWORD_STORE, DRAFTS_STORE, NOTES_STORE];
+/** המסלולים השמורים של מפת תכנון המסלול (RM-07): נכתבים מתוך האפליקציה ב-public/embeds/map/js/app.js. */
+export const ROUTES_STORE: SyncStore = {
+  name: "routes",
+  localKey: "md_routes_v1",
+  event: "md-routes-changed",
+  tracksDeletions: true,
+  timeOf: { routes: (item) => (isRecord(item) ? num(item.updatedAt) : 0) },
+  toDoc: (raw) => recordDoc("routes", raw),
+  fromDoc: (doc) => JSON.stringify(doc.collections.routes?.items ?? {}),
+};
+
+// הפתקים והמסלולים אחרונים: עד שהמיגרציה שלהם רצה, השרת דוחה אותם, וזה לא יעצור את השאר.
+export const SYNC_STORES: SyncStore[] = [PROGRESS_STORE, LEARNING_MAP_STORE, CROSSWORD_STORE, DRAFTS_STORE, NOTES_STORE, ROUTES_STORE];

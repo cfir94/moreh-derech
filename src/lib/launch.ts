@@ -32,8 +32,8 @@ export const LAUNCH = {
 export const PRICES = {
   trialDays: 7,
   perMonth: 30,
-  halfyear: 160,
+  halfyear: 150,
   halfyearList: 180,
-  yearly: 300,
+  yearly: 250,
   yearlyList: 360,
 } as const;

@@ -239,7 +239,8 @@
   color: var(--ink-dim);
 }
 
-.legendThemeItem {
+.legendThemeItem,
+.legendBellItem {
   display: none;
 }
 
@@ -252,10 +253,11 @@
     height: 40px;
     width: 103px;
   }
-  .themeSlot {
+  /* on a phone the light/dark switch stays on the bar, and "what's new" moves into the legend (owner, 19.11) */
+  .bellSlot {
     display: none;
   }
-  .legendThemeItem {
+  .legendBellItem {
     display: block;
   }
   .tools {
@@ -345,4 +347,14 @@
   display: block;
   font-size: 0.92rem;
   color: var(--ink-dim);
+}
+
+/* the narrowest phones (under 360px): no room for light/dark on the bar, it waits in the legend */
+@media (max-width: 359px) {
+  .themeSlot {
+    display: none;
+  }
+  .legendThemeItem {
+    display: block;
+  }
 }

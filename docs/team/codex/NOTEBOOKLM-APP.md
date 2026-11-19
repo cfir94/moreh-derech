@@ -128,13 +128,40 @@ Branch `codex/NB-3-<region>`, one PR per region. Claude builds the screen that s
 
 ---
 
+---
+
+## NB-4 · The route map against the tour notebooks
+
+The route map (`/map/route`, the app in `public/embeds/map/`) is a working tool for guides. Its sites are in
+`public/embeds/map/js/data/sites.geojson`: 142 features, each with `id`, `name_he`, `name_en`, `periods`, `religions`,
+`temple_era`, `region`, `description_he` and `sources`. The owner wants every place we visited on a course tour to be on it, with what the tour taught.
+
+**For each tour notebook** (`mode: "tours"` in `src/data/notebooks.ts`, 25 of them):
+1. Ask the notebook for the list of stops: every place the group actually stood at.
+2. For each stop, find it in `sites.geojson` by name (Hebrew or English, allowing for spelling variants).
+3. Sort the stops into three kinds:
+   - **missing:** no feature for this place;
+   - **thin:** the feature exists, but its `description_he` lacks what the tour stressed;
+   - **ok:** present, and the description covers it.
+
+**Output:** `docs/team/reports/NB-4-<region>.md`, one per region, with one table per tour.
+- Columns: stop, kind, map `id` (if any), what the tour said about it (2–3 sentences in Hebrew), and a notebook quote.
+- **For missing places, also give coordinates** (lat, lon to 4 decimals) from a reliable public source, and name the source.
+- **Don't edit `sites.geojson`.** Claude adds the places from your report.
+
+Branch `codex/NB-4-<region>`, one PR per region.
+
+**The link from a site to its notebook:** in the same report, for every map `id` that a tour notebook covers, write the notebook's `id` from `notebooks.ts`.
+The map will show "שאלו את מאגר המידע" on that site.
+
 ## The order
 
 1. NB-0
 2. NB-1, for the three existing summaries
 3. NB-2
 4. NB-3, region by region
-5. NB-1 again whenever a new summary arrives in `src/data/summaries/`
+5. NB-4, region by region (it can run alongside NB-3: both read the tour notebooks)
+6. NB-1 again whenever a new summary arrives in `src/data/summaries/`
 
 ## When something blocks you
 

@@ -25,12 +25,17 @@ function readSiteTheme() {
     const saved = localStorage.getItem(SITE_THEME_STORAGE_KEY);
     if (saved === 'dark' || saved === 'light') return saved;
   } catch (e) {
-    // Standalone and restricted embeds still receive the site's dark default.
+    // a restricted embed falls through to the system preference
   }
-  return 'dark';
+  try {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } catch (e) {
+    return 'light';
+  }
 }
 
-let activeTheme = readSavedTheme();
+// the map follows the site's light/dark (owner, 19.11): no separate map theme any more
+let activeTheme = readSiteTheme();
 document.documentElement.dataset.theme = readSiteTheme();
 
 const BASEMAP_PALETTES = {
@@ -201,6 +206,8 @@ async function loadData() {
     fetch('js/data/visitor_sites.geojson').then(r => r.json()).catch(() => empty),
     fetch('js/data/species.json').then(r => r.json()).catch(() => ({ species: {}, aliases: {} }))
   ]);
+  // the learning map's photos, for the sites the two maps share (tools/export_route_map_photos.mjs)
+  state.photos = await fetch('js/data/photos.json').then(r => r.json()).catch(() => ({}));
   state.periods = periods.sort((a, b) => a.order - b.order);
   state.regionsGeoJSON = regions;
   state.religions = religions;
@@ -523,6 +530,7 @@ async function initMap() {
   map.addLayer({
     id: 'sites-periods', type: 'circle', source: 'sites',
     filter: ['==', ['literal', false], ['literal', true]],
+    layout: { visibility: 'none' },
     paint: {
       'circle-radius': 8,
       'circle-color': eraColorMatchExpression(),
@@ -534,6 +542,7 @@ async function initMap() {
     id: 'sites-religions', type: 'symbol', source: 'sites',
     filter: ['==', ['literal', false], ['literal', true]],
     layout: {
+      visibility: 'none',
       'icon-image': ['match', ['at', 0, ['get', 'religions']],
         'judaism', 'ic-judaism', 'christianity', 'ic-christianity', 'islam', 'ic-islam',
         'ic-judaism'],
@@ -967,6 +976,39 @@ function buildGeologyLegend() {
   el.appendChild(note);
 }
 
+// A photo from the learning map, with its credit; a second and third as small thumbnails that swap in.
+const escHtml = t => String(t || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const photoCredit = p => `צילום: ${escHtml(p.author)} · <a href="${escHtml(p.source)}" target="_blank" rel="noopener">ויקישיתוף</a> · ${p.licenseUrl ? `<a href="${escHtml(p.licenseUrl)}" target="_blank" rel="noopener">${escHtml(p.license)}</a>` : escHtml(p.license)}`;
+
+function sitePhotoHtml(id) {
+  const list = (state.photos && state.photos[id]) || [];
+  if (!list.length) return '';
+  const esc = escHtml;
+  const credit = photoCredit;
+  const first = list[0];
+  const thumbs = list.length > 1
+    ? `<div class="site-photo-thumbs">${list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${esc(p.alt)}"><img src="${esc(p.src)}" alt="" loading="lazy" /></button>`).join('')}</div>`
+    : '';
+  return `<figure class="site-photo" data-site="${esc(id)}">
+    <img src="${esc(first.src)}" alt="${esc(first.alt)}" loading="lazy" />
+    <figcaption><span class="cap">${esc(first.caption)}</span><span class="credit">${credit(first)}</span></figcaption>
+    ${thumbs}
+  </figure>`;
+}
+
+function wireSitePhoto(root) {
+  const fig = root.querySelector('.site-photo');
+  if (!fig) return;
+  const list = (state.photos && state.photos[fig.dataset.site]) || [];
+  fig.querySelectorAll('.site-photo-thumbs button').forEach(btn => btn.addEventListener('click', () => {
+    const p = list[Number(btn.dataset.i)];
+    const img = fig.querySelector(':scope > img');
+    img.src = p.src; img.alt = p.alt;
+    fig.querySelector('.cap').textContent = p.caption;
+    fig.querySelector('.credit').innerHTML = photoCredit(p);
+  }));
+}
+
 function openInfoPanel(props, context) {
   const panel = document.getElementById('info-panel');
   const content = document.getElementById('info-content');
@@ -1001,6 +1043,7 @@ function openInfoPanel(props, context) {
   content.innerHTML = `
     <h3>${props.name_he}</h3>
     <div class="meta">${props.name_en || ''}${metaBits.length ? ' • ' + metaBits.join(' • ') : ''}</div>
+    ${sitePhotoHtml(props.id)}
     ${rockPhotoHtml(parseMaybeJSON(props.rock_photo))}
     ${props.extra_html || ''}
     <p>${props.description_he || ''}</p>
@@ -1008,6 +1051,7 @@ function openInfoPanel(props, context) {
     <button class="add-route-btn" data-id="${props.id}">➕ הוסף למסלול</button>
   `;
   content.querySelector('.add-route-btn').addEventListener('click', () => addToRoute(props));
+  wireSitePhoto(content);
   panel.classList.remove('hidden');
 }
 
@@ -1479,6 +1523,103 @@ function renderRoute() {
     list.appendChild(li);
   });
   updateRouteOnMap();
+  renderSavedRoutes();
+}
+
+
+/* ---- Saved routes (RM-07, owner 19.11) -----------------------------------
+   A guide keeps routes: a name, a note to self, the stops and the layers that were on. They live in
+   md_routes_v1:<user_id> (the site's account sync uploads them, src/lib/sync/stores.ts ROUTES_STORE),
+   or md_routes_v1 for a guest. Three ready examples show what a saved route looks like. */
+const SAMPLE_ROUTES = [
+  { id: 'sample-galilee-christian', name: 'צליינים בגליל', note: 'יום לקבוצה נוצרית: מנצרת דרך הר תבור אל חוף הכנרת. בכפר נחום ובטבחה כדאי להגיע מוקדם, לפני הקבוצות הגדולות.',
+    stops: ['church-of-annunciation-nazareth', 'mount-tabor', 'tabgha', 'capernaum', 'kursi-byzantine'], layers: { 'toggle-religions': true } },
+  { id: 'sample-dead-sea', name: 'מדבר יהודה וים המלח', note: 'קומראן בבוקר, עין גדי בצהריים ומצדה לקראת ערב. מים, כובע, ונקודת צל לכל עצירה.',
+    stops: ['qumran', 'ein-gedi-chalcolithic-temple', 'masada'], layers: { 'toggle-periods': true } },
+  { id: 'sample-synagogues', name: 'בתי כנסת עתיקים בצפון', note: 'הפסיפסים: ציפורי, בית אלפא וחמת טבריה, ובסוף בית הכנסת הלבן בכפר נחום. טוב להשוואה בין גלגלי המזלות.',
+    stops: ['tzippori-byzantine-mosaics', 'beit-alfa-synagogue', 'hamat-tiberias-synagogue', 'capernaum-white-synagogue'], layers: {} },
+];
+
+function routesKey() {
+  try {
+    const session = JSON.parse(localStorage.getItem('israel-geo-game-session') || 'null');
+    if (session && session.user_id) return 'md_routes_v1:' + session.user_id;
+  } catch (e) { /* a guest */ }
+  return 'md_routes_v1';
+}
+function readSavedRoutes() {
+  try { return JSON.parse(localStorage.getItem(routesKey()) || '{}') || {}; } catch (e) { return {}; }
+}
+function writeSavedRoutes(all) {
+  try { localStorage.setItem(routesKey(), JSON.stringify(all)); } catch (e) { /* storage is optional */ }
+  try { window.parent.dispatchEvent(new Event('md-routes-changed')); } catch (e) { /* standalone */ }
+}
+function currentLayers() {
+  const out = {};
+  document.querySelectorAll('input[type="checkbox"][id^="toggle-"]').forEach(b => { if (b.checked) out[b.id] = true; });
+  return out;
+}
+function applyLayers(layers) {
+  document.querySelectorAll('input[type="checkbox"][id^="toggle-"]').forEach(b => {
+    if (b.id === 'toggle-geology-hatch') return;
+    const want = !!(layers && layers[b.id]);
+    if (b.checked !== want) { b.checked = want; b.dispatchEvent(new Event('change', { bubbles: true })); }
+  });
+}
+function openSavedRoute(r) {
+  const byId = new Map(state.sitesGeoJSON.features.map(f => [f.properties.id, f]));
+  const stops = (r.stops || []).map(s => (typeof s === 'string' ? s : s.id)).filter(id => byId.has(id));
+  state.route = stops.map(id => ({ id, name_he: byId.get(id).properties.name_he }));
+  localStorage.setItem('ihm_route', JSON.stringify(state.route));
+  applyLayers(r.layers);
+  renderRoute();
+  const coords = stops.map(id => byId.get(id).geometry.coordinates);
+  if (coords.length && typeof map !== 'undefined' && map) {
+    const b = coords.reduce((acc, c) => [[Math.min(acc[0][0], c[0]), Math.min(acc[0][1], c[1])], [Math.max(acc[1][0], c[0]), Math.max(acc[1][1], c[1])]], [coords[0], coords[0]]);
+    try { map.fitBounds(b, { padding: 90, maxZoom: 12, duration: 900 }); } catch (e) { /* not ready */ }
+  }
+}
+function renderSavedRoutes() {
+  const box = document.getElementById('saved-routes');
+  if (!box) return;
+  const esc = escHtml;
+  const mine = Object.values(readSavedRoutes()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const card = (r, sample) => `<li class="saved-route">
+      <div class="saved-route-text"><strong>${esc(r.name)}</strong>${r.note ? `<span>${esc(r.note)}</span>` : ''}<small>${(r.stops || []).length} תחנות</small></div>
+      <div class="saved-route-actions"><button type="button" class="btn-secondary" data-open="${esc(r.id)}" data-sample="${sample ? 1 : ''}">פתיחה</button>${sample ? '' : `<button type="button" class="btn-secondary" data-del="${esc(r.id)}" aria-label="מחיקת ${esc(r.name)}">✕</button>`}</div>
+    </li>`;
+  box.innerHTML = `
+    <form id="save-route-form" class="save-route">
+      <h3>שמירת המסלול</h3>
+      <input id="save-route-name" type="text" maxlength="80" placeholder="שם, למשל: נוצרים בגליל" required />
+      <textarea id="save-route-note" rows="2" maxlength="600" placeholder="הערה לעצמכם: למי, מתי, מה לא לשכוח"></textarea>
+      <button type="submit" class="btn-primary" ${state.route.length ? '' : 'disabled'}>שמירה</button>
+      ${state.route.length ? '' : '<p class="hint">הוסיפו תחנות למסלול, ואז תוכלו לשמור אותו.</p>'}
+    </form>
+    <h3>המסלולים שלי</h3>
+    ${mine.length ? `<ul class="saved-route-list">${mine.map(r => card(r, false)).join('')}</ul>` : '<p class="hint">עוד לא שמרתם מסלול.</p>'}
+    <h3>מסלולים לדוגמה</h3>
+    <ul class="saved-route-list">${SAMPLE_ROUTES.map(r => card(r, true)).join('')}</ul>`;
+  box.querySelector('#save-route-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = box.querySelector('#save-route-name').value.trim();
+    if (!name || !state.route.length) return;
+    const all = readSavedRoutes();
+    const id = 'r' + Date.now().toString(36);
+    all[id] = { id, name, note: box.querySelector('#save-route-note').value.trim(), stops: state.route.map(s => s.id), layers: currentLayers(), updatedAt: Date.now() };
+    writeSavedRoutes(all);
+    renderSavedRoutes();
+  });
+  box.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => {
+    const r = btn.dataset.sample ? SAMPLE_ROUTES.find(x => x.id === btn.dataset.open) : readSavedRoutes()[btn.dataset.open];
+    if (r) openSavedRoute(r);
+  }));
+  box.querySelectorAll('[data-del]').forEach(btn => btn.addEventListener('click', () => {
+    const all = readSavedRoutes();
+    delete all[btn.dataset.del];
+    writeSavedRoutes(all);
+    renderSavedRoutes();
+  }));
 }
 
 /* ---- Route drawing & driving time ---------------------------------------
@@ -1915,6 +2056,8 @@ function watchParentTheme() {
       const nextTheme = parentRoot.dataset.theme;
       if (nextTheme === 'dark' || nextTheme === 'light') {
         document.documentElement.dataset.theme = nextTheme;
+        // the basemap's colours are baked into the style: redraw it in the new theme
+        if (nextTheme !== activeTheme) window.location.reload();
       }
     };
     syncShellTheme();
@@ -1925,6 +2068,28 @@ function watchParentTheme() {
   }
 }
 
+// The map opens clean the first time, and after that with the layers this user last turned on
+// (owner, 19.11: "every religious site was marked on opening").
+function rememberLayers() {
+  const KEY = 'ihm_layers_v1';
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  const boxes = [...document.querySelectorAll('#sidebar input[type="checkbox"][id^="toggle-"]')];
+  boxes.forEach(box => {
+    // a sub-option keeps its own default (hatching on the geology map); every layer starts off
+    const fallback = box.id === 'toggle-geology-hatch' ? box.checked : false;
+    const want = Object.prototype.hasOwnProperty.call(saved, box.id) ? !!saved[box.id] : fallback;
+    if (box.checked !== want) {
+      box.checked = want;
+      box.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+  boxes.forEach(box => box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* storage is optional */ }
+  }));
+}
+
 async function main() {
   // A hard ceiling on the splash: whatever happens to the network, the map is
   // interactive after four seconds rather than sitting behind a logo.
@@ -1933,6 +2098,7 @@ async function main() {
   watchParentTheme();
   await loadData();
   await initMap();
+  rememberLayers();
   map.once('idle', dismissSplash);
   dismissSplash();
 

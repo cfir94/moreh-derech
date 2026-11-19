@@ -307,7 +307,8 @@
 }
 
 .here {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 10px;
   margin: 0 0 4px;

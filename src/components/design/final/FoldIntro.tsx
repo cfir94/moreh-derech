@@ -27,6 +27,8 @@ type Props = {
   getHeader?: () => HTMLElement | null;
 };
 
+/** a tablet (a touch screen wider than a phone): the folding map stuttered there, so it is not played (owner, 19.11) */
+const TABLET = "(pointer: coarse) and (min-width: 700px)";
 const TOTAL = 4300;
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
 const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
@@ -51,7 +53,7 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
     try {
       seen = sessionStorage.getItem(storageKey) === "1";
     } catch {}
-    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches) stage.current.style.visibility = "hidden";
+    if (seen || window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia(TABLET).matches) stage.current.style.visibility = "hidden";
   }, [always, storageKey]);
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
       onDone?.();
     };
     const target = getTarget();
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia(TABLET).matches;
     let seen = false;
     try {
       seen = sessionStorage.getItem(storageKey) === "1";
@@ -269,7 +271,7 @@ export function FoldIntro({ getTarget, onBefore, onDone, always = false, storage
       {!always && (
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem(${JSON.stringify(storageKey)})==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches)document.currentScript.parentNode.style.visibility="hidden"}catch(e){}`,
+            __html: `try{if(sessionStorage.getItem(${JSON.stringify(storageKey)})==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches||matchMedia(${JSON.stringify(TABLET)}).matches)document.currentScript.parentNode.style.visibility="hidden"}catch(e){}`,
           }}
         />
       )}

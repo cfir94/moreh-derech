@@ -79,6 +79,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
               <span className="text-4xl font-black text-txt">{card.price} ₪</span>
               <s className="text-sm text-txt-dim">{card.list} ₪</s>
             </p>
+            <p className="mt-1 w-fit self-start rounded-full bg-[var(--t-red)] px-2.5 py-0.5 text-xs font-extrabold text-[var(--paint)]">מחיר השקה, לזמן מוגבל</p>
             <p className="mt-1 text-sm text-txt-dim">{card.note}. תשלום אחד, בלי חיוב אוטומטי.</p>
             {!compact && (
               <ul className="mt-4 flex flex-col gap-2 text-sm text-txt">

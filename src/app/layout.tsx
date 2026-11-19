@@ -11,6 +11,8 @@ import { PreviewBar } from "@/components/PreviewBar";
 import { UserProvider } from "@/contexts/UserContext";
 import { InkDefs } from "@/components/trail/Ink";
 import { withBasePath } from "@/lib/basePath";
+import { LAUNCH } from "@/lib/launch";
+import { SESSION_KEY } from "@/lib/cloudAuth";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -57,6 +59,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* a guest on the home page goes to the landing page before anything is drawn (no flash of the backpack) */}
+        {LAUNCH.paywall && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `try{var b=${JSON.stringify(withBasePath(""))};var p=location.pathname.replace(/\/$/,"");if(p===b&&!localStorage.getItem(${JSON.stringify(SESSION_KEY)}))location.replace(b+"/welcome/"+location.search)}catch(e){}`,
+            }}
+          />
+        )}
       </head>
       <body className="flex min-h-full flex-col font-sans" style={{ "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties}>
         <InkDefs />

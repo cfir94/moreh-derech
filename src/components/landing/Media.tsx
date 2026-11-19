@@ -45,3 +45,22 @@ export function Phone({ src, alt }: { src: string; alt: string }) {
     </div>
   );
 }
+
+/** A phone frame playing a short clip (a tool as it looks on the phone). */
+export function PhoneClip({ name, label }: { name: string; label: string }) {
+  return (
+    <div className="overflow-hidden rounded-[28px] border-4 border-line bg-card shadow-[0_24px_50px_-30px_var(--blue)]">
+      <video
+        className="block h-auto w-full"
+        src={withBasePath(`/marketing/clip-${name}.mp4`)}
+        poster={withBasePath(`/marketing/clip-${name}-poster.webp`)}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+        aria-label={label}
+      />
+    </div>
+  );
+}
