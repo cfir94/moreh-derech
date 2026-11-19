@@ -25,7 +25,7 @@ export default function MapChooserPage() {
   return (
     <div className={`screen-in relative ${styles.page}`}>
       <PageDecor birds items={["compass", "hills", "signpost", "lake", "binoculars"]} step={300} />
-      <header className={styles.head}>
+      <header className={styles.head} data-ground="map">
         <div className={kit.titleWrap}>
           <h1 className="grad-text">מפה</h1>
           <PenUnderline />
