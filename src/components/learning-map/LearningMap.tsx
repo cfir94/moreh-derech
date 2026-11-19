@@ -272,7 +272,7 @@ export function LearningMap({ links, arch }: { links: Record<string, CourseLink[
   const eraIsTemple = era === "temple" || TEMPLE_SUBPERIODS.includes(era as PeriodId);
 
   return (
-    <div ref={pageRef} className={styles.page} style={splitStyle(split)}>
+    <div ref={pageRef} className={styles.page} style={splitStyle(split)} data-ground="map">
       <section className={styles.panel} aria-label="רשימת האתרים">
         <header className={styles.panelHead}>
           <div className={styles.titleRow}>
