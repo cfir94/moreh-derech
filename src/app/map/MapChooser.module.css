@@ -102,3 +102,14 @@
   .art i { animation: none; }
   .card { transition: none; }
 }
+
+/* on a phone both maps must be in view at once (owner, 19.11): a short picture and the text trimmed */
+@media (max-width: 640px) {
+  .cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .art, .routeArt { height: 96px; }
+  .desc, .meta { display: none; }
+  .body { padding: 12px 12px 14px; gap: 6px; }
+  .kicker { font-size: 0.9rem; }
+  .body strong { font-size: 1.9rem; }
+  .go { padding: 8px 12px; font-size: 0.98rem; }
+}

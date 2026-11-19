@@ -134,7 +134,7 @@ export function Navbar() {
 
         <div className={s.tools}>
           <SiteSearch />
-          <div className="hidden min-[400px]:block">
+          <div className={s.bellSlot}>
             <UpdatesBell />
           </div>
           {/* below 360px the bar has no room: the menu opens the notes instead */}
@@ -196,7 +196,7 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
-              <li className="min-[400px]:hidden">
+              <li className={s.legendBellItem}>
                 <Link href="/updates/" onClick={() => setOpen(false)} className={s.legendItem}>
                   <span className={s.legendMark}>
                     <InkIcon name="bell" size={28} />

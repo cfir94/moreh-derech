@@ -160,9 +160,13 @@
   --radius-lg: var(--r-lg);
 }
 
-html,
-body {
+/* html is the window's height; body grows with the page (a fixed body height broke the sticky header:
+   it scrolled away after the first screen, owner 19.11) */
+html {
   height: 100%;
+}
+body {
+  min-height: 100%;
 }
 
 body {

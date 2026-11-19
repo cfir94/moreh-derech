@@ -239,7 +239,8 @@
   color: var(--ink-dim);
 }
 
-.legendThemeItem {
+.legendThemeItem,
+.legendBellItem {
   display: none;
 }
 
@@ -252,10 +253,11 @@
     height: 40px;
     width: 103px;
   }
-  .themeSlot {
+  /* on a phone the light/dark switch stays on the bar, and "what's new" moves into the legend (owner, 19.11) */
+  .bellSlot {
     display: none;
   }
-  .legendThemeItem {
+  .legendBellItem {
     display: block;
   }
   .tools {
