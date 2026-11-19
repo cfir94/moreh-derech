@@ -1481,3 +1481,14 @@ html[data-theme="dark"] .rail-btn { background: #f1e6cc; border-color: #c9a46a; 
   }
   @keyframes railPop { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 }
+
+/* a site's photo, from the learning map, with its credit (owner, 19.11) */
+.site-photo { margin: 10px 0 12px; }
+.site-photo > img { display: block; width: 100%; max-height: 240px; object-fit: cover; border-radius: 10px; border: 2px solid #6b4423; }
+.site-photo figcaption { display: flex; flex-direction: column; gap: 2px; margin-top: 6px; }
+.site-photo .cap { font-size: .92rem; color: var(--text); }
+.site-photo .credit { font-size: .75rem; color: var(--text-dim); }
+.site-photo .credit a { color: inherit; }
+.site-photo-thumbs { display: flex; gap: 6px; margin-top: 8px; }
+.site-photo-thumbs button { padding: 0; border: 1.5px solid rgba(107,68,35,.5); border-radius: 7px; overflow: hidden; width: 64px; height: 46px; cursor: pointer; background: none; }
+.site-photo-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }

@@ -206,6 +206,8 @@ async function loadData() {
     fetch('js/data/visitor_sites.geojson').then(r => r.json()).catch(() => empty),
     fetch('js/data/species.json').then(r => r.json()).catch(() => ({ species: {}, aliases: {} }))
   ]);
+  // the learning map's photos, for the sites the two maps share (tools/export_route_map_photos.mjs)
+  state.photos = await fetch('js/data/photos.json').then(r => r.json()).catch(() => ({}));
   state.periods = periods.sort((a, b) => a.order - b.order);
   state.regionsGeoJSON = regions;
   state.religions = religions;
@@ -974,6 +976,39 @@ function buildGeologyLegend() {
   el.appendChild(note);
 }
 
+// A photo from the learning map, with its credit; a second and third as small thumbnails that swap in.
+const escHtml = t => String(t || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const photoCredit = p => `צילום: ${escHtml(p.author)} · <a href="${escHtml(p.source)}" target="_blank" rel="noopener">ויקישיתוף</a> · ${p.licenseUrl ? `<a href="${escHtml(p.licenseUrl)}" target="_blank" rel="noopener">${escHtml(p.license)}</a>` : escHtml(p.license)}`;
+
+function sitePhotoHtml(id) {
+  const list = (state.photos && state.photos[id]) || [];
+  if (!list.length) return '';
+  const esc = escHtml;
+  const credit = photoCredit;
+  const first = list[0];
+  const thumbs = list.length > 1
+    ? `<div class="site-photo-thumbs">${list.map((p, i) => `<button type="button" data-i="${i}" aria-label="${esc(p.alt)}"><img src="${esc(p.src)}" alt="" loading="lazy" /></button>`).join('')}</div>`
+    : '';
+  return `<figure class="site-photo" data-site="${esc(id)}">
+    <img src="${esc(first.src)}" alt="${esc(first.alt)}" loading="lazy" />
+    <figcaption><span class="cap">${esc(first.caption)}</span><span class="credit">${credit(first)}</span></figcaption>
+    ${thumbs}
+  </figure>`;
+}
+
+function wireSitePhoto(root) {
+  const fig = root.querySelector('.site-photo');
+  if (!fig) return;
+  const list = (state.photos && state.photos[fig.dataset.site]) || [];
+  fig.querySelectorAll('.site-photo-thumbs button').forEach(btn => btn.addEventListener('click', () => {
+    const p = list[Number(btn.dataset.i)];
+    const img = fig.querySelector(':scope > img');
+    img.src = p.src; img.alt = p.alt;
+    fig.querySelector('.cap').textContent = p.caption;
+    fig.querySelector('.credit').innerHTML = photoCredit(p);
+  }));
+}
+
 function openInfoPanel(props, context) {
   const panel = document.getElementById('info-panel');
   const content = document.getElementById('info-content');
@@ -1008,6 +1043,7 @@ function openInfoPanel(props, context) {
   content.innerHTML = `
     <h3>${props.name_he}</h3>
     <div class="meta">${props.name_en || ''}${metaBits.length ? ' • ' + metaBits.join(' • ') : ''}</div>
+    ${sitePhotoHtml(props.id)}
     ${rockPhotoHtml(parseMaybeJSON(props.rock_photo))}
     ${props.extra_html || ''}
     <p>${props.description_he || ''}</p>
@@ -1015,6 +1051,7 @@ function openInfoPanel(props, context) {
     <button class="add-route-btn" data-id="${props.id}">➕ הוסף למסלול</button>
   `;
   content.querySelector('.add-route-btn').addEventListener('click', () => addToRoute(props));
+  wireSitePhoto(content);
   panel.classList.remove('hidden');
 }
 
