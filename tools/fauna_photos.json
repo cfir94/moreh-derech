@@ -242,17 +242,17 @@
   {
     "id": "reed-beetle-1",
     "subject": "reed-beetle",
-    "status": "candidate",
+    "status": "approved",
     "wiki": "en:Donacia",
-    "caption": "",
-    "alt": "חיפושית קנים"
+    "caption": "חיפושית קנים על עלה של צמח מים. צולמה באירופה; היא קרובה של המין שנמצא בנתניה, אבל אינה אותו מין.",
+    "alt": "חיפושית קנים ירקרקה ומוארכת על עלה חום"
   },
   {
     "id": "reed-beetle-2",
     "subject": "reed-beetle",
-    "status": "candidate",
+    "status": "approved",
     "search": "Donacia beetle",
-    "caption": "",
-    "alt": "חיפושית קנים"
+    "caption": "חיפושית קנים מאוסף, מבט מלמעלה: הגוף המוארך והמבריק שמאפיין את המשפחה. מין אירופי.",
+    "alt": "חיפושית קנים בגוני ירוק וסגול, מבט מלמעלה"
   }
 ]
