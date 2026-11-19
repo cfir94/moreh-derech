@@ -179,9 +179,12 @@ M027: בוקעתא ומסעדה הופרדו מן החרמון ושויכו לג
 
 ## בדיקות
 
+אחרי rebase על main ב־d9446a277 והתקנת תלויות בתוך תיקיית העבודה:
+
 - `npm run lint`: עבר, אזהרה קיימת על `total` ב־`src/app/exams/page.tsx`.
+- `npx tsc --noEmit`: עבר.
 - `npm run test:regressions`: עברו 167/167.
-- `npx tsc --noEmit`: עבר לאחר יצירת טיפוסי הנתיבים בבנייה. בהרצה ראשונה, לפני הבנייה, חסרו `PageProps`/`LayoutProps` הנוצרים אוטומטית.
-- `npm run build`: Turbopack נכשל בגלל קישור `node_modules` מחוץ לשורש תיקיית העבודה. `npm run build -- --webpack` עבר, כולל TypeScript וייצוא 163 דפים. לא שונו הקוד או הגדרות הבנייה כדי לעקוף בדיקה.
+- `npm run build`: עבר ב־Turbopack, כולל TypeScript וייצוא 164 דפים.
+- `git diff --check`: עבר. רק הסיכום והדוח השתנו.
 
 ספירה: {"✓":42,"✗":1,"?":97} (הסימונים מתייחסים לטענות המקוריות לפני התיקון).
