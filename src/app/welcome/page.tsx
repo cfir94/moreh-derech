@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { InkIcon } from "@/components/trail/Ink";
 import { PageDecor } from "@/components/trail/PageDecor";
-import { BrowserFrame, Clip, Phone, Shot } from "@/components/landing/Media";
+import { BrowserFrame, Clip, Phone, PhoneClip, Shot } from "@/components/landing/Media";
 import { PricingCards } from "@/components/paywall/PricingCards";
 import { EXAMS, MINISTRY_EXAMS } from "@/data/exams";
 import { QUIZZES } from "@/data/quizzes";
@@ -93,9 +93,14 @@ const FEATURES: {
     text: "את מה שקשה לזכור מדף, רואים: צירי זמן לכל תקופה ואטלס של 3.6 מיליון שנה, מקדשים ואמות מים בתלת־ממד, מפה גאולוגית, קשתות וקמרונות, ומגדירי צמחים ובעלי חיים. בכל עזר יש גם תרגול.",
     points: ["צירי זמן ואטלס הזמן", "אדריכלות וגאולוגיה בתלת־ממד", "תרגול בתוך כל עזר"],
     media: (
-      <BrowserFrame label="moreyderech.com/timelines/history-atlas">
-        <Clip name="atlas" label="סרטון: גוללים באטלס הזמן" />
-      </BrowserFrame>
+      <div className="relative pb-10">
+        <BrowserFrame label="moreyderech.com/timelines/history-atlas">
+          <Clip name="atlas" label="סרטון: גוללים באטלס הזמן" />
+        </BrowserFrame>
+        <div className="absolute -bottom-6 -left-3 w-[30%] sm:-left-6">
+          <PhoneClip name="arch-phone" label="סרטון: עמוד יוני בתלת־ממד בסטודיו האדריכלות, בטלפון" />
+        </div>
+      </div>
     ),
   },
   {
