@@ -5,6 +5,7 @@
  */
 import { authenticatedSupabaseRequest, freshAccessToken, readSession, saveProfileDetails } from "@/lib/cloudAuth";
 import { withBasePath } from "@/lib/basePath";
+import { PRICES } from "@/lib/launch";
 
 export type Cohort = { id: number; school: string; year: number; name: string; code: string; active?: boolean };
 export type JoinPlan = "halfyear" | "yearly";
@@ -128,5 +129,5 @@ export async function adminSaveCohort(c: Omit<Cohort, "id"> & { id?: number }) {
 /** הודעה מוכנה לסוף תקופה, להעתקה (וואטסאפ/מייל), עד שהתזכורת האוטומטית תפעל. */
 export function renewalMessage(name: string, endsAt: string) {
   const date = new Date(endsAt).toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" });
-  return `היי ${name || ""}, כאן כפיר מ"אבן דרך למורי דרך". המנוי שלך מסתיים ב-${date}. רוצה להמשיך? חצי שנה 160 ₪, שנה 300 ₪. עונים לי כאן ואסדר.`.replace("היי ,", "היי,");
+  return `היי ${name || ""}, כאן כפיר מ"אבן דרך למורי דרך". המנוי שלך מסתיים ב-${date}. רוצה להמשיך? חצי שנה ${PRICES.halfyear} ₪, שנה ${PRICES.yearly} ₪. עונים לי כאן ואסדר.`.replace("היי ,", "היי,");
 }

@@ -88,9 +88,10 @@
   pointer-events: none;
   background: #f6ecd2;
   opacity: 0.22;
-  -webkit-mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  /* fades out behind the title and the sentence (the right side), so they stay easy to read */
+  -webkit-mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(to left, transparent 0 28%, #000 58%, #000 86%, transparent);
   -webkit-mask-composite: source-in;
-  mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(to left, transparent 0 28%, #000 58%, #000 86%, transparent);
   mask-composite: intersect;
 }
 /* Carmel, Meron and Tabor with the spring, on the empty side of the band */

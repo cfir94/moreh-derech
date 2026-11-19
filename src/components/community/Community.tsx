@@ -47,9 +47,7 @@ function Shell({ title, back, children }: { title: string; back?: { href: string
   // the same head as every other section, at the same width, so the titles line up (owner, 19.11)
   return <main dir="rtl" className="screen-in relative mx-auto w-full max-w-[1120px] px-5 pt-[34px] pb-20">
     <PageDecor birds items={["tent", "talk", "canteen", "butterfly", "binoculars"]} />
-    <PageHead section="community" title={title} art={<InkIcon name="community" />}>
-      {back && <Link href={back.href} className="mt-3 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
-    </PageHead>
+    <PageHead section="community" title={title} art={<InkIcon name="community" />} crumbs={back ? [{ href: back.href, label: `→ ${back.label}` }] : undefined} />
     <div className="max-w-3xl">{children}</div>
   </main>;
 }
