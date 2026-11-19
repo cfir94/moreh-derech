@@ -12,6 +12,8 @@ The owner's notes (19.11), as tasks. The map itself stays a real map: the same M
 | RM-06 | **"שאלו את מאגר המידע"** on every site that has a tour notebook: a link to the NotebookLM notebook, so a guide can ask it questions and build tour points from it. The site-to-notebook mapping comes from Codex (NB-4) | Claude, after NB-4 | |
 | RM-07 | **Saved routes**: a name, a note, the stops and the active layers, kept in the user's account (a sync store in `src/lib/sync/stores.ts`). Plus 2–3 ready examples, such as "נוצרים בגליל" | Claude | done (19.11): `md_routes_v1:<user_id>`, the `routes` store. **Needs the migration `20261119_02_routes_store.sql`**; until it runs, routes stay on the device |
 | NB-4 | Check the map's sites against the 25 tour notebooks: missing sites, thin descriptions, coordinates for missing sites, and which notebook covers each site | Codex in the desktop app (`docs/team/codex/NOTEBOOKLM-APP.md`) | waiting |
+| RM-09 | **Regions**: drawn like a printed map (a light wash, a soft band along the border with a dashed ink line, the name in large letters, a highlight on hover) | Claude | done (19.11). **Still to do: the boundaries themselves are rough** (gaps between regions, the Carmel barely visible). Redraw them from a reliable source of Israel's geographic regions |
+| RM-10 | **A bank of ready-made routes** from the course tours: the route, timings, what to tell at each stop, practical notes. The data comes from Codex (`docs/team/codex/NB-5.md`); Claude loads it into the map as "מסלולים מוכנים" | Codex, then Claude | waiting for NB-5 |
 | RM-08 | Add the missing sites and fill the thin descriptions, from Codex's reports | Claude | after NB-4 |
 
 ## Rules for this work

@@ -289,6 +289,28 @@ function loadFillPatterns() {
 }
 
 // SVG has to be rasterised before MapLibre can use it as a symbol image.
+// One label point per region, at the centre of its largest ring (the average of its vertices is good enough
+// for these compact shapes, and it keeps the label inside them).
+function regionLabelPoints(fc) {
+  const features = (fc.features || []).map(f => {
+    const g = f.geometry;
+    const polys = g.type === 'Polygon' ? [g.coordinates] : g.type === 'MultiPolygon' ? g.coordinates : [];
+    let best = null, bestArea = -1;
+    polys.forEach(poly => {
+      const ring = poly[0] || [];
+      let a = 0;
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) a += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]);
+      a = Math.abs(a);
+      if (a > bestArea) { bestArea = a; best = ring; }
+    });
+    if (!best || !best.length) return null;
+    const lon = best.reduce((s, c) => s + c[0], 0) / best.length;
+    const lat = best.reduce((s, c) => s + c[1], 0) / best.length;
+    return { type: 'Feature', geometry: { type: 'Point', coordinates: [lon, lat] }, properties: { name_he: f.properties.name_he } };
+  }).filter(Boolean);
+  return { type: 'FeatureCollection', features };
+}
+
 function loadMapIcons() {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   const size = 46;
@@ -485,17 +507,56 @@ async function initMap() {
     }
   }, HILLSHADE_INSERT_BEFORE);
 
-  map.addSource('regions', { type: 'geojson', data: state.regionsGeoJSON });
+  map.addSource('regions', { type: 'geojson', data: state.regionsGeoJSON, generateId: true });
+  // A region as a printed map draws it (owner, 19.11: the old solid paint hid the map): a light wash of its
+  // colour, a soft band along the border with a dashed ink line on it, and its name in large letters.
   map.addLayer({
     id: 'regions-fill', type: 'fill', source: 'regions',
     layout: { visibility: 'none' },
-    paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.78 }
+    paint: {
+      'fill-color': ['get', 'color'],
+      'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.42, 0.2]
+    }
+  }, THEMATIC_INSERT_BEFORE);
+  map.addLayer({
+    id: 'regions-band', type: 'line', source: 'regions',
+    layout: { visibility: 'none', 'line-join': 'round' },
+    paint: { 'line-color': ['get', 'color'], 'line-width': ['interpolate', ['linear'], ['zoom'], 6, 4, 10, 10], 'line-opacity': 0.45, 'line-blur': 1.5 }
   }, THEMATIC_INSERT_BEFORE);
   map.addLayer({
     id: 'regions-line', type: 'line', source: 'regions',
-    layout: { visibility: 'none' },
-    paint: { 'line-color': ['get', 'color'], 'line-width': 2 }
+    layout: { visibility: 'none', 'line-join': 'round' },
+    paint: { 'line-color': activeTheme === 'dark' ? '#e9dcc0' : '#3a2a18', 'line-width': 1.3, 'line-opacity': 0.7, 'line-dasharray': [3, 2] }
   }, THEMATIC_INSERT_BEFORE);
+  map.addSource('region-labels', { type: 'geojson', data: regionLabelPoints(state.regionsGeoJSON) });
+  map.addLayer({
+    id: 'regions-label', type: 'symbol', source: 'region-labels',
+    layout: {
+      visibility: 'none',
+      'text-field': ['get', 'name_he'],
+      'text-font': ['Noto Sans Regular'],
+      'text-size': ['interpolate', ['linear'], ['zoom'], 6, 12, 9, 17, 12, 22],
+      'text-letter-spacing': 0.04,
+      'text-max-width': 8,
+      'text-allow-overlap': false
+    },
+    paint: {
+      'text-color': activeTheme === 'dark' ? '#f4ead2' : '#3a2a18',
+      'text-halo-color': activeTheme === 'dark' ? 'rgba(20,14,8,.85)' : 'rgba(251,243,223,.92)',
+      'text-halo-width': 2.2
+    }
+  });
+  let hoveredRegion = null;
+  map.on('mousemove', 'regions-fill', e => {
+    if (!e.features.length) return;
+    if (hoveredRegion !== null) map.setFeatureState({ source: 'regions', id: hoveredRegion }, { hover: false });
+    hoveredRegion = e.features[0].id;
+    map.setFeatureState({ source: 'regions', id: hoveredRegion }, { hover: true });
+  });
+  map.on('mouseleave', 'regions-fill', () => {
+    if (hoveredRegion !== null) map.setFeatureState({ source: 'regions', id: hoveredRegion }, { hover: false });
+    hoveredRegion = null;
+  });
 
   map.addSource('geology', { type: 'geojson', data: state.geologyGeoJSON.basic });
   map.addLayer({
@@ -1851,7 +1912,9 @@ function updateBaseMapDeclutter() {
 function wireUI() {
   document.getElementById('toggle-regions').addEventListener('change', e => {
     setLayerVisibility('regions-fill', e.target.checked);
+    setLayerVisibility('regions-band', e.target.checked);
     setLayerVisibility('regions-line', e.target.checked);
+    setLayerVisibility('regions-label', e.target.checked);
     document.getElementById('regions-legend').classList.toggle('hidden', !e.target.checked);
     updateBaseMapDeclutter();
   });
