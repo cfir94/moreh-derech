@@ -43,8 +43,8 @@ export default function QuizzesPage() {
         art={<InkIcon name="quizzes" size={72} />}
         lede={
           <>
-            <span className="num">{totalQuestions.toLocaleString("he-IL")}</span> שאלות אמריקאיות מחומר הבחינה,
-            לפי נושאים. המערכת זוכרת מה עניתם ומה טעיתם, כדי שתחזרו בדיוק על מה שצריך.
+            <span className="num">{totalQuestions.toLocaleString("he-IL")}</span> שאלות לפי נושא. טעיתם? השאלה תחזור
+            אליכם.
           </>
         }
       />

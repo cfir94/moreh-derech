@@ -49,15 +49,18 @@ export function PenUnderline({ className }: { className?: string }) {
  * one sentence, and room for a single drawing that belongs to the page.
  */
 /** The sections of the site, each with its own band colour (and, in globals.css, its own paper). */
-export type Section = "topics" | "quizzes" | "exams" | "aids" | "games" | "tours" | "reports";
+export type Section = "topics" | "quizzes" | "exams" | "aids" | "games" | "tours" | "reports" | "community" | "map" | "videos";
 export const SECTION_TONE: Record<Section, string> = {
   topics: "color-mix(in srgb, var(--t-blue) 65%, var(--ink))",
   quizzes: "var(--t-blue)",
   exams: "var(--t-red)",
   aids: "var(--t-orange)",
-  games: "var(--t-green)",
+  games: "#8a2f5f",
   tours: "color-mix(in srgb, var(--t-green) 55%, var(--t-orange))",
   reports: "var(--sign)",
+  community: "#6a3a8c",
+  map: "#2a5a8c",
+  videos: "#5a4030",
 };
 
 /** The page's drawing: a living one (decor/live.tsx) when there is one, coloured and moving; else the ink icon, coloured in. */

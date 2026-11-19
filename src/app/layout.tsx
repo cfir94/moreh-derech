@@ -4,6 +4,7 @@ import { fontVariables } from "./fonts";
 import { CloudSync } from "@/components/CloudSync";
 import { MotiButton } from "@/components/MotiButton";
 import { Navbar } from "@/components/Navbar";
+import { SectionGround } from "@/components/SectionGround";
 import { PaywallGate } from "@/components/paywall/PaywallGate";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PreviewBar } from "@/components/PreviewBar";
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col font-sans" style={{ "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties}>
         <InkDefs />
+        <SectionGround />
         <UserProvider>
           <PreviewBar />
           <Navbar />

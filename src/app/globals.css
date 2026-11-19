@@ -176,20 +176,20 @@ body {
 /* Every section has its own sheet (owner, 18.11: "the body of the page is the same everywhere"):
    the map paper washed clearly toward the section's colour, flat (no patterns), so it stays calm.
    Community is a deeper purple, the video library a dark room. Fixed hexes, so --ground never refers to itself. */
-:root:has([data-ground="topics"]) { --ground: color-mix(in srgb, #2a5a8c 5%, #ead8a8); }
-:root:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #2a5a8c 17%, #ead8a8); }
-:root:has([data-ground="exams"]) { --ground: color-mix(in srgb, #8e2a20 19%, #ead8a8); }
-:root:has([data-ground="aids"]) { --ground: color-mix(in srgb, #b5651d 17%, #ead8a8); }
-:root:has([data-ground="games"]) { --ground: color-mix(in srgb, #4f7a2e 19%, #ead8a8); }
-:root:has([data-ground="tours"]) { --ground: color-mix(in srgb, #6a7a2e 19%, #ead8a8); }
-:root:has([data-ground="reports"]) { --ground: color-mix(in srgb, #5b7a72 22%, #ead8a8); }
+:root:has([data-ground="topics"]) { --ground: color-mix(in srgb, #2a5a8c 10%, #ead8a8); }
+:root:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #2a5a8c 28%, #ead8a8); }
+:root:has([data-ground="exams"]) { --ground: color-mix(in srgb, #8e2a20 30%, #ead8a8); }
+:root:has([data-ground="aids"]) { --ground: color-mix(in srgb, #b5651d 28%, #ead8a8); }
+:root:has([data-ground="games"]) { --ground: color-mix(in srgb, #8a2f5f 28%, #ead8a8); }
+:root:has([data-ground="tours"]) { --ground: color-mix(in srgb, #5f7a2e 30%, #ead8a8); }
+:root:has([data-ground="reports"]) { --ground: color-mix(in srgb, #5b7a72 32%, #ead8a8); }
 :root:has([data-ground="community"]) { --ground: color-mix(in srgb, #4e2470 38%, #ead8a8); }
-:root[data-theme="dark"]:has([data-ground="topics"]) { --ground: color-mix(in srgb, #8ab6e0 10%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #8ab6e0 10%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="exams"]) { --ground: color-mix(in srgb, #e06049 10%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="aids"]) { --ground: color-mix(in srgb, #e6964c 10%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="games"]) { --ground: color-mix(in srgb, #9bc068 10%, #382c1e); }
-:root[data-theme="dark"]:has([data-ground="tours"]) { --ground: color-mix(in srgb, #b8c068 10%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="topics"]) { --ground: color-mix(in srgb, #8ab6e0 14%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="quizzes"]) { --ground: color-mix(in srgb, #8ab6e0 14%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="exams"]) { --ground: color-mix(in srgb, #e06049 14%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="aids"]) { --ground: color-mix(in srgb, #e6964c 14%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="games"]) { --ground: color-mix(in srgb, #d07aa8 14%, #382c1e); }
+:root[data-theme="dark"]:has([data-ground="tours"]) { --ground: color-mix(in srgb, #b8c068 14%, #382c1e); }
 :root[data-theme="dark"]:has([data-ground="reports"]) { --ground: color-mix(in srgb, #8fb8ae 9%, #382c1e); }
 :root[data-theme="dark"]:has([data-ground="community"]) { --ground: color-mix(in srgb, #b48ac8 14%, #382c1e); }
 :root:has([data-ground="map"]) { --ground: #2e4250; --bg-grad-1: rgb(110 150 180 / 0.16); --bg-grad-2: rgb(10 20 30 / 0.35); }
@@ -415,4 +415,43 @@ select optgroup {
 }
 @media (prefers-reduced-motion: reduce) {
   .compass-needle { animation: none; }
+}
+
+/* Moti: his face in a bold ring, and the hello bubble (MotiButton.tsx) */
+.moti-face {
+  border: 3px solid var(--sign);
+  background: #e9dcc0;
+  box-shadow: 0 0 0 3px var(--paint), 0 10px 22px -8px rgb(20 12 4 / 0.6);
+}
+.moti-hello {
+  max-width: min(17rem, calc(100vw - 1.5rem));
+  animation: motiHello 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.moti-hello-text {
+  position: relative;
+  display: block;
+  padding: 12px 34px 12px 14px;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--paint);
+  color: #2c2014;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: start;
+  border: 2px solid var(--sign);
+  box-shadow: 0 12px 24px -12px rgb(20 12 4 / 0.6);
+}
+.moti-hello-x {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  color: #5f4a31;
+  font-size: 0.9rem;
+}
+@keyframes motiHello {
+  from { opacity: 0; transform: translateY(10px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .moti-hello { animation: none; }
 }

@@ -99,7 +99,7 @@ export function PricingCards({ compact = false }: { compact?: boolean }) {
               }`}
               style={card.featured || plan === card.id ? SIGN_STYLE : undefined}
             >
-              {plan === card.id ? "נבחר ✓" : `רוצה ${card.title}`}
+              {plan === card.id ? "נבחר ✓" : card.title}
             </button>
           </div>
         ))}

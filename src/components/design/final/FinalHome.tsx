@@ -191,10 +191,13 @@ export function FinalHome({
               <span aria-hidden className={s.hereDot} />
               אתם כאן
             </p>
-            <h1 className={s.hello}>{d.name ? `שלום, ${d.name}` : "ללמוד למבחן, להכין את הסיור הבא"}</h1>
-            <svg aria-hidden className={s.underline} viewBox="0 0 300 14" preserveAspectRatio="none">
-              <path d="M4 9c40-5 90-7 140-5s100 4 152-2" />
-            </svg>
+            {/* the title and its pen stroke share one width, on every screen */}
+            <div className={s.helloWrap}>
+              <h1 className={s.hello}>{d.name ? `שלום, ${d.name}` : "ללמוד למבחן, להכין את הסיור הבא"}</h1>
+              <svg aria-hidden className={s.underline} viewBox="0 0 300 14" preserveAspectRatio="none">
+                <path d="M4 9c40-5 90-7 140-5s100 4 152-2" />
+              </svg>
+            </div>
             <p className={s.lede}>
               {d.name
                 ? "השביל של היום מסומן: מה שטעית בו, מבחן אחד, ותחנה במפה."

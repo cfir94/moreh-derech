@@ -238,5 +238,21 @@
     "search": "Bolinus brandaris shell",
     "caption": "קונכיית ארגמון מחמישה צדדים: קוצים ו״זנב״ ארוך",
     "alt": "קונכיית ארגמון"
+  },
+  {
+    "id": "reed-beetle-1",
+    "subject": "reed-beetle",
+    "status": "approved",
+    "wiki": "en:Donacia",
+    "caption": "חיפושית קנים על עלה של צמח מים. צולמה באירופה; היא קרובה של המין שנמצא בנתניה, אבל אינה אותו מין.",
+    "alt": "חיפושית קנים ירקרקה ומוארכת על עלה חום"
+  },
+  {
+    "id": "reed-beetle-2",
+    "subject": "reed-beetle",
+    "status": "approved",
+    "search": "Donacia beetle",
+    "caption": "חיפושית קנים מאוסף, מבט מלמעלה: הגוף המוארך והמבריק שמאפיין את המשפחה. מין אירופי.",
+    "alt": "חיפושית קנים בגוני ירוק וסגול, מבט מלמעלה"
   }
 ]

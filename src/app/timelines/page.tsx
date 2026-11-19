@@ -18,7 +18,7 @@ export default function TimelinesPage() {
       <PageHead section="aids"
         title="עזרי למידה"
         art={<InkIcon name="timelines" size={72} />}
-        lede="מדף הכלים: צירי זמן, אטלס, אדריכלות, גאולוגיה ומגדירי שדה. ללמוד, להבין ולחזור על החומר."
+        lede="צירי זמן, אטלס, אדריכלות, גאולוגיה ומגדירי שדה."
       >
         <nav aria-label="קבוצות עזרי הלמידה" className="mt-6 flex flex-wrap gap-2.5">
           {LEARNING_AID_GROUPS.map((g) => (

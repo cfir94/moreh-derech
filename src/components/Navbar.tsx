@@ -32,7 +32,14 @@ const baseLinks: NavLink[] = [
   { href: "/map", label: "מפה", icon: "map", desc: "מפת הלמידה ותכנון מסלול" },
   { href: "/guide-reports", label: "דוחות הדרכה", icon: "guide-reports", desc: "דוגמאות, תרגול וטיוטות" },
   { href: "/videos", label: "סרטונים", icon: "videos", desc: "שיעורים, סיורים והעשרה" },
+];
+
+/** "עוד" in the top bar (owner, 19.11): the articles, and the pages taken off the bar. */
+const moreLinks: NavLink[] = [
   { href: "/articles", label: "מאמרים", icon: "scroll", desc: "סיפורים מהשטח ומהחדשות, ומה אומרים לקבוצה" },
+  { href: "/quizzes", label: "מאגר שאלונים", icon: "quizzes", desc: "שאלות לפי נושא, גם מהמבחנים" },
+  { href: "/notebooks", label: "מאגרי מידע", icon: "notebooks", desc: "לסיורים לפי אזור ולשיעורים" },
+  { href: "/resources", label: "סיכומים", icon: "resources", desc: "סיכומים לפי נושאי הסילבוס" },
 ];
 
 export function Navbar() {
@@ -44,9 +51,25 @@ export function Navbar() {
     ? [...baseLinks, { href: "/pricing", label: "מחירים", icon: "milestone", desc: "מחיר אחד, הכול פתוח" }]
     : baseLinks;
   const [open, setOpen] = useState(false);
+  const [more, setMore] = useState(false);
   const unread = useCommunityUnread();
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  // the "עוד" menu closes on Esc, on a click outside and on navigation
+  useEffect(() => {
+    if (!more) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMore(false);
+    const onDown = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest("[data-more]")) setMore(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("mousedown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("mousedown", onDown);
+    };
+  }, [more]);
 
   // Esc closes the legend
   useEffect(() => {
@@ -76,6 +99,35 @@ export function Navbar() {
               </Link>
             </li>
           ))}
+          <li className={s.moreItem} data-more>
+            <button
+              type="button"
+              aria-expanded={more}
+              aria-controls="nav-more"
+              onClick={() => setMore((v) => !v)}
+              className={`${s.link} ${moreLinks.some((m) => isActive(m.href)) ? s.active : ""}`}
+            >
+              <span className="pencil">עוד</span>
+              <svg aria-hidden viewBox="0 0 24 24" width="16" height="16" className={more ? s.moreOpen : undefined}>
+                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            {more && (
+              <ul id="nav-more" className={s.moreMenu}>
+                {moreLinks.map((m) => (
+                  <li key={m.href}>
+                    <Link href={m.href} aria-current={isActive(m.href) ? "page" : undefined} className={s.moreLink} onClick={() => setMore(false)}>
+                      <InkIcon name={m.icon} size={22} tint />
+                      <span>
+                        <span className={s.moreName}>{m.label}</span>
+                        <span className={s.moreDesc}>{m.desc}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
         </ul>
 
         <div className={s.tools}>
@@ -121,7 +173,7 @@ export function Navbar() {
           <div className={s.legendInner}>
             <p className={s.legendTitle}>מקרא: כל מה שיש בתרמיל</p>
             <ul className={s.legendList}>
-              {links.map((link) => (
+              {[...links, ...moreLinks].map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

@@ -1,0 +1,501 @@
+.summary,
+.index {
+  position: relative;
+}
+
+.top {
+  padding: 44px 16px 76px;
+  color: var(--paper);
+  background:
+    radial-gradient(
+      120% 90% at 85% 0%,
+      color-mix(in srgb, var(--sign) 55%, transparent),
+      transparent 60%
+    ),
+    color-mix(in srgb, var(--ink) 88%, var(--sign));
+}
+
+.topInner {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.crumbs {
+  margin-bottom: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.crumbs a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.title {
+  color: var(--paper);
+  font-family: var(--font-hand);
+  font-size: clamp(2.45rem, 5.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.top :global(svg) {
+  color: color-mix(in srgb, var(--t-orange) 80%, var(--paper));
+}
+
+.lede {
+  max-width: 760px;
+  margin-top: 16px;
+  font-size: clamp(1.16rem, 2vw, 1.34rem);
+  font-weight: 600;
+  line-height: 1.75;
+  opacity: 0.96;
+}
+
+/* Table of contents */
+
+.contents {
+  position: relative;
+  max-width: 800px;
+  margin: -38px auto 32px;
+  margin-inline: max(16px, calc((100% - 800px) / 2));
+  padding: 22px 24px 24px;
+  border: 1px solid var(--frame);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.contentsTitle {
+  color: var(--ink);
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.contentsList {
+  display: grid;
+  gap: 8px 18px;
+  margin-top: 14px;
+}
+
+.contentsList a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 6px 8px;
+  border-radius: var(--r-sm);
+  color: var(--ink);
+  font-size: 1.06rem;
+  font-weight: 750;
+  line-height: 1.4;
+  transition:
+    background 160ms ease-out,
+    color 160ms ease-out;
+}
+
+.contentsList a:hover {
+  color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 8%, transparent);
+}
+
+.contentsNum {
+  display: grid;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--sign-ink);
+  background: var(--sign);
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+/* Summary sections */
+
+.sections {
+  scroll-behavior: smooth;
+}
+
+.band {
+  scroll-margin-top: 24px;
+  padding: 36px 16px;
+}
+
+.bandTint {
+  background: color-mix(in srgb, var(--stone) 38%, transparent);
+}
+
+.bandInner {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 13px;
+  margin-bottom: 14px;
+  color: var(--ink);
+  font-size: clamp(1.55rem, 2.8vw, 1.95rem);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.sectionNum {
+  display: grid;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--sign-ink);
+  background: var(--sign);
+  font-size: 1.16rem;
+  font-weight: 900;
+  transform: translateY(-3px);
+}
+
+.paragraph {
+  margin-top: 13px;
+  color: var(--ink);
+  font-size: clamp(1.1rem, 1.7vw, 1.19rem);
+  line-height: 1.9;
+}
+
+.remember {
+  margin-top: 24px;
+  padding: 19px 22px 20px;
+  border: 2px dashed color-mix(in srgb, var(--t-green) 70%, transparent);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--t-green) 7%, transparent);
+}
+
+.rememberTitle {
+  color: var(--t-green);
+  font-size: 1.27rem;
+  font-weight: 900;
+}
+
+.remember ul {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding-inline-start: 24px;
+  list-style: disc;
+}
+
+.remember li {
+  color: var(--ink);
+  font-size: 1.08rem;
+  line-height: 1.68;
+}
+
+/* Glossary */
+
+.glossary {
+  padding: 46px 16px;
+  background: color-mix(in srgb, var(--teal) 7%, var(--paper));
+}
+
+.wideInner {
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.readingInner {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.eyebrow {
+  color: var(--teal);
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.blockTitle {
+  margin-top: 3px;
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: clamp(2rem, 4vw, 2.55rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.terms {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.term {
+  padding: 17px 19px;
+  border: 1px solid var(--frame);
+  border-radius: var(--r-md);
+  background: var(--paper);
+}
+
+.term dt {
+  color: var(--teal);
+  font-size: 1.14rem;
+  font-weight: 900;
+}
+
+.term dd {
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Field sites */
+
+.sites {
+  padding: 44px 16px;
+}
+
+.siteList {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.siteList li {
+  position: relative;
+  min-height: 50px;
+  padding: 12px 52px 12px 16px;
+  border: 1px solid var(--frame);
+  border-radius: var(--r-md);
+  color: var(--ink);
+  background: var(--paper);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.siteList li::before {
+  position: absolute;
+  top: 12px;
+  inset-inline-start: 15px;
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--sign-ink);
+  background: var(--sign);
+  content: "•";
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* Practice call to action */
+
+.practice {
+  display: flex;
+  max-width: 800px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 8px auto 58px;
+  margin-inline: max(16px, calc((100% - 800px) / 2));
+  padding: 24px;
+  border: 1px solid var(--frame);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.practiceKicker {
+  color: var(--t-red);
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.practiceTitle {
+  margin-top: 2px;
+  color: var(--ink);
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.practiceText {
+  max-width: 520px;
+  margin-top: 7px;
+  color: var(--ink-dim);
+  font-size: 1.03rem;
+  line-height: 1.65;
+}
+
+.practiceLink {
+  display: inline-flex;
+  flex-shrink: 0;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--sign-ink);
+  background: var(--sign);
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 0 6px 12px -10px color-mix(in srgb, var(--ink) 70%, transparent);
+  transition: transform 160ms ease-out;
+}
+
+.practiceLink:hover {
+  transform: translateY(-2px);
+}
+
+/* Index */
+
+.indexTop {
+  padding-bottom: 74px;
+}
+
+.indexBody {
+  position: relative;
+  max-width: 1100px;
+  margin: -36px auto 0;
+  padding: 0 16px 58px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 20px;
+}
+
+.card {
+  --mc: var(--teal);
+
+  position: relative;
+  display: flex;
+  min-height: 270px;
+  overflow: hidden;
+  border: 1px solid var(--frame);
+  border-radius: var(--r-lg);
+  color: var(--ink);
+  background:
+    radial-gradient(
+      circle at 88% 4%,
+      color-mix(in srgb, var(--mc) 18%, transparent),
+      transparent 42%
+    ),
+    var(--paper);
+  box-shadow: 0 10px 20px -16px color-mix(in srgb, var(--ink) 68%, transparent);
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease-out;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.cardMark {
+  width: 9px;
+  flex: 0 0 9px;
+  background: var(--mc);
+}
+
+.cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 23px 22px;
+}
+
+.cardKicker {
+  color: var(--mc);
+  font-size: 0.94rem;
+  font-weight: 900;
+}
+
+.cardTitle {
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: clamp(1.55rem, 3vw, 1.9rem);
+  font-weight: 900;
+  line-height: 1.28;
+}
+
+.cardLede {
+  display: -webkit-box;
+  margin-top: 11px;
+  overflow: hidden;
+  color: var(--ink-dim);
+  font-size: 1.05rem;
+  line-height: 1.68;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.cardMore {
+  margin-top: auto;
+  padding-top: 18px;
+  color: var(--teal);
+  font-weight: 900;
+}
+
+@media (min-width: 700px) {
+  .contentsList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .terms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .top {
+    padding-top: 34px;
+    padding-bottom: 64px;
+  }
+
+  .contents {
+    padding: 19px 17px 20px;
+  }
+
+  .band {
+    padding-block: 30px;
+  }
+
+  .sectionTitle {
+    align-items: flex-start;
+  }
+
+  .sectionNum {
+    width: 38px;
+    height: 38px;
+  }
+
+  .remember {
+    padding-inline: 17px;
+  }
+
+  .practice {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .practiceLink {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contentsList a,
+  .card,
+  .practiceLink {
+    transition: none;
+  }
+}

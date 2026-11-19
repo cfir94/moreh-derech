@@ -9,6 +9,7 @@
 
 /* ---------------------------------------------------------------- head: title + the kind of material */
 .head {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;

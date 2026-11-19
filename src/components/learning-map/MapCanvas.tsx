@@ -425,7 +425,7 @@ export function MapCanvas({ sheet, onSheet, sites, styleOf, selectedId, pulseId,
       </div>
       <svg className={styles.compass} viewBox="-20 -24 40 46" aria-hidden>
         <path d="M0 -18 L6 4 L0 0 L-6 4 Z" />
-        <text y={20}>צ</text>
+        <text y={20}>N</text>
       </svg>
     </div>
   );

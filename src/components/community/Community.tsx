@@ -9,14 +9,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { useUser } from "@/contexts/UserContext";
 import {
-  adminHide, adminPin, digestPref, markRead, myForums, setDigestPref, openThread, reply, requestJoin, thread as loadThread, threads as loadThreads,
+  adminHide, adminPin, communityImageUrl, digestPref, uploadCommunityImage, markRead, myForums, setDigestPref, openThread, reply, requestJoin, thread as loadThread, threads as loadThreads,
   type Forum, type Post, type Thread,
 } from "@/lib/community";
 import { isAdmin } from "@/lib/manualAccess";
 
-import { kit as k, PenUnderline } from "@/components/trail/kit";
+import { kit as k, PageHead } from "@/components/trail/kit";
+import { InkIcon } from "@/components/trail/Ink";
 import { PageDecor } from "@/components/trail/PageDecor";
-import { LiveFire } from "@/components/trail/decor/live";
 const primary = `${k.sign} ${k.signPlain} disabled:opacity-60`;
 const primaryStyle = undefined;
 const small = "min-h-10 rounded-full border border-line px-3 text-sm font-bold text-txt-dim transition hover:text-txt active:scale-95";
@@ -44,19 +44,13 @@ export function PostText({ text }: { text: string }) {
 }
 
 function Shell({ title, back, children }: { title: string; back?: { href: string; label: string }; children: ReactNode }) {
-  return <main dir="rtl" className="screen-in relative mx-auto w-full max-w-3xl px-4 py-8">
+  // the same head as every other section, at the same width, so the titles line up (owner, 19.11)
+  return <main dir="rtl" className="screen-in relative mx-auto w-full max-w-[1120px] px-5 pt-[34px] pb-20">
     <PageDecor birds items={["tent", "talk", "canteen", "butterfly", "binoculars"]} />
-    {back && <Link href={back.href} className="mb-4 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
-    <div className="relative mb-6" data-ground="community">
-      <div className={k.titleWrap}>
-        <h1 className="grad-text">{title}</h1>
-        <PenUnderline />
-      </div>
-      <span aria-hidden className="absolute top-0 left-0 hidden opacity-70 sm:block">
-        <LiveFire width={92} height={92} className={k.move_community} />
-      </span>
-    </div>
-    {children}
+    <PageHead section="community" title={title} art={<InkIcon name="community" />}>
+      {back && <Link href={back.href} className="mt-3 inline-flex min-h-11 items-center text-base font-bold text-txt-dim hover:text-txt">→ {back.label}</Link>}
+    </PageHead>
+    <div className="max-w-3xl">{children}</div>
   </main>;
 }
 
@@ -168,12 +162,21 @@ function NewThread({ forum, onCreated }: { forum: Forum; onCreated: (t: Thread) 
   const [body, setBody] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const ok = title.trim().length >= 3 && title.trim().length <= 140 && body.trim().length > 0;
+  // C-13: a picture and a link, both optional (owner, 19.11)
+  const [link, setLink] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const preview = useMemo(() => (image ? URL.createObjectURL(image) : ""), [image]);
+  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); }, [preview]);
+  const linkOk = !link.trim() || /^https?:\/\/\S+$/i.test(link.trim());
+  const ok = title.trim().length >= 3 && title.trim().length <= 140 && body.trim().length > 0 && linkOk;
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!ok) return;
     setBusy(true); setError("");
-    try { onCreated(await openThread(forum.id, title, body)); }
+    try {
+      const image_path = image ? await uploadCommunityImage(image) : undefined;
+      onCreated(await openThread(forum.id, title, body, { image_path, link_url: link.trim() || undefined }));
+    }
     catch (err) { setError(`לא נשמר: ${(err as Error).message}`); setBusy(false); }
   };
   return <form onSubmit={submit} className="space-y-4 rounded-[5px] bg-[var(--paper)] shadow-[0_0_0_1px_var(--line),var(--shadow)] p-5">
@@ -184,6 +187,22 @@ function NewThread({ forum, onCreated }: { forum: Forum; onCreated: (t: Thread) 
     <label className="block text-base font-bold">{forum.kind === "board" ? "הפרסום" : "ההודעה"}
       <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={7} required className="mt-1 w-full rounded-md border border-line bg-sheet px-4 py-3 text-base font-normal leading-7 outline-none focus:border-teal" />
     </label>
+    <label className="block text-base font-bold">קישור <span className="font-normal text-txt-dim">(לא חובה)</span>
+      <input value={link} onChange={(e) => setLink(e.target.value)} type="url" dir="ltr" inputMode="url" placeholder="https://…" maxLength={500} className="mt-1 min-h-12 w-full rounded-md border border-line bg-sheet px-4 text-base font-normal outline-none focus:border-teal" />
+      {!linkOk && <span className="mt-1 block text-sm text-red">הקישור צריך להתחיל ב-https://</span>}
+    </label>
+    <div className="text-base font-bold">
+      תמונה <span className="font-normal text-txt-dim">(לא חובה)</span>
+      <div className="mt-2 flex flex-wrap items-center gap-3">
+        <label className="inline-flex min-h-12 cursor-pointer items-center rounded-md border border-dashed border-line bg-sheet px-4 font-bold">
+          {image ? "החלפת תמונה" : "בחירת תמונה"}
+          <input type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={(e) => setImage(e.target.files?.[0] ?? null)} />
+        </label>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {preview && <img src={preview} alt="התמונה שנבחרה" className="h-20 w-28 rounded-md object-cover shadow" />}
+        {image && <button type="button" onClick={() => setImage(null)} className="text-sm font-bold text-txt-dim underline">הסרה</button>}
+      </div>
+    </div>
     <button type="submit" disabled={!ok || busy} className={primary} style={primaryStyle}>{busy ? "שולח…" : forum.kind === "board" ? "פרסום" : "פתיחת הנושא"}</button>
   </form>;
 }
@@ -216,7 +235,10 @@ function ThreadView({ forum, threadId, admin }: { forum: Forum; threadId: number
       <div className="p-5">
         <p className="text-sm font-bold text-txt-dim">{t.author_name} · {ago(t.created_at)}{t.hidden && " · מוסתר"}</p>
         <h2 className="mb-3 mt-1 text-2xl font-black">{t.pinned && "📌 "}{t.title}</h2>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {t.image_path && <img src={communityImageUrl(t.image_path)} alt="" className="mb-4 max-h-[420px] w-full rounded-md object-cover" />}
         <PostText text={t.body} />
+        {t.link_url && <a href={t.link_url} target="_blank" rel="noopener noreferrer nofollow" className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full border-2 border-teal px-5 font-black text-teal">לפרטים ולהרשמה ↗</a>}
       </div>
       {admin && <AdminRow thread={t} onDone={() => void load()} />}
     </article>

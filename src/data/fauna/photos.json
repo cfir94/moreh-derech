@@ -478,5 +478,35 @@
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Bolinus_brandaris_01.jpg"
     }
+  ],
+  "reed-beetle": [
+    {
+      "id": "reed-beetle-1",
+      "subject": "reed-beetle",
+      "status": "approved",
+      "caption": "חיפושית קנים על עלה של צמח מים. צולמה באירופה; היא קרובה של המין שנמצא בנתניה, אבל אינה אותו מין.",
+      "alt": "חיפושית קנים ירקרקה ומוארכת על עלה חום",
+      "src": "/fauna/photos/reed-beetle-1.jpg",
+      "width": 640,
+      "height": 426,
+      "author": "James K. Lindsey",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Donacia.versicolorea.jpg"
+    },
+    {
+      "id": "reed-beetle-2",
+      "subject": "reed-beetle",
+      "status": "approved",
+      "caption": "חיפושית קנים מאוסף, מבט מלמעלה: הגוף המוארך והמבריק שמאפיין את המשפחה. מין אירופי.",
+      "alt": "חיפושית קנים בגוני ירוק וסגול, מבט מלמעלה",
+      "src": "/fauna/photos/reed-beetle-2.jpg",
+      "width": 857,
+      "height": 1280,
+      "author": "Ingolf Askevold",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "https://commons.wikimedia.org/wiki/File:Donacia_magnifica.jpg"
+    }
   ]
 }
