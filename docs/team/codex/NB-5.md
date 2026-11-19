@@ -72,3 +72,9 @@ One file per region, holding an array of routes, in exactly this shape:
 2. Jerusalem.
 3. The Judean Desert and the Dead Sea.
 4. Then the rest.
+
+## Don't stop over small things
+- Meal breaks, toilets and travel between sites aren't stops. Skip them.
+- Any small uncertainty (a place you can't identify, an unclear name, a missing time): write "לא ודאי" in the right cell and carry on.
+- Stop only when a notebook won't open at all, or you have no NotebookLM access.
+- Run the whole task to the end, and open a PR for each region as it's done. Don't wait for an answer between steps.
