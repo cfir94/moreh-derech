@@ -399,3 +399,31 @@ button.findTitle { color: var(--teal); }
   .halo, .popup, .popupCard, .feedback, .optWrong { animation: none; }
   .mainPhoto img { transition: none; }
 }
+
+/* The learning map stands on the deep blue of the map pages (owner, 19.11): the panel's own writing is
+   light; what sits on paper (rows, chips, the search, the site card) keeps its dark ink. Dark mode is
+   already light-on-dark, so this is for the light theme only. */
+:root:not([data-theme="dark"]) .page .panel {
+  --ink: #f6ecd2;
+  --ink-dim: color-mix(in srgb, #f6ecd2 80%, transparent);
+  --txt: #f6ecd2;
+  --txt-dim: color-mix(in srgb, #f6ecd2 80%, transparent);
+  --line: rgb(246 236 210 / 0.28);
+  --card: rgb(246 237 208 / 0.94);
+  --card-2: rgb(246 237 208 / 0.22);
+  color: var(--txt);
+}
+:root:not([data-theme="dark"]) .page .panel :is(.row, .religionRow button, .subRow button, .builderRow button, .searchRow input, .archSelect, .builderNote, .eraRow button[aria-pressed="true"], .tabs button[aria-selected="true"]),
+:root:not([data-theme="dark"]) .page .panel [role="dialog"],
+:root:not([data-theme="dark"]) .page .panel [class*="card"] {
+  --ink: #2c2014;
+  --ink-dim: #5f4a31;
+  --txt: #2c2014;
+  --txt-dim: #5f4a31;
+  --line: rgb(110 82 48 / 0.3);
+  --card-2: rgb(110 82 48 / 0.1);
+  color: var(--txt);
+}
+:root:not([data-theme="dark"]) .page .panel .religionRow button[aria-pressed="true"] { background: color-mix(in srgb, var(--blue) 24%, #f6edd0); }
+:root:not([data-theme="dark"]) .page .panel .builderRow button[aria-pressed="true"] { background: color-mix(in srgb, var(--teal) 22%, #f6edd0); }
+:root:not([data-theme="dark"]) .page .panel .subRow button[aria-pressed="true"] { background: color-mix(in srgb, var(--c) 24%, #f6edd0); }
