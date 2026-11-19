@@ -1492,3 +1492,16 @@ html[data-theme="dark"] .rail-btn { background: #f1e6cc; border-color: #c9a46a; 
 .site-photo-thumbs { display: flex; gap: 6px; margin-top: 8px; }
 .site-photo-thumbs button { padding: 0; border: 1.5px solid rgba(107,68,35,.5); border-radius: 7px; overflow: hidden; width: 64px; height: 46px; cursor: pointer; background: none; }
 .site-photo-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* saved routes (RM-07) */
+.saved-routes h3 { margin: 14px 0 6px; font: 400 1.15rem/1.2 var(--font-display); color: inherit; }
+.save-route { display: flex; flex-direction: column; gap: 6px; }
+.save-route input, .save-route textarea { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1.5px solid rgba(107,68,35,.45); background: rgba(255,255,255,.7); font: inherit; color: #2c2014; }
+.save-route .btn-primary[disabled] { opacity: .5; cursor: not-allowed; }
+.saved-route-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.saved-route { display: flex; gap: 8px; align-items: flex-start; justify-content: space-between; padding: 10px; border-radius: 10px; border: 1.5px dashed rgba(107,68,35,.45); }
+.saved-route-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.saved-route-text span { font-size: .88rem; color: var(--text-dim); }
+.saved-route-text small { font-size: .78rem; color: var(--text-faint); }
+.saved-route-actions { display: flex; gap: 6px; flex: none; }
+.saved-route-actions .btn-secondary { padding: 6px 10px; min-height: 0; }

@@ -1523,6 +1523,103 @@ function renderRoute() {
     list.appendChild(li);
   });
   updateRouteOnMap();
+  renderSavedRoutes();
+}
+
+
+/* ---- Saved routes (RM-07, owner 19.11) -----------------------------------
+   A guide keeps routes: a name, a note to self, the stops and the layers that were on. They live in
+   md_routes_v1:<user_id> (the site's account sync uploads them, src/lib/sync/stores.ts ROUTES_STORE),
+   or md_routes_v1 for a guest. Three ready examples show what a saved route looks like. */
+const SAMPLE_ROUTES = [
+  { id: 'sample-galilee-christian', name: 'צליינים בגליל', note: 'יום לקבוצה נוצרית: מנצרת דרך הר תבור אל חוף הכנרת. בכפר נחום ובטבחה כדאי להגיע מוקדם, לפני הקבוצות הגדולות.',
+    stops: ['church-of-annunciation-nazareth', 'mount-tabor', 'tabgha', 'capernaum', 'kursi-byzantine'], layers: { 'toggle-religions': true } },
+  { id: 'sample-dead-sea', name: 'מדבר יהודה וים המלח', note: 'קומראן בבוקר, עין גדי בצהריים ומצדה לקראת ערב. מים, כובע, ונקודת צל לכל עצירה.',
+    stops: ['qumran', 'ein-gedi-chalcolithic-temple', 'masada'], layers: { 'toggle-periods': true } },
+  { id: 'sample-synagogues', name: 'בתי כנסת עתיקים בצפון', note: 'הפסיפסים: ציפורי, בית אלפא וחמת טבריה, ובסוף בית הכנסת הלבן בכפר נחום. טוב להשוואה בין גלגלי המזלות.',
+    stops: ['tzippori-byzantine-mosaics', 'beit-alfa-synagogue', 'hamat-tiberias-synagogue', 'capernaum-white-synagogue'], layers: {} },
+];
+
+function routesKey() {
+  try {
+    const session = JSON.parse(localStorage.getItem('israel-geo-game-session') || 'null');
+    if (session && session.user_id) return 'md_routes_v1:' + session.user_id;
+  } catch (e) { /* a guest */ }
+  return 'md_routes_v1';
+}
+function readSavedRoutes() {
+  try { return JSON.parse(localStorage.getItem(routesKey()) || '{}') || {}; } catch (e) { return {}; }
+}
+function writeSavedRoutes(all) {
+  try { localStorage.setItem(routesKey(), JSON.stringify(all)); } catch (e) { /* storage is optional */ }
+  try { window.parent.dispatchEvent(new Event('md-routes-changed')); } catch (e) { /* standalone */ }
+}
+function currentLayers() {
+  const out = {};
+  document.querySelectorAll('input[type="checkbox"][id^="toggle-"]').forEach(b => { if (b.checked) out[b.id] = true; });
+  return out;
+}
+function applyLayers(layers) {
+  document.querySelectorAll('input[type="checkbox"][id^="toggle-"]').forEach(b => {
+    if (b.id === 'toggle-geology-hatch') return;
+    const want = !!(layers && layers[b.id]);
+    if (b.checked !== want) { b.checked = want; b.dispatchEvent(new Event('change', { bubbles: true })); }
+  });
+}
+function openSavedRoute(r) {
+  const byId = new Map(state.sitesGeoJSON.features.map(f => [f.properties.id, f]));
+  const stops = (r.stops || []).map(s => (typeof s === 'string' ? s : s.id)).filter(id => byId.has(id));
+  state.route = stops.map(id => ({ id, name_he: byId.get(id).properties.name_he }));
+  localStorage.setItem('ihm_route', JSON.stringify(state.route));
+  applyLayers(r.layers);
+  renderRoute();
+  const coords = stops.map(id => byId.get(id).geometry.coordinates);
+  if (coords.length && typeof map !== 'undefined' && map) {
+    const b = coords.reduce((acc, c) => [[Math.min(acc[0][0], c[0]), Math.min(acc[0][1], c[1])], [Math.max(acc[1][0], c[0]), Math.max(acc[1][1], c[1])]], [coords[0], coords[0]]);
+    try { map.fitBounds(b, { padding: 90, maxZoom: 12, duration: 900 }); } catch (e) { /* not ready */ }
+  }
+}
+function renderSavedRoutes() {
+  const box = document.getElementById('saved-routes');
+  if (!box) return;
+  const esc = escHtml;
+  const mine = Object.values(readSavedRoutes()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const card = (r, sample) => `<li class="saved-route">
+      <div class="saved-route-text"><strong>${esc(r.name)}</strong>${r.note ? `<span>${esc(r.note)}</span>` : ''}<small>${(r.stops || []).length} תחנות</small></div>
+      <div class="saved-route-actions"><button type="button" class="btn-secondary" data-open="${esc(r.id)}" data-sample="${sample ? 1 : ''}">פתיחה</button>${sample ? '' : `<button type="button" class="btn-secondary" data-del="${esc(r.id)}" aria-label="מחיקת ${esc(r.name)}">✕</button>`}</div>
+    </li>`;
+  box.innerHTML = `
+    <form id="save-route-form" class="save-route">
+      <h3>שמירת המסלול</h3>
+      <input id="save-route-name" type="text" maxlength="80" placeholder="שם, למשל: נוצרים בגליל" required />
+      <textarea id="save-route-note" rows="2" maxlength="600" placeholder="הערה לעצמכם: למי, מתי, מה לא לשכוח"></textarea>
+      <button type="submit" class="btn-primary" ${state.route.length ? '' : 'disabled'}>שמירה</button>
+      ${state.route.length ? '' : '<p class="hint">הוסיפו תחנות למסלול, ואז תוכלו לשמור אותו.</p>'}
+    </form>
+    <h3>המסלולים שלי</h3>
+    ${mine.length ? `<ul class="saved-route-list">${mine.map(r => card(r, false)).join('')}</ul>` : '<p class="hint">עוד לא שמרתם מסלול.</p>'}
+    <h3>מסלולים לדוגמה</h3>
+    <ul class="saved-route-list">${SAMPLE_ROUTES.map(r => card(r, true)).join('')}</ul>`;
+  box.querySelector('#save-route-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = box.querySelector('#save-route-name').value.trim();
+    if (!name || !state.route.length) return;
+    const all = readSavedRoutes();
+    const id = 'r' + Date.now().toString(36);
+    all[id] = { id, name, note: box.querySelector('#save-route-note').value.trim(), stops: state.route.map(s => s.id), layers: currentLayers(), updatedAt: Date.now() };
+    writeSavedRoutes(all);
+    renderSavedRoutes();
+  });
+  box.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => {
+    const r = btn.dataset.sample ? SAMPLE_ROUTES.find(x => x.id === btn.dataset.open) : readSavedRoutes()[btn.dataset.open];
+    if (r) openSavedRoute(r);
+  }));
+  box.querySelectorAll('[data-del]').forEach(btn => btn.addEventListener('click', () => {
+    const all = readSavedRoutes();
+    delete all[btn.dataset.del];
+    writeSavedRoutes(all);
+    renderSavedRoutes();
+  }));
 }
 
 /* ---- Route drawing & driving time ---------------------------------------
