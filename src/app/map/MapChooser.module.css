@@ -1,5 +1,25 @@
 .page { max-width: 1040px; margin: 0 auto; padding: 36px 16px 56px; }
 .head { position: relative; margin-bottom: 26px; }
+/* the map page stands on the deep blue of the Topics head (owner, 19.11): the writing on it is light.
+   The cards keep their own paper and dark ink. */
+.page {
+  --ink: #f6ecd2;
+  --ink-dim: color-mix(in srgb, #f6ecd2 80%, transparent);
+  --txt: #f6ecd2;
+  --txt-dim: color-mix(in srgb, #f6ecd2 80%, transparent);
+}
+.page .card {
+  --ink: #2c2014;
+  --ink-dim: #5f4a31;
+  --txt: #2c2014;
+  --txt-dim: #5f4a31;
+}
+:root[data-theme="dark"] .page .card {
+  --ink: #f5e8c9;
+  --ink-dim: #d9c5a0;
+  --txt: #f5e8c9;
+  --txt-dim: #d9c5a0;
+}
 /* the compass of the home page, coloured in, beside the title */
 .compass {
   position: absolute;

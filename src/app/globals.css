@@ -192,8 +192,8 @@ body {
 :root[data-theme="dark"]:has([data-ground="tours"]) { --ground: color-mix(in srgb, #b8c068 10%, #382c1e); }
 :root[data-theme="dark"]:has([data-ground="reports"]) { --ground: color-mix(in srgb, #8fb8ae 9%, #382c1e); }
 :root[data-theme="dark"]:has([data-ground="community"]) { --ground: color-mix(in srgb, #b48ac8 14%, #382c1e); }
-:root:has([data-ground="map"]) { --ground: #a9c4c6; }
-:root[data-theme="dark"]:has([data-ground="map"]) { --ground: #1f3236; }
+:root:has([data-ground="map"]) { --ground: #2e4250; }
+:root[data-theme="dark"]:has([data-ground="map"]) { --ground: #1d2a33; }
 :root:has([data-ground="videos"]) { --ground: color-mix(in srgb, #3a2a18 36%, #ead8a8); }
 :root[data-theme="dark"]:has([data-ground="videos"]) { --ground: #1f1811; }
 
