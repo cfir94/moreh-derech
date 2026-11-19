@@ -3,7 +3,7 @@
  * (supabase/migrations/20261110_01_community.sql); כאן רק הקריאות.
  * הודעות מופיעות מיד, והמנהל מסתיר בדיעבד (החלטת הבעלים, 10.11).
  */
-import { authenticatedSupabaseRequest, readSession } from "@/lib/cloudAuth";
+import { authenticatedSupabaseRequest, freshAccessToken, readSession, supabaseAnonKey, supabaseUrl } from "@/lib/cloudAuth";
 
 export type Forum = {
   id: number; slug: string; title: string; description: string; kind: "forum" | "board";
@@ -13,6 +13,8 @@ export type Forum = {
 export type Thread = {
   id: number; forum_id: number; author_id: string; author_name: string; title: string; body: string;
   pinned: boolean; hidden: boolean; post_count: number; last_post_at: string; created_at: string;
+  /** C-13: a picture (path in the "community" bucket) and a link, both optional */
+  image_path?: string | null; link_url?: string | null;
 };
 export type Post = { id: number; thread_id: number; author_id: string; author_name: string; body: string; hidden: boolean; created_at: string };
 export type MemberRequest = {
@@ -52,11 +54,19 @@ export async function thread(threadId: number): Promise<{ thread: Thread | null;
   return { thread: Array.isArray(t) && t[0] ? t[0] : null, posts: Array.isArray(p) ? p : [] };
 }
 
-export async function openThread(forumId: number, title: string, body: string): Promise<Thread> {
+export async function openThread(
+  forumId: number,
+  title: string,
+  body: string,
+  extra: { image_path?: string; link_url?: string } = {},
+): Promise<Thread> {
+  const row: Record<string, unknown> = { forum_id: forumId, title: title.trim(), body: body.trim() };
+  if (extra.image_path) row.image_path = extra.image_path;
+  if (extra.link_url) row.link_url = extra.link_url.trim();
   const rows = await authenticatedSupabaseRequest<Thread[]>("/rest/v1/md_threads", {
     method: "POST",
     headers: { Prefer: "return=representation" },
-    body: { forum_id: forumId, title: title.trim(), body: body.trim() },
+    body: row,
   });
   notify();
   return rows[0];
@@ -128,4 +138,39 @@ export const adminRequests = () => rpc<MemberRequest[]>("md_admin_forum_requests
 
 function notify() {
   if (typeof window !== "undefined") window.dispatchEvent(new Event(COMMUNITY_EVENT));
+}
+
+// ------------------------------------------------------------------ pictures (C-13)
+
+const COMMUNITY_BUCKET = "community";
+
+/** The public address of a picture in the community bucket. */
+export function communityImageUrl(path: string) {
+  return `${supabaseUrl()}/storage/v1/object/public/${COMMUNITY_BUCKET}/${path}`;
+}
+
+/** Shrink a picture in the browser (longest side 1600px, JPEG) and upload it into the member's own folder. */
+export async function uploadCommunityImage(file: File): Promise<string> {
+  const session = readSession();
+  const token = await freshAccessToken();
+  if (!session || !token) throw new Error("צריך להתחבר");
+  const blob = await shrinkImage(file, 1600);
+  const path = `${session.user_id}/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+  const response = await fetch(`${supabaseUrl()}/storage/v1/object/${COMMUNITY_BUCKET}/${path}`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, apikey: supabaseAnonKey(), "Content-Type": "image/jpeg", "x-upsert": "false" },
+    body: blob,
+  });
+  if (!response.ok) throw new Error(`העלאת התמונה נכשלה (${response.status})`);
+  return path;
+}
+
+async function shrinkImage(file: File, max: number): Promise<Blob> {
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, max / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("התמונה לא נקראה"))), "image/jpeg", 0.85));
 }

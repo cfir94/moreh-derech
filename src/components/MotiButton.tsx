@@ -19,6 +19,30 @@ export function MotiButton() {
   useTalkAuthBridge();
   const [open, setOpen] = useState(false);
   const [src, setSrc] = useState("");
+  // a speech bubble a few seconds after arriving: Moti says hello and offers help, once per visit (owner, 19.11)
+  const [hello, setHello] = useState(false);
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("md_moti_hello_v1") === "1";
+    } catch {
+      /* ignore */
+    }
+    if (seen) return;
+    const show = window.setTimeout(() => {
+      setHello(true);
+      try {
+        sessionStorage.setItem("md_moti_hello_v1", "1");
+      } catch {
+        /* ignore */
+      }
+    }, 4000);
+    const hide = window.setTimeout(() => setHello(false), 16000);
+    return () => {
+      window.clearTimeout(show);
+      window.clearTimeout(hide);
+    };
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -40,6 +64,7 @@ export function MotiButton() {
       setSrc(`${HISTORY_TALK_ORIGIN}/talk.html?c=guide&embed=1&compact=1&theme=${theme}`);
     }
     setOpen((o) => !o);
+    setHello(false);
   };
 
   return (
@@ -60,6 +85,18 @@ export function MotiButton() {
           <iframe src={src} title="שיחה עם מוטי, מורה הדרך הוותיק" allow="microphone; autoplay" className="w-full flex-1 border-0" />
         </section>
       )}
+      {hello && !open && (
+        <div className="moti-hello fixed bottom-[5.2rem] left-3 z-50 sm:bottom-[6.2rem]" role="status">
+          <button type="button" onClick={toggle} className="moti-hello-text">
+            שלום! אני מוטי, מורה דרך ותיק 👋
+            <br />
+            רוצים שאבחן אתכם, או שאענה על שאלה?
+          </button>
+          <button type="button" onClick={() => setHello(false)} aria-label="סגירה" className="moti-hello-x">
+            ✕
+          </button>
+        </div>
+      )}
       <button
         type="button"
         hidden={open}
@@ -67,10 +104,11 @@ export function MotiButton() {
         aria-expanded={open}
         aria-label={open ? "סגירת השיחה עם מוטי" : "מוטי, מורה הדרך — לשאול או להיבחן"}
         title="מוטי, מורה הדרך הוותיק"
-        className="fixed bottom-3 left-3 z-50 h-14 w-14 rounded-full sm:h-[4.5rem] sm:w-[4.5rem] border border-line bg-card p-1.5 shadow-xl backdrop-blur transition-transform hover:scale-105 active:scale-95"
+        className="moti-face fixed bottom-3 left-3 z-50 h-16 w-16 overflow-hidden rounded-full shadow-xl transition-transform hover:scale-105 active:scale-95 sm:h-[4.75rem] sm:w-[4.75rem]"
       >
+        {/* only his face, so he stands out (owner, 19.11) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={withBasePath("/moti/hat.webp")} alt="" width="60" height="60" className="h-full w-full object-contain" />
+        <img src={withBasePath("/moti/face.webp")} alt="" width="76" height="76" className="h-full w-full object-cover" />
       </button>
     </div>
   );

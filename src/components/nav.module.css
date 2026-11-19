@@ -294,3 +294,55 @@
     max-width: 1560px;
   }
 }
+
+/* "עוד": a small dropdown of the pages that are not on the bar */
+.moreItem {
+  position: relative;
+}
+.moreItem > button {
+  gap: 4px;
+}
+.moreItem svg {
+  transition: transform 0.2s;
+}
+.moreOpen {
+  transform: rotate(180deg);
+}
+.moreMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  inset-inline-end: 0;
+  z-index: 60;
+  width: 19rem;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1.5px solid var(--frame);
+  box-shadow: 0 18px 30px -14px rgb(20 12 4 / 0.55);
+}
+.moreLink {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.moreLink:hover,
+.moreLink:focus-visible,
+.moreLink[aria-current="page"] {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.moreName {
+  display: block;
+  font-weight: 800;
+  font-size: 1.08rem;
+}
+.moreDesc {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+}

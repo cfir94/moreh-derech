@@ -182,7 +182,7 @@ function VideoLibraryView({ classMember }: { classMember: boolean }) {
     <main className={`screen-in ${s.page}`} dir="rtl">
       <PageDecor wide step={520} items={["videos", "talk", "binoculars", "notebooks", "signpost"]} />
 
-      <header className={s.head} data-ground="videos">
+      <header className={`${s.head} ${kit.toned} ${kit.motif_videos} toned-head`} data-ground="videos" style={{ "--tone": "#5a4030" } as React.CSSProperties}>
         <div className={s.headTitle}>
           <div className={kit.titleWrap}>
             <h1 className={s.title}>ספריית הסרטונים</h1>

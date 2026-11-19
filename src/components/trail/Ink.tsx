@@ -238,7 +238,7 @@ export function InkCompass({ live = false, ...props }: SVGProps<SVGSVGElement> &
         <path d="M104 100l6-6M104 106l8-8M106 112l6-6" strokeWidth="1" opacity="0.7" />
       </g>
       <text x="100" y="30" textAnchor="middle" fontSize="34" fill="currentColor" style={{ fontFamily: "var(--font-hand)" }}>
-        צ
+        N
       </text>
     </svg>
   );

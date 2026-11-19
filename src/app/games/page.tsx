@@ -86,7 +86,7 @@ export default function GamesPage() {
       <PageHead section="games"
         title="משחקים"
         art={<InkIcon name="games" size={72} />}
-        lede="קופסת המשחקים שבתרמיל: חזרה על החומר בלי להרגיש שלומדים. ההתקדמות נשמרת בחשבון."
+        lede="חוזרים על החומר בלי להרגיש שלומדים."
       />
 
       <Link href={crossword.href} className={g.featured} aria-label={crossword.title}>

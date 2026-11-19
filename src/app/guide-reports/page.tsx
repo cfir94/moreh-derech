@@ -82,7 +82,7 @@ export default function GuideReportsPage() {
       <PageHead section="reports"
         title="דוחות הדרכה"
         art={<InkIcon name="guide-reports" size={72} />}
-        lede="ללמוד לכתוב דו״ח סיור בפורמט של הקורס ומשרד התיירות, לראות דוגמאות ממולאות, ולהתאמן לקראת חלק ב׳ של מבחן הרישוי."
+        lede="איך כותבים דו״ח סיור שעובר במבחן: דוגמאות ותרגול."
       />
 
       <div className="mb-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">

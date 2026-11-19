@@ -42,10 +42,8 @@ export default function ExamsPage() {
         art={<InkIcon name="exams" size={72} />}
         lede={
           <>
-            <span className="num">{official.length + derived.length}</span> מועדי מבחן של משרד התיירות ועוד{" "}
-            <span className="num">{course.length}</span> מבחני תרגול של הקורס,{" "}
-            <span className="num">{total.toLocaleString("he-IL")}</span> שאלות, בתנאים של המבחן האמיתי: התשובה לא
-            נחשפת בזמן המענה, אפשר לנוע קדימה ואחורה, והציון ניתן רק בהגשה.
+            <span className="num">{official.length + derived.length + course.length}</span> מבחנים מלאים, בתנאים של
+            המבחן האמיתי. הציון רק בהגשה.
           </>
         }
       />

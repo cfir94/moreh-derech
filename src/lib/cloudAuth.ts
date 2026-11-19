@@ -12,6 +12,9 @@ const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlbmR4dGJheGlzem9oampzZHRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY2OTMzMTcsImV4cCI6MjEwMjI2OTMxN30.rDYzH-3Pz2-XOYoUgrJW7GfTvdrZ7usqbSdtTZ4my6g";
 
 export const SESSION_KEY = "israel-geo-game-session";
+/** For the few calls that are not JSON (storage uploads). */
+export const supabaseUrl = () => SUPABASE_URL;
+export const supabaseAnonKey = () => SUPABASE_ANON_KEY;
 export const AUTH_EVENT = "shared-auth-changed";
 
 // Historical game value. Changing it would lock existing users out.

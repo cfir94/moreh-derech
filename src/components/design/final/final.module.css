@@ -335,6 +335,15 @@
   text-wrap: balance;
 }
 
+.helloWrap {
+  display: inline-block;
+  max-width: 100%;
+}
+.helloWrap .underline {
+  width: 0;
+  min-width: 100%;
+}
+
 .underline {
   display: block;
   width: min(100%, 24rem);
