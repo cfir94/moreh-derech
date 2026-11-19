@@ -9,6 +9,8 @@ import { InkIcon } from "./Ink";
 import { LIVE } from "./decor/live";
 import type { FieldIconName } from "./FieldIcons";
 import k from "./kit.module.css";
+import { Waypoints } from "./Zones";
+import { withBasePath } from "@/lib/basePath";
 
 export { k as kit };
 
@@ -110,6 +112,13 @@ export function PageHead({
       </div>
       {lede && <p className={k.lede}>{lede}</p>}
       {children}
+      {/* the map's head: real contour lines, and the summits and spring of the home page (owner, 19.11) */}
+      {section === "map" && (
+        <>
+          <span aria-hidden className={k.mapTopo} style={{ "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties} />
+          <Waypoints className={k.mapMarks} rings={false} />
+        </>
+      )}
       {art && (
         <span aria-hidden className={k.headArt}>
           {/* the page's drawing is coloured in, like the tree in the margins (owner, 18.11) */}

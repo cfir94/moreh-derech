@@ -79,7 +79,38 @@
   --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='120' viewBox='0 0 170 120'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M18 22h40a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8H38l-10 9v-9H18a8 8 0 0 1-8-8V30a8 8 0 0 1 8-8z'/><path d='M104 70h34a7 7 0 0 1 7 7v12a7 7 0 0 1-7 7h-8l8 8-14-8h-20a7 7 0 0 1-7-7V77a7 7 0 0 1 7-7z'/></g></svg>");
 }
 .motif_map {
-  --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M0 70h140M70 0v140' stroke-dasharray='4 6'/><circle cx='70' cy='70' r='26'/><path d='M70 50l5 20-5 20-5-20z'/></g></svg>");
+  --motif: none;
+}
+/* contour lines across the whole band, fading out at its edges */
+.mapTopo {
+  position: absolute;
+  inset: -40px calc(50% - 50vw) 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #f6ecd2;
+  opacity: 0.22;
+  -webkit-mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  -webkit-mask-composite: source-in;
+  mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+/* Carmel, Meron and Tabor with the spring, on the empty side of the band */
+.mapMarks {
+  position: absolute;
+  z-index: -1;
+  inset-inline-end: 14%;
+  top: 50%;
+  width: min(660px, 46%);
+  height: auto;
+  translate: 0 -50%;
+  color: #f6ecd2;
+  opacity: 0.68;
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .mapMarks {
+    display: none;
+  }
 }
 .motif_videos {
   --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='120' viewBox='0 0 60 120'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='16' rx='3'/><rect x='6' y='66' width='12' height='16' rx='3'/><rect x='42' y='36' width='12' height='16' rx='3'/><rect x='42' y='96' width='12' height='16' rx='3'/></g></svg>");
