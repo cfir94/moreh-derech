@@ -69,20 +69,50 @@
 }
 
 /* the page's drawing sits in a disc of colour, like the legend's marks */
+/* no disc: the drawing stands on the band by itself, large (owner, 19.11) */
 .toned .headArt {
-  background: color-mix(in srgb, var(--tone) 80%, #f6ecd2 4%);
-  border: 2px solid rgb(246 236 210 / 0.7);
-  box-shadow: 0 4px 0 rgb(0 0 0 / 0.25);
+  filter: drop-shadow(0 3px 0 rgb(0 0 0 / 0.25));
 }
 
 .motif_community {
   --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='120' viewBox='0 0 170 120'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M18 22h40a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8H38l-10 9v-9H18a8 8 0 0 1-8-8V30a8 8 0 0 1 8-8z'/><path d='M104 70h34a7 7 0 0 1 7 7v12a7 7 0 0 1-7 7h-8l8 8-14-8h-20a7 7 0 0 1-7-7V77a7 7 0 0 1 7-7z'/></g></svg>");
 }
 .motif_map {
-  --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M0 70h140M70 0v140' stroke-dasharray='4 6'/><circle cx='70' cy='70' r='26'/><path d='M70 50l5 20-5 20-5-20z'/></g></svg>");
+  --motif: none;
+}
+/* contour lines across the whole band, fading out at its edges */
+.mapTopo {
+  position: absolute;
+  inset: -40px calc(50% - 50vw) 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #f6ecd2;
+  opacity: 0.22;
+  -webkit-mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  -webkit-mask-composite: source-in;
+  mask: var(--topo) 30% 42% / 1700px auto no-repeat, linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+/* Carmel, Meron and Tabor with the spring, on the empty side of the band */
+.mapMarks {
+  position: absolute;
+  z-index: -1;
+  inset-inline-end: 14%;
+  top: 50%;
+  width: min(660px, 46%);
+  height: auto;
+  translate: 0 -50%;
+  color: #f6ecd2;
+  opacity: 0.68;
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .mapMarks {
+    display: none;
+  }
 }
 .motif_videos {
-  --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='120' viewBox='0 0 60 120'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='6' width='12' height='16' rx='3'/><rect x='6' y='66' width='12' height='16' rx='3'/><rect x='42' y='36' width='12' height='16' rx='3'/><rect x='42' y='96' width='12' height='16' rx='3'/></g></svg>");
+  --motif: none;
 }
 .motif_topics {
   --motif: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='120' viewBox='0 0 180 120'><g fill='none' stroke='%23f6ecd2' stroke-opacity='.17' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M14 24c8-4 12 4 20 0s12 4 20 0 12 4 18 0'/><path d='M96 60c8-4 12 4 20 0s12 4 20 0 12 4 20 0'/><path d='M20 96c8-4 12 4 20 0s12 4 18 0'/><path d='M120 18l8 8m0-8l-8 8'/></g></svg>");
@@ -231,17 +261,37 @@
   inset-inline-end: 0;
   display: grid;
   place-items: center;
-  width: 116px;
-  height: 116px;
-  border-radius: 50%;
-  border: 2px dashed color-mix(in srgb, var(--ink) 50%, transparent);
+  width: 150px;
+  height: 150px;
   color: var(--ink);
   pointer-events: none;
 }
 
 .headArt svg {
-  width: 62%;
-  height: 62%;
+  width: 92%;
+  height: 92%;
+}
+
+/* small, stepped movements, like a flip-book */
+.anim_bob { animation: kitBob 2.4s steps(2, jump-none) infinite alternate; }
+.anim_games { animation: kitRoll 3.2s steps(4, end) infinite; }
+.anim_exams { animation: kitTurn 4s steps(2, end) infinite; }
+.anim_resources,
+.anim_quizzes,
+.anim_notebooks,
+.anim_scroll { transform-origin: 50% 50%; animation: kitPage 2.6s steps(3, jump-none) infinite alternate; }
+.anim_signpost,
+.anim_milestone,
+.anim_guide-reports { transform-origin: 50% 95%; animation: kitSway 3.4s steps(3, jump-none) infinite alternate; }
+.anim_review { animation: kitRoll 4.8s steps(8, end) infinite; }
+.anim_videos { animation: kitBlink 1.6s steps(1, end) infinite; }
+@keyframes kitBob { from { translate: 0 0; } to { translate: 0 -5px; } }
+@keyframes kitRoll { to { rotate: 360deg; } }
+@keyframes kitTurn { 0%, 70% { rotate: 0deg; } 100% { rotate: 180deg; } }
+@keyframes kitPage { from { scale: 1 1; } to { scale: 0.86 1; skew: 0 -4deg; } }
+@keyframes kitBlink { 50% { opacity: 0.75; scale: 0.96; } }
+@media (prefers-reduced-motion: reduce) {
+  .headArt * { animation: none !important; }
 }
 
 /* on a narrow page the sentence would run under the drawing: it stops short of it */
@@ -252,9 +302,8 @@
 @media (max-width: 700px) {
   .headArt {
     top: 0;
-    width: 68px;
-    height: 68px;
-    border-width: 1.5px;
+    width: 84px;
+    height: 84px;
   }
   /* on a phone the small drawing sits beside the title, not the sentence: the sentence takes the full width */
   .head:has(.headArt) .lede {

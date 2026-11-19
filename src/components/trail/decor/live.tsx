@@ -104,6 +104,28 @@ export function LiveFire(p: SVGProps<SVGSVGElement>) {
   );
 }
 
+/** A timeline: an axis with periods as coloured bars, and a marker walking along it (owner, 19.11). */
+export function LiveTimeline(p: SVGProps<SVGSVGElement>) {
+  return (
+    <Ink {...p}>
+      <path d="M8 40h50" strokeWidth="2.4" />
+      <path d="M54 36l5 4-5 4" strokeWidth="2.2" />
+      {[14, 26, 38, 50].map((x) => (
+        <path key={x} d={`M${x} 37v6`} strokeWidth="1.6" />
+      ))}
+      <rect x="8" y="27" width="14" height="7" rx="2" fill={ORANGE} />
+      <rect x="22" y="27" width="10" height="7" rx="2" fill={RED} />
+      <rect x="32" y="27" width="16" height="7" rx="2" fill={GREEN} />
+      <rect x="48" y="27" width="8" height="7" rx="2" fill="var(--t-blue, #2a5a8c)" />
+      <path d="M14 50h4M26 50h4M38 50h4" strokeWidth="1.4" />
+      <g>
+        <path d="M0 0v-14l9 3.5-9 3.5" fill={YELLOW} strokeWidth="1.6" />
+        <animateTransform attributeName="transform" type="translate" values="14 26;26 26;38 26;50 26" dur="3.2s" calcMode="discrete" repeatCount="indefinite" />
+      </g>
+    </Ink>
+  );
+}
+
 /** The drawings that have a coloured, living version. */
 export const LIVE = {
   flower: LiveFlower,
@@ -111,4 +133,5 @@ export const LIVE = {
   butterfly: LiveButterfly,
   tree: LiveTree,
   community: LiveFire,
+  timelines: LiveTimeline,
 } as const;

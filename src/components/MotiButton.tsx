@@ -36,7 +36,7 @@ export function MotiButton() {
       } catch {
         /* ignore */
       }
-    }, 4000);
+    }, 2000);
     const hide = window.setTimeout(() => setHello(false), 16000);
     return () => {
       window.clearTimeout(show);
@@ -86,7 +86,7 @@ export function MotiButton() {
         </section>
       )}
       {hello && !open && (
-        <div className="moti-hello fixed bottom-[5.2rem] left-3 z-50 sm:bottom-[6.2rem]" role="status">
+        <div className="moti-hello fixed bottom-[5.2rem] left-3 z-50 sm:bottom-[6.2rem]" role="note">
           <button type="button" onClick={toggle} className="moti-hello-text">
             שלום! אני מוטי, מורה דרך ותיק 👋
             <br />

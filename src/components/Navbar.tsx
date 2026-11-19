@@ -47,18 +47,20 @@ export function Navbar() {
   const pathname = usePathname();
   const { paywall } = useLaunch();
   // prices are for whoever hasn't signed up yet; a signed-in user finds their plan under "me"
-  const links: NavLink[] = paywall && !(ready && user)
-    ? [...baseLinks, { href: "/pricing", label: "מחירים", icon: "milestone", desc: "מחיר אחד, הכול פתוח" }]
-    : baseLinks;
+  // (in "עוד", not on the bar: an eleventh link pushed the bar into the icons, owner 19.11)
+  const links = baseLinks;
+  const more: NavLink[] = paywall && !(ready && user)
+    ? [{ href: "/pricing", label: "מחירים", icon: "milestone", desc: "מחיר אחד, הכול פתוח" }, ...moreLinks]
+    : moreLinks;
   const [open, setOpen] = useState(false);
-  const [more, setMore] = useState(false);
+  const [moreOpen, setMore] = useState(false);
   const unread = useCommunityUnread();
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   // the "עוד" menu closes on Esc, on a click outside and on navigation
   useEffect(() => {
-    if (!more) return;
+    if (!moreOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMore(false);
     const onDown = (e: MouseEvent) => {
       if (!(e.target as HTMLElement).closest("[data-more]")) setMore(false);
@@ -69,7 +71,7 @@ export function Navbar() {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("mousedown", onDown);
     };
-  }, [more]);
+  }, [moreOpen]);
 
   // Esc closes the legend
   useEffect(() => {
@@ -102,19 +104,19 @@ export function Navbar() {
           <li className={s.moreItem} data-more>
             <button
               type="button"
-              aria-expanded={more}
+              aria-expanded={moreOpen}
               aria-controls="nav-more"
               onClick={() => setMore((v) => !v)}
-              className={`${s.link} ${moreLinks.some((m) => isActive(m.href)) ? s.active : ""}`}
+              className={`${s.link} ${more.some((m) => isActive(m.href)) ? s.active : ""}`}
             >
               <span className="pencil">עוד</span>
-              <svg aria-hidden viewBox="0 0 24 24" width="16" height="16" className={more ? s.moreOpen : undefined}>
+              <svg aria-hidden viewBox="0 0 24 24" width="16" height="16" className={moreOpen ? s.moreOpen : undefined}>
                 <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-            {more && (
+            {moreOpen && (
               <ul id="nav-more" className={s.moreMenu}>
-                {moreLinks.map((m) => (
+                {more.map((m) => (
                   <li key={m.href}>
                     <Link href={m.href} aria-current={isActive(m.href) ? "page" : undefined} className={s.moreLink} onClick={() => setMore(false)}>
                       <InkIcon name={m.icon} size={22} tint />
@@ -173,7 +175,7 @@ export function Navbar() {
           <div className={s.legendInner}>
             <p className={s.legendTitle}>מקרא: כל מה שיש בתרמיל</p>
             <ul className={s.legendList}>
-              {[...links, ...moreLinks].map((link) => (
+              {[...links, ...more].map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

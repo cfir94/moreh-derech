@@ -37,7 +37,7 @@ export function UpdatesBell() {
         aria-expanded={open}
         className="ink-tool"
       >
-        <InkIcon name="bell" size={26} />
+        <InkIcon name="bell" size={26} tint="orange" />
         {unread.length > 0 && (
           <span className="ink-count num">
             {unread.length}

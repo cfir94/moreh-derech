@@ -9,6 +9,8 @@ import { InkIcon } from "./Ink";
 import { LIVE } from "./decor/live";
 import type { FieldIconName } from "./FieldIcons";
 import k from "./kit.module.css";
+import { Waypoints } from "./Zones";
+import { withBasePath } from "@/lib/basePath";
 
 export { k as kit };
 
@@ -69,7 +71,8 @@ function headArt(art: ReactNode) {
   const name = (art.props as { name: string }).name;
   const Live = LIVE[name as keyof typeof LIVE];
   if (Live) return <Live width="72%" height="72%" className={k[`move_${name}`]} />;
-  return cloneElement(art as React.ReactElement<{ tint?: boolean }>, { tint: true });
+  // the rest are coloured in and move too, each in its own way: the book turns a page, the die rolls (owner, 19.11)
+  return cloneElement(art as React.ReactElement<{ tint?: boolean; className?: string }>, { tint: true, className: k[`anim_${name}`] ?? k.anim_bob });
 }
 
 export function PageHead({
@@ -110,6 +113,13 @@ export function PageHead({
       </div>
       {lede && <p className={k.lede}>{lede}</p>}
       {children}
+      {/* the map's head: real contour lines, and the summits and spring of the home page (owner, 19.11) */}
+      {section === "map" && (
+        <>
+          <span aria-hidden className={k.mapTopo} style={{ "--topo": `url(${withBasePath("/design/jerusalem-topo.svg")})` } as React.CSSProperties} />
+          <Waypoints className={k.mapMarks} rings={false} />
+        </>
+      )}
       {art && (
         <span aria-hidden className={k.headArt}>
           {/* the page's drawing is coloured in, like the tree in the margins (owner, 18.11) */}
