@@ -36,7 +36,7 @@ export function MotiButton() {
       } catch {
         /* ignore */
       }
-    }, 4000);
+    }, 2000);
     const hide = window.setTimeout(() => setHello(false), 16000);
     return () => {
       window.clearTimeout(show);
