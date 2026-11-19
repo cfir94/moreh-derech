@@ -348,3 +348,13 @@
   font-size: 0.92rem;
   color: var(--ink-dim);
 }
+
+/* the narrowest phones (under 360px): no room for light/dark on the bar, it waits in the legend */
+@media (max-width: 359px) {
+  .themeSlot {
+    display: none;
+  }
+  .legendThemeItem {
+    display: block;
+  }
+}
