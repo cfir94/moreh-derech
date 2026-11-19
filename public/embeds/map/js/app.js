@@ -25,12 +25,17 @@ function readSiteTheme() {
     const saved = localStorage.getItem(SITE_THEME_STORAGE_KEY);
     if (saved === 'dark' || saved === 'light') return saved;
   } catch (e) {
-    // Standalone and restricted embeds still receive the site's dark default.
+    // a restricted embed falls through to the system preference
   }
-  return 'dark';
+  try {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  } catch (e) {
+    return 'light';
+  }
 }
 
-let activeTheme = readSavedTheme();
+// the map follows the site's light/dark (owner, 19.11): no separate map theme any more
+let activeTheme = readSiteTheme();
 document.documentElement.dataset.theme = readSiteTheme();
 
 const BASEMAP_PALETTES = {
@@ -523,6 +528,7 @@ async function initMap() {
   map.addLayer({
     id: 'sites-periods', type: 'circle', source: 'sites',
     filter: ['==', ['literal', false], ['literal', true]],
+    layout: { visibility: 'none' },
     paint: {
       'circle-radius': 8,
       'circle-color': eraColorMatchExpression(),
@@ -534,6 +540,7 @@ async function initMap() {
     id: 'sites-religions', type: 'symbol', source: 'sites',
     filter: ['==', ['literal', false], ['literal', true]],
     layout: {
+      visibility: 'none',
       'icon-image': ['match', ['at', 0, ['get', 'religions']],
         'judaism', 'ic-judaism', 'christianity', 'ic-christianity', 'islam', 'ic-islam',
         'ic-judaism'],
@@ -1915,6 +1922,8 @@ function watchParentTheme() {
       const nextTheme = parentRoot.dataset.theme;
       if (nextTheme === 'dark' || nextTheme === 'light') {
         document.documentElement.dataset.theme = nextTheme;
+        // the basemap's colours are baked into the style: redraw it in the new theme
+        if (nextTheme !== activeTheme) window.location.reload();
       }
     };
     syncShellTheme();
@@ -1925,6 +1934,28 @@ function watchParentTheme() {
   }
 }
 
+// The map opens clean the first time, and after that with the layers this user last turned on
+// (owner, 19.11: "every religious site was marked on opening").
+function rememberLayers() {
+  const KEY = 'ihm_layers_v1';
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  const boxes = [...document.querySelectorAll('#sidebar input[type="checkbox"][id^="toggle-"]')];
+  boxes.forEach(box => {
+    // a sub-option keeps its own default (hatching on the geology map); every layer starts off
+    const fallback = box.id === 'toggle-geology-hatch' ? box.checked : false;
+    const want = Object.prototype.hasOwnProperty.call(saved, box.id) ? !!saved[box.id] : fallback;
+    if (box.checked !== want) {
+      box.checked = want;
+      box.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+  boxes.forEach(box => box.addEventListener('change', () => {
+    saved[box.id] = box.checked;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* storage is optional */ }
+  }));
+}
+
 async function main() {
   // A hard ceiling on the splash: whatever happens to the network, the map is
   // interactive after four seconds rather than sitting behind a logo.
@@ -1933,6 +1964,7 @@ async function main() {
   watchParentTheme();
   await loadData();
   await initMap();
+  rememberLayers();
   map.once('idle', dismissSplash);
   dismissSplash();
 

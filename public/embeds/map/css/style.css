@@ -1311,3 +1311,6 @@ body {
   #search-overlay { top: 86px; }
   #info-panel { width: 388px; }
 }
+
+/* the map follows the site's light/dark switch (owner, 19.11) */
+#btn-theme { display: none !important; }
