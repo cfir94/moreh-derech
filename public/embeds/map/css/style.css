@@ -1527,3 +1527,13 @@ html.has-rail #btn-toggle-route img { filter: brightness(0) invert(.95); }
 html[data-theme="dark"].has-rail #app-header { background: #2d2318; }
 html[data-theme="dark"].has-rail #app-header .map-brand-copy h1 { color: #f1e6cc; }
 html[data-theme="dark"].has-rail #app-header .map-brand-copy span { color: #c9b48f; }
+
+/* religion chips: the ink drawing instead of a glyph */
+.religion-chip .chip-ink { width: 26px; height: 26px; }
+
+/* each layer button wears its layer's colour, like the pins on the map; the switches are the site's brown */
+.rail-btn { border-color: var(--ring, #6b4423); border-width: 3px; }
+.rail-btn.on { background: color-mix(in srgb, var(--ring, #6b4423) 22%, #fbf3df); border-color: var(--ring, #6b4423); }
+.rail-btn[aria-expanded="true"] { background: var(--ring, #6b4423); border-color: var(--ring, #6b4423); }
+.rail-pop-body .panel.in-rail { --panel-color: #6b4423 !important; --accent: #6b4423; }
+#rail-pop { border-color: #6b4423; }

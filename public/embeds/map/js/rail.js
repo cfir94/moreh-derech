@@ -4,15 +4,15 @@
 // so every control keeps its listeners.
 
 const RAIL = [
-  { find: '#toggle-regions', icon: 'map', label: 'אזורים', direct: 'toggle-regions' },
-  { find: '#toggle-visitor', icon: 'signpost', label: 'שמורות, גנים ואתרים', main: 'toggle-visitor' },
-  { find: '#toggle-religions', icon: 'temple', label: 'אתרי דת', main: 'toggle-religions' },
-  { find: '#toggle-periods', icon: 'sundial', label: 'ציר זמן היסטורי', main: 'toggle-periods' },
-  { find: '#toggle-nature', icon: 'flower', label: 'חי וצומח', main: 'toggle-nature' },
-  { find: '#toggle-geology', icon: 'strata', label: 'מפה גיאולוגית', main: 'toggle-geology' },
-  { find: '#toggle-topo', icon: 'hills', label: 'טופוגרפיה', main: 'toggle-topo' },
-  { find: '#route-list', icon: 'footprint', label: 'המסלול שלי', route: true },
-  { find: '#btn-cache-area', icon: 'canteen', label: 'שימוש בלי רשת' },
+  { find: '#toggle-regions', icon: 'map', ring: '#b5651d', label: 'אזורים', direct: 'toggle-regions' },
+  { find: '#toggle-visitor', icon: 'signpost', ring: '#3f7a3a', label: 'שמורות, גנים ואתרים', main: 'toggle-visitor' },
+  { find: '#toggle-religions', icon: 'temple', ring: '#6a3a8c', label: 'אתרי דת', main: 'toggle-religions' },
+  { find: '#toggle-periods', icon: 'sundial', ring: '#b5382a', label: 'ציר זמן היסטורי', main: 'toggle-periods' },
+  { find: '#toggle-nature', icon: 'flower', ring: '#3f7a3a', label: 'חי וצומח', main: 'toggle-nature' },
+  { find: '#toggle-geology', icon: 'strata', ring: '#c98a3a', label: 'מפה גיאולוגית', main: 'toggle-geology' },
+  { find: '#toggle-topo', icon: 'hills', ring: '#6b4423', label: 'טופוגרפיה', main: 'toggle-topo' },
+  { find: '#route-list', icon: 'footprint', ring: '#b5382a', label: 'המסלול שלי', route: true },
+  { find: '#btn-cache-area', icon: 'canteen', ring: '#2a5a8c', label: 'שימוש בלי רשת' },
 ];
 
 const ICON = name => `icons/ink/${name}.svg`;
@@ -77,6 +77,7 @@ function build() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'rail-btn';
+    if (item.ring) btn.style.setProperty('--ring', item.ring);
     btn.title = item.label;
     btn.setAttribute('aria-label', item.label);
     btn.innerHTML = `<img src="${ICON(item.icon)}" alt="" /><span class="rail-label">${item.label}</span>`;
