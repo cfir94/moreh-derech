@@ -221,9 +221,9 @@ export default function WelcomePage() {
           <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1 text-sm font-bold text-teal">
             לתלמידי הקורס · למורי דרך בעבודה
           </p>
-          <h1 className="grad-text text-4xl leading-tight font-black sm:text-5xl">מתחילים בקורס. ממשיכים מכאן לשטח.</h1>
+          <h1 className="grad-text text-4xl leading-tight font-black sm:text-5xl">כל מה שמורה דרך צריך, מהמבחן ועד הסיור הבא.</h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-txt-dim">
-            מתכוננים למבחן עם שאלונים, מבחני רישוי ועזרי למידה. אחר כך חוזרים למפות, למאגרי המידע ולדוחות כשבונים מסלול או מכינים הדרכה.
+            אבן דרך הוא אתר אחד לתלמידי קורס מורי הדרך ולמורי דרך בעבודה. יש בו {round(questionCount)}+ שאלות לפי נושאי הסילבוס, מבחני רישוי מלאים, צירי זמן ומפות ללמידה, ולצדם כלים לשטח: מפה לבניית מסלול, מאגרי מידע לסיורים ודוחות הדרכה. הכול בנוי מחומר הקורס, זוכר מה כבר יודעים ומה עוד לא, ונשאר איתכם גם אחרי המבחן.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link href="/login/" className={cta} style={ctaStyle}>
