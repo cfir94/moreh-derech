@@ -264,6 +264,17 @@ h3 {
   height: 30px;
   stroke-width: 1.9;
 }
+/* a narrow phone has no room for the larger ring: the drawing stays large inside the old size */
+@media (max-width: 420px) {
+  .ink-tool {
+    width: 40px;
+    height: 40px;
+  }
+  .ink-tool > svg {
+    width: 27px;
+    height: 27px;
+  }
+}
 .ink-tool:hover,
 .ink-tool:focus-visible {
   background: color-mix(in srgb, var(--ink) 8%, transparent);
