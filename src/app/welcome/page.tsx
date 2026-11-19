@@ -208,7 +208,7 @@ const FAQ: [string, string][] = [
 export default function WelcomePage() {
   return (
     <div className="screen-in relative">
-      <PageDecor birds step={560} figures={["roman", "nabataean", "monk"]} items={["flower", "binoculars", "tree", "canteen", "butterfly", "lake", "compass", "tent", "flower", "signpost"]} />
+      <PageDecor birds step={560} figures={["roman", "nabataean", "monk"]} items={["compass", "binoculars", "resources", "canteen", "butterfly", "lake", "tent", "flower", "signpost"]} />
       {/* Hero */}
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-12 pb-16 md:grid-cols-[1.05fr_1fr] md:pt-20">
         <div>
