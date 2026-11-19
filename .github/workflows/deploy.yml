@@ -1,8 +1,11 @@
-name: Deploy to GitHub Pages
+name: GitHub Pages — redirect to moreyderech.com
 
+# The site lives at moreyderech.com (Cloudflare, with the paywall). GitHub Pages used to serve a full, free
+# copy of it; now it serves only a redirect that keeps the path, so old links still land (owner, 19.11).
 on:
   push:
     branches: [main]
+    paths: [".github/workflows/deploy.yml"]
   workflow_dispatch:
 
 permissions:
@@ -13,23 +16,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  redirect:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Build the redirect
+        run: |
+          mkdir -p out
+          cat > out/index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="he" dir="rtl"><head><meta charset="utf-8">
+          <meta name="robots" content="noindex">
+          <link rel="canonical" href="https://moreyderech.com/">
+          <title>אבן דרך למורי דרך עבר לכתובת חדשה</title>
+          <script>
+            var p = location.pathname.replace(/^\/moreh-derech/, "") || "/";
+            location.replace("https://moreyderech.com" + p + location.search + location.hash);
+          </script>
+          <meta http-equiv="refresh" content="0; url=https://moreyderech.com/">
+          </head><body><p>האתר עבר ל-<a href="https://moreyderech.com/">moreyderech.com</a>.</p></body></html>
+          HTML
+          cp out/index.html out/404.html
+          touch out/.nojekyll
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: Add .nojekyll
-        run: touch out/.nojekyll
-
-      - name: Deploy to gh-pages branch
+      - name: Replace the gh-pages branch with the redirect
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
+          force_orphan: true

@@ -43,4 +43,10 @@ Then add two sections:
 3. Then the rest, in the order they appear in `notebooks.ts`.
 
 ## When something blocks you
-Write it in the PR description and stop. Examples: a notebook that won't open, two notebooks that disagree, or a stop you can't place.
+Write it in the PR description. Stop only if a notebook won't open or NotebookLM is unreachable. If two notebooks disagree, give both and carry on.
+
+## Don't stop over small things
+- Meal breaks, toilets and travel between sites aren't stops. Skip them.
+- Any small uncertainty (a place you can't identify, an unclear name, a missing time): write "לא ודאי" in the right cell and carry on.
+- Stop only when a notebook won't open at all, or you have no NotebookLM access.
+- Run the whole task to the end, and open a PR for each region as it's done. Don't wait for an answer between steps.
