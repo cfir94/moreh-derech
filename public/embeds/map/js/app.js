@@ -237,17 +237,20 @@ function religionColorMatchExpression() {
   return expr;
 }
 
+// The map's pins: the site's ink drawings on a paper disc with a ring in the thing's colour (owner, 19.11:
+// "the cross is ugly"). A church for Christianity, a menorah for Judaism, a minaret for Islam.
 const MAP_ICONS = {
-  'ic-judaism':     'icons/svg/religion-judaism.svg',
-  'ic-christianity':'icons/svg/religion-christianity.svg',
-  'ic-islam':       'icons/svg/religion-islam.svg',
-  'ic-inpa':        'icons/svg/op-inpa.svg',
-  'ic-kkl':         'icons/svg/op-kkl.svg',
-  'ic-birds':       'icons/svg/nature-birds.svg',
-  'ic-mammals':     'icons/svg/nature-mammals.svg',
-  'ic-plants':      'icons/svg/nature-plants.svg',
-  'ic-mixed':       'icons/svg/nature-mixed.svg'
+  'ic-judaism':     ['icons/ink/menorah.svg',    '#2a5a8c'],
+  'ic-christianity':['icons/ink/church.svg',     '#b5382a'],
+  'ic-islam':       ['icons/ink/minaret.svg',    '#3f7a3a'],
+  'ic-inpa':        ['icons/ink/leaf.svg',       '#3f7a3a'],
+  'ic-kkl':         ['icons/ink/tree.svg',       '#2f6b4f'],
+  'ic-birds':       ['icons/ink/binoculars.svg', '#2a5a8c'],
+  'ic-mammals':     ['icons/ink/ibex.svg',       '#b5651d'],
+  'ic-plants':      ['icons/ink/flower.svg',     '#3f7a3a'],
+  'ic-mixed':       ['icons/ink/hills.svg',      '#6b4423']
 };
+const RELIGION_INK = { judaism: 'menorah', christianity: 'church', islam: 'minaret' };
 
 /* Geological ornament. A printed geological map does not only tint its units,
    it hatches them: brick for carbonate, chevrons for volcanics, stipple for
@@ -288,22 +291,30 @@ function loadFillPatterns() {
 // SVG has to be rasterised before MapLibre can use it as a symbol image.
 function loadMapIcons() {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
-  const size = 44;
-  return Promise.all(Object.entries(MAP_ICONS).map(([id, path]) => new Promise(resolve => {
+  const size = 46;
+  return Promise.all(Object.entries(MAP_ICONS).map(([id, [path, ring]]) => new Promise(resolve => {
     const img = new Image();
     img.onload = () => {
       const c = document.createElement('canvas');
       c.width = c.height = Math.round(size * dpr);
       const ctx = c.getContext('2d');
-      // a soft disc behind the glyph so it stays legible over any layer colour
+      const r = c.width / 2;
+      // a soft shadow, a paper disc and a ring in the thing's colour: a pin from the site's own kit
+      ctx.save();
+      ctx.shadowColor = 'rgba(40, 26, 12, .35)';
+      ctx.shadowBlur = 3 * dpr;
+      ctx.shadowOffsetY = 1.5 * dpr;
       ctx.beginPath();
-      ctx.arc(c.width / 2, c.height / 2, c.width / 2 - dpr, 0, Math.PI * 2);
-      ctx.fillStyle = activeTheme === 'dark' ? '#122B39' : '#F6F8FB';
+      ctx.arc(r, r, r - 3 * dpr, 0, Math.PI * 2);
+      ctx.fillStyle = '#fbf3df';
       ctx.fill();
-      ctx.lineWidth = 2 * dpr;
-      ctx.strokeStyle = activeTheme === 'dark' ? 'rgba(159,232,221,.48)' : 'rgba(13,31,45,.22)';
+      ctx.restore();
+      ctx.beginPath();
+      ctx.arc(r, r, r - 3 * dpr, 0, Math.PI * 2);
+      ctx.lineWidth = 3 * dpr;
+      ctx.strokeStyle = ring;
       ctx.stroke();
-      const pad = 9 * dpr;
+      const pad = 8 * dpr;
       ctx.drawImage(img, pad, pad, c.width - pad * 2, c.height - pad * 2);
       const data = ctx.getImageData(0, 0, c.width, c.height);
       if (!map.hasImage(id)) map.addImage(id, data, { pixelRatio: dpr });
@@ -708,7 +719,9 @@ function buildReligionFilters() {
     const chip = document.createElement('div');
     chip.className = 'religion-chip active';
     chip.style.borderColor = r.color;
-    chip.innerHTML = `<span>${r.icon}</span><span>${r.name_he}</span>`;
+    chip.innerHTML = RELIGION_INK[r.id]
+      ? `<img class="chip-ink" src="${abs('icons/ink/' + RELIGION_INK[r.id] + '.svg')}" alt="" /><span>${r.name_he}</span>`
+      : `<span>${r.icon}</span><span>${r.name_he}</span>`;
     chip.addEventListener('click', () => {
       if (state.activeReligions.has(r.id)) {
         state.activeReligions.delete(r.id);
