@@ -238,5 +238,21 @@
     "search": "Bolinus brandaris shell",
     "caption": "קונכיית ארגמון מחמישה צדדים: קוצים ו״זנב״ ארוך",
     "alt": "קונכיית ארגמון"
+  },
+  {
+    "id": "reed-beetle-1",
+    "subject": "reed-beetle",
+    "status": "candidate",
+    "wiki": "en:Donacia",
+    "caption": "",
+    "alt": "חיפושית קנים"
+  },
+  {
+    "id": "reed-beetle-2",
+    "subject": "reed-beetle",
+    "status": "candidate",
+    "search": "Donacia beetle",
+    "caption": "",
+    "alt": "חיפושית קנים"
   }
 ]
