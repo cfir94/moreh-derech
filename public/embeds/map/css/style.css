@@ -1563,3 +1563,18 @@ html.has-rail .add-route-btn { background: #6b4423 !important; color: #fbf3df !i
 .bank-steps li span { display: block; font-size: .88rem; color: var(--text-dim); }
 .bank-steps .off-map { color: #b5382a; }
 .bank-practical { margin: 0; padding-inline-start: 18px; font-size: .88rem; }
+
+/* the loading sign: a compass turning on the map paper, gone when the map is drawn */
+#splash {
+  position: fixed; inset: 0; z-index: 3000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  background: #f4ead2; color: #3a2a18; font: 800 1.15rem/1.2 var(--font-body);
+  transition: opacity .5s ease;
+}
+html[data-theme="dark"] #splash { background: #2d2318; color: #f1e6cc; }
+#splash.done { opacity: 0; pointer-events: none; }
+#splash img.splash-compass { width: 84px; height: 84px; animation: splashTurn 2.4s cubic-bezier(.45,.05,.55,.95) infinite; }
+@keyframes splashTurn { 0% { rotate: 0deg; } 50% { rotate: 200deg; } 100% { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { #splash img.splash-compass { animation: none; } }
+
+#splash::before, #splash::after { display: none !important; }

@@ -10,9 +10,25 @@
   <link rel="icon" href="icons/icon-192.png" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css" />
+  <!-- start every big download at once, before the scripts ask for them (owner, 20.11: the map was slow to come up) -->
+  <link rel="preconnect" href="https://cfir94.github.io" crossorigin />
+  <link rel="modulepreload" href="js/app.js" />
+  <link rel="modulepreload" href="vendor/maplibre/maplibre-gl.mjs" />
+  <link rel="preload" href="js/data/sites.geojson" as="fetch" crossorigin />
+  <link rel="preload" href="js/data/visitor_sites.geojson" as="fetch" crossorigin />
+  <link rel="preload" href="js/data/regions.geojson" as="fetch" crossorigin />
+  <link rel="preload" href="js/data/geology_basic.geojson" as="fetch" crossorigin />
+  <link rel="preload" href="js/data/geology_advanced.geojson" as="fetch" crossorigin />
+  <link rel="preload" href="js/data/tours.json" as="fetch" crossorigin />
+  <link rel="preload" href="js/data/route-bank.json" as="fetch" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <!-- shown until the map has drawn its first full frame -->
+  <div id="splash" role="status" aria-live="polite">
+    <img class="splash-compass" src="icons/ink/compass.svg" alt="" />
+    <span>המפה נטענת…</span>
+  </div>
   <header id="app-header">
     <button id="btn-toggle-sidebar" aria-label="תפריט שכבות" title="תפריט שכבות">
       <img src="icons/svg/ui-menu.svg" alt="" />
