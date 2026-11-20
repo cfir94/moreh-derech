@@ -1,4 +1,4 @@
-const CACHE_NAME = 'even-derech-map-v29';
+const CACHE_NAME = 'even-derech-map-v30';
 const MAP_CACHE_NAME = 'ihm-map-v4';
 // Every self-hosted tile archive. These are the only files served by Range
 // request, so they take the byte-slicing path below rather than plain caching.

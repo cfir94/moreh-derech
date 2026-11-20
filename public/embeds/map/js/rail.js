@@ -15,7 +15,7 @@ const RAIL = [
   { find: '#toggle-geology', icon: 'strata', ring: '#a8742a', label: 'מפה גיאולוגית', main: 'toggle-geology' },
   { find: '#toggle-topo', icon: 'hills', ring: '#6b4423', label: 'טופוגרפיה', main: 'toggle-topo' },
   { find: '#route-list', icon: 'footprint', ring: '#e0602a', label: 'המסלול שלי', route: true },
-  { find: '#btn-cache-area', icon: 'canteen', ring: '#4a5a6a', label: 'שימוש בלי רשת' },
+  { find: '#btn-cache-area', icon: 'canteen', ring: '#4a5a6a', label: 'שימוש בלי רשת', float: true },
 ];
 
 const ICON = name => `icons/ink/${name}.svg`;
@@ -84,7 +84,12 @@ function build() {
     btn.title = item.label;
     btn.setAttribute('aria-label', item.label);
     btn.innerHTML = `<img src="${ICON(item.icon)}" alt="" /><span class="rail-label">${item.label}</span>`;
-    rail.append(btn);
+    if (item.float) {
+      // a text button at the map's bottom-left, not a rail button that runs out of room (owner, 20.11)
+      btn.className = 'map-float-btn';
+      btn.innerHTML = `<img src="${ICON(item.icon)}" alt="" /><span>${item.label}</span>`;
+      body.append(btn);
+    } else rail.append(btn);
     const entry = { item, btn, panel };
     buttons.push(entry);
 
