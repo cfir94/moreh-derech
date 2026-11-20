@@ -35,7 +35,7 @@ export default function ResourcesPage() {
         </div>
         <p className="mb-3 max-w-2xl leading-relaxed text-txt-dim">
           סיכום לכל נושא בסילבוס, שכתבנו בעצמנו מחומרי הקורס: התמונה הגדולה, תאריכים,
-          דמויות, אתרים ומה לזכור למבחן. <span className="num">{SUMMARIES.length}</span> מתוך{" "}
+          דמויות, אתרים ומה לזכור למבחן. <span className="num">{SUMMARIES.filter((x) => TOPICS.some((t) => t.key === x.key)).length}</span> מתוך{" "}
           <span className="num">{TOPICS.length}</span> נושאים כבר כאן, והשאר בדרך.
         </p>
       </header>

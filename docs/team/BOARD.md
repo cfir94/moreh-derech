@@ -133,4 +133,4 @@
 
 ## TODO מהבעלים (20.11)
 - **SUM-IMG**: להוסיף תמונות לסיכומים (מוויקישיתוף, עם קרדיט ובדיקה בעין). לא לפני ההשקה.
-- **SUM-BRONZE / SUM-ARCH**: סיכומים נפרדים לתקופת הברונזה ולמבוא לארכאולוגיה (הנחיה: `docs/team/gemini/SUM-SPLIT-GEMINI.md`). עד אז הנושאים מפנים לפרקים בסיכומי תקופת המקרא ואמנות ואדריכלות.
+- ~~SUM-BRONZE / SUM-ARCH~~: נכתבו (`content/summaries/bronze-age.md`, `archaeology-intro.md`). עוד לא עברו בדיקת עובדות (`VERIFY-GEMINI.md`).
