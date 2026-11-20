@@ -7,7 +7,8 @@
  * https://history-talk.<חשבון>.workers.dev). ריק = עוד לא הועלה, והעמוד מציג
  * הודעת "בקרוב" במקום מסגרת שבורה.
  */
-export const HISTORY_TALK_ORIGIN = "https://history-talk.cfir94.workers.dev";
+// our own subdomain: some networks (colleges, public Wi-Fi) block *.workers.dev (owner, 20.11)
+export const HISTORY_TALK_ORIGIN = "https://talk.moreyderech.com";
 
 export interface TalkCharacter {
   id: string;
