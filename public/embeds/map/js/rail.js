@@ -3,17 +3,19 @@
 // The panels themselves are the ones app.js wires up: they are moved into the popover, not rebuilt,
 // so every control keeps its listeners.
 
+// every layer has its own drawing and its own colour, so the rail reads at a glance (owner, 20.11)
 const RAIL = [
-  { find: '#toggle-regions', icon: 'map', ring: '#b5651d', label: 'אזורים', direct: 'toggle-regions' },
-  { find: '#toggle-visitor', icon: 'signpost', ring: '#3f7a3a', label: 'שמורות, גנים ואתרים', main: 'toggle-visitor' },
+  { find: '#toggle-regions', icon: 'regions', ring: '#d9822b', label: 'אזורים', direct: 'toggle-regions' },
+  { find: '#toggle-visitor', icon: 'reserve', ring: '#2f8a3a', label: 'שמורות, גנים ואתרים', main: 'toggle-visitor' },
   { find: '#toggle-religions', icon: 'temple', ring: '#6a3a8c', label: 'אתרי דת', main: 'toggle-religions' },
-  { find: '#toggle-tours', icon: 'notebooks', ring: '#8a2f5f', label: 'סיורי הקורס', direct: 'toggle-tours' },
-  { find: '#toggle-periods', icon: 'sundial', ring: '#b5382a', label: 'ציר זמן היסטורי', main: 'toggle-periods' },
-  { find: '#toggle-nature', icon: 'flower', ring: '#3f7a3a', label: 'חי וצומח', main: 'toggle-nature' },
-  { find: '#toggle-geology', icon: 'strata', ring: '#c98a3a', label: 'מפה גיאולוגית', main: 'toggle-geology' },
+  { find: '#toggle-periods', icon: 'hourglass', ring: '#b5382a', label: 'ציר זמן היסטורי', main: 'toggle-periods' },
+  { find: '#toggle-views', icon: 'binoculars', ring: '#2a6fb0', label: 'תצפיות', direct: 'toggle-views' },
+  { find: '#toggle-urban', icon: 'city', ring: '#1f8a8a', label: 'עירוני ותרבות', direct: 'toggle-urban' },
+  { find: '#toggle-nature', icon: 'flower', ring: '#c2185b', label: 'חי וצומח', main: 'toggle-nature' },
+  { find: '#toggle-geology', icon: 'strata', ring: '#a8742a', label: 'מפה גיאולוגית', main: 'toggle-geology' },
   { find: '#toggle-topo', icon: 'hills', ring: '#6b4423', label: 'טופוגרפיה', main: 'toggle-topo' },
-  { find: '#route-list', icon: 'footprint', ring: '#b5382a', label: 'המסלול שלי', route: true },
-  { find: '#btn-cache-area', icon: 'canteen', ring: '#2a5a8c', label: 'שימוש בלי רשת' },
+  { find: '#route-list', icon: 'footprint', ring: '#e0602a', label: 'המסלול שלי', route: true },
+  { find: '#btn-cache-area', icon: 'canteen', ring: '#4a5a6a', label: 'שימוש בלי רשת' },
 ];
 
 const ICON = name => `icons/ink/${name}.svg`;
