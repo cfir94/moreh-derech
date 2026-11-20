@@ -74,7 +74,7 @@ export function MotiButton() {
           role="dialog"
           aria-label="מוטי, מורה הדרך הוותיק"
           hidden={!open}
-          className="fixed bottom-3 left-3 z-50 flex h-[min(540px,calc(100dvh-1.5rem))] w-[min(340px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-line bg-bg shadow-2xl"
+          className="fixed bottom-3 left-3 z-50 flex h-[min(540px,calc(100dvh-1.5rem))] w-[min(340px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-line bg-[var(--paper)] shadow-2xl"
         >
           <header className="flex items-center gap-2 border-b border-line bg-card px-3 py-1.5">
             <p className="min-w-0 flex-1 text-sm font-black text-txt">מוטי, מורה הדרך הוותיק</p>
