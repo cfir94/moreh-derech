@@ -505,3 +505,13 @@
 .table th { background: color-mix(in srgb, var(--mc, var(--teal)) 14%, var(--paper)); font-weight: 800; text-align: start; padding: 8px 10px; white-space: nowrap; }
 .table td { padding: 7px 10px; border-top: 1px solid var(--line); vertical-align: top; }
 .table tr:nth-child(even) td { background: color-mix(in srgb, var(--paper) 60%, transparent); }
+
+.practiceLinks { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.practiceLinkAlt {
+  display: inline-flex; min-height: 44px; align-items: center; justify-content: center;
+  padding: 8px 18px; border-radius: 8px; border: 1.5px solid var(--sign);
+  color: var(--ink); font-weight: 800; text-align: center;
+  transition: transform 0.15s ease;
+}
+.practiceLinkAlt:hover { transform: translateY(-2px); }
+@media (max-width: 720px) { .practiceLinks { width: 100%; } .practiceLinkAlt { width: 100%; } }
