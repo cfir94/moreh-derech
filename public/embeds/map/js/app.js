@@ -1635,6 +1635,8 @@ function emptyStateHtml(art, text) {
          `<p>${text}</p></div>`;
 }
 
+// The stops: drag the handle to reorder, a note per stop, ✕ removes the stop (owner, 20.11).
+function saveRouteLocal() { localStorage.setItem('ihm_route', JSON.stringify(state.route)); }
 function renderRoute() {
   const list = document.getElementById('route-list');
   const empty = document.getElementById('route-empty');
@@ -1642,16 +1644,57 @@ function renderRoute() {
   if (empty) empty.classList.toggle('hidden', state.route.length > 0);
   state.route.forEach((item, idx) => {
     const li = document.createElement('li');
-    li.innerHTML = `<span>${idx + 1}. ${item.name_he}</span><button class="remove-route-item" data-id="${item.id}">✕</button>`;
+    li.className = 'route-stop';
+    li.dataset.idx = String(idx);
+    li.innerHTML = `<div class="route-stop-row">
+        <button type="button" class="route-drag" aria-label="גרירה לשינוי הסדר" title="גררו כדי לשנות את הסדר">⋮⋮</button>
+        <span class="route-stop-name">${idx + 1}. ${escHtml(item.name_he)}</span>
+        <button type="button" class="route-note-btn${item.note ? ' has-note' : ''}" aria-label="הערה לתחנה" title="הערה לתחנה">✎</button>
+        <button type="button" class="remove-route-item" aria-label="הסרת התחנה מהמסלול" title="הסרה מהמסלול">✕</button>
+      </div>
+      <textarea class="route-stop-note" rows="2" maxlength="400" placeholder="הערה לתחנה: מה להראות, כמה זמן, איפה החניה"${item.note ? '' : ' hidden'}>${escHtml(item.note || '')}</textarea>`;
     li.querySelector('.remove-route-item').addEventListener('click', () => {
-      state.route = state.route.filter(r => r.id !== item.id);
-      localStorage.setItem('ihm_route', JSON.stringify(state.route));
+      state.route.splice(idx, 1);
+      saveRouteLocal();
       renderRoute();
     });
+    const note = li.querySelector('.route-stop-note');
+    li.querySelector('.route-note-btn').addEventListener('click', () => { note.hidden = !note.hidden; if (!note.hidden) note.focus(); });
+    note.addEventListener('input', () => { item.note = note.value; saveRouteLocal(); li.querySelector('.route-note-btn').classList.toggle('has-note', !!note.value.trim()); });
+    li.querySelector('.route-drag').addEventListener('pointerdown', e => startRouteDrag(e, li, list));
     list.appendChild(li);
   });
   updateRouteOnMap();
   renderSavedRoutes();
+}
+// Pointer events, not HTML5 drag and drop, which never fires on touch screens.
+function startRouteDrag(e, li, list) {
+  e.preventDefault();
+  const from = Number(li.dataset.idx);
+  const rows = [...list.children];
+  const startY = e.clientY;
+  li.classList.add('dragging');
+  let to = from;
+  const move = ev => {
+    const dy = ev.clientY - startY;
+    li.style.transform = `translateY(${dy}px)`;
+    const mid = li.getBoundingClientRect().top + li.offsetHeight / 2;
+    to = rows.findIndex(r => r !== li && mid < r.getBoundingClientRect().top + r.offsetHeight / 2);
+    if (to === -1) to = rows.length - 1; else if (to > from) to -= 1;
+    rows.forEach(r => r.classList.toggle('drop-before', r !== li && rows.indexOf(r) === (to >= from ? to + 1 : to)));
+  };
+  const up = () => {
+    window.removeEventListener('pointermove', move);
+    window.removeEventListener('pointerup', up);
+    if (to !== from) {
+      const [it] = state.route.splice(from, 1);
+      state.route.splice(to, 0, it);
+      saveRouteLocal();
+    }
+    renderRoute();
+  };
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', up);
 }
 
 
@@ -1697,8 +1740,11 @@ function applyLayers(layers) {
 function openSavedRoute(r) {
   const byId = new Map(allPlaces().map(f => [f.properties.id, f]));
   const stops = (r.stops || []).map(s => (typeof s === 'string' ? s : s.id)).filter(id => byId.has(id));
-  state.route = stops.map(id => ({ id, name_he: byId.get(id).properties.name_he }));
+  const notes = r.notes || {};
+  state.route = stops.map(id => ({ id, name_he: byId.get(id).properties.name_he, note: notes[id] || '' }));
   localStorage.setItem('ihm_route', JSON.stringify(state.route));
+  // a route of mine stays "open": saving again updates it, and its note can be edited
+  state.openRouteId = readSavedRoutes()[r.id] ? r.id : null;
   applyLayers(r.layers);
   renderRoute();
   const coords = stops.map(id => byId.get(id).geometry.coordinates);
@@ -1739,16 +1785,20 @@ function renderSavedRoutes() {
   if (!box) return;
   const esc = escHtml;
   const mine = Object.values(readSavedRoutes()).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  const open = state.openRouteId ? readSavedRoutes()[state.openRouteId] : null;
   const card = (r, sample) => `<li class="saved-route">
       <div class="saved-route-text"><strong>${esc(r.name)}</strong>${r.note ? `<span>${esc(r.note)}</span>` : ''}<small>${(r.stops || []).length} תחנות</small></div>
-      <div class="saved-route-actions"><button type="button" class="btn-secondary" data-open="${esc(r.id)}" data-sample="${sample ? 1 : ''}">פתיחה</button>${sample ? '' : `<button type="button" class="btn-secondary" data-del="${esc(r.id)}" aria-label="מחיקת ${esc(r.name)}">✕</button>`}</div>
+      <div class="saved-route-actions"><button type="button" class="btn-secondary" data-open="${esc(r.id)}" data-sample="${sample ? 1 : ''}">פתיחה</button>${sample ? '' : `<button type="button" class="btn-delete" data-del="${esc(r.id)}" aria-label="מחיקת המסלול ${esc(r.name)}" title="מחיקת המסלול">🗑 מחיקה</button>`}</div>
     </li>`;
   box.innerHTML = `
     <form id="save-route-form" class="save-route">
-      <h3>שמירת המסלול</h3>
-      <input id="save-route-name" type="text" maxlength="80" placeholder="שם, למשל: נוצרים בגליל" required />
-      <textarea id="save-route-note" rows="2" maxlength="600" placeholder="הערה לעצמכם: למי, מתי, מה לא לשכוח"></textarea>
-      <button type="submit" class="btn-primary" ${state.route.length ? '' : 'disabled'}>שמירה</button>
+      <h3>${open ? 'המסלול הפתוח' : 'שמירת המסלול'}</h3>
+      <input id="save-route-name" type="text" maxlength="80" placeholder="שם, למשל: נוצרים בגליל" required value="${open ? esc(open.name) : ''}" />
+      <textarea id="save-route-note" rows="3" maxlength="1200" placeholder="הערה כללית למסלול: למי, מתי, מה לא לשכוח">${open ? esc(open.note || '') : ''}</textarea>
+      <div class="save-route-actions">
+        <button type="submit" class="btn-primary" ${state.route.length ? '' : 'disabled'}>${open ? 'שמירת השינויים' : 'שמירה'}</button>
+        ${open ? '<button type="button" class="btn-secondary" id="save-route-new">שמירה כמסלול חדש</button>' : ''}
+      </div>
       ${state.route.length ? '' : '<p class="hint">הוסיפו תחנות למסלול, ואז תוכלו לשמור אותו.</p>'}
     </form>
     <h3>המסלולים שלי</h3>
@@ -1756,16 +1806,22 @@ function renderSavedRoutes() {
     <div id="bank-detail"></div>
     <h3>מסלולים מוכנים</h3>
     ${bankHtml(card)}`;
-  box.querySelector('#save-route-form').addEventListener('submit', e => {
-    e.preventDefault();
+  const save = asNew => {
     const name = box.querySelector('#save-route-name').value.trim();
     if (!name || !state.route.length) return;
     const all = readSavedRoutes();
-    const id = 'r' + Date.now().toString(36);
-    all[id] = { id, name, note: box.querySelector('#save-route-note').value.trim(), stops: state.route.map(s => s.id), layers: currentLayers(), updatedAt: Date.now() };
+    const id = !asNew && open ? open.id : 'r' + Date.now().toString(36);
+    const notes = {};
+    state.route.forEach(st => { if (st.note && st.note.trim()) notes[st.id] = st.note.trim(); });
+    all[id] = { id, name, note: box.querySelector('#save-route-note').value.trim(), stops: state.route.map(s => s.id), notes, layers: currentLayers(), updatedAt: Date.now() };
     writeSavedRoutes(all);
+    state.openRouteId = id;
     renderSavedRoutes();
-  });
+    const h = box.querySelector('#save-route-form h3');
+    if (h) { h.textContent = 'נשמר ✓'; setTimeout(() => { h.textContent = 'המסלול הפתוח'; }, 1600); }
+  };
+  box.querySelector('#save-route-form').addEventListener('submit', e => { e.preventDefault(); save(false); });
+  box.querySelector('#save-route-new')?.addEventListener('click', () => save(true));
   box.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => {
     const bank = (state.bank && state.bank.routes) || [];
     const fromBank = btn.dataset.sample ? (bank.find(x => x.id === btn.dataset.open) || SAMPLE_ROUTES.find(x => x.id === btn.dataset.open)) : null;
@@ -1776,6 +1832,10 @@ function renderSavedRoutes() {
   }));
   box.querySelectorAll('[data-del]').forEach(btn => btn.addEventListener('click', () => {
     const all = readSavedRoutes();
+    const r = all[btn.dataset.del];
+    // a saved route is a work tool: never delete it without asking (owner, 20.11)
+    if (!r || !window.confirm(`למחוק את המסלול "${r.name}"? אי אפשר לשחזר אותו.`)) return;
+    if (state.openRouteId === r.id) state.openRouteId = null;
     delete all[btn.dataset.del];
     writeSavedRoutes(all);
     renderSavedRoutes();
@@ -2158,6 +2218,7 @@ function wireUI() {
     if (confirm('לנקות את כל המסלול?')) {
       state.route = [];
       localStorage.setItem('ihm_route', '[]');
+      state.openRouteId = null;
       renderRoute();
     }
   });

@@ -1672,3 +1672,18 @@ html[data-theme="dark"] .religion-chip.active { background: color-mix(in srgb, v
   display: grid; place-items: center; background: #3f7a3a; color: #fff; font-size: 12px; font-weight: 900;
 }
 .religion-chip:not(.active) { opacity: .45; filter: grayscale(1); border-style: dashed !important; background: transparent !important; }
+
+/* the route's stops: drag handle, note, remove (owner, 20.11) */
+#route-list li.route-stop { flex-direction: column; align-items: stretch; gap: 6px; transition: transform .05s; }
+.route-stop-row { display: flex; align-items: center; gap: 6px; }
+.route-stop-name { flex: 1; }
+#route-list li .route-drag { cursor: grab; color: var(--text-dim); font-size: 18px; letter-spacing: -3px; touch-action: none; min-width: 30px; }
+#route-list li .route-note-btn { color: var(--text-dim); }
+#route-list li .route-note-btn.has-note { color: #2a6fb0; font-weight: 900; }
+.route-stop-note { width: 100%; box-sizing: border-box; font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-panel); color: var(--text); resize: vertical; }
+#route-list li.dragging { position: relative; z-index: 5; box-shadow: 0 8px 18px rgba(40,26,12,.3); cursor: grabbing; opacity: .95; }
+#route-list li.drop-before { box-shadow: 0 -3px 0 #b5382a; }
+.save-route-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-delete { border: 1.5px solid #b5382a; color: #b5382a; background: transparent; border-radius: var(--r-sm); padding: 6px 10px; font-weight: 800; cursor: pointer; }
+.btn-delete:hover { background: #b5382a; color: #fff; }
+html[data-theme="dark"] .btn-delete { color: #f08a7a; border-color: #f08a7a; }
