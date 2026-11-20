@@ -12,7 +12,7 @@ import {
   TOUR_REGIONS,
 } from "@/data/notebooks";
 import { QUIZ_DESCRIPTIONS, QUIZZES } from "@/data/quizzes";
-import { FEATURED_RESOURCES, RESOURCE_GROUPS } from "@/data/resources";
+import { SUMMARIES } from "@/data/summaries";
 import biblicalTimelines from "@/data/timelines/biblical";
 import egyptCanaanTimelines from "@/data/timelines/egypt-canaan";
 import secondTempleEvents from "@/data/second-temple/search.json";
@@ -149,30 +149,17 @@ function videoResults(sections: (typeof CLASS_VIDEO_SECTIONS)[number][]): Search
   );
 }
 
+// Only our own summaries: the site links to nobody else's material (owner, 20.11, before launch).
 function resourceResults(): SearchResult[] {
-  const featured = FEATURED_RESOURCES.map((resource) => ({
-    id: `resource-featured-${resource.slug}`,
+  return SUMMARIES.map((summary) => ({
+    id: `summary-${summary.key}`,
     kind: "resource" as const,
-    kindLabel: "חומר לימוד",
-    title: resource.title,
-    description: resource.note ?? "מקור לימוד חיצוני.",
-    href: resource.url,
-    external: true,
-    searchText: [resource.title, resource.note].filter(Boolean).join(" "),
+    kindLabel: "סיכום",
+    title: summary.title,
+    description: summary.lede,
+    href: `/summaries/${summary.key}/`,
+    searchText: [summary.title, summary.lede, ...summary.sections.map((x) => x.title), ...summary.terms.map((t) => t.term)].join(" "),
   }));
-  const groups = RESOURCE_GROUPS.flatMap((group) =>
-    group.items.map((resource, index) => ({
-      id: `resource-${group.slug}-${index}`,
-      kind: "resource" as const,
-      kindLabel: "סיכום",
-      title: resource.title,
-      description: `${group.title} · ${group.description}`,
-      href: resource.url,
-      external: true,
-      searchText: [resource.title, group.title, group.description].join(" "),
-    })),
-  );
-  return [...featured, ...groups];
 }
 
 function timelineResults(): SearchResult[] {

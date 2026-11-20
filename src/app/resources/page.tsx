@@ -1,23 +1,18 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
-import { FEATURED_RESOURCES, RESOURCE_GROUPS } from "@/data/resources";
+import { SUMMARIES, getSummary } from "@/data/summaries";
 import { TOPICS } from "@/data/topics";
 import { QUIZZES } from "@/data/quizzes";
-import { ResourceCredit, ResourceList } from "@/components/ResourceList";
-import { domainStyle } from "@/lib/domains";
 import { kit, PenUnderline } from "@/components/trail/kit";
 import { PageDecor } from "@/components/trail/PageDecor";
 
 export const metadata = pageMeta({
   title: "סיכומים וחומרי לימוד",
-  description: "סיכומים, מצגות וקישורים לפי נושאי הסילבוס למורי דרך, לצד דוחות סיור, מסלולים לדוגמה ומפות, עם סדר עדיפויות המבוסס על שאלות מבחנים.",
+  description: "סיכום לכל נושא בסילבוס של מורי הדרך, ומה נשאל עליו בפועל במבחני הרישוי.",
   path: "/resources",
 });
 
 export default function ResourcesPage() {
-  const total =
-    1 + FEATURED_RESOURCES.length +
-    RESOURCE_GROUPS.reduce((s, g) => s + g.items.length, 0);
 
   // How often each subject actually comes up in the licensing exams we hold —
   // the honest answer to "what should I study first".
@@ -39,48 +34,16 @@ export default function ResourcesPage() {
           <PenUnderline />
         </div>
         <p className="mb-3 max-w-2xl leading-relaxed text-txt-dim">
-          <span className="num">{total}</span> חומרי לימוד וקישורים לנושאי הסילבוס
-          של הקורס: סיכום להרצאה, דוחות סיור לפי אתר, מסלולים לדוגמה לחלק ב׳,
-          מצגות ומפות. השאלונים והמבחנים כאן בודקים ידע — הדף הזה הוא איפה
-          לומדים אותו.
+          סיכום לכל נושא בסילבוס, שכתבנו בעצמנו מחומרי הקורס: התמונה הגדולה, תאריכים,
+          דמויות, אתרים ומה לזכור למבחן. <span className="num">{SUMMARIES.length}</span> מתוך{" "}
+          <span className="num">{TOPICS.length}</span> נושאים כבר כאן, והשאר בדרך.
         </p>
       </header>
 
 
-      <section
-        aria-labelledby="class-materials-title"
-        className="screen-in mb-8 rounded-lg border border-teal/30 bg-card p-5 sm:p-6"
-      >
-        <p className="mb-1 text-sm font-bold tracking-wide text-teal">מהכיתה</p>
-        <h2 id="class-materials-title" className="mb-2 text-xl">סיכומים של בועז</h2>
-        <p className="mb-4 max-w-2xl text-sm leading-relaxed text-txt-dim">
-          מצגות לשיעור החזרה על תקופת בית שני, התקופה הרומית־ביזנטית ואדריכלות קלאסית.
-        </p>
-        <a
-          href="https://drive.google.com/drive/folders/1UP3PIMYg7PZAd3zABJpqTX-xcgCo_eT0?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg border border-teal/30 bg-teal/10 px-4 py-3 text-sm font-bold text-teal transition hover:bg-teal/20"
-        >
-          למצגות בגוגל דרייב <span aria-hidden="true">↗</span>
-        </a>
-      </section>
-
-      <div className="mb-5">
-        <h2 className="mb-2 text-lg">הסיכומים והחומרים של אפרת נקש</h2>
-        <ResourceCredit className="max-w-2xl" />
-      </div>
-
-      <section className="mb-8">
-        <h2 className="mb-2.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
-          הכי שימושי לקורס
-        </h2>
-        <ResourceList items={FEATURED_RESOURCES} slug="guide-reports" />
-      </section>
-
       <section className="mb-8">
         <h2 className="mb-1.5 text-sm font-bold tracking-[0.05em] text-txt-dim">
-          לפי נושא — כמה נשאל עליו במבחנים, ומה לקרוא
+          לפי נושא: כמה נשאל עליו במבחנים, ומה לקרוא
         </h2>
         <p className="mb-3 max-w-2xl text-sm leading-relaxed text-txt-dim">
           מספר השאלות הוא מתוך{" "}
@@ -96,7 +59,7 @@ export default function ResourcesPage() {
           (מתג &quot;לפי נושא&quot;).
         </p>
         <ul className="grid gap-1.5 sm:grid-cols-2">
-          {byTopic.map(({ key, label, reading, count }) => (
+          {byTopic.map(({ key, label, count }) => (
             <li
               key={key}
               className="flex items-center gap-2.5 rounded-sm border border-line bg-card px-3.5 py-2.5"
@@ -105,38 +68,17 @@ export default function ResourcesPage() {
                 {count}
               </span>
               <span className="flex-1 text-[13px] font-bold">{label}</span>
-              {reading && (
-                <a
-                  href={reading.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-sm font-bold text-teal hover:underline"
-                >
-                  לסיכום ↗
-                </a>
+              {getSummary(key) ? (
+                <Link href={`/summaries/${key}/`} className="shrink-0 text-sm font-bold text-teal hover:underline">
+                  לסיכום
+                </Link>
+              ) : (
+                <span className="shrink-0 text-xs text-txt-dim">בקרוב</span>
               )}
             </li>
           ))}
         </ul>
       </section>
-
-      <div className="grid gap-3 md:grid-cols-2">
-        {RESOURCE_GROUPS.map((group, i) => (
-          <section
-            key={group.slug}
-            style={{ ...domainStyle(group.slug), animationDelay: `${i * 0.03}s` }}
-            className="screen-in relative overflow-hidden paper-sheet p-4"
-          >
-            <div className="relative">
-              <h2 className="mb-1 text-base">{group.title}</h2>
-              <p className="mb-3 text-sm leading-relaxed text-txt-dim">
-                {group.description}
-              </p>
-              <ResourceList items={group.items} slug={group.slug} />
-            </div>
-          </section>
-        ))}
-      </div>
 
       <p className="mt-7 text-[13px] text-txt-dim">
         רוצים לבדוק את עצמכם על מה שלמדתם?{" "}

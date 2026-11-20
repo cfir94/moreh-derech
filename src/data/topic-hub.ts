@@ -6,6 +6,7 @@
  * נושא חדש או עזר חדש: מוסיפים שורה כאן. סוג שאין לו תוכן בנושא פשוט לא נכתב, ולא יופיע כפתור ריק.
  */
 import { ONLINE_NOTEBOOKS, THEORY_NOTEBOOKS, TOUR_NOTEBOOKS, TOUR_REGIONS } from "./notebooks";
+import { getSummary } from "@/data/summaries";
 import { TOPICS } from "./topics";
 
 export type HubKind = "quiz" | "notebook" | "summary" | "aid" | "map" | "game" | "practice";
@@ -37,10 +38,14 @@ function notebooks(...ids: string[]): HubLink {
   };
 }
 
+// Our own summary of the topic; until it is written, the summaries page says it is on its way.
 function summary(topicKey: string): HubLink {
   const t = TOPICS.find((x) => x.key === topicKey);
-  if (!t?.reading) throw new Error(`topic-hub: no reading for ${topicKey}`);
-  return { kind: "summary", items: [{ title: `${t.reading.title} (אפרת נקש)`, href: t.reading.url, external: true }] };
+  if (!t) throw new Error(`topic-hub: unknown topic ${topicKey}`);
+  const ours = getSummary(topicKey);
+  return { kind: "summary", items: [ours
+    ? { title: `סיכום: ${ours.title}`, href: `/summaries/${ours.key}/` }
+    : { title: `סיכום ${t.label} (בדרך)`, href: "/resources/" }] };
 }
 
 const quiz = (slug: string, title: string): HubLink => ({ kind: "quiz", items: [{ title, href: `/quizzes/${slug}/` }] });

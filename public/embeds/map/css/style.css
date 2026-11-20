@@ -1687,3 +1687,16 @@ html[data-theme="dark"] .religion-chip.active { background: color-mix(in srgb, v
 .btn-delete { border: 1.5px solid #b5382a; color: #b5382a; background: transparent; border-radius: var(--r-sm); padding: 6px 10px; font-weight: 800; cursor: pointer; }
 .btn-delete:hover { background: #b5382a; color: #fff; }
 html[data-theme="dark"] .btn-delete { color: #f08a7a; border-color: #f08a7a; }
+
+/* route summary and panel text: readable in dark mode, and a little bolder on a computer (owner, 20.11) */
+html[data-theme="dark"] .route-summary { background: #3a2c1e !important; border-color: #7a5a38 !important; }
+html[data-theme="dark"] .route-summary strong { color: #f0c98a !important; }
+html[data-theme="dark"] .route-summary .route-note { color: #d9c9a8 !important; }
+html[data-theme="dark"] .rail-pop-body h3, html[data-theme="dark"] .rail-pop-body .hint { color: #f1e4c8; }
+html[data-theme="dark"] #route-list li .route-drag, html[data-theme="dark"] #route-list li .route-note-btn { color: #d9c9a8; }
+@media (hover: hover) and (pointer: fine) {
+  .rail-pop-body { font-size: 15.5px; }
+  .rail-pop-body h3 { font-weight: 800; }
+  .route-stop-name { font-weight: 700; }
+  .route-summary strong { font-size: 1.35rem; }
+}

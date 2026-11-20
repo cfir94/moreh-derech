@@ -3,11 +3,14 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { TOPIC_HUB, TOUR_HUB } from "../src/data/topic-hub.ts";
 import { QUIZZES } from "../src/data/quizzes/index.ts";
+import { SUMMARIES } from "../src/data/summaries/index.ts";
 
 const route = (href) => {
   const path = href.split(/[?#]/)[0].replace(/^\/|\/$/g, "");
   const quiz = path.match(/^quizzes\/([^/]+)$/);
   if (quiz && !["review", "dating", "timeline-drag"].includes(quiz[1])) return QUIZZES.some((q) => q.slug === quiz[1]);
+  const summary = path.match(/^summaries\/([^/]+)$/);
+  if (summary) return existsSync("src/app/summaries/[key]/page.tsx") && SUMMARIES.some((x) => x.key === summary[1]);
   return existsSync(`src/app/${path}/page.tsx`);
 };
 
