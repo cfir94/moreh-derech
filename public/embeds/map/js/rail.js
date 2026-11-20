@@ -7,6 +7,7 @@ const RAIL = [
   { find: '#toggle-regions', icon: 'map', ring: '#b5651d', label: 'אזורים', direct: 'toggle-regions' },
   { find: '#toggle-visitor', icon: 'signpost', ring: '#3f7a3a', label: 'שמורות, גנים ואתרים', main: 'toggle-visitor' },
   { find: '#toggle-religions', icon: 'temple', ring: '#6a3a8c', label: 'אתרי דת', main: 'toggle-religions' },
+  { find: '#toggle-tours', icon: 'notebooks', ring: '#8a2f5f', label: 'סיורי הקורס', direct: 'toggle-tours' },
   { find: '#toggle-periods', icon: 'sundial', ring: '#b5382a', label: 'ציר זמן היסטורי', main: 'toggle-periods' },
   { find: '#toggle-nature', icon: 'flower', ring: '#3f7a3a', label: 'חי וצומח', main: 'toggle-nature' },
   { find: '#toggle-geology', icon: 'strata', ring: '#c98a3a', label: 'מפה גיאולוגית', main: 'toggle-geology' },

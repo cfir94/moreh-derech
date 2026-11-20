@@ -208,6 +208,9 @@ async function loadData() {
   ]);
   // the learning map's photos, for the sites the two maps share (tools/export_route_map_photos.mjs)
   state.photos = await fetch('js/data/photos.json').then(r => r.json()).catch(() => ({}));
+  // what the course tours taught, from Codex's NB-4 reports (tools/import_nb4_tours.py)
+  state.tours = await fetch('js/data/tours.json').then(r => r.json())
+    .catch(() => ({ notebooks: {}, stops: { type: 'FeatureCollection', features: [] }, notes: {} }));
   state.periods = periods.sort((a, b) => a.order - b.order);
   state.regionsGeoJSON = regions;
   state.religions = religions;
@@ -248,7 +251,8 @@ const MAP_ICONS = {
   'ic-birds':       ['icons/ink/binoculars.svg', '#2a5a8c'],
   'ic-mammals':     ['icons/ink/ibex.svg',       '#b5651d'],
   'ic-plants':      ['icons/ink/flower.svg',     '#3f7a3a'],
-  'ic-mixed':       ['icons/ink/hills.svg',      '#6b4423']
+  'ic-mixed':       ['icons/ink/hills.svg',      '#6b4423'],
+  'ic-tour':        ['icons/ink/notebooks.svg',  '#8a2f5f']
 };
 const RELIGION_INK = { judaism: 'menorah', christianity: 'church', islam: 'minaret' };
 
@@ -698,7 +702,15 @@ async function initMap() {
     paint: { 'text-color': activeTheme === 'dark' ? '#06121A' : '#FFFFFF' }
   });
 
-  ['regions-fill', 'geology-fill', 'sites-periods', 'sites-religions', 'nature-points', 'visitor-points', 'visitor-clusters'].forEach(id => {
+  // the stops of the course tours that the map did not have (RM-08)
+  map.addSource('tour-stops', { type: 'geojson', data: state.tours.stops });
+  map.addLayer({
+    id: 'tour-stops', type: 'symbol', source: 'tour-stops',
+    layout: { visibility: 'none', 'icon-image': 'ic-tour', 'icon-size': 0.92, 'icon-allow-overlap': true }
+  });
+  map.on('click', 'tour-stops', e => openInfoPanel(e.features[0].properties, 'tour'));
+
+  ['regions-fill', 'geology-fill', 'sites-periods', 'sites-religions', 'nature-points', 'visitor-points', 'visitor-clusters', 'tour-stops'].forEach(id => {
     map.on('mouseenter', id, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', id, () => { map.getCanvas().style.cursor = ''; });
   });
@@ -1083,6 +1095,30 @@ function wireSitePhoto(root) {
   }));
 }
 
+// What a course tour said here, with its quote, and a link to the tour's notebook, where a guide can ask
+// it questions and build tour points (owner, 19.11: "שאלו את מאגר המידע").
+function tourHtml(props, context) {
+  const t = state.tours || { notebooks: {}, notes: {} };
+  const esc = escHtml;
+  let said = [];
+  let nbs = [];
+  if (context === 'tour') {
+    nbs = parseMaybeJSON(props.notebooks);
+    if (props.quote) said.push({ text: '', quote: props.quote });
+  } else {
+    const notes = t.notes[props.id] || [];
+    said = notes.filter(n => n.text || n.quote);
+    nbs = [...new Set(notes.map(n => n.nb))];
+  }
+  const links = nbs.map(id => t.notebooks[id]).filter(Boolean);
+  if (!said.length && !links.length) return '';
+  return `<div class="tour-note">
+    <div class="tour-note-head"><img src="${abs('icons/ink/notebooks.svg')}" alt="" />${context === 'tour' ? 'תחנה בסיור של הקורס' : 'מה למדנו כאן בסיור'}</div>
+    ${said.map(n => `${n.text ? `<p>${esc(n.text)}</p>` : ''}${n.quote ? `<blockquote>${esc(n.quote)}</blockquote>` : ''}`).join('')}
+    ${links.map(nb => `<a class="nb-ask" href="${esc(nb.url)}" target="_blank" rel="noopener">שאלו את מאגר המידע: ${esc(nb.title)} ↗</a>`).join('')}
+  </div>`;
+}
+
 function openInfoPanel(props, context) {
   const panel = document.getElementById('info-panel');
   const content = document.getElementById('info-content');
@@ -1118,6 +1154,7 @@ function openInfoPanel(props, context) {
     <h3>${props.name_he}</h3>
     <div class="meta">${props.name_en || ''}${metaBits.length ? ' • ' + metaBits.join(' • ') : ''}</div>
     ${sitePhotoHtml(props.id)}
+    ${tourHtml(props, context)}
     ${rockPhotoHtml(parseMaybeJSON(props.rock_photo))}
     ${props.extra_html || ''}
     <p>${props.description_he || ''}</p>
@@ -1135,6 +1172,7 @@ function openInfoPanel(props, context) {
 
 const SEARCH_KINDS = {
   site:    { label: 'אתרים היסטוריים', color: '#B23A48' },
+  tour:    { label: 'סיורי הקורס',     color: '#8a2f5f' },
   visitor: { label: 'שמורות וגנים',    color: '#2F7D5B' },
   nature:  { label: 'חי וצומח',        color: '#5E8C3A' },
   geology: { label: 'יחידות גיאולוגיות', color: '#C98A3A' },
@@ -1177,6 +1215,11 @@ function buildSearchIndex() {
     }).join(' ');
     add('site', p.name_he, p.name_en, periodNames,
         { coords: f.geometry.coordinates, props: p, sub: periodNames });
+  });
+
+  ((state.tours && state.tours.stops.features) || []).forEach(f => {
+    const p = f.properties;
+    add('tour', p.name_he, p.name_en, 'סיור הקורס', { coords: f.geometry.coordinates, props: p, sub: 'תחנה בסיור של הקורס' });
   });
 
   state.visitorGeoJSON.features.forEach(f => {
@@ -1292,6 +1335,7 @@ function ensureLayerVisibleFor(kind) {
   if (kind === 'geology') check('toggle-geology');
   if (kind === 'region') check('toggle-regions');
   if (kind === 'site') check('toggle-periods');
+  if (kind === 'tour') check('toggle-tours');
 }
 
 function selectSearchResult(entry) {
@@ -1306,6 +1350,7 @@ function selectSearchResult(entry) {
   else if (entry.kind === 'nature') openNaturePanel(p);
   else if (entry.kind === 'geology') openGeologyPanel(p);
   else if (entry.kind === 'site') openInfoPanel(p, 'period');
+  else if (entry.kind === 'tour') openInfoPanel(p, 'tour');
   else if (entry.kind === 'region') {
     openInfoPanel({ id: p.id, name_he: p.name_he, name_en: p.name_en,
                     description_he: p.description_he || '', sources: p.sources || [] }, 'region');
@@ -1641,7 +1686,7 @@ function applyLayers(layers) {
   });
 }
 function openSavedRoute(r) {
-  const byId = new Map(state.sitesGeoJSON.features.map(f => [f.properties.id, f]));
+  const byId = new Map(allPlaces().map(f => [f.properties.id, f]));
   const stops = (r.stops || []).map(s => (typeof s === 'string' ? s : s.id)).filter(id => byId.has(id));
   state.route = stops.map(id => ({ id, name_he: byId.get(id).properties.name_he }));
   localStorage.setItem('ihm_route', JSON.stringify(state.route));
@@ -1709,8 +1754,12 @@ const OSRM_URL = 'https://router.project-osrm.org/route/v1/driving/';
 const ROAD_WINDING_FACTOR = 1.3;
 const ESTIMATED_AVG_KMH = 65;
 
+function allPlaces() {
+  return [...state.sitesGeoJSON.features, ...((state.tours && state.tours.stops.features) || [])];
+}
+
 function routeStopCoords() {
-  const byId = new Map(state.sitesGeoJSON.features.map(f => [f.properties.id, f.geometry.coordinates]));
+  const byId = new Map(allPlaces().map(f => [f.properties.id, f.geometry.coordinates]));
   return state.route.map(r => ({ id: r.id, name_he: r.name_he, coord: byId.get(r.id) }))
                     .filter(s => Array.isArray(s.coord));
 }
@@ -2012,6 +2061,10 @@ function wireUI() {
 
   document.getElementById('toggle-periods').addEventListener('change', e => {
     setLayerVisibility('sites-periods', e.target.checked);
+  });
+
+  document.getElementById('toggle-tours')?.addEventListener('change', e => {
+    setLayerVisibility('tour-stops', e.target.checked);
   });
 
   document.getElementById('toggle-religions').addEventListener('change', e => {
