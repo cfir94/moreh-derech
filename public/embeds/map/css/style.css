@@ -1647,3 +1647,28 @@ html.has-rail #app-header .map-actions { background: transparent !important; box
   .rail-btn[aria-expanded="true"] .rail-label { opacity: 1; color: #fbf3df; }
   html[data-theme="dark"] .rail-label { color: #3a2a18; }
 }
+
+/* dark mode readability (owner, 20.11): brown-on-dark text, light chips with light text, a whited-out open icon */
+html[data-theme="dark"] #info-content h3,
+html[data-theme="dark"] #info-content .sources a,
+html[data-theme="dark"] .rail-pop-body a { color: #f0c98a !important; }
+html[data-theme="dark"] #info-content .meta { color: #c9b89a; }
+html[data-theme="dark"] .operator-chip,
+html[data-theme="dark"] .rail-pop-body .chip,
+html[data-theme="dark"] .rail-pop-body .religion-chip { background: #3a2c1e !important; color: #f1e4c8 !important; border-color: #7a5a38 !important; }
+html[data-theme="dark"] .operator-chip * { color: inherit; }
+html[data-theme="dark"] .tour-note-head { color: #9cc3ea; }
+/* an open rail button keeps its drawing: a pale fill in the layer's colour and a thick ring, not a white silhouette */
+.rail-btn[aria-expanded="true"] { background: color-mix(in srgb, var(--ring, #6b4423) 30%, #fbf3df) !important; box-shadow: 0 0 0 3px var(--ring, #6b4423); }
+.rail-btn[aria-expanded="true"] img { filter: none !important; }
+.rail-btn[aria-expanded="true"] .rail-label { color: #3a2a18 !important; }
+
+/* religion chips say clearly whether they're on (owner, 20.11): on = filled in the faith's colour with a tick; off = faded and dashed */
+.religion-chip { position: relative; transition: opacity .15s, filter .15s, background .15s; }
+.religion-chip.active { background: color-mix(in srgb, var(--rc) 22%, #fff) !important; box-shadow: inset 0 0 0 2px var(--rc); }
+html[data-theme="dark"] .religion-chip.active { background: color-mix(in srgb, var(--rc) 35%, #2a2018) !important; }
+.religion-chip.active::after {
+  content: "✓"; position: absolute; top: -7px; left: -5px; width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center; background: #3f7a3a; color: #fff; font-size: 12px; font-weight: 900;
+}
+.religion-chip:not(.active) { opacity: .45; filter: grayscale(1); border-style: dashed !important; background: transparent !important; }

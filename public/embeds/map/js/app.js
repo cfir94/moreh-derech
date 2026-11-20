@@ -807,6 +807,7 @@ function buildReligionFilters() {
     const chip = document.createElement('div');
     chip.className = 'religion-chip active';
     chip.style.borderColor = r.color;
+    chip.style.setProperty('--rc', r.color);
     chip.innerHTML = RELIGION_INK[r.id]
       ? `<img class="chip-ink" src="${abs('icons/ink/' + RELIGION_INK[r.id] + '.svg')}" alt="" /><span>${r.name_he}</span>`
       : `<span>${r.icon}</span><span>${r.name_he}</span>`;
