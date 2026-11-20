@@ -245,11 +245,11 @@ function religionColorMatchExpression() {
 }
 
 // The map's pins: the site's ink drawings on a paper disc with a ring in the thing's colour (owner, 19.11:
-// "the cross is ugly"). A church for Christianity, a menorah for Judaism, a minaret for Islam.
+// 20.11: back to the symbols, but our own): a Star of David in blue, a cross in red, a crescent in green.
 const MAP_ICONS = {
-  'ic-judaism':     ['icons/ink/menorah.svg',    '#2a5a8c'],
-  'ic-christianity':['icons/ink/church.svg',     '#b5382a'],
-  'ic-islam':       ['icons/ink/minaret.svg',    '#3f7a3a'],
+  'ic-judaism':     ['icons/ink/rel-judaism.svg',      '#2a5a8c'],
+  'ic-christianity':['icons/ink/rel-christianity.svg', '#b5382a'],
+  'ic-islam':       ['icons/ink/rel-islam.svg',        '#3f7a3a'],
   'ic-inpa':        ['icons/ink/leaf.svg',       '#3f7a3a'],
   'ic-kkl':         ['icons/ink/tree.svg',       '#2f6b4f'],
   'ic-birds':       ['icons/ink/binoculars.svg', '#2a5a8c'],
@@ -258,7 +258,7 @@ const MAP_ICONS = {
   'ic-mixed':       ['icons/ink/hills.svg',      '#6b4423'],
   'ic-tour':        ['icons/ink/notebooks.svg',  '#8a2f5f']
 };
-const RELIGION_INK = { judaism: 'menorah', christianity: 'church', islam: 'minaret' };
+const RELIGION_INK = { judaism: 'rel-judaism', christianity: 'rel-christianity', islam: 'rel-islam' };
 
 /* Geological ornament. A printed geological map does not only tint its units,
    it hatches them: brick for carbonate, chevrons for volcanics, stipple for
@@ -2255,16 +2255,14 @@ function rememberLayers() {
 }
 
 async function main() {
-  // A hard ceiling on the splash: whatever happens to the network, the map is
-  // interactive after four seconds rather than sitting behind a logo.
-  setTimeout(dismissSplash, 4000);
+  // a ceiling, in case the network never lets the map settle
+  setTimeout(dismissSplash, 15000);
   setupThemeToggle();
   watchParentTheme();
   await loadData();
   await initMap();
   rememberLayers();
   map.once('idle', dismissSplash);
-  dismissSplash();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW registration failed', err));

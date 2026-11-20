@@ -1,4 +1,4 @@
-const CACHE_NAME = 'even-derech-map-v26';
+const CACHE_NAME = 'even-derech-map-v27';
 const MAP_CACHE_NAME = 'ihm-map-v4';
 // Every self-hosted tile archive. These are the only files served by Range
 // request, so they take the byte-slicing path below rather than plain caching.
@@ -39,6 +39,9 @@ const APP_SHELL = [
   'icons/ink/notebooks.svg',
   'icons/ink/pencil.svg',
   'icons/ink/resources.svg',
+  'icons/ink/rel-judaism.svg',
+  'icons/ink/rel-christianity.svg',
+  'icons/ink/rel-islam.svg',
   'icons/ink/search.svg',
   'icons/ink/signpost.svg',
   'icons/ink/strata.svg',

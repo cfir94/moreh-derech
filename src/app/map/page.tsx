@@ -27,6 +27,13 @@ export default function MapChooserPage() {
       <PageDecor birds items={["compass", "hills", "signpost", "lake", "binoculars"]} step={300} />
       <PageHead section="map" title="מפה" lede="מפה אחת ללמוד למבחן, ומפה אחת לתכנן יום בשטח." art={<InkCompass live />} />
 
+      {/* the route map is heavy (scripts, 3MB of layers): fetch it while the user is still choosing (owner, 20.11) */}
+      {["embeds/map/index.html", "embeds/map/js/app.js", "embeds/map/vendor/maplibre/maplibre-gl.mjs", "embeds/map/vendor/maplibre/maplibre-gl-shared.mjs",
+        "embeds/map/js/data/sites.geojson", "embeds/map/js/data/visitor_sites.geojson", "embeds/map/js/data/regions.geojson",
+        "embeds/map/js/data/tours.json"].map((f) => (
+        <link key={f} rel="prefetch" href={withBasePath(`/${f}`)} />
+      ))}
+      <link rel="preconnect" href="https://cfir94.github.io" crossOrigin="" />
       <div className={styles.cards}>
         <Link href="/map/learn" className={`${styles.card} ${styles.learn}`}>
           <span
