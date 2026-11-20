@@ -61,7 +61,7 @@ export function MotiButton() {
     if (!src) {
       // ערכת הצבעים נקבעת פעם אחת, בטעינת המסגרת (שינוי src היה קוטע שיחה).
       const theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
-      setSrc(`${HISTORY_TALK_ORIGIN}/talk.html?c=guide&embed=1&compact=1&theme=${theme}`);
+      setSrc(`${HISTORY_TALK_ORIGIN}/talk?c=guide&embed=1&compact=1&theme=${theme}`);
     }
     setOpen((o) => !o);
     setHello(false);

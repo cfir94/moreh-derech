@@ -458,11 +458,18 @@ async function initMap() {
     style: styleObj,
     center: [35.1, 31.6],
     zoom: 7.3,
-    minZoom: 6,
-    maxBounds: [[33.75, 29.25], [36.4, 33.6]],
+    minZoom: 5,
+    maxBounds: [[26, 27.5], [44, 35.5]],
     maxZoom: 18,
     attributionControl: false
   });
+  // Zooming out stops where the whole country, Metula to Eilat, just fits the screen (owner, 20.11)
+  const fitIsrael = () => {
+    const cam = map.cameraForBounds([[34.25, 29.45], [35.9, 33.35]], { padding: 24 });
+    if (cam && isFinite(cam.zoom)) map.setMinZoom(Math.max(4, cam.zoom));
+  };
+  map.once('load', fitIsrael);
+  window.addEventListener('resize', fitIsrael);
   // Exposed so the map can be inspected from the browser console / automated
   // checks (layer order, which labels actually rendered) without reaching into
   // module scope. Read-only as far as the app is concerned.
