@@ -13,7 +13,7 @@ export const metadata: Metadata = {
  */
 export default function RouteMapPage() {
   return (
-    <div className="flex h-[calc(100dvh-3.6rem)] flex-col overflow-hidden bg-bg">
+    <div data-ground="map" className="flex h-[calc(100dvh-3.6rem)] flex-col overflow-hidden bg-[#2e4250]">
       <iframe
         src={embedUrl("map/index.html")}
         title="מפת השטח של אבן דרך"

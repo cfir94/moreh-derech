@@ -426,6 +426,15 @@ async function initMap() {
   // moreyderech.com: the 95MB archive exceeds Cloudflare's static-file limit, so index.html points elsewhere.
   styleObj.sources.openmaptiles.url = 'pmtiles://' + (window.MAP_PMTILES_URL || abs('data/israel.pmtiles'));
   styleObj.glyphs = absDir() + 'vendor/maplibre/fonts/{fontstack}/{range}.pbf';
+  // Outside the tiles (34.2–35.95°E, 29.4–33.45°N) the map is the site's deep map-section blue, not blank paper
+  // (owner, 20.11): the background turns blue, and the paper colour is laid only over the tiles' extent.
+  const bg = styleObj.layers.find(l => l.id === 'background');
+  const paper = bg.paint['background-color'];
+  bg.paint['background-color'] = activeTheme === 'dark' ? '#1d2a33' : '#2e4250';
+  styleObj.sources.coverage = { type: 'geojson', data: { type: 'Feature', properties: {}, geometry: { type: 'Polygon',
+    coordinates: [[[34.2, 29.4], [35.95, 29.4], [35.95, 33.45], [34.2, 33.45], [34.2, 29.4]]] } } };
+  styleObj.layers.splice(styleObj.layers.indexOf(bg) + 1, 0,
+    { id: 'coverage', type: 'fill', source: 'coverage', paint: { 'fill-color': paper } });
 
   const protocol = new pmtiles.Protocol();
   maplibregl.addProtocol('pmtiles', protocol.tile);
