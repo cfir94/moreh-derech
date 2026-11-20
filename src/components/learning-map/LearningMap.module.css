@@ -363,7 +363,7 @@ button.findTitle { color: var(--teal); }
 .sheetSwitch { display: inline-flex; padding: 3px; border-radius: 999px; background: color-mix(in srgb, var(--sheet) 88%, transparent); border: 1px solid var(--line); box-shadow: var(--shadow); }
 .sheetSwitch button { padding: 6px 13px; border-radius: 999px; font-size: 15px; font-weight: 800; color: var(--txt-dim); }
 .sheetSwitch button[aria-selected="true"] { background: var(--teal); color: var(--on-accent); }
-.zoomBtns { display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.zoomBtns { align-self: flex-end; /* RTL: flex-end is the left edge, by the map frame */ display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
 .zoomBtns button { width: 38px; height: 36px; font-size: 21px; font-weight: 800; background: color-mix(in srgb, var(--sheet) 90%, transparent); }
 .zoomBtns button + button { border-top: 1px solid var(--line); }
 .zoomBtns button:hover { background: var(--sheet); color: var(--teal); }
