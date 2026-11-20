@@ -2,10 +2,12 @@ name: GitHub Pages — redirect to moreyderech.com
 
 # The site lives at moreyderech.com (Cloudflare, with the paywall). GitHub Pages used to serve a full, free
 # copy of it; now it serves only a redirect that keeps the path, so old links still land (owner, 19.11).
+# One file stays: the route map's tiles (embeds/map/data/israel.pmtiles, 95MB), which is too big for
+# Cloudflare's static assets and is loaded from here (public/embeds/map/index.html, MAP_PMTILES_URL).
 on:
   push:
     branches: [main]
-    paths: [".github/workflows/deploy.yml"]
+    paths: [".github/workflows/deploy.yml", "public/embeds/map/data/israel.pmtiles"]
   workflow_dispatch:
 
 permissions:
@@ -19,6 +21,11 @@ jobs:
   redirect:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: public/embeds/map/data/israel.pmtiles
+          sparse-checkout-cone-mode: false
+
       - name: Build the redirect
         run: |
           mkdir -p out
@@ -37,6 +44,8 @@ jobs:
           HTML
           cp out/index.html out/404.html
           touch out/.nojekyll
+          mkdir -p out/embeds/map/data
+          cp public/embeds/map/data/israel.pmtiles out/embeds/map/data/israel.pmtiles
 
       - name: Replace the gh-pages branch with the redirect
         uses: peaceiris/actions-gh-pages@v4

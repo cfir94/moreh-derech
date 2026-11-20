@@ -1537,3 +1537,29 @@ html[data-theme="dark"].has-rail #app-header .map-brand-copy span { color: #c9b4
 .rail-btn[aria-expanded="true"] { background: var(--ring, #6b4423); border-color: var(--ring, #6b4423); }
 .rail-pop-body .panel.in-rail { --panel-color: #6b4423 !important; --accent: #6b4423; }
 #rail-pop { border-color: #6b4423; }
+
+/* what a course tour said here, and the notebook to ask (RM-06/RM-08) */
+.tour-note { margin: 12px 0; padding: 12px; border-radius: 10px; border: 1.5px dashed rgba(138,47,95,.55); background: rgba(138,47,95,.06); }
+.tour-note-head { display: flex; align-items: center; gap: 8px; font-weight: 800; color: #8a2f5f; margin-bottom: 6px; }
+.tour-note-head img { width: 26px; height: 26px; }
+.tour-note p { margin: 6px 0; }
+.tour-note blockquote { margin: 6px 0; padding-inline-start: 10px; border-inline-start: 3px solid rgba(138,47,95,.5); color: var(--text-dim); font-style: italic; }
+.nb-ask { display: inline-block; margin-top: 8px; padding: 8px 12px; border-radius: 8px; background: #6b4423; color: #fbf3df !important; font-weight: 800; text-decoration: none; }
+.nb-ask + .nb-ask { margin-inline-start: 6px; }
+
+/* "add to route" in the site's brown sign */
+html.has-rail .add-route-btn { background: #6b4423 !important; color: #fbf3df !important; border: 0; }
+
+/* the bank of ready-made routes (RM-10) */
+.bank-region { margin: 6px 0; border: 1.5px solid rgba(107,68,35,.3); border-radius: 10px; padding: 6px 10px; }
+.bank-region summary { cursor: pointer; font-weight: 800; padding: 4px 0; }
+.bank-region summary small { font-weight: 400; color: var(--text-dim); }
+.bank-region .saved-route-list { margin-top: 6px; }
+.bank-detail { margin: 10px 0; padding: 12px; border-radius: 12px; background: rgba(138,47,95,.06); border: 1.5px solid rgba(138,47,95,.4); }
+.bank-detail h3 { margin: 0 0 4px; }
+.bank-meta { margin: 0 0 6px; font-size: .85rem; color: var(--text-dim); }
+.bank-detail h4 { margin: 10px 0 4px; font-size: .95rem; }
+.bank-steps { margin: 8px 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 6px; }
+.bank-steps li span { display: block; font-size: .88rem; color: var(--text-dim); }
+.bank-steps .off-map { color: #b5382a; }
+.bank-practical { margin: 0; padding-inline-start: 18px; font-size: .88rem; }
