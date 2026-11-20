@@ -1578,3 +1578,14 @@ html[data-theme="dark"] #splash { background: #2d2318; color: #f1e6cc; }
 @media (prefers-reduced-motion: reduce) { #splash img.splash-compass { animation: none; } }
 
 #splash::before, #splash::after { display: none !important; }
+
+/* No top bar (owner, 20.11): the map takes the whole frame, and search and "המסלול שלי" float on it. */
+html.has-rail #app-header {
+  position: absolute; top: 0; left: 62px; right: auto; z-index: 1100;
+  background: transparent; border: 0; min-height: 0; padding: 10px 0 0; pointer-events: none;
+}
+html.has-rail #app-header .map-brand,
+html.has-rail #app-header #btn-toggle-sidebar { display: none; }
+html.has-rail #app-header .map-actions { pointer-events: auto; display: flex; gap: 8px; }
+html.has-rail #app-header .map-actions button { box-shadow: 0 3px 10px rgba(40, 26, 12, .22); }
+html.has-rail #app-body { height: 100%; }
