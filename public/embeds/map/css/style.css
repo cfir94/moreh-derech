@@ -1626,3 +1626,24 @@ html[data-theme="dark"] .map-float-btn { background: #2a2018; color: #f1e4c8; }
 /* Moti's hat sits at the site's bottom-left corner; the button stands just past it */
 .map-float-btn { left: 108px; }
 html.has-rail #app-header .map-actions { background: transparent !important; box-shadow: none !important; }
+
+/* On a computer, a rail button stretches on hover and says in words what it is (owner, 20.11).
+   The label sits inside the button, so the rail's scroll box can't clip it. */
+@media (hover: hover) and (pointer: fine) {
+  #layer-rail { align-items: flex-start; } /* RTL: the start is the right edge */
+  .rail-btn {
+    display: flex; align-items: center; justify-content: flex-start;
+    width: auto; min-width: 54px; padding: 0 7px; gap: 0; border-radius: 999px;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), background .2s, gap .25s ease;
+  }
+  .rail-btn img { flex-shrink: 0; }
+  .rail-label {
+    position: static; translate: none; opacity: 1; padding: 0;
+    background: none; color: #3a2a18; font: 800 15px/1.2 var(--font-body);
+    max-width: 0; overflow: hidden; transition: max-width .3s ease, padding .3s ease;
+  }
+  .rail-btn:hover, .rail-btn:focus-visible { transform: none; gap: 8px; }
+  .rail-btn:hover .rail-label, .rail-btn:focus-visible .rail-label { max-width: 220px; padding-inline-end: 8px; }
+  .rail-btn[aria-expanded="true"] .rail-label { opacity: 1; color: #fbf3df; }
+  html[data-theme="dark"] .rail-label { color: #3a2a18; }
+}

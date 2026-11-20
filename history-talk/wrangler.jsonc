@@ -7,6 +7,10 @@
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  // our own address as well (owner, 20.11): some networks in Israel block *.workers.dev, and Moti failed to load there
+  "routes": [
+    { "pattern": "talk.moreyderech.com", "custom_domain": true }
+  ],
 
   // ה-Worker רץ ראשון על כל בקשה כדי להוסיף כותרות אבטחה גם לקבצים הסטטיים.
   "assets": {
