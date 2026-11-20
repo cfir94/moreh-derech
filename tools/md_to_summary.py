@@ -20,7 +20,7 @@ parts = re.split(r"^## ", md, flags=re.M)[1:]
 sections, terms, sites = [], [], []
 for part in parts:
     head, _, body = part.partition("\n")
-    head = head.strip()
+    head = re.sub(r"^(?:פרק|חלק)\s*\d+\s*[:.\-–—]\s*", "", head.strip())
     lines = body.strip().splitlines()
     if head == "מושגים":
         for l in lines:
@@ -44,6 +44,11 @@ for part in parts:
             continue
         if mode == "remember":
             if l.startswith("- "): remember.append(clean(l[2:]))
+            continue
+        m = re.match(r"\s*(?:[-*]|\d+\.)\s+(.*)", l)
+        if m:
+            if buf: paras.append(clean(" ".join(buf))); buf = []
+            paras.append("• " + clean(m.group(1)))
             continue
         if l.strip(): buf.append(l.strip())
         elif buf:
