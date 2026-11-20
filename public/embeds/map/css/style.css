@@ -1589,3 +1589,9 @@ html.has-rail #app-header #btn-toggle-sidebar { display: none; }
 html.has-rail #app-header .map-actions { pointer-events: auto; display: flex; gap: 8px; }
 html.has-rail #app-header .map-actions button { box-shadow: 0 3px 10px rgba(40, 26, 12, .22); }
 html.has-rail #app-body { height: 100%; }
+
+/* around the map: the deep blue of the site's map section (owner, 20.11), not white */
+html, body, #app-body, #map { background: #2e4250 !important; }
+html[data-theme="dark"], html[data-theme="dark"] body, html[data-theme="dark"] #map { background: #1d2a33 !important; }
+html.has-rail #app-header #btn-search { background: #fbf3df; color: #3b2a1a; border-color: rgba(59, 42, 26, .35); }
+html[data-theme="dark"].has-rail #app-header #btn-search { background: #2a2018; color: #f1e4c8; }
