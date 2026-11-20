@@ -1595,3 +1595,15 @@ html, body, #app-body, #map { background: #2e4250 !important; }
 html[data-theme="dark"], html[data-theme="dark"] body, html[data-theme="dark"] #map { background: #1d2a33 !important; }
 html.has-rail #app-header #btn-search { background: #fbf3df; color: #3b2a1a; border-color: rgba(59, 42, 26, .35); }
 html[data-theme="dark"].has-rail #app-header #btn-search { background: #2a2018; color: #f1e4c8; }
+
+/* periods as checkboxes, each with its age's drawing (owner, 20.11) */
+.period-actions { display: flex; gap: 8px; margin: 10px 0 6px; }
+.period-actions button { border: 1px solid var(--border); background: var(--bg-panel); border-radius: 999px; padding: 4px 12px; font-weight: 700; cursor: pointer; }
+#period-list { display: flex; flex-direction: column; gap: 4px; max-height: 46vh; overflow: auto; }
+.period-check { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 10px; border-inline-start: 4px solid var(--era); cursor: pointer; }
+.period-check:hover { background: color-mix(in srgb, var(--era) 10%, transparent); }
+.period-check input { accent-color: var(--era); width: 17px; height: 17px; flex-shrink: 0; }
+.period-check img { width: 26px; height: 26px; flex-shrink: 0; }
+.period-check span { display: flex; flex-direction: column; line-height: 1.25; }
+.period-check b { font-size: 14px; }
+.period-check small { color: var(--text-dim); font-size: 12px; }

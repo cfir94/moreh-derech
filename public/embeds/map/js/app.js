@@ -92,13 +92,14 @@ const ERA_COLORS = {
   modern: '#3E7D44'
 };
 
+// one ink drawing per age (owner, 20.11: the sites show their symbol, not a coloured dot)
 const ERA_ICONS = {
-  prehistoric: 'icons/svg/era-prehistoric.svg',
-  bronze: 'icons/svg/era-bronze.svg',
-  biblical: 'icons/svg/era-biblical.svg',
-  classical: 'icons/svg/era-classical.svg',
-  medieval: 'icons/svg/era-medieval.svg',
-  modern: 'icons/svg/era-modern.svg'
+  prehistoric: 'icons/ink/handaxe.svg',
+  bronze: 'icons/ink/jar.svg',
+  biblical: 'icons/ink/crown.svg',
+  classical: 'icons/ink/column.svg',
+  medieval: 'icons/ink/tower.svg',
+  modern: 'icons/ink/flag.svg'
 };
 
 // Israel's real extent, used to keep the map focused (no wandering into
@@ -175,6 +176,7 @@ const state = {
   activeNatureKinds: new Set(Object.keys({ birds:1, mammals:1, plants:1, mixed:1 })),
   geologyLevel: 'basic',
   periodIndex: 0,
+  activePeriods: null,   // a Set of period ids, filled with every period once periods.json loads
   showFirstTemple: false,
   showSecondTemple: false,
   activeReligions: new Set(),
@@ -259,8 +261,15 @@ const MAP_ICONS = {
   'ic-plants':      ['icons/ink/flower.svg',     '#3f7a3a'],
   'ic-mixed':       ['icons/ink/hills.svg',      '#6b4423'],
   'ic-view':        ['icons/ink/binoculars.svg', '#2a6fb0'],
-  'ic-urban':       ['icons/ink/city.svg',       '#1f8a8a']
+  'ic-urban':       ['icons/ink/city.svg',       '#1f8a8a'],
+  'era-prehistoric':['icons/ink/handaxe.svg',    '#A97142'],
+  'era-bronze':     ['icons/ink/jar.svg',        '#C98A3A'],
+  'era-biblical':   ['icons/ink/crown.svg',      '#B23A48'],
+  'era-classical':  ['icons/ink/column.svg',     '#6E4C9E'],
+  'era-medieval':   ['icons/ink/tower.svg',      '#2A5C8A'],
+  'era-modern':     ['icons/ink/flag.svg',       '#3E7D44']
 };
+const ERAS = ['prehistoric', 'bronze', 'biblical', 'classical', 'medieval', 'modern'];
 
 // Pins of one kind that crowd together merge into one pin of that kind with a count (owner, 20.11):
 // one clustered source per kind, so a cluster never mixes kinds.
@@ -668,17 +677,8 @@ async function initMap() {
   }, HILLSHADE_INSERT_BEFORE);
 
   map.addSource('sites', { type: 'geojson', data: state.sitesGeoJSON });
-  map.addLayer({
-    id: 'sites-periods', type: 'circle', source: 'sites',
-    filter: ['==', ['literal', false], ['literal', true]],
-    layout: { visibility: 'none' },
-    paint: {
-      'circle-radius': 8,
-      'circle-color': eraColorMatchExpression(),
-      'circle-stroke-color': activeTheme === 'dark' ? '#122B39' : '#F6F8FB',
-      'circle-stroke-width': 2.5
-    }
-  });
+  // historical sites: one clustered layer per age, each with its own drawing
+  ERAS.forEach(era => addKindClusters(`era-${era}`, `era-${era}`, 0.62, p => openInfoPanel(p, 'period')));
   // religious sites, one clustered layer per religion; official visitor sites (777 points), one per operator;
   // and the notebooks' viewpoints and urban places
   ['judaism', 'christianity', 'islam'].forEach(r => addKindClusters(`rel-${r}`, `ic-${r}`, 0.62, p => openInfoPanel(p, 'religion')));
@@ -726,12 +726,11 @@ async function initMap() {
     paint: { 'text-color': activeTheme === 'dark' ? '#06121A' : '#FFFFFF' }
   });
 
-  ['regions-fill', 'geology-fill', 'sites-periods', 'nature-points'].forEach(id => {
+  ['regions-fill', 'geology-fill', 'nature-points'].forEach(id => {
     map.on('mouseenter', id, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', id, () => { map.getCanvas().style.cursor = ''; });
   });
 
-  map.on('click', 'sites-periods', e => openInfoPanel(e.features[0].properties, 'period'));
   map.on('click', 'nature-points', e => {
     openNaturePanel(e.features[0].properties);
   });
@@ -770,25 +769,30 @@ function buildRegionsLegend() {
     });
 }
 
+// Periods are checkboxes, so several can be shown together (owner, 20.11), each with its age's drawing.
 function buildPeriodSlider() {
-  const slider = document.getElementById('period-slider');
-  slider.max = state.periods.length - 1;
-  slider.value = state.periodIndex;
-  updatePeriodLabel();
-  slider.addEventListener('input', () => {
-    state.periodIndex = Number(slider.value);
-    updatePeriodLabel();
+  if (!state.activePeriods) state.activePeriods = new Set(state.periods.map(p => p.id));
+  const list = document.getElementById('period-list');
+  if (!list) return;
+  list.innerHTML = state.periods.map(p => `<label class="period-check" style="--era:${ERA_COLORS[p.era] || '#12968A'}">
+      <input type="checkbox" value="${p.id}" ${state.activePeriods.has(p.id) ? 'checked' : ''} />
+      <img src="${ERA_ICONS[p.era] || ''}" alt="" />
+      <span><b>${p.name_he}</b><small>${p.range_he || ''}</small></span>
+    </label>`).join('');
+  list.querySelectorAll('input').forEach(box => box.addEventListener('change', () => {
+    if (box.checked) state.activePeriods.add(box.value); else state.activePeriods.delete(box.value);
     refreshSitesLayer();
-  });
+  }));
+  const setAll = on => {
+    state.activePeriods = new Set(on ? state.periods.map(p => p.id) : []);
+    list.querySelectorAll('input').forEach(b => { b.checked = on; });
+    refreshSitesLayer();
+  };
+  document.getElementById('btn-periods-all')?.addEventListener('click', () => setAll(true));
+  document.getElementById('btn-periods-none')?.addEventListener('click', () => setAll(false));
 }
 
-function updatePeriodLabel() {
-  const p = state.periods[state.periodIndex];
-  const icon = ERA_ICONS[p.era] || '';
-  document.getElementById('period-label').innerHTML =
-    (icon ? `<img src="${icon}" alt="" />` : '') + `<span>${p.name_he} (${p.name_en})</span>`;
-  document.getElementById('period-range').textContent = p.range_he + (p.note_he ? ` — ${p.note_he}` : '');
-}
+function updatePeriodLabel() {}
 
 function buildReligionFilters() {
   const wrap = document.getElementById('religion-filters');
@@ -821,20 +825,21 @@ function siteMatchesTempleFilter(props) {
 }
 
 function refreshSitesLayer() {
-  if (!map.getLayer('sites-periods')) return;
-  const templeFilterActive = state.showFirstTemple || state.showSecondTemple;
-  const currentPeriod = state.periods[state.periodIndex];
-
-  let filter;
-  if (templeFilterActive) {
-    const wanted = [];
-    if (state.showFirstTemple) wanted.push('first-temple');
-    if (state.showSecondTemple) wanted.push('second-temple');
-    filter = ['in', ['get', 'temple_era'], ['literal', wanted]];
-  } else {
-    filter = ['in', currentPeriod.id, ['get', 'periods']];
-  }
-  map.setFilter('sites-periods', filter);
+  if (!map || !map.getSource('era-modern') || !state.activePeriods) return;
+  const temple = [];
+  if (state.showFirstTemple) temple.push('first-temple');
+  if (state.showSecondTemple) temple.push('second-temple');
+  const eraOf = Object.fromEntries(state.periods.map(p => [p.id, p.era]));
+  const groups = Object.fromEntries(ERAS.map(e => [e, []]));
+  state.sitesGeoJSON.features.forEach(f => {
+    const pr = f.properties;
+    if (temple.length && !temple.includes(pr.temple_era)) return;
+    // a site of several periods is drawn once, with the drawing of its earliest period that is ticked
+    const pid = state.periods.map(p => p.id).find(id => state.activePeriods.has(id) && parseMaybeJSON(pr.periods).includes(id));
+    const era = pid && eraOf[pid];
+    if (era && groups[era]) groups[era].push(f);
+  });
+  ERAS.forEach(e => setKindData(`era-${e}`, groups[e]));
 }
 
 function refreshReligionsLayer() {
@@ -1360,17 +1365,13 @@ function selectSearchResult(entry) {
   // there — otherwise you fly to a marker that is filtered out. If the period
   // already selected shows this site, leave it alone rather than yanking the
   // timeline out from under whoever is mid-tour.
-  if (entry.kind === 'site' && (p.periods || []).length) {
-    const current = state.periods[state.periodIndex];
-    if (current && p.periods.includes(current.id)) return;
-    const idx = state.periods.findIndex(x => x.id === p.periods[0]);
-    if (idx >= 0) {
-      state.periodIndex = idx;
-      const slider = document.getElementById('period-slider');
-      if (slider) slider.value = String(idx);
-      updatePeriodLabel();
-      refreshSitesLayer();
-    }
+  if (entry.kind === 'site' && parseMaybeJSON(p.periods).length && state.activePeriods) {
+    const ps = parseMaybeJSON(p.periods);
+    if (ps.some(id => state.activePeriods.has(id))) return;
+    state.activePeriods.add(ps[0]);
+    const box = document.querySelector(`#period-list input[value="${ps[0]}"]`);
+    if (box) box.checked = true;
+    refreshSitesLayer();
   }
 }
 
@@ -1394,10 +1395,10 @@ function lookupSpecies(name) {
 }
 
 const SPECIES_KIND_ICON = {
-  birds: 'icons/svg/nature-birds.svg',
-  mammals: 'icons/svg/nature-mammals.svg',
-  plants: 'icons/svg/nature-plants.svg',
-  mixed: 'icons/svg/nature-mixed.svg'
+  birds: 'icons/ink/bird.svg',
+  mammals: 'icons/ink/ibex.svg',
+  plants: 'icons/ink/flower.svg',
+  mixed: 'icons/ink/hills.svg'
 };
 
 // A species the dictionary knows becomes a button; one it doesn't stays plain
@@ -1517,7 +1518,7 @@ function renderVisitorBody(props, freshness) {
     : '';
   return `
     <div class="operator-tag" style="background:${op.color || '#8A7A63'}">
-      <img src="${abs('icons/svg/op-' + props.operator + '.svg')}" alt="" />${op.label}</div>
+      <img src="${abs('icons/ink/' + (props.operator === 'kkl' ? 'tree' : 'leaf') + '.svg')}" alt="" />${op.label}</div>
     ${attrHtml}
     ${hours.length || props.hours_special ? `${h4('clock', 'שעות פתיחה')}${hoursHtml(hours, props.hours_special)}` : ''}
     ${prices.length ? `${h4('price', 'מחירים')}${priceTableHtml(prices)}` : ''}
@@ -2092,7 +2093,7 @@ function wireUI() {
   });
 
   document.getElementById('toggle-periods').addEventListener('change', e => {
-    setLayerVisibility('sites-periods', e.target.checked);
+    ERAS.forEach(era => setKindVisible(`era-${era}`, e.target.checked));
   });
 
   document.getElementById('toggle-views')?.addEventListener('change', e => setKindVisible('sites-view', e.target.checked));
