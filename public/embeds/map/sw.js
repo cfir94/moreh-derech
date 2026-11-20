@@ -1,4 +1,4 @@
-const CACHE_NAME = 'even-derech-map-v25';
+const CACHE_NAME = 'even-derech-map-v26';
 const MAP_CACHE_NAME = 'ihm-map-v4';
 // Every self-hosted tile archive. These are the only files served by Range
 // request, so they take the byte-slicing path below rather than plain caching.
@@ -60,6 +60,7 @@ const APP_SHELL = [
   'js/data/species.json',
   'js/data/photos.json',
   'js/data/tours.json',
+  'js/data/route-bank.json',
   'data/terrain-manifest.json',
   'vendor/maplibre/maplibre-contour.mjs',
   'vendor/maplibre/maplibre-gl.mjs',

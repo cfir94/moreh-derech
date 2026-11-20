@@ -211,6 +211,10 @@ async function loadData() {
   // what the course tours taught, from Codex's NB-4 reports (tools/import_nb4_tours.py)
   state.tours = await fetch('js/data/tours.json').then(r => r.json())
     .catch(() => ({ notebooks: {}, stops: { type: 'FeatureCollection', features: [] }, notes: {} }));
+  // the bank of ready-made routes, from the course tours (Codex NB-5, tools/import_nb5_routes.py)
+  state.bank = await fetch('js/data/route-bank.json').then(r => r.json())
+    .catch(() => ({ routes: [], places: { type: 'FeatureCollection', features: [] } }));
+  state.tours.stops.features.push(...(state.bank.places.features || []));
   state.periods = periods.sort((a, b) => a.order - b.order);
   state.regionsGeoJSON = regions;
   state.religions = religions;
@@ -1698,6 +1702,32 @@ function openSavedRoute(r) {
     try { map.fitBounds(b, { padding: 90, maxZoom: 12, duration: 900 }); } catch (e) { /* not ready */ }
   }
 }
+// The ready-made routes, by region; the three hand-made examples only when the bank did not load.
+function bankHtml(card) {
+  const bank = (state.bank && state.bank.routes) || [];
+  if (!bank.length) return `<ul class="saved-route-list">${SAMPLE_ROUTES.map(r => card(r, true)).join('')}</ul>`;
+  const byRegion = new Map();
+  bank.forEach(r => { const k = r.region || 'אחר'; if (!byRegion.has(k)) byRegion.set(k, []); byRegion.get(k).push(r); });
+  return [...byRegion].map(([region, list]) => `<details class="bank-region"><summary>${escHtml(region)} <small>(${list.length})</small></summary>
+    <ul class="saved-route-list">${list.map(r => card({ ...r, note: [r.length, r.audience].filter(Boolean).join(' · ') }, true)).join('')}</ul></details>`).join('');
+}
+
+function showBankDetail(r) {
+  const box = document.getElementById('bank-detail');
+  if (!box) return;
+  const esc = escHtml;
+  const nb = state.tours && state.tours.notebooks[r.notebook];
+  box.innerHTML = `<div class="bank-detail">
+    <h3>${esc(r.name)}</h3>
+    <p class="bank-meta">${[r.length, r.audience, r.season && !/לא נמצא/.test(r.season) ? r.season : ''].filter(Boolean).map(esc).join(' · ')}</p>
+    <p>${esc(r.note)}</p>
+    <ol class="bank-steps">${(r.steps || []).map(st => `<li><strong>${esc(st.name)}</strong>${st.minutes ? ` <small>· ${st.minutes} דק׳</small>` : ''}${st.id ? '' : ' <small class="off-map">(לא על המפה)</small>'}${st.tell ? `<span>${esc(st.tell)}</span>` : ''}</li>`).join('')}</ol>
+    ${(r.practical || []).length ? `<h4>לפני שיוצאים</h4><ul class="bank-practical">${r.practical.filter(x => !/^לא ודאי/.test(x)).map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+    ${nb ? `<a class="nb-ask" href="${esc(nb.url)}" target="_blank" rel="noopener">שאלו את מאגר המידע: ${esc(nb.title)} ↗</a>` : ''}
+  </div>`;
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function renderSavedRoutes() {
   const box = document.getElementById('saved-routes');
   if (!box) return;
@@ -1717,8 +1747,9 @@ function renderSavedRoutes() {
     </form>
     <h3>המסלולים שלי</h3>
     ${mine.length ? `<ul class="saved-route-list">${mine.map(r => card(r, false)).join('')}</ul>` : '<p class="hint">עוד לא שמרתם מסלול.</p>'}
-    <h3>מסלולים לדוגמה</h3>
-    <ul class="saved-route-list">${SAMPLE_ROUTES.map(r => card(r, true)).join('')}</ul>`;
+    <div id="bank-detail"></div>
+    <h3>מסלולים מוכנים מסיורי הקורס</h3>
+    ${bankHtml(card)}`;
   box.querySelector('#save-route-form').addEventListener('submit', e => {
     e.preventDefault();
     const name = box.querySelector('#save-route-name').value.trim();
@@ -1730,8 +1761,12 @@ function renderSavedRoutes() {
     renderSavedRoutes();
   });
   box.querySelectorAll('[data-open]').forEach(btn => btn.addEventListener('click', () => {
-    const r = btn.dataset.sample ? SAMPLE_ROUTES.find(x => x.id === btn.dataset.open) : readSavedRoutes()[btn.dataset.open];
-    if (r) openSavedRoute(r);
+    const bank = (state.bank && state.bank.routes) || [];
+    const fromBank = btn.dataset.sample ? (bank.find(x => x.id === btn.dataset.open) || SAMPLE_ROUTES.find(x => x.id === btn.dataset.open)) : null;
+    const r = fromBank || readSavedRoutes()[btn.dataset.open];
+    if (!r) return;
+    openSavedRoute(fromBank && fromBank.steps ? { ...r, layers: { 'toggle-tours': true } } : r);
+    if (fromBank && fromBank.steps) showBankDetail(fromBank);
   }));
   box.querySelectorAll('[data-del]').forEach(btn => btn.addEventListener('click', () => {
     const all = readSavedRoutes();
