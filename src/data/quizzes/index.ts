@@ -11,6 +11,7 @@ import secondTemple from "@/data/quizzes/second-temple";
 import israelBorders from "@/data/quizzes/israel-borders";
 import judaism from "@/data/quizzes/judaism";
 import pastExams from "@/data/quizzes/past-exams";
+import examBank from "@/data/quizzes/exam-bank";
 import prehistory from "@/data/quizzes/prehistory";
 import romanByzantine from "@/data/quizzes/roman-byzantine";
 import classicalArchitecture from "@/data/quizzes/classical-architecture";
@@ -19,13 +20,13 @@ import medieval from "@/data/quizzes/medieval";
 import ottoman from "@/data/quizzes/ottoman";
 
 /*
- * "exam-bank" (Efrat Nakash's topic-sorted collection with her solutions) is withdrawn from the site
- * (owner, 18.11, after the legal research: a collection and its solutions are protected). The file
- * stays until Codex rebuilds the bank from the Ministry's own exam files with our own key and topics.
+ * "exam-bank": the Ministry's licensing questions of 2000–2017, rebuilt with our own answers and topics
+ * (tools/import_exam_bank.py, 20.11). Efrat Nakash's collection and solutions are no longer used.
  */
 export const QUIZZES: Quiz[] = [
   mosheUpcomingExam,
   pastExams,
+  examBank,
   courseBank,
   floraFauna,
   geology,
@@ -63,7 +64,7 @@ export const QUIZ_DESCRIPTIONS: Record<string, string> = {
   "past-exams":
     "שאלות רב־ברירה ממבחני הרישוי 2016–2026. לחלק מהמועדים מפתח רשמי, ובמועדים אחרים הפתרונות מוסקים ומסומנים בהתאם.",
   "exam-bank":
-    "2,634 שאלות ממבחני הרישוי 2000–2017, ממוינות ל-23 נושאים — כולל נושאים שאין להם שאלון אחר.",
+    "כ־2,600 שאלות ממבחני הרישוי 2000–2017, לפי נושאי הסילבוס, עם תשובות שקבענו בעצמנו — כולל נושאים שאין להם שאלון אחר.",
   "flora-fauna":
     "צמחייה, ציפורים, יונקים, זוחלים, נדידה ובתי גידול — הטבע של ארץ ישראל.",
   geology:
