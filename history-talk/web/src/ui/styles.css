@@ -778,6 +778,8 @@ a {
    section.stage — גם הדיוקן עצמו נושא את המחלקה stage (Avatar size="stage"). */
 .compact body {
   padding: 0 8px 8px;
+  /* opaque, so the site page behind the floating panel (the map's dark blue, say) never shows through the text */
+  background: var(--bg-base);
 }
 
 .compact .topbar,

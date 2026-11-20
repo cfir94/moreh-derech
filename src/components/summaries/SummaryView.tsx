@@ -74,6 +74,21 @@ export function SummaryView({ summary }: { summary: Summary }) {
                 </p>
               ))}
 
+              {section.table && (
+                <div className={s.tableWrap}>
+                  <table className={s.table}>
+                    <thead>
+                      <tr>{section.table.head.map((h) => <th key={h}>{h}</th>)}</tr>
+                    </thead>
+                    <tbody>
+                      {section.table.rows.map((row) => (
+                        <tr key={row.join("|")}>{row.map((c, i) => <td key={i}>{c}</td>)}</tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
               {section.remember.length > 0 && (
                 <aside
                   className={s.remember}

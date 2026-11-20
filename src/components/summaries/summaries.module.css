@@ -499,3 +499,9 @@
     transition: none;
   }
 }
+
+.tableWrap { margin-top: 18px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); }
+.table { width: 100%; border-collapse: collapse; font-size: 0.95rem; line-height: 1.5; }
+.table th { background: color-mix(in srgb, var(--mc, var(--teal)) 14%, var(--paper)); font-weight: 800; text-align: start; padding: 8px 10px; white-space: nowrap; }
+.table td { padding: 7px 10px; border-top: 1px solid var(--line); vertical-align: top; }
+.table tr:nth-child(even) td { background: color-mix(in srgb, var(--paper) 60%, transparent); }

@@ -8,6 +8,8 @@ export type SummarySection = {
   body: string[];
   /** 2–4 עובדות קצרות למבחן, בניסוח של שאלה ותשובה. */
   remember: string[];
+  /** טבלה אופציונלית, למשל טבלת החגים. */
+  table?: { head: string[]; rows: string[][] };
 };
 
 export type Summary = {
