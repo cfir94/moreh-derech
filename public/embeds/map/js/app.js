@@ -208,16 +208,18 @@ async function loadData() {
   ]);
   // the learning map's photos, for the sites the two maps share (tools/export_route_map_photos.mjs)
   state.photos = await fetch('js/data/photos.json').then(r => r.json()).catch(() => ({}));
-  // what the course tours taught, from Codex's NB-4 reports (tools/import_nb4_tours.py)
+  // places from the field notebooks, with their layers and talking points (tools/import_nb4_tours.py)
   state.tours = await fetch('js/data/tours.json').then(r => r.json())
-    .catch(() => ({ notebooks: {}, stops: { type: 'FeatureCollection', features: [] }, notes: {} }));
-  // the bank of ready-made routes, from the course tours (Codex NB-5, tools/import_nb5_routes.py)
+    .catch(() => ({ notebooks: {}, stops: { type: 'FeatureCollection', features: [] }, tell: {}, kb: {} }));
+  // the bank of ready-made routes (tools/import_nb5_routes.py)
   state.bank = await fetch('js/data/route-bank.json').then(r => r.json())
     .catch(() => ({ routes: [], places: { type: 'FeatureCollection', features: [] } }));
-  state.tours.stops.features.push(...(state.bank.places.features || []));
   state.periods = periods.sort((a, b) => a.order - b.order);
   state.regionsGeoJSON = regions;
   state.religions = religions;
+  // the notebooks' places are sites like any other: each shows on the layers its kind belongs to
+  // (religious sites, the history timeline, viewpoints, urban and culture), not on a layer of their own
+  sites.features.push(...(state.tours.stops.features || []), ...(state.bank.places.features || []));
   state.sitesGeoJSON = sites;
   state.geologyGeoJSON.basic = geologyBasic;
   state.geologyGeoJSON.advanced = geologyAdvanced;
@@ -252,12 +254,61 @@ const MAP_ICONS = {
   'ic-islam':       ['icons/ink/rel-islam.svg',        '#3f7a3a'],
   'ic-inpa':        ['icons/ink/leaf.svg',       '#3f7a3a'],
   'ic-kkl':         ['icons/ink/tree.svg',       '#2f6b4f'],
-  'ic-birds':       ['icons/ink/binoculars.svg', '#2a5a8c'],
+  'ic-birds':       ['icons/ink/bird.svg',       '#2a5a8c'],
   'ic-mammals':     ['icons/ink/ibex.svg',       '#b5651d'],
   'ic-plants':      ['icons/ink/flower.svg',     '#3f7a3a'],
   'ic-mixed':       ['icons/ink/hills.svg',      '#6b4423'],
-  'ic-tour':        ['icons/ink/notebooks.svg',  '#8a2f5f']
+  'ic-view':        ['icons/ink/binoculars.svg', '#2a6fb0'],
+  'ic-urban':       ['icons/ink/city.svg',       '#1f8a8a']
 };
+
+// Pins of one kind that crowd together merge into one pin of that kind with a count (owner, 20.11):
+// one clustered source per kind, so a cluster never mixes kinds.
+const CLUSTER_GROUPS = {};
+function addKindClusters(key, icon, size, onClick) {
+  map.addSource(key, { type: 'geojson', data: { type: 'FeatureCollection', features: [] },
+    cluster: true, clusterRadius: 42, clusterMaxZoom: 13 });
+  const cl = `${key}-cl`, n = `${key}-n`;
+  map.addLayer({ id: cl, type: 'symbol', source: key, filter: ['has', 'point_count'],
+    layout: { visibility: 'none', 'icon-image': icon, 'icon-size': size * 1.2, 'icon-allow-overlap': true } });
+  map.addLayer({ id: n, type: 'symbol', source: key, filter: ['has', 'point_count'],
+    layout: { visibility: 'none', 'icon-image': 'count-badge', 'icon-offset': [13, -13], 'icon-allow-overlap': true,
+      'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Noto Sans Regular'], 'text-size': 11,
+      'text-offset': [13 / 11, -13 / 11], 'text-allow-overlap': true },
+    paint: { 'text-color': '#fff8ea' } });
+  map.addLayer({ id: key, type: 'symbol', source: key, filter: ['!', ['has', 'point_count']],
+    layout: { visibility: 'none', 'icon-image': icon, 'icon-size': size, 'icon-allow-overlap': true } });
+  map.on('click', cl, e => {
+    const f = e.features[0];
+    map.getSource(key).getClusterExpansionZoom(f.properties.cluster_id)
+      .then(z => map.easeTo({ center: f.geometry.coordinates, zoom: z })).catch(() => {});
+  });
+  map.on('click', key, e => onClick(e.features[0].properties));
+  [cl, key].forEach(id => {
+    map.on('mouseenter', id, () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', id, () => { map.getCanvas().style.cursor = ''; });
+  });
+  CLUSTER_GROUPS[key] = [cl, n, key];
+}
+function setKindVisible(key, on) {
+  (CLUSTER_GROUPS[key] || []).forEach(id => setLayerVisibility(id, on));
+}
+function setKindData(key, features) {
+  const src = map && map.getSource(key);
+  if (src) src.setData({ type: 'FeatureCollection', features });
+}
+// the count on a cluster: a small dark-ink disc
+function addCountBadge() {
+  if (map.hasImage('count-badge')) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const c = document.createElement('canvas');
+  c.width = c.height = Math.round(22 * dpr);
+  const ctx = c.getContext('2d'), r = c.width / 2;
+  ctx.beginPath(); ctx.arc(r, r, r - 1.5 * dpr, 0, Math.PI * 2);
+  ctx.fillStyle = '#3b2a1a'; ctx.fill();
+  ctx.lineWidth = 2 * dpr; ctx.strokeStyle = '#fbf3df'; ctx.stroke();
+  map.addImage('count-badge', ctx.getImageData(0, 0, c.width, c.height), { pixelRatio: dpr });
+}
 const RELIGION_INK = { judaism: 'rel-judaism', christianity: 'rel-christianity', islam: 'rel-islam' };
 
 /* Geological ornament. A printed geological map does not only tint its units,
@@ -444,6 +495,7 @@ async function initMap() {
   // Icons make the map readable at a glance: a cross, a crescent, a Star of
   // David, an ibex or a tree says what a coloured dot cannot.
   await Promise.all([loadMapIcons(), loadFillPatterns()]);
+  addCountBadge();
 
   // Terrain relief. Our own elevation tileset (terrarium-encoded, zoom 0-11);
   // MapLibre overzooms past 11, which is fine because hillshade is a soft
@@ -523,7 +575,7 @@ async function initMap() {
     layout: { visibility: 'none' },
     paint: {
       'fill-color': ['get', 'color'],
-      'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.42, 0.2]
+      'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.55, 0.32]
     }
   }, THEMATIC_INSERT_BEFORE);
   map.addLayer({
@@ -618,58 +670,17 @@ async function initMap() {
       'circle-stroke-width': 2.5
     }
   });
-  map.addLayer({
-    id: 'sites-religions', type: 'symbol', source: 'sites',
-    filter: ['==', ['literal', false], ['literal', true]],
-    layout: {
-      visibility: 'none',
-      'icon-image': ['match', ['at', 0, ['get', 'religions']],
-        'judaism', 'ic-judaism', 'christianity', 'ic-christianity', 'islam', 'ic-islam',
-        'ic-judaism'],
-      'icon-size': 0.62,
-      'icon-allow-overlap': true
-    }
-  });
-
-  // Official visitor sites. 777 points would be an unreadable smear at country
-  // zoom, so they cluster until you zoom into an area.
-  map.addSource('visitor', {
-    type: 'geojson', data: state.visitorGeoJSON,
-    cluster: true, clusterRadius: 46, clusterMaxZoom: 12
-  });
-  map.addLayer({
-    id: 'visitor-clusters', type: 'circle', source: 'visitor',
-    filter: ['has', 'point_count'],
-    layout: { visibility: 'none' },
-    paint: {
-      'circle-color': activeTheme === 'dark' ? '#2EE6C5' : '#0D9488',
-      'circle-opacity': 0.9,
-      'circle-radius': ['step', ['get', 'point_count'], 15, 10, 20, 40, 26],
-      'circle-stroke-color': activeTheme === 'dark' ? '#122B39' : '#F6F8FB',
-      'circle-stroke-width': 2.5
-    }
-  });
-  map.addLayer({
-    id: 'visitor-cluster-count', type: 'symbol', source: 'visitor',
-    filter: ['has', 'point_count'],
-    layout: {
-      visibility: 'none',
-      'text-field': ['get', 'point_count_abbreviated'],
-      'text-font': ['Noto Sans Regular'],
-      'text-size': 12
-    },
-    paint: { 'text-color': activeTheme === 'dark' ? '#06121A' : '#FFFFFF' }
-  });
-  map.addLayer({
-    id: 'visitor-points', type: 'symbol', source: 'visitor',
-    filter: ['!', ['has', 'point_count']],
-    layout: {
-      visibility: 'none',
-      'icon-image': ['match', ['get', 'operator'], 'inpa', 'ic-inpa', 'kkl', 'ic-kkl', 'ic-inpa'],
-      'icon-size': 0.55,
-      'icon-allow-overlap': true
-    }
-  });
+  // religious sites, one clustered layer per religion; official visitor sites (777 points), one per operator;
+  // and the notebooks' viewpoints and urban places
+  ['judaism', 'christianity', 'islam'].forEach(r => addKindClusters(`rel-${r}`, `ic-${r}`, 0.62, p => openInfoPanel(p, 'religion')));
+  addKindClusters('visitor-inpa', 'ic-inpa', 0.55, p => openVisitorPanel(p));
+  addKindClusters('visitor-kkl', 'ic-kkl', 0.55, p => openVisitorPanel(p));
+  addKindClusters('sites-view', 'ic-view', 0.62, p => openInfoPanel(p, 'place'));
+  addKindClusters('sites-urban', 'ic-urban', 0.62, p => openInfoPanel(p, 'place'));
+  const byKind = k => state.sitesGeoJSON.features.filter(f => parseMaybeJSON(f.properties.kinds).includes(k));
+  setKindData('sites-view', byKind('view'));
+  setKindData('sites-urban', byKind('urban'));
+  refreshVisitorLayer();
 
   // Nature sightings — vulture lookouts, blooms, wildlife reserves.
   map.addSource('nature', { type: 'geojson', data: state.natureGeoJSON });
@@ -706,31 +717,12 @@ async function initMap() {
     paint: { 'text-color': activeTheme === 'dark' ? '#06121A' : '#FFFFFF' }
   });
 
-  // the stops of the course tours that the map did not have (RM-08)
-  map.addSource('tour-stops', { type: 'geojson', data: state.tours.stops });
-  map.addLayer({
-    id: 'tour-stops', type: 'symbol', source: 'tour-stops',
-    layout: { visibility: 'none', 'icon-image': 'ic-tour', 'icon-size': 0.92, 'icon-allow-overlap': true }
-  });
-  map.on('click', 'tour-stops', e => openInfoPanel(e.features[0].properties, 'tour'));
-
-  ['regions-fill', 'geology-fill', 'sites-periods', 'sites-religions', 'nature-points', 'visitor-points', 'visitor-clusters', 'tour-stops'].forEach(id => {
+  ['regions-fill', 'geology-fill', 'sites-periods', 'nature-points'].forEach(id => {
     map.on('mouseenter', id, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', id, () => { map.getCanvas().style.cursor = ''; });
   });
 
   map.on('click', 'sites-periods', e => openInfoPanel(e.features[0].properties, 'period'));
-  map.on('click', 'sites-religions', e => openInfoPanel(e.features[0].properties, 'religion'));
-  map.on('click', 'visitor-clusters', e => {
-    const f = map.queryRenderedFeatures(e.point, { layers: ['visitor-clusters'] })[0];
-    if (!f) return;
-    map.getSource('visitor').getClusterExpansionZoom(f.properties.cluster_id).then(z => {
-      map.easeTo({ center: f.geometry.coordinates, zoom: z });
-    }).catch(() => {});
-  });
-
-  map.on('click', 'visitor-points', e => openVisitorPanel(e.features[0].properties));
-
   map.on('click', 'nature-points', e => {
     openNaturePanel(e.features[0].properties);
   });
@@ -837,13 +829,14 @@ function refreshSitesLayer() {
 }
 
 function refreshReligionsLayer() {
-  if (!map.getLayer('sites-religions')) return;
-  const active = [...state.activeReligions];
-  if (!active.length) {
-    map.setFilter('sites-religions', ['==', ['literal', false], ['literal', true]]);
-    return;
-  }
-  map.setFilter('sites-religions', ['any', ...active.map(rid => ['in', rid, ['get', 'religions']])]);
+  if (!map || !map.getSource('rel-judaism')) return;
+  // a site of several religions is drawn once, as the first of its religions that is switched on
+  const groups = { judaism: [], christianity: [], islam: [] };
+  state.sitesGeoJSON.features.forEach(f => {
+    const r = parseMaybeJSON(f.properties.religions).find(x => state.activeReligions.has(x) && groups[x]);
+    if (r) groups[r].push(f);
+  });
+  Object.entries(groups).forEach(([r, fs]) => setKindData(`rel-${r}`, fs));
 }
 
 // The Geological Survey's 1:200,000 map (2014): about 3 MB, so it is fetched
@@ -968,10 +961,9 @@ function syncOperatorChips() {
 }
 
 function refreshVisitorLayer() {
-  if (!map || !map.getSource('visitor')) return;
-  const active = [...state.activeOperators];
-  const features = state.visitorGeoJSON.features.filter(f => active.includes(f.properties.operator));
-  map.getSource('visitor').setData({ type: 'FeatureCollection', features });
+  if (!map || !map.getSource('visitor-inpa')) return;
+  ['inpa', 'kkl'].forEach(op => setKindData(`visitor-${op}`, state.activeOperators.has(op)
+    ? state.visitorGeoJSON.features.filter(f => f.properties.operator === op) : []));
 }
 
 function buildNatureFilters() {
@@ -1099,27 +1091,19 @@ function wireSitePhoto(root) {
   }));
 }
 
-// What a course tour said here, with its quote, and a link to the tour's notebook, where a guide can ask
-// it questions and build tour points (owner, 19.11: "שאלו את מאגר המידע").
-function tourHtml(props, context) {
-  const t = state.tours || { notebooks: {}, notes: {} };
+// "מה מספרים כאן": a guide's talking points for the place, and the NotebookLM knowledge base that covers it,
+// where a guide can ask questions and build tour points (owner, 20.11: no course, no group, no quotes).
+function tellHtml(props) {
+  const t = state.tours || { notebooks: {}, tell: {}, kb: {} };
   const esc = escHtml;
-  let said = [];
-  let nbs = [];
-  if (context === 'tour') {
-    nbs = parseMaybeJSON(props.notebooks);
-    if (props.quote) said.push({ text: '', quote: props.quote });
-  } else {
-    const notes = t.notes[props.id] || [];
-    said = notes.filter(n => n.text || n.quote);
-    nbs = [...new Set(notes.map(n => n.nb))];
-  }
-  const links = nbs.map(id => t.notebooks[id]).filter(Boolean);
-  if (!said.length && !links.length) return '';
+  const lines = props.place ? parseMaybeJSON(props.tell) : (t.tell[props.id] || []);
+  const nbs = props.place ? parseMaybeJSON(props.notebooks) : (t.kb[props.id] || []);
+  const urls = [...new Set(nbs.map(id => t.notebooks[id]).filter(Boolean))];
+  if (!lines.length && !urls.length) return '';
   return `<div class="tour-note">
-    <div class="tour-note-head"><img src="${abs('icons/ink/notebooks.svg')}" alt="" />${context === 'tour' ? 'תחנה בסיור של הקורס' : 'מה למדנו כאן בסיור'}</div>
-    ${said.map(n => `${n.text ? `<p>${esc(n.text)}</p>` : ''}${n.quote ? `<blockquote>${esc(n.quote)}</blockquote>` : ''}`).join('')}
-    ${links.map(nb => `<a class="nb-ask" href="${esc(nb.url)}" target="_blank" rel="noopener">שאלו את מאגר המידע: ${esc(nb.title)} ↗</a>`).join('')}
+    ${lines.length ? `<div class="tour-note-head"><img src="${abs('icons/ink/talk.svg')}" alt="" />מה מספרים כאן</div>
+    <ul>${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>` : ''}
+    ${urls.map((u, i) => `<a class="nb-ask" href="${esc(u)}" target="_blank" rel="noopener">${i ? 'מאגר מידע נוסף על האתר' : 'מאגר מידע על האתר'} ↗</a>`).join('')}
   </div>`;
 }
 
@@ -1158,7 +1142,7 @@ function openInfoPanel(props, context) {
     <h3>${props.name_he}</h3>
     <div class="meta">${props.name_en || ''}${metaBits.length ? ' • ' + metaBits.join(' • ') : ''}</div>
     ${sitePhotoHtml(props.id)}
-    ${tourHtml(props, context)}
+    ${tellHtml(props)}
     ${rockPhotoHtml(parseMaybeJSON(props.rock_photo))}
     ${props.extra_html || ''}
     <p>${props.description_he || ''}</p>
@@ -1176,7 +1160,6 @@ function openInfoPanel(props, context) {
 
 const SEARCH_KINDS = {
   site:    { label: 'אתרים היסטוריים', color: '#B23A48' },
-  tour:    { label: 'סיורי הקורס',     color: '#8a2f5f' },
   visitor: { label: 'שמורות וגנים',    color: '#2F7D5B' },
   nature:  { label: 'חי וצומח',        color: '#5E8C3A' },
   geology: { label: 'יחידות גיאולוגיות', color: '#C98A3A' },
@@ -1219,11 +1202,6 @@ function buildSearchIndex() {
     }).join(' ');
     add('site', p.name_he, p.name_en, periodNames,
         { coords: f.geometry.coordinates, props: p, sub: periodNames });
-  });
-
-  ((state.tours && state.tours.stops.features) || []).forEach(f => {
-    const p = f.properties;
-    add('tour', p.name_he, p.name_en, 'סיור הקורס', { coords: f.geometry.coordinates, props: p, sub: 'תחנה בסיור של הקורס' });
   });
 
   state.visitorGeoJSON.features.forEach(f => {
@@ -1338,13 +1316,24 @@ function ensureLayerVisibleFor(kind) {
   if (kind === 'nature') check('toggle-nature');
   if (kind === 'geology') check('toggle-geology');
   if (kind === 'region') check('toggle-regions');
-  if (kind === 'site') check('toggle-periods');
-  if (kind === 'tour') check('toggle-tours');
+}
+// a site turns on the layer that draws it: its period, else its religion, else viewpoints or urban
+function ensureSiteVisible(p) {
+  const check = id => {
+    const el = document.getElementById(id);
+    if (el && !el.checked) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
+  };
+  const kinds = parseMaybeJSON(p.kinds);
+  if (parseMaybeJSON(p.periods).length) check('toggle-periods');
+  else if (parseMaybeJSON(p.religions).length) check('toggle-religions');
+  else if (kinds.includes('view')) check('toggle-views');
+  else if (kinds.includes('urban')) check('toggle-urban');
 }
 
 function selectSearchResult(entry) {
   closeSearch();
   ensureLayerVisibleFor(entry.kind);
+  if (entry.kind === 'site') ensureSiteVisible(entry.payload.props);
   const target = entry.payload.coords || entry.payload.center;
   if (target) {
     map.flyTo({ center: target, zoom: entry.kind === 'geology' || entry.kind === 'region' ? 9.5 : 14, duration: 1200 });
@@ -1354,7 +1343,6 @@ function selectSearchResult(entry) {
   else if (entry.kind === 'nature') openNaturePanel(p);
   else if (entry.kind === 'geology') openGeologyPanel(p);
   else if (entry.kind === 'site') openInfoPanel(p, 'period');
-  else if (entry.kind === 'tour') openInfoPanel(p, 'tour');
   else if (entry.kind === 'region') {
     openInfoPanel({ id: p.id, name_he: p.name_he, name_en: p.name_en,
                     description_he: p.description_he || '', sources: p.sources || [] }, 'region');
@@ -1717,13 +1705,14 @@ function showBankDetail(r) {
   if (!box) return;
   const esc = escHtml;
   const nb = state.tours && state.tours.notebooks[r.notebook];
+  const placed = new Set(allPlaces().map(f => f.properties.id));
   box.innerHTML = `<div class="bank-detail">
     <h3>${esc(r.name)}</h3>
     <p class="bank-meta">${[r.length, r.audience, r.season && !/לא נמצא/.test(r.season) ? r.season : ''].filter(Boolean).map(esc).join(' · ')}</p>
     <p>${esc(r.note)}</p>
-    <ol class="bank-steps">${(r.steps || []).map(st => `<li><strong>${esc(st.name)}</strong>${st.minutes ? ` <small>· ${st.minutes} דק׳</small>` : ''}${st.id ? '' : ' <small class="off-map">(לא על המפה)</small>'}${st.tell ? `<span>${esc(st.tell)}</span>` : ''}</li>`).join('')}</ol>
+    <ol class="bank-steps">${(r.steps || []).map(st => `<li><strong>${esc(st.name)}</strong>${st.minutes ? ` <small>· ${st.minutes} דק׳</small>` : ''}${st.id && placed.has(st.id) ? '' : ' <small class="off-map">(לא על המפה)</small>'}${st.tell ? `<span>${esc(st.tell)}</span>` : ''}</li>`).join('')}</ol>
     ${(r.practical || []).length ? `<h4>לפני שיוצאים</h4><ul class="bank-practical">${r.practical.filter(x => !/^לא ודאי/.test(x)).map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
-    ${nb ? `<a class="nb-ask" href="${esc(nb.url)}" target="_blank" rel="noopener">שאלו את מאגר המידע: ${esc(nb.title)} ↗</a>` : ''}
+    ${nb ? `<a class="nb-ask" href="${esc(nb)}" target="_blank" rel="noopener">מאגר מידע על המסלול ↗</a>` : ''}
   </div>`;
   box.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -1748,7 +1737,7 @@ function renderSavedRoutes() {
     <h3>המסלולים שלי</h3>
     ${mine.length ? `<ul class="saved-route-list">${mine.map(r => card(r, false)).join('')}</ul>` : '<p class="hint">עוד לא שמרתם מסלול.</p>'}
     <div id="bank-detail"></div>
-    <h3>מסלולים מוכנים מסיורי הקורס</h3>
+    <h3>מסלולים מוכנים</h3>
     ${bankHtml(card)}`;
   box.querySelector('#save-route-form').addEventListener('submit', e => {
     e.preventDefault();
@@ -1765,7 +1754,7 @@ function renderSavedRoutes() {
     const fromBank = btn.dataset.sample ? (bank.find(x => x.id === btn.dataset.open) || SAMPLE_ROUTES.find(x => x.id === btn.dataset.open)) : null;
     const r = fromBank || readSavedRoutes()[btn.dataset.open];
     if (!r) return;
-    openSavedRoute(fromBank && fromBank.steps ? { ...r, layers: { 'toggle-tours': true } } : r);
+    openSavedRoute(fromBank && fromBank.steps ? { ...r, layers: currentLayers() } : r);
     if (fromBank && fromBank.steps) showBankDetail(fromBank);
   }));
   box.querySelectorAll('[data-del]').forEach(btn => btn.addEventListener('click', () => {
@@ -1790,7 +1779,7 @@ const ROAD_WINDING_FACTOR = 1.3;
 const ESTIMATED_AVG_KMH = 65;
 
 function allPlaces() {
-  return [...state.sitesGeoJSON.features, ...((state.tours && state.tours.stops.features) || [])];
+  return state.sitesGeoJSON.features;
 }
 
 function routeStopCoords() {
@@ -2024,8 +2013,7 @@ function wireUI() {
   });
 
   document.getElementById('toggle-visitor').addEventListener('change', e => {
-    ['visitor-clusters', 'visitor-cluster-count', 'visitor-points']
-      .forEach(id => setLayerVisibility(id, e.target.checked));
+    ['visitor-inpa', 'visitor-kkl'].forEach(k => setKindVisible(k, e.target.checked));
     document.getElementById('visitor-note').classList.toggle('hidden', !e.target.checked);
     document.getElementById('visitor-filters').classList.toggle('dimmed', !e.target.checked);
     document.querySelector('.operator-actions').classList.toggle('dimmed', !e.target.checked);
@@ -2098,12 +2086,11 @@ function wireUI() {
     setLayerVisibility('sites-periods', e.target.checked);
   });
 
-  document.getElementById('toggle-tours')?.addEventListener('change', e => {
-    setLayerVisibility('tour-stops', e.target.checked);
-  });
+  document.getElementById('toggle-views')?.addEventListener('change', e => setKindVisible('sites-view', e.target.checked));
+  document.getElementById('toggle-urban')?.addEventListener('change', e => setKindVisible('sites-urban', e.target.checked));
 
   document.getElementById('toggle-religions').addEventListener('change', e => {
-    setLayerVisibility('sites-religions', e.target.checked);
+    ['judaism', 'christianity', 'islam'].forEach(r => setKindVisible(`rel-${r}`, e.target.checked));
   });
 
   document.getElementById('toggle-first-temple').addEventListener('change', e => {

@@ -3,10 +3,10 @@
     python3 tools/import_nb4_tours.py
 
 Writes public/embeds/map/js/data/tours.json:
-  notebooks: {id: {title, url}}                 the tour notebooks, from src/data/notebooks.ts
-  stops:     GeoJSON of places a course tour stood at that the map lacked (only those with sourced coordinates)
-  notes:     {site id: [{nb, text, quote}]}      what a tour said at a site the map already has
-Every text is the report's, drawn from the notebook; nothing is written here by hand.
+  notebooks: {id: url}                 the NotebookLM knowledge bases, from src/data/notebooks.ts
+  stops:     GeoJSON of places the map lacked (only those with sourced coordinates), with their layers and talking points
+  tell:      {site id: [line]}         talking points for sites the map already has
+  kb:        {site id: [notebook id]}  which knowledge base covers a site
 """
 import json, re, glob, math, os
 
@@ -109,13 +109,30 @@ for path in REPORTS:
                 },
             })
 
-used = {nb for s in stops for nb in s["properties"]["notebooks"]} | {n["nb"] for v in notes.values() for n in v}
+# What the map shows is written for a working guide (owner, 20.11): no course, no group, no quotes.
+# tools/route_map_places.json gives every new place its layers and talking points;
+# tools/route_map_tell.json gives the talking points for sites the map already had.
+curated = json.load(open(os.path.join(ROOT, "tools/route_map_places.json"), encoding="utf8"))
+tell = {k: v for k, v in json.load(open(os.path.join(ROOT, "tools/route_map_tell.json"), encoding="utf8")).items() if not k.startswith("_")}
+missing = [s["properties"]["id"] for s in stops if s["properties"]["id"] not in curated]
+if missing:
+    raise SystemExit(f"no entry in tools/route_map_places.json for: {missing}")
+for s in stops:
+    p = s["properties"]; c = curated[p["id"]]
+    s["properties"] = {
+        "id": p["id"], "name_he": p["name_he"], "name_en": p["name_en"],
+        "kinds": c["k"], "periods": c["p"], "religions": c["r"], "tell": c["t"],
+        "notebooks": p["notebooks"], "region": p["region"], "place": True,
+    }
+kb = {sid: list(dict.fromkeys(n["nb"] for n in v)) for sid, v in notes.items()}
+used = {nb for s in stops for nb in s["properties"]["notebooks"]} | {nb for v in kb.values() for nb in v}
 out = {
-    "notebooks": {k: v for k, v in notebooks.items() if k in used},
+    "notebooks": {k: v["url"] for k, v in notebooks.items() if k in used},
     "stops": {"type": "FeatureCollection", "features": stops},
-    "notes": notes,
+    "tell": {k: v for k, v in tell.items() if k in site_ids},
+    "kb": kb,
 }
 json.dump(out, open(OUT, "w", encoding="utf8"), ensure_ascii=False)
 missing_nb = sorted(used - set(notebooks))
-print(f"{len(stops)} new tour stops, {len(notes)} known sites with tour notes, {len(out['notebooks'])} notebooks")
+print(f"{len(stops)} new places, {len(out['tell'])} sites with talking points, {len(kb)} sites with a knowledge base")
 print(f"{len(need_coords)} places still need coordinates; unknown notebook ids: {missing_nb}")

@@ -1539,11 +1539,11 @@ html[data-theme="dark"].has-rail #app-header .map-brand-copy span { color: #c9b4
 #rail-pop { border-color: #6b4423; }
 
 /* what a course tour said here, and the notebook to ask (RM-06/RM-08) */
-.tour-note { margin: 12px 0; padding: 12px; border-radius: 10px; border: 1.5px dashed rgba(138,47,95,.55); background: rgba(138,47,95,.06); }
-.tour-note-head { display: flex; align-items: center; gap: 8px; font-weight: 800; color: #8a2f5f; margin-bottom: 6px; }
+.tour-note { margin: 12px 0; padding: 12px 14px; border-radius: 10px; border: 1.5px solid rgba(42,111,176,.35); background: rgba(42,111,176,.06); }
+.tour-note-head { display: flex; align-items: center; gap: 8px; font-weight: 800; color: #2a5a8c; margin-bottom: 4px; }
 .tour-note-head img { width: 26px; height: 26px; }
-.tour-note p { margin: 6px 0; }
-.tour-note blockquote { margin: 6px 0; padding-inline-start: 10px; border-inline-start: 3px solid rgba(138,47,95,.5); color: var(--text-dim); font-style: italic; }
+.tour-note ul { margin: 4px 0 8px; padding-inline-start: 18px; }
+.tour-note li { margin: 4px 0; line-height: 1.5; }
 .nb-ask { display: inline-block; margin-top: 8px; padding: 8px 12px; border-radius: 8px; background: #6b4423; color: #fbf3df !important; font-weight: 800; text-decoration: none; }
 .nb-ask + .nb-ask { margin-inline-start: 6px; }
 
