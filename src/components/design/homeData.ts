@@ -19,6 +19,6 @@ export const HOME_SECTIONS: HomeSection[] = [
   { slug: "guide-reports", href: "/guide-reports", title: "דוחות הדרכה", line: "דוגמאות, תרגול וטיוטות", icon: "guide-reports" },
   { slug: "games", href: "/games", title: "משחקים", line: "מי אני?, גלימות, צמחים, תשבץ", icon: "games" },
   { slug: "videos", href: "/videos", title: "סרטונים", line: "שיעורים, סיורים והעשרה", icon: "videos" },
-  { slug: "resources", href: "/resources", title: "סיכומים", line: "החומרים של אפרת נקש", icon: "resources" },
+  { slug: "resources", href: "/resources", title: "סיכומים", line: "סיכום לכל נושא בסילבוס", icon: "resources" },
   { slug: "community", href: "/community", title: "קהילה", line: "הפורום של המחזור", icon: "community" },
 ];

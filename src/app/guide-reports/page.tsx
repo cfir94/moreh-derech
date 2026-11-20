@@ -5,15 +5,7 @@ import { SectionCard } from "@/components/SectionCard";
 import { InkIcon } from "@/components/trail/Ink";
 import { PageHead, SectionHead, StepRoad, TrailPage } from "@/components/trail/kit";
 import { REPORTS } from "@/data/guide-reports";
-import { FEATURED_RESOURCES } from "@/data/resources";
-import { ResourceCredit, ResourceList } from "@/components/ResourceList";
 import { DraftsDialog } from "@/components/guide-reports/DraftsDialog";
-
-// The per-site reports and the model route plans on Efrat Nakash's site cover
-// the same ground as this section, in far more places than we ever will.
-const EXTERNAL_REPORTS = FEATURED_RESOURCES.filter(
-  (r) => r.slug !== "questions",
-);
 
 const LEARN_CARDS = [
   {
@@ -118,12 +110,6 @@ export default function GuideReportsPage() {
             meta={r.region}
           />
         ))}
-      </div>
-
-      <SectionHead title="דוחות ומסלולים מוכנים ברשת" />
-      <div className="mb-10">
-        <ResourceList items={EXTERNAL_REPORTS} slug="guide-reports" />
-        <ResourceCredit className="mt-2.5" />
       </div>
 
       <div className="max-w-3xl rounded-[5px] bg-[var(--paper)] p-5 text-[1.05rem] leading-relaxed text-txt-dim shadow-[0_0_0_1px_var(--line),var(--shadow)]">
