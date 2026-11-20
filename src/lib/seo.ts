@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/launch";
 export { SITE_URL };
 export const SITE_NAME = "אבן דרך למורי דרך";
 export const DEFAULT_DESCRIPTION =
-  "תרגול מקיף למבחני הרישוי למורי דרך: שאלונים, מבחנים, משחקים, מפות, צירי זמן וחומרי לימוד במקום אחד.";
+  "כל מה שמורה דרך צריך, מהמבחן ועד הסיור הבא: אלפי שאלות לפי נושאי הסילבוס, מבחני רישוי מלאים, צירי זמן ומפות למידה, ומפה לתכנון מסלולים בשטח.";
 
 // SITE_URL may carry a base path (GitHub Pages: /moreh-derech), which
 // `new URL(path, base)` would drop — so join, and keep trailingSlash: true.
@@ -37,13 +37,13 @@ export function pageMeta({
       locale: "he_IL",
       type: "website",
       siteName: SITE_NAME,
-      images: [absoluteUrl("/marketing/og.jpg")],
+      images: [absoluteUrl("/marketing/og-2026.jpg")],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [absoluteUrl("/marketing/og.jpg")],
+      images: [absoluteUrl("/marketing/og-2026.jpg")],
     },
   };
 }

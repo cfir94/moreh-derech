@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
     // כתובת מלאה של הבנייה הנוכחית, כדי שוואטסאפ יציג תמונה (גם לפני המעבר לדומיין).
     url: `${SITE_URL}/welcome/`,
-    images: [{ url: `${SITE_URL}/marketing/og.jpg`, width: 1200, height: 630 }],
+    images: [{ url: `${SITE_URL}/marketing/og-2026.jpg`, width: 1200, height: 630 }],
   },
 };
 

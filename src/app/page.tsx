@@ -6,14 +6,14 @@ import { FinalHome } from "@/components/design/final/FinalHome";
 
 export const metadata = {
   ...pageMeta({
-    title: "כל חומרי הלימוד למורי דרך",
+    title: "כל מה שמורה דרך צריך, מהמבחן ועד הסיור הבא",
     description:
-      "תרגול מקיף למבחני הרישוי למורי דרך: שאלונים, מבחנים מלאים, משחקים, צירי זמן, מפות למידה, סיכומים ודוחות הדרכה במקום אחד.",
+      "לתלמידי הקורס ולמורי דרך בעבודה: אלפי שאלות לפי נושאי הסילבוס, מבחני רישוי מלאים, צירי זמן ומפות למידה, ומפה לתכנון מסלולים בשטח.",
     path: "/",
   }),
   // The root page shares a segment with the layout, so the title template
   // does not apply here — spell the full title out.
-  title: { absolute: "אבן דרך למורי דרך — כל חומרי הלימוד למורי דרך" },
+  title: { absolute: "אבן דרך — כל מה שמורה דרך צריך, מהמבחן ועד הסיור הבא" },
 };
 
 export default function Home() {

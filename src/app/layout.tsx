@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     locale: "he_IL",
     type: "website",
     siteName: SITE_NAME,
-    images: [absoluteUrl("/marketing/og.jpg")],
+    images: [absoluteUrl("/marketing/og-2026.jpg")],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description: DEFAULT_DESCRIPTION,
-    images: [absoluteUrl("/marketing/og.jpg")],
+    images: [absoluteUrl("/marketing/og-2026.jpg")],
   },
 };
 

@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LAUNCH } from "@/lib/launch";
 import { useLaunch } from "@/lib/launchClient";
 
 /** כותרת תחתונה עם המסמכים המשפטיים ויצירת קשר (חובת גילוי בעסקה מרחוק). פעילה עם ה-Paywall. */
 export function SiteFooter() {
   const { paywall } = useLaunch();
-  if (!paywall) return null;
+  const path = usePathname() || "";
+  // the maps fill the screen; a footer under them only adds a stray scroll (owner, 20.11)
+  if (!paywall || /\/map\/(route|learn)/.test(path)) return null;
   const links = [
     ["/pricing/", "מחירים"],
     ["/legal/terms/", "תנאי שימוש"],

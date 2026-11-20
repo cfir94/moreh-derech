@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { embedUrl } from "@/lib/basePath";
+import { FullMapFrame } from "@/components/FullMapFrame";
 
 export const metadata: Metadata = {
   title: "תכנון מסלול — מפת השטח | אֶבֶן דֶּרֶךְ למורי דרך",
@@ -13,13 +14,13 @@ export const metadata: Metadata = {
  */
 export default function RouteMapPage() {
   return (
-    <div data-ground="map" className="flex h-[calc(100dvh-3.6rem)] flex-col overflow-hidden bg-[#2e4250]">
+    <FullMapFrame>
       <iframe
         src={embedUrl("map/index.html")}
         title="מפת השטח של אבן דרך"
         className="h-full w-full border-0"
         allow="geolocation"
       />
-    </div>
+    </FullMapFrame>
   );
 }

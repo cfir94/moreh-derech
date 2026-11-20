@@ -1612,3 +1612,17 @@ html[data-theme="dark"].has-rail #app-header #btn-search { background: #2a2018; 
 .period-check span { display: flex; flex-direction: column; line-height: 1.25; }
 .period-check b { font-size: 14px; }
 .period-check small { color: var(--text-dim); font-size: 12px; }
+.map-float-btn {
+  position: absolute; left: 12px; bottom: 14px; z-index: 1050;
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px 7px 10px;
+  border-radius: 999px; border: 1px solid rgba(59, 42, 26, .35); background: #fbf3df; color: #3b2a1a;
+  font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 3px 10px rgba(40, 26, 12, .22);
+}
+.map-float-btn img { width: 22px; height: 22px; }
+html[data-theme="dark"] .map-float-btn { background: #2a2018; color: #f1e4c8; }
+/* on a short screen the rail scrolls instead of running off the map */
+#layer-rail { max-height: calc(100% - 28px); overflow-y: auto; overflow-x: visible; padding: 4px; scrollbar-width: none; }
+#layer-rail::-webkit-scrollbar { display: none; }
+/* Moti's hat sits at the site's bottom-left corner; the button stands just past it */
+.map-float-btn { left: 108px; }
+html.has-rail #app-header .map-actions { background: transparent !important; box-shadow: none !important; }
