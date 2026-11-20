@@ -1,9 +1,23 @@
 import Link from "next/link";
 import type { Summary } from "@/data/summaries/types";
 import { topicOf } from "@/data/topics";
+import { TOPIC_HUB } from "@/data/topic-hub";
 import { PenUnderline } from "@/components/trail/kit";
 import k from "@/components/trail/kit.module.css";
 import s from "./summaries.module.css";
+
+/** The topic quizzes of the hub rows that link to this summary. */
+function quizzesFor(key: string) {
+  const seen = new Map<string, string>();
+  for (const group of TOPIC_HUB) {
+    for (const topic of group.topics) {
+      const linksHere = topic.links.some((l) => l.kind === "summary" && l.items.some((i) => i.href === `/summaries/${key}/`));
+      if (!linksHere) continue;
+      for (const l of topic.links) if (l.kind === "quiz") for (const i of l.items) seen.set(i.href, i.title);
+    }
+  }
+  return [...seen].map(([href, title]) => ({ href, title }));
+}
 
 function sectionId(index: number) {
   return `section-${index + 1}`;
@@ -11,6 +25,7 @@ function sectionId(index: number) {
 
 export function SummaryView({ summary }: { summary: Summary }) {
   const topic = topicOf(summary.key);
+  const quizzes = quizzesFor(summary.key);
 
   return (
     <article className={s.summary} dir="rtl">
@@ -156,14 +171,25 @@ export function SummaryView({ summary }: { summary: Summary }) {
             בדקו מה נשאר בזיכרון
           </h2>
           <p className={s.practiceText}>
-            במאגר מבחני הרישוי אפשר לבחור תרגול לפי נושא ולענות על שאלות מכל
-            מועדי הבחינה.
+            {quizzes.length > 0
+              ? "שאלון הנושא בודק בדיוק את מה שקראתם. אחריו אפשר לעבור לשאלות האמיתיות ממבחני הרישוי."
+              : "במאגר מבחני הרישוי אפשר לבחור תרגול לפי נושא ולענות על שאלות מכל מועדי הבחינה."}
           </p>
         </div>
 
-        <Link href="/quizzes/past-exams/" className={s.practiceLink}>
-          לשאלות ממבחני הרישוי
-        </Link>
+        <div className={s.practiceLinks}>
+          {quizzes.map((q) => (
+            <Link key={q.href} href={q.href} className={s.practiceLink}>
+              {q.title}
+            </Link>
+          ))}
+          <Link
+            href="/quizzes/past-exams/"
+            className={quizzes.length > 0 ? s.practiceLinkAlt : s.practiceLink}
+          >
+            לשאלות ממבחני הרישוי
+          </Link>
+        </div>
       </section>
     </article>
   );

@@ -12,6 +12,7 @@ export function SiteFooter() {
   // the maps fill the screen; a footer under them only adds a stray scroll (owner, 20.11)
   if (!paywall || /\/map\/(route|learn)/.test(path)) return null;
   const links = [
+    ["/welcome/", "על האתר"],
     ["/pricing/", "מחירים"],
     ["/legal/terms/", "תנאי שימוש"],
     ["/legal/privacy/", "פרטיות"],
