@@ -4,6 +4,13 @@
  * The animation leaves no transform behind, so sticky and fixed elements behave once it ends;
  * with reduced motion the global rule in globals.css cuts it to nothing.
  */
+import { ScrollToTop } from "@/components/ScrollToTop";
+
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="page-in">{children}</div>;
+  return (
+    <div className="page-in">
+      <ScrollToTop />
+      {children}
+    </div>
+  );
 }
